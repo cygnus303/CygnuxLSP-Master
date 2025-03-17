@@ -1,0 +1,38 @@
+﻿using CygnuxLSP.Repository.DTOs.Comman;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CygnuxLSP.Repository.DTOs.Master.Customer
+{
+    public class CreateCustomerDto : BaseDto
+    {
+        //public string PurchaseHead { get; set; }
+        //public string PurchaseHead_MobileNo { get; set; }
+        //public string AccountsHead { get; set; }
+        //public string AccountsHead_MobileNo { get; set; }
+        //public string ProprietorName { get; set; }
+        //public string Proprietor_MobileNo { get; set; }
+        //public string Proprietor_Email { get; set; }        
+        //public string Country { get; set; }
+        //public bool IsActive { get; set; }
+        //public string Channel { get; set; }
+        //public string Region { get; set; }
+        //public string Brand { get; set; }
+        //public string SubBrand { get; set; }                
+        //public string Business_Classification { get; set; }
+        public string TenantId { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public string EmailId { get; set; }
+        public string Address { get; set; }
+        public string Pincode { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public bool IsAllowedForEwayBillGenration { get; set; }
+        public bool IsConsolidatedGSTNo { get; set; }
+        public string ConsolidatedGSTNo { get; set; }
+    }
+}

@@ -1,0 +1,57 @@
+<!-- login page start-->
+<div class="container-fluid p-0">
+    <div class="row m-0">
+        <div class="col-12 p-0">
+            <div class="login-card">
+                <div>
+                    <div><a class="logo" href="index.html"><img class="img-fluid for-light"
+                                src="assets/images/logo/logo.png" alt="looginpage"></a></div>
+                    <div class="login-main">
+                        <form class="theme-form" [formGroup]="loginFormGroup" autocomplete="off"
+                            (submit)="onSubmitLogin()">
+                            <h4 class="text-center">Sign in to account</h4>
+                            <p class="text-center">Enter your email & password to login</p>
+                            <div class="form-group">
+                                <label class="col-form-label">Email Address</label>
+                                <input class="form-control" formControlName="email" type="email" required=""
+                                    placeholder="Test@gmail.com">
+                                <div *ngIf="loginFormGroup.controls['email'].invalid && loginFormGroup.controls['email']?.touched"
+                                    class="text-danger">
+                                    <small *ngIf="loginFormGroup.controls['email'].errors?.['required']">Email
+                                        is required.</small>
+                                    <small *ngIf="loginFormGroup.controls['email'].errors?.['pattern']">Email
+                                        is invalid.</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Password</label>
+                                <div class="form-input position-relative">
+                                    <input class="form-control" formControlName="password" type="password"
+                                        name="login[password]" required="" placeholder="*********">
+                                    <div *ngIf="loginFormGroup.controls['password'].invalid && loginFormGroup.controls['password']?.touched"
+                                        class="text-danger">
+                                        <small *ngIf="loginFormGroup.controls['password'].errors?.['required']">Password
+                                            is required.</small>
+                                        <small *ngIf="loginFormGroup.controls['password'].errors?.['pattern']">Password
+                                            is invalid.</small>
+                                    </div>
+                                    <div class="show-hide"><span class="show"> </span></div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="checkbox p-0">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="text-muted" for="checkbox1">Remember password</label>
+                                </div><a class="link" href="forget-password.html">Forgot password?</a>
+                                <div class="text-end mt-3">
+                                    <button class="btn btn-primary btn-block w-100" [disabled]="loginFormGroup.invalid"
+                                        type="submit">Sign in </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

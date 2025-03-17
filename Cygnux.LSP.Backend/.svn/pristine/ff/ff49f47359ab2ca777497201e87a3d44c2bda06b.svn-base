@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CygnuxLSP.DataAccess.DataContext.DataAccessLayer.Interface
+{
+    public interface IMasterService
+    {
+        DataSet GetData(string Method, IDictionary<string, string> parameters);
+
+        #region Customer
+        DataSet GetCustomerList();
+        Task<DataSet> GetCustomerDetails(string CustomerCode);
+        DataSet AddEditCustomer(string xmlDoc);
+        #endregion
+
+        #region LSP
+        Task<DataSet> GetLSPList();
+        Task<DataSet> GetLSPDetails(int LSPID);
+        Task<DataSet> AddEditLSP(string xmlDoc);
+        #endregion
+
+        #region Customre LSP Mapping
+        Task<DataSet> GetLSPMappingList();
+        Task<DataSet> GetLSPMappingDetails(int MappingId);
+        Task<DataSet> AddEditLSPMapping(string xmlDoc);
+        #endregion
+
+        DataSet AddEditUser(string xmlDoc1, string Entry_EditFlag);
+    }
+}

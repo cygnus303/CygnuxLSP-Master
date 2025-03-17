@@ -1,0 +1,403 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml;
+using Microsoft.Data.SqlClient;
+
+namespace CygnuxLSP.DataAccess.Classes
+{
+    public class GeneralFunctions
+    {
+        private readonly string ConnectionString = "Server=192.168.0.5;Database=LSPConnect;uid=Nitin;pwd=N!t!N!@#;Trusted_Connection=false;MultipleActiveResultSets=true;TrustServerCertificate=True";
+
+        public GeneralFunctions()
+        {
+
+        }
+
+        //public string ExecuteScalerQuery(string Squery)
+        //{
+        //    string Scaler = "";
+        //    var conn = new SqlConnection(ConnectionString);
+        //    if (conn.State == ConnectionState.Closed)
+        //    {
+        //        conn.Open();
+        //    }
+        //    using (var cmd = conn.CreateCommand())
+        //    {
+        //        cmd.CommandText = Squery;
+        //        cmd.CommandType = CommandType.Text;
+        //        Scaler = cmd.ExecuteScalar().ToString();
+        //        conn.Close();
+        //        conn.Dispose();
+        //    }
+        //    return Scaler;
+        //}
+
+        //public DataTable GetDataTableFromObjects(object[] objects)
+        //{
+        //    if (objects != null && objects.Length > 0)
+        //    {
+        //        Type t = objects[0].GetType();
+        //        DataTable dt = new DataTable(t.Name);
+        //        foreach (PropertyInfo pi in t.GetProperties())
+        //        {
+        //            dt.Columns.Add(new DataColumn(pi.Name));
+        //        }
+        //        foreach (var o in objects)
+        //        {
+        //            DataRow dr = dt.NewRow();
+        //            foreach (DataColumn dc in dt.Columns)
+        //            {
+        //                dr[dc.ColumnName] = o.GetType().GetProperty(dc.ColumnName).GetValue(o, null);
+        //            }
+        //            dt.Rows.Add(dr);
+        //        }
+        //        return dt;
+        //    }
+        //    return null;
+        //}
+
+        //public void ExecuteNonQuery(string Squery)
+        //{
+        //    var conn = new SqlConnection(ConnectionString);
+        //    if (conn.State == ConnectionState.Closed)
+        //    {
+        //        conn.Open();
+        //    }
+        //    using (var cmd = conn.CreateCommand())
+        //    {
+        //        cmd.CommandText = Squery;
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.ExecuteNonQuery();
+        //        conn.Close();
+        //        conn.Dispose();
+        //    }
+        //}
+
+        //public DataTable GetDataTableFromQuery(string Squery)
+        //{
+        //    DataTable dataTable = new DataTable();
+        //    var conn = new SqlConnection(ConnectionString);
+        //    using (var cmd = conn.CreateCommand())
+        //    {
+        //        cmd.CommandText = Squery;//
+        //        cmd.CommandTimeout = 6000;
+        //        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //        conn.Close();
+        //        da.Fill(dataTable);
+        //        da.Dispose();
+        //        conn.Close();
+        //    }
+        //    return dataTable;
+        //}
+
+        public DataSet GetDataSetFromQuery(string Squery)
+        {
+            DataSet dataSet = new DataSet();
+            var conn = new SqlConnection(ConnectionString);
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = Squery;//
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                conn.Close();
+                da.Fill(dataSet);
+                da.Dispose();
+                conn.Close();
+            }
+            return dataSet;
+        }
+
+        public async Task<DataSet> GetDataSetFromQueryAsync(string Squery)
+        {
+            var dataSet = new DataSet();
+            await using (var conn = new SqlConnection(ConnectionString))
+            {
+                await conn.OpenAsync();
+                await using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = Squery;
+                    cmd.CommandTimeout = 6000;                    
+                    using (var da = new SqlDataAdapter(cmd))
+                    {
+                        await Task.Run(() => da.Fill(dataSet));
+                    }
+                }
+            }
+            return dataSet;
+        }
+
+        public string StreamToJsonString(Stream jsonStream)
+        {
+            Encoding encoding = Encoding.UTF8;
+
+            // Read the stream into a byte array
+            byte[] data = ToByteArray(jsonStream);
+
+            // Copy to a string for header parsing
+            string content = encoding.GetString(data);
+
+            // The first line should contain the delimiter
+            int delimiterEndIndex = content.IndexOf("\r\n");
+
+            if (delimiterEndIndex > -1)
+            {
+                string delimiter = content.Substring(0, content.IndexOf("\r\n"));
+                content = content.Replace(delimiter, "");
+                delimiter = content.Substring(0, content.IndexOf("\r\n\r\n"));
+                content = content.Replace(delimiter, "").Replace("\r\n\r\n", "");
+                delimiterEndIndex = content.IndexOf("------");
+                content = content.Replace("--", "");
+            }
+            return content;
+        }
+
+        public string GetXmlString(dynamic Object)
+        {
+            XmlDocument xd = new();
+            System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(Object.GetType());
+
+            using (MemoryStream xmlStream = new())
+            {
+                xmlSerializer.Serialize(xmlStream, Object);
+                xmlStream.Position = 0;
+                xd.Load(xmlStream);
+            }
+            return xd.InnerXml.ReplaceSpecialCharacters();
+        }
+
+        private byte[] ToByteArray(Stream stream)
+        {
+            byte[] buffer = new byte[32768];
+            using MemoryStream ms = new();
+            while (true)
+            {
+                int read = stream.Read(buffer, 0, buffer.Length);
+                if (read <= 0)
+                    return ms.ToArray();
+                ms.Write(buffer, 0, read);
+            }
+        }
+
+        public List<T> DictionaryToObjectList<T>(object[] objArr) where T : new()
+        {
+            List<T> t = new List<T>();
+            foreach (var itm in objArr)
+            {
+                T CMQ = DictionaryToObject<T>((Dictionary<string, object>)itm);
+                t.Add(CMQ);
+            }
+            return t;
+        }
+
+        public T DictionaryToObject<T>(IDictionary<string, object> dict) where T : new()
+        {
+            T t = new T();
+            PropertyInfo[] properties = t.GetType().GetProperties();
+            int i = 0;
+            foreach (PropertyInfo property in properties)
+            {
+                int j = i;
+                if (!dict.Any(x => x.Key.Equals(property.Name, StringComparison.InvariantCultureIgnoreCase)))
+                    continue;
+                KeyValuePair<string, object> item = dict.First(x => x.Key.Equals(property.Name, StringComparison.InvariantCultureIgnoreCase));
+                Type tPropertyType = t.GetType().GetProperty(property.Name).PropertyType;
+                Type newT = Nullable.GetUnderlyingType(tPropertyType) ?? tPropertyType;
+                if (item.Value != null)
+                {
+                    object newA = Convert.ChangeType(item.Value, newT);
+                    t.GetType().GetProperty(property.Name).SetValue(t, newA, null);
+                }
+                i++;
+            }
+            return t;
+        }
+
+        public string GetTypeInt(int Id)
+        {
+            string Type;
+            if (Id == 0)
+            {
+                Type = "Add";
+            }
+            else
+            {
+                Type = "Edit";
+            }
+
+            return Type;
+        }
+
+        public string FormateString(string str)
+        {
+            return (str != null && str != "") ? str.Trim() : "";
+        }
+
+        public string NextKeyCode(string KeyCode)
+        {
+            byte[] ASCIIValues = Encoding.ASCII.GetBytes(KeyCode);
+            int StringLength = ASCIIValues.Length;
+            bool isAllZed = true;
+            bool isAllNine = true;
+            //Check if all has ZZZ.... then do nothing just return empty string.
+
+            for (int i = 0; i < StringLength - 1; i++)
+            {
+                if (ASCIIValues[i] != 90)
+                {
+                    isAllZed = false;
+                    break;
+                }
+            }
+            if (isAllZed && ASCIIValues[StringLength - 1] == 57)
+            {
+                ASCIIValues[StringLength - 1] = 64;
+            }
+
+            // Check if all has 999... then mak/e it A0
+            for (int i = 0; i < StringLength; i++)
+            {
+                if (ASCIIValues[i] != 57)
+                {
+                    isAllNine = false;
+                    break;
+                }
+            }
+            if (isAllNine)
+            {
+                ASCIIValues[StringLength - 1] = 47;
+                ASCIIValues[0] = 65;
+                for (int i = 1; i < StringLength - 1; i++)
+                {
+                    ASCIIValues[i] = 48;
+                }
+            }
+
+            for (int i = StringLength; i > 0; i--)
+            {
+                if (i - StringLength == 0)
+                {
+                    ASCIIValues[i - 1] += 1;
+                }
+                if (ASCIIValues[i - 1] == 58)
+                {
+                    ASCIIValues[i - 1] = 48;
+                    if (i - 2 == -1)
+                    {
+                        break;
+                    }
+                    ASCIIValues[i - 2] += 1;
+                }
+                else if (ASCIIValues[i - 1] == 91)
+                {
+                    ASCIIValues[i - 1] = 65;
+                    if (i - 2 == -1)
+                    {
+                        break;
+                    }
+                    ASCIIValues[i - 2] += 1;
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+            KeyCode = Encoding.ASCII.GetString(ASCIIValues, 0, ASCIIValues.Length);
+            return KeyCode;
+        }
+
+        public string NextKeyCode(string KeyCode, int IncreaseBy)
+        {
+            string strRet = KeyCode;
+            string newCode = KeyCode;
+            for (int i = 0; i < IncreaseBy; i++)
+            {
+                newCode = NextKeyCode(newCode);
+            }
+            strRet = newCode;
+            return strRet;
+        }
+        public string GetNextSuffix(string suffix)
+        {
+            string str = suffix;
+
+            if (str == ".")
+                str = "A";
+            else
+                str = NextKeyCode(suffix, 1);
+            return str;
+        }
+
+        #region Serialize Deserialize
+
+        public void SerializeParams<T>(List<T> paramList, string folderPath)
+        {
+            XDocument doc = new XDocument();
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(paramList.GetType());
+            System.Xml.XmlWriter writer = doc.CreateWriter();
+            serializer.Serialize(writer, paramList);
+            writer.Close();
+            doc.Save(folderPath);
+        }
+
+        public List<T> DeserializeParams<T>(string folderPath)
+        {
+            XDocument doc = XDocument.Load(folderPath);
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<T>));
+            System.Xml.XmlReader reader = doc.CreateReader();
+            List<T> result = (List<T>)serializer.Deserialize(reader);
+            reader.Close();
+            return result;
+        }
+        #endregion
+
+        public DataSet GetDataSetFromParams(string Squery, IDictionary<string, string> parameters)
+        {
+            DataSet dataTable = new DataSet();
+            var conn = new SqlConnection(ConnectionString);
+
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = Squery;
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var itm in parameters)
+                {
+                    cmd.Parameters.AddWithValue("@" + itm.Key, itm.Value);
+                }
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                conn.Close();
+                da.Fill(dataTable);
+
+                da.Dispose();
+                conn.Close();
+            }
+            return dataTable;
+        }
+
+
+
+    }
+    public static class ExtensionMethods
+    {
+        public static string ReplaceSpecialCharacters(this string value)
+        {
+            return value.Replace("&", "&amp;").Replace("'", "&#39;").Replace("’", "&#39;").Replace("”", "").Replace("–", "-").Replace("�", " ").Replace(System.Environment.NewLine, " ").Trim();
+        }
+
+        public static string FormateDateWithFullYear(this DateTime date)
+        {
+            return (date != null && date != DateTime.MinValue) ? date.ToString("dd MMM yyyy") : "";
+        }
+
+        public static string FormateDate(this DateTime date)
+        {
+            return (date != null && date != DateTime.MinValue) ? date.ToString("dd MMM yy") : "";
+        }
+    }
+}

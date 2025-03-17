@@ -1,0 +1,41 @@
+﻿using CygnuxLSP.Model.Domain;
+using CygnuxLSP.Repository.DTOs.Common;
+using CygnuxLSP.Repository.DTOs.Master.Customer;
+using CygnuxLSP.Repository.DTOs.Master.LSP;
+using CygnuxLSP.Repository.DTOs.Master.LSPMapping;
+using CygnuxLSP.Repository.DTOs.Master.User;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CygnuxLSP.Repository.Interface
+{
+    public interface IMasterRepository
+    {
+        DataSet GetData(string Method, IDictionary<string, string> parameters);
+
+        #region Customer
+        List<CustomerListDto> GetCustomerList();
+        //List<LC_Customer_Master> GetCustomerList();
+
+        DataTable GetCustomerListNew();
+        Task<CreateCustomerDto> GetCustomerDetails(string CustomerCode);
+        GeneralDbResponse AddEditUser(CreateUser TMR, string Entry_EditFlag);
+        DataSet AddEditCustomer(CreateCustomerDto createCustomerDto);
+        #endregion
+
+        #region LSP
+        Task<DataTable> GetLSPList();
+        Task<CreateLSP?> GetLSPDetails(int LSPID);
+        Task<DataSet> AddEditLSP(CreateLSP createLSP);
+        #endregion
+        #region Customre LSP Mapping
+        Task<DataTable> GetLSPMappingList();
+        Task<CreateLSPMapping> GetLSPMappingDetails(int MappingId);
+        Task<DataSet> AddEditLSPMapping(CreateLSPMapping createLSPMapping);
+        #endregion
+    }
+}

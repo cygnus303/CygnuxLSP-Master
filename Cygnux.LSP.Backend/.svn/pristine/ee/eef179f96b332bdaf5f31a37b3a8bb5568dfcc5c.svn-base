@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "vhfCPR2jQ+o=",
+  "success": true,
+  "projectFilePath": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Model\\CygnuxLSP.Model.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\korat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CygnuxLSP.API.props" />
+</Project>

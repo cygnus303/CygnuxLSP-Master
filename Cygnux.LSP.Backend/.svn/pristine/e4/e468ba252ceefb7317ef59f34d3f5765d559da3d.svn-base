@@ -1,0 +1,134 @@
+﻿using CygnuxLSP.API.Areas.V1.Authentication;
+using CygnuxLSP.Model.Domain;
+using CygnuxLSP.Model.Response;
+using CygnuxLSP.Repository.DTOs.Common;
+using CygnuxLSP.Repository.DTOs.Master.Customer;
+using CygnuxLSP.Repository.DTOs.Master.LSP;
+using CygnuxLSP.Repository.DTOs.Master.LSPMapping;
+using CygnuxLSP.Repository.Implementation;
+using CygnuxLSP.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using System.Net;
+
+namespace CygnuxLSP.API.Areas.V1.Controllers
+{
+    [Route("V1/[controller]")]
+    [ApiController]
+    [ApiKey]
+    public class MasterController(IMasterRepository masterRepository) : ControllerBase
+    {
+        private readonly IMasterRepository _masterRepository = masterRepository;
+
+        #region Customer
+        [HttpGet]
+        [Route("GetCustomerList")]
+        public IActionResult GetCustomerList()
+        {
+            //APIResponse<List<CustomerListDto>> response = APIResponse<List<CustomerListDto>>.Ok();
+            //response.Data = _masterRepository.GetCustomerList();
+            APIResponse<DataTable> response = APIResponse<DataTable>.Ok();
+            response.Data = _masterRepository.GetCustomerListNew();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("GetCustomerDetails/{Id}")]
+        public async Task<IActionResult> GetCustomerDetails(string Id)
+        {
+            //APIResponse<List<CustomerListDto>> response = APIResponse<List<CustomerListDto>>.Ok();
+            //response.Data = _masterRepository.GetCustomerList();
+            APIResponse<CreateCustomerDto> response = APIResponse<CreateCustomerDto>.Ok();
+            response.Data = await _masterRepository.GetCustomerDetails(Id);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("AddEditCustomer")]
+        public IActionResult AddEditCustomer(CreateCustomerDto createCustomerDto)
+        {
+            APIResponse<DataTable> response = APIResponse<DataTable>.Ok();
+            var result = _masterRepository.AddEditCustomer(createCustomerDto).Tables[0];
+            if(result.Rows.Count > 0 && 
+                (result.Rows[0]["Message"].ToString() != "Done" || result.Rows[0]["Status"].ToString() != "1")) {
+                response.AddErrorMsgToResponse(result.Rows[0]["Message"].ToString(), new Exception(), 500);
+                response.Status = Status.EXCEPTION;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+            }
+            return Ok(response);
+        }
+        #endregion
+
+        #region LSP
+        [HttpGet]
+        [Route("GetLSPList")]
+        public async Task<IActionResult> GetLSPList()
+        {
+            APIResponse<DataTable> response = APIResponse<DataTable>.Ok();
+            response.Data = await _masterRepository.GetLSPList();
+            return Ok(response);
+        }
+        [HttpGet]
+        [Route("GetLSPDetails/{Id}")]
+        public async Task<IActionResult> GetLSPDetails(int Id)
+        {
+            APIResponse<CreateLSP?> response = APIResponse<CreateLSP?>.Ok();
+            response.Data = await _masterRepository.GetLSPDetails(Id);
+            if(response.Data == null)
+            {
+                response = APIResponse<CreateLSP?>.NoDataFound();                
+            }
+            return Ok(response);
+        }
+        [HttpPost]
+        [Route("AddEditLSP")]
+        public async Task<IActionResult> AddEditLSP(CreateLSP createLSP)
+        {
+            APIResponse<DataTable> response = APIResponse<DataTable>.Ok();
+            var result = (await _masterRepository.AddEditLSP(createLSP)).Tables[0];
+            if (result.Rows.Count > 0 &&
+                (result.Rows[0]["Message"].ToString() != "Done" || result.Rows[0]["Status"].ToString() != "1"))
+            {
+                response.AddErrorMsgToResponse(result.Rows[0]["Message"].ToString(), new Exception(), 500);
+                response.Status = Status.EXCEPTION;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+            }
+            return Ok(response);
+        }
+        #endregion
+
+        #region Customre LSP Mapping
+        [HttpGet]
+        [Route("GetLSPMappingList")]
+        public async Task<IActionResult> GetLSPMappingList()
+        {
+            APIResponse<DataTable> response = APIResponse<DataTable>.Ok();
+            response.Data = await _masterRepository.GetLSPMappingList();
+            return Ok(response);
+        }
+        [HttpGet]
+        [Route("GetLSPMappingDetails/{Id}")]
+        public async Task<IActionResult> GetLSPMappingDetails(int Id)
+        {
+            APIResponse<CreateLSPMapping> response = APIResponse<CreateLSPMapping>.Ok();
+            response.Data = await _masterRepository.GetLSPMappingDetails(Id);
+            return Ok(response);
+        }
+        [HttpPost]
+        [Route("AddEditLSPMapping")]
+        public async Task<IActionResult> AddEditLSPMapping(CreateLSPMapping createLSPMapping)
+        {
+            APIResponse<DataTable> response = APIResponse<DataTable>.Ok();
+            var result = (await _masterRepository.AddEditLSPMapping(createLSPMapping)).Tables[0];
+            if (result.Rows.Count > 0 &&
+                (result.Rows[0]["Message"].ToString() != "Done" || result.Rows[0]["Status"].ToString() != "1"))
+            {
+                response.AddErrorMsgToResponse(result.Rows[0]["Message"].ToString(), new Exception(), 500);
+                response.Status = Status.EXCEPTION;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+            }
+            return Ok(response);
+        }
+        #endregion
+    }
+}

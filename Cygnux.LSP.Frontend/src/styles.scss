@@ -1,0 +1,103 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'ngx-toastr/toastr';
+
+
+.ng-select {
+    display: block; // Ensure it takes up its own line
+    width: 100%; // Full width of the container
+
+    .ng-select-container {
+        padding: 0.375rem 0.75rem; // Bootstrap default padding
+        border-radius: 0.25rem; // Rounded borders
+        border: 1px solid #ced4da; // Consistent border with Bootstrap styles
+        position: relative; // Ensure dropdown is positioned relative to this
+    }
+
+    .ng-dropdown-panel {
+        position: absolute; // Position dropdown absolutely within the container
+        top: 100%; // Ensure it appears right below the select input
+        left: 0; // Align with the left side of the container
+        z-index: 1050; // High z-index to ensure it is above other elements
+        background-color: #fff; // Background for dropdown
+        width: 100%; // Ensure dropdown is as wide as the container
+        border: 1px solid #ced4da; // Add border to dropdown
+        border-radius: 0.25rem; // Consistent border radius with Bootstrap
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Add shadow for visual clarity
+    }
+
+    .ng-option {
+        padding: 0.5rem; // Ensure spacing within each option
+        white-space: nowrap; // Prevent text wrapping
+        overflow: hidden; // Hide any overflowing content
+        text-overflow: ellipsis; // Show ellipsis for long text
+    }
+
+    .ng-select-searchable input {
+        padding: 0.375rem 0.75rem; // Consistent padding for the search input
+        font-size: 1rem; // Consistent font size with Bootstrap
+    }
+
+    .ng-has-value .ng-placeholder {
+        display: none;
+    }
+}
+
+label {
+    margin-bottom: 0.5rem; // Add space between label and select
+    display: block; // Ensure label takes up its own line
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+* {
+    font-size: 15px;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    border-collapse: collapse;
+  }
+.w-25{
+    width: 25%;
+}
+.w-8{
+    width: 8%;
+}
+.w-5{
+    width: 5%;
+}
+.w-15{
+    width: 15%;
+}
+// customers--------------------
+
+.table-th{
+    th {
+        border: 1px solid #e9e9e9;
+        background: #f9f9f9;
+        border-bottom: 0;
+        color: #5f5f5f;
+        font-weight: 600;
+    }
+}
+
+.table-header{
+    border: 1px solid #e9e9e9;
+    background: #f9f9f9;
+}
+
+.form-control{
+    padding: 6px 10px !important;
+    border: 1px solid #f2f4ff; 
+    background: #fff;
+}
+
+.customers tr:nth-child(even){background-color: #f9f9f9;}
+  
+::ng-deep .customers tr:hover {
+    background-color: #f4f4f4 !important; 
+  }
+  
+  .customers td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    color: #5a5a5a;
+  }

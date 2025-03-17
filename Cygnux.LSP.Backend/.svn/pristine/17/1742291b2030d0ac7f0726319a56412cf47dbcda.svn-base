@@ -1,0 +1,82 @@
+﻿using CygnuxLSP.DataAccess.Classes;
+using CygnuxLSP.DataAccess.DataContext.DataAccessLayer.Interface;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+namespace CygnuxLSP.DataAccess.DataContext.DataAccessLayer.Implementation
+{
+    public class MasterService : IMasterService
+    {
+        public readonly GeneralFunctions GF = new();
+        string QueryString = "";
+        public DataSet GetData(string Method, IDictionary<string, string> parameters)
+        {
+            return GF.GetDataSetFromParams(Method, parameters);
+        }
+
+        #region Customer
+        public DataSet GetCustomerList()
+        {
+            QueryString = "EXEC USP_GetCustomerList";
+            return GF.GetDataSetFromQuery(QueryString);
+        }
+        public async Task<DataSet> GetCustomerDetails(string CustomerCode)
+        {
+            QueryString = "EXEC USP_GetCustomerList '" + CustomerCode + "'";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        public DataSet AddEditCustomer(string xmlDoc1)
+        {
+            QueryString = "EXEC USP_AddEditMasterCustomer '" + xmlDoc1 + "'";
+            return GF.GetDataSetFromQuery(QueryString);
+        }
+        #endregion
+
+        #region LSP
+        public async Task<DataSet> GetLSPList()
+        {
+            QueryString = "EXEC USP_GetLSPList";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        public async Task<DataSet> GetLSPDetails(int LSPID)
+        {
+            QueryString = "EXEC USP_GetLSPList '" + LSPID + "'";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        public async Task<DataSet> AddEditLSP(string xmlDoc1)
+        {
+            QueryString = "EXEC USP_AddEditMasterLSP '" + xmlDoc1 + "'";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        #endregion
+
+        #region Customre LSP Mapping
+        public async Task<DataSet> GetLSPMappingList()
+        {
+            QueryString = "EXEC USP_GetLSPMappingList";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        public async Task<DataSet> GetLSPMappingDetails(int MappingId)
+        {
+            QueryString = "EXEC USP_GetLSPMappingList '" + MappingId + "'";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        public async Task<DataSet> AddEditLSPMapping(string xmlDoc1)
+        {
+            QueryString = "EXEC USP_AddEditLSPMapping '" + xmlDoc1 + "'";
+            return await GF.GetDataSetFromQueryAsync(QueryString);
+        }
+        #endregion
+
+        public DataSet AddEditUser(string xmlDoc1, string Entry_EditFlag)
+        {
+            QueryString = "EXEC USP_AddEditMasterUser '" + xmlDoc1 + "','" + Entry_EditFlag + "' ";
+            return GF.GetDataSetFromQuery(QueryString);
+        }
+    }
+}

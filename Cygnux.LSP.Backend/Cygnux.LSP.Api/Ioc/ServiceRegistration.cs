@@ -1,0 +1,88 @@
+﻿namespace Cygnux.LSP.Api.IoC;
+
+using Application.IoC;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+
+public static class ServiceRegistration
+{
+    public static IServiceCollection ConfigureApiServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        var signingKeys = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+
+        services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+                         .AddJwtBearer(options =>
+                         {
+                             options.TokenValidationParameters =
+                                   new TokenValidationParameters
+                                   {
+                                       RequireExpirationTime = true,
+                                       RequireSignedTokens = false,
+                                       ValidateIssuer = true,
+                                       ValidIssuer = configuration["Jwt:Issuer"],
+                                       ValidateAudience = true,
+                                       ValidAudience = configuration["Jwt:Audience"],
+                                       ValidateIssuerSigningKey = true,
+                                       IssuerSigningKey = signingKeys,
+                                       ValidateLifetime = true,
+                                   };
+                         });
+        services.AddAuthorization();
+
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+        });
+
+        services.AddEndpointsApiExplorer();
+        services.AddApiVersioning(options =>
+        {
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.ReportApiVersions = true;
+        });
+
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cygnux.LSP.Api", Version = "v1" });
+            c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+            {
+                Description = "ApiKey must appear in header",
+                Type = SecuritySchemeType.ApiKey,
+                Name = "ApiKey",
+                In = ParameterLocation.Header,
+                Scheme = "ApiKeyScheme"
+            });
+            var key = new OpenApiSecurityScheme()
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                },
+                In = ParameterLocation.Header
+            };
+            var requirement = new OpenApiSecurityRequirement
+{
+    { key, new List<string>() }
+};
+            c.AddSecurityRequirement(requirement);
+        });
+
+        services.AddCors(c =>
+        {
+            c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://uatlsp.cygnux.in", "http://localhost:4200", "http://localhost:60912").AllowAnyMethod().
+             AllowAnyHeader());
+        });
+
+        services.ConfigureApplicationServices(configuration);
+        return services;
+    }
+}

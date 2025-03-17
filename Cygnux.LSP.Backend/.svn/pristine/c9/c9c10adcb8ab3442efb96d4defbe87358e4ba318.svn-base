@@ -1,0 +1,19 @@
+﻿using AutoMapper;
+using CygnuxLSP.Model.Domain;
+using CygnuxLSP.Repository.DTOs.Master.Customer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CygnuxLSP.Repository.Profiles
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<LC_Customer_Master, CustomerListDto>().ReverseMap();
+        }
+    }
+}

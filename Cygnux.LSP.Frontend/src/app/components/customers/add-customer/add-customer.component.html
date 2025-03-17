@@ -1,0 +1,293 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <form
+          [formGroup]="customerForm"
+          class="needs-validation"
+          autocomplete="off"
+          (submit)="onSubmitCustomer(customerForm)"
+        >
+          <ul
+            class="nav nav-tabs border-tab nav-primary"
+            id="info-tab"
+            role="tablist"
+          >
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="basic-info-tab"
+                data-bs-toggle="tab"
+                href="#basic-info"
+                role="tab"
+                aria-controls="basic-info"
+                aria-selected="true"
+              >
+                <i class="icofont icofont-ui-home"></i>Basic Info
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="other-info-tab"
+                data-bs-toggle="tab"
+                href="#other-info"
+                role="tab"
+                aria-controls="other-info"
+                aria-selected="false"
+              >
+                <i class="icofont icofont-contacts"></i>Other Info
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content" id="info-tabContent">
+            <div
+              class="tab-pane fade active show"
+              id="basic-info"
+              role="tabpanel"
+              aria-labelledby="basic-info-tab"
+            >
+              <div class="row g-3">
+                <div class="col-md-6 mb-11">
+                  <label class="col-form-label">Customer Name</label>
+                  <input
+                    class="form-control"
+                    formControlName="customerName"
+                    type="text"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      customerForm.controls['customerName'].invalid &&
+                      customerForm.controls['customerName']?.touched
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="customerForm.controls['customerName'].errors?.['required']"
+                      >Customer name is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">Email address</label>
+                  <input
+                    class="form-control"
+                    formControlName="emailId"
+                    type="text"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      customerForm.controls['emailId'].invalid &&
+                      customerForm.controls['emailId']?.touched
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="customerForm.controls['emailId'].errors?.['required']"
+                      >Email is required.</small
+                    >
+                    <small
+                      *ngIf="customerForm.controls['emailId'].errors?.['pattern']"
+                      >Email is invalid.</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-4 mb-1">
+                  <label class="col-form-label">State</label>
+                  <input
+                    class="form-control"
+                    formControlName="state"
+                    type="text"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      customerForm.controls['state'].invalid &&
+                      customerForm.controls['state']?.touched
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="customerForm.controls['state'].errors?.['required']"
+                      >State is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">City</label>
+                  <input
+                    class="form-control"
+                    formControlName="city"
+                    type="text"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      customerForm.controls['city'].invalid &&
+                      customerForm.controls['city']?.touched
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="customerForm.controls['city'].errors?.['required']"
+                      >State is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">Pincode</label>
+                  <input
+                    class="form-control"
+                    maxlength="6"
+                    formControlName="pincode"
+                    type="text"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      customerForm.controls['pincode'].invalid &&
+                      customerForm.controls['pincode']?.touched
+                    "
+                    class="text-danger"
+                  >
+                    <small
+                      *ngIf="customerForm.controls['pincode'].errors?.['required']"
+                      >Pincode is required.</small
+                    >
+                    <small
+                      *ngIf="customerForm.controls['pincode'].errors?.['pattern']"
+                      >Pincode is invalid.</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Address</label>
+                <textarea
+                  class="form-control"
+                  formControlName="address"
+                  type="text"
+                  required
+                ></textarea>
+                <div
+                  *ngIf="
+                    customerForm.controls['address'].invalid &&
+                    customerForm.controls['pincode']?.touched
+                  "
+                  class="text-danger"
+                >
+                  <small
+                    *ngIf="customerForm.controls['address'].errors?.['required']"
+                    >Address is required.</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="other-info"
+              role="tabpanel"
+              aria-labelledby="other-info-tab"
+            >
+              <div class="row switch-showcase">
+                <div class="col-md-10 mb-2">
+                  <div class="d-flex">
+                    <label class="form-label"
+                      >Do you want to Generate E-Way Bill Automatic?</label
+                    >
+                    <div class="flex-grow-1 text-end icon-state">
+                      <label class="switch">
+                        <input
+                          class="form-control"
+                          formControlName="isAllowedForEwayBillGenration"
+                          type="checkbox"
+                        />
+                        <!-- @Html.CheckBoxFor(c => c.IsAllowedForEwayBillGenration) -->
+                        <span class="switch-state bg-success"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-10 mb-2">
+                  <div class="d-flex">
+                    <label class="form-label"
+                      >Do you have Consolidated GSTNo for E-Way Bill
+                      Genration?</label
+                    >
+                    <div class="flex-grow-1 text-end icon-state">
+                      <label class="switch">
+                        <input
+                          formControlName="isConsolidatedGSTNo"
+                          type="checkbox"
+                        />
+                        <!-- @Html.CheckBoxFor(c => c.IsConsolidatedGSTNo) -->
+                        <span class="switch-state bg-success"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-6">
+                    <label class="col-form-label">Consolidated GSTNo.</label>
+                    <input
+                      class="form-control"
+                      formControlName="consolidatedGSTNo"
+                      type="text"
+                      required
+                    />
+                    <div
+                      *ngIf="
+                        customerForm.controls['consolidatedGSTNo'].invalid &&
+                        customerForm.controls['consolidatedGSTNo']?.touched
+                      "
+                      class="text-danger"
+                    >
+                      <small
+                        *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['required']"
+                        >ConsolidatedGSTNo is required.</small
+                      >
+                      <small
+                        *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['pattern']"
+                        >ConsolidatedGSTNo is invalid.</small
+                      >
+                    </div>
+                    <!-- @Html.TextBoxFor(c => c.ConsolidatedGSTNo, new { @class = "form-control", @required = "required", @placeholder = "Consolidated GSTNo.", @autocomplete = "off" }) -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="checkbox p-0" *ngIf="customerCode != ''">
+            <input
+              id="dafault-checkbox"
+              type="checkbox"
+              formControlName="isActive"
+              data-bs-original-title=""
+              title=""
+            />
+            <label class="mb-0" for="dafault-checkbox">Active</label>
+          </div>
+          <div class="mt-2">
+            <button
+              class="btn btn-success"
+              data-bs-original-title=""
+              type="submit"
+              id="btnSubmit"
+              title=""
+              [disabled]="customerForm.invalid"
+            >
+              <i class="fa fa-check"></i> Submit</button
+            >&nbsp;
+            <button class="btn btn-danger" type="reset">
+              <i class="fa fa-times"></i> Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

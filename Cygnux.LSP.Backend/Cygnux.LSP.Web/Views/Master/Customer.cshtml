@@ -1,0 +1,319 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Customer list";
+    var apiAddress = Configuration.GetSection("API")["Address"];
+}
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/assets/css/vendors/datatables.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/vendors/sweetalert2.css">
+}
+<style type="text/css">
+    .modal-dialog {
+        max-width: 50vw;
+        right: -100vw;
+        min-height: 100vh;
+        margin: 0;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease !important;
+    }
+
+    .modal.show .modal-dialog {
+        right: -50vw;
+    }
+
+    .modal-content {
+        min-height: inherit;
+    }
+
+    .switch-outline .bg-danger:before {
+        background-color: #f81f58;
+    }
+
+    .switch-outline .bg-danger:after {
+        color: #fff;
+        opacity: 1;
+    }
+</style>
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>@ViewData["Title"]</h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <a class="btn btn-primary btn-sm job-apply-btn pull-right btnAddEditCustomer" id="btnAddCustomer" data-customer-code="0" data-bs-toggle="modal" href="javascript();"><i class="icon-plus"></i> Add Customer</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive theme-scrollbar">
+                            <table class="display" id="tblCustomer" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+            </div>
+            <div class="modal-body" style="padding:0px;" id="AddEditCustomerModal"></div>
+            @* <div class="modal-footer">
+            <button class="btn btn-primary" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Close</button>
+            <button class="btn btn-secondary" type="button" data-bs-original-title="" title="">Save changes</button>
+            </div> *@
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/sweet-alert/sweetalert.min.js"></script>
+    <script src="~/assets/js/tooltip-init.js"></script>
+@*     <script src="../assets/js/datatable/datatable-extension/dataTables.buttons.min.js"></script>
+    <script src="../assets/js/datatable/datatable-extension/jszip.min.js"></script>    
+    <script src="../assets/js/datatable/datatable-extension/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/js/datatable/datatable-extension/buttons.html5.min.js"></script> *@
+    <script>
+        // $('#data-source-3').DataTable({
+        //     data: dataSet,
+        //     columns: [
+        //         { title: "Name" },
+        //         { title: "Position" },
+        //         { title: "Office" },
+        //         { title: "Extn." },
+        //         { title: "Start date" },
+        //         { title: "Salary" },
+        //         { title: "Action" },
+        //     ]
+        // });
+        LoadData();
+        function LoadData() {
+            $.ajax({
+                url: 'https://localhost:44320/V1/Master/GetCustomerList',
+                headers: {
+                    "ApiKey": "D31950B5-743C-4A05-AF5D-62EA494C5C1B"
+                },
+                success: function (data) {
+                    var dataSet = [];
+                    dataSet = data.data;
+                    console.log(dataSet);
+                    intiDataTable(dataSet);
+                    Events();
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            })
+        }
+
+        function intiDataTable(dataSet) {
+            if ($.fn.DataTable.isDataTable('#tblCustomer')) {
+                $('#tblCustomer').DataTable().destroy().clear();
+            }
+            $('#tblCustomer').DataTable({
+                data: dataSet,
+                columns: GetHeaders(dataSet[0]),
+                // dom: 'Bfrtip',
+                // buttons: [
+                //     'excelHtml5',
+                //     'pdfHtml5'
+                // ],
+                //order: [[1, 'asc']],
+                processing: true,
+                "language": {
+                    "loadingRecords": "<span class='fa-stack fa-lg'>\n\
+                                                    <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                                               </span>&emsp;Processing ..."
+                },
+                // columns: [
+                //     { data: "tenantId", title: "Tenant Id" },
+                //     { data: "customerCode", title: "Customer Code" },
+                //     { data: "customerName", title: "Customer Name" },
+                // ]
+            });
+        }
+
+        function GetHeaders(obj) {
+            var cols = new Array();
+            var count = false;
+            for (var key in obj) {
+                cols.push({
+                    data: key,
+                    title: key.charAt(0).toUpperCase() + key.slice(1)
+                });
+            }
+            return cols;
+        }
+        function serializeObject($form) {
+            var unindexed_array = $form.serializeArray();
+            var indexed_array = {};
+
+            $.map(unindexed_array, function (n, i) {
+                indexed_array[n['name']] = n['value'];
+            });
+
+            return indexed_array;
+        }
+        function switchChange(Id, Value) {
+            if (Value) {
+                $("#" + Id).closest("label").find("span").removeClass("bg-danger").addClass("bg-success");
+            }
+            else {
+                $("#" + Id).closest("label").find("span").removeClass("bg-success").addClass("bg-danger");
+            }
+        }
+        function Events() {
+            $(".btnAddEditCustomer").on("click", function () {
+                var id = $(this).data("customer-code");
+                $.ajax({
+                    url: '/Master/AddEditCustomer/' + id,
+                    type: 'GET',
+                    success: function (result) {
+                        $("#AddEditCustomerModal").html(result);
+                        if (id == "0") {
+                            $("#TenantId").val(generateRandomNumeric(6));
+                            $("#CustomerCode").val(id);
+                        }
+                        else {
+                            if ($("#EmailId").val() != "")
+                                $("#EmailId").attr("readonly", true);
+                        }
+                        $("#exampleModal").modal("show");
+
+                        /*IsAllowedForEwayBillGenration Change Events*/
+                        switchChange("IsAllowedForEwayBillGenration", $("#IsAllowedForEwayBillGenration").is(':checked'));
+                        $("#IsAllowedForEwayBillGenration").on("change", function () {
+                            switchChange("IsAllowedForEwayBillGenration", $(this).is(':checked'));
+                            if ($(this).is(':checked')) {
+                                $("#IsConsolidatedGSTNo").removeAttr("disabled", "disabled").closest("label").find("span").removeClass("bg-success").addClass("bg-danger");
+                                if ($("#IsConsolidatedGSTNo").is(':checked')) {
+                                    $("#IsConsolidatedGSTNo").removeAttr("disabled", "disabled").closest("label").find("span").removeClass("bg-danger").addClass("bg-success");
+                                }
+                            } else {
+                                $("#IsConsolidatedGSTNo").prop("checked", false).change();
+                                $("#IsConsolidatedGSTNo").attr("disabled", "disabled").closest("label").find("span").removeClass("bg-danger").removeClass("bg-success");
+                            }
+                        });
+
+                        /*IsConsolidatedGSTNo Change Events*/
+                        switchChange("IsConsolidatedGSTNo", $("#IsConsolidatedGSTNo").is(':checked'));
+                        $("#ConsolidatedGSTNo").attr("readonly", true);
+                        if ($("#IsConsolidatedGSTNo").is(':checked')) {
+                            $("#ConsolidatedGSTNo").attr("readonly", false);
+                        }
+                        $("#IsConsolidatedGSTNo").on("change", function () {
+                            switchChange("IsConsolidatedGSTNo", $(this).is(':checked'));
+                            $("#ConsolidatedGSTNo").attr("readonly", true);
+                            if ($(this).is(':checked')) {
+                                $("#ConsolidatedGSTNo").attr("readonly", false);
+                            }
+                        });
+                        if ($("#IsAllowedForEwayBillGenration").is(':checked')) {
+                            $("#IsConsolidatedGSTNo").removeAttr("disabled", "disabled");
+                        } else {
+                            $("#IsConsolidatedGSTNo").attr("disabled", "disabled").closest("label").find("span").removeClass("bg-danger").removeClass("bg-success");
+                        }
+
+                        $("#btnSubmit").on("click", function () {
+                            var forms = $("#form-customer");
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            });
+                            // $.ajax({
+                            //     url: 'https://localhost:44320/V1/Master/AddEditCustomer',
+                            //     crossDomain: true,
+                            //     method: 'post',
+                            //     headers: {
+                            //         'accept': '*/*',
+                            //         'ApiKey': 'D31950B5-743C-4A05-AF5D-62EA494C5C1B'
+                            //     },
+                            //     contentType: 'application/json-patch+json',
+                            //     data: '{\n  "entryBy": "nittin.vaghasia@gmail.com",\n  "customerName": "Nitin",\n  "emailId": "nittin@gmail.com",\n  "address": "surat"\n}'
+                            // }).done(function (response) {
+                            //     console.log(response);
+                            // });
+                            //console.log($.parseJSON(serializeObject(forms)));
+                            if ($("#IsConsolidatedGSTNo").is(':checked') == false) {
+                                $("#ConsolidatedGSTNo").val("");
+                            }
+                            $("input[name='IsAllowedForEwayBillGenration']").val($("#IsAllowedForEwayBillGenration").is(":checked"));
+                            $("input[name='IsConsolidatedGSTNo']").val($("#IsConsolidatedGSTNo").is(":checked"));
+                            if (document.forms['form-customer'].checkValidity()) {
+                                $.ajax({
+                                    url: 'https://localhost:44320/V1/Master/AddEditCustomer',
+                                    type: forms.attr('method'),
+                                    headers: {
+                                        'accept': '*/*',
+                                        "ApiKey": "D31950B5-743C-4A05-AF5D-62EA494C5C1B"
+                                    },
+                                    data: JSON.stringify(serializeObject(forms)),
+                                    contentType: 'application/json-patch+json',
+                                    success: function (response) {
+                                        var dataSet = [];
+                                        dataSet = response.data;
+                                        console.log(response)
+                                        console.log(dataSet);
+
+                                        if (response.statusCode == "200") {
+                                            //intiDataTable(dataSet);
+                                            var status = "Customer Created Successfully!";
+                                            if (id != "0") {
+                                                status = "Customer Updated Successfully!";
+                                            }
+                                            swal("Good job!", status, "success");
+                                            $("#exampleModal").modal("hide");
+                                            LoadData();
+                                        }
+                                        else {
+                                            swal("Opps!", response.errors.message, "error");
+                                        }
+                                    },
+                                    error: function (error) {
+                                        console.error(error);
+                                    }
+                                });
+                            }
+
+                        });
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            });
+        }
+
+        // $.ajax({
+        //     url: '/Master/GetCustomerListJson',
+        //     type: 'GET',
+        //     success: function (data) {
+        //         $('#data-source-3').DataTable({
+        //             data: data,
+        //             columns: [
+        //                 { data: "TenantId" },
+        //                 { data: "CustomerCode" },
+        //                 { data: "CustomerName" },
+        //             ]
+        //         });
+        //     },
+        //     error: function (error) {
+        //         console.error(error);
+        //     }
+        // })
+    </script>
+}

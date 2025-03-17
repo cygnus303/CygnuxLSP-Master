@@ -1,0 +1,100 @@
+﻿@model CygnuxLSP.Web.Models.Master.Customer.CreateCustomer
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="needs-validation" novalidate="" id="form-customer" method="post" autocomplete="off">
+                    <ul class="nav nav-tabs border-tab nav-primary" id="info-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" href="#basic-info" role="tab" aria-controls="basic-info" aria-selected="true">
+                                <i class="icofont icofont-ui-home"></i>Basic Info
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="other-info-tab" data-bs-toggle="tab" href="#other-info" role="tab" aria-controls="other-info" aria-selected="false">
+                                <i class="icofont icofont-contacts"></i>Other Info
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="info-tabContent">
+                        <div class="tab-pane fade active show" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
+                            <div class="row g-3">
+                                <div class="col-md-6 mb-11">
+                                    <label class="col-form-label">Customer Name</label>
+                                    @Html.TextBoxFor(c => c.CustomerName, new { @class = "form-control", @required = "required", @placeholder = "Customer Name", @autocomplete = "off" })
+                                    @Html.HiddenFor(c => c.EntryBy)
+                                    @Html.HiddenFor(c => c.UpdateBy)
+                                    @Html.HiddenFor(c => c.TenantId)
+                                    @Html.HiddenFor(c => c.CustomerCode)
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Email address</label>
+                                    @Html.TextBoxFor(c => c.EmailId, new { @class = "form-control", @type = "email", @required = "required", @placeholder = "test@test.com", @autocomplete = "off" })
+                                    @* <small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone else.</small> *@
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-4 mb-1">
+                                    <label class="col-form-label">State</label>
+                                    @Html.TextBoxFor(c => c.State, new { @class = "form-control", @required = "required", @placeholder = "State", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label">City</label>
+                                    @Html.TextBoxFor(c => c.City, new { @class = "form-control", @required = "required", @placeholder = "City", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label">Pincode</label>
+                                    @Html.TextBoxFor(c => c.Pincode, new { @class = "form-control", @required = "required", @placeholder = "Pincode", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="col-form-label">Address</label>
+                                @Html.TextAreaFor(c => c.Address, new { @class = "form-control", @placeholder = "Address", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="other-info" role="tabpanel" aria-labelledby="other-info-tab">
+                            <div class="row switch-showcase">
+                                <div class="col-md-10 mb-2">
+                                    <div class="d-flex">
+                                        <label class="form-label">Do you want to Generate E-Way Bill Automatic?</label>
+                                        <div class="flex-grow-1 text-end icon-state">
+                                            <label class="switch">
+                                                @Html.CheckBoxFor(c => c.IsAllowedForEwayBillGenration)
+                                                <span class="switch-state bg-success"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 mb-2">
+                                    <div class="d-flex">
+                                        <label class="form-label">Do you have Consolidated GSTNo for E-Way Bill Genration?</label>
+                                        <div class="flex-grow-1 text-end icon-state">
+                                            <label class="switch">
+                                                @Html.CheckBoxFor(c => c.IsConsolidatedGSTNo)
+                                                <span class="switch-state bg-success"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Consolidated GSTNo.</label>
+                                        @Html.TextBoxFor(c => c.ConsolidatedGSTNo, new { @class = "form-control", @required = "required", @placeholder = "Consolidated GSTNo.", @autocomplete = "off" })
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox p-0">
+                        <input id="dafault-checkbox" type="checkbox" data-bs-original-title="" title="">
+                        <label class="mb-0" for="dafault-checkbox">Remember my preference</label>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success" data-bs-original-title="" type="button" id="btnSubmit" title=""><i class="fa fa-check"></i> Submit</button>
+                <button class="btn btn-danger" data-bs-dismiss="modal" data-bs-original-title="" title=""><i class="fa fa-times"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

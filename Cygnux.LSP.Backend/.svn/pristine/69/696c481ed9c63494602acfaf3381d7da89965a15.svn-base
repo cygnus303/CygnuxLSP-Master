@@ -1,0 +1,18 @@
+﻿using CygnuxLSP.Repository.DTOs.Comman;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+
+namespace CygnuxLSP.Repository.DTOs.Master.LSPMapping
+{
+    [XmlRoot("DocumentElement"), XmlType("DocumentElement")]
+    public class CreateLSPMapping : BaseDto
+    {
+        public int CustomerId { get; set; }
+        public int LSPID { get; set; }
+        public bool IsActive { get; set; }
+    }
+}

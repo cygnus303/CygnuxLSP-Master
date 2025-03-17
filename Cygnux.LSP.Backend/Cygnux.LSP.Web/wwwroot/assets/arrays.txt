@@ -1,0 +1,13 @@
+{
+    "data": [
+        [
+            "Angelica Ramos <span class='badge rounded-pill badge-success'>hired</span>",
+            "Chief Executive Officer (CEO)",
+            "London",
+            "5797",
+            "2009\/10\/09",
+            "$1,200,000",
+            "<ul class='action'> <li class='edit'> <a href='#' data-bs-original-title='' title=''><i class='icon-pencil-alt'></i></a></li><li class='delete'><a href='#' data-bs-original-title='' title=''><i class='icon-trash'></i></a></li></ul>"
+        ]
+    ]
+}

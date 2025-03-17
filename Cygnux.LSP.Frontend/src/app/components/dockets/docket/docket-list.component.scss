@@ -1,0 +1,33 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between; /* Ensure title and close button are spaced */
+  align-items: center; /* Center items vertically */
+}
+.editDialog .modal-dialog {
+  max-width: 50vw;
+  right: -100vw;
+  min-height: 100vh;
+  margin: 0;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease !important;
+}
+
+.editDialog.show .modal-dialog {
+  right: -50vw;
+}
+
+.editDialog .modal-content {
+  min-height: inherit;
+}
+
+.editDialog .switch-outline .bg-danger:before {
+  background-color: #f81f58;
+}
+
+.editDialog .switch-outline .bg-danger:after {
+  color: #fff;
+  opacity: 1;
+}
+.file-upload {
+  display: none;
+}

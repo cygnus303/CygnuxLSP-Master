@@ -1,0 +1,45 @@
+<!-- menu-permissions.component.html -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Menu Name</th>
+                            <th>View</th>
+                            <th>Create</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let menu of menus">
+                            <td>{{ menu.menuName }}</td>
+                            <td>
+                                <input type="checkbox" [checked]="menu.canView"
+                                    (change)="togglePermission(menu.menuId, 'view')">
+                            </td>
+                            <td>
+                                <input type="checkbox" [checked]="menu.canCreate"
+                                    (change)="togglePermission(menu.menuId, 'create')">
+                            </td>
+                            <td>
+                                <input type="checkbox" [checked]="menu.canEdit"
+                                    (change)="togglePermission(menu.menuId, 'edit')">
+                            </td>
+                            <td>
+                                <input type="checkbox" [checked]="menu.canDelete"
+                                    (change)="togglePermission(menu.menuId, 'delete')">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Save button to trigger the savePermissions method -->
+                <button class="btn btn-primary" (click)="savePermissions()">Save Permissions</button>
+
+            </div>
+        </div>
+    </div>
+</div>

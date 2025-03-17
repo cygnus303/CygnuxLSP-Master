@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+
+namespace CygnuxLSP.Repository.Classes
+{
+    public class GeneralFunctions
+    {
+        public string GetXmlString(dynamic Object)
+        {
+            XmlDocument xd = new();
+            System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(Object.GetType());
+
+            using (MemoryStream xmlStream = new())
+            {
+                xmlSerializer.Serialize(xmlStream, Object);
+                xmlStream.Position = 0;
+                xd.Load(xmlStream);
+            }
+            return xd.InnerXml.ReplaceSpecialCharacters();
+        }
+    }
+
+    public static class ExtensionMethods
+    {
+        public static string ReplaceSpecialCharacters(this string value)
+        {
+            return value.Replace("&", "&amp;").Replace("'", "&#39;").Replace("’", "&#39;").Replace("”", "").Replace("–", "-").Replace("�", " ").Replace(System.Environment.NewLine, " ").Trim();
+        }
+    }
+}

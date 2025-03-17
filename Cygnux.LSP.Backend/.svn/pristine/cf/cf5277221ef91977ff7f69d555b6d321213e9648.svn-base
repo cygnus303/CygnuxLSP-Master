@@ -1,0 +1,144 @@
+[
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.AuthenticationController",
+    "Method": "Login",
+    "RelativePath": "V1/Authentication/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "CygnuxLSP.API.Models.UserLogin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "AddEditCustomer",
+    "RelativePath": "V1/Master/AddEditCustomer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createCustomerDto",
+        "Type": "CygnuxLSP.Repository.DTOs.Master.Customer.CreateCustomerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "AddEditLSP",
+    "RelativePath": "V1/Master/AddEditLSP",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createLSP",
+        "Type": "CygnuxLSP.Repository.DTOs.Master.LSP.CreateLSP",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "AddEditLSPMapping",
+    "RelativePath": "V1/Master/AddEditLSPMapping",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createLSPMapping",
+        "Type": "CygnuxLSP.Repository.DTOs.Master.LSPMapping.CreateLSPMapping",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "GetCustomerDetails",
+    "RelativePath": "V1/Master/GetCustomerDetails/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "GetCustomerList",
+    "RelativePath": "V1/Master/GetCustomerList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "GetLSPDetails",
+    "RelativePath": "V1/Master/GetLSPDetails/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "GetLSPList",
+    "RelativePath": "V1/Master/GetLSPList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "GetLSPMappingDetails",
+    "RelativePath": "V1/Master/GetLSPMappingDetails/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CygnuxLSP.API.Areas.V1.Controllers.MasterController",
+    "Method": "GetLSPMappingList",
+    "RelativePath": "V1/Master/GetLSPMappingList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

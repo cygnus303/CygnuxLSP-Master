@@ -1,0 +1,31 @@
+﻿using CygnuxLSP.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CygnuxLSP.DataAccess.DataContext
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        //const string connectionString = "Server=192.168.0.5;Database=LSPConnect;uid=Nitin;pwd=N!t!N!@#;Trusted_Connection=false;MultipleActiveResultSets=true;TrustServerCertificate=True";
+        //public ApplicationDbContext() : base() { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+
+        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<ApplicationUser>()
+            .ToTable("AspNetUsers");
+        }
+    }
+}

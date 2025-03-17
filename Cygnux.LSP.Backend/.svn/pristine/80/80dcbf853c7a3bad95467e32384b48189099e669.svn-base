@@ -1,0 +1,99 @@
+﻿using CygnuxLSP.API.Areas.V1.Authentication;
+using CygnuxLSP.API.Models;
+using CygnuxLSP.DataAccess.Entities;
+using CygnuxLSP.Model.Exceptions;
+using CygnuxLSP.Model.Response;
+using CygnuxLSP.Repository.Implementation;
+using CygnuxLSP.Repository.Interface;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CygnuxLSP.API.Areas.V1.Controllers
+{
+    [Route("V1/[controller]")]
+    [ApiController]
+    [ApiKey]
+    public class AuthenticationController : ControllerBase
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMasterRepository _masterRepository;
+
+        public AuthenticationController(UserManager<ApplicationUser> userManager, IMasterRepository masterRepository)
+        {
+            _userManager = userManager;
+            _masterRepository = masterRepository;
+        }
+        /// <summary>
+        /// POST API for login
+        /// </summary>
+        /// <param name="user">User login viewModel</param>
+        /// <returns>HTTP response</returns>
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login(UserLogin user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var existingUser = await _userManager.FindByEmailAsync(user.Email);                    
+                    if (existingUser == null)
+                    {
+                        //var newUser = new ApplicationUser()
+                        //{
+                        //    Email = user.Email,
+                        //    UserName = user.Email
+                        //};
+                        //var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+                        throw new LSPException("Invalid authentication request.");
+                    }
+
+                    if (existingUser.AccessFailedCount == 3)
+                    {
+                        throw new LSPException("Your account has been locked. Please reset the password.");
+                    }
+
+                    var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+                    if (isCorrect)
+                    {
+                        existingUser.AccessFailedCount = 0;
+                        await _userManager.UpdateAsync(existingUser);
+
+                        APIResponse<AuthResponse> apiResponse = APIResponse<AuthResponse>.Ok();
+
+                        //apiResponse.Data = _masterRepository.GetUserById(existingUser.Id);
+                        apiResponse.Data = new AuthResponse()
+                        {
+                            Result = true,                            
+                            Email = existingUser.UserName,
+                            Username = existingUser.UserName,
+                        };
+                        return Ok(apiResponse);
+                    }
+                    else
+                    {
+                        existingUser.AccessFailedCount = existingUser.AccessFailedCount + 1;
+                        await _userManager.UpdateAsync(existingUser);
+                        switch (existingUser.AccessFailedCount)
+                        {
+                            case 1:
+                                throw new LSPException("You have entered wrong credentials. Only two tries left.");
+                            case 2:
+                                throw new LSPException("You have entered wrong credentials. Only one tries left.");
+                            case 3:
+                                throw new LSPException("Your account has been locked. Please reset the password.");
+                            default:
+                                throw new LSPException("Your account has been locked. Please reset the password.");
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw new LSPException(Ex.Message.ToString());
+            }
+            throw new LSPException("Invalid payload.");
+        }
+    }
+}

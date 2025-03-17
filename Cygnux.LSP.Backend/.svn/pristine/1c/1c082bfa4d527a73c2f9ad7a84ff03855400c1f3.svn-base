@@ -1,0 +1,106 @@
+﻿using CygnuxLSP.API.Areas.V1.Authentication;
+using CygnuxLSP.API.Classes;
+using CygnuxLSP.API.Models;
+using CygnuxLSP.DataAccess.Entities;
+using CygnuxLSP.Model.Exceptions;
+using CygnuxLSP.Model.Response;
+using CygnuxLSP.Repository.DTOs.Common;
+using CygnuxLSP.Repository.Implementation;
+using CygnuxLSP.Repository.Interface;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+
+namespace CygnuxLSP.API.Areas.V1.Controllers
+{
+    [Route("V1/[controller]")]
+    [ApiController]
+    [ApiKey]
+    public class AccountController : ControllerBase
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMasterRepository _masterRepository;
+        private readonly IConfiguration _configuration;
+        readonly GeneralFunctions GF = new();
+
+        public AccountController(UserManager<ApplicationUser> userManager, IMasterRepository masterRepository, IConfiguration configuration)
+        {
+            _userManager = userManager;
+            _masterRepository = masterRepository;
+            _configuration = configuration;
+        }
+        ///// <summary>
+        ///// POST API for user registration
+        ///// </summary>
+        ///// <param name="user">UserRegistration Model</param>
+        ///// <returns>HTTP response</returns>
+        //[HttpPost]
+        //[Route("Register")]
+        //public async Task<IActionResult> Register(CreateUser user)
+        //{
+        //    //// Need to update this method for role and other neccessary fields
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (user.EditFlag)
+        //        {
+        //            var existingUser = await _userManager.FindByEmailAsync(user.EmailId);
+        //            if (existingUser == null)
+        //            {
+        //                throw new LSPException("User not exists in our system.");
+        //            }
+        //            existingUser.PhoneNumber = user.ContactNumber;
+        //            var newUser = new ApplicationUser()
+        //            {
+        //                UserName = user.EmailId,
+        //                PhoneNumber = user.ContactNumber
+        //            };
+        //            var isCreated = await _userManager.UpdateAsync(existingUser);
+        //            if (isCreated.Succeeded)
+        //            {
+        //                APIResponse<GeneralDbResponse> apiResponse = APIResponse<GeneralDbResponse>.Ok();
+        //                apiResponse.Data = _masterRepository.AddEditUser(user, "U");
+        //                return new JsonResult(apiResponse);
+        //            }
+
+        //        }
+        //        else
+        //        {
+        //            var existingUser = await _userManager.FindByEmailAsync(user.EmailId);
+        //            if (existingUser != null)
+        //            {
+        //                throw new LSPException("User already exists in our system.");
+        //            }
+
+        //            var newUser = new ApplicationUser()
+        //            {
+        //                Email = user.EmailId,
+        //                UserName = user.EmailId,
+        //                PhoneNumber = user.ContactNumber,
+        //            };
+
+        //            var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+        //            if (isCreated.Succeeded)
+        //            {
+        //                var userDetail = await _userManager.FindByEmailAsync(newUser.Email);
+        //                var deleteUser1 = await _userManager.DeleteAsync(userDetail);
+        //                APIResponse<GeneralDbResponse> apiResponse = APIResponse<GeneralDbResponse>.Ok();
+        //                user.Password = GF.Encrypt(user.Password, _configuration.GetValue<string>("PasswordSult"));
+        //                //if (userDetail != null)
+        //                    //user.UserIdentityID = userDetail.Id;
+        //                apiResponse.Data = _masterRepository.AddEditUser(user, "E");
+        //                if (apiResponse.Data.Status == 0)
+        //                {
+        //                    var deleteUser = await _userManager.DeleteAsync(newUser);
+        //                }
+        //                return new JsonResult(apiResponse);
+        //            }
+
+        //            var response = APIResponse<GeneralDbResponse>.Error();
+        //            response.AddErrorsMsgToResponse("Request to insert user failed.", isCreated.Errors.Select(x => x.Description).ToList(), 500);
+        //            return new JsonResult(response);
+        //        }
+        //    }
+        //    throw new LSPException("Technical error; contact your system administrator.");
+        //}
+    }
+}

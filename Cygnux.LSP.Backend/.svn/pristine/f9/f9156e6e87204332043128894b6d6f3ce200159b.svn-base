@@ -1,0 +1,85 @@
+﻿using AutoMapper;
+using CygnuxLSP.DataAccess.DataContext.DataAccessLayer.Interface;
+using CygnuxLSP.Model.Domain;
+using CygnuxLSP.Repository.Classes;
+using CygnuxLSP.Repository.DTOs.Common;
+using CygnuxLSP.Repository.DTOs.Master.Customer;
+using CygnuxLSP.Repository.DTOs.Master.LSP;
+using CygnuxLSP.Repository.DTOs.Master.LSPMapping;
+using CygnuxLSP.Repository.DTOs.Master.User;
+using CygnuxLSP.Repository.Interface;
+using System.Data;
+
+namespace CygnuxLSP.Repository.Implementation
+{
+    public class MasterRepository(IMasterService masterService, IMapper mapper) : IMasterRepository
+    {
+        private readonly IMasterService _masterService = masterService;
+        private readonly IMapper _mapper = mapper;
+        readonly GeneralFunctions GF = new();
+        public DataSet GetData(string Method, IDictionary<string, string> parameters)
+        {
+            return _masterService.GetData(Method, parameters);
+        }
+
+        #region Customer
+        public List<CustomerListDto> GetCustomerList()
+        {
+            var CustomerList = DataRowToObject.CreateListFromTable<LC_Customer_Master>(_masterService.GetCustomerList().Tables[0]).ToList();
+            return _mapper.Map<List<CustomerListDto>>(CustomerList);
+        }
+
+        public async Task<CreateCustomerDto> GetCustomerDetails(string CustomerCode)
+        {   
+            var CustomerDetails = DataRowToObject.CreateListFromTable<CreateCustomerDto>((await _masterService.GetCustomerDetails(CustomerCode)).Tables[0]).FirstOrDefault();
+            return CustomerDetails;
+        }
+
+        public DataTable GetCustomerListNew()
+        {
+            return _masterService.GetCustomerList().Tables[0];
+        }
+
+        public DataSet AddEditCustomer(CreateCustomerDto createCustomerDto)
+        {
+            return _masterService.AddEditCustomer(GF.GetXmlString(createCustomerDto));
+        }
+        #endregion
+
+        #region LSP
+        public async Task<DataTable> GetLSPList()
+        {
+            return (await _masterService.GetLSPList()).Tables[0];
+        }
+        public async Task<CreateLSP?> GetLSPDetails(int LSPID)
+        {
+            var LSPDetails = DataRowToObject.CreateListFromTable<CreateLSP>((await _masterService.GetLSPDetails(LSPID)).Tables[0]).FirstOrDefault();
+            return LSPDetails;
+        }
+        public async Task<DataSet> AddEditLSP(CreateLSP createLSP)
+        {
+            return await _masterService.AddEditLSP(GF.GetXmlString(createLSP));
+        }
+        #endregion
+
+        #region Customre LSP Mapping
+        public async Task<DataTable> GetLSPMappingList()
+        {
+            return (await _masterService.GetLSPMappingList()).Tables[0];
+        }
+        public async Task<CreateLSPMapping> GetLSPMappingDetails(int MappingId)
+        {
+            var LSPMappingDetails = DataRowToObject.CreateListFromTable<CreateLSPMapping>((await _masterService.GetLSPMappingDetails(MappingId)).Tables[0]).FirstOrDefault();
+            return LSPMappingDetails;
+        }
+        public async Task<DataSet> AddEditLSPMapping(CreateLSPMapping createLSPMapping)
+        {
+            return await _masterService.AddEditLSPMapping(GF.GetXmlString(createLSPMapping));
+        }
+        #endregion
+        public GeneralDbResponse AddEditUser(CreateUser TMR, string Entry_EditFlag)
+        {
+            return DataRowToObject.CreateListFromTable<GeneralDbResponse>(_masterService.AddEditUser(GF.GetXmlString(TMR), Entry_EditFlag).Tables[0]).FirstOrDefault();
+        }
+    }
+}

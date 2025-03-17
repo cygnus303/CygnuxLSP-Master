@@ -1,0 +1,2241 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CygnuxLSP.Web.bundle.scp.css",
+      "PackagePath": "staticwebassets\\CygnuxLSP.Web.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\arrays.txt",
+      "PackagePath": "staticwebassets\\assets\\arrays.txt"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\color-1.css",
+      "PackagePath": "staticwebassets\\assets\\css\\color-1.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\color-1.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\color-1.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\responsive.css",
+      "PackagePath": "staticwebassets\\assets\\css\\responsive.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\responsive.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\responsive.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\style.css",
+      "PackagePath": "staticwebassets\\assets\\css\\style.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\style.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\style.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\animate.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\animate.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\animate.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\animate.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\bootstrap.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\chartist.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\chartist.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\chartist.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\chartist.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\datatable-extension.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\datatable-extension.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\datatable-extension.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\datatable-extension.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\datatables.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\datatables.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\datatables.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\datatables.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\feather-icon.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\feather-icon.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\feather-icon.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\feather-icon.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\flag-icon.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\flag-icon.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\flag-icon.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\flag-icon.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\font-awesome.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\font-awesome.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\font-awesome.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\font-awesome.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\icofont.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\icofont.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\icofont.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\icofont.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\prism.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\prism.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\prism.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\prism.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\scrollbar.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\scrollbar.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\scrollbar.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\scrollbar.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\sweetalert2.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\sweetalert2.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\sweetalert2.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\sweetalert2.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\themify.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\themify.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\themify.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\themify.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\vector-map.css",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\vector-map.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\css\\vendors\\vector-map.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\vendors\\vector-map.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\font-awesome\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\font-awesome\\FontAwesome.otf"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\font-awesome\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\font-awesome\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\font-awesome\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\font-awesome\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\font-awesome\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\font-awesome\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\font-awesome\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\font-awesome\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\font-awesome\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\assets\\fonts\\font-awesome\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\ico\\icofont.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ico\\icofont.eot"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\ico\\icofont.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ico\\icofont.svg"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\ico\\icofont.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ico\\icofont.ttf"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\ico\\icofont.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ico\\icofont.woff"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\themify\\themify.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\themify\\themify.eot"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\themify\\themify.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\themify\\themify.svg"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\themify\\themify.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\themify\\themify.ttf"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\fonts\\themify\\themify.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\themify\\themify.woff"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\chrom.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\chrom.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\01.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\01.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\02.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\02.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\03.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\03.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\04.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\04.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\05.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\05.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\bg-cover.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\bg-cover.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\profile.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\profile.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\ribbon1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\ribbon1.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\ribbon3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\ribbon3.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\ribbon4.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\ribbon4.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\ribbon5.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\ribbon5.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\ribbon6.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\ribbon6.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\ribbon7.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\ribbon7.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\default\\todo.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\default\\todo.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\firefox.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\firefox.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\folder.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\folder.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\folder1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\folder1.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\opera.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\opera.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\dashboard\\safari.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dashboard\\safari.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\favicon\\favicon.png",
+      "PackagePath": "staticwebassets\\assets\\images\\favicon\\favicon.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\logo\\logo.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logo\\logo.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\logo\\logo2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logo\\logo2.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\sort_asc.png",
+      "PackagePath": "staticwebassets\\assets\\images\\sort_asc.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\images\\sort_both.png",
+      "PackagePath": "staticwebassets\\assets\\images\\sort_both.png"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\bootstrap\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\bootstrap\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\apex-chart\\apex-chart.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\apex-chart\\apex-chart.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\apex-chart\\chart-custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\apex-chart\\chart-custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\apex-chart\\moment.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\apex-chart\\moment.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\apex-chart\\stock-prices.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\apex-chart\\stock-prices.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\chartist\\chartist-custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\chartist\\chartist-custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\chartist\\chartist-plugin-tooltip.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\chartist\\chartist-plugin-tooltip.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\chartist\\chartist.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\chartist\\chartist.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\chartjs\\chart.custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\chartjs\\chart.custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\chartjs\\chart.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\chartjs\\chart.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\excanvas.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\excanvas.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\excanvas.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\excanvas.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\flot-script.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\flot-script.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.canvas.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.canvas.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.categories.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.categories.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.crosshair.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.crosshair.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.errorbars.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.errorbars.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.fillbetween.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.fillbetween.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.image.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.image.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.navigate.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.navigate.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.pie.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.pie.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.resize.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.resize.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.selection.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.selection.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.stack.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.stack.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.symbol.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.symbol.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.threshold.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.threshold.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.flot.time.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.flot.time.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\flot-chart\\jquery.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\flot-chart\\jquery.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\knob\\knob-chart.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\knob\\knob-chart.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\knob\\knob.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\knob\\knob.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\morris-chart\\morris-script.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\morris-chart\\morris-script.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\morris-chart\\morris.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\morris-chart\\morris.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\morris-chart\\morris.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\morris-chart\\morris.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\morris-chart\\prettify.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\morris-chart\\prettify.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\morris-chart\\raphael.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\morris-chart\\raphael.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\peity-chart\\peity-custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\peity-chart\\peity-custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\peity-chart\\peity.jquery.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\peity-chart\\peity.jquery.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\sparkline\\sparkline-script.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\sparkline\\sparkline-script.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\chart\\sparkline\\sparkline.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart\\sparkline\\sparkline.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\clipboard\\clipboard-script.js",
+      "PackagePath": "staticwebassets\\assets\\js\\clipboard\\clipboard-script.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\clipboard\\clipboard.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\clipboard\\clipboard.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\config.js",
+      "PackagePath": "staticwebassets\\assets\\js\\config.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\custom-card\\custom-card.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-card\\custom-card.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\dashboard\\dashboard_2.js",
+      "PackagePath": "staticwebassets\\assets\\js\\dashboard\\dashboard_2.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\dashboard\\default.js",
+      "PackagePath": "staticwebassets\\assets\\js\\dashboard\\default.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\buttons.bootstrap4.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\buttons.bootstrap4.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\buttons.colVis.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\buttons.colVis.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\buttons.html5.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\buttons.html5.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\buttons.print.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\buttons.print.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.autoFill.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.autoFill.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.bootstrap4.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.bootstrap4.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.buttons.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.buttons.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.colReorder.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.colReorder.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.fixedHeader.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.fixedHeader.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.keyTable.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.keyTable.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.responsive.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.responsive.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.rowReorder.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.rowReorder.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.scroller.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.scroller.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\dataTables.select.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\dataTables.select.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\jszip.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\jszip.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\pdfmake.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\pdfmake.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\responsive.bootstrap4.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\responsive.bootstrap4.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatable-extension\\vfs_fonts.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatable-extension\\vfs_fonts.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatables\\datatable.custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatables\\datatable.custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatables\\jquery.dataTables.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatables\\jquery.dataTables.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\datatable\\datatables\\jquery.sparkline2.1.2.js",
+      "PackagePath": "staticwebassets\\assets\\js\\datatable\\datatables\\jquery.sparkline2.1.2.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\form-validation-custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\form-validation-custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\icons\\feather-icon\\feather-icon.js",
+      "PackagePath": "staticwebassets\\assets\\js\\icons\\feather-icon\\feather-icon.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\icons\\feather-icon\\feather.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\icons\\feather-icon\\feather.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\jquery-3.6.0.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery-3.6.0.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\jquery-validation\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery-validation\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\jquery-validation\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery-validation\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\notify\\bootstrap-notify.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\notify\\bootstrap-notify.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\notify\\index.js",
+      "PackagePath": "staticwebassets\\assets\\js\\notify\\index.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\notify\\notify-script.js",
+      "PackagePath": "staticwebassets\\assets\\js\\notify\\notify-script.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\prism\\prism.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\prism\\prism.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\script.js",
+      "PackagePath": "staticwebassets\\assets\\js\\script.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\scrollbar\\custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\scrollbar\\custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\scrollbar\\simplebar.js",
+      "PackagePath": "staticwebassets\\assets\\js\\scrollbar\\simplebar.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\sidebar-menu.js",
+      "PackagePath": "staticwebassets\\assets\\js\\sidebar-menu.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\sweet-alert\\app.js",
+      "PackagePath": "staticwebassets\\assets\\js\\sweet-alert\\app.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\sweet-alert\\sweetalert.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\sweet-alert\\sweetalert.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\theme-customizer\\customizer.js",
+      "PackagePath": "staticwebassets\\assets\\js\\theme-customizer\\customizer.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\tooltip-init.js",
+      "PackagePath": "staticwebassets\\assets\\js\\tooltip-init.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead-search\\handlebars.js",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead-search\\handlebars.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead-search\\typeahead-custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead-search\\typeahead-custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\countries.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\countries.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\post_1960.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\post_1960.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\8.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\8.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\80.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\80.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\a.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\a.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ab.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ab.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\abo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\abo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\abou.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\abou.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\about.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\about.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ag.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ag.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agr.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agr.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agre.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agre.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agree.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agree.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agreem.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agreem.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agreeme.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agreeme.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agreemen.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agreemen.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\agreement.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\agreement.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\al.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\al.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\all.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\all.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\am.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\am.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ame.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ame.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\amer.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\amer.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ameri.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ameri.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\americ.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\americ.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\america.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\america.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\american.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\american.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\an.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\an.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ap.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ap.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apar.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apar.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apart.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apart.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apartm.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apartm.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apartme.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apartme.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apartmen.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apartmen.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\apartment.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\apartment.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ar.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ar.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\aro.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\aro.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\arou.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\arou.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\aroun.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\aroun.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\around.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\around.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\b.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\b.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\be.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\be.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ben-h.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ben-h.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ben-hu.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ben-hu.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ben-hur.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ben-hur.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ben.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ben.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bes.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bes.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\best.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\best.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bou.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bou.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\boun.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\boun.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bount.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bount.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bounty.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bounty.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\br.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\br.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bri.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bri.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\brid.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\brid.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bridg.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bridg.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bridge.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bridge.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\bro.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\bro.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\broa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\broa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\broad.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\broad.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\broadw.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\broadw.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\broadwa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\broadwa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\broadway.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\broadway.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\c.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\c.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ca.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ca.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\can't.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\can't.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\can.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\can.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cas.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cas.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casab.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casab.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casabl.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casabl.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casabla.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casabla.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casablan.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casablan.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casablanc.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casablanc.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\casablanca.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\casablanca.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cav.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cav.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cava.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cava.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\caval.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\caval.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cavalc.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cavalc.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cavalca.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cavalca.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cavalcad.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cavalcad.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cavalcade.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cavalcade.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ci.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ci.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cim.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cim.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cima.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cima.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cimar.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cimar.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cimarr.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cimarr.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cimarro.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cimarro.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\cimarron.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\cimarron.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\d.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\d.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\da.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\da.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\day.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\day.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\days.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\days.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\e.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\e.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ea.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ea.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ear.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ear.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\eart.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\eart.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\earth.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\earth.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\em.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\em.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\emi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\emi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\emil.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\emil.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\emile.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\emile.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\et.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\et.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ete.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ete.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\eter.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\eter.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\etern.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\etern.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\eterni.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\eterni.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\eternit.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\eternit.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\eternity.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\eternity.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ev.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ev.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\eve.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\eve.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\f.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\f.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\fr.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\fr.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\fro.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\fro.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\from.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\from.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\fron.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\fron.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\front.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\front.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\g.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\g.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ge.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ge.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gen.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gen.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gent.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gent.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gentl.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gentl.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gentle.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gentle.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gentlem.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gentlem.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gentlema.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gentlema.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gentleman's.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gentleman's.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gentleman.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gentleman.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gig.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gig.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gigi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gigi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\go.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\go.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\goi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\goi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\goin.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\goin.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\going.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\going.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gon.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gon.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gone.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gone.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gr.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gr.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gra.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gra.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gran.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gran.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\grand.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\grand.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gre.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gre.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\grea.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\grea.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\great.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\great.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\greate.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\greate.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\greates.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\greates.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\greatest.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\greatest.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\gree.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\gree.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\green.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\green.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\h.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\h.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ha.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ha.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ham.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ham.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\haml.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\haml.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\hamle.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\hamle.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\hamlet.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\hamlet.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\hap.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\hap.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\happ.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\happ.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\happe.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\happe.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\happen.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\happen.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\happene.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\happene.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\happened.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\happened.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\he.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\he.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\her.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\her.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\here.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\here.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ho.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ho.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\hot.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\hot.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\hote.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\hote.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\hotel.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\hotel.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\how.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\how.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\i.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\i.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\in.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\in.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\it.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\it.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\k.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\k.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ki.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ki.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\kin.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\kin.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\king.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\king.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\kings.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\kings.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\kw.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\kw.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\kwa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\kwa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\kwai.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\kwai.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\l.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\l.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\li.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\li.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\lif.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\lif.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\life.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\life.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\liv.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\liv.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\live.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\live.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\lives.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\lives.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\lo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\lo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\los.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\los.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\lost.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\lost.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\m.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\m.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ma.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ma.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mar.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mar.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mart.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mart.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\marty.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\marty.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\me.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\me.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mel.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mel.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\melo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\melo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\melod.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\melod.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\melody.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\melody.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\men.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\men.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\min.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\min.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mini.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mini.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\miniv.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\miniv.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\minive.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\minive.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\miniver.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\miniver.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mr.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mr.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mrs.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mrs.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mu.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mu.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mut.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mut.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\muti.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\muti.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mutin.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mutin.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\mutiny.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\mutiny.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\my.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\my.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\n.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\n.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ni.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ni.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\nig.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\nig.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\nigh.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\nigh.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\night.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\night.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\o.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\o.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\of.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\of.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\on.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\on.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\one.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\one.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ou.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ou.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\our.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\our.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\p.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\p.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\pa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\pa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\par.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\par.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\pari.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\pari.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\paris.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\paris.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\q.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\q.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\qu.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\qu.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\qui.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\qui.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\quie.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\quie.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\quiet.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\quiet.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\r.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\r.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\re.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\re.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\reb.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\reb.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\rebe.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\rebe.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\rebec.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\rebec.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\rebecc.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\rebecc.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\rebecca.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\rebecca.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ri.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ri.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\riv.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\riv.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\rive.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\rive.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\river.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\river.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\s.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\s.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\sh.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\sh.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\sho.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\sho.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\show.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\show.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\t.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\t.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ta.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ta.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\tak.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\tak.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\take.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\take.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\th.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\th.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\the.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\the.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\to.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\to.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\v.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\v.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\va.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\va.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\val.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\val.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\vall.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\vall.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\valle.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\valle.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\valley.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\valley.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\w.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\w.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wa.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wa.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\was.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\was.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wat.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wat.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wate.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wate.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\water.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\water.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\waterf.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\waterf.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\waterfr.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\waterfr.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\waterfro.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\waterfro.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\waterfron.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\waterfron.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\waterfront.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\waterfront.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\way.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\way.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\we.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\we.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wee.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wee.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\week.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\week.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\weeke.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\weeke.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\weeken.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\weeken.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\weekend.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\weekend.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wes.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wes.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\west.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\west.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\weste.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\weste.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wester.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wester.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\western.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\western.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\win.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\win.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wind.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wind.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wing.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wing.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wings.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wings.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wit.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wit.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\with.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\with.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\wor.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\wor.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\worl.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\worl.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\world.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\world.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\y.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\y.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ye.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ye.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\yea.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\yea.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\year.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\year.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\years.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\years.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\yo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\yo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\you.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\you.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\z.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\z.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\zi.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\zi.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\zie.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\zie.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\zieg.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\zieg.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ziegf.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ziegf.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ziegfe.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ziegfe.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ziegfel.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ziegfel.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\ziegfeld.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\ziegfeld.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\zo.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\zo.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\zol.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\zol.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\films\\queries\\zola.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\films\\queries\\zola.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\nba.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\nba.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\nfl.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\nfl.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\nhl.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\nhl.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\data\\repos.json",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\data\\repos.json"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\handlebars.js",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\handlebars.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\typeahead.bundle.js",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\typeahead.bundle.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\typeahead\\typeahead.custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\typeahead\\typeahead.custom.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\jquery-jvectormap-2.0.2.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\jquery-jvectormap-2.0.2.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map-vector.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map-vector.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-asia-mill.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-asia-mill.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-au-mill.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-au-mill.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-chicago-mill-en.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-chicago-mill-en.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-in-mill.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-in-mill.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-uk-mill-en.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-uk-mill-en.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-us-aea-en.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-us-aea-en.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\assets\\js\\vector-map\\map\\jquery-jvectormap-world-mill-en.js",
+      "PackagePath": "staticwebassets\\assets\\js\\vector-map\\map\\jquery-jvectormap-world-mill-en.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Application\\.Net Core\\CygnuxLSP\\Development\\CygnuxLSP\\CygnuxLSP.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CygnuxLSP.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CygnuxLSP.Web.props",
+      "PackagePath": "build\\CygnuxLSP.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CygnuxLSP.Web.props",
+      "PackagePath": "buildMultiTargeting\\CygnuxLSP.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CygnuxLSP.Web.props",
+      "PackagePath": "buildTransitive\\CygnuxLSP.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

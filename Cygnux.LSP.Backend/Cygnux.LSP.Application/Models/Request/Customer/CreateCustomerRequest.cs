@@ -1,0 +1,20 @@
+﻿namespace Cygnux.LSP.Application.Models.Request.Customer;
+using Infrastructure.Implementations;
+
+public class CreateCustomerRequest : UserSettings
+{
+    public string CustomerCode { get; set; } = string.Empty;
+    public string CustomerName { get; set; } = string.Empty;
+    public string EmailId { get; set; } = string.Empty;
+    public string Address { get; set; } = string.Empty;
+    public string Pincode { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
+    public bool? IsAllowedForEwayBillGenration { get; set; }
+    public bool? IsActive { get; set; }
+    public bool? IsConsolidatedGSTNo { get; set; }
+    public string ConsolidatedGSTNo { get; set; } = string.Empty;
+    public string ProprietorName { get; set; } = string.Empty;
+    public string ProprietorMobileNo { get; set; } = string.Empty;
+    public string ProprietorEmail { get; set; } = string.Empty;
+}

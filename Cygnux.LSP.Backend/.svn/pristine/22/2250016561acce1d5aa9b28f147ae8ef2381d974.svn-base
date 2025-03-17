@@ -1,0 +1,60 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace CygnuxLSP.API.Classes
+{
+    public class GeneralFunctions
+    {
+        public string Encrypt(string strToEncrypt, string strKey)
+        {
+            try
+            {
+                TripleDESCryptoServiceProvider objDESCrypto = new();
+                MD5CryptoServiceProvider objHashMD5 = new();
+
+                byte[] byteHash, byteBuff;
+                string strTempKey = strKey;
+
+                byteHash = objHashMD5.ComputeHash(Encoding.ASCII.GetBytes(strTempKey));
+                objHashMD5 = null;
+                objDESCrypto.Key = byteHash;
+                objDESCrypto.Mode = CipherMode.ECB; //CBC, CFB
+
+                byteBuff = Encoding.ASCII.GetBytes(strToEncrypt);
+                return Convert.ToBase64String(objDESCrypto.CreateEncryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
+            }
+            catch (Exception ex)
+            {
+                return "Wrong Input. " + ex.Message;
+            }
+        }
+
+        public string Decrypt(string strEncrypted, string strKey)
+        {
+            try
+            {
+                TripleDESCryptoServiceProvider objDESCrypto = new();
+                MD5CryptoServiceProvider objHashMD5 = new();
+
+                byte[] byteHash, byteBuff;
+                string strTempKey = strKey;
+
+                byteHash = objHashMD5.ComputeHash(Encoding.ASCII.GetBytes(strTempKey));
+                objHashMD5 = null;
+                objDESCrypto.Key = byteHash;
+                objDESCrypto.Mode = CipherMode.ECB; //CBC, CFB
+
+                byteBuff = Convert.FromBase64String(strEncrypted);
+                string strDecrypted = Encoding.ASCII.GetString(objDESCrypto.CreateDecryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
+                objDESCrypto = null;
+
+                return strDecrypted;
+            }
+            catch (Exception ex)
+            {
+                return "Wrong Input. " + ex.Message;
+            }
+        }
+    }
+}

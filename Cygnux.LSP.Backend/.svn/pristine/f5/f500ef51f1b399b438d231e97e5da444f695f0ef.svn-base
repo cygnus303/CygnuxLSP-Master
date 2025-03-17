@@ -1,0 +1,16 @@
+﻿using CygnuxLSP.Repository.DTOs.Comman;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CygnuxLSP.Repository.DTOs.Master.Customer
+{
+    public class CustomerListDto //: BaseDto
+    {
+        public string TenantId { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+    }
+}

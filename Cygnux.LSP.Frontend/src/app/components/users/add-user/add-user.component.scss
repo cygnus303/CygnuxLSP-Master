@@ -1,0 +1,82 @@
+/* General styles for the multiselect dropdown */
+.ng-multiselect-dropdown {
+    width: 100%; /* Make the dropdown take the full width of its parent container */
+    margin-top: 5px; /* Add spacing above the dropdown */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-btn {
+    width: 100%; /* Full width button */
+    padding: 8px 12px; /* Better padding for a more compact look */
+    border-radius: 0.25rem; /* Rounded corners for better UI */
+    border: 1px solid #ced4da; /* Default Bootstrap input border color */
+    background-color: #fff; /* White background for the dropdown */
+    font-size: 14px; /* Adjust font size */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-btn:focus {
+    border-color: #80bdff; /* Bootstrap-like focus border */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap-like focus shadow */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-list {
+    width: 100%; /* Full width dropdown list */
+    max-height: 300px; /* Limit height and enable scroll */
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a light shadow for better visibility */
+    z-index: 1000; /* Ensure the dropdown is on top */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-item {
+    padding: 8px 12px; /* Better padding for dropdown items */
+    border-bottom: 1px solid #eee; /* Separate each item with a light border */
+    font-size: 14px; /* Adjust font size */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-item:hover {
+    background-color: #f8f9fa; /* Light gray background on hover */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-item .form-check-input {
+    margin-right: 8px; /* Space between checkbox and label */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-item .form-check-label {
+    display: inline-block; /* Align label with checkbox */
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  /* For selected items */
+  .ng-multiselect-dropdown .dropdown-item.selected {
+    background-color: #e9ecef; /* Slightly darker background for selected items */
+  }
+  
+  .ng-multiselect-dropdown .dropdown-list .dropdown-header {
+    font-size: 14px; /* Adjust font size of select all/unselect all header */
+    font-weight: bold;
+    padding: 10px 12px;
+    background-color: #f1f3f5; /* Light background for the header */
+    border-bottom: 1px solid #dee2e6; /* Border for better separation */
+  }
+  
+  .ng-multiselect-dropdown .multiselect-clear-filter {
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #495057;
+  }
+  
+  .ng-multiselect-dropdown .multiselect-filter {
+    margin-bottom: 10px;
+  }
+  
+  .ng-multiselect-dropdown .multiselect-filter input {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+  }
+  

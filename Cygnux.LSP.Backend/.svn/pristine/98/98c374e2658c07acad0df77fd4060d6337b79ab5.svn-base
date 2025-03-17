@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "dx2Xu8TcgE5BM9nzTtIxJKNpBblUw8+TJdkE0z4LXcI=",
+  "Source": "CygnuxLSP.API",
+  "BasePath": "_content/CygnuxLSP.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
