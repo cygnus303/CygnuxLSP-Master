@@ -99,7 +99,6 @@ export class SidebarComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.menus = response.data;
-            console.log(this.menus)
           }
           this.commonService.updateLoader(false);
         },

@@ -37,7 +37,6 @@ export class FullComponent implements AfterViewInit {
     const script = document.createElement('script');
     script.src = src;
     script.type = 'text/javascript';
-    script.onload = () => console.log('Script loaded');
     document.body.appendChild(script);
   }
 
