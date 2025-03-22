@@ -88,9 +88,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.getMenus();
   }
-  ngAfterViewInit() {
-    feather.replace(); // Ensures icons are replaced
-  }
 
   getMenus() {
     this.commonService.updateLoader(true);
