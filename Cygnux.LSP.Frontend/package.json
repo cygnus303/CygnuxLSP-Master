@@ -32,6 +32,8 @@
     "feather-icons": "^4.29.2",
     "jquery": "^3.7.1",
     "jsgrid": "^1.5.3",
+    "lord-icon-element": "^4.1.2",
+    "lottie-web": "^5.12.2",
     "ng-multiselect-dropdown": "^1.0.0",
     "ngx-toastr": "^19.0.0",
     "prismjs": "^1.29.0",

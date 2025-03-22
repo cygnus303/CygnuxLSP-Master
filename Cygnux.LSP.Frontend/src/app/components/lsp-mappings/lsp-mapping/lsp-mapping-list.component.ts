@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -24,7 +26,7 @@ export class LspMappingListComponent implements OnInit {
     private lspMappingService: LspMappingService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getLspMappings();

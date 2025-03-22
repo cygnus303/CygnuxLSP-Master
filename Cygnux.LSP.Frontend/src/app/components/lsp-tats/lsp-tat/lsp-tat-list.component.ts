@@ -5,6 +5,8 @@ import { Modal } from 'bootstrap';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -25,7 +27,7 @@ export class LspTatListComponent implements OnInit {
     private lspMappingService: LspMappingService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getLspMappings();

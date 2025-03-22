@@ -1,27 +1,11 @@
-import {AfterViewInit,Component,EventEmitter,OnInit,Output} from '@angular/core';
+import {Component,EventEmitter,OnInit,Output} from '@angular/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
-import "jsgrid";
-
-declare global {
-  interface JQuery {
-    jsGrid: (config?: any) => any;
-  }
-}
-
-interface DataItem {
-  task: string;
-  email: string;
-  phone: string;
-  assign: string;
-  date: string;
-  price: number;
-  status: string;
-  progress: number;
-}
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-customer',
@@ -42,7 +26,7 @@ export class CustomerListComponent implements OnInit {
     private customerService: CustomerService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getCustomers();

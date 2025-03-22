@@ -362,7 +362,7 @@ if($('.simplebar-wrapper .simplebar-content-wrapper') && $('#pageWrapper').hasCl
 const pinTitle = document.querySelector(".pin-title");
 let pinIcon = document.querySelectorAll(".sidebar-list .fa-thumb-tack");
 function togglePinnedName() {
-  if (document.getElementsByClassName("pined").length) {
+    if (document.getElementsByClassName("pined").length) {
     if (!pinTitle.classList.contains("show")) pinTitle.classList.add("show");
   } else {
     pinTitle.classList.remove("show");

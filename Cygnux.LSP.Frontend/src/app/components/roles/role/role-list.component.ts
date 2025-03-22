@@ -10,6 +10,8 @@ import { CommonService } from '../../../shared/services/common.service';
 import { RoleResponse } from '../../../shared/models/role.model';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-role',
@@ -30,7 +32,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     private roleService: RoleService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getRoles();

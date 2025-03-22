@@ -11,6 +11,8 @@ import { LspResponse } from '../../../shared/models/lsp.model';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { environment } from '../../../../environments/environment';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-lsp',
@@ -31,7 +33,7 @@ export class LspListComponent implements OnInit {
     private lspService: LspService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getLsps();

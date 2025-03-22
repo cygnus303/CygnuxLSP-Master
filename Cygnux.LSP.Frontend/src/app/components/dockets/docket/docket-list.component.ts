@@ -11,6 +11,8 @@ import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
 import { DocketService } from '../../../shared/services/docket.service';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-docket',
@@ -32,7 +34,7 @@ export class DocketListComponent implements OnInit, AfterViewInit {
     private docketService: DocketService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getDockets();

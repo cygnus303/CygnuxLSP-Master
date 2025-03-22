@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-user',
@@ -31,7 +33,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {}
+  ) {defineElement(lottie.loadAnimation);}
 
   ngOnInit(): void {
     this.getUsers();
