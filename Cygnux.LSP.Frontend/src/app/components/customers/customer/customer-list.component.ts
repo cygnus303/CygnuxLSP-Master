@@ -1,19 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import {AfterViewInit,Component,EventEmitter,OnInit,Output} from '@angular/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
-import * as bootstrap from "bootstrap"; // Ensure Bootstrap is imported correctly
-import $ from "jquery"; // Ensure jQuery is properly imported
 import "jsgrid";
-
 
 declare global {
   interface JQuery {
@@ -38,7 +29,7 @@ interface DataItem {
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
 })
-export class CustomerListComponent implements OnInit, AfterViewInit {
+export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerCode: string = '';
   selectedCustomer: CustomerResponse | null = null;
@@ -52,9 +43,6 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
     private commonService: CommonService,
     private toasterService: ToastrService
   ) {}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit(): void {
     this.getCustomers();
@@ -161,43 +149,5 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
     this.page = page;
     this.getCustomers(this.page);
   }
-  db: any = { clients: [] }; // Dummy database
 
-  data: DataItem[] = [
-    { task: 'Flutter', email: 'jemtiangson@gmail.com', phone: '+917458883210', assign: 'Connor Senration', date: '26/09/2022', price: 315.00, status: 'Pending', progress: 42 },
-    { task: 'React', email: 'Bmwdigmail.com', phone: '+50 7414253687', assign: 'Christopnar Mocure', date: '12/07/2022', price: 0, status: '', progress: 30 }, // Example with missing data
-    // ... more data items
-    { task: 'Shopify', email: 'Petkart@gmail.com', phone: '+91 8080907062', assign: 'Concur Jonresto', date: '', price: 1599.50, status: 'Paming', progress: 42 },
-  ];
-
-  currentPage = 1;
-  itemsPerPage = 10; // Adjust as needed
-
-  get pagedData(): DataItem[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.data.length / this.itemsPerPage);
-  }
-
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
-  }
-
-  // Example edit function (replace with your actual logic)
-  editItem(item: DataItem): void {
-    console.log('Editing item:', item);
-    // Implement your edit logic here (e.g., open a modal, navigate to an edit page)
-  }
-
-  // Example delete function
-  deleteItem(item: DataItem): void {
-    console.log('Deleting item:', item);
-    this.data = this.data.filter(i => i !== item); // Remove from the array
-  }
 }
