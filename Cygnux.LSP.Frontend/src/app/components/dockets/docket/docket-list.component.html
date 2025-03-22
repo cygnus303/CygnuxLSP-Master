@@ -9,29 +9,17 @@
                 <h3>Dockets</h3>
               </div>
               <div class="col-sm-6">
-                <button
-                  class="btn btn-primary btn-sm pull-right"
-                  type="button"
-                  (click)="openModal()"
-                >
-                  <i class="icon-plus"></i> Add Docket
-                </button>
-                &nbsp;&nbsp;
-                <button
-                  class="btn btn-success btn-sm pull-right"
-                  type="button"
-                  (click)="triggerFileInput($event)"
-                >
-                  <i class="icon-upload"></i> Import Docket
-                </button>
+                <div class="gap-3 d-flex justify-content-end" >
+                  <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()">
+                    <i class="icon-plus"></i> Add Docket
+                  </button>
+                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="triggerFileInput($event)">
+                    <i class="icon-upload"></i> Import Docket
+                  </button>
+                </div>
               </div>
               <div class="file-upload">
-                <input
-                  type="file"
-                  id="fileInput"
-                  (change)="onFileChange($event)"
-                  class="file"
-                />
+                <input type="file" id="fileInput" (change)="onFileChange($event)" class="file" />
               </div>
             </div>
           </div>
