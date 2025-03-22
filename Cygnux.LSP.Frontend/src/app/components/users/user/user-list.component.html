@@ -16,49 +16,11 @@
                 >
                   Add User
                 </button>
-                <!-- <a class="btn btn-primary btn-sm job-apply-btn pull-right btnAddEditUser" id="btnAddUser" data-user-code="0" data-bs-toggle="modal" href="javascript();"><i class="icon-plus"></i> Add User</a> -->
               </div>
             </div>
           </div>
           <div class="card-body">
             <div class="table-responsive theme-scrollbar">
-              <!-- <table class="table table-header align-middle w-100">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Active</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let user of users; let i = index">
-                    <td>{{ user.firstName }} {{ user.lastName }}</td>
-                    <td>{{ user.emailId }}</td>
-                    <td>{{ user.phoneNumber }}</td>
-                    <td>
-                      <i
-                        [ngClass]="
-                          user.isActive
-                            ? 'fa fa-check-circle text-success'
-                            : 'fa fa-times-circle text-danger'
-                        "
-                      ></i>
-                    </td>
-                    <td>
-                      <ul class="action">
-                        <li class="edit">
-                          <a href="#" (click)="editModal($event, user.id)"
-                            ><i class="icon-pencil-alt"></i
-                          ></a>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
-
               <table class="table table-header align-middle w-100">
                 <thead class="table-light">
                   <tr class="table-th">
@@ -66,8 +28,8 @@
                     <th class="w-25">Email</th>
                     <th class="w-25">Phone Number</th>
                     <th class="w-8 text-center">Active</th>
-                    <th class="w-8 text-center">
-                      <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25">
+                    <th class="w-8 text-center">Action
+                      <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
                     </th>
                   </tr>
                   <tr class="table-th">
@@ -76,12 +38,12 @@
                     <th class="w-25"><input type="text" class="form-control" /></th>
                     <th class="w-8"></th>
                     <th class="w-8 text-center" >
-                      <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
+                      <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
                         <img src="../assets/images/Search.png" title="Search" height="15">
                         <svg xmlns="http://www.w3.org/2000/svg" title="Clear filter" viewBox="0 0 24 24" fill="rgba(21,141,247,1)" height="18">
                           <path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>
                         </svg>
-                      </div>
+                      </div> -->
                     </th>
                   </tr>
                 </thead>
