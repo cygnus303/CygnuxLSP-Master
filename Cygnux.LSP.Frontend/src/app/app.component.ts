@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LayoutModule } from './components/layouts/layout.module';
 

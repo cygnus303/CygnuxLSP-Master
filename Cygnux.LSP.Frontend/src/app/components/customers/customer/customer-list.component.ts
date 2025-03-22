@@ -38,7 +38,7 @@ interface DataItem {
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
 })
-export class CustomerListComponent implements OnInit, AfterViewInit {
+export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerCode: string = '';
   selectedCustomer: CustomerResponse | null = null;
@@ -52,9 +52,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
     private commonService: CommonService,
     private toasterService: ToastrService
   ) {}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
+
 
   ngOnInit(): void {
     this.getCustomers();
