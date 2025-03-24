@@ -23,7 +23,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public roles: RoleResponse[] = [];
   public roleId: string = '';
   public selectedRoleId: string = '';
-
+  page = 1; // Current page number
+  pageSize = 5; // Number of items per page
+  totalItems = 0; // Total number of items
   selectedRole: RoleResponse | null = null;
 
   @Output() edit = new EventEmitter<RoleResponse>();
@@ -39,9 +41,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {}
-  getRoles() {
+  getRoles(page: number = 1) {
     this.commonService.updateLoader(true);
-    this.roleService.getRoleList().subscribe({
+    this.roleService.getRoleList(page, this.pageSize).subscribe({
       next: (response) => {
         if (response) {
           this.roles = response.data;
@@ -152,5 +154,10 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       this.selectedRole = null;
       modal.show();
     }
+  }
+
+  onPageChange(page: number) {
+    this.page = page;
+    this.getRoles(this.page);
   }
 }

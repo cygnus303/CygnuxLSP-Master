@@ -13,7 +13,8 @@ export class RoleService {
 
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
 
-  getRoleList(page: number = 1, pageSize: number = 100): Observable<IApiBaseResponse<RoleResponse[]>> {
+  getRoleList( page: number,
+    pageSize: number): Observable<IApiBaseResponse<RoleResponse[]>> {
     let params: ParamsType = {
       page: page,
       pageSize: pageSize,

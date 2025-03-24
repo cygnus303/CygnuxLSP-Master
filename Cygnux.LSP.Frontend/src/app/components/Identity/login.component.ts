@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     public loginFormGroup!: FormGroup;
     public loading = false;
     public isFormSubmit = false;
+    isPasswordVisible: boolean = false;
     constructor(private identityService: IdentityService,
         private commonService: CommonService,
         private toasterService: ToastrService,
@@ -71,4 +72,7 @@ export class LoginComponent implements OnInit {
         this.isFormSubmit = false;
     }
 
+    togglePasswordVisibility() {
+        this.isPasswordVisible = !this.isPasswordVisible;
+      }
 }

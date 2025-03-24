@@ -5,7 +5,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
@@ -23,11 +22,11 @@ import lottie from 'lottie-web';
 export class DocketListComponent implements OnInit, AfterViewInit {
   public dockets: DocketResponse[] = [];
   public docketCode: string = '';
-  selectedDocket: DocketResponse | null = null;
-  page = 1; // Current page number
-  pageSize = 5; // Number of items per page
-  totalItems = 0; // Total number of items
-  selectedFile: File | null = null;
+  public selectedDocket: DocketResponse | null = null;
+  public page = 1; // Current page number
+  public pageSize = 5; // Number of items per page
+  public totalItems = 0; // Total number of items
+  public selectedFile: File | null = null;
   @Output() edit = new EventEmitter<DocketResponse>();
 
   constructor(
@@ -60,7 +59,6 @@ export class DocketListComponent implements OnInit, AfterViewInit {
   // Handle file input change
   onFileChange(event: any) {
     const file = event.target.files[0];
-
     if (file) {
       const validExcelTypes = [
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
