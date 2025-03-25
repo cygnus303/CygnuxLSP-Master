@@ -76,6 +76,7 @@ export class CustomerListComponent implements OnInit {
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
+      this.customerCode = customerCode;
       this.getCustomer(customerCode);
     }
   }

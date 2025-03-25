@@ -11,7 +11,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 export class HeaderComponent {
 
   constructor(private identityService: IdentityService,
-    private router: Router) {
+    public router: Router) {
 
   }
 

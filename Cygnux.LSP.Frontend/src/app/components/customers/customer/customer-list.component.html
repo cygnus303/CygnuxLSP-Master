@@ -1,12 +1,12 @@
-<div class="page-body">
+<div class="page-body pt-0">
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
-          <div class="card-header pb-0">
+          <div class="card-header pt-3 pb-0">
             <div class="row">
               <div class="col-sm-6">
-                <h4>Customers</h4>
+                <!-- <h4>Customers</h4> -->
               </div>
               <div class="col-sm-6">
                 <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()"><i
@@ -14,7 +14,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body">
+          <div class="card-body pt-3">
             <div class="table-responsive theme-scrollbar">
                 <table class="table table-header align-middle w-100" >
                   <thead class="table-light">
@@ -62,7 +62,7 @@
                       </div>
                     </td>
                   </tr>
-                  <div *ngIf="customers.length===0">
+                  <div *ngIf="customers.length === 0">
                     <div class="text-center"> 
                       <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
                         trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
@@ -88,7 +88,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{customerCode? 'Update ':'Add '}}Customer</h5>
         <button class="btn-close" type="button" (click)="closeEditModal()" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="padding:0px;">

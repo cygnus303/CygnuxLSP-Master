@@ -55,7 +55,7 @@
                     formControlName="customerName"
                     type="text"
                     required
-                  />
+                  [readOnly]="customerCode ? true:false"/>
                   <div
                     *ngIf="
                       customerForm.controls['customerName'].invalid &&

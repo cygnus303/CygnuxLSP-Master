@@ -1,11 +1,12 @@
 <div class="page-header">
-        <div class="header-wrapper row m-0">
+        <div class="header-wrapper row m-0 p-3 ps-5">
           <div class="header-logo-wrapper col-auto p-0">
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
             <div class="logo-header-main"><a><img class="img-fluid for-light img-100" src="../assets/images/logo/logo2.png" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo.png" alt=""></a></div>
           </div>
           <div class="left-header col horizontal-wrapper ps-0">
             <div class="left-menu-header">
+              <h4>{{ this.router.url.slice(1) | titlecase }}</h4>
               <ul class="app-list">
                 <li class="onhover-dropdown">
                   <div class="app-menu"> <i data-feather="folder-plus"></i></div>
@@ -85,6 +86,7 @@
                   <li (click)="signout()"><a><i data-feather="log-in"> </i><span>Log in</span></a></li>
                 </ul>
               </li>
+              <!-- <li>dsdsfsdff dfgsd</li> -->
             </ul>
           </div>
           <script class="result-template" type="text/x-handlebars-template">
