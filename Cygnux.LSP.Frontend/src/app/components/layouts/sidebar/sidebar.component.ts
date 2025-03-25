@@ -63,13 +63,13 @@ export class SidebarComponent implements OnInit {
         "isActive": false,
         "icon": "users"
     },
-    {
-        "menuId": "d2686dac-a194-4825-b8d9-e6f8183ae570",
-        "menuName": "Role",
-        "navigationUrl": "./role",
-        "isActive": false,
-        "icon": "users"
-    },
+    // {
+    //     "menuId": "d2686dac-a194-4825-b8d9-e6f8183ae570",
+    //     "menuName": "Role",
+    //     "navigationUrl": "./role",
+    //     "isActive": false,
+    //     "icon": "users"
+    // },
     {
         "menuId": "bac41e6a-83b5-479d-85f2-f5be01ef4c57",
         "menuName": "Docket",

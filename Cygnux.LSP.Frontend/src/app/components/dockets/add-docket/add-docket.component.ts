@@ -66,6 +66,13 @@ export class AddDocketComponent implements OnInit, OnChanges {
       this.docketId = '';
     }
   }
+
+  onClose(){
+    this.docketForm.reset();
+    this.buildForm();
+    this.dataEmitter.emit();
+  }
+
   onSubmitDocket(form: FormGroup): void {
     if (form.valid) {
       !this.docketId ? this.addDocket(form) : this.updateDocket(form);

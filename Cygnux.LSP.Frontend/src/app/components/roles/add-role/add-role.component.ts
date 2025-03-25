@@ -54,6 +54,13 @@ export class AddRoleComponent implements OnInit, OnChanges {
       this.roleId = '';
     }
   }
+
+  onClose(){
+    this.roleForm.reset();
+      this.buildForm();
+      this.dataEmitter.emit();
+  }
+
   onSubmitRole(form: FormGroup): void {
     if (form.valid) {
       !this.roleId ? this.addRole(form) : this.updateRole(form);

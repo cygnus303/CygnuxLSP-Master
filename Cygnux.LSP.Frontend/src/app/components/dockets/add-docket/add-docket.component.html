@@ -1,6 +1,15 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{!docketId ? 'Add Docket' : 'Update Docket'}}</h5>
+        <button
+          class="btn-close"
+          type="button"
+          (click)="onClose()"
+          aria-label="Close"
+        ></button>
+      </div>
       <div class="card-body">
         <form
           [formGroup]="docketForm"
