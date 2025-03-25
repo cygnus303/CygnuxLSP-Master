@@ -98,12 +98,13 @@
     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bs-blue d-flex justify-content-between">
                 <h5 class="modal-title" id="exampleModalLabel">Assign Permissions</h5>
-                <div class="ms-5 role-name"><strong>Role Name&nbsp;:</strong>&nbsp;&nbsp;{{roleName}}</div>
+                <div class="role-name"><strong>Role Name&nbsp;:</strong>&nbsp;&nbsp;{{roleName}}</div>
+                <button data-bs-dismiss="modal" class="close"><i data-feather="x" ></i></button>
               </div>
-              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
-              data-bs-original-title="" title=""></button>
+              <!-- <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
+              data-bs-original-title="" title=""></button> -->
             <div class="modal-body" style="padding:0px;">
                 <app-role-permission (permissionEmitter)="closePermissionModal()"  [roleId]="selectedRoleId"></app-role-permission>
             </div>

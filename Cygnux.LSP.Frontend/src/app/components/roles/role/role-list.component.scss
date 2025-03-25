@@ -24,10 +24,26 @@
     opacity: 1;
 }
 .role-name{
-    border: 2px solid #171829 ;
+    border: 1px solid rgb(235, 235, 235) ;
     border-radius: 4px;
     text-align: center;
-    color: #171829;
-    transform: translateX(100%);
+    color: rgb(236, 236, 236);
+    display: flex;
+    justify-content: start;
     padding:5px 20px 5px 20px !important;
+    width: 30%;
+}
+
+.bs-blue{
+    background-color: #171829;
+    color: rgb(233, 233, 233);
+}
+.modal-content{
+    border: 0 !important;
+}
+
+.close{
+    background: none;
+    filter: invert(1);
+    border: antiquewhite;
 }
