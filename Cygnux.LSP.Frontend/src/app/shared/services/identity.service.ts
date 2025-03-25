@@ -5,6 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
 import { ApiTokenName, Roles } from '../constants/common';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,14 @@ export class IdentityService {
 
   isAuthenticate(): boolean {
     return this.getToken() ? true : false;
+  }
+
+  getLoggedUserId(): string {
+    let token = this.getToken();
+    if (token) {
+      const decoded = jwtDecode<any>(token);
+      console.log(decoded)
+    }
+    return '';
   }
 }

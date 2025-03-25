@@ -9,10 +9,10 @@ import { IdentityService } from '../../../shared/services/identity.service';
   styleUrls: []
 })
 export class HeaderComponent {
-
+  
   constructor(private identityService: IdentityService,
-    private router: Router) {
-
+    public router: Router) {
+    
   }
 
   // ngAfterViewInit() {
