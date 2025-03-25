@@ -114,19 +114,19 @@ export class SidebarComponent implements OnInit {
 
   sidebarClosed: boolean = false;
 
-  toggleSidebar() {
-    this.sidebarClosed = !this.sidebarClosed;
-    const sidebar = document.querySelector('.sidebar-wrapper');
-    const header = document.querySelector('.page-header');
+ toggleSidebar() {
+  this.sidebarClosed = !this.sidebarClosed;
+  const sidebar = document.querySelector('.sidebar-wrapper');
+  const header = document.querySelector('.page-header');
 
-    if (this.sidebarClosed) {
-      sidebar?.classList.add('close_icon');
-      header?.classList.add('close_icon');
-    } else {
-      sidebar?.classList.remove('close_icon');
-      header?.classList.remove('close_icon');
-    }
+  if (this.sidebarClosed) {
+    sidebar?.classList.add('close_icon');
+    header?.classList.add('close_icon');
+  } else {
+    sidebar?.classList.remove('close_icon');
+    header?.classList.remove('close_icon');
   }
+}
 
   togglePin(menuName: string) {
     let pinnedItems = JSON.parse(localStorage.getItem('pins') || '[]');
