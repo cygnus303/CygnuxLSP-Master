@@ -53,7 +53,7 @@
                                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteModal($event,role.id)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
                                         </div>
                                         <div>
-                                            <a href="#" (click)="permissionModal($event,role.id)"><i class="icon-map"></i></a>
+                                            <a href="#" (click)="permissionModal($event,role)"><i class="icon-map"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -100,9 +100,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Assign Permissions</h5>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
-                data-bs-original-title="" title=""></button>
-            </div>
+                <div class="ms-5 role-name"><strong>Role Name&nbsp;:</strong>&nbsp;&nbsp;{{roleName}}</div>
+              </div>
+              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
+              data-bs-original-title="" title=""></button>
             <div class="modal-body" style="padding:0px;">
                 <app-role-permission (permissionEmitter)="closePermissionModal()"  [roleId]="selectedRoleId"></app-role-permission>
             </div>

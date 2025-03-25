@@ -32,6 +32,7 @@
     "feather-icons": "^4.29.2",
     "jquery": "^3.7.1",
     "jsgrid": "^1.5.3",
+    "jwt-decode": "^4.0.0",
     "lord-icon-element": "^4.1.2",
     "lottie-web": "^5.12.2",
     "ng-multiselect-dropdown": "^1.0.0",

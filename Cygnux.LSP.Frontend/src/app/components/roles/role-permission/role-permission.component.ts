@@ -33,6 +33,7 @@ export class RolePermissionComponent implements OnInit {
             this.getMenus();
         }
     }
+    
     getMenus() {
         this.commonService.updateLoader(true);
         this.rolePermissionService.getRolePermissionByRole(this.roleId)

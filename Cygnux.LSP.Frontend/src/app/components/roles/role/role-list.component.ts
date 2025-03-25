@@ -27,7 +27,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
   selectedRole: RoleResponse | null = null;
-
+  roleName: string | null = null;
   @Output() edit = new EventEmitter<RoleResponse>();
 
   constructor(
@@ -96,12 +96,13 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       modal.show();
     }
   }
-  permissionModal(event: Event, roleId: string) {
+  permissionModal(event: Event, roleList: any) {
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('exampleModalPermission');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.selectedRoleId = roleId;
+      this.selectedRoleId = roleList.id;
+      this.roleName = roleList.roleName
       modal.show();
     }
   }
