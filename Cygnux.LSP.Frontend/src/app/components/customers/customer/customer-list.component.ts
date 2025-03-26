@@ -16,6 +16,7 @@ import lottie from 'lottie-web';
 export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerCode: string = '';
+  public customerId: string = '';
   selectedCustomer: CustomerResponse | null = null;
   page = 1; // Current page number
   pageSize = 5; // Number of items per page
@@ -141,7 +142,7 @@ export class CustomerListComponent implements OnInit {
     const modalElement = document.getElementById('exampleModalPermission');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.customerCode = customer.customerId;
+      this.customerId = customer.customerId;
       this.customerName = customer.customerName
       modal.show();
     }
