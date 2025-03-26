@@ -40,7 +40,7 @@ internal class AuthService : IAuthService
                 return new BaseLoginResponse<LoginResponse>(new LoginResponse
                 {
                     Token = token,
-                    Roles = roles
+                    Roles = roles.FirstOrDefault()
                 });
             }
             return new BaseLoginResponse<LoginResponse>(false, message: "Password is incorrect.");

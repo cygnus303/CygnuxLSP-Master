@@ -24,7 +24,7 @@
 
         <div id="sidebar-menu">
           <ul class="sidebar-links" id="simple-bar">
-            <li *ngFor="let data of menus; let i = index" class="sidebar-list">
+            <li *ngFor="let data of menuss; let i = index" class="sidebar-list">
               <i class="fa fa-thumb-tack" (click)="togglePin(data.menuName)"></i>
               <a [routerLink]="[data.navigationUrl]" class="sidebar-link sidebar-title link-nav"
                 routerLinkActive="active">
