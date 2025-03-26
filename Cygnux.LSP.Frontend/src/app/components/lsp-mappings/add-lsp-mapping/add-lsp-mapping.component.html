@@ -45,7 +45,7 @@
                     formControlName="customerId"
                     placeholder="Select Customer"
                     [searchable]="true"
-                  >
+                    [readonly]="lspMappingId ? true : false">
                   </ng-select>
 
                   <div

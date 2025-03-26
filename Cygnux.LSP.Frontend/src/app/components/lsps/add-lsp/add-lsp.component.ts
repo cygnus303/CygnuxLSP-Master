@@ -135,6 +135,7 @@ export class AddLspComponent implements OnInit, OnChanges {
           this.toasterService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspForm.reset();
+          this.buildForm();
         } else {
           this.toasterService.error(response.error.message);
         }

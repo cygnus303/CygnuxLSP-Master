@@ -105,9 +105,9 @@ export class DocketListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteDocket() {
+  deleteDocket(docketCode?:any) {
     this.commonService.updateLoader(true);
-    this.docketService.deleteDocket(this.docketCode).subscribe({
+    this.docketService.deleteDocket(docketCode).subscribe({
       next: (response) => {
         if (response.success) {
           this.toasterService.success(response.data.message);

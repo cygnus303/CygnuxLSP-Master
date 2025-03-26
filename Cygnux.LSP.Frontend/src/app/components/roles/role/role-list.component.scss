@@ -43,7 +43,7 @@
 }
 
 .close{
-    background: none;
-    filter: invert(1);
-    border: antiquewhite;
+    background: none !important;
+    filter: invert(1) !important;
+    border: antiquewhite !important;
 }
