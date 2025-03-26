@@ -63,13 +63,13 @@ export class SidebarComponent implements OnInit {
         "isActive": false,
         "icon": "users"
     },
-    {
-        "menuId": "d2686dac-a194-4825-b8d9-e6f8183ae570",
-        "menuName": "Role",
-        "navigationUrl": "./role",
-        "isActive": false,
-        "icon": "users"
-    },
+    // {
+    //     "menuId": "d2686dac-a194-4825-b8d9-e6f8183ae570",
+    //     "menuName": "Role",
+    //     "navigationUrl": "./role",
+    //     "isActive": false,
+    //     "icon": "users"
+    // },
     {
         "menuId": "bac41e6a-83b5-479d-85f2-f5be01ef4c57",
         "menuName": "Docket",
@@ -114,19 +114,19 @@ export class SidebarComponent implements OnInit {
 
   sidebarClosed: boolean = false;
 
-  toggleSidebar() {
-    this.sidebarClosed = !this.sidebarClosed;
-    const sidebar = document.querySelector('.sidebar-wrapper');
-    const header = document.querySelector('.page-header');
+ toggleSidebar() {
+  this.sidebarClosed = !this.sidebarClosed;
+  const sidebar = document.querySelector('.sidebar-wrapper');
+  const header = document.querySelector('.page-header');
 
-    if (this.sidebarClosed) {
-      sidebar?.classList.add('close_icon');
-      header?.classList.add('close_icon');
-    } else {
-      sidebar?.classList.remove('close_icon');
-      header?.classList.remove('close_icon');
-    }
+  if (this.sidebarClosed) {
+    sidebar?.classList.add('close_icon');
+    header?.classList.add('close_icon');
+  } else {
+    sidebar?.classList.remove('close_icon');
+    header?.classList.remove('close_icon');
   }
+}
 
   togglePin(menuName: string) {
     let pinnedItems = JSON.parse(localStorage.getItem('pins') || '[]');

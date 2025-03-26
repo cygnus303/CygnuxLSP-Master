@@ -77,6 +77,13 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       this.customerCode = '';
     }
   }
+
+  onClose(){
+    this.customerForm.reset();
+    this.buildForm();
+    this.dataEmitter.emit();
+  }
+
   onSubmitCustomer(form: FormGroup): void {
     if (form.valid) {
       !this.customerCode ? this.addCustomer(form) : this.updateCustomer(form);

@@ -98,10 +98,10 @@
   aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <!-- <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
         <button class="btn-close" type="button" (click)="closeEditModal()"></button>
-      </div>
+      </div> -->
       <div class="modal-body" style="padding: 0px">
         <app-add-user (dataEmitter)="closeEditModal()" [userResponse]="selectedUser"></app-add-user>
       </div>

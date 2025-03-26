@@ -1,7 +1,12 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{!userId ? 'Add User' : 'Update User'}}</h5>
+        <button class="btn-close" type="button" (click)="onClose()"></button>
+      </div>
       <div class="card-body">
+        
         <form
           [formGroup]="userForm"
           class="needs-validation"
