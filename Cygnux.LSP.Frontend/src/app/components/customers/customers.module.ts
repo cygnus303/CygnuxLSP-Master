@@ -5,19 +5,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerListComponent } from './customer/customer-list.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { CustomerRoutes } from './customer.routes';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
+import { RoleModule } from '../roles/roles.module';
 
 @NgModule({
     declarations: [
         CustomerListComponent,
-        AddCustomerComponent
+        AddCustomerComponent,
     ],
     imports: [
         CommonModule,
+        NgbModule,
         RouterModule.forChild(CustomerRoutes),
         ReactiveFormsModule,
         FormsModule,
-        NgbPaginationModule
+        NgbPaginationModule,
+        RoleModule
+    ],
+    exports: [
+        CustomerListComponent,  // ✅ Export Customer components so they can be used in other modules
+        RolePermissionComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

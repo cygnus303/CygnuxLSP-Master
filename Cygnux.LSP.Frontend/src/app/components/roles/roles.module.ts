@@ -6,7 +6,7 @@ import { RoleListComponent } from './role/role-list.component';
 import { AddRoleComponent } from './add-role/add-role.component';
 import { RoleRoutes } from './roles.routes';
 import { RolePermissionComponent } from './role-permission/role-permission.component';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
@@ -20,9 +20,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
         RouterModule.forChild(RoleRoutes),
         ReactiveFormsModule,
         FormsModule,
+        NgbModule,
         NgbPaginationModule,
-        NgSelectModule
+        NgSelectModule,
     ],
+    exports: [RolePermissionComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RoleModule { }

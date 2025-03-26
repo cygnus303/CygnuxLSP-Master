@@ -20,6 +20,7 @@ export class CustomerListComponent implements OnInit {
   page = 1; // Current page number
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
+  customerName:string ='';
   @Output() edit = new EventEmitter<CustomerResponse>();
 
   constructor(
@@ -135,4 +136,22 @@ export class CustomerListComponent implements OnInit {
     this.getCustomers(this.page);
   }
 
+  permissionModal(event: Event, customer: any) {
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('exampleModalPermission');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      this.customerCode = customer.customerId;
+      this.customerName = customer.customerName
+      modal.show();
+    }
+  }
+  closePermissionModal() {
+    const modalElement: any = document.getElementById('exampleModalPermission');
+    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hide the modal
+      this.getCustomers();
+    }
+  }
 }

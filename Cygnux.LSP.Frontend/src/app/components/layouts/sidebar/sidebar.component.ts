@@ -59,7 +59,7 @@ export class SidebarComponent implements OnInit {
     {
         "menuId": "a64e573a-2873-4c9d-b419-c81cd4c2a8ba",
         "menuName": "Customer",
-        "navigationUrl": "./customer",
+        "navigationUrl": "./customer/list",
         "isActive": false,
         "icon": "users"
     },

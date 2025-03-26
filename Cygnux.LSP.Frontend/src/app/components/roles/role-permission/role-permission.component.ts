@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
 
 @Component({
+    standalone: false,
     selector: 'app-role-permission',
     templateUrl: './role-permission.component.html'
 })
@@ -92,4 +93,30 @@ export class RolePermissionComponent implements OnInit {
                 },
             });
     }
+
+    toggleColumn(permission: 'view' | 'create' | 'edit' | 'delete', event: Event) {
+        const checked = (event.target as HTMLInputElement).checked;
+        this.menus.forEach(menu => {
+            (menu as any)[`can${permission.charAt(0).toUpperCase() + permission.slice(1)}`] = checked;
+        });
+    }
+    
+    toggleRow(menu: any, event: Event) {
+        const checked = (event.target as HTMLInputElement).checked;
+        menu.canView = checked;
+        menu.canCreate = checked;
+        menu.canEdit = checked;
+        menu.canDelete = checked;
+    }
+    
+    toggleAllRows(event: Event) {
+        const checked = (event.target as HTMLInputElement).checked;
+        this.menus.forEach(menu => {
+            menu.canView = checked;
+            menu.canCreate = checked;
+            menu.canEdit = checked;
+            menu.canDelete = checked;
+        });
+    }
+    
 }
