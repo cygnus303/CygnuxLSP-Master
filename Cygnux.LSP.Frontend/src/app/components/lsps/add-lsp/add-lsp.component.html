@@ -194,12 +194,9 @@
               </div>
                 <div class="col-md-3 mt-5" *ngIf="lspId !== ''">
                   <div class="checkbox p-0">
-                    <input
-                    class="form-check-input"
-                      type="checkbox"
-                      formControlName="isActive"
-                    />
-                    <label class="mb-0">Active</label>
+                    <input id="dafault-checkbox" type="checkbox"
+                    formControlName="isActive" data-bs-original-title=""  title="">
+                <label class="mb-0" for="dafault-checkbox">Active</label>
                   </div>
                 </div>
               </div>

@@ -28,7 +28,9 @@ export class CustomerListComponent implements OnInit {
     private customerService: CustomerService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {defineElement(lottie.loadAnimation);}
+  ) {defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Customer');
+  }
 
   ngOnInit(): void {
     this.getCustomers();

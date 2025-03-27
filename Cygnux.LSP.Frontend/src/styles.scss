@@ -129,3 +129,19 @@ label {
     border: 1px solid red;
     border-radius: 5px;
   }
+
+  .bg-colorheader{
+    background-color: #f8f9fa;
+    font-weight: 600;
+  }
+
+  .bg-colorheader:hover{
+    background-color:rgb(23 24 41 / 71%);
+    color: rgb(245, 245, 245);
+    transition: .5s;
+   
+  }
+
+  .bg-colorheader:hover .filter{
+    filter: invert(1);
+  }

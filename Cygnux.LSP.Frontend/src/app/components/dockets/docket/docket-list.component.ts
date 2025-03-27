@@ -33,7 +33,9 @@ export class DocketListComponent implements OnInit, AfterViewInit {
     private docketService: DocketService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {defineElement(lottie.loadAnimation);}
+  ) {defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Docket');
+  }
 
   ngOnInit(): void {
     this.getDockets();

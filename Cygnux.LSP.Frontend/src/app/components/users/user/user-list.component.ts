@@ -33,7 +33,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {defineElement(lottie.loadAnimation);}
+  ) {defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Users');
+  }
 
   ngOnInit(): void {
     this.getUsers();

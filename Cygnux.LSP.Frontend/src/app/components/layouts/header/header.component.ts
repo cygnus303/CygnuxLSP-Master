@@ -1,6 +1,8 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { CommonService } from '../../../shared/services/common.service';
+import { Subscription } from 'rxjs';
 // import feather from 'feather-icons';
 
 @Component({
@@ -8,10 +10,18 @@ import { IdentityService } from '../../../shared/services/identity.service';
   templateUrl: './header.component.html',
   styleUrls: []
 })
-export class HeaderComponent {
-  
+export class HeaderComponent implements OnDestroy{
+  headerMenu:string='';
+  activeNavigationUrlSubscription!:Subscription;
+  userRoles = JSON.parse(localStorage.getItem('roles') || '[]')
   constructor(private identityService: IdentityService,
-    public router: Router) {
+    public router: Router,public commonService:CommonService) {
+      this.activeNavigationUrlSubscription = this.commonService.activeNavigationUrl.subscribe((res)=>{
+        this.headerMenu = res
+      });
+  }
+  ngOnDestroy(): void {
+    if(this.activeNavigationUrlSubscription){this.activeNavigationUrlSubscription.unsubscribe()}
   }
 
   // ngAfterViewInit() {

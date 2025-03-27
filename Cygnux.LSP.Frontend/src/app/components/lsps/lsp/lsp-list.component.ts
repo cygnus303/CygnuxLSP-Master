@@ -33,7 +33,9 @@ export class LspListComponent implements OnInit {
     private lspService: LspService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {defineElement(lottie.loadAnimation);}
+  ) {defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Lsp');
+  }
 
   ngOnInit(): void {
     this.getLsps();

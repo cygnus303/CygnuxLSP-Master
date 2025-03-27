@@ -27,7 +27,9 @@ export class LspTatListComponent implements OnInit {
     private lspMappingService: LspMappingService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {defineElement(lottie.loadAnimation);}
+  ) {defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Lsp Tat');
+  }
 
   ngOnInit(): void {
     this.getLspMappings();

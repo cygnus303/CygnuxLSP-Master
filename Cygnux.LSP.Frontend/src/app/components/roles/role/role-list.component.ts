@@ -34,7 +34,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     private roleService: RoleService,
     private commonService: CommonService,
     private toasterService: ToastrService
-  ) {defineElement(lottie.loadAnimation);}
+  ) {defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Roles');
+  }
 
   ngOnInit(): void {
     this.getRoles();

@@ -128,6 +128,7 @@
                     formControlName="customerId"
                     placeholder="Select Customer"
                     [searchable]="true"
+                    [readonly]="docketId ? true:false"
                     [ngClass]="{ 'border-danger': docketForm.controls['customerId'].invalid && docketForm.controls['customerId'].touched}">
                   </ng-select>
                   <div
