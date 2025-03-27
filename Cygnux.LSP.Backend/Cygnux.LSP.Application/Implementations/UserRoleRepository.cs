@@ -20,9 +20,12 @@ internal class UserRoleRepository : IUserRoleRepository
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "Done" });
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> UpdateUserRoles(Guid userId, List<string> roles)
+    public async Task<BaseResponse<CommonCreateResponse>> UpdateUserRoles(Guid userId, string roles)
     {
+        //var response = await _userRoleService.UpdateUserRoles(userId, roles);
+        
         var response = await _userRoleService.UpdateUserRoles(userId, roles);
+
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "Done" });
     }
 }

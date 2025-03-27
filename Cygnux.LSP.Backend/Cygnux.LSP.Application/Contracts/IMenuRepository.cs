@@ -7,7 +7,7 @@ using Models.Response;
 
 public interface IMenuRepository
 {
-    Task<BaseResponse<IEnumerable<MenuResponse>>> GetMenuList();
+    Task<BaseResponse<IEnumerable<MenuResponse>>> GetMenuList(Guid userId);
 
     Task<BaseResponse<MenuResponse?>> GetMenuDetails(Guid id);
 

@@ -22,7 +22,7 @@ public class UserRoleController : ControllerBase
 
     [HttpPost]
     [Route("{id}")]
-    public async Task<IActionResult> UpdateUserRole(Guid id, List<string> roles)
+    public async Task<IActionResult> UpdateUserRole(Guid id, string roles)
     {
         return Ok(await _userRoleRepository.UpdateUserRoles(id, roles));
     }

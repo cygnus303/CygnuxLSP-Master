@@ -7,6 +7,8 @@ using Identity.Entities;
 using Infrastructure.Models.Response;
 using Models.Request.Identity;
 using Models.Response;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
 
 internal class UserRepository : IUserRepository
 {
@@ -54,7 +56,8 @@ internal class UserRepository : IUserRepository
 
         if (response.Succeeded)
         {
-            await _userRoleService.UpdateUserRoles(userId, userRequest.Roles.ToList()!);
+           // await _userRoleService.UpdateUserRoles(userId, userRequest.Roles);
+             await _userRoleService.UpdateUserRoles(userId, userRequest.Roles!);
         }
 
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = response.Succeeded ? "User created successfully!" : response.Errors.Select(x => x.Description).FirstOrDefault() });
@@ -72,7 +75,7 @@ internal class UserRepository : IUserRepository
 
         if (response.Succeeded)
         {
-            await _userRoleService.UpdateUserRoles(id, userRequest.Roles.ToList()!);
+            await _userRoleService.UpdateUserRoles(id, userRequest.Roles!);
         }
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "User updated successfully!" });
     }

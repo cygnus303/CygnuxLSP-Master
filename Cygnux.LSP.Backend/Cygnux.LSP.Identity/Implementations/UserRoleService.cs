@@ -70,7 +70,7 @@ internal class UserRoleService : IUserRoleService
         return await _userManager.AddToRoleAsync(user, roleName);
     }
 
-    public async Task<IdentityResult> UpdateUserRoles(Guid userId, List<string> roles)
+    public async Task<IdentityResult> UpdateUserRoles(Guid userId, string roles)
     {
         var user = await _userManager.FindByIdAsync(userId.ToString());
         if (user == null)
@@ -88,7 +88,9 @@ internal class UserRoleService : IUserRoleService
             return removeResult;
         }
 
+        var newRoles = roles.Split(',').Select(r => r.Trim()).Where(r => !string.IsNullOrEmpty(r));
+
         // Add the user to the new roles
-        return await _userManager.AddToRolesAsync(user, roles);
+        return await _userManager.AddToRolesAsync(user, newRoles);
     }
 }

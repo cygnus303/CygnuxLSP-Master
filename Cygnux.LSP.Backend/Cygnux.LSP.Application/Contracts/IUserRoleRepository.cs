@@ -7,5 +7,5 @@ public interface IUserRoleRepository
 {
     Task<BaseResponse<CommonCreateResponse>> AddUserRole(Guid userId, string roleName);
 
-    Task<BaseResponse<CommonCreateResponse>> UpdateUserRoles(Guid userId, List<string> roles);
+    Task<BaseResponse<CommonCreateResponse>> UpdateUserRoles(Guid userId, string roles);
 }

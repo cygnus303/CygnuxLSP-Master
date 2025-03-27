@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
                         this.identityService.setToken(response.data.token);
                         this.identityService.setRoles(response.data.roles);
                         this.router.navigateByUrl('/customer');
-                        // this.setLoggedInStudentDetail();
+                        this.identityService.getLoggedUserId()
                     } else {
                         if (response.error) {
                             this.toasterService.error(response.error.message);

@@ -3,18 +3,18 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
 import { MenuResponse } from '../models/menu.model';
+import { IdentityService } from './identity.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
 
-  constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
+  constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService,private identifyService:IdentityService) { }
 
   getMenuList(page: number = 1, pageSize: number = 100): Observable<IApiBaseResponse<MenuResponse[]>> {
     let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
+      userId:this.identifyService.getLoggedUserId()
     };
     return this.apiHandlerService.Get('menu', params);
   }

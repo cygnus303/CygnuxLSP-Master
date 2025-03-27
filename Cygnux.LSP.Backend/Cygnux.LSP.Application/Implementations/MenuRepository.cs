@@ -19,9 +19,9 @@ internal class MenuRepository : IMenuRepository
         _userSettings = userSettings;
     }
 
-    public async Task<BaseResponse<IEnumerable<MenuResponse>>> GetMenuList()
+    public async Task<BaseResponse<IEnumerable<MenuResponse>>> GetMenuList(Guid userId)
     {
-        var response = await _lspService.GetMenuList(_userSettings.UserId);
+        var response = await _lspService.GetMenuList(userId);
 
         return new BaseResponse<IEnumerable<MenuResponse>>(response);
     }

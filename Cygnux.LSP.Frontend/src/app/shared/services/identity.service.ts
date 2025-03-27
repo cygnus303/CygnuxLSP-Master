@@ -54,6 +54,7 @@ export class IdentityService {
     if (token) {
       const decoded = jwtDecode<any>(token);
       console.log(decoded)
+      return decoded.userId;
     }
     return '';
   }

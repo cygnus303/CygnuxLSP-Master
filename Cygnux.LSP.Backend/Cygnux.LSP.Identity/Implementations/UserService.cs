@@ -46,7 +46,7 @@ internal class UserService : IUserService
         if (user is not null)
         {
             var roles = await _userManager.GetRolesAsync(user);
-
+            string rolesAsString = string.Join(", ", roles);
             return new UserResponse
             {
                 Id = user.Id,
@@ -55,7 +55,7 @@ internal class UserService : IUserService
                 EmailId = user.Email,
                 IsActive = user.IsActive,
                 PhoneNumber = user.PhoneNumber,
-                Roles = roles.ToArray()
+                Roles = rolesAsString
             };
         }
         return new();

@@ -5,7 +5,7 @@ using Models.Response.Menu;
 
 public interface IMenuService
 {
-    Task<IEnumerable<MenuResponse>> GetMenuList(string userId);
+    Task<IEnumerable<MenuResponse>> GetMenuList(Guid userId);
 
     Task<MenuResponse?> GetMenuDetails(Guid id);
 

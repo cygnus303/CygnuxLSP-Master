@@ -16,6 +16,7 @@ import { CustomerService } from '../../../shared/services/customer.service';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-add-lsp-mapping',
@@ -36,7 +37,8 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     private customerService: CustomerService,
     private lspMappingService: LspMappingService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private toasterService: ToastrService,
+    private identityService:IdentityService
   ) {
     this.lspMappingForm = new FormGroup({});
   }
@@ -64,6 +66,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       lspIds: new FormControl([], [Validators.required]),
       customerId: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
+      createdBy:new FormControl(this.identityService.getLoggedUserId()),
+      userId:new FormControl(this.identityService.getLoggedUserId()),
+      updatedBy:new FormControl(null)
     });
   }
 
@@ -99,20 +104,26 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
   onSubmitLspMapping(form: FormGroup): void {
     if (form.valid) {
+
+      const dataSubmit={
+        ...form.value,
+        updatedBy:this.lspMappingId ? this.identityService.getLoggedUserId():''
+      }
       !this.lspMappingId
-        ? this.addLspMapping(form)
-        : this.updateLspMapping(form);
+        ? this.addLspMapping(dataSubmit)
+        : this.updateLspMapping(dataSubmit);
     }
   }
 
-  addLspMapping(form: FormGroup): void {
+  addLspMapping(dataSubmit: any): void {
     this.commonService.updateLoader(true);
-    this.lspMappingService.addLspMapping(form.getRawValue()).subscribe({
+    this.lspMappingService.addLspMapping(dataSubmit).subscribe({
       next: (response) => {
         if (response.success) {
           this.toasterService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspMappingForm.reset();
+          this.buildForm()
         } else {
           this.toasterService.error(response.error.message);
         }
@@ -125,10 +136,10 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     });
   }
 
-  updateLspMapping(form: FormGroup): void {
+  updateLspMapping(dataSubmit: any): void {
     this.commonService.updateLoader(true);
     this.lspMappingService
-      .updateLspMapping(this.lspMappingId, form.getRawValue())
+      .updateLspMapping(this.lspMappingId,dataSubmit)
       .subscribe({
         next: (response) => {
           if (response.success) {
