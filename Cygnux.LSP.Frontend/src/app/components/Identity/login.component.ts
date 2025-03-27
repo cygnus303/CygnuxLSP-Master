@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
                         this.identityService.setRoles(response.data.roles);
                         this.router.navigateByUrl('/customer');
                         this.identityService.getLoggedUserId()
+                        localStorage.setItem('email', response.data.email);
                     } else {
                         if (response.error) {
                             this.toasterService.error(response.error.message);

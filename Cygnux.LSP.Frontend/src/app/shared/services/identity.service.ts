@@ -53,7 +53,6 @@ export class IdentityService {
     let token = this.getToken();
     if (token) {
       const decoded = jwtDecode<any>(token);
-      console.log(decoded)
       this.localStorage()?.setItem(userId,JSON.stringify(decoded.userId));
       return decoded.userId;
     }

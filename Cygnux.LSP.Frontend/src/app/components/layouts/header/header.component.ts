@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: []
 })
 export class HeaderComponent implements OnDestroy{
+  email = localStorage.getItem('email');
   headerMenu:string='';
   activeNavigationUrlSubscription!:Subscription;
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]')
