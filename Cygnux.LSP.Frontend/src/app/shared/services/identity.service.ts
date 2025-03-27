@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
-import { ApiTokenName, Roles } from '../constants/common';
+import { ApiTokenName, Roles, userId } from '../constants/common';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -54,6 +54,7 @@ export class IdentityService {
     if (token) {
       const decoded = jwtDecode<any>(token);
       console.log(decoded)
+      this.localStorage()?.setItem(userId,JSON.stringify(decoded.userId));
       return decoded.userId;
     }
     return '';

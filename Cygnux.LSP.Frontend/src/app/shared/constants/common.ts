@@ -1,6 +1,7 @@
 export const AppName = 'Cygnux-LSP-webapp';
 export const ApiTokenName = 'token';
 export const Roles = 'roles';
+export const userId = 'userId';
 export const EmailRegex = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 export const PincodeRegex = /^[0-9]{6}$/;
 export const MobileRegex = /^[0-9]{10}$/;
