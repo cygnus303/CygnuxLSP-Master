@@ -1,4 +1,3 @@
-<!-- menu-permissions.component.html -->
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
@@ -6,34 +5,52 @@
                 <table class="table table-header table-bordered align-middle w-100">
                     <thead class="table-light">
                         <tr class="table-th">
-                            <th> <input type="checkbox" class="form-check-input me-2" (change)="toggleAllRows($event)">Menu Name</th>
-                            <th><input type="checkbox" class="form-check-input me-2" (change)="toggleColumn('view', $event)">View</th>
-                            <th><input type="checkbox" class="form-check-input me-2" (change)="toggleColumn('create', $event)">Create
+                            <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allChecked"
+                                    (change)="toggleAllRows($event)"> Menu Name
                             </th>
-                            <th><input type="checkbox" class="form-check-input me-2" (change)="toggleColumn('edit', $event)">Edit</th>
-                            <th> <input type="checkbox" class="form-check-input me-2" (change)="toggleColumn('delete', $event)">Delete
+                            <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allViewChecked"
+                                    (change)="toggleColumn('view', $event)"> View
+                            </th>
+                            <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allCreateChecked"
+                                    (change)="toggleColumn('create', $event)"> Create
+                            </th>
+                            <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allEditChecked"
+                                    (change)="toggleColumn('edit', $event)"> Edit
+                            </th>
+                            <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allDeleteChecked"
+                                    (change)="toggleColumn('delete', $event)"> Delete
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let menu of menus">
-                            <td> <input type="checkbox" class="form-check-input me-2" (change)="toggleRow(menu, $event)">{{
-                                menu.menuName }}</td>
+                            <!-- <td>
+                                <input type="checkbox" class="form-check-input me-2" 
+                                   > {{ menu.menuName }}
+                            </td> -->
+                            <td>
+                                {{ menu.menuName }}
+                            </td>
                             <td>
                                 <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canView"
-                                    (change)="togglePermission(menu.menuId, 'view')">
+                                    (change)="updateMainCheckbox()">
                             </td>
                             <td>
                                 <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canCreate"
-                                    (change)="togglePermission(menu.menuId, 'create')">
+                                    (change)="updateMainCheckbox()">
                             </td>
                             <td>
                                 <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canEdit"
-                                    (change)="togglePermission(menu.menuId, 'edit')">
+                                    (change)="updateMainCheckbox()">
                             </td>
                             <td>
                                 <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canDelete"
-                                    (change)="togglePermission(menu.menuId, 'delete')">
+                                    (change)="updateMainCheckbox()">
                             </td>
                         </tr>
                     </tbody>
