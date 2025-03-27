@@ -51,7 +51,7 @@ export class AddUserComponent implements OnInit, OnChanges {
     this.userForm = new FormGroup({
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
-      roles: new FormControl([], [Validators.required]),
+      roles: new FormControl(null, [Validators.required]),
       emailId: new FormControl(null, [
         Validators.required,
         Validators.pattern(EmailRegex),
