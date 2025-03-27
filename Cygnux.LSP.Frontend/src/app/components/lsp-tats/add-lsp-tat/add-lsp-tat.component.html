@@ -19,7 +19,8 @@
                                 <div class="col-md-6">
                                     <label class="col-form-label">Customer Name</label>
                                     <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
-                                        formControlName="customerId" placeholder="Select Customer" [readonly]="lspTatId ? true : false">
+                                        formControlName="customerId" placeholder="Select Customer" [readonly]="lspTatId ? true : false"
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['customerId'].invalid && lspTatForm.controls['customerId'].touched}">
                                     </ng-select>
 
                                     <div *ngIf="lspTatForm.controls['customerId'].invalid && lspTatForm.controls['customerId']?.touched"
@@ -32,7 +33,7 @@
                                     <label class="col-form-label">Lsp Name</label>
                                     <ng-select [items]="lsps" bindLabel="lspName" bindValue="lspId"
                                         formControlName="lspId" placeholder="Select Lsp"
-                                        [searchable]="true">
+                                        [searchable]="true" [ngClass]="{ 'border-danger': lspTatForm.controls['lspId'].invalid && lspTatForm.controls['lspId'].touched}">
                                     </ng-select>
                                     <div *ngIf="lspTatForm.controls['lspId'].invalid && lspTatForm.controls['lspId']?.touched"
                                         class="text-danger">
@@ -42,7 +43,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Product</label>
-                                    <input class="form-control" formControlName="product" type="text" required />
+                                    <input class="form-control" formControlName="product" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['product'].invalid && lspTatForm.controls['product'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['product'].invalid && lspTatForm.controls['product']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['product'].errors?.['required']">
@@ -52,7 +54,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Origin</label>
-                                    <input class="form-control" formControlName="origin" type="text" required />
+                                    <input class="form-control" formControlName="origin" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['origin'].errors?.['required']">
@@ -62,7 +65,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Destination</label>
-                                    <input class="form-control" formControlName="destination" type="text" required />
+                                    <input class="form-control" formControlName="destination" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['destination'].errors?.['required']">
@@ -73,7 +77,7 @@
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Destination State</label>
                                     <input class="form-control" formControlName="destinationState" type="text"
-                                        required />
+                                        required [ngClass]="{ 'border-danger': lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['destinationState'].errors?.['required']">
@@ -84,7 +88,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Priority</label>
-                                    <input class="form-control" formControlName="priority" type="text" required />
+                                    <input class="form-control" formControlName="priority" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['priority'].errors?.['required']">Priority
@@ -93,7 +98,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Booking Type</label>
-                                    <input class="form-control" formControlName="bookingType" type="text" required />
+                                    <input class="form-control" formControlName="bookingType" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['bookingType'].invalid && lspTatForm.controls['bookingType'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['bookingType'].invalid && lspTatForm.controls['bookingType']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['bookingType'].errors?.['required']">Booking
@@ -103,7 +109,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Mode</label>
-                                    <input class="form-control" formControlName="mode" type="text" required />
+                                    <input class="form-control" formControlName="mode" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['mode'].invalid && lspTatForm.controls['mode'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['mode'].invalid && lspTatForm.controls['mode']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['mode'].errors?.['required']">Mode
@@ -113,7 +120,8 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Tat</label>
-                                    <input class="form-control" formControlName="tat" type="text" required />
+                                    <input class="form-control" formControlName="tat" type="text" required 
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['tat'].invalid && lspTatForm.controls['tat'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['tat'].invalid && lspTatForm.controls['tat']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['tat'].errors?.['required']">Tat
@@ -129,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-2">
+                    <div class="mt-4">
                         <button class="btn btn-success" data-bs-original-title="" type="submit" id="btnSubmit" title=""
                             [disabled]="lspTatForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
                         <button class="btn btn-danger" type="reset"><i class="fa fa-times"></i> Reset</button>

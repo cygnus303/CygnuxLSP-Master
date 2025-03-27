@@ -59,6 +59,7 @@
                     formControlName="customerName"
                     type="text"
                     required
+                    [ngClass]="{ 'border-danger': customerForm.controls['customerName'].invalid && customerForm.controls['customerName'].touched}"
                   [readOnly]="customerCode ? true:false"/>
                   <div
                     *ngIf="
@@ -80,6 +81,7 @@
                     formControlName="emailId"
                     type="text"
                     required
+                    [ngClass]="{ 'border-danger': customerForm.controls['emailId'].invalid && customerForm.controls['emailId'].touched}"
                   />
                   <div
                     *ngIf="
@@ -107,7 +109,7 @@
                     formControlName="state"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': customerForm.controls['state'].invalid && customerForm.controls['state'].touched}"/>
                   <div
                     *ngIf="
                       customerForm.controls['state'].invalid &&
@@ -128,7 +130,7 @@
                     formControlName="city"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': customerForm.controls['city'].invalid && customerForm.controls['city'].touched}"/>
                   <div
                     *ngIf="
                       customerForm.controls['city'].invalid &&
@@ -138,7 +140,7 @@
                   >
                     <small
                       *ngIf="customerForm.controls['city'].errors?.['required']"
-                      >State is required.</small
+                      >City is required.</small
                     >
                   </div>
                 </div>
@@ -150,7 +152,7 @@
                     formControlName="pincode"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': customerForm.controls['pincode'].invalid && customerForm.controls['pincode'].touched}"/>
                   <div
                     *ngIf="
                       customerForm.controls['pincode'].invalid &&
@@ -176,7 +178,7 @@
                   formControlName="address"
                   type="text"
                   required
-                ></textarea>
+                  [ngClass]="{ 'border-danger': customerForm.controls['address'].invalid && customerForm.controls['address'].touched}"></textarea>
                 <div
                   *ngIf="
                     customerForm.controls['address'].invalid &&
@@ -242,7 +244,7 @@
                       formControlName="consolidatedGSTNo"
                       type="text"
                       required
-                    />
+                      [ngClass]="{ 'border-danger': customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo'].touched}" />
                     <div
                       *ngIf="
                         customerForm.controls['consolidatedGSTNo'].invalid &&
@@ -275,7 +277,7 @@
             />
             <label class="mb-0" for="dafault-checkbox">Active</label>
           </div>
-          <div class="mt-2">
+          <div class="mt-4">
             <button
               class="btn btn-success"
               data-bs-original-title=""

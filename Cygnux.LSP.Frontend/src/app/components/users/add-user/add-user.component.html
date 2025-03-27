@@ -47,7 +47,7 @@
                     formControlName="firstName"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched}"/>
                   <div
                     *ngIf="
                       userForm.controls['firstName'].invalid &&
@@ -68,7 +68,7 @@
                     formControlName="lastName"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched}"/>
                   <div
                     *ngIf="
                       userForm.controls['lastName'].invalid &&
@@ -90,7 +90,7 @@
                     formControlName="emailId"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': userForm.controls['emailId'].invalid && userForm.controls['emailId'].touched}"/>
                   <div
                     *ngIf="
                       userForm.controls['emailId'].invalid &&
@@ -116,7 +116,7 @@
                     formControlName="phoneNumber"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': userForm.controls['phoneNumber'].invalid && userForm.controls['phoneNumber'].touched}"/>
                   <div
                     *ngIf="
                       userForm.controls['phoneNumber'].invalid &&
@@ -146,7 +146,7 @@
                       [multiple]="true"
                       [closeOnSelect]="false"
                       [searchable]="true"
-                    >
+                      [ngClass]="{ 'border-danger': userForm.controls['roles'].invalid && userForm.controls['roles'].touched}" >
                     </ng-select>
 
                     <div
@@ -169,12 +169,10 @@
               id="dafault-checkbox"
               type="checkbox"
               formControlName="isActive"
-              data-bs-original-title=""
-              title=""
             />
             <label class="mb-0" for="dafault-checkbox">Active</label>
           </div>
-          <div class="mt-2">
+          <div class="mt-4">
             <button
               class="btn btn-success"
               data-bs-original-title=""

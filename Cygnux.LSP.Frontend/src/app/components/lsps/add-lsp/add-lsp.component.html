@@ -59,7 +59,7 @@
                     formControlName="lspName"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': lspForm.controls['lspName'].invalid && lspForm.controls['lspName'].touched}"/>
                   <div
                     *ngIf="
                       lspForm.controls['lspName'].invalid &&
@@ -81,7 +81,7 @@
                     formControlName="emailId"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': lspForm.controls['emailId'].invalid && lspForm.controls['emailId'].touched}"/>
                   <div
                     *ngIf="
                       lspForm.controls['emailId'].invalid &&
@@ -110,7 +110,7 @@
                     type="text"
                     maxlength="10"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': lspForm.controls['mobileNo'].invalid && lspForm.controls['mobileNo'].touched}"/>
                   <div
                     *ngIf="
                       lspForm.controls['mobileNo'].invalid &&
@@ -135,7 +135,7 @@
                     formControlName="alias"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': lspForm.controls['alias'].invalid && lspForm.controls['alias'].touched}"/>
                   <div
                     *ngIf="
                       lspForm.controls['alias'].invalid &&
@@ -158,7 +158,7 @@
                     formControlName="description"
                     type="text"
                     required
-                  ></textarea>
+                    [ngClass]="{ 'border-danger': lspForm.controls['description'].invalid && lspForm.controls['description'].touched}"></textarea>
                   <div
                     *ngIf="
                       lspForm.controls['description'].invalid &&
@@ -175,9 +175,10 @@
               </div>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label class="col-form-label">Logo</label>
+                  <label class="col-form-label">Logo:</label>
                   <input
                     id="file"
+                    class="form-control"
                     type="file"
                     (change)="onFileChange($event)"
                     accept="image/*"
@@ -185,27 +186,20 @@
                   <div *ngIf="fileError" class="text-danger">
                     {{ fileError }}
                   </div>
-                </div>
                 <!-- Image Preview Section -->
-                <div *ngIf="imagePreview || lspResponse?.logo">
-                  <h4>Logo Preview:</h4>
-                  <img
-                    [src]="imagePreview || lspResponse?.logo"
-                    alt="Logo Preview"
-                    style="max-width: 100px; max-height: 100px"
-                  />
+                <div *ngIf="imagePreview || lspResponse?.logo" class="mt-4">
+                  <h6>Logo Preview:</h6>
+                  <img [src]="imagePreview || lspResponse?.logo" style="max-width: 100px; max-height: 100px"/>
                 </div>
-
-                <div class="col-md-3" *ngIf="lspId != ''">
+              </div>
+                <div class="col-md-3 mt-5" *ngIf="lspId !== ''">
                   <div class="checkbox p-0">
                     <input
-                      id="dafault-checkbox"
+                    class="form-check-input"
                       type="checkbox"
                       formControlName="isActive"
-                      data-bs-original-title=""
-                      title=""
                     />
-                    <label class="mb-0" for="dafault-checkbox">Active</label>
+                    <label class="mb-0">Active</label>
                   </div>
                 </div>
               </div>
@@ -254,7 +248,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-2">
+          <div class="mt-4">
             <button
               class="btn btn-success"
               type="submit"

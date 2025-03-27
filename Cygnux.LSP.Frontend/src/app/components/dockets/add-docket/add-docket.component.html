@@ -64,7 +64,7 @@
                     formControlName="fromLocation"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['fromLocation'].invalid &&
@@ -85,7 +85,7 @@
                     formControlName="toLocation"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['toLocation'].invalid &&
@@ -94,8 +94,7 @@
                     class="text-danger"
                   >
                     <small
-                      *ngIf="docketForm.controls['toLocation'].errors?.['required']"
-                      >To Location is required.</small
+                      *ngIf="docketForm.controls['toLocation'].errors?.['required']">To Location is required.</small
                     >
                   </div>
                 </div>
@@ -106,7 +105,7 @@
                     formControlName="bookingDate"
                     type="date"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['bookingDate'].invalid &&
@@ -129,7 +128,7 @@
                     formControlName="customerId"
                     placeholder="Select Customer"
                     [searchable]="true"
-                  >
+                    [ngClass]="{ 'border-danger': docketForm.controls['customerId'].invalid && docketForm.controls['customerId'].touched}">
                   </ng-select>
                   <div
                     *ngIf="
@@ -151,7 +150,7 @@
                     formControlName="docketNo"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['docketNo'].invalid &&
@@ -172,7 +171,7 @@
                     formControlName="invoiceNo"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['invoiceNo'].invalid && docketForm.controls['invoiceNo'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['invoiceNo'].invalid &&
@@ -193,7 +192,7 @@
                     formControlName="transporter"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['transporter'].invalid && docketForm.controls['transporter'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['transporter'].invalid &&
@@ -214,7 +213,7 @@
                     formControlName="transportMode"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['transportMode'].invalid &&
@@ -235,7 +234,7 @@
                     formControlName="quantity"
                     type="text"
                     required
-                  />
+                    [ngClass]="{ 'border-danger': docketForm.controls['quantity'].invalid && docketForm.controls['quantity'].touched}"/>
                   <div
                     *ngIf="
                       docketForm.controls['quantity'].invalid &&
@@ -253,7 +252,7 @@
             </div>
           </div>
 
-          <div class="mt-2">
+          <div class="mt-4">
             <button
               class="btn btn-success"
               data-bs-original-title=""

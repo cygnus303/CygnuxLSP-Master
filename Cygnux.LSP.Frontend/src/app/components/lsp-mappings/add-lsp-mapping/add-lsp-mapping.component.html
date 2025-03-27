@@ -45,7 +45,8 @@
                     formControlName="customerId"
                     placeholder="Select Customer"
                     [searchable]="true"
-                    [readonly]="lspMappingId ? true : false">
+                    [readonly]="lspMappingId ? true : false"
+                    [ngClass]="{ 'border-danger': lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId'].touched}">
                   </ng-select>
 
                   <div
@@ -74,7 +75,7 @@
                       [multiple]="true"
                       [closeOnSelect]="false"
                       [searchable]="true"
-                    >
+                      [ngClass]="{ 'border-danger': lspMappingForm.controls['lspIds'].invalid && lspMappingForm.controls['lspIds'].touched}">
                     </ng-select>
                     <div
                       *ngIf="
@@ -93,8 +94,6 @@
                   id="dafault-checkbox"
                   type="checkbox"
                   formControlName="isActive"
-                  data-bs-original-title=""
-                  title=""
                 />
                 <label class="mb-0" for="dafault-checkbox">Active</label>
               </div>
