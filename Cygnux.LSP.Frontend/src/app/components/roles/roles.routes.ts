@@ -3,7 +3,7 @@ import { RoleListComponent } from './role/role-list.component';
 
 export const RoleRoutes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: RoleListComponent
   }
 ];

@@ -5,9 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerListComponent } from './customer/customer-list.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { CustomerRoutes } from './customer.routes';
-import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleModule } from '../roles/roles.module';
+import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +24,7 @@ import { RoleModule } from '../roles/roles.module';
         RoleModule
     ],
     exports: [
-        CustomerListComponent,  // ✅ Export Customer components so they can be used in other modules
+        CustomerListComponent,
         RolePermissionComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
