@@ -19,6 +19,7 @@ export class RolePermissionComponent implements OnInit {
     allCreateChecked = false;
     allEditChecked = false;
     allDeleteChecked = false;
+    allPermission=false;
 
     constructor(
         private commonService: CommonService,
@@ -40,6 +41,7 @@ export class RolePermissionComponent implements OnInit {
             next: (response) => {
                 if (response) {
                     this.menus = response.data;
+                    console.log(this.menus)
                     this.updateMainCheckbox();
                 }
                 this.commonService.updateLoader(false);
@@ -51,13 +53,12 @@ export class RolePermissionComponent implements OnInit {
         });
     }
 
-    toggleColumn(permission: 'view' | 'create' | 'edit' | 'delete', event: Event) {
-        const checked = (event.target as HTMLInputElement).checked;
-        this.menus.forEach((menu) => {
-            (menu as any)[`can${permission.charAt(0).toUpperCase() + permission.slice(1)}`] = checked;
-        });
+    toggleColumn(column: string) {
+        const isChecked = this.menus.every((menu:any) => menu[column]);
+        this.menus.forEach((menu:any) => menu[column] = !isChecked);
         this.updateMainCheckbox();
     }
+    
 
     toggleRow(menu: any, event: Event) {
         const checked = (event.target as HTMLInputElement).checked;
@@ -86,6 +87,21 @@ export class RolePermissionComponent implements OnInit {
         this.allEditChecked = this.menus.every(menu => menu.canEdit);
         this.allDeleteChecked = this.menus.every(menu => menu.canDelete);
     }
+    
+
+    updatePermissionCheckbox(menu: any) {
+        // Check if all permissions are selected for this specific menu
+        const allPermissionsSelected = menu.canView && menu.canCreate && menu.canEdit && menu.canDelete;
+    
+        // Update the main menu checkbox state dynamically without adding `isChecked`
+        if (!allPermissionsSelected) {
+            this.allChecked = false; // Uncheck the "Menu Name" checkbox if any permission is unchecked
+        }
+    
+        // Update the main header checkboxes to reflect the current state
+        this.updateMainCheckbox();
+    }
+    
 
     savePermissions(): void {
         this.commonService.updateLoader(true);
