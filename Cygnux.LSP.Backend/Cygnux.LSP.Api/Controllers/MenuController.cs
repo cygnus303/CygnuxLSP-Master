@@ -17,6 +17,9 @@ public class MenuController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetMenuList(Guid userId)
+
+
+
     {
         return Ok(await _menuRepository.GetMenuList(userId));
     }
