@@ -18,10 +18,16 @@ internal class MenuService : IMenuService
 
     public async Task<IEnumerable<MenuResponse>> GetMenuList(Guid userId)
     {
-        var selectQuery = "select M.MenuId, M.MenuName, M.Icon, M.NavigationUrl from UserRoles UR " +
-            "INNER JOIN RoleMenuPermission RMP ON RMP.RoleId = UR.RoleId " +
-            "INNER JOIN Menu M ON M.MenuId = RMP.MenuId " +
-            "WHERE UR.UserId = '" + userId + "' AND M.IsActive = 1 AND 1 IN (RMP.CanView, RMP.CanCreate, RMP.CanEdit, RMP.CanDelete)";
+        var selectQuery = "SELECT M.MenuId, M.MenuName, M.Icon, M.NavigationUrl " +
+      "FROM UserRoles UR " +
+      "INNER JOIN RoleMenuPermission RMP ON RMP.RoleId = UR.RoleId " +
+      "INNER JOIN Menu M ON M.MenuId = RMP.MenuId " +
+      "WHERE UR.UserId = '" + userId + "' AND M.IsActive = 1 " +
+      "AND 1 IN (RMP.CanView, RMP.CanCreate, RMP.CanEdit, RMP.CanDelete) " +  
+      "ORDER BY " +
+      "CASE WHEN M.MenuName = 'Dashboard' THEN 0 ELSE 1 END, " +
+      "M.MenuName;";
+
 
         return await _dbConnection.QueryAsync<MenuResponse>(
             selectQuery, new { UserId = userId });
