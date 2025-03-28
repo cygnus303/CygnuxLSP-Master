@@ -44,11 +44,11 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspMappingResponse'] && this.lspMappingResponse) {
-      this.lspMappingResponse.lspIds = this.lspMappingResponse.lspResponses.map(
+      this.lspMappingResponse.lspIds = this.lspMappingResponse.lspResponses?.map(
         (lsp) => lsp.lspId
-      );
+      ) || []; 
       this.lspMappingForm.patchValue(this.lspMappingResponse);
-      this.lspMappingId = this.lspMappingResponse.customerId;
+      this.lspMappingId = this.lspMappingResponse.customerId ?? ''; 
     } else {
       this.lspMappingForm.reset();
       this.lspMappingId = '';

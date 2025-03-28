@@ -4,6 +4,7 @@ import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
 import { AddCustomerRequest, CustomerResponse } from '../models/customer.model';
 import { CommonResponse } from '../models/lsp.model';
+import { IdentityService } from './identity.service';
 
 
 @Injectable({
@@ -11,12 +12,14 @@ import { CommonResponse } from '../models/lsp.model';
 })
 export class CustomerService {
 
-  constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
+  constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService, private identityService:IdentityService
+) { }
 
   getCustomerList(page: number = 1, pageSize: number = 100): Observable<IApiBaseResponse<CustomerResponse[]>> {
     let params: ParamsType = {
       page: page,
       pageSize: pageSize,
+      userId:this.identityService.getLoggedUserId()
     };
     return this.apiHandlerService.Get('customer', params);
   }

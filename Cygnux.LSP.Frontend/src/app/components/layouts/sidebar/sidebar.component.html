@@ -1,50 +1,4 @@
-<!-- <div class="page-body-wrapper">
   <div class="sidebar-wrapper">
-    <div>
-      <div class="logo-wrapper">
-        <a routerLink="/"><img class="img-fluid for-light" src="assets/images/logo/logo.png" alt=""></a>
-        <div class="back-btn" (click)="toggleSidebar()">
-          <i data-feather="grid"></i>
-        </div>
-        <div class="toggle-sidebar icon-box-sidebar" (click)="toggleSidebar()">
-          <i class="status_toggle middle sidebar-toggle" data-feather="grid"></i>
-        </div>
-      </div>
-
-      <div class="logo-icon-wrapper">
-        <a routerLink="/">
-          <div class="icon-box-sidebar"><i data-feather="grid"></i></div>
-        </a>
-      </div>
-
-      <nav class="sidebar-main">
-        <div class="left-arrow" id="left-arrow" (click)="scrollLeft()">
-          <i data-feather="arrow-left"></i>
-        </div>
-
-        <div id="sidebar-menu">
-          <ul class="sidebar-links" id="simple-bar">
-            <li *ngFor="let data of menus; let i = index" class="sidebar-list">
-              <i class="fa fa-thumb-tack" (click)="togglePin(data.menuName)"></i>
-              <a [routerLink]="[data.navigationUrl]" class="sidebar-link sidebar-title link-nav"
-                routerLinkActive="active">
-                <i [attr.data-feather]="data.icon"></i>
-                <span>{{ data.menuName }}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="right-arrow" id="right-arrow" (click)="scrollRight()">
-          <i data-feather="arrow-right"></i>
-        </div>
-      </nav>
-     </div>
-    </div>
-  </div> -->
-
-  <div class="sidebar-wrapper">
-    <div>
       <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="assets/images/logo/logo.png"
             alt=""></a>
         <div class="back-btn"><i data-feather="grid"></i></div>
@@ -66,7 +20,7 @@
             </li>
             @for (data of menus; track $index) {
             <li class="sidebar-list">
-              <a [routerLink]="[data.navigationUrl]" class="sidebar-link sidebar-title link-nav">
+              <a [routerLink]="[data.navigationUrl]" routerLinkActive="active" class="sidebar-link sidebar-title link-nav">
                 <i [attr.data-feather]="data.icon"></i>
                 <span>{{ data.menuName }}</span>
               </a>
@@ -75,5 +29,4 @@
           </ul>
         </div>
       </nav>
-    </div>
   </div>

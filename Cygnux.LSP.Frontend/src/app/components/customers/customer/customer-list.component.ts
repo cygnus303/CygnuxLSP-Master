@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-customer',
@@ -16,18 +17,16 @@ import lottie from 'lottie-web';
 export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerCode: string = '';
-  public customerId: string = '';
   selectedCustomer: CustomerResponse | null = null;
   page = 1; // Current page number
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
-  customerName:string ='';
   @Output() edit = new EventEmitter<CustomerResponse>();
 
   constructor(
     private customerService: CustomerService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private toasterService: ToastrService,
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
   }
@@ -139,18 +138,17 @@ export class CustomerListComponent implements OnInit {
     this.getCustomers(this.page);
   }
 
-  permissionModal(event: Event, customer: any) {
+  lspMappingonModal(event: Event, customer: any) {
     event.preventDefault(); // Prevent default anchor behavior
-    const modalElement = document.getElementById('exampleModalPermission');
+    const modalElement = document.getElementById('exampleModalLspMapping');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.customerId = customer.customerId;
-      this.customerName = customer.customerName
+      this.getCustomer(customer.customerCode);
       modal.show();
     }
   }
-  closePermissionModal() {
-    const modalElement: any = document.getElementById('exampleModalPermission');
+  closelspMappingModal() {
+    const modalElement: any = document.getElementById('exampleModalLspMapping');
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
