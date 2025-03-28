@@ -7,7 +7,7 @@ using Models.Response;
 
 public interface ICustomerRepository
 {
-    Task<BaseResponse<IEnumerable<CustomerListResponse>>> GetCustomerList(int page, int pageSize);
+    Task<BaseResponse<IEnumerable<CustomerListResponse>>> GetCustomerList(int page, int pageSize,Guid userId);
 
     Task<BaseResponse<CustomerDetailResponse?>> GetCustomerDetails(string customerCode);
 

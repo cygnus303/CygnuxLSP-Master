@@ -16,11 +16,12 @@ internal class CustomerService : ICustomerService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<CustomerListResponse>> GetCustomerList(int page, int pageSize)
+    public async Task<IEnumerable<CustomerListResponse>> GetCustomerList(int page, int pageSize, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryAsync<CustomerListResponse>(
              StoredProcedureConstants.Usp_GetCustomer,

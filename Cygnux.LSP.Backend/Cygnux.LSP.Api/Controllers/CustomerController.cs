@@ -16,9 +16,9 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCustomerList([FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> GetCustomerList([FromQuery] int page, [FromQuery] int pageSize,Guid userId)
     {
-        return Ok(await _customerRepository.GetCustomerList(page, pageSize));
+        return Ok(await _customerRepository.GetCustomerList(page, pageSize, userId));
     }
 
     [HttpGet]

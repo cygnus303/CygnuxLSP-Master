@@ -5,7 +5,7 @@ using Models.Response.Customer;
 
 public interface ICustomerService
 {
-    Task<IEnumerable<CustomerListResponse>> GetCustomerList(int page, int pageSize);
+    Task<IEnumerable<CustomerListResponse>> GetCustomerList(int page, int pageSize, Guid userId);
 
     Task<CustomerDetailResponse> GetCustomerDetails(string customerCode);
 
