@@ -6,8 +6,8 @@ import { CustomerListComponent } from './customer/customer-list.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { CustomerRoutes } from './customer.routes';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { RoleModule } from '../roles/roles.module';
-import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
+import { LspMappingModule } from '../lsp-mappings/lsp-mappings.module';
+import { AddLspMappingComponent } from '../lsp-mappings/add-lsp-mapping/add-lsp-mapping.component';
 
 @NgModule({
     declarations: [
@@ -20,12 +20,12 @@ import { RolePermissionComponent } from '../roles/role-permission/role-permissio
         RouterModule.forChild(CustomerRoutes),
         ReactiveFormsModule,
         FormsModule,
+        LspMappingModule,
         NgbPaginationModule,
-        RoleModule
     ],
     exports: [
         CustomerListComponent,
-        RolePermissionComponent
+        AddLspMappingComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

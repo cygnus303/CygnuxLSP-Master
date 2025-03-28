@@ -7,6 +7,12 @@ import { MenuResponse } from '../../../shared/models/menu.model';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import feather from 'feather-icons';
+import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
+declare global {
+  interface Window {
+    toggleSidebarMenu: () => void;
+  }
+}
 
 @Component({
   selector: 'app-sidebar',
@@ -17,19 +23,30 @@ import feather from 'feather-icons';
 })
 export class SidebarComponent implements OnInit {
   iscollapse:boolean=false;
-
   public menus: MenuResponse[] = [];
   constructor(private identityService: IdentityService,
     private router: Router,
     private toasterService: ToastrService,
     public commonService: CommonService,
-    private menuService: MenuService,) {
+    private menuService: MenuService,private scriptLoader: ScriptLoaderService) {
 
   }
-
-
 ngOnInit(): void {
+  this.scriptLoader
+  .loadScript('assets/js/sidebar-menu.js')
+  .then(() => {})
+  .catch((error) => console.error(error)); 
+  setTimeout(() => {
   this.getMenus();
+}, 300);
+}
+
+toggleSidebar(){
+  if (window.toggleSidebarMenu) {
+    window.toggleSidebarMenu();
+  } else {
+    console.error("sidebar-menu.js is not loaded or function not found");
+  }
 }
 
 getMenus() {
@@ -55,47 +72,5 @@ getMenus() {
   signout(): void {
     this.identityService.clearToken();
     this.router.navigateByUrl('/login');
-  }
-
-  sidebarClosed: boolean = false;
-
- toggleSidebar() {
-  this.sidebarClosed = !this.sidebarClosed;
-  const sidebar = document.querySelector('.sidebar-wrapper');
-  const header = document.querySelector('.page-header');
-
-  if (this.sidebarClosed) {
-    sidebar?.classList.add('close_icon');
-    header?.classList.add('close_icon');
-  } else {
-    sidebar?.classList.remove('close_icon');
-    header?.classList.remove('close_icon');
-  }
-}
-
-  togglePin(menuName: string) {
-    let pinnedItems = JSON.parse(localStorage.getItem('pins') || '[]');
-
-    if (pinnedItems.includes(menuName)) {
-      pinnedItems = pinnedItems.filter((item: string) => item !== menuName);
-    } else {
-      pinnedItems.push(menuName);
-    }
-
-    localStorage.setItem('pins', JSON.stringify(pinnedItems));
-  }
-
-  scrollLeft() {
-    const sidebar = document.getElementById('sidebar-menu');
-    if (sidebar) {
-      sidebar.scrollLeft -= 200;
-    }
-  }
-
-  scrollRight() {
-    const sidebar = document.getElementById('sidebar-menu');
-    if (sidebar) {
-      sidebar.scrollLeft += 200;
-    }
   }
 }

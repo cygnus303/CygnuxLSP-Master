@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { IdentityService } from '../../../shared/services/identity.service';
 import feather from 'feather-icons';
 import { CommonService } from '../../../shared/services/common.service';
+import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
 
 @Component({
   selector: 'app-full',
   templateUrl: './full.component.html',
 })
-export class FullComponent implements AfterViewInit {
+export class FullComponent implements AfterViewInit ,OnInit {
   public loading: boolean = false;
 
   scriptUrls: string[] = [
@@ -17,7 +18,7 @@ export class FullComponent implements AfterViewInit {
     'assets/js/sidebar-menu.js',
   ];
 
-  constructor( private identityService: IdentityService,public commonService: CommonService, private router: Router) {
+  constructor( private identityService: IdentityService,public commonService: CommonService, private router: Router,private scriptLoader: ScriptLoaderService) {
     this.commonService.isLoading.subscribe({
       next: (response) => {
         if (response != null) {
@@ -26,6 +27,12 @@ export class FullComponent implements AfterViewInit {
       },
       error: (response: any) => {},
     });
+  }
+  ngOnInit(): void {
+    this.scriptLoader
+    .loadScript('assets/js/sidebar-menu.js')
+    .then(() => {})
+    .catch((error) => console.error(error)); 
   }
 
   ngAfterViewInit(): void {

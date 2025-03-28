@@ -24,6 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         NgbPaginationModule,
         NgSelectModule
     ],
+    exports:[AddLspMappingComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LspMappingModule { }

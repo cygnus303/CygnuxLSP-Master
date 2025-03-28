@@ -45,7 +45,13 @@
               "src/assets/css/responsive.css",
               "node_modules/prismjs/themes/prism.css",
               "node_modules/jsgrid/dist/jsgrid.min.css",
-              "node_modules/jsgrid/dist/jsgrid-theme.min.css"
+              "node_modules/jsgrid/dist/jsgrid-theme.min.css",
+  
+    "src/assets/css/vendors/feather-icon.css",
+    "src/assets/css/vendors/animate.css",
+    "src/assets/css/vendors/chartist.css",
+    "src/assets/css/vendors/prism.css",
+    "src/assets/css/vendors/vector-map.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

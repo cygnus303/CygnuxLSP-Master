@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
                         this.toasterService.success('Login Successfully.');
                         this.identityService.setToken(response.data.token);
                         this.identityService.setRoles(response.data.roles);
-                        this.router.navigateByUrl('/customer');
+                        this.router.navigateByUrl('/dashboard');
                         this.identityService.getLoggedUserId()
                         localStorage.setItem('email', response.data.email);
                     } else {

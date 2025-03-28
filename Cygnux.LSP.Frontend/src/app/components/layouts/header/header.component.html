@@ -1,87 +1,28 @@
-<div class="page-header">
-        <div class="header-wrapper row m-0 p-0">
-          <div class="header-logo-wrapper col-auto p-0">
+   <div class="page-header ">
+        <div class="header-wrapper p-0 row m-0">
+          <div class="header-logo-wrapper col-auto py-3 px-3">
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
-            <div class="logo-header-main"><a><img class="img-fluid for-light img-100" src="../assets/images/logo/logo2.png" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo.png" alt=""></a></div>
+            <div class="logo-header-main"><a href="index.html"><img class="img-fluid for-light img-100" src="../assets/images/logo/logo2.png" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo.png" alt=""></a></div>
           </div>
-          <div class="left-header col horizontal-wrapper ps-4">
+          <div class="left-header col horizontal-wrapper ps-0">
             <div class="left-menu-header">
               <h4>{{ headerMenu }}</h4>
-              <ul class="app-list">
-                <li class="onhover-dropdown">
-                  <div class="app-menu"> <i data-feather="folder-plus"></i></div>
-                  <ul class="onhover-show-div left-dropdown">
-                    <li> <a>File Manager</a></li>
-                    <li> <a> Kanban board</a></li>
-                    <li> <a> Social App</a></li>
-                    <li> <a> Bookmark</a></li>
-                  </ul>
-                </li>
-              </ul>
             </div>
           </div>
-          <div class="nav-right col-2 pull-right right-header p-3 bg-colorheader">
+          <div class="nav-right col-6 pull-right right-header p-0">
             <ul class="nav-menus">
-              <!-- <li> 
-                <div class="right-header ps-0">
-                  <div class="input-group">
-                    <div class="input-group-prepend"><span class="input-group-text mobile-search"><i class="fa fa-search"></i></span></div>
-                    <input class="form-control" type="text" placeholder="Search Here........">
-                  </div>
-                </div>
-              </li> -->
-              <!-- <li class="serchinput">
+              <li class="serchinput">
                 <div class="serchbox"><i data-feather="search"></i></div>
                 <div class="form-group search-form">
                   <input type="text" placeholder="Search here...">
                 </div>
-              </li> -->
-              <!-- <li class="onhover-dropdown">
-                <div class="notification-box"><i data-feather="bell"></i></div>
-                <ul class="notification-dropdown onhover-show-div">
-                  <li><i data-feather="bell">            </i>
-                    <h6 class="f-18 mb-0">Notitications</h6>
-                  </li>
-                  <li>
-                    <div class="d-flex align-items-center">
-                      <div class="flex-shrink-0"><i data-feather="truck"></i></div>
-                      <div class="flex-grow-1">
-                        <p><a>Delivery processing </a><span class="pull-right">6 hr</span></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="d-flex align-items-center">
-                      <div class="flex-shrink-0"><i data-feather="shopping-cart"></i></div>
-                      <div class="flex-grow-1">
-                        <p><a>Order Complete</a><span class="pull-right">3 hr</span></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="d-flex align-items-center">
-                      <div class="flex-shrink-0"><i data-feather="file-text"></i></div>
-                      <div class="flex-grow-1">
-                        <p><a>Tickets Generated</a><span class="pull-right">1 hr</span></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="d-flex align-items-center">
-                      <div class="flex-shrink-0"><i data-feather="send"></i></div>
-                      <div class="flex-grow-1">
-                        <p><a>Delivery Complete</a><span class="pull-right">45 min</span></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li><a class="btn btn-primary" >Check all notification</a></li>
-                </ul>
-              </li> -->
-              <li class="profile-nav onhover-dropdown">
-                <div class="account-user me-4"><i data-feather="user" class="filter"></i></div>
-                <div class="d-grid">
-                  <span>{{email}}</span>
-                  <span>{{userRoles}}</span>
+              </li>
+              <div class="profile-nav onhover-dropdown py-3 pe-4 ps-2 bg-colorheader">
+                <div class="d-flex align-items-center">
+                  <div class="account-user me-4"><i data-feather="user" class="filter-header"></i></div>
+                  <div class="d-grid">
+                    <span>{{email}}</span>
+                  </div>
                 </div>
                 <ul class="profile-dropdown onhover-show-div">
                   <li><a><i data-feather="user"></i><span>Account</span></a></li>
@@ -89,8 +30,7 @@
                   <li><a><i data-feather="settings"></i><span>Settings</span></a></li>
                   <li (click)="signout()"><a><i data-feather="log-in"> </i><span>Log Out</span></a></li>
                 </ul>
-              </li>
-                
+              </div>
             </ul>
           </div>
           <script class="result-template" type="text/x-handlebars-template">
