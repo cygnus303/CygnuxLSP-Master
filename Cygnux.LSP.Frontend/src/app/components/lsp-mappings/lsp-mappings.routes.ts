@@ -3,7 +3,7 @@ import { LspMappingListComponent } from './lsp-mapping/lsp-mapping-list.componen
 
 export const LspMappingRoutes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: LspMappingListComponent
   }
 ];

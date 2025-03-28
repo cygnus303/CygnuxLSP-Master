@@ -22,6 +22,14 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./components/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'customer',
         loadChildren: () =>
           import('./components/customers/customers.module').then(

@@ -24,7 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         NgbPaginationModule,
         NgSelectModule,
     ],
-    exports: [RolePermissionComponent],
+    exports: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RoleModule { }
