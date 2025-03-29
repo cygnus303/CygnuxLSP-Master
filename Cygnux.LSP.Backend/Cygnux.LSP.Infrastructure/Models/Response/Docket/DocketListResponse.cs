@@ -12,7 +12,7 @@
         public string Transporter { get; set; } = string.Empty;
         public string TransportMode { get; set; } = string.Empty;
         public int Quantity { get; set; }
-        public string EntryBy { get; set; } = string.Empty;
+        public Guid EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
         public int? TotalCount { get; set; }
     }
