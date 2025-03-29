@@ -24,9 +24,13 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Password</label>
-                                <div class="form-input position-relative">
-                                    <input class="form-control" formControlName="password" type="password"
+                                     <div class="form-input position-relative">
+                                      <input class="form-control" formControlName="password" type="password"
                                         name="login[password]" required="" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="*********">
+                                      <div class="align-middle position-absolute top-50 translate-middle-y end-0 pe-3" (click)="togglePasswordVisibility()"> 
+                                        <i class="fa"  [style.color]="isPasswordVisible ? 'darkblue' : 'gray'" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                      </div>
+                                    </div>
                                     <div *ngIf="loginFormGroup.controls['password'].invalid && loginFormGroup.controls['password']?.touched"
                                         class="text-danger">
                                         <small *ngIf="loginFormGroup.controls['password'].errors?.['required']">Password
@@ -34,10 +38,6 @@
                                         <small *ngIf="loginFormGroup.controls['password'].errors?.['pattern']">Password
                                             is invalid.</small>
                                     </div>
-                                    <!-- <div class="show-hide" (click)="togglePasswordVisibility()"> <span class="show">{{ isPasswordVisible ? 'Hide' : 'Show' }}</span></div> -->
-                                    <div class="show-hide" (click)="togglePasswordVisibility()"> <span class="show"></span></div>
-
-                                </div>
                             </div>
                             <div class="form-group mb-0">
                                 <div class="checkbox p-0">
