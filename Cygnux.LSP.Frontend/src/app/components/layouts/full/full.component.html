@@ -1,19 +1,21 @@
-<!-- tap on top starts-->
 <div class="tap-top"><i data-feather="chevrons-up"></i></div>
-<!-- Loader ends-->
-<!-- page-wrapper Start-->
 <div class="page-wrapper compact-wrapper" id="pageWrapper">
-  <!-- Page Header Start-->
-  <app-header></app-header>
-  <!-- Page Header Ends-->
-  <!-- Page Body Start-->
+    <div class="page-header">
+      <app-header></app-header>
+    </div>
   <div class="page-body-wrapper">
-    <!-- Page Sidebar Start-->
-    <app-sidebar></app-sidebar>
-    <!-- Page Sidebar Ends-->
-    <router-outlet></router-outlet>
-    <!-- Container-fluid Ends-->
-    <!-- footer start-->
-    <app-footer></app-footer>
+    <div class="sidebar-wrapper">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="page-body">
+      <div class="container-fluid">
+          <router-outlet></router-outlet>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container-fluid">
+        <app-footer></app-footer>
+      </div>
+    </footer>
   </div>
 </div>

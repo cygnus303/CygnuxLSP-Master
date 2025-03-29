@@ -22,11 +22,12 @@ export class CustomerListComponent implements OnInit {
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
   @Output() edit = new EventEmitter<CustomerResponse>();
-
+  filters: { [key: string]: string } = {}; // Dynamic filter object
   constructor(
     private customerService: CustomerService,
     private commonService: CommonService,
     private toasterService: ToastrService,
+    private identityService:IdentityService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
   }
@@ -36,8 +37,17 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomers(page: number = 1) {
+    this.filters = Object.fromEntries(
+      Object.entries(this.filters).filter(([key, value]) => value !== null)
+    );
+    const filters: any = {
+      ...this.filters,
+      Page: page,
+      UserID:this.identityService.getLoggedUserId(),
+      PageSize: this.pageSize,
+    };
     this.commonService.updateLoader(true);
-    this.customerService.getCustomerList(page, this.pageSize).subscribe({
+    this.customerService.getCustomerList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;
@@ -61,7 +71,7 @@ export class CustomerListComponent implements OnInit {
         } else {
           this.toasterService.error(response.error.message);
         }
-        this.getCustomers();
+        this.getCustomers(this.page);
         this.closeDeleteModal();
 
         this.commonService.updateLoader(false);
@@ -130,7 +140,7 @@ export class CustomerListComponent implements OnInit {
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
 
-      this.getCustomers();
+      this.getCustomers(this.page);
     }
   }
   onPageChange(page: number) {
@@ -152,7 +162,7 @@ export class CustomerListComponent implements OnInit {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-      this.getCustomers();
+      this.getCustomers(this.page);
     }
   }
 }
