@@ -17,9 +17,9 @@ internal class DocketRepository : IDocketRepository
         _docketService = docketService;
     }
 
-    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId)
+    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, int? quantity)
     {
-        var response = await _docketService.GetDocketList(page, pageSize,userId);
+        var response = await _docketService.GetDocketList(page, pageSize,userId,docketNo,fromLocation,quantity);
         return new BaseResponse<IEnumerable<DocketListResponse>>(response);
     }
 

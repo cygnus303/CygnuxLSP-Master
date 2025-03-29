@@ -5,7 +5,7 @@ using Models.Response.Docket;
 
 public interface IDocketService
 {
-    Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize, Guid userId);
+    Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, int? quantity);
 
     Task<DocketDetailResponse> GetDocketDetails(Guid docketId, Guid userId);
     Task<CommonCreateResponse> ImportDocket(string addDocketsJson);

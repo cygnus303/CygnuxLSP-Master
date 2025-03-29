@@ -17,9 +17,9 @@ public class DocketController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId)
+    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? docketNo , string? fromLocation,int? quantity)
     {
-        return Ok(await _docketRepository.GetDocketList(page, pageSize,userId));
+        return Ok(await _docketRepository.GetDocketList(page, pageSize,userId,docketNo,fromLocation,quantity));
     }
 
     [HttpGet]
