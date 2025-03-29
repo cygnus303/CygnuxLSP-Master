@@ -17,13 +17,14 @@ public class DocketController : ControllerBase
     }
 
     [HttpGet]
+    [Route("GetDocketList")]
     public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? docketNo , string? fromLocation,string? toLocation,int? quantity)
     {
         return Ok(await _docketRepository.GetDocketList(page, pageSize,userId,docketNo,fromLocation,toLocation,quantity));
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route("GetDocketDetail/{id}")]
     public async Task<IActionResult> GetDocketDetails(Guid id, Guid userId)
     {
         return Ok(await _docketRepository.GetDocketDetails(id,userId));
@@ -41,18 +42,21 @@ public class DocketController : ControllerBase
     }
 
     [HttpPost]
+    [Route("AddDocket")]
     public async Task<IActionResult> AddDocket(CreateDocketRequest createDocketDto)
     {
         return Ok(await _docketRepository.AddDocket(createDocketDto));
     }
 
-    [HttpPost("{id}")]
+    [HttpPost]
+    [Route("UpdateDocket/{id}")]
     public async Task<IActionResult> UpdateDocket(Guid id, CreateDocketRequest createDocketDto)
     {
         return Ok(await _docketRepository.UpdateDocket(id, createDocketDto));
     }
 
-    [HttpPatch("{id}")]
+    [HttpPatch]
+    [Route("DeleteDocket/{id}")]
     public async Task<IActionResult> DeleteDocket(Guid id)
     {
         return Ok(await _docketRepository.DeleteDocket(id));
