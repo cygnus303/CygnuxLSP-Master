@@ -17,15 +17,15 @@ internal class DocketRepository : IDocketRepository
         _docketService = docketService;
     }
 
-    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize)
+    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId)
     {
-        var response = await _docketService.GetDocketList(page, pageSize);
+        var response = await _docketService.GetDocketList(page, pageSize,userId);
         return new BaseResponse<IEnumerable<DocketListResponse>>(response);
     }
 
-    public async Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId)
+    public async Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId, Guid userId)
     {
-        var response = await _docketService.GetDocketDetails(docketId);
+        var response = await _docketService.GetDocketDetails(docketId,userId);
 
         return new BaseResponse<DocketDetailResponse?>(response);
     }

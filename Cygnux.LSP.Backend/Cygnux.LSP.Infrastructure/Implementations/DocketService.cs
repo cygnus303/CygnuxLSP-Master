@@ -16,11 +16,12 @@ internal class DocketService : IDocketService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize)
+    public async Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryAsync<DocketListResponse>(
              StoredProcedureConstants.Usp_GetDocket,
@@ -29,10 +30,11 @@ internal class DocketService : IDocketService
          );
     }
 
-    public async Task<DocketDetailResponse> GetDocketDetails(Guid docketId)
+    public async Task<DocketDetailResponse> GetDocketDetails(Guid docketId, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Id", docketId, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<DocketDetailResponse>(
             StoredProcedureConstants.Usp_GetDocket,

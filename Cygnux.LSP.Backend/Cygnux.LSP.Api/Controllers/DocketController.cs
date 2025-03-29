@@ -17,16 +17,16 @@ public class DocketController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId)
     {
-        return Ok(await _docketRepository.GetDocketList(page, pageSize));
+        return Ok(await _docketRepository.GetDocketList(page, pageSize,userId));
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<IActionResult> GetDocketDetails(Guid id)
+    public async Task<IActionResult> GetDocketDetails(Guid id, Guid userId)
     {
-        return Ok(await _docketRepository.GetDocketDetails(id));
+        return Ok(await _docketRepository.GetDocketDetails(id,userId));
     }
     [HttpPost]
     [Route("import")]
