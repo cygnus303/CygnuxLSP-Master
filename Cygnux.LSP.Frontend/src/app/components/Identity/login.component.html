@@ -13,7 +13,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Email Address</label>
                                 <input class="form-control" formControlName="email" type="email" required=""
-                                    placeholder="Test@gmail.com">
+                                    placeholder="Enter Email">
                                 <div *ngIf="loginFormGroup.controls['email'].invalid && loginFormGroup.controls['email']?.touched"
                                     class="text-danger">
                                     <small *ngIf="loginFormGroup.controls['email'].errors?.['required']">Email
@@ -26,7 +26,7 @@
                                 <label class="col-form-label">Password</label>
                                      <div class="form-input position-relative">
                                       <input class="form-control" formControlName="password" type="password"
-                                        name="login[password]" required="" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="*********">
+                                        name="login[password]" required="" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Enter Password">
                                       <div class="align-middle position-absolute top-50 translate-middle-y end-0 pe-3" (click)="togglePasswordVisibility()"> 
                                         <i class="fa"  [style.color]="isPasswordVisible ? 'darkblue' : 'gray'" [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                       </div>
