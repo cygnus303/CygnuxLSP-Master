@@ -2,5 +2,18 @@
 {
     public class DocketListResponse : DocketDetailResponse
     {
+        public Guid Id { get; set; }
+        public string DocketNo { get; set; } = string.Empty;
+        public DateTime BookingDate { get; set; }
+        public string FromLocation { get; set; } = string.Empty;
+        public string ToLocation { get; set; } = string.Empty;
+        public Guid CustomerId { get; set; }
+        public string InvoiceNo { get; set; } = string.Empty;
+        public string Transporter { get; set; } = string.Empty;
+        public string TransportMode { get; set; } = string.Empty;
+        public int Quantity { get; set; }
+        public string EntryBy { get; set; } = string.Empty;
+        public DateTime EntryDate { get; set; }
+        public int? TotalCount { get; set; }
     }
 }

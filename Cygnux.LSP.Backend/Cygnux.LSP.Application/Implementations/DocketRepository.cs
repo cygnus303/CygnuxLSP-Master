@@ -1,6 +1,7 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.Customer;
 using Infrastructure.Contracts;
 using Infrastructure.Models.Response;
 using Infrastructure.Models.Response.Docket;
@@ -20,7 +21,8 @@ internal class DocketRepository : IDocketRepository
     public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity)
     {
         var response = await _docketService.GetDocketList(page, pageSize,userId,docketNo,fromLocation,toLocation,quantity);
-        return new BaseResponse<IEnumerable<DocketListResponse>>(response);
+        //return new BaseResponse<IEnumerable<DocketListResponse>>(response);
+        return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
     public async Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId, Guid userId)
