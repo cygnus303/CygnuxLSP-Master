@@ -12,6 +12,7 @@ import { CommonService } from '../../../shared/services/common.service';
 import { DocketService } from '../../../shared/services/docket.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-docket',
@@ -27,12 +28,14 @@ export class DocketListComponent implements OnInit, AfterViewInit {
   public pageSize = 5; // Number of items per page
   public totalItems = 0; // Total number of items
   public selectedFile: File | null = null;
+  filters: { [key: string]: string } = {}; // Dynamic filter object
   @Output() edit = new EventEmitter<DocketResponse>();
 
   constructor(
     private docketService: DocketService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private toasterService: ToastrService,
+    private identityService:IdentityService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
   }
@@ -44,7 +47,16 @@ export class DocketListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
   getDockets(page: number = 1) {
     this.commonService.updateLoader(true);
-    this.docketService.getDocketList(page, this.pageSize).subscribe({
+    this.filters = Object.fromEntries(
+      Object.entries(this.filters).filter(([key, value]) => value !== null)
+    );
+    const filters: any = {
+      ...this.filters,
+      Page: page,
+      PageSize: this.pageSize,
+      UserID:this.identityService.getLoggedUserId()
+    };
+    this.docketService.getDocketList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.dockets = response.data;
@@ -148,7 +160,7 @@ export class DocketListComponent implements OnInit, AfterViewInit {
   }
   getDocket(docketCode: string) {
     this.commonService.updateLoader(true);
-    this.docketService.getDocketDetails(docketCode).subscribe({
+    this.docketService.getDocketDetails(docketCode,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedDocket = response.data;

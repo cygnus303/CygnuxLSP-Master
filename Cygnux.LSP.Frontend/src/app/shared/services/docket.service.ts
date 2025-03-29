@@ -16,22 +16,15 @@ export class DocketService {
     @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
   ) {}
 
-  getDocketList(
-    page: number = 1,
-    pageSize: number = 100
-  ): Observable<IApiBaseResponse<DocketResponse[]>> {
-    let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
-    };
-    return this.apiHandlerService.Get('docket', params);
+  getDocketList(filters:any): Observable<IApiBaseResponse<DocketResponse[]>> {
+    return this.apiHandlerService.Get('docket', filters);
   }
 
   importDocket(formData: any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('docket/import', formData);
   }
-  getDocketDetails(id: string): Observable<IApiBaseResponse<DocketResponse>> {
-    return this.apiHandlerService.Get('docket/' + id);
+  getDocketDetails(id: string,userId:string): Observable<IApiBaseResponse<DocketResponse>> {
+    return this.apiHandlerService.Get(`docket/${id}?userId=${userId}`);
   }
 
   addDocket(
