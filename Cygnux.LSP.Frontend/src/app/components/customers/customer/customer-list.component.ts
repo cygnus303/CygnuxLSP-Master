@@ -104,7 +104,7 @@ export class CustomerListComponent implements OnInit {
   }
   getCustomer(customerCode: string) {
     this.commonService.updateLoader(true);
-    this.customerService.getCustomerDetails(customerCode).subscribe({
+    this.customerService.getCustomerDetails(customerCode,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedCustomer = response.data;

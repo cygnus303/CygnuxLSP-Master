@@ -5,6 +5,7 @@ import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-resp
 import { AddCustomerRequest, CustomerResponse } from '../models/customer.model';
 import { CommonResponse } from '../models/lsp.model';
 import { IdentityService } from './identity.service';
+import { userId } from '../constants/common';
 
 
 @Injectable({
@@ -19,8 +20,8 @@ export class CustomerService {
     return this.apiHandlerService.Get('customer', filters);
   }
 
-  getCustomerDetails(id: string): Observable<IApiBaseResponse<CustomerResponse>> {
-    return this.apiHandlerService.Get('customer/' + id);
+  getCustomerDetails(id: string,userId: string): Observable<IApiBaseResponse<CustomerResponse>> {
+    return this.apiHandlerService.Get(`customer/${id}?userId=${userId}`);
   }
 
   addCustomer(addcustomerRequest: AddCustomerRequest): Observable<IApiBaseResponse<CommonResponse>> {

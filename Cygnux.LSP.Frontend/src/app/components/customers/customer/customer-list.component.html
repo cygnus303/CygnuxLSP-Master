@@ -27,8 +27,10 @@
                     </tr>
                     <tr class="table-th">
                       <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['CustomerName']" (input)="getCustomers()"/></th>
-                      <th class="w-25"><input type="text" class="form-control" /></th>
-                      <th class="w-25"><input type="text" class="form-control" /></th>
+                      <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['customerCode']"
+                        (input)="getCustomers()"/></th>
+                      <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['emailId']"
+                        (input)="getCustomers()"/></th>
                       <th class="w-8"></th>
                       <th class="w-8 text-center" >
                         <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
@@ -59,7 +61,7 @@
                         </div>
                         <div>
                           
-                          <a href="#" (click)="lspMappingonModal($event,customer)"><i class="fa fa-truck" style="color: rgb(177, 177, 177); height: 18px;"></i></a>
+                          <a (click)="lspMappingonModal($event,customer)"><i class="ri-truck-line"></i></a>
                       </div>
                       </div>
                     </td>
