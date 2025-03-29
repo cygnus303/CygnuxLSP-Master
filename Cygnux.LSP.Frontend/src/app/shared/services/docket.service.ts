@@ -17,30 +17,30 @@ export class DocketService {
   ) {}
 
   getDocketList(filters:any): Observable<IApiBaseResponse<DocketResponse[]>> {
-    return this.apiHandlerService.Get('docket', filters);
+    return this.apiHandlerService.Get('docket/GetDocketList', filters);
   }
 
   importDocket(formData: any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('docket/import', formData);
   }
   getDocketDetails(id: string,userId:string): Observable<IApiBaseResponse<DocketResponse>> {
-    return this.apiHandlerService.Get(`docket/${id}?userId=${userId}`);
+    return this.apiHandlerService.Get(`docket/GetDocketDetail/${id}?userId=${userId}`);
   }
 
   addDocket(
     adddocketRequest: AddDocketRequest
   ): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('docket', adddocketRequest);
+    return this.apiHandlerService.Post('docket/AddDocket', adddocketRequest);
   }
 
   updateDocket(
     id: string,
     adddocketRequest: AddDocketRequest
   ): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('docket/' + id, adddocketRequest);
+    return this.apiHandlerService.Post('docket/UpdateDocket/' + id, adddocketRequest);
   }
 
   deleteDocket(id: string): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch('docket/' + id, null);
+    return this.apiHandlerService.Patch('docket/DeleteDocket/' + id, null);
   }
 }

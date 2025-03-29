@@ -46,10 +46,10 @@ export class DocketListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {}
   getDockets(page: number = 1) {
-    this.commonService.updateLoader(true);
     this.filters = Object.fromEntries(
       Object.entries(this.filters).filter(([key, value]) => value !== null)
     );
+    this.commonService.updateLoader(true);
     const filters: any = {
       ...this.filters,
       Page: page,
