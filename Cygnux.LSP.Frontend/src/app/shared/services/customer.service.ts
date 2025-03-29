@@ -15,13 +15,8 @@ export class CustomerService {
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService, private identityService:IdentityService
 ) { }
 
-  getCustomerList(page: number = 1, pageSize: number = 100): Observable<IApiBaseResponse<CustomerResponse[]>> {
-    let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
-      userId:this.identityService.getLoggedUserId()
-    };
-    return this.apiHandlerService.Get('customer', params);
+  getCustomerList( filters: any): Observable<IApiBaseResponse<CustomerResponse[]>> {
+    return this.apiHandlerService.Get('customer', filters);
   }
 
   getCustomerDetails(id: string): Observable<IApiBaseResponse<CustomerResponse>> {

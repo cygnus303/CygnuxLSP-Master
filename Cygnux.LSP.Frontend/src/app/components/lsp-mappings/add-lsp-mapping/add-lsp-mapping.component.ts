@@ -74,7 +74,12 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
 
   getCustomers() {
     this.commonService.updateLoader(true);
-    this.customerService.getCustomerList().subscribe({
+    const filters: any = {
+      Page: 1,
+      UserID:this.identityService.getLoggedUserId(),
+      PageSize: 100,
+    };
+    this.customerService.getCustomerList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;
