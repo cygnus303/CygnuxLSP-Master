@@ -28,17 +28,17 @@
                   <tr class="table-th">
                     <th class="w-25">Docket Name</th>
                     <th class="w-25">From WH/Store</th>
+                    <th class="w-25">To WH/Store</th>
                     <th class="w-25">Quantity</th>
-                    <th class="w-8 text-center">Active</th>
                     <th class="w-8 text-center">Action
                       <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
                     </th>
                   </tr>
                   <tr class="table-th">
-                    <th class="w-25"><input type="text" class="form-control" /></th>
-                    <th class="w-25"><input type="text" class="form-control" /></th>
-                    <th class="w-25"><input type="text" class="form-control" /></th>
-                    <th class="w-8"></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['docketNo']" (change)="getDockets()"/></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['fromLocation']" (change)="getDockets()"/></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['toLocation']" (change)="getDockets()"/></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['quantity']" (change)="getDockets()"/></th>
                     <th class="w-8 text-center" >
                       <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
                         <img src="../assets/images/Search.png" title="Search" height="15">
