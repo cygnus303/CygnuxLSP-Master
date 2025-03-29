@@ -5,9 +5,9 @@ using Models.Response.Customer;
 
 public interface ICustomerService
 {
-    Task<IEnumerable<CustomerListResponse>> GetCustomerList(int page, int pageSize, Guid userId);
+    Task<IEnumerable<CustomerListResponse>> GetCustomerList(string? customerCode,int page, int pageSize, Guid userId,string? CustomerName,string? EmailId);
 
-    Task<CustomerDetailResponse> GetCustomerDetails(string customerCode);
+    Task<CustomerDetailResponse> GetCustomerDetails(string customerCode,Guid userId);
 
     Task<CommonCreateResponse> AddCustomer(string addCustomerJson);
 

@@ -2,6 +2,7 @@
 
 using Application.Contracts;
 using Application.Models.Request.Customer;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/v{version:apiVersion}/[controller]")]
@@ -16,16 +17,16 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCustomerList([FromQuery] int page, [FromQuery] int pageSize,Guid userId)
+    public async Task<IActionResult> GetCustomerList(string? customerCode, [FromQuery] int page, [FromQuery] int pageSize, Guid userId, string? CustomerName, string? EmailId)
     {
-        return Ok(await _customerRepository.GetCustomerList(page, pageSize, userId));
+        return Ok(await _customerRepository.GetCustomerList(customerCode,page, pageSize, userId, CustomerName,EmailId));
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<IActionResult> GetCustomerDetails(string id)
+    public async Task<IActionResult> GetCustomerDetails(string id,Guid userId)
     {
-        return Ok(await _customerRepository.GetCustomerDetails(id));
+        return Ok(await _customerRepository.GetCustomerDetails(id,userId));
     }
 
     [HttpPost]

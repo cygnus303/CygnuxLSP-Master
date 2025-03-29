@@ -7,9 +7,9 @@ using Models.Response;
 
 public interface ICustomerRepository
 {
-    Task<BaseResponse<IEnumerable<CustomerListResponse>>> GetCustomerList(int page, int pageSize,Guid userId);
+    Task<BaseResponse<IEnumerable<CustomerListResponse>>> GetCustomerList(string? customerCode, int page, int pageSize, Guid userId, string? CustomerName, string? EmailId);
 
-    Task<BaseResponse<CustomerDetailResponse?>> GetCustomerDetails(string customerCode);
+    Task<BaseResponse<CustomerDetailResponse?>> GetCustomerDetails(string customerCode, Guid userId);
 
     Task<BaseResponse<CommonCreateResponse>> AddCustomer(CreateCustomerRequest createCustomerRequest);
 
