@@ -21,4 +21,5 @@ public static class StoredProcedureConstants
     public const string Usp_ImportDocket = "Usp_ImportDocket";
     public const string Usp_RoleMenuPermission = "Usp_RoleMenuPermission";
     public const string Usp_GetMenuPermission = "Usp_GetMenuPermission";
+    public const string USP_DeleteDocket = "USP_DeleteDocket";
 }

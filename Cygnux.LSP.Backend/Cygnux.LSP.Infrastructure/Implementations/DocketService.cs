@@ -85,6 +85,18 @@ internal class DocketService : IDocketService
 
     public async Task<CommonCreateResponse> DeleteDocket(Guid id)
     {
+        var parameters = new DynamicParameters();
+        parameters.Add("@Id", id, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_DeleteDocket,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
+    }
+
+    /*public async Task<CommonCreateResponse> DeleteDocket(Guid id)
+    {
         var deleteQuery = "Update Docket Set IsCancel = 1 Where Id = @Id";
         var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
         if (rowAffected > 0)
@@ -92,5 +104,5 @@ internal class DocketService : IDocketService
             return new CommonCreateResponse { Status = 1, Message = "Docket Cancelled successfully" };
         }
         return new CommonCreateResponse();
-    }
+    }*/
 }
