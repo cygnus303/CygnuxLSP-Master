@@ -89,7 +89,7 @@ internal class DocketService : IDocketService
         var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
         if (rowAffected > 0)
         {
-            return new CommonCreateResponse { Status = 1, Message = "Docket deleted successfully" };
+            return new CommonCreateResponse { Status = 1, Message = "Docket Cancelled successfully" };
         }
         return new CommonCreateResponse();
     }
