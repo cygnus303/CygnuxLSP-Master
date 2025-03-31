@@ -4,7 +4,6 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
 {
     public class CreateDocketRequest : UserSettings
     {
-        public Guid Id { get; set; }
         public string DocketNo { get; set; } = string.Empty;
         public DateTime BookingDate { get; set; }
         public string FromLocation { get; set; } = string.Empty;
