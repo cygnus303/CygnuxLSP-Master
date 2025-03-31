@@ -195,4 +195,14 @@ export class DocketListComponent implements OnInit {
     this.page = page;
     this.getDockets(this.page);
   }
+
+  docketDetail(event: Event, id: string){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('docketDetail');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      this.getDocket(id);
+    }
+  }
 }

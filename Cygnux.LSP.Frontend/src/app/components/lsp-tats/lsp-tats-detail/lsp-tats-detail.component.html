@@ -1,0 +1,38 @@
+<div class="modal-body">
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <td><strong>Customer Name:</strong> {{ lspTatsDetail?.customerName }}</td>
+            <td><strong>Lsp Name:</strong> {{ lspTatsDetail?.lspName }}</td>
+          </tr>
+          <tr>
+            <td><strong>Product:</strong> {{ lspTatsDetail?.product }}</td>
+            <td><strong>Origin:</strong> {{ lspTatsDetail?.origin }}</td>
+          </tr>
+          <tr>
+            <td><strong>Destination:</strong> {{ lspTatsDetail?.destination }}</td>
+            <td><strong>Destination State:</strong> {{ lspTatsDetail?.destinationState}}</td>
+          </tr>
+          <tr>
+            <td><strong>Priority:</strong> {{ lspTatsDetail?.priority }}</td>
+            <td><strong>Booking Type:</strong> {{ lspTatsDetail?.bookingType }}</td>
+          </tr>
+          <tr>
+            <td><strong>Mode:</strong> {{ lspTatsDetail?.mode }}</td>
+            <td><strong>Tat:</strong> {{ lspTatsDetail?.tat }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <div class="modal-footer">
+    <div class="hstack gap-2 justify-content-end">
+      <button type="button" class="btn btn-square btn-light" data-bs-dismiss="modal">
+        Close
+      </button>
+    </div>
+  </div>
+  

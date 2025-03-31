@@ -7,9 +7,10 @@ import { DocketListComponent } from './docket/docket-list.component';
 import { AddDocketComponent } from './add-docket/add-docket.component';
 import { DocketRoutes } from './dockets.routes';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DocketDetailComponent } from './docket-detail/docket-detail.component';
 
 @NgModule({
-  declarations: [DocketListComponent, AddDocketComponent],
+  declarations: [DocketListComponent, AddDocketComponent,DocketDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(DocketRoutes),

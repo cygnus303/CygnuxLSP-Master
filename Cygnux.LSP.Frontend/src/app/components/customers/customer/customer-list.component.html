@@ -21,7 +21,7 @@
                       <th class="w-25">Customer Code</th>
                       <th class="w-25">Email</th>
                       <th class="w-8 text-center">Active</th>
-                      <th class="w-8 text-center">Action
+                      <th class="w-15 text-center">Action
                         <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
                       </th>
                     </tr>
@@ -32,7 +32,7 @@
                       <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['emailId']"
                         (input)="getCustomers()"/></th>
                       <th class="w-8"></th>
-                      <th class="w-8 text-center" >
+                      <th class="w-15 text-center" >
                         <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
                           <img src="../assets/images/Search.png" title="Search" height="15">
                           <svg xmlns="http://www.w3.org/2000/svg" title="Clear filter" viewBox="0 0 24 24" fill="rgba(21,141,247,1)" height="18">
@@ -51,18 +51,20 @@
                     <td class="w-25">{{customer.emailId}}</td>
                     <td class="w-8 text-center"><i
                       [ngClass]="customer.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                    <td class="w-8">
+                    <td class="w-15">
                       <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
                         <div>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"  height="20" (click)="editModal($event,customer.customerCode)"><path d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"></path></svg>
                         </div>
                         <div>
+                          <i class="ri-eye-fill align-bottom text-muted" (click)="customerDetail($event,customer.customerCode)"></i>
+                        </div>
+                        <div>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteModal($event,customer.customerCode)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
                         </div>
                         <div>
-                          
                           <a (click)="lspMappingonModal($event,customer)"><i class="ri-truck-line"></i></a>
-                      </div>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -124,6 +126,21 @@
             </div>
             <div class="modal-body" style="padding:0px;">
               <app-add-lsp-mapping (dataEmitter)="closelspMappingModal()" [lspMappingResponse]="selectedCustomer"></app-add-lsp-mapping>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade editDialog" id="customerDetail" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Customer Detail</h5>
+                <button class="btn-close" type="button" (click)="closelspMappingModal()"></button>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+              <app-customer-detail [customerDetail]="selectedCustomer"></app-customer-detail>
             </div>
         </div>
     </div>

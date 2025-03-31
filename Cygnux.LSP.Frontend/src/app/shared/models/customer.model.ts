@@ -23,6 +23,8 @@ export interface CustomerResponse {
     isConsolidatedGSTNo: boolean;
     consolidatedGSTNo: string;
     businessClassification: string;
+    address:string;
+    tenantId:string;
 }
 
 export interface AddCustomerRequest {

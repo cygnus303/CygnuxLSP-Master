@@ -1,0 +1,29 @@
+<div class="modal-body">
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <td><strong>First Name:</strong> {{ usersDetail?.firstName }}</td>
+            <td><strong>Last Name:</strong> {{ usersDetail?.lastName }}</td>
+          </tr>
+          <tr>
+            <td><strong>Email:</strong> {{ usersDetail?.emailId }}</td>
+            <td><strong>Phone number:</strong> {{ usersDetail?.phoneNumber }}</td>
+          </tr>
+          <tr>
+            <td><strong>Roles:</strong> {{ usersDetail?.roles }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <div class="modal-footer">
+    <div class="hstack gap-2 justify-content-end">
+      <button type="button" class="btn btn-square btn-light" data-bs-dismiss="modal">
+        Close
+      </button>
+    </div>
+  </div>
+  

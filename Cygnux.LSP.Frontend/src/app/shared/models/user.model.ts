@@ -5,6 +5,7 @@ export interface UserResponse {
   emailId: string;
   phoneNumber: string;
   isActive: boolean;
+  roles:string;
 }
 
 export interface AddUserRequest {

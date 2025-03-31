@@ -1,0 +1,28 @@
+<div class="modal-body">
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <tbody class="table-light">
+          <tr class="table-th">
+            <td><strong>Customer Name:</strong> {{ lspMappingsDetail?.customerName }}</td>
+          </tr>
+          <tr class="table-th">
+            <td><strong>Lsp Name:</strong> 
+                <tr *ngFor="let data of lspMappingsDetail?.lspResponses">
+                  <td>{{data.lspName}}</td>
+                </tr>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <div class="modal-footer">
+    <div class="hstack gap-2 justify-content-end">
+      <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+        Close
+      </button>
+    </div>
+  </div>
+  

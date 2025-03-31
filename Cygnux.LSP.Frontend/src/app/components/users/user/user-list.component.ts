@@ -143,4 +143,14 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.page = page;
     this.getUsers(this.page);
   }
+
+  usersDetail(event: Event, id: string){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('usersDetail');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      this.getUser(id);
+    }
+  }
 }

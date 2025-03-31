@@ -8,11 +8,13 @@ import { CustomerRoutes } from './customer.routes';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { LspMappingModule } from '../lsp-mappings/lsp-mappings.module';
 import { AddLspMappingComponent } from '../lsp-mappings/add-lsp-mapping/add-lsp-mapping.component';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 
 @NgModule({
     declarations: [
         CustomerListComponent,
         AddCustomerComponent,
+        CustomerDetailComponent
     ],
     imports: [
         CommonModule,

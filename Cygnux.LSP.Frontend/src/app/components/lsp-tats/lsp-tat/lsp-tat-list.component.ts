@@ -134,4 +134,14 @@ export class LspTatListComponent implements OnInit {
     this.page = page;
     this.getLspMappings(this.page);
   }
+
+  lspTatsDetail(event: Event, lspTatId: string){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('lspTatsDetail');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      this.getLspMapping(lspTatId);
+    }
+  }
 }

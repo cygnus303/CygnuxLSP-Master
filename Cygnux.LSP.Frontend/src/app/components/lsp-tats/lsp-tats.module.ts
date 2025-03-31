@@ -7,11 +7,13 @@ import { AddLspTatComponent } from './add-lsp-tat/add-lsp-tat.component';
 import { LspTatRoutes } from './lsp-tats.routes';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LspTatsDetailComponent } from './lsp-tats-detail/lsp-tats-detail.component';
 
 @NgModule({
     declarations: [
         LspTatListComponent,
-        AddLspTatComponent
+        AddLspTatComponent,
+        LspTatsDetailComponent
     ],
     imports: [
         RouterModule.forChild(LspTatRoutes),

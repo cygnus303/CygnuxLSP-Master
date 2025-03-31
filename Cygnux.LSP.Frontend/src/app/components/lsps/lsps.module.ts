@@ -6,12 +6,14 @@ import { LspListComponent } from './lsp/lsp-list.component';
 import { AddLspComponent } from './add-lsp/add-lsp.component';
 import { LspRoutes } from './lsps.routes';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { LspDetailComponent } from './lsp-detail/lsp-detail.component';
 
 
 @NgModule({
     declarations: [
         LspListComponent,
-        AddLspComponent
+        AddLspComponent,
+        LspDetailComponent
     ],
     imports: [
         RouterModule.forChild(LspRoutes),

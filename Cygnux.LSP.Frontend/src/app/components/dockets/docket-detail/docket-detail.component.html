@@ -1,0 +1,34 @@
+<div class="modal-body">
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <td><strong>Docket No:</strong> {{ docketDetail?.docketNo }}</td>
+            <td><strong>Invoice No:</strong> {{ docketDetail?.invoiceNo }}</td>
+          </tr>
+          <tr>
+            <td><strong>From WH/Store:</strong> {{ docketDetail?.fromLocation }}</td>
+            <td><strong>To WH/Store:</strong> {{ docketDetail?.toLocation }}</td>
+          </tr>
+          <tr>
+            <td><strong>Transporter:</strong> {{ docketDetail?.transporter }}</td>
+            <td><strong>Transport Mode:</strong> {{ docketDetail?.transportMode}}</td>
+          </tr>
+          <tr>
+            <td><strong>Booking Date:</strong> {{ docketDetail?.bookingDate | date:'dd/MM/yyyy' }}</td>
+            <td><strong>Quantity:</strong> {{ docketDetail?.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <div class="modal-footer">
+    <div class="hstack gap-2 justify-content-end">
+      <button type="button" class="btn btn-square btn-light" data-bs-dismiss="modal">
+        Close
+      </button>
+    </div>
+  </div>
+  

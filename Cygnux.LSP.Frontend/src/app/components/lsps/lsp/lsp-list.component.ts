@@ -141,4 +141,14 @@ export class LspListComponent implements OnInit {
     this.page = page;
     this.getLsps(this.page);
   }
+
+  lspDetail(event: Event, lspId: string){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('lspDetail');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      this.getLsp(lspId);
+    }
+  }
 }

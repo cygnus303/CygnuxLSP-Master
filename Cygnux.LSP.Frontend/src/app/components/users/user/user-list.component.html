@@ -62,6 +62,9 @@
                           </svg>
                         </div>
                         <div>
+                          <i class="ri-eye-fill align-bottom text-muted" (click)="usersDetail($event,user.id)"></i>
+                        </div>
+                        <div>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)"
                             class="m-0" height="20">
                             <path
@@ -122,4 +125,19 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade editDialog" id="usersDetail" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Users Detail</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+              <users-detail [usersDetail]="selectedUser"></users-detail>
+            </div>
+        </div>
+    </div>
 </div>

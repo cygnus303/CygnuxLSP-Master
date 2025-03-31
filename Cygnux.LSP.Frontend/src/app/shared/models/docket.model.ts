@@ -9,6 +9,7 @@ export interface DocketResponse {
   trasporter: string;
   transportMode: string;
   quantity: number;
+  transporter:string;
 }
 
 export interface AddDocketRequest {

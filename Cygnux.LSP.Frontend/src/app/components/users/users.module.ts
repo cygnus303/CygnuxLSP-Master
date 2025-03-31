@@ -8,11 +8,13 @@ import { UserRoutes } from './users.routes';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { UsersDetailComponent } from './users-detail/users-detail.component';
 
 @NgModule({
     declarations: [
         UserListComponent,
-        AddUserComponent
+        AddUserComponent,
+        UsersDetailComponent
     ],
     imports: [
         CommonModule,

@@ -131,4 +131,14 @@ export class LspMappingListComponent implements OnInit {
     this.page = page;
     this.getLspMappings(this.page);
   }
+
+  lspMappingsDetail(event: Event, customerId: string){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('lspMappingsDetail');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      this.getLspMapping(customerId);
+    }
+  }
 }

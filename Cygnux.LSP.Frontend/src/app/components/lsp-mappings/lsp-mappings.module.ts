@@ -8,12 +8,14 @@ import { LspMappingRoutes } from './lsp-mappings.routes';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LspMappingsDetailComponent } from './lsp-mappings-detail/lsp-mappings-detail.component';
 
 
 @NgModule({
     declarations: [
         LspMappingListComponent,
-        AddLspMappingComponent
+        AddLspMappingComponent,
+        LspMappingsDetailComponent
     ],
     imports: [
         RouterModule.forChild(LspMappingRoutes),

@@ -9,6 +9,10 @@ export interface LspTatResponse {
     tat: string;
     customerName: string;
     isActive: boolean;
+    destinationState:string;
+    priority:string;
+    bookingType:string;
+    mode:string;
 }
 
 export interface AddLspTatRequest {

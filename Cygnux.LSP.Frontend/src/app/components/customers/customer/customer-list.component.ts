@@ -165,4 +165,14 @@ export class CustomerListComponent implements OnInit {
       this.getCustomers(this.page);
     }
   }
+
+  customerDetail(event: Event, customerCode: string){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('customerDetail');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      this.getCustomer(customerCode);
+    }
+  }
 }
