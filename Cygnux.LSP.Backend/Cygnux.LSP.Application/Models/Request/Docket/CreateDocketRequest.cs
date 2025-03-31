@@ -13,9 +13,8 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public string InvoiceNo { get; set; } = string.Empty;
         public string Transporter { get; set; } = string.Empty;
         public string TransportMode { get; set; } = string.Empty;
-        public bool IsCancel { get; set; } 
         public int Quantity { get; set;}
-        public Guid CreatedBy  { get; set; } = Guid.Empty;
-        public Guid UpdatedBy { get; set; } = Guid.Empty;
+        public Guid UserID  { get; set; } = Guid.Empty;
+        public bool IsCancel { get; set; }
     }
 }
