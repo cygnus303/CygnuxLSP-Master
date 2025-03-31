@@ -52,14 +52,8 @@ export class AddUserComponent implements OnInit, OnChanges {
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       roles: new FormControl(null, [Validators.required]),
-      emailId: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(EmailRegex),
-      ]),
-      phoneNumber: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(OnlyDigitRegex),
-      ]),
+      emailId: new FormControl(null, [Validators.required,Validators.pattern(EmailRegex)]),
+      phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
     });
   }

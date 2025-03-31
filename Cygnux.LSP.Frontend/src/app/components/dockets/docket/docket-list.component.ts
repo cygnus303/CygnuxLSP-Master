@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import {AfterViewInit, Component,EventEmitter,OnInit, Output} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
@@ -20,7 +14,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
   templateUrl: './docket-list.component.html',
   styleUrls: ['./docket-list.component.scss'],
 })
-export class DocketListComponent implements OnInit, AfterViewInit {
+export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
   public docketCode: string = '';
   public selectedDocket: DocketResponse | null = null;
@@ -44,7 +38,6 @@ export class DocketListComponent implements OnInit, AfterViewInit {
     this.getDockets();
   }
 
-  ngAfterViewInit(): void {}
   getDockets(page: number = 1) {
     this.filters = Object.fromEntries(
       Object.entries(this.filters).filter(([key, value]) => value !== null)
@@ -195,7 +188,6 @@ export class DocketListComponent implements OnInit, AfterViewInit {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-
       this.getDockets();
     }
   }
