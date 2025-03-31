@@ -14,6 +14,7 @@ import { DocketResponse } from '../../../shared/models/docket.model';
 import { DocketService } from '../../../shared/services/docket.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-add-docket',
@@ -32,7 +33,8 @@ export class AddDocketComponent implements OnInit, OnChanges {
     private docketService: DocketService,
     private commonService: CommonService,
     private toasterService: ToastrService,
-    private lspTatService: LspMappingService
+    private lspTatService: LspMappingService,
+    private identityService:IdentityService
   ) {
     this.docketForm = new FormGroup({});
   }
@@ -54,6 +56,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       transporter: new FormControl(null),
       transportMode: new FormControl(null),
       quantity: new FormControl(null),
+      EntryBy  :new FormControl(this.identityService.getLoggedUserId())
     });
   }
 
