@@ -85,7 +85,7 @@ internal class DocketService : IDocketService
 
     public async Task<CommonCreateResponse> DeleteDocket(Guid id)
     {
-        var deleteQuery = "Update Docket Set IsDeleted = 1 Where Id = @Id";
+        var deleteQuery = "Update Docket Set IsCancel = 1 Where Id = @Id";
         var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
         if (rowAffected > 0)
         {
