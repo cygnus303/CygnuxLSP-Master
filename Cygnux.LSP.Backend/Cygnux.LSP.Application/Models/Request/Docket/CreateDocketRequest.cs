@@ -17,5 +17,6 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public int Quantity { get; set;}
         public Guid CreatedBy  { get; set; } = Guid.Empty;
         public Guid UpdatedBy { get; set; } = Guid.Empty;
+        public Guid UserId { get; set; } = Guid.Empty;
     }
 }
