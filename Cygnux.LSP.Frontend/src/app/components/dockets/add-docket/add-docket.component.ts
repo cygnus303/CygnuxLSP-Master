@@ -70,6 +70,11 @@ export class AddDocketComponent implements OnInit, OnChanges {
     }
   }
 
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    return dateString.split('T')[0];
+  }
+
   onClose(){
     this.docketForm.reset();
     this.buildForm();
@@ -78,7 +83,11 @@ export class AddDocketComponent implements OnInit, OnChanges {
 
   onSubmitDocket(form: FormGroup): void {
     if (form.valid) {
-      !this.docketId ? this.addDocket(form) : this.updateDocket(form);
+      let forms = {
+        ...form.value,
+        EntryBy:this.identityService.getLoggedUserId()
+      }
+      !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);
     }
   }
   getCustomers() {
@@ -97,14 +106,15 @@ export class AddDocketComponent implements OnInit, OnChanges {
     });
   }
 
-  addDocket(form: FormGroup): void {
+  addDocket(form: any): void {
     this.commonService.updateLoader(true);
-    this.docketService.addDocket(form.getRawValue()).subscribe({
+    this.docketService.addDocket(form).subscribe({
       next: (response) => {
         if (response.success) {
           this.toasterService.success(response.data.message);
           this.dataEmitter.emit(); // Emitting the data to the parent
           this.docketForm.reset();
+          this.buildForm();
         } else {
           this.toasterService.error(response.error.message);
         }
@@ -117,16 +127,17 @@ export class AddDocketComponent implements OnInit, OnChanges {
     });
   }
 
-  updateDocket(form: FormGroup): void {
+  updateDocket(form: any): void {
     this.commonService.updateLoader(true);
     this.docketService
-      .updateDocket(this.docketId, form.getRawValue())
+      .updateDocket(this.docketId, form)
       .subscribe({
         next: (response) => {
           if (response.success) {
             this.toasterService.success(response.data.message);
             this.dataEmitter.emit(); // Emitting the data to the parent
             this.docketForm.reset();
+            this.buildForm();
           } else {
             this.toasterService.error(response.error.message);
           }

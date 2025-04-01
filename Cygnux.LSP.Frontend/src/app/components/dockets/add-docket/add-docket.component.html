@@ -46,7 +46,9 @@
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Booking Date</label>
                   <input class="form-control" formControlName="bookingDate" type="date" required
-                    [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}" />
+                    [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}" 
+                    [value]="formatDate(docketForm.controls['bookingDate'].value)"/>
+
                   <div *ngIf="docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['bookingDate'].errors?.['required']">Booking Date is
                       required.</small>
