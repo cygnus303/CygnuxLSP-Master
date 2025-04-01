@@ -2,7 +2,7 @@
 .dropzone {
     margin-right: auto;
     margin-left: auto;
-    padding: 50px;
+    // padding: 50px;
     border: 2px dashed var(--theme-deafult);
     border-radius: 10px;
     -webkit-border-image: none;
@@ -10,7 +10,7 @@
     border-image: none;
     background: rgba(92, 97, 242, 0.1);
     box-sizing: border-box;
-    min-height: 280px;
+    min-height: 200px;
     position: relative;
 }
   
