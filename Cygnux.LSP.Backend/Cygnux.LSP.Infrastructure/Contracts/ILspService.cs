@@ -5,7 +5,7 @@ using Models.Response.Lsp;
 
 public interface ILspService
 {
-    Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize);
+    Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId);
 
     Task<LspDetailResponse> GetLspDetails(Guid id);
 

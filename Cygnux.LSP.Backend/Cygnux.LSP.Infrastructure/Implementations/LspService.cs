@@ -16,11 +16,12 @@ internal class LspService : ILspService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize)
+    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryAsync<LspListResponse>(
              StoredProcedureConstants.Usp_GetLsp,

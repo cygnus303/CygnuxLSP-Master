@@ -21,9 +21,9 @@ internal class LspRepository : ILspRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize)
+    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize,Guid userId)
     {
-        var response = await _lspService.GetLspList(page, pageSize);
+        var response = await _lspService.GetLspList(page, pageSize, userId);
 
         return new BaseResponse<IEnumerable<LspListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
