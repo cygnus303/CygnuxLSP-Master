@@ -41,7 +41,6 @@ export class RolePermissionComponent implements OnInit {
             next: (response) => {
                 if (response) {
                     this.menus = response.data;
-                    console.log(this.menus)
                     this.updateMainCheckbox();
                 }
                 this.commonService.updateLoader(false);

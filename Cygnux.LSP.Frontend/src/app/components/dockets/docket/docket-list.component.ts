@@ -7,6 +7,7 @@ import { DocketService } from '../../../shared/services/docket.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-docket',
@@ -27,15 +28,23 @@ export class DocketListComponent implements OnInit {
 
   constructor(
     private docketService: DocketService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private toasterService: ToastrService,
-    private identityService:IdentityService
+    private identityService:IdentityService,
+    private route: ActivatedRoute
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
   }
 
   ngOnInit(): void {
     this.getDockets();
+    this.route.paramMap.subscribe(params => {
+      const navigationState = history.state;
+      if (navigationState && navigationState.start) {
+        this.commonService.menuRoleList = navigationState.start;
+        console.log(this.commonService.menuRoleList)
+      }
+    });
   }
 
   getDockets(page: number = 1) {

@@ -7,6 +7,8 @@ import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MenuRoleResponse } from '../../../shared/models/menu.model';
 
 @Component({
   selector: 'app-customer',
@@ -25,15 +27,23 @@ export class CustomerListComponent implements OnInit {
   filters: { [key: string]: string } = {}; // Dynamic filter object
   constructor(
     private customerService: CustomerService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private toasterService: ToastrService,
-    private identityService:IdentityService
+    private identityService:IdentityService,
+    private route: ActivatedRoute
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
   }
 
   ngOnInit(): void {
     this.getCustomers();
+    this.route.paramMap.subscribe(params => {
+      const navigationState = history.state;
+      if (navigationState && navigationState.start) {
+        this.commonService.menuRoleList = navigationState.start;
+        console.log(this.commonService.menuRoleList)
+      }
+    });
   }
 
   getCustomers(page: number = 1) {

@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import feather from 'feather-icons';
 import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
+import { RolePermissionService } from '../../../shared/services/role-permission.service';
+import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
 declare global {
   interface Window {
     toggleSidebarMenu: () => void;
@@ -24,11 +26,12 @@ declare global {
 export class SidebarComponent implements OnInit {
   iscollapse:boolean=false;
   public menus: MenuResponse[] = [];
+  private rolePermission:RolePermissionResponse[] = [];
   constructor(private identityService: IdentityService,
     private router: Router,
     private toasterService: ToastrService,
     public commonService: CommonService,
-    private menuService: MenuService,private scriptLoader: ScriptLoaderService) {
+    private menuService: MenuService,private scriptLoader: ScriptLoaderService,private rolePermissionService:RolePermissionService) {
 
   }
 ngOnInit(): void {
@@ -37,6 +40,7 @@ ngOnInit(): void {
   .then(() => {})
   .catch((error) => console.error(error)); 
   setTimeout(() => {
+  this.getRolePermission();
   this.getMenus();
 }, 300);
 }
@@ -55,7 +59,16 @@ getMenus() {
   .subscribe({
     next: (response) => {
       if (response) {
-        this.menus = response.data;
+        // this.menus = response.data;
+        this.menus = response.data.map((menu:any) => {
+          const permission = this.rolePermission.find(p => p.menuId === menu.menuId);
+          return {
+            ...menu,
+            canView: permission ? permission.canView : false,
+            canEdit: permission ? permission.canEdit : false,
+            canDelete: permission ? permission.canDelete : false
+          };
+        });
       }
       this.commonService.updateLoader(false);
       setTimeout(() => {
@@ -67,6 +80,29 @@ getMenus() {
       this.commonService.updateLoader(false);
     },
   });
+}
+
+getRolePermission() {
+  const roleId = localStorage.getItem('roleId') || '';
+  this.commonService.updateLoader(true);
+  this.rolePermissionService.getRolePermissionByRole(roleId).subscribe({
+      next: (response) => {
+          if (response) {
+              this.rolePermission = response.data;
+          }
+          this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+          this.toasterService.error(response.error.message);
+          this.commonService.updateLoader(false);
+      },
+  });
+}
+
+onMenuClick(data: any, index: number): void {
+  debugger
+  console.log('Menu clicked:', data.menuName);
+  // You can perform additional actions based on the clicked menu here
 }
 
   signout(): void {

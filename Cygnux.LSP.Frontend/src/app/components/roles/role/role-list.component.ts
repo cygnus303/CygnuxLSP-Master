@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-role',
@@ -32,14 +33,22 @@ export class RoleListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private roleService: RoleService,
-    private commonService: CommonService,
-    private toasterService: ToastrService
+    public commonService: CommonService,
+    private toasterService: ToastrService,
+    private route: ActivatedRoute
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Roles');
   }
 
   ngOnInit(): void {
     this.getRoles();
+    this.route.paramMap.subscribe(params => {
+      const navigationState = history.state;
+      if (navigationState && navigationState.start) {
+        this.commonService.menuRoleList = navigationState.start;
+        console.log(this.commonService.menuRoleList)
+      }
+    });
   }
 
   ngAfterViewInit(): void {}

@@ -55,7 +55,7 @@
                 </td>
                 <td class="w-8">
                   <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-                    <div>
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"
                         height="20" (click)="editModal($event,lsp.lspId)">
                         <path
@@ -63,10 +63,10 @@
                         </path>
                       </svg>
                     </div>
-                    <div>
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}">
                       <i class="ri-eye-fill align-bottom text-muted" (click)="lspDetail($event,lsp.lspId)"></i>
                     </div>
-                    <div>
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"
                         height="20" (click)="deleteModal($event,lsp.lspId)">
                         <path

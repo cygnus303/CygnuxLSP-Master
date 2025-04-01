@@ -13,6 +13,8 @@ import { Modal } from 'bootstrap';
 import { environment } from '../../../../environments/environment';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
+import { IdentityService } from '../../../shared/services/identity.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lsp',
@@ -28,22 +30,40 @@ export class LspListComponent implements OnInit {
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
   @Output() edit = new EventEmitter<LspResponse>();
-
+  filters: { [key: string]: string } = {}; // Dynamic filter object
   constructor(
     private lspService: LspService,
-    private commonService: CommonService,
-    private toasterService: ToastrService
+    public commonService: CommonService,
+    private toasterService: ToastrService,
+    private identityService:IdentityService,
+    private route: ActivatedRoute
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Lsp');
   }
 
   ngOnInit(): void {
     this.getLsps();
+    this.route.paramMap.subscribe(params => {
+      const navigationState = history.state;
+      if (navigationState && navigationState.start) {
+        this.commonService.menuRoleList = navigationState.start;
+        console.log(this.commonService.menuRoleList)
+      }
+    });
   }
 
   getLsps(page: number = 1) {
+    this.filters = Object.fromEntries(
+      Object.entries(this.filters).filter(([key, value]) => value !== null)
+    );
     this.commonService.updateLoader(true);
-    this.lspService.getLspList(page, this.pageSize).subscribe({
+    const filters: any = {
+      ...this.filters,
+      Page: page,
+      PageSize: this.pageSize,
+      UserID:this.identityService.getLoggedUserId(),
+    };
+    this.lspService.getLspList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
@@ -96,7 +116,7 @@ export class LspListComponent implements OnInit {
   }
   getLsp(id: string) {
     this.commonService.updateLoader(true);
-    this.lspService.getLspDetails(id).subscribe({
+    this.lspService.getLspDetails(id,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;

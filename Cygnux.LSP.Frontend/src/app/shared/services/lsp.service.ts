@@ -12,16 +12,12 @@ export class LspService {
 
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
 
-  getLspList(page: number = 1, pageSize: number = 100): Observable<IApiBaseResponse<LspResponse[]>> {
-    let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
-    };
-    return this.apiHandlerService.Get('lsp', params);
+  getLspList(filters: any): Observable<IApiBaseResponse<LspResponse[]>> {
+    return this.apiHandlerService.Get('lsp', filters);
   }
 
-  getLspDetails(id: string): Observable<IApiBaseResponse<LspResponse>> {
-    return this.apiHandlerService.Get('lsp/' + id);
+  getLspDetails(id: string,userId:string): Observable<IApiBaseResponse<LspResponse>> {
+    return this.apiHandlerService.Get(`lsp/${id}?userId=${userId}`);
   }
 
   addLsp(addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
