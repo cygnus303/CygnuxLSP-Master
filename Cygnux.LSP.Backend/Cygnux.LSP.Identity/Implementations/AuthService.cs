@@ -9,12 +9,14 @@ using Models;
 internal class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<ApplicationRole> _roleManager;
 
     private readonly IJwtService _jwtService;
 
-    public AuthService(UserManager<ApplicationUser> userManager, IJwtService jwtService)
+    public AuthService(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IJwtService jwtService)
     {
         _userManager = userManager;
+        _roleManager = roleManager;
         _jwtService = jwtService;
     }
 
@@ -37,11 +39,23 @@ internal class AuthService : IAuthService
             {
                 var token = _jwtService.GenerateEncodedToken(user);
                 var roles = await _userManager.GetRolesAsync(user);
+                var roleName = roles.FirstOrDefault();
+                string? roleId = null;
+                if (!string.IsNullOrEmpty(roleName))
+                {
+                    var role = await _roleManager.FindByNameAsync(roleName);
+                    if (role != null)
+                    {
+                        roleId = await _roleManager.GetRoleIdAsync(role);
+                    }
+                }
+
                 return new BaseLoginResponse<LoginResponse>(new LoginResponse
                 {
                     Token = token,
-                    Roles = roles.FirstOrDefault(),
-                    Email = email
+                    Roles = roleName, 
+                    Email = email,
+                    RoleId = roleId
                 });
             }
             return new BaseLoginResponse<LoginResponse>(false, message: "Password is incorrect.");
