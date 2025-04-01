@@ -99,12 +99,6 @@ getRolePermission() {
   });
 }
 
-onMenuClick(data: any, index: number): void {
-  debugger
-  console.log('Menu clicked:', data.menuName);
-  // You can perform additional actions based on the clicked menu here
-}
-
   signout(): void {
     this.identityService.clearToken();
     this.router.navigateByUrl('/login');

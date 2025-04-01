@@ -19,4 +19,8 @@ export class ImportDocketComponent {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+
+  onClose(){
+    this.files =[]
+  }
 }
