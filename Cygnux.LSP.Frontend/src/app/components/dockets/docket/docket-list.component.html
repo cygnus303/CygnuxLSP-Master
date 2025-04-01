@@ -11,7 +11,7 @@
                   <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()">
                     <i class="icon-plus"></i> Add Docket
                   </button>
-                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="triggerFileInput($event)">
+                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openImportModal($event)">
                     <i class="icon-upload"></i> Import Docket
                   </button>
                 </div>
@@ -140,4 +140,24 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade editDialog" id="importModal" tabindex="-1" role="dialog"
+  aria-labelledby="importModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Docket</h5>
+        <button
+          class="btn-close"
+          type="button"
+          (click)="closeEditModal()"
+          aria-label="Close"
+        ></button>
+      </div> -->
+      <div class="modal-body" style="padding: 0px">
+        <!-- <app-add-docket (dataEmitter)="closeEditModal()" [docketResponse]="selectedDocket"></app-add-docket> -->
+        <app-import-docket></app-import-docket>
+      </div>
+    </div>
+  </div>
 </div>
