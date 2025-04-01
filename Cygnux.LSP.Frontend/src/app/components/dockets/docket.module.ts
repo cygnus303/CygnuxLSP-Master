@@ -8,9 +8,16 @@ import { AddDocketComponent } from './add-docket/add-docket.component';
 import { DocketRoutes } from './dockets.routes';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DocketDetailComponent } from './docket-detail/docket-detail.component';
+import { ImportDocketComponent } from "./import-docket/import-docket.component";
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
-  declarations: [DocketListComponent, AddDocketComponent,DocketDetailComponent],
+  declarations: [
+    DocketListComponent, 
+    AddDocketComponent,
+    DocketDetailComponent,
+    ImportDocketComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(DocketRoutes),
@@ -18,7 +25,8 @@ import { DocketDetailComponent } from './docket-detail/docket-detail.component';
     FormsModule,
     NgbPaginationModule,
     NgSelectModule,
-  ],
+    NgxDropzoneModule
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DocketModule {}

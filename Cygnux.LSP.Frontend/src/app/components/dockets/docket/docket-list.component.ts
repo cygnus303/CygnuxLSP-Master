@@ -151,6 +151,16 @@ export class DocketListComponent implements OnInit {
       modal.show();
     }
   }
+
+  openImportModal(event: Event){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('importModal');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
   getDocket(docketCode: string) {
     this.commonService.updateLoader(true);
     this.docketService.getDocketDetails(docketCode,this.identityService.getLoggedUserId()).subscribe({
