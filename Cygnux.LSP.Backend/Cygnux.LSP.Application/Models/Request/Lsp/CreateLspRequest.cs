@@ -3,7 +3,7 @@ using Infrastructure.Implementations;
 
 public class CreateLspRequest : UserSettings
 {
-    public int LspId { get; set; }
+    //public int LspId { get; set; }
     public string LspName { get; set; } = string.Empty;
     public string EmailId { get; set; } = string.Empty;
     public string MobileNo { get; set; } = string.Empty;
@@ -14,5 +14,6 @@ public class CreateLspRequest : UserSettings
     public string ApiUsername { get; set; } = string.Empty;
     public string ApiPassword { get; set; } = string.Empty;
     public string Logo { get; set; } = string.Empty;
+    public string EntryBy { get; set; } = string.Empty;
     public bool? IsActive { get; set; }
 }
