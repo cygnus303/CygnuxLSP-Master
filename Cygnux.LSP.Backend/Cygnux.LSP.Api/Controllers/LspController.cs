@@ -16,19 +16,21 @@ public class LspController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetLspList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? lspName,char? mobileNo,string? alias,string? description)
+    [Route("GetLSPList")]
+    public async Task<IActionResult> GetLspList([FromQuery] int page, [FromQuery] int pageSize, Guid userId, string? lspName, char? mobileNo, string? alias, string? description)
     {
-        return Ok(await _lspRepository.GetLspList(page, pageSize, userId,lspName,mobileNo,alias,description));
+        return Ok(await _lspRepository.GetLspList(page, pageSize, userId, lspName, mobileNo, alias, description));
     }
 
     [HttpGet]
-    [Route("{id}")]
-    public async Task<IActionResult> GetLspDetails(Guid id,Guid userId)
+    [Route("GetDetails/{id}")]
+    public async Task<IActionResult> GetLspDetails(Guid id, Guid userId)
     {
         return Ok(await _lspRepository.GetLspDetails(id, userId));
     }
 
     [HttpPost]
+    [Route("AddLsp")]
     public async Task<IActionResult> AddLSP([FromForm] CreateLspRequest createLsp, IFormFile file)
     {
         if (file != null && file.Length > 0)
@@ -45,7 +47,7 @@ public class LspController : ControllerBase
     }
 
     [HttpPost]
-    [Route("{id}")]
+    [Route("UpdateLsp/{id}")]
     public async Task<IActionResult> UpdatedLSP(Guid id, [FromForm] CreateLspRequest createLsp, IFormFile? file)
     {
         if (file != null && file.Length > 0)
@@ -66,7 +68,7 @@ public class LspController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("{id}")]
+    [Route("DeleteLsp/{id}")]
     public async Task<IActionResult> DeleteLSP(Guid id)
     {
         return Ok(await _lspRepository.DeleteLsp(id));

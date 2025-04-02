@@ -37,37 +37,43 @@ internal class UserRoleService : IUserRoleService
 
     public async Task<IdentityResult> AddUserRole(Guid userId, string emailId, string roleName)
     {
-        var user = await _userManager.FindByIdAsync(userId.ToString());
-        if (user == null)
+        try
         {
-            var applicationUser = new ApplicationUser()
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
             {
-                Id = userId,
-                Email = emailId,
-                UserName = emailId,
-                PasswordHash = "Admin@123",
-                EntryBy = Guid.NewGuid(),
-                EntryDate = DateTime.Now,
-                AccessFailedCount = 0,
-                ConcurrencyStamp = "",
-                EmailConfirmed = false,
-                PhoneNumber = string.Empty,
-                PhoneNumberConfirmed = false,
-                TwoFactorEnabled = false,
-                IsActive = true
-            };
-            await _userManager.CreateAsync(applicationUser, applicationUser.PasswordHash!);
-            user = await _userManager.FindByIdAsync(userId.ToString());
-        }
+                var applicationUser = new ApplicationUser()
+                {
+                    Id = userId,
+                    Email = emailId,
+                    UserName = emailId,
+                    PasswordHash = "Admin@123",
+                    EntryBy = Guid.NewGuid(),
+                    EntryDate = DateTime.Now,
+                    AccessFailedCount = 0,
+                    ConcurrencyStamp = "",
+                    EmailConfirmed = false,
+                    PhoneNumber = string.Empty,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    IsActive = true
+                };
+                await _userManager.CreateAsync(applicationUser, applicationUser.PasswordHash!);
+                user = await _userManager.FindByIdAsync(userId.ToString());
+            }
 
-        var roleExists = await _roleManager.RoleExistsAsync(roleName);
-        if (!roleExists)
+            var roleExists = await _roleManager.RoleExistsAsync(roleName);
+            if (!roleExists)
+            {
+                var applicationRole = new ApplicationRole { Name = roleName };
+                return await _roleManager.CreateAsync(applicationRole);
+            }
+            return await _userManager.AddToRoleAsync(user, roleName);
+        }
+        catch (Exception x)
         {
-            var applicationRole = new ApplicationRole { Name = roleName };
-            return await _roleManager.CreateAsync(applicationRole);
+            return null;
         }
-
-        return await _userManager.AddToRoleAsync(user, roleName);
     }
 
     public async Task<IdentityResult> UpdateUserRoles(Guid userId, string roles)
