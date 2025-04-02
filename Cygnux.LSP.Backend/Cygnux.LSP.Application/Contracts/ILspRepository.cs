@@ -7,7 +7,7 @@ using Models.Response;
 
 public interface ILspRepository
 {
-    Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize,Guid userId, string? lspName, char? mobileNo, string? alias, string? description);
+    Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize,Guid userId, string? lspName, string? mobileNo, string? alias, string? description);
 
     Task<BaseResponse<LspDetailResponse?>> GetLspDetails(Guid id,Guid userId);
 

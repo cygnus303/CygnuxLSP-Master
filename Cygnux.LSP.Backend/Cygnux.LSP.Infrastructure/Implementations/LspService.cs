@@ -16,7 +16,7 @@ internal class LspService : ILspService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId, string? lspName, char? mobileNo, string? alias, string? description)
+    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId, string? lspName, string? mobileNo, string? alias, string? description)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);

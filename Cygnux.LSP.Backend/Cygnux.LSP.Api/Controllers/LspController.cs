@@ -16,7 +16,7 @@ public class LspController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetLspList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? lspName,char? mobileNo,string? alias,string? description)
+    public async Task<IActionResult> GetLspList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? lspName, string? mobileNo,string? alias,string? description)
     {
         return Ok(await _lspRepository.GetLspList(page, pageSize, userId,lspName,mobileNo,alias,description));
     }

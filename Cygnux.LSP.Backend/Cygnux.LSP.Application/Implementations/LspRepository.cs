@@ -22,7 +22,7 @@ internal class LspRepository : ILspRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize, Guid userId, string? lspName, char? mobileNo, string? alias, string? description)
+    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize, Guid userId, string? lspName, string? mobileNo, string? alias, string? description)
     {
         var response = await _lspService.GetLspList(page, pageSize, userId,lspName,mobileNo,alias,description);
 
