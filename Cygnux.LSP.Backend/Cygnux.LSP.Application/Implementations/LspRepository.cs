@@ -1,6 +1,7 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using Identity.Contracts;
 using Infrastructure.Constants;
 using Infrastructure.Contracts;
@@ -21,16 +22,18 @@ internal class LspRepository : ILspRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize,Guid userId)
+    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize, Guid userId, string? lspName, char? mobileNo, string? alias, string? description)
     {
-        var response = await _lspService.GetLspList(page, pageSize, userId);
+        var response = await _lspService.GetLspList(page, pageSize, userId,lspName,mobileNo,alias,description);
 
         return new BaseResponse<IEnumerable<LspListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
+        //return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
+
     }
 
-    public async Task<BaseResponse<LspDetailResponse?>> GetLspDetails(Guid id)
+    public async Task<BaseResponse<LspDetailResponse?>> GetLspDetails(Guid id, Guid userId)
     {
-        var response = await _lspService.GetLspDetails(id);
+        var response = await _lspService.GetLspDetails(id,userId);
         return new BaseResponse<LspDetailResponse?>(response);
     }
 

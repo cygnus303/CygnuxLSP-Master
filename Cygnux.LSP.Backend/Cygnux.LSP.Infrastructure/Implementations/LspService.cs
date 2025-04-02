@@ -16,12 +16,16 @@ internal class LspService : ILspService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId)
+    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId, string? lspName, char? mobileNo, string? alias, string? description)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
         parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@LspName", lspName, DbType.String);
+        parameters.Add("@MobileNo", mobileNo, DbType.String);
+        parameters.Add("@Alias", alias, DbType.String);
+        parameters.Add("@Description", description, DbType.String);
 
         return await _dbConnection.QueryAsync<LspListResponse>(
              StoredProcedureConstants.Usp_GetLsp,
@@ -30,10 +34,11 @@ internal class LspService : ILspService
          );
     }
 
-    public async Task<LspDetailResponse> GetLspDetails(Guid id)
+    public async Task<LspDetailResponse> GetLspDetails(Guid id, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@LspId", id, DbType.Guid);
+        parameters.Add("@PageSize", userId, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<LspDetailResponse>(
             StoredProcedureConstants.Usp_GetLsp,
