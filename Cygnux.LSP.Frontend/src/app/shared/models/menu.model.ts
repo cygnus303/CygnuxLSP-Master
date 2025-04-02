@@ -13,4 +13,5 @@ export interface MenuRoleResponse {
     canView: boolean;
     canEdit: boolean;
     canDelete: boolean;
+    canCreate:boolean;
 }

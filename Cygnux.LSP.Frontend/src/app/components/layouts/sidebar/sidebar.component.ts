@@ -66,7 +66,8 @@ getMenus() {
             ...menu,
             canView: permission ? permission.canView : false,
             canEdit: permission ? permission.canEdit : false,
-            canDelete: permission ? permission.canDelete : false
+            canDelete: permission ? permission.canDelete : false,
+            canCreate: permission ? permission.canCreate : false
           };
         });
       }

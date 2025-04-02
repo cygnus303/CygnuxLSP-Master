@@ -6,7 +6,7 @@
                             <div class="col-sm-6">
                                 <!-- <h4>LSP Tat</h4> -->
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
                                 <button class="btn btn-square btn-primary pull-right rounded-3" type="button"
                                     (click)="openModal()"><i class="icon-plus"></i>Add LSP Tat</button>
                             </div>
