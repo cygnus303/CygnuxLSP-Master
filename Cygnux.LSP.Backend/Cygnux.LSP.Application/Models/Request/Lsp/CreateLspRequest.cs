@@ -14,6 +14,6 @@ public class CreateLspRequest : UserSettings
     public string ApiUsername { get; set; } = string.Empty;
     public string ApiPassword { get; set; } = string.Empty;
     public string Logo { get; set; } = string.Empty;
-    public string EntryBy { get; set; } = string.Empty;
+    public required string EntryBy { get; set; } 
     public bool? IsActive { get; set; }
 }
