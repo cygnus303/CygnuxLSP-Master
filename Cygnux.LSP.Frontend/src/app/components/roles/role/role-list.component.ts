@@ -13,6 +13,7 @@ import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-role',
@@ -30,7 +31,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   selectedRole: RoleResponse | null = null;
   roleName: string | null = null;
   @Output() edit = new EventEmitter<RoleResponse>();
-
+  RoleListsubscribe!:Subscription;
   constructor(
     private roleService: RoleService,
     public commonService: CommonService,
@@ -42,15 +43,24 @@ export class RoleListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getRoles();
-    this.route.paramMap.subscribe(params => {
-      const navigationState = history.state;
-      if (navigationState && navigationState.start) {
-        this.commonService.menuRoleList = navigationState.start;
-        console.log(this.commonService.menuRoleList)
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
+      if (res) { 
+        this.commonService.menuRoleList = res;
+        console.log("Updated from activemenuRoleList:", res);
       }
-    });
+     });
+    // this.route.paramMap.subscribe(params => {
+    //   const navigationState = history.state;
+    //   if (navigationState && navigationState.start) {
+    //     this.commonService.menuRoleList = navigationState.start;
+    //     console.log(this.commonService.menuRoleList)
+    //   }
+    // });
   }
-
+  ngOnDestroy(): void {
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+  }
   ngAfterViewInit(): void {}
   getRoles(page: number = 1) {
     this.commonService.updateLoader(true);

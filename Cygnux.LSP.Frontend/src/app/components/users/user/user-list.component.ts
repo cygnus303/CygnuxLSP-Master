@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -13,6 +14,7 @@ import { UserService } from '../../../shared/services/user.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +22,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent implements OnInit, AfterViewInit {
+export class UserListComponent implements OnInit, OnDestroy {
   public users: UserResponse[] = [];
   public userCode: string = '';
   page = 1; // Current page number
@@ -29,7 +31,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   selectedUser: UserResponse | null = null;
 
   @Output() edit = new EventEmitter<UserResponse>();
-
+  RoleListsubscribe!:Subscription;
   constructor(
     private userService: UserService,
     public commonService: CommonService,
@@ -38,16 +40,24 @@ export class UserListComponent implements OnInit, AfterViewInit {
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Users');
   }
+ 
 
   ngOnInit(): void {
     this.getUsers();
-    this.route.paramMap.subscribe(params => {
-      const navigationState = history.state;
-      if (navigationState && navigationState.start) {
-        this.commonService.menuRoleList = navigationState.start;
-        console.log(this.commonService.menuRoleList)
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
+      if (res) { 
+        this.commonService.menuRoleList = res;
+        console.log("Updated from activemenuRoleList:", res);
       }
-    });
+     });
+    // this.route.paramMap.subscribe(params => {
+    //   const navigationState = history.state;
+    //   if (navigationState && navigationState.start) {
+    //     this.commonService.menuRoleList = navigationState.start;
+    //     console.log(this.commonService.menuRoleList)
+    //   }
+    // });
   }
 
   ngAfterViewInit(): void {}
@@ -161,5 +171,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
       modal.show();
       this.getUser(id);
     }
+  }
+
+  ngOnDestroy(): void {
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
 }

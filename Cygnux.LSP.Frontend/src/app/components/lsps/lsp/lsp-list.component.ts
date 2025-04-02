@@ -15,6 +15,7 @@ import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lsp',
@@ -31,6 +32,7 @@ export class LspListComponent implements OnInit {
   totalItems = 0; // Total number of items
   @Output() edit = new EventEmitter<LspResponse>();
   filters: { [key: string]: string } = {}; // Dynamic filter object
+  RoleListsubscribe!:Subscription;
   constructor(
     private lspService: LspService,
     public commonService: CommonService,
@@ -43,13 +45,24 @@ export class LspListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLsps();
-    this.route.paramMap.subscribe(params => {
-      const navigationState = history.state;
-      if (navigationState && navigationState.start) {
-        this.commonService.menuRoleList = navigationState.start;
-        console.log(this.commonService.menuRoleList)
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
+      if (res) { 
+        this.commonService.menuRoleList = res;
+        console.log("Updated from activemenuRoleList:", res);
       }
-    });
+     });
+    // this.route.paramMap.subscribe(params => {
+    //   const navigationState = history.state;
+    //   if (navigationState && navigationState.start) {
+    //     this.commonService.menuRoleList = navigationState.start;
+    //     console.log(this.commonService.menuRoleList)
+    //   }
+    // });
+  }
+
+  ngOnDestroy(): void {
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
 
   getLsps(page: number = 1) {
@@ -116,7 +129,7 @@ export class LspListComponent implements OnInit {
   }
   getLsp(id: string) {
     this.commonService.updateLoader(true);
-    this.lspService.getLspDetails(id,this.identityService.getLoggedUserId()).subscribe({
+    this.lspService.getLspDetails(id).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;

@@ -149,4 +149,5 @@ label {
   .disabled-image {
     opacity: 0.5; /* Faded appearance */
     pointer-events: none; /* Disable interaction */
+    display: none;
   }

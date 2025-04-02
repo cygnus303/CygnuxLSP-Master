@@ -7,6 +7,7 @@ import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -22,7 +23,7 @@ export class LspMappingListComponent implements OnInit {
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
   @Output() edit = new EventEmitter<LspMappingResponse>();
-
+  RoleListsubscribe!:Subscription;
   constructor(
     private lspMappingService: LspMappingService,
     public commonService: CommonService,
@@ -34,13 +35,24 @@ export class LspMappingListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLspMappings();
-    this.route.paramMap.subscribe(params => {
-      const navigationState = history.state;
-      if (navigationState && navigationState.start) {
-        this.commonService.menuRoleList = navigationState.start;
-        console.log(this.commonService.menuRoleList)
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
+      if (res) { 
+        this.commonService.menuRoleList = res;
+        console.log("Updated from activemenuRoleList:", res);
       }
-    });
+     });
+    // this.route.paramMap.subscribe(params => {
+    //   const navigationState = history.state;
+    //   if (navigationState && navigationState.start) {
+    //     this.commonService.menuRoleList = navigationState.start;
+    //     console.log(this.commonService.menuRoleList)
+    //   }
+    // });
+  }
+
+  ngOnDestroy(): void {
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
 
   getLspMappings(page: number = 1) {

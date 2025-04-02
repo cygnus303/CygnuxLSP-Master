@@ -70,6 +70,11 @@ getMenus() {
             canCreate: permission ? permission.canCreate : false
           };
         });
+        console.log(this.menus)
+        const data = this.menus.find((res)=>res.navigationUrl.includes(this.router.url))
+        if(data){
+          this.commonService.activemenuRoleList.next(data)
+        }
       }
       this.commonService.updateLoader(false);
       setTimeout(() => {
@@ -81,6 +86,10 @@ getMenus() {
       this.commonService.updateLoader(false);
     },
   });
+}
+
+onSidebar(data:any){
+  this.commonService.activemenuRoleList.next(data)
 }
 
 getRolePermission() {

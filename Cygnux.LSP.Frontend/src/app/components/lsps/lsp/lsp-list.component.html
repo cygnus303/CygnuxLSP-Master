@@ -22,17 +22,17 @@
                 <th class="w-15">Alias</th>
                 <th class="w-15">Description</th>
                 <th class="w-8 text-center">Active</th>
-                <th class="w-8 text-center">Action
+                <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
                   <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
                 </th>
               </tr>
               <tr class="table-th">
-                <th class="w-25"><input type="text" class="form-control" /></th>
-                <th class="w-25"><input type="text" class="form-control" /></th>
-                <th class="w-15"><input type="text" class="form-control" /></th>
-                <th class="w-15"><input type="text" class="form-control" /></th>
+                <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLsps()"/></th>
+                <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['mobileNo']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['alias']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['description']" (input)="getLsps()"/></th>
                 <th class="w-8"></th>
-                <th class="w-8 text-center">
+                <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                   <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
                                         <img src="../assets/images/Search.png" title="Search" height="15">
                                         <svg xmlns="http://www.w3.org/2000/svg" title="Clear filter" viewBox="0 0 24 24" fill="rgba(21,141,247,1)" height="18">
@@ -53,7 +53,7 @@
                 <td class="w-8 text-center"> <i
                     [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
                 </td>
-                <td class="w-8">
+                <td class="w-8" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                   <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
                     <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"

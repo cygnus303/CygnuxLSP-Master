@@ -48,7 +48,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   buildForm(): void {
     this.docketForm = new FormGroup({
       docketNo: new FormControl(null, [Validators.required]),
-      bookingDate: new FormControl(null, [Validators.required]),
+      bookingDate: new FormControl(new Date().toISOString().split('T')[0], [Validators.required]),
       fromLocation: new FormControl(null),
       toLocation: new FormControl(null),
       customerId: new FormControl(null),
@@ -67,6 +67,9 @@ export class AddDocketComponent implements OnInit, OnChanges {
     } else {
       this.docketForm.reset();
       this.docketId = '';
+      this.docketForm.patchValue({
+        bookingDate:new Date().toISOString().split('T')[0]
+      });
     }
   }
 
