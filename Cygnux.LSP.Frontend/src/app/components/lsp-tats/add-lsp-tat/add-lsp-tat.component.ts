@@ -15,7 +15,7 @@ import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-lsp-tat',
@@ -32,11 +32,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
   constructor(
-    private lspService: LspService,
-    private customerService: CustomerService,
     private lspTatService: LspMappingService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private sweetAlertService: SweetAlertService
   ) {
     this.lspTatForm = new FormGroup({});
   }
@@ -85,7 +83,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -100,7 +98,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -116,17 +114,17 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     this.lspTatService.addLspTat(form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspTatForm.reset();
           this.buildForm()
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -139,16 +137,16 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       .subscribe({
         next: (response) => {
           if (response.success) {
-            this.toasterService.success(response.data.message);
+            this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit();
             this.lspTatForm.reset();
           } else {
-            this.toasterService.error(response.error.message);
+            this.sweetAlertService.error(response.error.message);
           }
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
           this.commonService.updateLoader(false);
         },
       });

@@ -8,7 +8,8 @@ import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { ToastrService } from 'ngx-toastr';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -28,8 +29,8 @@ export class LspTatListComponent implements OnInit {
   constructor(
     private lspMappingService: LspMappingService,
     public commonService: CommonService,
-    private toasterService: ToastrService,
-    private route: ActivatedRoute
+    private toastrService: ToastrService,
+    private sweetAlertService:SweetAlertService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Lsp Tat');
   }
@@ -67,7 +68,7 @@ export class LspTatListComponent implements OnInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.toastrService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -96,16 +97,16 @@ export class LspTatListComponent implements OnInit {
     this.lspMappingService.deleteLspMappingTat(this.lspMappingId).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
         this.closeDeleteModal();
         this.getLspMappings();
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -121,7 +122,7 @@ export class LspTatListComponent implements OnInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

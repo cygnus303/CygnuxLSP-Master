@@ -14,7 +14,7 @@ import { DocketService } from '../../../shared/services/docket.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { IdentityService } from '../../../shared/services/identity.service';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-docket',
@@ -32,7 +32,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   constructor(
     private docketService: DocketService,
     private commonService: CommonService,
-    private toasterService: ToastrService,
+    private sweetAlertService: SweetAlertService,
     private lspTatService: LspMappingService,
     private identityService:IdentityService
   ) {
@@ -103,7 +103,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -114,17 +114,17 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.docketService.addDocket(form).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit(); // Emitting the data to the parent
           this.docketForm.reset();
           this.buildForm();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -137,17 +137,17 @@ export class AddDocketComponent implements OnInit, OnChanges {
       .subscribe({
         next: (response) => {
           if (response.success) {
-            this.toasterService.success(response.data.message);
+            this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit(); // Emitting the data to the parent
             this.docketForm.reset();
             this.buildForm();
           } else {
-            this.toasterService.error(response.error.message);
+            this.sweetAlertService.error(response.error.message);
           }
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
           this.commonService.updateLoader(false);
         },
       });

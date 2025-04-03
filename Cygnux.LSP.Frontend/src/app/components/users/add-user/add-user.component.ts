@@ -18,7 +18,7 @@ import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
 import { RoleService } from '../../../shared/services/role.service';
 import { RoleResponse } from '../../../shared/models/role.model';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-user',
@@ -36,7 +36,7 @@ export class AddUserComponent implements OnInit, OnChanges {
   constructor(
     private userService: UserService,
     private commonService: CommonService,
-    private toasterService: ToastrService,
+    private sweetAlertService: SweetAlertService,
     private roleService: RoleService
   ) {
     this.userForm = new FormGroup({});
@@ -88,7 +88,7 @@ export class AddUserComponent implements OnInit, OnChanges {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -100,15 +100,15 @@ export class AddUserComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit();
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.userForm.reset();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -120,15 +120,15 @@ export class AddUserComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit();
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.userForm.reset();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
