@@ -79,6 +79,14 @@ export const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'track',
+        loadChildren: () =>
+          import('./components/track-trace/track-trace.module').then(
+            (m) => m.TrackTraceModule
+          ),
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];
