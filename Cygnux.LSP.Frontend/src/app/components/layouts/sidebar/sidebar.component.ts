@@ -9,7 +9,7 @@ import feather from 'feather-icons';
 import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
 import { RolePermissionService } from '../../../shared/services/role-permission.service';
 import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { ToastrService } from 'ngx-toastr';
 declare global {
   interface Window {
     toggleSidebarMenu: () => void;

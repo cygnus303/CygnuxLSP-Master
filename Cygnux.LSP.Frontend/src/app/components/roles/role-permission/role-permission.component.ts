@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { CommonService } from '../../../shared/services/common.service';
 import { RolePermissionService } from '../../../shared/services/role-permission.service';
 import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { ToastrService } from 'ngx-toastr';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
     selector: 'app-role-permission',
@@ -24,7 +25,8 @@ export class RolePermissionComponent implements OnInit {
     constructor(
         private commonService: CommonService,
         private rolePermissionService: RolePermissionService,
-        private toasterService: ToastrService
+        private toastrService: ToastrService,
+        private sweetAlertService:SweetAlertService
     ) {}
 
     ngOnInit(): void {}
@@ -46,7 +48,7 @@ export class RolePermissionComponent implements OnInit {
                 this.commonService.updateLoader(false);
             },
             error: (response: any) => {
-                this.toasterService.error(response.error.message);
+                this.toastrService.error(response.error.message);
                 this.commonService.updateLoader(false);
             },
         });
@@ -108,14 +110,14 @@ export class RolePermissionComponent implements OnInit {
             next: (response) => {
                 if (response.success) {
                     this.permissionEmitter.emit();
-                    this.toasterService.success(response.data.message);
+                    this.sweetAlertService.success(response.data.message);
                 } else {
-                    this.toasterService.error(response.error.message);
+                    this.sweetAlertService.error(response.error.message);
                 }
                 this.commonService.updateLoader(false);
             },
             error: (response: any) => {
-                this.toasterService.error(response.error.message);
+                this.sweetAlertService.error(response.error.message);
                 this.commonService.updateLoader(false);
             },
         });
