@@ -13,6 +13,7 @@ import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import feather from 'feather-icons';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 
@@ -62,7 +63,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    feather.replace(); // Ensure icons render
+  }
   getRoles(page: number = 1) {
     this.commonService.updateLoader(true);
     this.roleService.getRoleList(page, this.pageSize).subscribe({

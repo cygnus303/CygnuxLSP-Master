@@ -151,3 +151,17 @@ label {
     pointer-events: none; /* Disable interaction */
     display: none;
   }
+
+  .bs-blue{
+    background-color: #171829 !important;
+    color: rgb(233, 233, 233);
+}
+.modal-content{
+    border: 0 !important;
+}
+
+.close{
+    background: none !important;
+    filter: invert(1) !important;
+    border: antiquewhite !important;
+}
