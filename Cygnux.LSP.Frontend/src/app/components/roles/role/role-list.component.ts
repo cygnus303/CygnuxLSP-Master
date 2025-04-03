@@ -8,11 +8,11 @@ import {
 import { RoleService } from '../../../shared/services/role.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { RoleResponse } from '../../../shared/models/role.model';
-import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-role',

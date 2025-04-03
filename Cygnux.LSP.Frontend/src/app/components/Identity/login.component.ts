@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { IdentityService } from '../../shared/services/identity.service';
 import { EmailRegex, MobileRegex, PasswordRegex } from '../../shared/constants/common';
 import { CommonService } from '../../shared/services/common.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../../shared/services/toastr.service';
 
 @Component({
     selector: 'app-login',

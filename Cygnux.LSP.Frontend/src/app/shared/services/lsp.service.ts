@@ -13,22 +13,22 @@ export class LspService {
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
 
   getLspList(filters: any): Observable<IApiBaseResponse<LspResponse[]>> {
-    return this.apiHandlerService.Get('lsp', filters);
+    return this.apiHandlerService.Get('lsp/GetLSPList', filters);
   }
 
   getLspDetails(id: string,userId:string): Observable<IApiBaseResponse<LspResponse>> {
-    return this.apiHandlerService.Get(`lsp/${id}?userId=${userId}`);
+    return this.apiHandlerService.Get(`lsp/GetDetails/${id}?userId=${userId}`);
   }
 
   addLsp(addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('lsp', addLspRequest);
+    return this.apiHandlerService.Post('lsp/AddLsp/', addLspRequest);
   }
 
   updateLsp(id: string, addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('lsp/' + id, addLspRequest);
+    return this.apiHandlerService.Post('lsp/UpdateLsp/' + id, addLspRequest);
   }
 
   deleteLsp(id: string): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch('lsp/' + id, null);
+    return this.apiHandlerService.Patch('lsp/DeleteLsp/' + id, null);
   }
 }

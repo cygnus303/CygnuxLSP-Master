@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonService } from '../../../shared/services/common.service';
-import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-lsp-mapping',

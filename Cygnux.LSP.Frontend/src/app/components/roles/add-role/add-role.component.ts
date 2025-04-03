@@ -10,9 +10,9 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../../shared/services/role.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { ToastrService } from 'ngx-toastr';
 import { RoleResponse } from '../../../shared/models/role.model';
 import { Modal } from 'bootstrap';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-role',

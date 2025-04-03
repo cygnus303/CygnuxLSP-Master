@@ -8,13 +8,13 @@ import {
 import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { LspResponse } from '../../../shared/models/lsp.model';
-import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { environment } from '../../../../environments/environment';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-lsp',

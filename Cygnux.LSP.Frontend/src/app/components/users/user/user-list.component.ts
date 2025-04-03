@@ -6,13 +6,13 @@ import {
   Output,
 } from '@angular/core';
 import { CommonService } from '../../../shared/services/common.service';
-import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-user',

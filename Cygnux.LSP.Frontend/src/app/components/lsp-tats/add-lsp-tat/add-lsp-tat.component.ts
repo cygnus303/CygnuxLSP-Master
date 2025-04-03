@@ -10,12 +10,12 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-lsp-tat',
