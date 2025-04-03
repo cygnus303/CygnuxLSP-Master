@@ -13,8 +13,10 @@ import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ToastrService } from '../../../shared/services/toastr.service';
 import feather from 'feather-icons';
+import { ToastrService } from 'ngx-toastr';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
+
 @Component({
   selector: 'app-role',
   standalone: false,
@@ -35,8 +37,8 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   constructor(
     private roleService: RoleService,
     public commonService: CommonService,
-    private toasterService: ToastrService,
-    private route: ActivatedRoute
+    private toastrService: ToastrService,
+    private sweetAlertService:SweetAlertService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Roles');
   }
@@ -74,7 +76,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.toastrService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -85,9 +87,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     this.roleService.deleteRole(this.roleId).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.getRoles();
         this.closeDeleteModal();
@@ -95,7 +97,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -140,7 +142,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

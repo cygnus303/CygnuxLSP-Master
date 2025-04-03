@@ -14,7 +14,7 @@ import { EmailRegex, MobileRegex } from '../../../shared/constants/common';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { IdentityService } from '../../../shared/services/identity.service';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class AddLspComponent implements OnInit, OnChanges {
     private lspService: LspService,
     private commonService: CommonService,
     private identityService:IdentityService,
-    private toasterService:ToastrService
+    private sweetAlertService:SweetAlertService
   ) {
     this.lspForm = new FormGroup({});
   }
@@ -140,17 +140,17 @@ export class AddLspComponent implements OnInit, OnChanges {
     this.lspService.addLsp(formData).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspForm.reset();
           this.buildForm();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -161,16 +161,16 @@ export class AddLspComponent implements OnInit, OnChanges {
     this.lspService.updateLsp(this.lspId, formData).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspForm.reset();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

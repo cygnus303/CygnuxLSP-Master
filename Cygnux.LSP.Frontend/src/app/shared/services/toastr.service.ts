@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
-export class ToastrService {
+export class SweetAlertService {
 
   constructor() { }
 

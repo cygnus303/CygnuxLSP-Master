@@ -8,7 +8,8 @@ import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-docket',
@@ -31,6 +32,7 @@ export class DocketListComponent implements OnInit {
     private docketService: DocketService,
     public commonService: CommonService,
     private toasterService: ToastrService,
+    private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
@@ -101,7 +103,7 @@ export class DocketListComponent implements OnInit {
         formData.append('file', file);
         this.importDocket(formData);
       } else {
-        this.toasterService.error(
+        this.sweetAlertService.error(
           'Please upload a valid excel file (XLSX, XLS, or CSV).'
         );
         this.selectedFile = null;
@@ -118,14 +120,14 @@ export class DocketListComponent implements OnInit {
     this.docketService.importDocket(dataToSubmit).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response);
+        this.sweetAlertService.error(response);
         this.commonService.updateLoader(false);
       },
     });
@@ -136,9 +138,9 @@ export class DocketListComponent implements OnInit {
     this.docketService.deleteDocket(docketCode).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.getDockets();
         this.closeDeleteModal();
@@ -146,7 +148,7 @@ export class DocketListComponent implements OnInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

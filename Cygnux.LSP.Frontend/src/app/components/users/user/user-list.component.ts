@@ -14,7 +14,8 @@ import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user',
@@ -35,8 +36,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     public commonService: CommonService,
-    private toasterService: ToastrService,
-    private route: ActivatedRoute
+    private toastrService: ToastrService,
+    private sweetAlertService:SweetAlertService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Users');
   }
@@ -72,7 +73,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.toastrService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -83,9 +84,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.userService.deleteUser(this.userCode).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.getUsers();
         this.closeDeleteModal();
@@ -93,7 +94,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -128,7 +129,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

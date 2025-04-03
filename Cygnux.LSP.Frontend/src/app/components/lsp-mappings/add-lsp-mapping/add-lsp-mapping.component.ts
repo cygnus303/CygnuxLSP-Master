@@ -16,7 +16,7 @@ import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { IdentityService } from '../../../shared/services/identity.service';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-lsp-mapping',
@@ -37,7 +37,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     private customerService: CustomerService,
     private lspMappingService: LspMappingService,
     private commonService: CommonService,
-    private toasterService: ToastrService,
+    private sweetAlertService: SweetAlertService,
     private identityService:IdentityService
   ) {
     this.lspMappingForm = new FormGroup({});
@@ -87,7 +87,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -107,7 +107,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -130,17 +130,17 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspMappingForm.reset();
           this.buildForm()
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -153,16 +153,16 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       .subscribe({
         next: (response) => {
           if (response.success) {
-            this.toasterService.success(response.data.message);
+            this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit();
             this.lspMappingForm.reset();
           } else {
-            this.toasterService.error(response.error.message);
+            this.sweetAlertService.error(response.error.message);
           }
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
           this.commonService.updateLoader(false);
         },
       });

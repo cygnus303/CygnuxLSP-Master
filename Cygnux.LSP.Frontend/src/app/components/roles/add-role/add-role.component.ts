@@ -11,8 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../../shared/services/role.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { RoleResponse } from '../../../shared/models/role.model';
-import { Modal } from 'bootstrap';
-import { ToastrService } from '../../../shared/services/toastr.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-role',
@@ -29,7 +28,7 @@ export class AddRoleComponent implements OnInit, OnChanges {
   constructor(
     private roleService: RoleService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private sweetAlertService: SweetAlertService
   ) {
     this.roleForm = new FormGroup({});
   }
@@ -72,16 +71,16 @@ export class AddRoleComponent implements OnInit, OnChanges {
     this.roleService.addRole(form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.roleForm.reset();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -92,16 +91,16 @@ export class AddRoleComponent implements OnInit, OnChanges {
     this.roleService.updateRole(this.roleId, form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.roleForm.reset();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

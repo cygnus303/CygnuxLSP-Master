@@ -7,8 +7,8 @@ import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
-import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-customer',
@@ -31,7 +31,7 @@ export class CustomerListComponent implements OnInit {
     public commonService: CommonService,
     private toasterService: ToastrService,
     private identityService:IdentityService,
-    private route: ActivatedRoute
+    private sweetAlertService:SweetAlertService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
 
@@ -91,9 +91,9 @@ export class CustomerListComponent implements OnInit {
     this.customerService.deleteCustomer(this.customerCode).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.getCustomers(this.page);
         this.closeDeleteModal();
@@ -101,7 +101,7 @@ export class CustomerListComponent implements OnInit {
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });

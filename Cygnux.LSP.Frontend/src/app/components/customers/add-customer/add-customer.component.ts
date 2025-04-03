@@ -15,9 +15,8 @@ import {
   GSTRegex,
   OnlyDigitRegex,
 } from '../../../shared/constants/common';
-import { ToastrService } from 'ngx-toastr';
-import { Modal } from 'bootstrap';
 import { CustomerResponse } from '../../../shared/models/customer.model';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -34,7 +33,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   constructor(
     private customerService: CustomerService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private sweetAlertService: SweetAlertService
   ) {
     this.customerForm = new FormGroup({});
   }
@@ -95,16 +94,16 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     this.customerService.addCustomer(form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
-          this.toasterService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit(); // Emitting the data to the parent
           this.customerForm.reset();
         } else {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.toasterService.error(response.error.message);
+        this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -117,16 +116,16 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       .subscribe({
         next: (response) => {
           if (response.success) {
-            this.toasterService.success(response.data.message);
+            this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit(); // Emitting the data to the parent
             this.customerForm.reset();
           } else {
-            this.toasterService.error(response.error.message);
+            this.sweetAlertService.error(response.error.message);
           }
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
-          this.toasterService.error(response.error.message);
+          this.sweetAlertService.error(response.error.message);
           this.commonService.updateLoader(false);
         },
       });
