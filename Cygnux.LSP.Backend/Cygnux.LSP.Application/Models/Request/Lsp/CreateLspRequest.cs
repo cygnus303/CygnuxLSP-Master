@@ -1,7 +1,7 @@
 ﻿namespace Cygnux.LSP.Application.Models.Request.Lsp;
 using Infrastructure.Implementations;
 
-public class CreateLspRequest : UserSettings
+public class CreateLspRequest /*: UserSettings*/
 {
     //public int LspId { get; set; }
     public string LspName { get; set; } = string.Empty;

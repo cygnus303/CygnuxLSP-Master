@@ -1,5 +1,4 @@
 import {AfterViewInit, Component,EventEmitter,OnInit, Output} from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -9,6 +8,7 @@ import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-docket',

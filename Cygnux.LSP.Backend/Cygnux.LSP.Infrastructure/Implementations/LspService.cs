@@ -38,7 +38,7 @@ internal class LspService : ILspService
     {
         var parameters = new DynamicParameters();
         parameters.Add("@LspId", id, DbType.Guid);
-        parameters.Add("@PageSize", userId, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<LspDetailResponse>(
             StoredProcedureConstants.Usp_GetLsp,

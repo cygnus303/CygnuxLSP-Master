@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonService } from '../../../shared/services/common.service';
 import { RolePermissionService } from '../../../shared/services/role-permission.service';
-import { ToastrService } from 'ngx-toastr';
 import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
     selector: 'app-role-permission',

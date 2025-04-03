@@ -12,8 +12,10 @@ import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { EmailRegex, MobileRegex } from '../../../shared/constants/common';
 import { LspResponse } from '../../../shared/models/lsp.model';
-import { ToastrService } from 'ngx-toastr';
 import { CustomerResponse } from '../../../shared/models/customer.model';
+import { IdentityService } from '../../../shared/services/identity.service';
+import { ToastrService } from '../../../shared/services/toastr.service';
+
 
 @Component({
   selector: 'app-add-lsp',
@@ -33,7 +35,8 @@ export class AddLspComponent implements OnInit, OnChanges {
   constructor(
     private lspService: LspService,
     private commonService: CommonService,
-    private toasterService: ToastrService
+    private identityService:IdentityService,
+    private toasterService:ToastrService
   ) {
     this.lspForm = new FormGroup({});
   }
@@ -77,9 +80,11 @@ export class AddLspComponent implements OnInit, OnChanges {
       isActive: new FormControl(true),
       createdBy:new FormControl(''),
       userId:new FormControl(''),
-      updatedBy:new FormControl('')
+      updatedBy:new FormControl(''),
+      EntryBy:new FormControl(this.identityService.getLoggedUserId())
     });
   }
+
   // Handle file input change
   onFileChange(event: any) {
     const file = event.target.files[0];

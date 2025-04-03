@@ -14,11 +14,11 @@ import {
   GSTRegex,
   OnlyDigitRegex,
 } from '../../../shared/constants/common';
-import { ToastrService } from 'ngx-toastr';
 import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
 import { RoleService } from '../../../shared/services/role.service';
 import { RoleResponse } from '../../../shared/models/role.model';
+import { ToastrService } from '../../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-user',

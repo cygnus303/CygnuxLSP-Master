@@ -2,8 +2,7 @@
 
 public interface IUserSettings
 {
-    string UserId { get; set; }
-
+    string UserId { get; set; } 
     string CreatedBy { get; set; }
-    string UpdatedBy { get; set; }
+    string UpdatedBy { get; set; } 
 }
