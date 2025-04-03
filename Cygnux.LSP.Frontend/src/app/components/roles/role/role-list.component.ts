@@ -14,7 +14,7 @@ import lottie from 'lottie-web';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from '../../../shared/services/toastr.service';
-
+import feather from 'feather-icons';
 @Component({
   selector: 'app-role',
   standalone: false,
@@ -61,7 +61,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    feather.replace(); // Ensure icons render
+  }
   getRoles(page: number = 1) {
     this.commonService.updateLoader(true);
     this.roleService.getRoleList(page, this.pageSize).subscribe({

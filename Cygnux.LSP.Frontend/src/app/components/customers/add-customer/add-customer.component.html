@@ -1,11 +1,12 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
-      <div class="modal-header">
+      <div class="modal-header bs-blue d-flex justify-content-between">
         <h5 class="modal-title" id="exampleModalLabel">{{!customerCode? 'Add Customer ':'Update Customer'}}</h5>
-        <button class="btn-close" type="button" (click)="onClose()" aria-label="Close"></button>
+        <!-- <button class="btn-close" type="button"  aria-label="Close"></button> -->
+        <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close" ></i></button>
       </div>
-      <div class="card-body">
+      <div class="card-body pb-0">
         <form [formGroup]="customerForm" class="needs-validation" autocomplete="off" (submit)="onSubmitCustomer(customerForm)">
           <ul class="nav nav-tabs border-tab nav-primary" id="info-tab" role="tablist">
             <li class="nav-item">
@@ -128,14 +129,18 @@
             <input id="dafault-checkbox" type="checkbox" formControlName="isActive" data-bs-original-title="" title="" />
             <label class="mb-0" for="dafault-checkbox">Active</label>
           </div>
-          <div class="mt-4">
+          <!-- <div class="mt-4">
             <button class="btn btn-success" data-bs-original-title="" type="submit" id="btnSubmit" title=""
               [disabled]="customerForm.invalid">
               <i class="fa fa-check"></i> Submit</button>&nbsp;
             <button class="btn btn-danger" type="reset">
               <i class="fa fa-times"></i> Reset
             </button>
-          </div>
+          </div> -->
+          <div class="gap-2 d-flex justify-content-end">
+            <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="customerForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
+            <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>
+        </div>
         </form>
       </div>
     </div>
