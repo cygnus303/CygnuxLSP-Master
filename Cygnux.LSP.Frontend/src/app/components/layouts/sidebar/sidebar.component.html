@@ -18,8 +18,8 @@
               <h6>Pinned</h6>
             </li>
             @for (data of menus; track $index;let i = $index) {
-            <li class="sidebar-list">
-              <a [routerLink]="[data.navigationUrl]" (click)="onSidebar(data)" routerLinkActive="active" class="sidebar-link sidebar-title link-nav">
+            <li class="sidebar-list" (click)="onSidebar(data)">
+              <a [routerLink]="[data.navigationUrl]" routerLinkActive="active" class="sidebar-link sidebar-title link-nav">
                 <i [attr.data-feather]="data.icon"></i>
                 <span>{{ data.menuName }}</span>  
               </a>

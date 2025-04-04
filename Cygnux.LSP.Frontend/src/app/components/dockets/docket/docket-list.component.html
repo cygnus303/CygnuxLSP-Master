@@ -5,6 +5,15 @@
             <div class="row">
               <div class="col-sm-6">
                 <!-- <h4>Dockets</h4> -->
+                <div class="row d-flex align-items-center">
+                  <div class="col-auto">
+                      <label class="col-form-label">Date Range</label>
+                  </div>
+                  <div class="col">
+                    <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+                        [(ngModel)]="docketService.dateRange" [bsConfig]="{ ranges: docketService.ranges ,rangeInputFormat: 'DD.MM.YYYY', dateInputFormat:'DD.MM.YYYY'}">
+                  </div>
+                </div>
               </div>
               <div class="col-sm-6" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
                 <div class="gap-3 d-flex justify-content-end" >

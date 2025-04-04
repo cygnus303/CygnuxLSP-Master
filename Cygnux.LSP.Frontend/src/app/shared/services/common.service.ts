@@ -9,7 +9,8 @@ export class CommonService {
   isLoading = this.loading.asObservable();
   activeNavigationUrl = new Subject<string>()
   menuRoleList:MenuRoleResponse | null=null;
-  activemenuRoleList = new Subject<any>()
+  activemenuRoleList = new BehaviorSubject<any>(null);
+
   updateLoader(isLoading: boolean) {
     this.loading.next(isLoading);
   }

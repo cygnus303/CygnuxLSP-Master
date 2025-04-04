@@ -59,8 +59,7 @@ getMenus() {
   .subscribe({
     next: (response) => {
       if (response) {
-        // this.menus = response.data;
-        this.menus = response.data.map((menu:any) => {
+        this.menus = response.data.map((menu: any) => {
           const permission = this.rolePermission.find(p => p.menuId === menu.menuId);
           return {
             ...menu,
@@ -70,11 +69,13 @@ getMenus() {
             canCreate: permission ? permission.canCreate : false
           };
         });
-        console.log(this.menus)
-        const data = this.menus.find((res)=>res.navigationUrl.includes(this.router.url))
-        if(data){
-          this.commonService.activemenuRoleList.next(data)
+        setTimeout(() => {
+        const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
+        if (data) {
+          console.log("Updating Subject with:", data);
+          this.commonService.activemenuRoleList.next(data);
         }
+      }, 500);
       }
       this.commonService.updateLoader(false);
       setTimeout(() => {
@@ -82,11 +83,12 @@ getMenus() {
       }, 0);
     },
     error: (response: any) => {
-          this.toasterService.error(response.error.message);
+      this.toasterService.error(response.error.message);
       this.commonService.updateLoader(false);
     },
   });
 }
+
 
 onSidebar(data:any){
   this.commonService.activemenuRoleList.next(data)

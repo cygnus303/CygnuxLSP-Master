@@ -47,6 +47,7 @@
               "node_modules/jsgrid/dist/jsgrid.min.css",
               "node_modules/jsgrid/dist/jsgrid-theme.min.css",
               "node_modules/remixicon/fonts/remixicon.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
   
     "src/assets/css/vendors/feather-icon.css",
     "src/assets/css/vendors/animate.css",

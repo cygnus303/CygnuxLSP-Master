@@ -10,6 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { DocketDetailComponent } from './docket-detail/docket-detail.component';
 import { ImportDocketComponent } from "./import-docket/import-docket.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     FormsModule,
     NgbPaginationModule,
     NgSelectModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    BsDatepickerModule.forRoot()
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

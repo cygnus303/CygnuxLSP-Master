@@ -29,7 +29,7 @@ export class DocketListComponent implements OnInit {
   @Output() edit = new EventEmitter<DocketResponse>();
   RoleListsubscribe!:Subscription;
   constructor(
-    private docketService: DocketService,
+    public docketService: DocketService,
     public commonService: CommonService,
     private toasterService: ToastrService,
     private sweetAlertService:SweetAlertService,
@@ -40,7 +40,7 @@ export class DocketListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDockets();
-    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
       if (res) { 
         this.commonService.menuRoleList = res;
         console.log("Updated from activemenuRoleList:", res);
