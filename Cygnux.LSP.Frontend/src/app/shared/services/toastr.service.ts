@@ -20,7 +20,7 @@ export class SweetAlertService {
       showCancelButton: false,
       showConfirmButton: true,
       confirmButtonText: "Ok",
-      confirmButtonColor: '#3f7473',
+      confirmButtonColor: '#171829',
       customClass: {
         container: 'notification-popup'
       }
@@ -34,7 +34,7 @@ export class SweetAlertService {
       showCancelButton: false,
       showConfirmButton: true,
       confirmButtonText: "Ok",
-      confirmButtonColor: '#3f7473',
+      confirmButtonColor: '#171829',
       customClass: {
         container: 'notification-popup'
       }
@@ -55,7 +55,7 @@ export class SweetAlertService {
       showCancelButton: false,
       showConfirmButton: true,
       confirmButtonText: "Ok",
-      confirmButtonColor: '#3f7473',
+      confirmButtonColor: '#171829',
       customClass: {
         container: 'notification-popup'
       }

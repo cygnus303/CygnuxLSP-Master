@@ -40,6 +40,7 @@ export class DocketListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDockets();
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
     this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
       if (res) { 
         this.commonService.menuRoleList = res;
