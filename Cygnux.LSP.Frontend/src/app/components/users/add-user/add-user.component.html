@@ -85,8 +85,8 @@
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Address</label>
-                  <input class="form-control"  formControlName="address" type="text" required
-                    [ngClass]="{ 'border-danger': userForm.controls['address'].invalid && userForm.controls['address'].touched}" />
+                  <textarea class="form-control"  formControlName="address" type="text" required
+                    [ngClass]="{ 'border-danger': userForm.controls['address'].invalid && userForm.controls['address'].touched}"></textarea>
                   <div *ngIf="userForm.controls['address'].invalid && userForm.controls['address']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['address'].errors?.['required']">Confirm Password is
                       required.</small>
@@ -121,7 +121,7 @@
                   <div *ngIf="userForm.controls['locality'].invalid && userForm.controls['locality']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['locality'].errors?.['required']">Confirm Password is
                       required.</small>
-                  </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">User type</label>
@@ -161,7 +161,7 @@
               <i class="fa fa-times"></i> Reset
             </button>
           </div> -->
-          <div class="gap-2 d-flex justify-content-end">
+          <div class="gap-2 d-flex justify-content-end pt-4">
             <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="userForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
             <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>
         </div>
