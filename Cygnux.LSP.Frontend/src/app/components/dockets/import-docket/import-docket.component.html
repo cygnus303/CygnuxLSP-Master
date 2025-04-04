@@ -1,40 +1,43 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card">
-      <div class=" modal-header bs-blue d-flex justify-content-between ">
-        <h5 class="modal-title" id="exampleModalLabel">Import Docket</h5>
-        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-        id="close-modal" (click)="onClose()"></button> -->
-        <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close" ></i></button>
-      </div>
-      <div class="card-body pt-3 pb-0">
-        <div class="card-header d-flex align-items-center justify-content-between p-0">
-          <h5>File Type Validation</h5>
-          <button class="btn btn-square btn-primary pull-right rounded-3">Import Sample</button>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class=" modal-header bs-blue d-flex justify-content-between ">
+          <h5 class="modal-title" id="exampleModalLabel">Import Docket</h5>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          id="close-modal" (click)="onClose()"></button> -->
+          <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close" ></i></button>
         </div>
-        <div class="col-sm-12">
-          <div class="card mb-0">
-            <div class="card-body px-0 py-3">
-              <ngx-dropzone (change)="onSelect($event)" class="dropzone dropzone-info">
-                <ngx-dropzone-label>
-                  <div class="dz-message needsclick">
-                    <i class="icon-cloud-up"></i>
-                    <h6>Drop files here or click to upload.</h6>
-                    <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong>
-                      actually uploaded.)</span>
-                  </div>
-                </ngx-dropzone-label>
-                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
-                </ngx-dropzone-preview>
-              </ngx-dropzone>
+        <div class="card-body pt-2">
+          <div class="card-header d-flex align-items-center justify-content-between p-0">
+            <h5>File Type Validation</h5>
+            <button class="btn btn-square btn-primary pull-right rounded-3">Import Sample</button>
+          </div>
+          <div class="col-sm-12">
+            <div class="card mb-0">
+              <div class="card-body px-0 py-3">
+                <ngx-dropzone (change)="onSelect($event)" class="dropzone dropzone-info">
+                  <ngx-dropzone-label>
+                    <div class="dz-message needsclick">
+                      <i class="icon-cloud-up"></i>
+                      <h6>Drop files here or click to upload.</h6>
+                      <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+                    </div>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                  </ngx-dropzone-preview>
+                </ngx-dropzone>
+              </div>
+              <!-- <button (click)="exportExcel()">Upload file</button> -->
+            </div>
+            <div>
+              <button class="btn btn-square btn-success pull-right rounded-3">Save</button>
             </div>
           </div>
-        <div>
-          <button class="btn btn-square btn-success pull-right rounded-3">Save</button>
-        </div>
+          
+            <button class="btn btn-square btn-success pull-right rounded-3">Save</button>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
