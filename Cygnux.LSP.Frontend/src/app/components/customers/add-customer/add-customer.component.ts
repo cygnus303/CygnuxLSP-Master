@@ -13,6 +13,7 @@ import { CommonService } from '../../../shared/services/common.service';
 import {
   EmailRegex,
   GSTRegex,
+  MobileRegex,
   OnlyDigitRegex,
 } from '../../../shared/constants/common';
 import { CustomerResponse } from '../../../shared/models/customer.model';
@@ -57,13 +58,24 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       ]),
       city: new FormControl(null, [Validators.required]),
       state: new FormControl(null, [Validators.required]),
-      isActive: new FormControl(true),
+      isActive: new FormControl(true),   
       isAllowedForEwayBillGenration: new FormControl(false),
       isConsolidatedGSTNo: new FormControl(false),
       consolidatedGSTNo: new FormControl(null, [
         Validators.required,
         Validators.pattern(GSTRegex),
       ]),
+      country:new FormControl('INDIA'),
+      purchaseHead:new FormControl(''),
+      purchaseMobile:new FormControl(null, [
+              Validators.required,
+              Validators.pattern(MobileRegex),
+            ]),
+      accountsHead:new FormControl(''), 
+      accountsHeadMobileNo:new FormControl(null,Validators.pattern(MobileRegex)), 
+      proprietorName:new FormControl(''),
+      proprietorMobile:new FormControl(null,Validators.pattern(MobileRegex)),
+      proprietorEmail:new FormControl(null,Validators.pattern(EmailRegex)),
     });
   }
 
