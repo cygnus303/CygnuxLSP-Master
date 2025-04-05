@@ -87,4 +87,8 @@ export class DocketService {
   deleteDocket(id: string): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Patch('docket/DeleteDocket/' + id, null);
   }
+
+  UploadDocket(userId:string,formData:any){
+    return this.apiHandlerService.Post(`Docket/ImportPOD?User=${userId}`, formData);
+  }
 }

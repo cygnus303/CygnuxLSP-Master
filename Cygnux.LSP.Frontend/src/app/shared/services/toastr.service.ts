@@ -50,7 +50,7 @@ export class SweetAlertService {
     });
     Swal.fire({
       icon: 'error',
-      title: 'Employee ID Already Exists',
+      title: 'Error',
       text: message,
       showCancelButton: false,
       showConfirmButton: true,
