@@ -105,4 +105,17 @@ internal class DocketService : IDocketService
         }
         return new CommonCreateResponse();
     }*/
+
+    public async Task<CommonCreateResponse> ImportPOD(string PodData,string? User)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonData", PodData, DbType.String);
+        parameters.Add("@EntryBy", User, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.PODUplaodDataFromExcel,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }

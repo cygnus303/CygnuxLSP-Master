@@ -61,4 +61,16 @@ public class DocketController : ControllerBase
     {
         return Ok(await _docketRepository.DeleteDocket(id));
     }
+
+    [HttpPost]
+    [Route("ImportPOD")]
+    public async Task<IActionResult> ImportPODData(IFormFile file, string? User)
+    {
+        var PodData = ExcelReadHelper.ExtractAllRows(file);
+        if (PodData is not null)
+        {
+            return Ok(await _docketRepository.ImportPOD(PodData,User));
+        }
+        return Ok();
+    }
 }

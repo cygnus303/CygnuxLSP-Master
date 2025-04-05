@@ -17,4 +17,5 @@ public interface IDocketRepository
     Task<BaseResponse<CommonCreateResponse>> UpdateDocket(Guid docketId, CreateDocketRequest createDocketRequest);
 
     Task<BaseResponse<CommonCreateResponse>> DeleteDocket(Guid docketId);
+    Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<Dictionary<string, string>> PodData, string? User);
 }

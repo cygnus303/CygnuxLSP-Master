@@ -14,4 +14,6 @@ public interface IDocketService
     Task<CommonCreateResponse> UpdateDocket(Guid id, string updateDocketJson);
 
     Task<CommonCreateResponse> DeleteDocket(Guid id);
+
+    Task<CommonCreateResponse> ImportPOD(string PodData,string? User);
 }
