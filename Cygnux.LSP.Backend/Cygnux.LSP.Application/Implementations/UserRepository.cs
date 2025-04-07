@@ -22,9 +22,9 @@ internal class UserRepository : IUserRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize)
+    public async Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize,Guid userId)
     {
-        var response = await _userService.GetUserList(page, pageSize);
+        var response = await _userService.GetUserList(page, pageSize,userId);
 
         return new BaseResponse<IEnumerable<UserResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
