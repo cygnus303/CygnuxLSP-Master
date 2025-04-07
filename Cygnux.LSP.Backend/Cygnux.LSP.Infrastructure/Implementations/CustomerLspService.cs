@@ -16,12 +16,12 @@ internal class CustomerLspService : ICustomerLspService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<LspMappingDetailResponse>> GetLspMappingList(Guid customerId, int page, int pageSize,Guid userId)
+    public async Task<IEnumerable<LspMappingDetailResponse>> GetLspMappingList(Guid customerId, int page, int pageSize, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
-        parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@USerId", userId, DbType.Guid);
 
         return await _dbConnection.QueryAsync<LspMappingDetailResponse>(
               StoredProcedureConstants.Usp_GetCustomerLsp,
@@ -30,10 +30,11 @@ internal class CustomerLspService : ICustomerLspService
           );
     }
 
-    public async Task<LspMappingDetailResponse> GetLspMappingDetails(Guid customerId)
+    public async Task<LspMappingDetailResponse> GetLspMappingDetails(Guid customerId, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@CustomerId", customerId, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<LspMappingDetailResponse>(
              StoredProcedureConstants.Usp_GetCustomerLsp,
@@ -61,11 +62,12 @@ internal class CustomerLspService : ICustomerLspService
               commandType: CommandType.StoredProcedure
           );
     }
-    public async Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize)
+    public async Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize, Guid userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
+        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryAsync<LspTatDetailResponse>(
               StoredProcedureConstants.Usp_GetCustomerLspTat,

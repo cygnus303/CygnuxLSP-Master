@@ -5,9 +5,9 @@ using Models.Response.LspMapping;
 
 public interface ICustomerLspService
 {
-    Task<IEnumerable<LspMappingDetailResponse>> GetLspMappingList(Guid customerId, int page, int pageSize);
+    Task<IEnumerable<LspMappingDetailResponse>> GetLspMappingList(Guid customerId, int page, int pageSize, Guid userId);
 
-    Task<LspMappingDetailResponse> GetLspMappingDetails(Guid customerId);
+    Task<LspMappingDetailResponse> GetLspMappingDetails(Guid customerId, Guid userId);
 
     Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId);
 

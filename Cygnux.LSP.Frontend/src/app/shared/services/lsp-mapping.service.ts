@@ -22,32 +22,18 @@ export class LspMappingService {
     @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
   ) {}
 
-  getLspMappingList(
-    page: number,
-    pageSize: number
-  ): Observable<IApiBaseResponse<LspMappingResponse[]>> {
-    let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
-    };
-    return this.apiHandlerService.Get('customerLsp', params);
+  getLspMappingList(filters:any): Observable<IApiBaseResponse<LspMappingResponse[]>> {
+    return this.apiHandlerService.Get('customerLsp', filters);
   }
 
   getLspMappingDetails(
-    id: string
+    id: string,userId:string
   ): Observable<IApiBaseResponse<LspMappingResponse>> {
-    return this.apiHandlerService.Get('customerLsp/' + id);
+    return this.apiHandlerService.Get(`customerLsp/${id}?userId=${userId}`);
   }
 
-  getLspTatList(
-    page: number = 1,
-    pageSize: number = 100
-  ): Observable<IApiBaseResponse<LspTatResponse[]>> {
-    let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
-    };
-    return this.apiHandlerService.Get('customerLsp/Tat', params);
+  getLspTatList(filters:any): Observable<IApiBaseResponse<LspTatResponse[]>> {
+    return this.apiHandlerService.Get('customerLsp/Tat', filters);
   }
 
   getLspTatDetails(id: string): Observable<IApiBaseResponse<LspTatResponse>> {

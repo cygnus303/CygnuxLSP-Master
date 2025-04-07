@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -25,11 +26,13 @@ export class LspMappingListComponent implements OnInit {
   totalItems = 0; // Total number of items
   @Output() edit = new EventEmitter<LspMappingResponse>();
   RoleListsubscribe!:Subscription;
+  filters: { [key: string]: string } = {}; // Dynamic filter object
   constructor(
     private lspMappingService: LspMappingService,
     public commonService: CommonService,
     private toastrService: ToastrService,
-    private sweetAlertService:SweetAlertService
+    private sweetAlertService:SweetAlertService,
+    private identityService:IdentityService,
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Lsp Mapping');
   }
@@ -58,7 +61,16 @@ export class LspMappingListComponent implements OnInit {
 
   getLspMappings(page: number = 1) {
     this.commonService.updateLoader(true);
-    this.lspMappingService.getLspMappingList(page, this.pageSize).subscribe({
+    this.filters = Object.fromEntries(
+      Object.entries(this.filters).filter(([key, value]) => value !== null)
+    );
+    const filters: any = {
+      ...this.filters,
+      Page: page,
+      UserID:this.identityService.getLoggedUserId(),
+      PageSize: this.pageSize,
+    };
+    this.lspMappingService.getLspMappingList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.lspMappings = response.data;
@@ -111,7 +123,7 @@ export class LspMappingListComponent implements OnInit {
   }
   getLspMapping(id: string) {
     this.commonService.updateLoader(true);
-    this.lspMappingService.getLspMappingDetails(id).subscribe({
+    this.lspMappingService.getLspMappingDetails(id,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;
