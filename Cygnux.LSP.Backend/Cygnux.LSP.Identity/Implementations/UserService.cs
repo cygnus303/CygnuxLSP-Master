@@ -20,7 +20,7 @@ internal class UserService : IUserService
     public async Task<IEnumerable<UserResponse>> GetUserList(int page, int pageSize,Guid userId)
     {
 
-        var query = _userManager.Users.Where(x => !x.IsDeleted && x.EntryBy == userId);
+        var query = _userManager.Users.Where(x => !x.IsDeleted && x.Id == userId);
 
         var totalRecords = await query.CountAsync();
 
