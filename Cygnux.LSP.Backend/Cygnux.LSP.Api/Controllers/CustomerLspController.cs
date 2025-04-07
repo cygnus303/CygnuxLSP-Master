@@ -18,9 +18,9 @@ public class CustomerLspController : ControllerBase
 
     [HttpGet]
     [Route("Tat")]
-    public async Task<IActionResult> GetLspTatList([FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> GetLspTatList([FromQuery] int page, [FromQuery] int pageSize,Guid userId)
     {
-        return Ok(await _customerLspRepository.GetLspTatList(Guid.NewGuid(), page, pageSize));
+        return Ok(await _customerLspRepository.GetLspTatList(Guid.NewGuid(), page, pageSize, userId));
     }
 
     [HttpGet]
