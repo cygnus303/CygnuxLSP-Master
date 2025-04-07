@@ -30,7 +30,7 @@
               </div> -->
             </div>
           </div>
-          <div class="card-body pt-3">
+          <div class="card-body pt-3 ">
             <div class="table-responsive theme-scrollbar">
               <table class="table table-header align-middle w-100" >
                 <thead class="table-light">
@@ -162,7 +162,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body" style="padding: 0px">
-        <app-import-docket></app-import-docket>
+        <app-import-docket (dataEmitter)="closeimportModalModal()"></app-import-docket>
       </div>
     </div>
   </div>

@@ -58,12 +58,11 @@ export class AddUserComponent implements OnInit, OnChanges {
       emailId: new FormControl(null, [Validators.required,Validators.pattern(EmailRegex)]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
-      password:new FormControl(null,[Validators.required]),
-      confirmPassword:new FormControl(null,[Validators.required]),
       address:new FormControl(null,[Validators.required]),
       locality:new FormControl(null,[Validators.required]),
       city:new FormControl(null,[Validators.required]),
       zipCode:new FormControl(null),
+      photo:new FormControl(null),
       userType:new FormControl(null,[Validators.required])
     });
   }
