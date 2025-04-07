@@ -16,8 +16,8 @@ export class LspService {
     return this.apiHandlerService.Get('lsp/GetLSPList', filters);
   }
 
-  getLspDetails(id: string): Observable<IApiBaseResponse<LspResponse>> {
-    return this.apiHandlerService.Get(`lsp/GetDetails/${id}`);
+  getLspDetails(id: string,userId:string): Observable<IApiBaseResponse<LspResponse>> {
+    return this.apiHandlerService.Get(`lsp/GetDetails/${id}?userId=${userId}`);
   }
 
   addLsp(addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {

@@ -38,13 +38,12 @@ export class ImportDocketComponent {
   
   
   onClose(){
-    // this.files =[]
+    this.files = [];
   }
   
   
   onDropzoneSelect(event: any) {
     const file = event.addedFiles[0];
-  
     if (file) {
       const validExcelTypes = [
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -55,7 +54,6 @@ export class ImportDocketComponent {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
         'application/vnd.ms-excel.template.macroEnabled.12',
       ];
-  
       if (validExcelTypes.includes(file.type)) {
         this.files = [file]; // Allow only 1 file
         this.selectedFile = file;
@@ -111,10 +109,4 @@ export class ImportDocketComponent {
       },
     });
   }
-
-  
-  
- 
-  
-
 }

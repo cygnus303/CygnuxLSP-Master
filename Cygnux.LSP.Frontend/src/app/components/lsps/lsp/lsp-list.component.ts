@@ -130,7 +130,7 @@ export class LspListComponent implements OnInit {
   }
   getLsp(id: string) {
     this.commonService.updateLoader(true);
-    this.lspService.getLspDetails(id).subscribe({
+    this.lspService.getLspDetails(id,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;
