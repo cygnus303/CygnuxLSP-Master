@@ -232,7 +232,6 @@ export class DocketListComponent implements OnInit {
       this.getDockets();
     }
   }
-
   onPageChange(page: number) {
     this.page = page;
     this.getDockets(this.page);

@@ -17,6 +17,7 @@ import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { EmailRegex } from '../../../shared/constants/common';
 
 @Component({
   selector: 'app-add-lsp-mapping',
@@ -68,7 +69,8 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       isActive: new FormControl(true),
       createdBy:new FormControl(this.identityService.getLoggedUserId()),
       userId:new FormControl(this.identityService.getLoggedUserId()),
-      updatedBy:new FormControl(null)
+      updatedBy:new FormControl(null),
+      supportEmail:new FormControl(null, [Validators.required, Validators.pattern(EmailRegex)])
     });
   }
 

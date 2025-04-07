@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
@@ -14,8 +14,7 @@ export class ImportDocketComponent {
   excelData: any[][] = [];
   files: File[] = [];
   selectedFile: File | null = null;
-
-
+  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(
     private docketService:DocketService,
     private identityService:IdentityService,
@@ -72,7 +71,7 @@ export class ImportDocketComponent {
       const formData = new FormData();
       formData.append('excelfile', this.selectedFile);
       this.exportExcel(formData);
-    } else {
+  } else {
       this.sweetAlertService.error('No valid file selected for upload.');
     }
   }
@@ -101,6 +100,7 @@ export class ImportDocketComponent {
     this.docketService.UploadDocket(this.identityService.getLoggedUserId(),dataToSubmit).subscribe({
       next: (response) => {
         if (response.success) {
+          this.dataEmitter.emit()
           this.sweetAlertService.success(response.data.message);
         } else {
           this.sweetAlertService.error(response.error.message);

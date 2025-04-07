@@ -35,6 +35,17 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="lsps">Support Email Address</label>
+                  <input class="form-control" formControlName="supportEmail" type="text"  placeholder="Enter support email"
+                  [ngClass]="{ 'border-danger': lspMappingForm.controls['supportEmail'].invalid && lspMappingForm.controls['supportEmail'].touched}" />
+                  <div *ngIf="lspMappingForm.controls['supportEmail'].invalid && lspMappingForm.controls['supportEmail']?.touched" class="text-danger">
+                    <small *ngIf="lspMappingForm.controls['supportEmail'].errors?.['required']">Support Email Address is required.</small>
+                    <small *ngIf="lspMappingForm.controls['supportEmail'].errors?.['pattern']">Support Email Address is invalid.</small>
+                  </div>
+                </div>
+              </div>
               <div class="checkbox p-0" *ngIf="lspMappingId != ''">
                 <input id="dafault-checkbox" type="checkbox" formControlName="isActive" />
                 <label class="mb-0" for="dafault-checkbox">Active</label>
