@@ -62,7 +62,7 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
-    public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<Dictionary<string, string>> PodData, string? User)
+    public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, string? User)
     {
         var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(PodData),User);
 

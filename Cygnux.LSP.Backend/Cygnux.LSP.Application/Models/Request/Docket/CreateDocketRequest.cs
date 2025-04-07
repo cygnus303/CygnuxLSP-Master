@@ -16,4 +16,14 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public Guid EntryBy  { get; set; } 
         public bool IsCancel { get; set; }
     }
+
+    public class PODDataList
+    {
+        public int Id { get; set; }
+        public string DocketNo { get; set; }
+        public DateTime UploadDate { get; set; }
+        public string ImageLink { get; set; } // store server path like /UploadedImages/ABC121.png
+        //public byte[] ImagePath { get; set; }
+    }
+
 }
