@@ -70,7 +70,7 @@ export class ImportDocketComponent {
   uploadFile() {
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('file', this.selectedFile);
+      formData.append('excelfile', this.selectedFile);
       this.exportExcel(formData);
     } else {
       this.sweetAlertService.error('No valid file selected for upload.');

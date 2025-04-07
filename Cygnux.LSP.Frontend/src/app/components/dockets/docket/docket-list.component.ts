@@ -223,6 +223,16 @@ export class DocketListComponent implements OnInit {
       this.getDockets();
     }
   }
+
+  closeImportModal() {
+    const modalElement: any = document.getElementById('importModal');
+    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hide the modal
+      this.getDockets();
+    }
+  }
+
   onPageChange(page: number) {
     this.page = page;
     this.getDockets(this.page);
