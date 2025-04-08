@@ -14,6 +14,16 @@ public class CustomerDetailResponse
     public bool IsActive { get; set; }
 
     public string City { get; set; } = string.Empty;
+    public string EntryDate { get; set; } = string.Empty;
+    public string Country { get; set; } = string.Empty;
+    public string PurchaseHead { get; set; } = string.Empty;
+    public string PurchaseHeadMobileNo { get; set; } = string.Empty;
+    public string AccountsHead { get; set; } = string.Empty;
+    public string AccountsHeadMobileNo { get; set; } = string.Empty;
+    public string ProprietorName { get; set; } = string.Empty;
+    public string ProprietorMobileNo { get; set; } = string.Empty;
+    public string ProprietorEmail { get; set; } = string.Empty;
+
 
     public string State { get; set; } = string.Empty;
     public string Pincode { get; set; } = string.Empty;
