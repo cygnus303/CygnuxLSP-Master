@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-user',
@@ -30,14 +31,15 @@ export class UserListComponent implements OnInit, OnDestroy {
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
   selectedUser: UserResponse | null = null;
-
+  filters: { [key: string]: string } = {}; // Dynamic filter object
   @Output() edit = new EventEmitter<UserResponse>();
   RoleListsubscribe!:Subscription;
   constructor(
     private userService: UserService,
     public commonService: CommonService,
     private toastrService: ToastrService,
-    private sweetAlertService:SweetAlertService
+    private sweetAlertService:SweetAlertService,
+    private identityService:IdentityService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Users');
   }
@@ -64,7 +66,16 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngAfterViewInit(): void {}
   getUsers(page: number = 1) {
     this.commonService.updateLoader(true);
-    this.userService.getUserList(page, this.pageSize).subscribe({
+    this.filters = Object.fromEntries(
+      Object.entries(this.filters).filter(([key, value]) => value !== null)
+    );
+    const filters: any = {
+      ...this.filters,
+      Page: page,
+      UserID:this.identityService.getLoggedUserId(),
+      PageSize: this.pageSize,
+    };
+    this.userService.getUserList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.users = response.data;
@@ -120,7 +131,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
   getUser(userCode: string) {
     this.commonService.updateLoader(true);
-    this.userService.getUserDetails(userCode).subscribe({
+    this.userService.getUserDetails(userCode,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedUser = response.data;

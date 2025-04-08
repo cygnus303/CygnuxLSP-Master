@@ -13,16 +13,12 @@ export class UserService {
 
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
 
-  getUserList(page: number = 1, pageSize: number = 100): Observable<IApiBaseResponse<UserResponse[]>> {
-    let params: ParamsType = {
-      page: page,
-      pageSize: pageSize,
-    };
-    return this.apiHandlerService.Get('user', params);
+  getUserList(filters:any): Observable<IApiBaseResponse<UserResponse[]>> {
+    return this.apiHandlerService.Get('user', filters);
   }
 
-  getUserDetails(id: string): Observable<IApiBaseResponse<UserResponse>> {
-    return this.apiHandlerService.Get('user/' + id);
+  getUserDetails(id: string,userId:string): Observable<IApiBaseResponse<UserResponse>> {
+    return this.apiHandlerService.Get(`user/${id}?userId=${userId}`);
   }
 
   addUser(adduserRequest: AddUserRequest): Observable<IApiBaseResponse<CommonResponse>> {
