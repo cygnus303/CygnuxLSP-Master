@@ -9,13 +9,14 @@
       </div>
       <div class="card-body pt-2 pb-0">
         <div class="card-header d-flex align-items-center justify-content-between p-0">
-          <h5>File Type Validation</h5>
+          <h5></h5>
           <button class="btn btn-square btn-primary pull-right rounded-3">Import Sample</button>
         </div>
         <div class="row">
           <div class="col-sm-4">
             <div class="card mb-0">
               <div class="card-body px-0 py-3">
+                <h4>Select POD File</h4>
                 <ngx-dropzone (change)="onDropzoneSelect($event)" class="dropzone dropzone-info" [multiple]="true">
                   <ngx-dropzone-label>
                     <div class="dz-message needsclick">
@@ -36,6 +37,7 @@
           <div class="col-sm-8">
             <div class="card mb-0">
               <div class="card-body px-0 py-3">
+                <h4>Select Images</h4>
                 <ngx-dropzone class="dropzone dropzone-info" (change)="onDropzoneimgSelect($event)" [multiple]="true"  [accept]="'image/*'">
                   <ngx-dropzone-label>
                     <div class="dz-message needsclick">
@@ -72,7 +74,7 @@
                   <td class="text-center">{{ row.DocketNo || 'N/A' }}</td>
                   <td class="text-center">{{ row.UploadDate ? row.UploadDate : 'Missing date' }}</td>
                    <td class="text-center"><i [ngClass]="row.ImageLink ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                   <td class="text-center">{{ row.file && row.file.name ? 'Image attached': 'Image file not found'}}
+                   <td class="text-center">{{ row.file && row.file.name ? 'Image attached': 'No Matches Images With DocketNumber'}}
                   </td>
                 </tr>
               </tbody>

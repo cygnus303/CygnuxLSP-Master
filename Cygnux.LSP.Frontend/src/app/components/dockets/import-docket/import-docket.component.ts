@@ -30,11 +30,15 @@ export class ImportDocketComponent {
     if (this.selectedFile === file) {
       this.selectedFile = null;
     }
+    this.uploadedImages=[];
+    this.mappedData=[];
   }
   
   onClose(){
     this.files = [];
-    this.excelData = []
+    this.mappedData = [];
+    this.uploadedImages=[];
+
   }
 
   onDropzoneSelect(event: any) {
