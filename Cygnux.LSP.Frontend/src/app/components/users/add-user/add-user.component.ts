@@ -93,13 +93,12 @@ export class AddUserComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response) {
           this.roles = response.data;
+        if (response && response.data) {
+          // Filter only active roles
+          this.roles = response.data.filter((role: any) => role.isActive);
         }
         this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
+      }}
     });
   }
 

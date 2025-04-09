@@ -26,8 +26,8 @@ export class DocketListComponent implements OnInit {
   public totalItems = 0; // Total number of items
   public selectedFile: File | null = null;
   filters: { [key: string]: string } = {}; // Dynamic filter object
-  @Output() edit = new EventEmitter<DocketResponse>();
   RoleListsubscribe!:Subscription;
+  @Output() edit = new EventEmitter<DocketResponse>();
   constructor(
     public docketService: DocketService,
     public commonService: CommonService,

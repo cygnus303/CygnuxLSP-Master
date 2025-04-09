@@ -75,7 +75,7 @@ getMenus() {
           console.log("Updating Subject with:", data);
           this.commonService.activemenuRoleList.next(data);
         }
-      }, 500);
+      }, 100);
       }
       this.commonService.updateLoader(false);
       setTimeout(() => {
