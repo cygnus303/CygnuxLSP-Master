@@ -125,7 +125,7 @@ export class LspTatListComponent implements OnInit {
   }
   getLspMapping(id: string) {
     this.commonService.updateLoader(true);
-    this.lspMappingService.getLspTatDetails(id).subscribe({
+    this.lspMappingService.getLspTatDetails(id,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;

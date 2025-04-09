@@ -11,8 +11,10 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
   styleUrl: './import-docket.component.scss'
 })
 export class ImportDocketComponent {
-  excelData: any[][] = [];
+  excelData: any[] = [];
   files: File[] = [];
+  mappedData: any[] = [];
+  uploadedImages: any[] = [];
   selectedFile: File | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(
@@ -23,12 +25,6 @@ export class ImportDocketComponent {
 
   ngOnInit(){}
   
-
-  onSelect(event:any) {
-    this.files.push(...event.addedFiles);
-    console.log(event);
-  }
-  
   onRemove(file: File) {
     this.files = this.files.filter(f => f !== file);
     if (this.selectedFile === file) {
@@ -36,12 +32,11 @@ export class ImportDocketComponent {
     }
   }
   
-  
   onClose(){
     this.files = [];
+    this.excelData = []
   }
-  
-  
+
   onDropzoneSelect(event: any) {
     const file = event.addedFiles[0];
     if (file) {
@@ -49,53 +44,88 @@ export class ImportDocketComponent {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'application/vnd.ms-excel',
         'text/csv',
-        'application/vnd.ms-excel.sheet.binary.macroEnabled.12',
-        'application/vnd.ms-excel.sheet.macroEnabled.12',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
-        'application/vnd.ms-excel.template.macroEnabled.12',
       ];
+  
       if (validExcelTypes.includes(file.type)) {
-        this.files = [file]; // Allow only 1 file
+        this.files = [file];
         this.selectedFile = file;
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet); // using header row
+          this.excelData = jsonData;
+          this.tryMapExcelToImages();
+        };
+        reader.readAsArrayBuffer(file);
       } else {
-        this.sweetAlertService.error('Please upload a valid excel file (XLSX, XLS, or CSV).');
+        this.sweetAlertService.error('Please upload a valid excel file.');
         this.selectedFile = null;
         this.files = [];
+        this.excelData = [];
       }
     }
   }
-  uploadFile() {
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('excelfile', this.selectedFile);
-      this.exportExcel(formData);
-  } else {
-      this.sweetAlertService.error('No valid file selected for upload.');
+ 
+  onRemoveimg(file: any) {
+    const index = this.uploadedImages.findIndex(img => img.name === file.name);
+    if (index !== -1) {
+      this.uploadedImages.splice(index, 1);
+      this.tryMapExcelToImages(); // Re-map after removal
     }
   }
-    
-  triggerFileInput(event: Event): void {
-    event.preventDefault();
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    fileInput.click();
+  
+  
+
+  onDropzoneimgSelect(event: any) {
+    const files = event.addedFiles;
+    for(let i = 0; i < files.length; i++){
+      this.uploadedImages.push({
+        name: files[i].name,
+        file:files[i]
+      });
+    }
+    this.tryMapExcelToImages()
   }
-  // importLead(dataToSubmit: any): void {
-  //   this.leadService.importLead(dataToSubmit).subscribe({
-  //     next: (response) => {
-  //       if (response.success) {
-  //         this.sweetAlertService.success(response.data.message);
-  //       } else {
-  //         this.sweetAlertService.error(response.error.message);
-  //       }
-  //       this.commonService.updateLoader(false);
-  //     },
-  //     error: (response: any) => {
-  //       this.sweetAlertService.error(response);
-  //     },
-  //   });
-  // }
-  exportExcel(dataToSubmit:any){
-    this.docketService.UploadDocket(this.identityService.getLoggedUserId(),dataToSubmit).subscribe({
+
+  tryMapExcelToImages() {
+    if (!this.excelData?.length || !this.uploadedImages?.length) {
+      this.mappedData = [];
+      return;
+    }
+    this.mappedData = this.excelData.map((row: any) => {
+      const docketNo = row['DocketNo'];
+      const matchedImage = this.uploadedImages.find(img =>
+        img.name.toLowerCase().includes(docketNo?.toString().toLowerCase())
+      );
+      return {
+        DocketNo: docketNo,
+        UploadDate: this.excelDateToJSDate(row['UploadDate']), // Converts Excel date to "dd-MM-yyyy"
+        ImageLink: matchedImage?.name || null,
+        file: matchedImage?.file || null
+      };
+    });
+    console.log('✅ Final Mapped Data:', this.mappedData);
+  }
+  
+
+  excelDateToJSDate(serial: number): string {
+    const excelEpoch = new Date(1899, 11, 30); 
+    const date = new Date(excelEpoch.getTime() + serial * 86400000);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
+  extractFileName(fullPath: string): string {
+    return fullPath.split('\\').pop()?.split('/').pop() || '';
+  }
+
+  exportExcel(){
+    this.docketService.UploadDocket(this.identityService.getLoggedUserId(),this.mappedData).subscribe({
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit()
@@ -108,5 +138,5 @@ export class ImportDocketComponent {
         this.sweetAlertService.error(response);
       },
     });
-  }
+  } 
 }

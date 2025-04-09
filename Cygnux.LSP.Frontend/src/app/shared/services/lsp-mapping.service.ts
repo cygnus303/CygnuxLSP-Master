@@ -36,8 +36,8 @@ export class LspMappingService {
     return this.apiHandlerService.Get('customerLsp/Tat', filters);
   }
 
-  getLspTatDetails(id: string): Observable<IApiBaseResponse<LspTatResponse>> {
-    return this.apiHandlerService.Get('customerLsp/Tat/' + id);
+  getLspTatDetails(id: string,userId:string): Observable<IApiBaseResponse<LspTatResponse>> {
+    return this.apiHandlerService.Get(`customerLsp/Tat/${id}?userId=${userId}`);
   }
 
   getCustomers(): Observable<IApiBaseResponse<CustomerResponse[]>> {

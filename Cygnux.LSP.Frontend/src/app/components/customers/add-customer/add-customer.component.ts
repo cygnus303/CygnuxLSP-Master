@@ -18,6 +18,7 @@ import {
 } from '../../../shared/constants/common';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -34,7 +35,8 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   constructor(
     private customerService: CustomerService,
     private commonService: CommonService,
-    private sweetAlertService: SweetAlertService
+    private sweetAlertService: SweetAlertService,
+    private identityService:IdentityService
   ) {
     this.customerForm = new FormGroup({});
   }
@@ -76,6 +78,9 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       proprietorName:new FormControl(''),
       proprietorMobile:new FormControl(null,Validators.pattern(MobileRegex)),
       proprietorEmail:new FormControl(null,Validators.pattern(EmailRegex)),
+     userId: new FormControl(this.identityService.getLoggedUserId()),
+     updatedBy: new FormControl(this.identityService.getLoggedUserId()),
+     createdBy: new FormControl(this.identityService.getLoggedUserId()),
     });
   }
 
@@ -109,6 +114,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit(); // Emitting the data to the parent
           this.customerForm.reset();
+          this.buildForm();
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -131,6 +137,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
             this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit(); // Emitting the data to the parent
             this.customerForm.reset();
+            this.buildForm();
           } else {
             this.sweetAlertService.error(response.error.message);
           }
