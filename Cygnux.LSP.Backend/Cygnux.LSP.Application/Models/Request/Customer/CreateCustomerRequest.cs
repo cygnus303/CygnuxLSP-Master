@@ -10,6 +10,8 @@ public class CreateCustomerRequest : UserSettings
     public string Pincode { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public string State { get; set; } = string.Empty;
+    public string PurchaseHead { get; set; } = string.Empty;
+    public string PurchaseHeadMobileNo { get; set; } = string.Empty;
     public bool? IsAllowedForEwayBillGenration { get; set; }
     public bool? IsActive { get; set; }
     public bool? IsConsolidatedGSTNo { get; set; }
