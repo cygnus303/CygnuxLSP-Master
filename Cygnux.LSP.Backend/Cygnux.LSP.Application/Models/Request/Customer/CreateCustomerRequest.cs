@@ -12,6 +12,8 @@ public class CreateCustomerRequest : UserSettings
     public string State { get; set; } = string.Empty;
     public string PurchaseHead { get; set; } = string.Empty;
     public string PurchaseHeadMobileNo { get; set; } = string.Empty;
+    public string AccountsHeadMobileNo { get; set; } = string.Empty;
+    public string AccountsHead { get; set; } = string.Empty;
     public bool? IsAllowedForEwayBillGenration { get; set; }
     public bool? IsActive { get; set; }
     public bool? IsConsolidatedGSTNo { get; set; }
