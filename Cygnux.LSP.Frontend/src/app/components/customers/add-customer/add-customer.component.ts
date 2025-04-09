@@ -69,14 +69,14 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       ]),
       country:new FormControl('INDIA'),
       purchaseHead:new FormControl(''),
-      purchaseMobile:new FormControl(null, [
+      purchaseHeadMobileNo:new FormControl(null, [
               Validators.required,
               Validators.pattern(MobileRegex),
             ]),
       accountsHead:new FormControl(''), 
       accountsHeadMobileNo:new FormControl(null,Validators.pattern(MobileRegex)), 
       proprietorName:new FormControl(''),
-      proprietorMobile:new FormControl(null,Validators.pattern(MobileRegex)),
+      proprietorMobileNo:new FormControl(null,Validators.pattern(MobileRegex)),
       proprietorEmail:new FormControl(null,Validators.pattern(EmailRegex)),
      userId: new FormControl(this.identityService.getLoggedUserId()),
      updatedBy: new FormControl(this.identityService.getLoggedUserId()),
