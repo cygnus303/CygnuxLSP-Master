@@ -9,6 +9,7 @@ public class CreateLspMappingRequest : UserSettings
 
     public Guid LspId { get; set; }
     public bool? IsActive { get; set; }
+    public string SupportEmail { get; set; }
 }
 
 
