@@ -7,8 +7,8 @@
             <td><strong>Customer Code:</strong> {{ customerDetail?.customerCode }}</td>
           </tr>
           <tr>
-            <td><strong>Email:</strong> {{ customerDetail?.emailId }}</td>
-            <td><strong>Address:</strong> {{ customerDetail?.address }}</td>
+            <td class="w-50"><strong>Email: </strong> {{ customerDetail?.emailId }}</td>
+            <td class="w-50"><strong>Address: </strong> {{ customerDetail?.address }}</td>
           </tr>
           <tr>
             <td><strong>City:</strong> {{ customerDetail?.city }}</td>
@@ -16,10 +16,26 @@
           </tr>
           <tr>
             <td><strong>State:</strong> {{ customerDetail?.state }}</td>
-            <td><strong>Tenant ID:</strong> {{ customerDetail?.tenantId }}</td>
+            <td><strong>Country:</strong> {{ customerDetail?.country }}</td>
           </tr>
           <tr>
-            <td colspan="2"><strong>Consolidated GSTNo:</strong> {{ customerDetail?.consolidatedGSTNo }}</td>
+            <td><strong>Tenant ID:</strong> {{ customerDetail?.tenantId }}</td>
+            <td><strong>Consolidated GSTNo:</strong> {{ customerDetail?.consolidatedGSTNo }}</td>
+          </tr>
+          <tr>
+            <td><strong>Purchase Head:</strong> {{ customerDetail?.purchaseHead }}</td>
+            <td><strong>Purchase Head Mobile No:</strong> {{ customerDetail?.purchaseHeadMobileNo }}</td>
+          </tr>
+          <tr>
+            <td><strong>Accounts Head:</strong> {{ customerDetail?.accountsHead }}</td>
+            <td><strong>Accounts Head Mobile No:</strong> {{ customerDetail?.accountsHeadMobileNo }}</td>
+          </tr>
+          <tr>
+            <td><strong>Proprietor Name:</strong> {{ customerDetail?.proprietorName }}</td>
+            <td><strong>Proprietor Mobile No:</strong> {{ customerDetail?.proprietorMobileNo }}</td>
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Proprietor E-mail:</strong> {{ customerDetail?.proprietorEmail }}</td>
           </tr>
         </tbody>
       </table>

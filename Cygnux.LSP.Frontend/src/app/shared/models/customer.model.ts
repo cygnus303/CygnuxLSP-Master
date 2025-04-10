@@ -25,6 +25,10 @@ export interface CustomerResponse {
     businessClassification: string;
     address:string;
     tenantId:string;
+    purchaseHeadMobileNo:string;
+    accountsHeadMobileNo:string;
+    proprietorMobileNo:string;
+    proprietorEmail:string;
 }
 
 export interface AddCustomerRequest {

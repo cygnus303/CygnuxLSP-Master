@@ -11,8 +11,8 @@
             <div class="tab-pane fade active show" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
               <div class="row g-3">
                 <div class="col-md-4 mb-11">
-                  <label class="col-form-label">CustomerName</label>
-                  <input class="form-control" formControlName="customerName" type="text" required
+                  <label class="col-form-label">Customer Name</label>
+                  <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"
                     [ngClass]="{ 'border-danger': userForm.controls['customerName'].invalid && userForm.controls['customerName'].touched}" />
                   <div *ngIf="userForm.controls['customerName'].invalid && userForm.controls['customerName']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['customerName'].errors?.['required']">CustomerName is required.</small>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Location</label>
-                  <input class="form-control" formControlName="location" type="text" required
+                  <input class="form-control" formControlName="location" type="text" required placeholder="Enter Location"
                     [ngClass]="{ 'border-danger': userForm.controls['location'].invalid && userForm.controls['location'].touched}" />
                   <div *ngIf="userForm.controls['location'].invalid && userForm.controls['location']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['location'].errors?.['required']">Location is required.</small>
@@ -28,11 +28,11 @@
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Session Time</label>
-                  <input class="form-control" formControlName="sessionTime" type="text"  />
+                  <input class="form-control" formControlName="sessionTime" type="text" placeholder="Enter Session Time"/>
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">First Name</label>
-                  <input class="form-control" formControlName="firstName" type="text" required
+                  <input class="form-control" formControlName="firstName" type="text" required placeholder="Enter First Name"
                     [ngClass]="{ 'border-danger': userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched}" />
                   <div *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['firstName'].errors?.['required']">Firstname is required.</small>
@@ -40,15 +40,15 @@
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Last Name</label>
-                  <input class="form-control" formControlName="lastName" type="text" required
+                  <input class="form-control" formControlName="lastName" type="text" required placeholder="Enter Last Name"
                     [ngClass]="{ 'border-danger': userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched}" />
                   <div *ngIf="userForm.controls['lastName'].invalid && userForm.controls['lastName']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['lastName'].errors?.['required']">Lastname is required.</small>
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <label class="col-form-label">Email address</label>
-                  <input class="form-control" [readonly]="userId != ''" formControlName="emailId" type="text" required
+                  <label class="col-form-label">Email Address</label>
+                  <input class="form-control" [readonly]="userId != ''" formControlName="emailId" type="text" required placeholder="Enter Email Address"
                     [ngClass]="{ 'border-danger': userForm.controls['emailId'].invalid && userForm.controls['emailId'].touched}" />
                   <div *ngIf=" userForm.controls['emailId'].invalid && userForm.controls['emailId']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['emailId'].errors?.['required']">Email is required.</small>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Phone number</label>
-                  <input class="form-control" maxlength="10" formControlName="phoneNumber" type="text" required
+                  <input class="form-control" maxlength="10" formControlName="phoneNumber" type="text" required placeholder="Enter Phone number"
                     [ngClass]="{ 'border-danger': userForm.controls['phoneNumber'].invalid && userForm.controls['phoneNumber'].touched}" />
                   <div *ngIf="userForm.controls['phoneNumber'].invalid && userForm.controls['phoneNumber']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['phoneNumber'].errors?.['required']">Phone Number is
@@ -84,17 +84,18 @@
                   </div>
                 </div> -->
                 <div class="col-md-4">
-                  <label class="col-form-label">Address</label>
-                  <textarea class="form-control"  formControlName="address" type="text" required
-                    [ngClass]="{ 'border-danger': userForm.controls['address'].invalid && userForm.controls['address'].touched}"></textarea>
-                  <div *ngIf="userForm.controls['address'].invalid && userForm.controls['address']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['address'].errors?.['required']">Address is
+                  <label class="col-form-label">User type</label>
+                  <input class="form-control"  formControlName="userType" type="text" required placeholder="Enter User type"
+                    [ngClass]="{ 'border-danger': userForm.controls['userType'].invalid && userForm.controls['userType'].touched}" />
+                  <div *ngIf="userForm.controls['userType'].invalid && userForm.controls['userType']?.touched" class="text-danger">
+                    <small *ngIf="userForm.controls['userType'].errors?.['required']">User type is
                       required.</small>
                   </div>
                 </div>
+                
                 <div class="col-md-4">
                   <label class="col-form-label">Locality</label>
-                  <input class="form-control"  formControlName="locality" type="text" required
+                  <input class="form-control"  formControlName="locality" type="text" required placeholder="Enter Locality"
                     [ngClass]="{ 'border-danger': userForm.controls['locality'].invalid && userForm.controls['locality'].touched}" />
                   <div *ngIf="userForm.controls['locality'].invalid && userForm.controls['locality']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['locality'].errors?.['required']">Locality is
@@ -103,18 +104,27 @@
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">City</label>
-                  <input class="form-control"  formControlName="city" type="text" required
+                  <input class="form-control"  formControlName="city" type="text" required placeholder="Enter City"
                     [ngClass]="{ 'border-danger': userForm.controls['city'].invalid && userForm.controls['city'].touched}" />
                   <div *ngIf="userForm.controls['city'].invalid && userForm.controls['city']?.touched" class="text-danger">
                     <small *ngIf="userForm.controls['city'].errors?.['required']">City is
                       required.</small>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <label class="col-form-label">Zip Code</label>
-                  <input class="form-control"  formControlName="zipCode" type="text" />
+                <div class="col-md-8">
+                  <label class="col-form-label">Address</label>
+                  <textarea class="form-control" rows="1"  formControlName="address" type="text" required placeholder="Enter Address"
+                    [ngClass]="{ 'border-danger': userForm.controls['address'].invalid && userForm.controls['address'].touched}"></textarea>
+                  <div *ngIf="userForm.controls['address'].invalid && userForm.controls['address']?.touched" class="text-danger">
+                    <small *ngIf="userForm.controls['address'].errors?.['required']">Address is
+                      required.</small>
+                  </div>
                 </div>
                 <div class="col-md-4">
+                  <label class="col-form-label">Zip Code</label>
+                  <input class="form-control"  formControlName="zipCode" type="text" placeholder="Enter Zip Code"/>
+                </div>
+                <!-- <div class="col-md-4">
                   <label class="col-form-label">User type</label>
                   <input class="form-control"  formControlName="userType" type="text" required
                     [ngClass]="{ 'border-danger': userForm.controls['userType'].invalid && userForm.controls['userType'].touched}" />
@@ -122,7 +132,7 @@
                     <small *ngIf="userForm.controls['userType'].errors?.['required']">User type is
                       required.</small>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="roles">Roles</label>
@@ -135,10 +145,11 @@
                     </div>
                   </div>
                 </div>
+               
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="photo">Photo</label>
-                    <input type="file" class="form-control" id="photo" name="photo" formControlName="photo" accept="image/*" [ngClass]="{ 'border-danger': userForm.controls['photo'].invalid && userForm.controls['photo'].touched }"/>
+                    <input type="file" class="form-control" id="photo" name="photo" placeholder="Enter Photo" formControlName="photo" accept="image/*" [ngClass]="{ 'border-danger': userForm.controls['photo'].invalid && userForm.controls['photo'].touched }"/>
                     <div *ngIf="userForm.controls['photo'].invalid && userForm.controls['photo'].touched" class="text-danger">
                       Please upload a photo.
                     </div>

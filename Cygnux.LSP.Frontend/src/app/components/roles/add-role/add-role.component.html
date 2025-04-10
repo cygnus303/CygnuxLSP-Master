@@ -16,7 +16,7 @@
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Role Name</label>
                                     <input class="form-control" 
-                                        formControlName="roleName" type="text" required 
+                                        formControlName="roleName" type="text" required placeholder="Enter Role Name"
                                         [ngClass]="{ 'border-danger': roleForm.controls['roleName'].invalid && roleForm.controls['roleName'].touched}"/>
                                     <div *ngIf="roleForm.controls['roleName'].invalid && roleForm.controls['roleName']?.touched"
                                         class="text-danger">

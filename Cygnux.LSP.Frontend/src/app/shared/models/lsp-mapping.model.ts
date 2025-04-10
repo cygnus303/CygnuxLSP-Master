@@ -6,6 +6,7 @@ export interface LspMappingResponse {
     lsps?: string;
     customerName?: string;
     isActive?: boolean;
+    supportEmail:string;
 }
 export interface LspResponse {
     lspId: string;

@@ -8,15 +8,16 @@
         </button>
       </div>
       <div class="card-body pt-2 pb-0">
-        <div class="card-header d-flex align-items-center justify-content-between p-0">
-          <h5></h5>
-          <button class="btn btn-square btn-primary pull-right rounded-3">Import Sample</button>
+        <div class="card-header d-flex align-items-center row justify-content-between p-0">
+          <h4 class="col-4">Select POD File</h4>
+          <h4 class="col-6">Select Images</h4>
+          <button class="btn col-2 btn-square btn-primary pull-right rounded-3">Import Sample</button>
         </div>
         <div class="row">
           <div class="col-sm-4">
             <div class="card mb-0">
               <div class="card-body px-0 py-3">
-                <h4>Select POD File</h4>
+                <!-- <h4>Select POD File</h4> -->
                 <ngx-dropzone (change)="onDropzoneSelect($event)" class="dropzone dropzone-info" [multiple]="true">
                   <ngx-dropzone-label>
                     <div class="dz-message needsclick">
@@ -37,7 +38,7 @@
           <div class="col-sm-8">
             <div class="card mb-0">
               <div class="card-body px-0 py-3">
-                <h4>Select Images</h4>
+                <!-- <h4>Select Images</h4> -->
                 <ngx-dropzone class="dropzone dropzone-info" (change)="onDropzoneimgSelect($event)" [multiple]="true"  [accept]="'image/*'">
                   <ngx-dropzone-label>
                     <div class="dz-message needsclick">

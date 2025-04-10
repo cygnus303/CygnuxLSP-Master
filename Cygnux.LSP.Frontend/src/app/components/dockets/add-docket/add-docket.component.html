@@ -28,7 +28,7 @@
               <div class="row g-3">
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">From WH/Store</label>
-                  <input class="form-control" formControlName="fromLocation" type="text" required
+                  <input class="form-control" formControlName="fromLocation" type="text" required  placeholder="Enter From WH/Store"
                     [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}" />
                   <div *ngIf="docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['fromLocation'].errors?.['required']">From Location is
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">To WH/Store</label>
-                  <input class="form-control" formControlName="toLocation" type="text" required
+                  <input class="form-control" formControlName="toLocation" type="text" required placeholder="Enter To WH/Store"
                     [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}" />
                   <div *ngIf="docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['toLocation'].errors?.['required']">To Location is
@@ -46,10 +46,15 @@
                 </div>
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Booking Date</label>
-                  <input class="form-control" formControlName="bookingDate" type="date" required
-                    [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}" 
-                    [value]="formatDate(docketForm.controls['bookingDate'].value)"/>
+                  <!-- <input class="form-control" formControlName="bookingDate" type="date" required
+                    [value]="formatDate(docketForm.controls['bookingDate'].value)"/> -->
 
+                    <input type="text"
+                    class="form-control"
+                    #dp="bsDatepicker" formControlName="bookingDate" 
+                    bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}"
+                    [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}">
+                    
                   <div *ngIf="docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['bookingDate'].errors?.['required']">Booking Date is
                       required.</small>
@@ -68,7 +73,7 @@
                 </div>
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Docket No.</label>
-                  <input class="form-control" formControlName="docketNo" type="text" required
+                  <input class="form-control" formControlName="docketNo" type="text" required placeholder="Enter Docket No"
                     [ngClass]="{ 'border-danger': docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo'].touched}" />
                   <div *ngIf="docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['docketNo'].errors?.['required']">Docket No. is required.</small>
@@ -76,7 +81,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Invoice No.</label>
-                  <input class="form-control" formControlName="invoiceNo" type="text" required
+                  <input class="form-control" formControlName="invoiceNo" type="text" required placeholder="Enter Invoice No"
                     [ngClass]="{ 'border-danger': docketForm.controls['invoiceNo'].invalid && docketForm.controls['invoiceNo'].touched}" />
                   <div *ngIf="docketForm.controls['invoiceNo'].invalid && docketForm.controls['invoiceNo']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['invoiceNo'].errors?.['required']">Invoice No. is
@@ -85,7 +90,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Transporter</label>
-                  <input class="form-control" formControlName="transporter" type="text" required
+                  <input class="form-control" formControlName="transporter" type="text" required placeholder="Enter Transporter"
                     [ngClass]="{ 'border-danger': docketForm.controls['transporter'].invalid && docketForm.controls['transporter'].touched}" />
                   <div *ngIf="docketForm.controls['transporter'].invalid && docketForm.controls['transporter']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['transporter'].errors?.['required']">Transporter is
@@ -94,7 +99,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Transport Mode</label>
-                  <input class="form-control" formControlName="transportMode" type="text" required
+                  <input class="form-control" formControlName="transportMode" type="text" required placeholder="Enter Transport Mode"
                     [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}" />
                   <div *ngIf="docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['transportMode'].errors?.['required']">transport Mode is
@@ -103,7 +108,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Quantity</label>
-                  <input class="form-control" formControlName="quantity" type="text" required
+                  <input class="form-control" formControlName="quantity" type="text" required placeholder="Enter Quantity"
                     [ngClass]="{ 'border-danger': docketForm.controls['quantity'].invalid && docketForm.controls['quantity'].touched}" />
                   <div *ngIf="docketForm.controls['quantity'].invalid && docketForm.controls['quantity']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['quantity'].errors?.['required']">Quantity is required.</small>

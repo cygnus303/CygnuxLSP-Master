@@ -48,7 +48,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   buildForm(): void {
     this.docketForm = new FormGroup({
       docketNo: new FormControl(null, [Validators.required]),
-      bookingDate: new FormControl(new Date().toISOString().split('T')[0], [Validators.required]),
+      bookingDate: new FormControl(new Date(), [Validators.required]),
       fromLocation: new FormControl(null),
       toLocation: new FormControl(null),
       customerId: new FormControl(null),
@@ -62,13 +62,14 @@ export class AddDocketComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['docketResponse'] && this.docketResponse) {
+      this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate)
       this.docketForm.patchValue(this.docketResponse);
       this.docketId = this.docketResponse.id;
     } else {
       this.docketForm.reset();
       this.docketId = '';
       this.docketForm.patchValue({
-        bookingDate:new Date().toISOString().split('T')[0]
+        bookingDate:new Date()
       });
     }
   }
@@ -85,10 +86,12 @@ export class AddDocketComponent implements OnInit, OnChanges {
   }
 
   onSubmitDocket(form: FormGroup): void {
+    debugger
     if (form.valid) {
       let forms = {
         ...form.value,
-        EntryBy:this.identityService.getLoggedUserId()
+        EntryBy:this.identityService.getLoggedUserId(),
+        bookingDate:form.value.bookingDate.toISOString().split('T')[0]
       }
       !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);
     }

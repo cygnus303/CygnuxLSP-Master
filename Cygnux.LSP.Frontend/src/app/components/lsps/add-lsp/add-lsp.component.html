@@ -27,15 +27,15 @@
               <div class="row g-3">
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Lsp Name</label>
-                  <input class="form-control" formControlName="lspName" type="text" required
+                  <input class="form-control" formControlName="lspName" type="text" required placeholder="Enter Lsp Name"
                     [ngClass]="{ 'border-danger': lspForm.controls['lspName'].invalid && lspForm.controls['lspName'].touched}" />
                   <div *ngIf="lspForm.controls['lspName'].invalid && lspForm.controls['lspName']?.touched" class="text-danger">
                     <small *ngIf="lspForm.controls['lspName'].errors?.['required']">Lsp name is required.</small>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label class="col-form-label">Email address</label>
-                  <input class="form-control" [readonly]="lspId != ''" formControlName="emailId" type="text" required
+                  <label class="col-form-label">Email Address</label>
+                  <input class="form-control" [readonly]="lspId != ''" formControlName="emailId" type="text" required placeholder="Enter Email Address"
                     [ngClass]="{ 'border-danger': lspForm.controls['emailId'].invalid && lspForm.controls['emailId'].touched}" />
                   <div *ngIf="lspForm.controls['emailId'].invalid && lspForm.controls['emailId']?.touched" class="text-danger">
                     <small *ngIf="lspForm.controls['emailId'].errors?.['required']">Email is required.</small>
@@ -47,7 +47,7 @@
                 <div class="col-md-6 mb-1">
                   <label class="col-form-label">Mobile Number</label>
                   <input class="form-control" [readonly]="lspId != ''" formControlName="mobileNo" type="text"
-                    maxlength="10" required
+                    maxlength="10" required placeholder="Enter Mobile Number"
                     [ngClass]="{ 'border-danger': lspForm.controls['mobileNo'].invalid && lspForm.controls['mobileNo'].touched}" />
                   <div *ngIf="lspForm.controls['mobileNo'].invalid && lspForm.controls['mobileNo']?.touched" class="text-danger">
                     <small *ngIf="lspForm.controls['mobileNo'].errors?.['required']">MobileNo is required.</small>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Alias</label>
-                  <input class="form-control" formControlName="alias" type="text" required
+                  <input class="form-control" formControlName="alias" type="text" required placeholder="Enter Alias"
                     [ngClass]="{ 'border-danger': lspForm.controls['alias'].invalid && lspForm.controls['alias'].touched}" />
                   <div *ngIf="lspForm.controls['alias'].invalid && lspForm.controls['alias']?.touched" class="text-danger">
                     <small *ngIf="lspForm.controls['alias'].errors?.['required']">Alias is required.</small>
@@ -66,7 +66,7 @@
               <div class="row g-3">
                 <div class="col-md-12">
                   <label class="col-form-label">Description</label>
-                  <textarea class="form-control" formControlName="description" type="text" required
+                  <textarea class="form-control" formControlName="description" type="text" required placeholder="Enter Description"
                     [ngClass]="{ 'border-danger': lspForm.controls['description'].invalid && lspForm.controls['description'].touched}"></textarea>
                   <div *ngIf="lspForm.controls['description'].invalid && lspForm.controls['description']?.touched" class="text-danger">
                     <small *ngIf="lspForm.controls['description'].errors?.['required']">Description is required.</small>
@@ -99,21 +99,21 @@
               <div class="row g-3">
                 <div class="col-md-6 mb-1">
                   <label class="col-form-label">API Key</label>
-                  <input class="form-control" formControlName="apiKey" type="text" />
+                  <input class="form-control" formControlName="apiKey" type="text" placeholder="Enter API Key"/>
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">API Url</label>
-                  <input class="form-control" formControlName="apiUrl" type="text" />
+                  <input class="form-control" formControlName="apiUrl" type="text" placeholder="Enter API Url"/>
                 </div>
               </div>
               <div class="row g-3">
                 <div class="col-md-6 mb-1">
                   <label class="col-form-label">Api Username</label>
-                  <input class="form-control" formControlName="apiUsername" type="text" />
+                  <input class="form-control" formControlName="apiUsername" type="text" placeholder="Enter Api Username"/>
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Api Password</label>
-                  <input class="form-control" formControlName="apiPassword" type="text" />
+                  <input class="form-control" formControlName="apiPassword" type="text" placeholder="Enter Api Password"/>
                 </div>
               </div>
             </div>

@@ -38,39 +38,54 @@ export class ImportDocketComponent {
     this.files = [];
     this.mappedData = [];
     this.uploadedImages=[];
-
   }
 
   onDropzoneSelect(event: any) {
     const file = event.addedFiles[0];
-    if (file) {
-      const validExcelTypes = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.ms-excel',
-        'text/csv',
-      ];
+    if (!file) return;
+    const validExcelTypes = [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+      'text/csv',
+    ];
   
-      if (validExcelTypes.includes(file.type)) {
-        this.files = [file];
-        this.selectedFile = file;
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const sheetName = workbook.SheetNames[0];
-          const worksheet = workbook.Sheets[sheetName];
-          const jsonData = XLSX.utils.sheet_to_json(worksheet); // using header row
-          this.excelData = jsonData;
-          this.tryMapExcelToImages();
-        };
-        reader.readAsArrayBuffer(file);
-      } else {
-        this.sweetAlertService.error('Please upload a valid excel file.');
-        this.selectedFile = null;
-        this.files = [];
-        this.excelData = [];
-      }
+    if (!validExcelTypes.includes(file.type)) {
+      this.sweetAlertService.error('Please upload a valid Excel file.');
+      this.resetFileSelection();
+      return;
     }
+  
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const rows: any[][] = XLSX.utils.sheet_to_json(worksheet, {
+        header: 1,
+      });
+      const headers = rows[0]?.map((h: any) => String(h).trim());
+      const expectedHeaders = ['DocketNo', 'UploadDate', 'ImageLink'];
+      const isValidHeaders = headers && headers.length === expectedHeaders.length && headers.every((val, i) => val === expectedHeaders[i]);
+      if (!isValidHeaders) {
+        this.sweetAlertService.error('Invalid Excel. Expected: DocketNo, UploadDate, ImageLink');
+        this.resetFileSelection();
+        return;
+      }
+      //  Proceed if headers are correct
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+      this.excelData = jsonData;
+      this.files = [file];
+      this.selectedFile = file;
+      this.tryMapExcelToImages();
+    };
+    reader.readAsArrayBuffer(file);
+  }
+  
+  resetFileSelection() {
+    this.selectedFile = null;
+    this.files = [];
+    this.excelData = [];                                                                                                                                                                                                          
   }
  
   onRemoveimg(file: any) {
@@ -80,8 +95,6 @@ export class ImportDocketComponent {
       this.tryMapExcelToImages(); // Re-map after removal
     }
   }
-  
-  
 
   onDropzoneimgSelect(event: any) {
     const files = event.addedFiles;
@@ -122,10 +135,6 @@ export class ImportDocketComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
-  }
-
-  extractFileName(fullPath: string): string {
-    return fullPath.split('\\').pop()?.split('/').pop() || '';
   }
 
   exportExcel(){

@@ -33,7 +33,7 @@
               <div class="row g-3">
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Customer Name</label>
-                  <input class="form-control" formControlName="customerName" type="text" required
+                  <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"
                     [ngClass]="{ 'border-danger': customerForm.controls['customerName'].invalid && customerForm.controls['customerName'].touched}"
                     [readOnly]="customerCode ? true:false" />
                   <div *ngIf="customerForm.controls['customerName'].invalid && customerForm.controls['customerName']?.touched" class="text-danger">
@@ -41,8 +41,8 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label class="col-form-label">Email address</label>
-                  <input class="form-control" formControlName="emailId" type="text" required
+                  <label class="col-form-label">Email Address</label>
+                  <input class="form-control" formControlName="emailId" type="text" required placeholder="Enter Email Address"
                     [ngClass]="{ 'border-danger': customerForm.controls['emailId'].invalid && customerForm.controls['emailId'].touched}" />
                   <div *ngIf="customerForm.controls['emailId'].invalid && customerForm.controls['emailId']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['emailId'].errors?.['required']">Email is required.</small>
@@ -53,7 +53,7 @@
               <div class="row g-3">
                 <div class="col-md-4">
                   <label class="col-form-label">City</label>
-                  <input class="form-control" formControlName="city" type="text" required
+                  <input class="form-control" formControlName="city" type="text" required placeholder="Enter City"
                     [ngClass]="{ 'border-danger': customerForm.controls['city'].invalid && customerForm.controls['city'].touched}" />
                   <div *ngIf="customerForm.controls['city'].invalid && customerForm.controls['city']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['city'].errors?.['required']">City is required.</small>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4 mb-1">
                   <label class="col-form-label">State</label>
-                  <input class="form-control" formControlName="state" type="text" required
+                  <input class="form-control" formControlName="state" type="text" required  placeholder="Enter State"
                     [ngClass]="{ 'border-danger': customerForm.controls['state'].invalid && customerForm.controls['state'].touched}" />
                   <div *ngIf="customerForm.controls['state'].invalid && customerForm.controls['state']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['state'].errors?.['required']">State is required.</small>
@@ -70,7 +70,7 @@
           
                 <div class="col-md-4">
                   <label class="col-form-label">Pincode</label>
-                  <input class="form-control" maxlength="6" formControlName="pincode" type="text" required
+                  <input class="form-control" maxlength="6" formControlName="pincode" type="text" required  placeholder="Enter pincode"
                     [ngClass]="{ 'border-danger': customerForm.controls['pincode'].invalid && customerForm.controls['pincode'].touched}" />
                   <div *ngIf="customerForm.controls['pincode'].invalid && customerForm.controls['pincode']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['pincode'].errors?.['required']">Pincode is required.</small>
@@ -81,7 +81,7 @@
               <div class="row g-3">
                 <div class="col-md-4">
                   <label class="col-form-label">Country</label>
-                  <input class="form-control" formControlName="country" type="text" required
+                  <input class="form-control" formControlName="country" type="text" required  placeholder="Enter Country"
                     [ngClass]="{ 'border-danger': customerForm.controls['country'].invalid && customerForm.controls['country'].touched}" />
                   <div *ngIf="customerForm.controls['country'].invalid && customerForm.controls['country']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['country'].errors?.['required']">City is required.</small>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="col-md-8">
                   <label class="col-form-label">Address</label>
-                  <textarea class="form-control" formControlName="address" type="text" required
+                  <textarea class="form-control" formControlName="address" type="text" required  placeholder="Enter Address"
                     [ngClass]="{ 'border-danger': customerForm.controls['address'].invalid && customerForm.controls['address'].touched}"></textarea>
                   <div *ngIf="customerForm.controls['address'].invalid && customerForm.controls['pincode']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['address'].errors?.['required']">Address is required.</small>
@@ -135,7 +135,7 @@
                 <div class="row mb-2">
                   <div class="col-md-6">
                     <label class="col-form-label">Consolidated GSTNo.</label>
-                    <input class="form-control" formControlName="consolidatedGSTNo" type="text" required
+                    <input class="form-control" formControlName="consolidatedGSTNo" type="text" required  placeholder="Enter Consolidated GSTNo"
                       [ngClass]="{ 'border-danger': customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo'].touched}" />
                     <div *ngIf="customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['required']">ConsolidatedGSTNo is
@@ -154,7 +154,7 @@
                 <div class="row g-3">
                   <div class="col-md-4">
                     <label class="col-form-label">Purchase Head</label>
-                    <input class="form-control" formControlName="purchaseHead" type="text" required
+                    <input class="form-control" formControlName="purchaseHead" type="text" required placeholder="Enter Purchase Head"
                       [ngClass]="{ 'border-danger': customerForm.controls['purchaseHead'].invalid && customerForm.controls['purchaseHead'].touched}" />
                     <div *ngIf="customerForm.controls['purchaseHead'].invalid && customerForm.controls['purchaseHead']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['purchaseHead'].errors?.['required']">Purchase Head is required.</small>
@@ -162,7 +162,7 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Purchase Head Mobile No.</label>
-                    <input class="form-control" formControlName="purchaseHeadMobileNo" type="text" maxlength="10" required
+                    <input class="form-control" formControlName="purchaseHeadMobileNo" type="text" maxlength="10" required placeholder="Enter Purchase Head Mobile"
                       [ngClass]="{ 'border-danger': customerForm.controls['purchaseHeadMobileNo'].invalid && customerForm.controls['purchaseHeadMobileNo'].touched}" />
                     <div *ngIf="customerForm.controls['purchaseHeadMobileNo'].invalid && customerForm.controls['purchaseHeadMobileNo']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['purchaseHeadMobileNo'].errors?.['required']">Purchase Head Mobile No is required.</small>
@@ -170,7 +170,7 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Accounts Head</label>
-                    <input class="form-control" formControlName="accountsHead" type="text"  required
+                    <input class="form-control" formControlName="accountsHead" type="text"  required  placeholder="Enter Accounts Head"
                       [ngClass]="{ 'border-danger': customerForm.controls['accountsHead'].invalid && customerForm.controls['accountsHead'].touched}" />
                     <div *ngIf="customerForm.controls['accountsHead'].invalid && customerForm.controls['accountsHead']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['accountsHead'].errors?.['required']">Accounts Head is required.</small>
@@ -180,7 +180,7 @@
                 <div class="row g-3">
                   <div class="col-md-4">
                     <label class="col-form-label">Accounts Head Mobile No.</label>
-                    <input class="form-control" formControlName="accountsHeadMobileNo" type="text" maxlength="10"  required
+                    <input class="form-control" formControlName="accountsHeadMobileNo" type="text" maxlength="10"  required  placeholder="Enter Accounts Head Mobile No"
                       [ngClass]="{ 'border-danger': customerForm.controls['accountsHeadMobileNo'].invalid && customerForm.controls['accountsHeadMobileNo'].touched}" />
                     <div *ngIf="customerForm.controls['accountsHeadMobileNo'].invalid && customerForm.controls['accountsHeadMobileNo']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['accountsHeadMobileNo'].errors?.['required']">Accounts Head Mobile No is required.</small>
@@ -188,7 +188,7 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Proprietor Name</label>
-                    <input class="form-control" formControlName="proprietorName" type="text" required
+                    <input class="form-control" formControlName="proprietorName" type="text" required placeholder="Enter Proprietor Name"
                       [ngClass]="{ 'border-danger': customerForm.controls['proprietorName'].invalid && customerForm.controls['proprietorName'].touched}" />
                     <div *ngIf="customerForm.controls['proprietorName'].invalid && customerForm.controls['proprietorName']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['proprietorName'].errors?.['required']">Proprietor Name is required.</small>
@@ -196,7 +196,7 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Proprietor Mobile No.</label>
-                    <input class="form-control" formControlName="proprietorMobileNo" type="text" maxlength="10" required
+                    <input class="form-control" formControlName="proprietorMobileNo" type="text" maxlength="10" required  placeholder="Enter Proprietor Mobile No"
                       [ngClass]="{ 'border-danger': customerForm.controls['proprietorMobileNo'].invalid && customerForm.controls['proprietorMobileNo'].touched}" />
                     <div *ngIf="customerForm.controls['proprietorMobileNo'].invalid && customerForm.controls['proprietorMobileNo']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['proprietorMobileNo'].errors?.['required']">Proprietor Mobile No is required.</small>
@@ -207,7 +207,7 @@
                 <div class="row g-3">
                   <div class="col-md-4">
                     <label class="col-form-label">Proprietor E-mail.</label>
-                    <input class="form-control" formControlName="proprietorEmail" type="text" required
+                    <input class="form-control" formControlName="proprietorEmail" type="text" required placeholder="Enter Proprietor E-mail"
                       [ngClass]="{ 'border-danger': customerForm.controls['proprietorEmail'].invalid && customerForm.controls['proprietorEmail'].touched}" />
                     <div *ngIf="customerForm.controls['proprietorEmail'].invalid && customerForm.controls['proprietorEmail']?.touched" class="text-danger">
                       <small *ngIf="customerForm.controls['proprietorEmail'].errors?.['required']">Proprietor E-mail is required.</small>
