@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-import-docket',
@@ -143,4 +144,11 @@ export class ImportDocketComponent {
       },
     });
   } 
+
+  downloadSampleFile(event:any){
+    event.preventDefault();
+    let path =
+      environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
+    window.open(path, '_blank');
+  }
 }
