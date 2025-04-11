@@ -56,7 +56,7 @@ toggleSidebar(){
 
 getMenus() {
   this.commonService.updateLoader(true);
-  debugger
+  
   this.menuService.getMenuList()
   .subscribe({
     next: (response) => {

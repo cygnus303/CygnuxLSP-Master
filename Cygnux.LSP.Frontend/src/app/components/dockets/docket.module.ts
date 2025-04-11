@@ -4,15 +4,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocketListComponent } from './docket/docket-list.component';
-import { AddDocketComponent } from './add-docket/add-docket.component';
 import { DocketRoutes } from './dockets.routes';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { DocketDetailComponent } from './docket-detail/docket-detail.component';
-import { ImportDocketComponent } from "./import-docket/import-docket.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { DocketUpdateComponent } from './docket-update/docket-update.component';
 import { PodUploadComponent } from './pod-upload/pod-upload.component';
+import { AddDocketComponent } from './docket/add-docket/add-docket.component';
+import { DocketDetailComponent } from './docket/docket-detail/docket-detail.component';
+import { ImportDocketComponent } from './docket/import-docket/import-docket.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { PodUploadComponent } from './pod-upload/pod-upload.component';
     AddDocketComponent,
     DocketDetailComponent,
     ImportDocketComponent,
-    DocketUpdateComponent,
     PodUploadComponent
   ],
   imports: [

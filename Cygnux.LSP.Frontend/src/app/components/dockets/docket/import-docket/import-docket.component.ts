@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { SweetAlertService } from '../../../shared/services/toastr.service';
-import { environment } from '../../../../environments/environment';
+import { SweetAlertService } from '../../../../shared/services/toastr.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-import-docket',

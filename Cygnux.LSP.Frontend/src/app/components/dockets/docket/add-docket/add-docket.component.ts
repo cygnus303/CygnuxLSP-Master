@@ -8,13 +8,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../../shared/services/common.service';
-import { DocketResponse } from '../../../shared/models/docket.model';
-import { DocketService } from '../../../shared/services/docket.service';
-import { CustomerResponse } from '../../../shared/models/customer.model';
-import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
-import { IdentityService } from '../../../shared/services/identity.service';
-import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { CustomerResponse } from '../../../../shared/models/customer.model';
+import { DocketResponse } from '../../../../shared/models/docket.model';
+import { CommonService } from '../../../../shared/services/common.service';
+import { DocketService } from '../../../../shared/services/docket.service';
+import { IdentityService } from '../../../../shared/services/identity.service';
+import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
+import { SweetAlertService } from '../../../../shared/services/toastr.service';
+
 
 @Component({
   selector: 'app-add-docket',
@@ -86,7 +87,6 @@ export class AddDocketComponent implements OnInit, OnChanges {
   }
 
   onSubmitDocket(form: FormGroup): void {
-    debugger
     if (form.valid) {
       let forms = {
         ...form.value,

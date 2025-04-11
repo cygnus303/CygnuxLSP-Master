@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DocketListComponent } from './docket/docket-list.component';
-import { DocketUpdateComponent } from './docket-update/docket-update.component';
 import { PodUploadComponent } from './pod-upload/pod-upload.component';
+import { StatusUpdateComponent } from './status-update/status-update.component';
 
 export const DocketRoutes: Routes = [
   {
@@ -10,7 +10,7 @@ export const DocketRoutes: Routes = [
   },
   {
     path:'docket-update',
-    component:DocketUpdateComponent
+    component:StatusUpdateComponent
   },
   {
     path:'pod-upload',
