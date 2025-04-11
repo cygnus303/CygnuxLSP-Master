@@ -11,13 +11,15 @@ import { DocketDetailComponent } from './docket-detail/docket-detail.component';
 import { ImportDocketComponent } from "./import-docket/import-docket.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { UploadDocketComponent } from './upload-docket/upload-docket.component';
 
 @NgModule({
   declarations: [
     DocketListComponent, 
     AddDocketComponent,
     DocketDetailComponent,
-    ImportDocketComponent
+    ImportDocketComponent,
+    UploadDocketComponent
   ],
   imports: [
     CommonModule,
