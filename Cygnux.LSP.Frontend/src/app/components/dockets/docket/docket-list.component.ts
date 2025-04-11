@@ -183,6 +183,15 @@ export class DocketListComponent implements OnInit {
     }
   }
 
+  openUploadModal(event: Event){
+    event.preventDefault(); // Prevent default anchor behavior
+    const modalElement = document.getElementById('uploadModal');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
   getDocket(docketCode: string) {
     this.commonService.updateLoader(true);
     this.docketService.getDocketDetails(docketCode,this.identityService.getLoggedUserId()).subscribe({
@@ -232,6 +241,16 @@ export class DocketListComponent implements OnInit {
       this.getDockets();
     }
   }
+
+  closeUploadModal(){
+    const modalElement: any = document.getElementById('uploadModal');
+    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hide the modal
+      this.getDockets();
+    }
+  } 
+
   onPageChange(page: number) {
     this.page = page;
     this.getDockets(this.page);
