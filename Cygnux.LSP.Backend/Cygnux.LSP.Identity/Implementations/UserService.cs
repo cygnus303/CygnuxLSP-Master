@@ -55,7 +55,7 @@ internal class UserService : IUserService
                 EmailId = user.Email,
                 IsActive = user.IsActive,
                 PhoneNumber = user.PhoneNumber,
-                Roles = rolesAsString
+                Roles = rolesAsString,
             };
         }
         return new();

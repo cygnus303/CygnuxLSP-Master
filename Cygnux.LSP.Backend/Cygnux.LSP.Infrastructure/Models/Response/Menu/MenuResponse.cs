@@ -3,7 +3,11 @@
 public class MenuResponse
 {
     public Guid MenuId { get; set; }
-    public string MenuName { get; set; } = string.Empty;
+    public string MenuName { get; set; } 
+    public bool CanView { get; set; }
+    public bool CanCreate { get; set; } 
+    public bool CanEdit { get; set; } 
+    public bool CanDelete { get; set; }
 
     public string NavigationUrl { get; set; } = string.Empty;
     public bool IsActive { get; set; }
