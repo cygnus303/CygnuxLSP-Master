@@ -12,6 +12,7 @@ import { PodUploadComponent } from './pod-upload/pod-upload.component';
 import { AddDocketComponent } from './docket/add-docket/add-docket.component';
 import { DocketDetailComponent } from './docket/docket-detail/docket-detail.component';
 import { ImportDocketComponent } from './docket/import-docket/import-docket.component';
+import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ImportDocketComponent } from './docket/import-docket/import-docket.comp
     AddDocketComponent,
     DocketDetailComponent,
     ImportDocketComponent,
-    PodUploadComponent
+    PodUploadComponent,
+    DocketLayoutComponent
   ],
   imports: [
     CommonModule,
