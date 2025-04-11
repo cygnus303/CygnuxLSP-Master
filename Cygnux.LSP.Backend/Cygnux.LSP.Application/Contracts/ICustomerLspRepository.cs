@@ -18,7 +18,7 @@ public interface ICustomerLspRepository
 
     Task<BaseResponse<IEnumerable<LspResponse>>> GetLsps();
 
-    Task<BaseResponse<LspTatDetailResponse?>> GetLspTatDetails(string mappingId);
+    Task<BaseResponse<LspTatDetailResponse?>> GetLspTatDetails(string mappingId,Guid userId);
 
     Task<BaseResponse<CommonCreateResponse>> AddLspMapping(CreateLspMappingRequest createLsp);
 

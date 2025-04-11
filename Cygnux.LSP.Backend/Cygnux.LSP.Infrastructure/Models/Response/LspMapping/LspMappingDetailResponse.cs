@@ -23,6 +23,8 @@ public class LspMappingDetailResponse
     public string CustomerName { get; set; } = string.Empty;
     public string LspName { get; set; } = string.Empty;
 
+    public string SupportEmail { get; set; } = string.Empty;
+
     public bool IsActive { get; set; }
     public int? TotalCount { get; set; }
 

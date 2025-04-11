@@ -15,7 +15,7 @@ public interface ICustomerLspService
 
     Task<IEnumerable<LspResponse>> GetLsps();
 
-    Task<LspTatDetailResponse> GetLspTatDetails(string mappingId);
+    Task<LspTatDetailResponse> GetLspTatDetails(string mappingId, Guid userId);
 
     Task<CommonCreateResponse> AddLspMapping(string addLspMappingJson);
 
