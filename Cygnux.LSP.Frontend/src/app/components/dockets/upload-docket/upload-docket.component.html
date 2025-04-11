@@ -29,7 +29,7 @@
                     </ngx-dropzone-label>
                   
                     <!-- Show selected files -->
-                    <ngx-dropzone-preview *ngFor="let file of files" [file]="file" (removed)="onRemoveFile(file)">
+                    <ngx-dropzone-preview *ngFor="let file of files" [file]="file" (removed)="onRemoveFile(file)" [removable]="true" >
                         <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
                     </ngx-dropzone-preview>
                   </ngx-dropzone>
@@ -41,6 +41,34 @@
           <div class="d-flex justify-content-end pt-3">
             <button class="btn btn-square btn-success rounded-3">Upload</button>
           </div>
+          <div *ngIf="docketData.length > 0" class="overflow-y h-100 px-2 mt-4">
+            <table class="table mt-3 table-bordered excelData-table">
+              <thead class="table-light">
+                <tr>
+                  <th class="text-center">Docket No</th>
+                  <th class="text-center">Upload Date</th>
+                  <th class="text-center">Invoice no </th>
+                  <th class="text-center">Date</th>
+                  <th class="text-center">From</th>
+                  <th class="text-center">TO</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-center">Mode of Transporter</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of docketData">
+                  <td class="text-center">{{ row.LspName || 'N/A' }}</td>
+                  <td class="text-center">{{ row.DocketNO}}</td>
+                   <td class="text-center">{{row.InvoiceNo}}</td>
+                   <td class="text-center">{{row.Date}}</td>
+                   <td class="text-center">{{row.From}}</td>
+                   <td class="text-center">{{row.TO}}</td>
+                   <td class="text-center">{{row.Quantity}}</td>
+                   <td class="text-center">{{row.Transporter}}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
       </div>
     </div>
   </div>
