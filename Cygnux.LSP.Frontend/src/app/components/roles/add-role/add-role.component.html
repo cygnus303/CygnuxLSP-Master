@@ -14,26 +14,33 @@
                             aria-labelledby="basic-info-tab">
                             <div class="row g-3">
                                 <div class="col-md-6 mb-11">
-                                    <label class="col-form-label">Role Name</label>
-                                    <input class="form-control" 
-                                        formControlName="roleName" type="text" required placeholder="Enter Role Name"
-                                        [ngClass]="{ 'border-danger': roleForm.controls['roleName'].invalid && roleForm.controls['roleName'].touched}"/>
-                                    <div *ngIf="roleForm.controls['roleName'].invalid && roleForm.controls['roleName']?.touched"
-                                        class="text-danger">
-                                        <small
-                                            *ngIf="roleForm.controls['roleName'].errors?.['required']">Role
-                                            name
-                                            is required.</small>
-                                    </div>
+                                  <label class="col-form-label">Role Name</label>
+                                  <input class="form-control"
+                                    formControlName="roleName"
+                                    type="text"
+                                    required
+                                    placeholder="Enter Role Name"
+                                    [ngClass]="{ 'border-danger': roleForm.controls['roleName'].invalid && roleForm.controls['roleName'].touched }"/>
+                              
+                                  <div *ngIf="roleForm.controls['roleName'].invalid && roleForm.controls['roleName']?.touched"
+                                    class="text-danger">
+                                    <small *ngIf="roleForm.controls['roleName'].errors?.['required']">
+                                      Role name is required.
+                                    </small>
+                                  </div>
+                              
+                                  <div class="form-check mt-2" *ngIf="roleId != ''">
+                                    <input class="form-check-input"
+                                      type="checkbox"
+                                      id="default-checkbox"
+                                      formControlName="isActive">
+                                    <label class="form-check-label" for="default-checkbox">
+                                      Active
+                                    </label>
+                                  </div>
                                 </div>
-                            </div>
+                              </div>
                         </div>
-                      
-                    </div>
-                    <div class="checkbox p-0" *ngIf="roleId != ''">
-                        <input id="dafault-checkbox" type="checkbox"
-                            formControlName="isActive" data-bs-original-title=""  title="">
-                        <label class="mb-0" for="dafault-checkbox">Active</label>
                     </div>
                     <div class="gap-2 d-flex justify-content-end">
                         <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="roleForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;

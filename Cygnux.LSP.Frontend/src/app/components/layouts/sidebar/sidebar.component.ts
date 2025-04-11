@@ -40,10 +40,8 @@ ngOnInit(): void {
   .then(() => {})
   .catch((error) => console.error(error)); 
   setTimeout(() => {
-  this.getRolePermission();
-  setTimeout(() => {
+  // this.getRolePermission();
   this.getMenus();
-}, 100);
 
 }, 300);
 }
@@ -62,16 +60,17 @@ getMenus() {
   .subscribe({
     next: (response) => {
       if (response) {
-        this.menus = response.data.map((menu: any) => {
-          const permission = this.rolePermission.find(p => p.menuId === menu.menuId);
-          return {
-            ...menu,
-            canView: permission ? permission.canView : false,
-            canEdit: permission ? permission.canEdit : false,
-            canDelete: permission ? permission.canDelete : false,
-            canCreate: permission ? permission.canCreate : false
-          };
-        });
+        this.menus = response.data
+        // map((menu: any) => {
+        //   const permission = this.rolePermission.find(p => p.menuId === menu.menuId);
+        //   return {
+        //     ...menu,
+        //     canView: permission ? permission.canView : false,
+        //     canEdit: permission ? permission.canEdit : false,
+        //     canDelete: permission ? permission.canDelete : false,
+        //     canCreate: permission ? permission.canCreate : false
+        //   };
+        // });
         const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
         if (data) {
           console.log("Updating Subject with:", data);
@@ -95,22 +94,22 @@ onSidebar(data:any){
   this.commonService.activemenuRoleList.next(data)
 }
 
-getRolePermission() {
-  const roleId = localStorage.getItem('roleId') || '';
-  this.commonService.updateLoader(true);
-  this.rolePermissionService.getRolePermissionByRole(roleId).subscribe({
-      next: (response) => {
-          if (response) {
-              this.rolePermission = response.data;
-          }
-          this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-          this.toasterService.error(response.error.message);
-          this.commonService.updateLoader(false);
-      },
-  });
-}
+// getRolePermission() {
+//   const roleId = localStorage.getItem('roleId') || '';
+//   this.commonService.updateLoader(true);
+//   this.rolePermissionService.getRolePermissionByRole(roleId).subscribe({
+//       next: (response) => {
+//           if (response) {
+//               this.rolePermission = response.data;
+//           }
+//           this.commonService.updateLoader(false);
+//       },
+//       error: (response: any) => {
+//           this.toasterService.error(response.error.message);
+//           this.commonService.updateLoader(false);
+//       },
+//   });
+// }
 
   signout(): void {
     this.identityService.clearToken();
