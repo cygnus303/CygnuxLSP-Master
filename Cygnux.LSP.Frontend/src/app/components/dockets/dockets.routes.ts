@@ -8,16 +8,11 @@ export const DocketRoutes: Routes = [
   {
     path: '',
     component: DocketLayoutComponent,
-  },{
-    path: 'Docket-List',
-    component: DocketListComponent,
-  },
-  {
-    path:'docket-update',
-    component:StatusUpdateComponent
-  },
-  {
-    path:'pod-upload',
-    component:PodUploadComponent
+    children: [
+      { path: 'list', component: DocketListComponent },
+      { path: 'docket-update', component: StatusUpdateComponent },
+      { path: 'pod-upload', component: PodUploadComponent },
+      { path: 'list', redirectTo: 'Docket-List', pathMatch: 'full' } // default child
+    ]
   }
 ];

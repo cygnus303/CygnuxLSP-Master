@@ -1,6 +1,6 @@
 <ul class="m-0 p-0 d-flex flex-wrap">
     <li class="d-flex m-0 align-items-center">
-      <a [routerLink]="'/docket/Docket-List'" class="d-inline-block m-0 text-decoration-none">Docket</a>
+      <a [routerLink]="'/docket/list'" class="d-inline-block m-0 text-decoration-none">Docket</a>
     </li>
     <li class="d-flex m-0 align-items-center">
       <a [routerLink]="'/docket/docket-update'" class="d-inline-block m-0 text-decoration-none">Docket Status Update</a>
@@ -9,4 +9,4 @@
       <a [routerLink]="'/docket/pod-upload'" class="d-inline-block m-0 text-decoration-none">POD Update</a>
     </li>
   </ul>
-  
+  <router-outlet></router-outlet>
