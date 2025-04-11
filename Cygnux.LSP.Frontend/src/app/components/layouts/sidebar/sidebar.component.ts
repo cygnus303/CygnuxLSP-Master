@@ -41,7 +41,10 @@ ngOnInit(): void {
   .catch((error) => console.error(error)); 
   setTimeout(() => {
   this.getRolePermission();
+  setTimeout(() => {
   this.getMenus();
+}, 100);
+
 }, 300);
 }
 
@@ -69,13 +72,11 @@ getMenus() {
             canCreate: permission ? permission.canCreate : false
           };
         });
-        setTimeout(() => {
         const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
         if (data) {
           console.log("Updating Subject with:", data);
           this.commonService.activemenuRoleList.next(data);
         }
-      }, 100);
       }
       this.commonService.updateLoader(false);
       setTimeout(() => {
