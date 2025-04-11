@@ -11,7 +11,8 @@ import { DocketDetailComponent } from './docket-detail/docket-detail.component';
 import { ImportDocketComponent } from "./import-docket/import-docket.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { UploadDocketComponent } from './upload-docket/upload-docket.component';
+import { DocketUpdateComponent } from './docket-update/docket-update.component';
+import { PodUploadComponent } from './pod-upload/pod-upload.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UploadDocketComponent } from './upload-docket/upload-docket.component';
     AddDocketComponent,
     DocketDetailComponent,
     ImportDocketComponent,
-    UploadDocketComponent
+    DocketUpdateComponent,
+    PodUploadComponent
   ],
   imports: [
     CommonModule,
