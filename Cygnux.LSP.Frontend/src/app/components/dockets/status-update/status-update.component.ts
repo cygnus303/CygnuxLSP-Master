@@ -19,11 +19,11 @@ export class StatusUpdateComponent {
       docketNumber: new FormControl(null,[Validators.required]),
       lspName:new FormControl(null), 
       orderDate:new FormControl(null),
-      statusDate:new FormControl(null),
+      statusDate:new FormControl(null,[Validators.required]),
       fromCity:new FormControl(null),
       toCity:new FormControl(null),
       currentStatus:new FormControl(null),
-      changeStatus:new FormControl(null),
+      changeStatus:new FormControl(null,[Validators.required]),
       pod:new FormControl(null)
     })
   }
