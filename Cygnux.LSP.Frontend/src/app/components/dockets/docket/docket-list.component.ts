@@ -6,10 +6,10 @@ import { DocketService } from '../../../shared/services/docket.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
+import feather from 'feather-icons';
 
 @Component({
   selector: 'app-docket',
@@ -37,7 +37,9 @@ export class DocketListComponent implements OnInit {
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
   }
-
+  ngAfterViewInit(): void {
+    feather.replace(); // Ensure icons render
+  }
   ngOnInit(): void {
     this.getDockets();
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
@@ -263,6 +265,14 @@ export class DocketListComponent implements OnInit {
       const modal = new Modal(modalElement);
       modal.show();
       this.getDocket(id);
+    }
+  }
+
+  openStatusUpdateModal(){
+    const modalElement = document.getElementById('showModal');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
     }
   }
 }

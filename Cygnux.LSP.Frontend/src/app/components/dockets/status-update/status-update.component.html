@@ -26,22 +26,19 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">LSP Name</label>
-                        <input class="form-control" formControlName="lspName" type="text"  placeholder="Enter Lsp Name"
-                         />
+                        <input class="form-control" formControlName="lspName" type="text"  placeholder="Enter Lsp Name" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Order Date</label>
-                        <input class="form-control" formControlName="orderDate" type="text"  placeholder="Enter order Date"
-                         />
+                        <input class="form-control" formControlName="orderDate" type="text"  placeholder="Enter order Date" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Status Date </label>
-                        <input class="form-control" formControlName="statusDate" type="text"  placeholder="Enter status Date"
-                         />
+                        <input class="form-control" formControlName="statusDate" type="text"  placeholder="Enter status Date" readonly/>
                         <div *ngIf="statusUpdateForm.controls['statusDate'].invalid && statusUpdateForm.controls['statusDate']?.touched" class="text-danger">
                           <small *ngIf="statusUpdateForm.controls['statusDate'].errors?.['required']">statusDate is required.</small>
                           <small *ngIf="statusUpdateForm.controls['statusDate'].errors?.['pattern']">statusDate is invalid.</small>
@@ -51,27 +48,24 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">From City </label>
-                        <input class="form-control" formControlName="fromCity" type="text"  placeholder="Enter city"
-                         />
+                        <input class="form-control" formControlName="fromCity" type="text"  placeholder="Enter city" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">To City </label>
-                        <input class="form-control" formControlName="toCity" type="text"  placeholder="Enter city"
-                         />
+                        <input class="form-control" formControlName="toCity" type="text"  placeholder="Enter city" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Current Status</label>
-                        <input class="form-control" formControlName="currentStatus" type="text"  placeholder="Enter Current Status"
-                         />
+                        <input class="form-control" formControlName="currentStatus" type="text"  placeholder="Enter Current Status" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="lsps">change Status</label>
+                        <label for="lsps">Change Status</label>
                        <ng-select placeholder="Enter Status"></ng-select>
                         <div *ngIf="statusUpdateForm.controls['changeStatus'].invalid && statusUpdateForm.controls['changeStatus']?.touched" class="text-danger">
                           <small *ngIf="statusUpdateForm.controls['changeStatus'].errors?.['required']">changeStatus is required.</small>

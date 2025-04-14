@@ -1,93 +1,63 @@
 <div class="row">
     <div class="col-sm-12">
       <div class="bg-white">
-        <div class="card no-shadow m-0">
-          <div class="card-header pt-3 pb-0">
+        <div class="card no-shadow m-0 py-3">
+          <div class="card-body pt-2 pb-0">
+            <div class="card-header d-flex align-items-center row justify-content-between p-0 pb-3">
+              <h4 class="col-4">Select Status Update File</h4>
+              <button class="btn col-2 btn-square btn-primary pull-right rounded-3"  (click)="downloadSampleFile($event)">Download Import Template</button>
+            </div>
             <div class="row">
-              <div class="col-sm-6">
-              </div>
-              <div class="col-sm-6">
-                <div class="gap-3 d-flex justify-content-end" >
-                  <div >
-                    <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openStatusUpdateModal()">
-                      <i class="icon-plus"></i> Status Update
-                    </button>
-                  </div>
-                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="downloadSampleFile($event)">
-                    <i class="icon-upload"></i> Bulk Upload
-                  </button>
-                  <!-- <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openUploadModal($event)">
-                    <i class="icon-upload"></i> Upload Docket
-                  </button> -->
-                </div>
-              </div>
-              <!-- <div class="file-upload">
-                <input type="file" id="fileInput" (change)="onFileChange($event)" class="file" />
-              </div> -->
-            </div>
-          </div>
-          <div class="card-body pt-3 ">
-            <div class="table-responsive theme-scrollbar">
-              <table class="table table-header align-middle w-100" >
-                <thead class="table-light">
-                  <tr class="table-th">
-                    <th class="w-15">Docket Number</th>
-                    <th class="w-15">Order Date </th>
-                    <th class="w-15">LSP Name</th>
-                    <th class="w-15">From City</th>
-                    <th class="w-15">To City</th>
-                    <th class="w-15">Status Date</th>
-                    <th class="w-15">Current Status</th>
-                    <th class="w-15">Change Status</th>
-                   
-                  </tr>
-                  <tr class="table-th">
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                    <th class="w-15"><input type="text" class="form-control"/></th>
-                  </tr>
-                </thead>
-              </table>
-            <div class=" mb-3">
-              <table class="customers w-100">
-                <tr >
-                  
-                </tr>
-                <div >
-                  <div class="text-center"> 
-                    <!-- <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
-                      trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
-                    </lord-icon> -->
+              <div class="col-sm-12">
+                <div class="card mb-0">
+                  <div class="card-body px-0 py-0">
+                    <ngx-dropzone (change)="onChangeFile($event)" class="dropzone dropzone-info">
+                      <ngx-dropzone-label>
+                        <div class="dz-message needsclick">
+                          <i class="icon-cloud-up"></i>
+                          <h6>Drop files here or click to upload.</h6>
+                          <span class="note needsclick">
+                            (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
+                          </span>
+                        </div>
+                      </ngx-dropzone-label>
+                      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                      </ngx-dropzone-preview>
+                    </ngx-dropzone>
                   </div>
                 </div>
-              </table>
-            </div>
-            <div class="d-flex justify-content-end">
-              <!-- <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" (pageChange)="onPageChange($event)">
-              </ngb-pagination> -->
               </div>
+            </div>
+            
+            <!-- Table to display Excel data -->
+              <!-- <div *ngIf="statusUpdate.length > 0" class="overflow-y h-100 px-2 mt-4">
+                <table class="table mt-3 table-bordered excelData-table">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center">Docket No</th>
+                      <th class="text-center">Upload Date</th>
+                      <th class="text-center">ImageLink</th>
+                      <th class="text-center">Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of statusUpdate">
+                      <td class="text-center">{{ row.DocketNo || 'N/A' }}</td>
+                      <td class="text-center">{{ row.UploadDate ? row.UploadDate : 'Missing date' }}</td>
+                       <td class="text-center"><i [ngClass]="row.ImageLink ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
+                       <td class="text-center">{{ row.file && row.file.name ? 'Image attached': 'No Matches Images With DocketNumber'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div> -->
+            <div class="d-flex justify-content-end pt-3">
+              <button class="btn btn-square btn-success rounded-3" >Upload</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade in editDialog" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-      <div class="modal-content">
-          <!-- <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Lsp</h5>
-              <button class="btn-close" type="button" (click)="closeEditModal()"></button>
-          </div> -->
-          <div class="modal-body" style="padding:0px;">
-              <app-status-update></app-status-update>
-          </div>
-      </div>
-  </div>
-</div>
+  

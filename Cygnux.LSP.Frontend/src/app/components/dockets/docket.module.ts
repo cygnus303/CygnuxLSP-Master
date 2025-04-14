@@ -15,6 +15,7 @@ import { ImportDocketComponent } from './docket/import-docket/import-docket.comp
 import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
 import { StatusListComponent } from './status-list/status-list.component';
 import { StatusUpdateComponent } from './status-update/status-update.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { StatusUpdateComponent } from './status-update/status-update.component';
     NgbPaginationModule,
     NgSelectModule,
     NgxDropzoneModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    PopoverModule
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
