@@ -66,6 +66,14 @@
     }
 }
 
+.bg-white{
+  background-color: #fff !important;
+  color: rgb(70, 70, 70) !important;
+}
+.no-shadow {
+  box-shadow: none !important;
+}
+
 label {
     margin-bottom: 0.5rem; // Add space between label and select
     display: block; // Ensure label takes up its own line

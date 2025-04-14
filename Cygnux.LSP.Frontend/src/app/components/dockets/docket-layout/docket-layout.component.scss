@@ -1,10 +1,12 @@
 .nav-tabs .nav-link{
-    border-radius: 0px;
-    border: none !important;
+    border-radius: 8px 8px 0px 0px;
+    border: transparent !important;
+    color: #fff !important  ;
 }
 
-.nav-primary .nav-link.active, .nav-primary .show > .nav-link, .nav-pills.nav-primary .nav-link.active, .nav-pills.nav-primary .show > .nav-link {
+.nav-primary .nav-link.active {
     background-color: #fff;
-    border-bottom: 3px solid var(--theme-deafult) !important;
-    color: #424242!important;
-}
+    color: #424242 !important;
+    transition: 0.8s;
+  }
+  

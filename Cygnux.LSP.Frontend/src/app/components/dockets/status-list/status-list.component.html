@@ -1,74 +1,76 @@
 <div class="row">
     <div class="col-sm-12">
-      <div class="card">
-        <div class="card-header pt-3 pb-0">
-          <div class="row">
-            <div class="col-sm-6">
-            </div>
-            <div class="col-sm-6">
-              <div class="gap-3 d-flex justify-content-end" >
-                <div >
-                  <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openStatusUpdateModal()">
-                    <i class="icon-plus"></i> Status Update
+      <div class="bg-white">
+        <div class="card no-shadow m-0">
+          <div class="card-header pt-3 pb-0">
+            <div class="row">
+              <div class="col-sm-6">
+              </div>
+              <div class="col-sm-6">
+                <div class="gap-3 d-flex justify-content-end" >
+                  <div >
+                    <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openStatusUpdateModal()">
+                      <i class="icon-plus"></i> Status Update
+                    </button>
+                  </div>
+                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="downloadSampleFile($event)">
+                    <i class="icon-upload"></i> Bulk Upload
                   </button>
+                  <!-- <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openUploadModal($event)">
+                    <i class="icon-upload"></i> Upload Docket
+                  </button> -->
                 </div>
-                <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="downloadSampleFile($event)">
-                  <i class="icon-upload"></i> Bulk Upload
-                </button>
-                <!-- <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openUploadModal($event)">
-                  <i class="icon-upload"></i> Upload Docket
-                </button> -->
               </div>
+              <!-- <div class="file-upload">
+                <input type="file" id="fileInput" (change)="onFileChange($event)" class="file" />
+              </div> -->
             </div>
-            <!-- <div class="file-upload">
-              <input type="file" id="fileInput" (change)="onFileChange($event)" class="file" />
-            </div> -->
           </div>
-        </div>
-        <div class="card-body pt-3 ">
-          <div class="table-responsive theme-scrollbar">
-            <table class="table table-header align-middle w-100" >
-              <thead class="table-light">
-                <tr class="table-th">
-                  <th class="w-15">Docket Number</th>
-                  <th class="w-15">Order Date </th>
-                  <th class="w-15">LSP Name</th>
-                  <th class="w-15">From City</th>
-                  <th class="w-15">To City</th>
-                  <th class="w-15">Status Date</th>
-                  <th class="w-15">Current Status</th>
-                  <th class="w-15">Change Status</th>
-                 
+          <div class="card-body pt-3 ">
+            <div class="table-responsive theme-scrollbar">
+              <table class="table table-header align-middle w-100" >
+                <thead class="table-light">
+                  <tr class="table-th">
+                    <th class="w-15">Docket Number</th>
+                    <th class="w-15">Order Date </th>
+                    <th class="w-15">LSP Name</th>
+                    <th class="w-15">From City</th>
+                    <th class="w-15">To City</th>
+                    <th class="w-15">Status Date</th>
+                    <th class="w-15">Current Status</th>
+                    <th class="w-15">Change Status</th>
+                   
+                  </tr>
+                  <tr class="table-th">
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                    <th class="w-15"><input type="text" class="form-control"/></th>
+                  </tr>
+                </thead>
+              </table>
+            <div class=" mb-3">
+              <table class="customers w-100">
+                <tr >
+                  
                 </tr>
-                <tr class="table-th">
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                  <th class="w-15"><input type="text" class="form-control"/></th>
-                </tr>
-              </thead>
-            </table>
-          <div class=" mb-3">
-            <table class="customers w-100">
-              <tr >
-                
-              </tr>
-              <div >
-                <div class="text-center"> 
-                  <!-- <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
-                    trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
-                  </lord-icon> -->
+                <div >
+                  <div class="text-center"> 
+                    <!-- <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
+                      trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
+                    </lord-icon> -->
+                  </div>
                 </div>
+              </table>
+            </div>
+            <div class="d-flex justify-content-end">
+              <!-- <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" (pageChange)="onPageChange($event)">
+              </ngb-pagination> -->
               </div>
-            </table>
-          </div>
-          <div class="d-flex justify-content-end">
-            <!-- <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" (pageChange)="onPageChange($event)">
-            </ngb-pagination> -->
             </div>
           </div>
         </div>
