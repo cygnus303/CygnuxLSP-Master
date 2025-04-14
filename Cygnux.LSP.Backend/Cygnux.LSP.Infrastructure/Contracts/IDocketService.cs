@@ -14,6 +14,6 @@ public interface IDocketService
     Task<CommonCreateResponse> UpdateDocket(Guid id, string updateDocketJson);
 
     Task<CommonCreateResponse> DeleteDocket(Guid id);
-
+    Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, string? origin, string? destination);
     Task<CommonCreateResponse> ImportPOD(string PodData,string? User);
 }

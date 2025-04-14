@@ -106,6 +106,20 @@ internal class DocketService : IDocketService
         return new CommonCreateResponse();
     }*/
 
+    public async Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, string? origin, string? destination)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CustomerId", CustomerId, DbType.Guid);
+        parameters.Add("@Origin", origin, DbType.String);
+        parameters.Add("@Destination", destination, DbType.String);
+
+        return await _dbConnection.QueryAsync<LspTATData>(
+            StoredProcedureConstants.USP_CustomerTATRootDropdown,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
+
     public async Task<CommonCreateResponse> ImportPOD(string PodData,string? User)
     {
         var parameters = new DynamicParameters();
