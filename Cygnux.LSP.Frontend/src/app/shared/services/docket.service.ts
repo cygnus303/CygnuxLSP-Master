@@ -91,4 +91,13 @@ export class DocketService {
   UploadDocket(userId:string,formData:any){
     return this.apiHandlerService.Post(`Docket/ImportPOD?User=${userId}`, formData);
   }
+
+  getLocationData(filters:any){
+    return this.apiHandlerService.Get(`Docket/GetDropdowndata`,filters);
+  }
+
+  validateDocketList(file:any){
+    return this.apiHandlerService.Get(`Docket/ValidateDocketList`,file);
+  }
+
 }
