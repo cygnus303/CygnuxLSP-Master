@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { defineElement } from 'lord-icon-element';
+import lottie from 'lottie-web';
 
 @Component({
   selector: 'app-docket-layout',
@@ -7,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './docket-layout.component.scss'
 })
 export class DocketLayoutComponent {
-
+constructor(){
+  defineElement(lottie.loadAnimation);
+}
 }
