@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 
+using Azure;
 using Contracts;
 using Cygnux.LSP.Infrastructure.Models.Response.Customer;
 using Infrastructure.Contracts;
@@ -62,6 +63,14 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+
+    public async Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, string? origin, string? destination)
+    { 
+        var response = await _docketService.GetTATdata(CustomerId, origin, destination);
+        return new BaseResponse<IEnumerable<LspTATData>>(response);
+        //return new BaseResponse<IEnumerable<LspTATData>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
+    }
+
     public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, string? User)
     {
         var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(PodData),User);
