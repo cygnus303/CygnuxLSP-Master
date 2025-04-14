@@ -96,4 +96,8 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/GetDropdowndata`,filters);
   }
 
+  validateDocketList(file:any){
+    return this.apiHandlerService.Get(`Docket/ValidateDocketList`,file);
+  }
+
 }
