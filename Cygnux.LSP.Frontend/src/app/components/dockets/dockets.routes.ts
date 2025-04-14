@@ -3,6 +3,7 @@ import { DocketListComponent } from './docket/docket-list.component';
 import { PodUploadComponent } from './pod-upload/pod-upload.component';
 import { StatusUpdateComponent } from './status-update/status-update.component';
 import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
+import { StatusListComponent } from './status-list/status-list.component';
 
 export const DocketRoutes: Routes = [
   {
@@ -10,7 +11,7 @@ export const DocketRoutes: Routes = [
     component: DocketLayoutComponent,
     children: [
       { path: 'list', component: DocketListComponent },
-      { path: 'docket-update', component: StatusUpdateComponent },
+      { path: 'status-list', component: StatusListComponent },
       { path: 'pod-upload', component: PodUploadComponent },
       { path: 'list', redirectTo: 'Docket-List', pathMatch: 'full' } // default child
     ]

@@ -13,6 +13,8 @@ import { AddDocketComponent } from './docket/add-docket/add-docket.component';
 import { DocketDetailComponent } from './docket/docket-detail/docket-detail.component';
 import { ImportDocketComponent } from './docket/import-docket/import-docket.component';
 import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
+import { StatusListComponent } from './status-list/status-list.component';
+import { StatusUpdateComponent } from './status-update/status-update.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
     DocketDetailComponent,
     ImportDocketComponent,
     PodUploadComponent,
-    DocketLayoutComponent
+    DocketLayoutComponent,
+    StatusListComponent,
+    StatusUpdateComponent
   ],
   imports: [
     CommonModule,
