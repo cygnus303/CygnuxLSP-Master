@@ -15,5 +15,12 @@
         public Guid EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
         public int? TotalCount { get; set; }
+        public TrackingList track {  get; set; }
+    }
+
+    public class TrackingList
+    {
+        public string CodeId { get; set; } 
+        public string CodeDesc { get; set; } 
     }
 }

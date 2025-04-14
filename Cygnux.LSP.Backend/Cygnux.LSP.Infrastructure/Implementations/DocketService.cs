@@ -2,6 +2,7 @@
 
 using Constants;
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Dapper;
 using Models.Response;
 using Models.Response.Docket;
@@ -57,6 +58,18 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+    public async Task<IEnumerable<TrackingList>> GetTrackingList(string codetype)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CodeType", codetype, DbType.String);
+       
+        return await _dbConnection.QueryAsync<TrackingList>(
+         StoredProcedureConstants.USP_TrackingList,
+         parameters,
+         commandType: CommandType.StoredProcedure
+        );
+    }
+
 
     public async Task<CommonCreateResponse> AddDocket(string addDocketJson)
     {

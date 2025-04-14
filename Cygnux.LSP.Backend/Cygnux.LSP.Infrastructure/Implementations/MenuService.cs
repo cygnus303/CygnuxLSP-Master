@@ -28,7 +28,6 @@ internal class MenuService : IMenuService
       "CASE WHEN M.MenuName = 'Dashboard' THEN 0 ELSE 1 END, " +
       "M.MenuName;";
 
-
         return await _dbConnection.QueryAsync<MenuResponse>(
             selectQuery, new { UserId = userId });
     }

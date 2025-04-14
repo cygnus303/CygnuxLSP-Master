@@ -50,6 +50,16 @@ public class DocketController : ControllerBase
         return Ok();
     }
 
+        
+    [HttpGet]
+    [Route("TrackingList")]
+    public async Task<IActionResult> GetTrackingList(string codetype)
+    {
+        var result = await _docketRepository.GetTrackingList(codetype);
+        return Ok(result);
+    }
+
+
     [HttpPost]
     [Route("AddDocket")]
     public async Task<IActionResult> AddDocket(CreateDocketRequest createDocketDto)

@@ -2,12 +2,14 @@
 
 using Contracts;
 using Cygnux.LSP.Infrastructure.Models.Response.Customer;
+using Cygnux.LSP.Infrastructure.Models.Response.RoleMenuPermission;
 using Infrastructure.Contracts;
 using Infrastructure.Models.Response;
 using Infrastructure.Models.Response.Docket;
 using Models.Request.Docket;
 using Models.Response;
 using Newtonsoft.Json;
+using System.Reflection.Emit;
 
 internal class DocketRepository : IDocketRepository
 {
@@ -39,6 +41,14 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+
+    public async Task<BaseResponse<IEnumerable<TrackingList>>> GetTrackingList(string codetype)
+    {
+        var response = await _docketService.GetTrackingList(codetype);
+
+        return new BaseResponse<IEnumerable<TrackingList>>(response);
+    }
+
     public async Task<BaseResponse<CommonCreateResponse>> AddDocket(CreateDocketRequest createDocketRequest)
     {
         var response = await _docketService.AddDocket(JsonConvert.SerializeObject(createDocketRequest));

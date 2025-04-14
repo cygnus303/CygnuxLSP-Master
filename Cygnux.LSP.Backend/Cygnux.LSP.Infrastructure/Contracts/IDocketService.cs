@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Infrastructure.Contracts;
 
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Models.Response;
 using Models.Response.Docket;
 
@@ -9,6 +10,7 @@ public interface IDocketService
 
     Task<DocketDetailResponse> GetDocketDetails(Guid docketId, Guid userId);
     Task<CommonCreateResponse> ImportDocket(string addDocketsJson);
+    Task<IEnumerable<TrackingList>> GetTrackingList(string codetype);
     Task<CommonCreateResponse> AddDocket(string addDocketJson);
 
     Task<CommonCreateResponse> UpdateDocket(Guid id, string updateDocketJson);
