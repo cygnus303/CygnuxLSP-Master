@@ -23,3 +23,9 @@ export interface AddDocketRequest {
   transportMode: string;
   quantity: number;
 }
+
+export interface CustomerLocationResponse{
+  customerId:string;
+  location: string;
+  lspId: string;
+}

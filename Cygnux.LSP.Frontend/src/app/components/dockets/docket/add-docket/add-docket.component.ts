@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerResponse } from '../../../../shared/models/customer.model';
-import { DocketResponse } from '../../../../shared/models/docket.model';
+import { DocketResponse, CustomerLocationResponse } from '../../../../shared/models/docket.model';
 import { CommonService } from '../../../../shared/services/common.service';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
@@ -27,6 +27,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketForm!: FormGroup;
   public docketId: string = '';
   public customers: CustomerResponse[] = [];
+  public customerLocation : CustomerLocationResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -154,5 +155,29 @@ export class AddDocketComponent implements OnInit, OnChanges {
           this.commonService.updateLoader(false);
         },
       });
+  }
+
+  onSelectCustomer(customerId:string){
+    this.commonService.updateLoader(true);
+    console.log(customerId);
+    const filters={
+      CustomerId:customerId
+    }
+    this.docketService
+    .getLocationData(filters)
+    .subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.customerLocation=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
   }
 }

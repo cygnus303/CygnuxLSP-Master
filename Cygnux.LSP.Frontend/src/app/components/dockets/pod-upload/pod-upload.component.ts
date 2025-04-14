@@ -140,7 +140,7 @@ excelData: any[] = [];
   }
 
   exportExcel(){
-    this.docketService.UploadDocket(this.identityService.getLoggedUserId(),this.mappedData).subscribe({
+    this.docketService.uploadDocket(this.identityService.getLoggedUserId(),this.mappedData).subscribe({
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit()
