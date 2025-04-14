@@ -1,0 +1,10 @@
+.nav-tabs .nav-link{
+    border-radius: 0px;
+    border: none !important;
+}
+
+.nav-primary .nav-link.active, .nav-primary .show > .nav-link, .nav-pills.nav-primary .nav-link.active, .nav-pills.nav-primary .show > .nav-link {
+    background-color: #fff;
+    border-bottom: 3px solid var(--theme-deafult) !important;
+    color: #424242!important;
+}
