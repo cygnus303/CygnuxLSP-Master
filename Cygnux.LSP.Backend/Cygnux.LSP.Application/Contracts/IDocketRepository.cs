@@ -17,5 +17,6 @@ public interface IDocketRepository
     Task<BaseResponse<CommonCreateResponse>> UpdateDocket(Guid docketId, CreateDocketRequest createDocketRequest);
     Task<BaseResponse<CommonCreateResponse>> DeleteDocket(Guid docketId);
     Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, string? origin, string? destination);
+    Task<BaseResponse<IEnumerable<DocketBulkUploadValidateResponse>>> GetValidateDocketImportData(List<Dictionary<string, string>> bulkDocket);
     Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, string? User);
 }
