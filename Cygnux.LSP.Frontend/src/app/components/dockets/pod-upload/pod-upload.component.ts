@@ -5,14 +5,15 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { environment } from '../../../../environments/environment';
 
+
 @Component({
-  selector: 'app-import-docket',
+  selector: 'app-pod-upload',
   standalone: false,
-  templateUrl: './import-docket.component.html',
-  styleUrl: './import-docket.component.scss'
+  templateUrl: './pod-upload.component.html',
+  styleUrl: './pod-upload.component.scss'
 })
-export class ImportDocketComponent {
-  excelData: any[] = [];
+export class PodUploadComponent {
+excelData: any[] = [];
   files: File[] = [];
   mappedData: any[] = [];
   uploadedImages: any[] = [];
@@ -139,7 +140,7 @@ export class ImportDocketComponent {
   }
 
   exportExcel(){
-    this.docketService.UploadDocket(this.identityService.getLoggedUserId(),this.mappedData).subscribe({
+    this.docketService.uploadDocket(this.identityService.getLoggedUserId(),this.mappedData).subscribe({
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit()

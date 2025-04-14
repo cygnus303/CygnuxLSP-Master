@@ -1,0 +1,12 @@
+.nav-tabs .nav-link{
+    border-radius: 8px 8px 0px 0px;
+    border: transparent !important;
+    color: #fff !important  ;
+}
+
+.nav-primary .nav-link.active {
+    background-color: #fff;
+    color: #424242 !important;
+    transition: 0.8s;
+  }
+  

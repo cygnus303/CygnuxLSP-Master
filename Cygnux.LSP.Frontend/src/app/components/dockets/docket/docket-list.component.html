@@ -1,108 +1,110 @@
     <div class="row">
       <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header pt-3 pb-0">
-            <div class="row">
-              <div class="col-sm-6">
-                <!-- <h4>Dockets</h4> -->
-                <div class="row d-flex align-items-center">
-                  <div class="col-auto">
-                      <label class="col-form-label">Date Range</label>
-                  </div>
-                  <div class="col">
-                    <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
-                        [(ngModel)]="docketService.dateRange" [bsConfig]="{ ranges: docketService.ranges ,rangeInputFormat: 'DD.MM.YYYY', dateInputFormat:'DD.MM.YYYY'}">
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="gap-3 d-flex justify-content-end" >
-                  <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}" >
-                    <button class="btn btn-square btn-primary pull-right rounded-3"type="button"  (click)="openModal()">
-                      <i class="icon-plus"></i> Add Docket
-                    </button>
-                  </div>
-                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openImportModal($event)">
-                    <i class="icon-upload"></i> Import Docket
-                  </button>
-                  <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openUploadModal($event)">
-                    <i class="icon-upload"></i> Upload Docket
-                  </button>
-                </div>
-              </div>
-              <!-- <div class="file-upload">
-                <input type="file" id="fileInput" (change)="onFileChange($event)" class="file" />
-              </div> -->
-            </div>
-          </div>
-          <div class="card-body pt-3 ">
-            <div class="table-responsive theme-scrollbar">
-              <table class="table table-header align-middle w-100" >
-                <thead class="table-light">
-                  <tr class="table-th">
-                    <th class="w-15">Docket Name</th>
-                    <th class="w-15">From WH/Store</th>
-                    <th class="w-15">To WH/Store</th>
-                    <th class="w-15">Transporter</th>
-                    <th class="w-15">Transport Mode</th>
-                    <th class="w-15">Quantity</th>
-                    <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
-                      <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
-                    </th>
-                  </tr>
-                  <tr class="table-th">
-                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['docketNo']" (input)="getDockets()"/></th>
-                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['fromLocation']" (input)="getDockets()"/></th>
-                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['toLocation']" (input)="getDockets()"/></th>
-                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transporter']" (input)="getDockets()"/></th>
-                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transportMode']" (input)="getDockets()"/></th>
-                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['quantity']" (input)="getDockets()"/></th>
-                    <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
-                      <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
-                        <img src="../assets/images/Search.png" title="Search" height="15">
-                        <svg xmlns="http://www.w3.org/2000/svg" title="Clear filter" viewBox="0 0 24 24" fill="rgba(21,141,247,1)" height="18">
-                          <path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>
-                        </svg>
-                      </div> -->
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-            <div class=" mb-3">
-              <table class="customers w-100">
-                <tr *ngFor="let docket of dockets; let i = index">
-                  <td class="w-15">{{ docket.docketNo }}</td>
-                  <td class="w-15">{{ docket.fromLocation }}</td>
-                  <td class="w-15">{{ docket.toLocation }}</td>
-                  <td class="w-15">{{ docket.transporter }}</td>
-                  <td class="w-15">{{ docket.transportMode }}</td>
-                  <td class="w-15 text-center">{{ docket.quantity }}</td>
-                  <td class="w-8" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
-                    <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"  height="20" (click)="editModal($event, docket.id)"><path d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"></path></svg>
-                      </div>
-                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}">
-                        <i class="ri-eye-fill align-bottom text-muted" (click)="docketDetail($event,docket.id)"></i>
-                      </div>
-                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteDocket(docket.id)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
-                      </div>
+        <div class="bg-white">
+          <div class="card no-shadow m-0">
+            <div class="card-header pt-4 pb-0">
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- <h4>Dockets</h4> -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col-auto">
+                        <label class="col-form-label">Date Range</label>
                     </div>
-                  </td>
-                </tr>
-                <div *ngIf="dockets.length===0">
-                  <div class="text-center"> 
-                    <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
-                      trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
-                    </lord-icon>
+                    <div class="col">
+                      <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
+                          [(ngModel)]="docketService.dateRange" [bsConfig]="{ ranges: docketService.ranges ,rangeInputFormat: 'DD.MM.YYYY', dateInputFormat:'DD.MM.YYYY'}">
+                    </div>
                   </div>
                 </div>
-              </table>
+                <div class="col-sm-6">
+                  <div class="gap-3 d-flex justify-content-end" >
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}" >
+                      <button class="btn btn-square btn-primary pull-right rounded-3"type="button"  (click)="openModal()">
+                        <i class="icon-plus"></i> Add Docket
+                      </button>
+                    </div>
+                    <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openImportModal($event)">
+                      <i class="icon-upload"></i> Import Docket
+                    </button>
+                    <!-- <button class="btn btn-square btn-success pull-right rounded-3" type="button" (click)="openUploadModal($event)">
+                      <i class="icon-upload"></i> Upload Docket
+                    </button> -->
+                  </div>
+                </div>
+                <!-- <div class="file-upload">
+                  <input type="file" id="fileInput" (change)="onFileChange($event)" class="file" />
+                </div> -->
+              </div>
             </div>
-            <div class="d-flex justify-content-end">
-              <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" (pageChange)="onPageChange($event)">
-              </ngb-pagination>
+            <div class="card-body pt-3 ">
+              <div class="table-responsive theme-scrollbar">
+                <table class="table table-header align-middle w-100" >
+                  <thead class="table-light">
+                    <tr class="table-th">
+                      <th class="w-15">Docket Name</th>
+                      <th class="w-15">From WH/Store</th>
+                      <th class="w-15">To WH/Store</th>
+                      <th class="w-15">Transporter</th>
+                      <th class="w-15">Transport Mode</th>
+                      <th class="w-15">Quantity</th>
+                      <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
+                        <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
+                      </th>
+                    </tr>
+                    <tr class="table-th">
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['docketNo']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['fromLocation']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['toLocation']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transporter']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transportMode']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['quantity']" (input)="getDockets()"/></th>
+                      <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
+                        <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
+                          <img src="../assets/images/Search.png" title="Search" height="15">
+                          <svg xmlns="http://www.w3.org/2000/svg" title="Clear filter" viewBox="0 0 24 24" fill="rgba(21,141,247,1)" height="18">
+                            <path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>
+                          </svg>
+                        </div> -->
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              <div class=" mb-3">
+                <table class="customers w-100">
+                  <tr *ngFor="let docket of dockets; let i = index">
+                    <td class="w-15">{{ docket.docketNo }}</td>
+                    <td class="w-15">{{ docket.fromLocation }}</td>
+                    <td class="w-15">{{ docket.toLocation }}</td>
+                    <td class="w-15">{{ docket.transporter }}</td>
+                    <td class="w-15">{{ docket.transportMode }}</td>
+                    <td class="w-15 text-center">{{ docket.quantity }}</td>
+                    <td class="w-8" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
+                      <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
+                        <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"  height="20" (click)="editModal($event, docket.id)"><path d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"></path></svg>
+                        </div>
+                        <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}">
+                          <i class="ri-eye-fill align-bottom text-muted" (click)="docketDetail($event,docket.id)"></i>
+                        </div>
+                        <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteDocket(docket.id)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <div *ngIf="dockets.length===0">
+                    <div class="text-center"> 
+                      <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
+                        trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
+                      </lord-icon>
+                    </div>
+                  </div>
+                </table>
+              </div>
+              <div class="d-flex justify-content-end">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" (pageChange)="onPageChange($event)">
+                </ngb-pagination>
+                </div>
               </div>
             </div>
           </div>
@@ -177,7 +179,7 @@
   <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body" style="padding: 0px">
-        <app-upload-docket  (dataEmitter)="closeUploadModal()"></app-upload-docket>
+        <app-pod-upload  (dataEmitter)="closeUploadModal()"></app-pod-upload>
       </div>
     </div>
   </div>

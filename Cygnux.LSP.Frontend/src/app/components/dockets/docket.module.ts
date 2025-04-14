@@ -4,14 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocketListComponent } from './docket/docket-list.component';
-import { AddDocketComponent } from './add-docket/add-docket.component';
 import { DocketRoutes } from './dockets.routes';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { DocketDetailComponent } from './docket-detail/docket-detail.component';
-import { ImportDocketComponent } from "./import-docket/import-docket.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { UploadDocketComponent } from './upload-docket/upload-docket.component';
+import { PodUploadComponent } from './pod-upload/pod-upload.component';
+import { AddDocketComponent } from './docket/add-docket/add-docket.component';
+import { DocketDetailComponent } from './docket/docket-detail/docket-detail.component';
+import { ImportDocketComponent } from './docket/import-docket/import-docket.component';
+import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
+import { StatusListComponent } from './status-list/status-list.component';
+import { StatusUpdateComponent } from './status-update/status-update.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { UploadDocketComponent } from './upload-docket/upload-docket.component';
     AddDocketComponent,
     DocketDetailComponent,
     ImportDocketComponent,
-    UploadDocketComponent
+    PodUploadComponent,
+    DocketLayoutComponent,
+    StatusListComponent,
+    StatusUpdateComponent
   ],
   imports: [
     CommonModule,

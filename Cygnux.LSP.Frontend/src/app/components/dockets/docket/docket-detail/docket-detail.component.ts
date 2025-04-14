@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DocketResponse } from '../../../shared/models/docket.model';
+import { DocketResponse } from '../../../../shared/models/docket.model';
 
 @Component({
   selector: 'docket-detail',
