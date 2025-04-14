@@ -79,6 +79,19 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.GetTATdata(CustomerId,origin,destination));
     }
 
+    [HttpPost]
+    [Route("ValidateDocketList")]
+    public async Task<IActionResult> GetValidateDocketImportData(IFormFile file)
+    {
+        var data = ExcelReadHelper.ExtractAllRows(file);
+        if (data is not null)
+        {
+            return Ok(await _docketRepository.GetValidateDocketImportData(data));
+        }
+        return Ok();
+        //return Ok(await _docketRepository.GetValidateDocketImportData();
+    }
+
 
     //[HttpPost]
     //[Route("ImportPOD")]
@@ -92,90 +105,90 @@ public class DocketController : ControllerBase
     //    return Ok();
     //}
 
-        /*
-        [HttpPost("ImportPOD")]
-        public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, string? User)
+    /*
+    [HttpPost("ImportPOD")]
+    public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, string? User)
+    {
+        if (excelFile == null || excelFile.Length == 0)
+            return BadRequest("No Excel file uploaded.");
+
+        var podDataList = new List<PODDataList>();
+
+        try
         {
-            if (excelFile == null || excelFile.Length == 0)
-                return BadRequest("No Excel file uploaded.");
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages");
 
-            var podDataList = new List<PODDataList>();
-
-            try
+            // Make sure the folder exists
+            if (!Directory.Exists(uploadsFolder))
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages");
+                Directory.CreateDirectory(uploadsFolder); // Create folder if not exists
+            }
 
-                // Make sure the folder exists
-                if (!Directory.Exists(uploadsFolder))
+            using (var stream = new MemoryStream())
+            {
+                await excelFile.CopyToAsync(stream);
+                stream.Position = 0;
+
+                XSSFWorkbook workbook = new XSSFWorkbook(stream);
+                ISheet sheet = workbook.GetSheetAt(0);
+
+                int rowCount = sheet.LastRowNum;
+                for (int row = 1; row <= rowCount; row++)
                 {
-                    Directory.CreateDirectory(uploadsFolder); // Create folder if not exists
-                }
+                    IRow currentRow = sheet.GetRow(row);
+                    if (currentRow == null) continue;
 
-                using (var stream = new MemoryStream())
-                {
-                    await excelFile.CopyToAsync(stream);
-                    stream.Position = 0;
+                    string docketNo = currentRow.GetCell(0)?.ToString()?.Trim();
+                    string uploadDateText = currentRow.GetCell(1)?.ToString()?.Trim();
+                    string imageLink = currentRow.GetCell(2)?.ToString()?.Trim();
 
-                    XSSFWorkbook workbook = new XSSFWorkbook(stream);
-                    ISheet sheet = workbook.GetSheetAt(0);
+                    if (string.IsNullOrEmpty(docketNo))
+                        continue;
 
-                    int rowCount = sheet.LastRowNum;
-                    for (int row = 1; row <= rowCount; row++)
+                    var podEntry = new PODDataList
                     {
-                        IRow currentRow = sheet.GetRow(row);
-                        if (currentRow == null) continue;
+                        DocketNo = docketNo,
+                        UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
+                        ImageLink = null
+                    };
 
-                        string docketNo = currentRow.GetCell(0)?.ToString()?.Trim();
-                        string uploadDateText = currentRow.GetCell(1)?.ToString()?.Trim();
-                        string imageLink = currentRow.GetCell(2)?.ToString()?.Trim();
+                    if (!string.IsNullOrEmpty(imageLink) && System.IO.File.Exists(imageLink))
+                    {
+                        // Create a unique filename
+                        //var uniqueFileName = $"{Guid.NewGuid()}{Path.GetExtension(imageLink)}";
+                        var uniqueFileName = $"{podEntry.DocketNo}{Path.GetExtension(imageLink)}";
+                        var savePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                        if (string.IsNullOrEmpty(docketNo))
-                            continue;
+                        // Copy the file to server folder
+                        System.IO.File.Copy(imageLink, savePath, true);
 
-                        var podEntry = new PODDataList
-                        {
-                            DocketNo = docketNo,
-                            UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
-                            ImageLink = null
-                        };
-
-                        if (!string.IsNullOrEmpty(imageLink) && System.IO.File.Exists(imageLink))
-                        {
-                            // Create a unique filename
-                            //var uniqueFileName = $"{Guid.NewGuid()}{Path.GetExtension(imageLink)}";
-                            var uniqueFileName = $"{podEntry.DocketNo}{Path.GetExtension(imageLink)}";
-                            var savePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                            // Copy the file to server folder
-                            System.IO.File.Copy(imageLink, savePath, true);
-
-                            // Save only the relative path in DB
-                            podEntry.ImageLink = Path.Combine("UploadedImages", uniqueFileName).Replace("\\", "/");
-                        }
-                        else
-                        {
-                            podEntry.ImageLink = null;
-                        }
-
-                        podDataList.Add(podEntry);
+                        // Save only the relative path in DB
+                        podEntry.ImageLink = Path.Combine("UploadedImages", uniqueFileName).Replace("\\", "/");
                     }
-                }
+                    else
+                    {
+                        podEntry.ImageLink = null;
+                    }
 
-                if (podDataList.Any())
-                {
-                    var result = await _docketRepository.ImportPOD(podDataList, User);
-                    return Ok(result);
+                    podDataList.Add(podEntry);
                 }
-
-                return Ok(new { message = "No valid data found in Excel file." });
             }
-            catch (Exception ex)
+
+            if (podDataList.Any())
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                var result = await _docketRepository.ImportPOD(podDataList, User);
+                return Ok(result);
             }
-        }*/
+
+            return Ok(new { message = "No valid data found in Excel file." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }*/
 
 
 
 
-    }
+}
