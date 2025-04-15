@@ -84,14 +84,14 @@ internal class DocketRepository : IDocketRepository
         return new BaseResponse<IEnumerable<LspTATData>>(response);
         //return new BaseResponse<IEnumerable<LspTATData>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
-    public async Task<BaseResponse<IEnumerable<DocketBulkUploadValidateResponse>>> GetValidateDocketImportData(List<Dictionary<string, string>> bulkDocket)
+    public async Task<BaseResponse<IEnumerable<DocketBulkUploadValidateResponse>>> GetValidateDocketImportData(List<Dictionary<string, string>> bulkDocket, string customerid)
     {
-        var response = await _docketService.GetValidateDocketImportData(JsonConvert.SerializeObject(bulkDocket));
+        var response = await _docketService.GetValidateDocketImportData(JsonConvert.SerializeObject(bulkDocket),customerid);
 
         return new BaseResponse<IEnumerable<DocketBulkUploadValidateResponse>>(response);
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, string? User)
+    public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, Guid User)
     {
         var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(PodData),User);
 
