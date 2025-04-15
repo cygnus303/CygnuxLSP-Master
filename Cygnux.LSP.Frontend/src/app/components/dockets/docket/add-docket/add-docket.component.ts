@@ -63,7 +63,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       transporter: new FormControl(null),
       transportMode: new FormControl(null),
       quantity: new FormControl(null),
-      EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
+      // EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
       lspId:new FormControl(null)
     });
   }
@@ -99,8 +99,9 @@ ngOnChanges(changes: SimpleChanges): void {
     if (form.valid) {
       let forms = {
         ...form.value,
-        EntryBy:this.identityService.getLoggedUserId(),
-        UserId:this.identityService.getLoggedUserId(),
+        // EntryBy:this.identityService.getLoggedUserId(),
+        isCancel:false,
+        userId:this.identityService.getLoggedUserId(),
         updatedBy: this.identityService.getLoggedUserId(),
         createdBy: this.identityService.getLoggedUserId(),
         bookingDate:form.value.bookingDate.toISOString().split('T')[0]
@@ -168,10 +169,9 @@ ngOnChanges(changes: SimpleChanges): void {
       });
   }
   onSelectCustomer(event:any){
+    debugger
     this.commonService.updateLoader(true);
-    this.docketForm.patchValue({
-      lspId: event.lspId
-    });
+   
     const filters={
       CustomerId:event.customerId,
       origin:event.location ? event.location : ''
@@ -194,6 +194,9 @@ ngOnChanges(changes: SimpleChanges): void {
 
   onSelectOrigin(event:any){
     this.commonService.updateLoader(true);
+    this.docketForm.patchValue({
+      lspId: event.lspId
+    });
     const filters={
       CustomerId:event.customerId,
       origin:event.location ? event.location : event.fromLocation
