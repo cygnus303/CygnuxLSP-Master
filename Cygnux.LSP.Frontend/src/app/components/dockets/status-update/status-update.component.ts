@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DocketService } from '../../../shared/services/docket.service';
+import { TrackingListResponse } from '../../../shared/models/docket.model';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { CommonService } from '../../../shared/services/common.service';
 
 @Component({
   selector: 'app-status-update',
@@ -8,10 +12,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './status-update.component.scss'
 })
 export class StatusUpdateComponent {
-  statusUpdateForm!:FormGroup;
+  public statusUpdateForm!:FormGroup;
+  public transporter:TrackingListResponse[]=[]
+
+  constructor(
+    private docketService:DocketService,
+    private sweetAlertService:SweetAlertService,
+    private commonService:CommonService
+  ){}
 
   ngOnInit(){
     this.buildForm();
+    this.getTransporterDetail();
   }
 
   buildForm(){
@@ -26,5 +38,22 @@ export class StatusUpdateComponent {
       changeStatus:new FormControl(null,[Validators.required]),
       pod:new FormControl(null)
     })
+  }
+
+  getTransporterDetail(){
+    this.docketService.getTrackingList('DOCKSTAUS').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.transporter=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
   }
 }

@@ -29,3 +29,22 @@ export interface CustomerLocationResponse{
   location: string;
   lspId: string;
 }
+
+export interface TrackingListResponse{
+    codeId: number,
+    codeDesc: String
+}
+
+export interface ValidateFileResponse{
+    customerName: string,
+    lspName: string,
+    docketNo: string,
+    invoiceNo: string,
+    date: string,
+    fromLocation: string,
+    toLocation: string,
+    quantity: number,
+    modeOfTransporter: string,
+    errorMessage: string,
+    errorCode: boolean
+}

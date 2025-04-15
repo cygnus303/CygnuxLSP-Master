@@ -96,8 +96,16 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/GetDropdowndata`,filters);
   }
 
-  validateDocketList(file:any){
-    return this.apiHandlerService.Get(`Docket/ValidateDocketList`,file);
+  validateDocketList(formData:any){
+    return this.apiHandlerService.Post(`Docket/ValidateDocketList`,formData);
+  }
+
+  getTrackingList(codeType:string){
+    return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`)
+  }
+
+  getDestinationToData(filters:any){
+    return this.apiHandlerService.Get(`Docket/GetDropdowndataTo`,filters);
   }
 
 }

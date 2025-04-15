@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { environment } from '../../../../../environments/environment';
+import { DocketService } from '../../../../shared/services/docket.service';
+import { CommonService } from '../../../../shared/services/common.service';
+import { ValidateFileResponse } from '../../../../shared/models/docket.model';
 
 @Component({
   selector: 'app-import-docket',
@@ -11,10 +14,14 @@ import { environment } from '../../../../../environments/environment';
 })
 export class ImportDocketComponent {
   files: File[] = [];
-    docketData:any[]=[];
+  selectedFile:any;
+  docketData:any[]=[];
+  validateData:ValidateFileResponse[]=[];
   
     constructor(
-      private sweetAlertService:SweetAlertService
+      private sweetAlertService:SweetAlertService,
+      private docketService:DocketService,
+      private commonService:CommonService
     ){}
   
     downloadSampleFile(event: any) {
@@ -26,7 +33,7 @@ export class ImportDocketComponent {
   
     onChangeFile(event: any) {
       const file = event.addedFiles[0];
-  
+      
       if (file) {
         const validExcelTypes = [
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -36,22 +43,23 @@ export class ImportDocketComponent {
   
         if (validExcelTypes.includes(file.type)) {
           this.files = [file];
+          this.selectedFile = file; 
   
           const reader = new FileReader();
   
-          reader.onload = (e: any) => {
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-            const sheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[sheetName];
+          // reader.onload = (e: any) => {
+          //   const data = new Uint8Array(e.target.result);
+          //   const workbook = XLSX.read(data, { type: 'array' });
+          //   const sheetName = workbook.SheetNames[0];
+          //   const worksheet = workbook.Sheets[sheetName];
   
-            const jsonData = XLSX.utils.sheet_to_json(worksheet); // Extract as array of objects
+          //   const jsonData = XLSX.utils.sheet_to_json(worksheet); // Extract as array of objects
   
-            this.docketData = Array.isArray(jsonData) ? jsonData : [];
-            console.log('Excel Data:', this.docketData);
-          };
+          //   this.docketData = Array.isArray(jsonData) ? jsonData : [];
+          //   console.log('Excel Data:', this.docketData);
+          // };
   
-          reader.readAsArrayBuffer(file);
+          // reader.readAsArrayBuffer(file);
         } else {
           this.sweetAlertService.error('Please upload a valid excel file.');
           this.files = [];
@@ -62,5 +70,23 @@ export class ImportDocketComponent {
     onRemoveFile(file: File) {
       this.files = this.files.filter(f => f !== file);
       this.docketData=[];
+    }
+
+    uploadDocketFile(event:any){
+      this.commonService.updateLoader(true);
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      this.docketService.validateDocketList(formData).subscribe({
+        next: (response) => {
+          if (response) {
+            // this.edit.emit(response.data);
+          }
+          this.commonService.updateLoader(false);
+        },
+        error: (response: any) => {
+          this.sweetAlertService.error(response.error.message);
+          this.commonService.updateLoader(false);
+        },
+      });
     }
 }
