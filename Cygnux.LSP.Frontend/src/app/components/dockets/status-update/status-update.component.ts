@@ -13,7 +13,7 @@ import { CommonService } from '../../../shared/services/common.service';
 })
 export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
-  public transporter:TrackingListResponse[]=[]
+  public transporter:TrackingListResponse[]=[];
 
   constructor(
     private docketService:DocketService,

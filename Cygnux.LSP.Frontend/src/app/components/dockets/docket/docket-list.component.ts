@@ -49,13 +49,6 @@ export class DocketListComponent implements OnInit {
         console.log("Updated from activemenuRoleList:", res);
       }
      });
-    // this.route.paramMap.subscribe(params => {
-    //   const navigationState = history.state;
-    //   if (navigationState && navigationState.start) {
-    //     this.commonService.menuRoleList = navigationState.start;
-    //     console.log(this.commonService.menuRoleList)
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {

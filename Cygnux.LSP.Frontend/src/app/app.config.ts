@@ -14,7 +14,9 @@ export const appConfig: ApplicationConfig = {
   provideToastr({
     timeOut: 3000,  // Optional timeout for auto-hide
     positionClass: 'toast-top-right',  // Position of the toast
-    preventDuplicates: true,  // Prevent duplicate toasts
+    preventDuplicates: true, 
+    progressBar: true,
+    onActivateTick: false
   }),
   provideHttpClient(withInterceptors([authInterceptor])),
   ]

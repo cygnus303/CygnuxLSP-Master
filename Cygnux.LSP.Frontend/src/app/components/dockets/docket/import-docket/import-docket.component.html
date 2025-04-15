@@ -35,10 +35,10 @@
         <div class="d-flex justify-content-end pt-3 gap-2">
           <button class="btn btn-square btn-primary pull-right rounded-3" (click)="downloadSampleFile($event)">Download
             Import Template</button>
-          <button class="btn btn-square btn-success rounded-3" (click)="uploadDocketFile($event)">Upload</button>
+          <button class="btn btn-square btn-success rounded-3" (click)="uploadDocketFile()">Upload</button>
         </div>
-        <div *ngIf="docketData.length > 0" class="overflow-y h-100 px-2 mt-4">
-          <!-- <table class="table mt-3 table-bordered excelData-table">
+        <!-- <div *ngIf="docketData.length > 0" class="overflow-y h-100 px-2 mt-4">
+          <table class="table mt-3 table-bordered excelData-table">
             <thead class="table-light">
               <tr>
                 <th class="text-center">Docket No</th>
@@ -63,8 +63,8 @@
                  <td class="text-center">{{row.Transporter}}</td>
               </tr>
             </tbody>
-          </table> -->
-          </div>
+          </table>
+          </div> -->
           <div *ngIf="validateData.length > 0">
             <table class="table mt-3 table-bordered excelData-table">
               <thead class="table-light">

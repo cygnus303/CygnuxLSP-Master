@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import * as XLSX from 'xlsx';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { environment } from '../../../../../environments/environment';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { CommonService } from '../../../../shared/services/common.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';
+import { IdentityService } from '../../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-import-docket',
@@ -15,13 +15,13 @@ import { ValidateFileResponse } from '../../../../shared/models/docket.model';
 export class ImportDocketComponent {
   files: File[] = [];
   selectedFile:any;
-  docketData:any[]=[];
   validateData:ValidateFileResponse[]=[];
   
     constructor(
       private sweetAlertService:SweetAlertService,
       private docketService:DocketService,
-      private commonService:CommonService
+      private commonService:CommonService,
+      private identityService:IdentityService
     ){}
   
     downloadSampleFile(event: any) {
@@ -45,7 +45,7 @@ export class ImportDocketComponent {
           this.files = [file];
           this.selectedFile = file; 
   
-          const reader = new FileReader();
+          // const reader = new FileReader();
   
           // reader.onload = (e: any) => {
           //   const data = new Uint8Array(e.target.result);
@@ -69,13 +69,13 @@ export class ImportDocketComponent {
   
     onRemoveFile(file: File) {
       this.files = this.files.filter(f => f !== file);
-      this.docketData=[];
       this.validateData=[];
     }
 
-    uploadDocketFile(event:any){
+    uploadDocketFile(){
       this.commonService.updateLoader(true);
       const formData = new FormData();
+      formData.append('customerId',this.identityService.getLoggedUserId())
       formData.append('file', this.selectedFile);
       this.docketService.validateDocketList(formData).subscribe({
         next: (response) => {
@@ -86,7 +86,7 @@ export class ImportDocketComponent {
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
-          this.sweetAlertService.error(response.error.message);
+          this.sweetAlertService.error(response.error.Message);
           this.commonService.updateLoader(false);
         },
       });

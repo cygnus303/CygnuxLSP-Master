@@ -164,7 +164,6 @@ export class AddDocketComponent implements OnInit, OnChanges {
   onSelectCustomer(event:any){
     
     this.commonService.updateLoader(true);
-    console.log(event?.customerId);
     const filters={
       CustomerId:event.customerId,
       origin:event.location ? event.location : ''
