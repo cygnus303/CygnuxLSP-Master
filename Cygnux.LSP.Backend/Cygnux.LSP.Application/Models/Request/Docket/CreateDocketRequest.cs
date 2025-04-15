@@ -14,7 +14,7 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public string TransportMode { get; set; } = string.Empty;
         public string LspId { get; set; } = string.Empty;
         public int Quantity { get; set;}
-       // public Guid EntryBy  { get; set; } 
+        public Guid EntryBy  { get; set; } 
         public bool IsCancel { get; set; }
     }
 
