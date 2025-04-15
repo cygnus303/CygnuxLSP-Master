@@ -28,6 +28,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketId: string = '';
   public customers: CustomerResponse[] = [];
   public customerLocation : CustomerLocationResponse[]=[];
+  public customerWHStoreLocation : CustomerLocationResponse[]=[];
   public transporter:TrackingListResponse[]=[];
   public transportMode:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
@@ -62,23 +63,26 @@ export class AddDocketComponent implements OnInit, OnChanges {
       transporter: new FormControl(null),
       transportMode: new FormControl(null),
       quantity: new FormControl(null),
-      EntryBy  :new FormControl(this.identityService.getLoggedUserId())
+      EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
+      lspId:new FormControl(null)
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['docketResponse'] && this.docketResponse) {
-      this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate)
-      this.docketForm.patchValue(this.docketResponse);
-      this.docketId = this.docketResponse.id;
-    } else {
-      this.docketForm.reset();
-      this.docketId = '';
-      this.docketForm.patchValue({
-        bookingDate:new Date()
-      });
-    }
+ngOnChanges(changes: SimpleChanges): void {
+  if (changes['docketResponse'] && this.docketResponse) {
+    this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
+    this.docketId = this.docketResponse.id;
+    this.docketForm.patchValue(this.docketResponse);
+    this.onSelectCustomer(this.docketResponse)
+    this.onSelectOrigin(this.docketResponse)
+  } else {
+    this.docketForm.reset();
+    this.docketId = '';
+    this.docketForm.patchValue({
+      bookingDate: new Date()
+    });
   }
+}
 
   formatDate(dateString: string): string {
     if (!dateString) return '';
@@ -96,6 +100,9 @@ export class AddDocketComponent implements OnInit, OnChanges {
       let forms = {
         ...form.value,
         EntryBy:this.identityService.getLoggedUserId(),
+        UserId:this.identityService.getLoggedUserId(),
+        updatedBy: this.identityService.getLoggedUserId(),
+        createdBy: this.identityService.getLoggedUserId(),
         bookingDate:form.value.bookingDate.toISOString().split('T')[0]
       }
       !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);
@@ -160,17 +167,16 @@ export class AddDocketComponent implements OnInit, OnChanges {
         },
       });
   }
-
   onSelectCustomer(event:any){
-    
     this.commonService.updateLoader(true);
+    this.docketForm.patchValue({
+      lspId: event.lspId
+    });
     const filters={
       CustomerId:event.customerId,
       origin:event.location ? event.location : ''
     }
-    this.docketService
-    .getLocationData(filters)
-    .subscribe({
+    this.docketService.getLocationData(filters).subscribe({
       next: (response) => {
         if (response.success) {
           this.customerLocation=response.data;
@@ -190,14 +196,12 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.commonService.updateLoader(true);
     const filters={
       CustomerId:event.customerId,
-      origin:event.location ? event.location : ''
+      origin:event.location ? event.location : event.fromLocation
     }
-    this.docketService
-    .getLocationData(filters)
-    .subscribe({
+    this.docketService.getLocationData(filters).subscribe({
       next: (response) => {
         if (response.success) {
-          this.customerLocation=response.data;
+          this.customerWHStoreLocation=response.data;
         } else {
           this.sweetAlertService.error(response.error.message);
         }
