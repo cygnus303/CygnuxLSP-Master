@@ -5,6 +5,9 @@ import { DocketService } from '../../../../shared/services/docket.service';
 import { CommonService } from '../../../../shared/services/common.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';
 import { IdentityService } from '../../../../shared/services/identity.service';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-import-docket',
@@ -72,17 +75,41 @@ export class ImportDocketComponent {
       this.validateData=[];
     }
 
-    uploadDocketFile(){
+    // uploadDocketFile(){
+    //   this.commonService.updateLoader(true);
+    //   const formData = new FormData();
+    //   formData.append('customerId',this.identityService.getLoggedUserId())
+    //   formData.append('file', this.selectedFile);
+    //   this.docketService.validateDocketList(formData).subscribe({
+    //     next: (response) => {
+    //       if (response) {
+    //         // this.edit.emit(response.data);
+    //         this.validateData=response.data
+    //       }
+    //       this.commonService.updateLoader(false);
+    //     },
+    //     error: (response: any) => {
+    //       this.sweetAlertService.error(response.error.Message);
+    //       this.commonService.updateLoader(false);
+    //     },
+    //   });
+    // }
+
+    uploadDocketFile() {
       this.commonService.updateLoader(true);
       const formData = new FormData();
-      formData.append('customerId',this.identityService.getLoggedUserId())
+      formData.append('customerId', this.identityService.getLoggedUserId());
       formData.append('file', this.selectedFile);
+    
       this.docketService.validateDocketList(formData).subscribe({
         next: (response) => {
-          if (response) {
-            // this.edit.emit(response.data);
-            this.validateData=response.data
+          if (response && response.data) {
+            this.validateData = response.data;
+    
+            // 🔽 Generate Excel and auto-download
+            this.exportToExcel(this.validateData, 'Invalid_Dockets');
           }
+    
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
@@ -91,4 +118,30 @@ export class ImportDocketComponent {
         },
       });
     }
+
+    exportToExcel(data: any[], fileName: string): void {
+      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+      const workbook: XLSX.WorkBook = {
+        Sheets: { 'Errors': worksheet },
+        SheetNames: ['Errors']
+      };
+    
+      const excelBuffer: any = XLSX.write(workbook, {
+        bookType: 'xlsx',
+        type: 'array'
+      });
+    
+      const blob: Blob = new Blob([excelBuffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+      });
+    
+      saveAs(blob, `${fileName}.xlsx`);
+    }
+
+    onClose(){
+      this.validateData=[];
+      this.files=[];
+    }
+    
+    
 }
