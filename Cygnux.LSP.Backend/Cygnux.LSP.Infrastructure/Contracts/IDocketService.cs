@@ -11,6 +11,7 @@ public interface IDocketService
     Task<DocketDetailResponse> GetDocketDetails(Guid docketId, Guid userId);
     Task<CommonCreateResponse> ImportDocket(string addDocketsJson);
     Task<IEnumerable<TrackingList>> GetTrackingList(string codetype);
+    Task<IEnumerable<DocList>> GetDocketData(string docketno);
     Task<CommonCreateResponse> AddDocket(string addDocketJson);
 
     Task<CommonCreateResponse> UpdateDocket(Guid id, string updateDocketJson);

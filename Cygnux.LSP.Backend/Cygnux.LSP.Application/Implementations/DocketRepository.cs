@@ -48,6 +48,12 @@ internal class DocketRepository : IDocketRepository
 
         return new BaseResponse<IEnumerable<TrackingList>>(response);
     }
+    public async Task<BaseResponse<IEnumerable<DocList>>> GetDocketData(string docketno)
+    {
+        var response = await _docketService.GetDocketData(docketno);
+
+        return new BaseResponse<IEnumerable<DocList>>(response);
+    }
 
     public async Task<BaseResponse<CommonCreateResponse>> AddDocket(CreateDocketRequest createDocketRequest)
     {

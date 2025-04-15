@@ -59,6 +59,16 @@ public class DocketController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [Route("FetchDocData")]
+    public async Task<IActionResult> GetDocketData(string docketno)
+    {
+        var result = await _docketRepository.GetDocketData(docketno);
+        return Ok(result);
+    }
+
+
+
 
     [HttpPost]
     [Route("AddDocket")]

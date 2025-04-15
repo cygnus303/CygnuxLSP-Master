@@ -14,6 +14,7 @@ public interface IDocketRepository
 
     Task<BaseResponse<CommonCreateResponse>> ImportDocket(List<Dictionary<string, string>> createDockets);
     Task<BaseResponse<IEnumerable<TrackingList>>> GetTrackingList(string codetype);
+    Task<BaseResponse<IEnumerable<DocList>>> GetDocketData(string docketno);
     Task<BaseResponse<CommonCreateResponse>> AddDocket(CreateDocketRequest createDocketRequest);
 
     Task<BaseResponse<CommonCreateResponse>> UpdateDocket(Guid docketId, CreateDocketRequest createDocketRequest);

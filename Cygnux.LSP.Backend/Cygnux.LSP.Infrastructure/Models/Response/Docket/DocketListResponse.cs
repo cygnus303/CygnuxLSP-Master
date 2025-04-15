@@ -23,4 +23,14 @@
         public string CodeId { get; set; } 
         public string CodeDesc { get; set; } 
     }
+
+    public class DocList
+    {
+         public string BookingDate { get; set; }
+        public string LspName { get; set; }
+        public string FromLocation { get; set; }
+        public string ToLocation { get; set; }
+        public string Transporter { get; set; }
+
+    }
 }

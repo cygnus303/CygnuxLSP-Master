@@ -70,6 +70,17 @@ internal class DocketService : IDocketService
         );
     }
 
+    public async Task<IEnumerable<DocList>> GetDocketData(string docketno)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@DocketNo", docketno, DbType.String);
+
+        return await _dbConnection.QueryAsync<DocList>(
+         StoredProcedureConstants.USP_FetchDockData,
+         parameters,
+         commandType: CommandType.StoredProcedure
+        );
+    }
 
     public async Task<CommonCreateResponse> AddDocket(string addDocketJson)
     {
