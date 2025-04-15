@@ -64,7 +64,7 @@
 }
 
 .overflow-y{
-  height: 230px !important;
+  height: 300px !important;
   overflow: auto;
   .excelData-table{
       &.table {
@@ -79,3 +79,23 @@
       }  
   }
 }
+.fontSize{
+  font-size: 13px;
+}
+
+.single-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+// .green{
+//   td {
+//     background-color: #c5dfcc9e;
+//   }
+// }
+
+// .pink{
+//   td{
+//     background-color: #f9d7dd9e;
+//   }
+// }

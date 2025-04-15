@@ -37,62 +37,34 @@
             Import Template</button>
           <button class="btn btn-square btn-success rounded-3" (click)="uploadDocketFile()">Upload</button>
         </div>
-        <!-- <div *ngIf="docketData.length > 0" class="overflow-y h-100 px-2 mt-4">
-          <table class="table mt-3 table-bordered excelData-table">
-            <thead class="table-light">
-              <tr>
-                <th class="text-center">Docket No</th>
-                <th class="text-center">Upload Date</th>
-                <th class="text-center">Invoice no </th>
-                <th class="text-center">Date</th>
-                <th class="text-center">From</th>
-                <th class="text-center">TO</th>
-                <th class="text-center">Quantity</th>
-                <th class="text-center">Mode of Transporter</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of docketData">
-                <td class="text-center">{{ row.LspName || 'N/A' }}</td>
-                <td class="text-center">{{ row.DocketNO}}</td>
-                 <td class="text-center">{{row.InvoiceNo}}</td>
-                 <td class="text-center">{{row.Date}}</td>
-                 <td class="text-center">{{row.From}}</td>
-                 <td class="text-center">{{row.TO}}</td>
-                 <td class="text-center">{{row.Quantity}}</td>
-                 <td class="text-center">{{row.Transporter}}</td>
-              </tr>
-            </tbody>
-          </table>
-          </div> -->
-          <div *ngIf="validateData.length > 0">
-            <table class="table mt-3 table-bordered excelData-table">
-              <thead class="table-light">
+          <div *ngIf="validateData.length > 0" class="overflow-y h-100 px-2 mt-4">
+            <table class="table mt-3 table-bordered excelData-table w-100">
+              <thead class="table-light sticky-top">
                 <tr>
-                  <th class="text-center">Docket No</th>
-                  <th class="text-center">LSP Name</th>
-                  <th class="text-center">Upload Date</th>
-                  <th class="text-center">Invoice no </th>
-                  <th class="text-center">Date</th>
-                  <th class="text-center">From Location</th>
-                  <th class="text-center">TO Location</th>
-                  <th class="text-center">Quantity</th>
-                  <th class="text-center">Mode of Transporter</th>
-                  <th class="text-center">Error/success Message</th>
+                  <th class="text-center fontSize single-line">Docket No</th>
+                  <th class="text-center fontSize single-line">LSP Name</th>
+                  <th class="text-center fontSize single-line">Upload Date</th>
+                  <th class="text-center fontSize single-line">Invoice no </th>
+                  <th class="text-center fontSize single-line">Date</th>
+                  <th class="text-center fontSize single-line">From Location</th>
+                  <th class="text-center fontSize single-line">TO Location</th>
+                  <th class="text-center fontSize single-line">Quantity</th>
+                  <th class="text-center fontSize single-line">Mode of Transporter</th>
+                  <th class="text-center fontSize single-line">Error/success Message</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of validateData">
-                  <td class="text-center">{{ data.docketNo }}</td>
-                  <td class="text-center">{{data.lspName}}</td>
-                  <td class="text-center">{{ data.date}}</td>
-                  <td class="text-center">{{data.invoiceNo}}</td>
-                  <td class="text-center">{{data.date}}</td>
-                  <td class="text-center">{{data.fromLocation}}</td>
-                  <td class="text-center">{{data.toLocation}}</td>
-                  <td class="text-center">{{data.quantity}}</td>
-                  <td class="text-center">{{data.modeOfTransporter}}</td>
-                  <td class="text-center">{{data.errorMessage}}</td>
+                <tr *ngFor="let data of validateData" [ngClass]="data.errorCode ?'pink':'green'">
+                  <td class="text-center fontSize">{{ data.docketNo }}</td>
+                  <td class="text-center fontSize">{{data.lspName}}</td>
+                  <td class="text-center fontSize">{{ data.date}}</td>
+                  <td class="text-center fontSize">{{data.invoiceNo}}</td>
+                  <td class="text-center fontSize">{{data.date}}</td>
+                  <td class="text-center fontSize">{{data.fromLocation}}</td>
+                  <td class="text-center fontSize">{{data.toLocation}}</td>
+                  <td class="text-center fontSize">{{data.quantity}}</td>
+                  <td class="text-center fontSize">{{data.modeOfTransporter}}</td>
+                  <td class="text-center fontSize">{{data.errorMessage}}</td>
                 </tr>
               </tbody>
             </table>
