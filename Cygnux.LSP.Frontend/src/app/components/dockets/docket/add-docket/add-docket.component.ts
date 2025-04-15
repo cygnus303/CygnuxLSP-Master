@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerResponse } from '../../../../shared/models/customer.model';
-import { DocketResponse, CustomerLocationResponse } from '../../../../shared/models/docket.model';
+import { DocketResponse, CustomerLocationResponse, TrackingListResponse } from '../../../../shared/models/docket.model';
 import { CommonService } from '../../../../shared/services/common.service';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
@@ -28,6 +28,8 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketId: string = '';
   public customers: CustomerResponse[] = [];
   public customerLocation : CustomerLocationResponse[]=[];
+  public transporter:TrackingListResponse[]=[];
+  public transportMode:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -45,6 +47,8 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.buildForm();
     this.docketId = '';
     this.getCustomers();
+    this.getTransporterDetail();
+    this.getTransportModeDetail();
   }
 
   buildForm(): void {
@@ -157,11 +161,13 @@ export class AddDocketComponent implements OnInit, OnChanges {
       });
   }
 
-  onSelectCustomer(customerId:string){
+  onSelectCustomer(event:any){
+    
     this.commonService.updateLoader(true);
-    console.log(customerId);
+    console.log(event?.customerId);
     const filters={
-      CustomerId:customerId
+      CustomerId:event.customerId,
+      origin:event.location ? event.location : ''
     }
     this.docketService
     .getLocationData(filters)
@@ -169,6 +175,64 @@ export class AddDocketComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response.success) {
           this.customerLocation=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+
+  onSelectOrigin(event:any){
+    this.commonService.updateLoader(true);
+    const filters={
+      CustomerId:event.customerId,
+      origin:event.location ? event.location : ''
+    }
+    this.docketService
+    .getLocationData(filters)
+    .subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.customerLocation=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+
+  getTransporterDetail(){
+    this.docketService.getTrackingList('DOCKSTAUS').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.transporter=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+
+  getTransportModeDetail(){
+    this.docketService.getTrackingList('TRN').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.transportMode=response.data;
         } else {
           this.sweetAlertService.error(response.error.message);
         }

@@ -104,8 +104,33 @@ public class DocketController : ControllerBase
     //}
 
 
+    [HttpGet]
+    [Route("GetDropdowndata")]
+    public async Task<IActionResult> GetTATdataFrom(Guid CustomerId, string? origin, string? destination)
+    {
+        return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
+    }
+
+    [HttpGet]
+    [Route("GetDropdowndataTo")]
+    public async Task<IActionResult> GetTATdataTo(Guid CustomerId, string? origin, string? destination)
+    {
+        return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
+    }
+
+    [HttpPost]
+    [Route("ValidateDocketList")]
+    public async Task<IActionResult> GetValidateDocketImportData(IFormFile file)
+    {
+        var data = ExcelReadHelper.ExtractAllRows(file);
+        if (data is not null)
+        {
+            return Ok(await _docketRepository.GetValidateDocketImportData(data));
+        }
+        return Ok();
+    }
+
     [HttpPost("ImportPOD")]
-   
     public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, string? User)
     {
         if (excelFile == null || excelFile.Length == 0)
