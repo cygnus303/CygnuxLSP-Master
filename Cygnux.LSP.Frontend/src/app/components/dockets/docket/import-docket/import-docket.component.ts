@@ -70,6 +70,7 @@ export class ImportDocketComponent {
     onRemoveFile(file: File) {
       this.files = this.files.filter(f => f !== file);
       this.docketData=[];
+      this.validateData=[];
     }
 
     uploadDocketFile(event:any){
@@ -80,6 +81,7 @@ export class ImportDocketComponent {
         next: (response) => {
           if (response) {
             // this.edit.emit(response.data);
+            this.validateData=response.data
           }
           this.commonService.updateLoader(false);
         },

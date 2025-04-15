@@ -24,6 +24,11 @@ export class StatusUpdateComponent {
   ngOnInit(){
     this.buildForm();
     this.getTransporterDetail();
+    this.statusUpdateForm.controls['docketNumber'].valueChanges.subscribe((value) => {
+      if(value){
+        this.getDocketNoChange(value);
+      }
+    });
   }
 
   buildForm(){
@@ -45,6 +50,29 @@ export class StatusUpdateComponent {
       next: (response) => {
         if (response.success) {
           this.transporter=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+
+  getDocketNoChange(docketNumber:any){
+    this.docketService.getDocketDetail(docketNumber).subscribe({
+      next: (response) => {
+        if(response && response.data){
+          this.statusUpdateForm.patchValue({
+            orderDate:response.data.bookingDate,
+            lspName:response.data.lspName,
+            fromCity:response.data.fromLocation,
+            toCity:response.data.toLocation,
+            currentStatus:response.data.transporter
+          });
         } else {
           this.sweetAlertService.error(response.error.message);
         }

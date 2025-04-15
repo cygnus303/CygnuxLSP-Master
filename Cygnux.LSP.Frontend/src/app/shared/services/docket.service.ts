@@ -108,4 +108,8 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/GetDropdowndataTo`,filters);
   }
 
+  getDocketDetail(docketNo:number){
+    return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`)
+  }
+
 }
