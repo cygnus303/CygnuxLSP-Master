@@ -132,10 +132,11 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         );
     }
-    public async Task<IEnumerable<DocketBulkUploadValidateResponse>> GetValidateDocketImportData(string bulkDocket,string customerid)
+    public async Task<IEnumerable<DocketBulkUploadValidateResponse>> GetValidateDocketImportData(string bulkDocket,Guid customerid)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@JsonData", bulkDocket, DbType.String);
+        parameters.Add("@CustomerID", customerid, DbType.Guid);
 
         return await _dbConnection.QueryAsync<DocketBulkUploadValidateResponse>(
             StoredProcedureConstants.USP_ValidateBulkUploadDocketData,

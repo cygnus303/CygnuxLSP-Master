@@ -113,7 +113,7 @@ public class DocketController : ControllerBase
 
     [HttpPost]
     [Route("ValidateDocketList")]
-    public async Task<IActionResult> GetValidateDocketImportData(IFormFile file, string customerid)
+    public async Task<IActionResult> GetValidateDocketImportData(IFormFile file, Guid customerid)
     {
         var data = ExcelReadHelper.ExtractAllRows(file);
         if (data is not null)
