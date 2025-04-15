@@ -96,7 +96,14 @@ public class DocketController : ControllerBase
 
     [HttpGet]
     [Route("GetDropdowndata")]
-    public async Task<IActionResult> GetTATdata(Guid CustomerId, string? origin, string? destination)
+    public async Task<IActionResult> GetTATdataFrom(Guid CustomerId, string? origin, string? destination)
+    {
+        return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
+    }
+
+    [HttpGet]
+    [Route("GetDropdowndataTo")]
+    public async Task<IActionResult> GetTATdataTo(Guid CustomerId, string? origin, string? destination)
     {
         return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
     }
@@ -111,7 +118,6 @@ public class DocketController : ControllerBase
             return Ok(await _docketRepository.GetValidateDocketImportData(data));
         }
         return Ok();
-        //return Ok(await _docketRepository.GetValidateDocketImportData();
     }
 
     [HttpPost("ImportPOD")]
