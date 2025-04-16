@@ -13,6 +13,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class ChangePasswordComponent {
   private modalRef!: BsModalRef;
   public passform!:FormGroup;
+  showChangePassword = false;
+
   @ViewChild('Changepassword', { static: true }) Changepassword!: TemplateRef<any>;
   constructor(private modalService: BsModalService){}
 

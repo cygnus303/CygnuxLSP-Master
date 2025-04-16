@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { Subscription } from 'rxjs';
-import { ChangePasswordComponent } from '../../change-password/change-password.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 // import feather from 'feather-icons';
 
 @Component({

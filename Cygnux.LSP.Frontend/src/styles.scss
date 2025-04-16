@@ -98,6 +98,12 @@ label {
 .w-15{
     width: 15%;
 }
+
+.single-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 // customers--------------------
 
 .table-th{

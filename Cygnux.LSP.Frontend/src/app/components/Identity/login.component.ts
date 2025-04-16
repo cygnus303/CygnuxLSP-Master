@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
     public loading = false;
     public isFormSubmit = false;
     isPasswordVisible: boolean = false;
+    showLogin = true;
+    showForgotPassword = false;
+    sendEmail=false;
     constructor(private identityService: IdentityService,
         private commonService: CommonService,
         private toasterService: ToastrService,
@@ -76,5 +79,19 @@ export class LoginComponent implements OnInit {
 
     togglePasswordVisibility() {
         this.isPasswordVisible = !this.isPasswordVisible;
+      }
+
+      openForgotPassword() {
+        this.showLogin = false;
+        this.showForgotPassword = true;
+        this.sendEmail =false;
+      }
+      backToLogin() {
+        this.showForgotPassword = false;
+        this.showLogin = true;
+        this.sendEmail =false;
+      }
+      sendToEmail(){
+        this.sendEmail =true;
       }
 }
