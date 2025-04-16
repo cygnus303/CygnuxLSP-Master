@@ -7,12 +7,15 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { CustomerModule } from '../customers/customers.module';
 import { LspModule } from '../lsps/lsps.module';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
         FullComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        ChangePasswordComponent
     ],
     providers: [],
     exports: [
@@ -23,7 +26,8 @@ import { LspModule } from '../lsps/lsps.module';
         RouterOutlet,
         SidebarComponent,
         CustomerModule,
-        LspModule
+        LspModule,
+        ReactiveFormsModule
     ]
 })
 export class LayoutModule { }
