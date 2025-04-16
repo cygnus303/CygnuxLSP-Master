@@ -2,11 +2,17 @@
     border-radius: 8px 8px 0px 0px;
     border: transparent !important;
     color: #fff !important  ;
+    transition: all 0.3s ease-in-out;
 }
 
 .nav-primary .nav-link.active {
     background-color: #fff;
     color: #424242 !important;
     transition: 0.8s;
+  }
+  .nav-tabs .nav-link:hover {
+    background-color: #fff;
+    color: #424242 !important;
+    transition: 0.3s ease;
   }
   
