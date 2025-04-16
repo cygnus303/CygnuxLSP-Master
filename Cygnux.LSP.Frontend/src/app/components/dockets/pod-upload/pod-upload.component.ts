@@ -140,7 +140,24 @@ excelData: any[] = [];
   }
 
   exportExcel(){
-    this.docketService.uploadDocket(this.identityService.getLoggedUserId(),this.mappedData).subscribe({
+    const formData = new FormData();
+
+    // Append JSON data as a Blob
+    const cleanedMappedData = this.mappedData.map(item => ({
+      DocketNo: item.DocketNo,
+      UploadDate: item.UploadDate,
+      ImageLink: item.ImageLink // filename only
+    }));
+  
+    formData.append('data', new Blob([JSON.stringify(cleanedMappedData)], { type: 'application/json' }));
+  
+    // Append all image files
+    this.mappedData.forEach((item, index) => {
+      if (item.file) {
+        formData.append('images', item.file, item.ImageLink); // name as the original filename
+      }
+    });
+    this.docketService.uploadDocket(this.identityService.getLoggedUserId(),formData).subscribe({
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit()
@@ -158,7 +175,7 @@ excelData: any[] = [];
   downloadSampleFile(event:any){
     event.preventDefault();
     let path =
-      environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
+      environment.apiUrl.replace('/api/v1', '') + 'Uploads/POD_Import.xlsx';
     window.open(path, '_blank');
   }
 }

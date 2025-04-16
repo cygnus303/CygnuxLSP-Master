@@ -95,23 +95,6 @@ onSidebar(data:any){
   this.commonService.activemenuRoleList.next(data)
 }
 
-// getRolePermission() {
-//   const roleId = localStorage.getItem('roleId') || '';
-//   this.commonService.updateLoader(true);
-//   this.rolePermissionService.getRolePermissionByRole(roleId).subscribe({
-//       next: (response) => {
-//           if (response) {
-//               this.rolePermission = response.data;
-//           }
-//           this.commonService.updateLoader(false);
-//       },
-//       error: (response: any) => {
-//           this.toasterService.error(response.error.message);
-//           this.commonService.updateLoader(false);
-//       },
-//   });
-// }
-
   signout(): void {
     this.identityService.clearToken();
     this.router.navigateByUrl('/login');

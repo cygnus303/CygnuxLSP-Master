@@ -169,7 +169,6 @@ ngOnChanges(changes: SimpleChanges): void {
       });
   }
   onSelectCustomer(event:any){
-    debugger
     this.commonService.updateLoader(true);
    
     const filters={

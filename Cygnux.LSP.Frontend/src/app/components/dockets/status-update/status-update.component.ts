@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DocketService } from '../../../shared/services/docket.service';
-import { TrackingListResponse } from '../../../shared/models/docket.model';
+import { DocketResponse, TrackingListResponse } from '../../../shared/models/docket.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { CommonService } from '../../../shared/services/common.service';
 
@@ -14,6 +14,8 @@ import { CommonService } from '../../../shared/services/common.service';
 export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
   public transporter:TrackingListResponse[]=[];
+  @Input() docketResponse: DocketResponse | null = null;
+  
 
   constructor(
     private docketService:DocketService,
@@ -21,14 +23,29 @@ export class StatusUpdateComponent {
     private commonService:CommonService
   ){}
 
+ngOnChanges(changes:SimpleChanges){
+  console.log(this.docketResponse);
+  if (changes['docketResponse'] && this.docketResponse) {
+    this.statusUpdateForm.patchValue({
+      docketNumber:this.docketResponse.docketNo,
+      // lspName:this.docketResponse,
+      orderDate:this.docketResponse.bookingDate,
+      fromCity:this.docketResponse.fromLocation,
+      toCity:this.docketResponse.toLocation,
+      // currentStatus:this.docketResponse
+    })
+  } 
+  
+}
+
   ngOnInit(){
     this.buildForm();
     this.getTransporterDetail();
-    this.statusUpdateForm.controls['docketNumber'].valueChanges.subscribe((value) => {
-      if(value){
-        this.getDocketNoChange(value);
-      }
-    });
+    // this.statusUpdateForm.controls['docketNumber'].valueChanges.subscribe((value) => {
+    //   if(value){
+    //     this.getDocketNoChange(value);
+    //   }
+    // });
   }
 
   buildForm(){
@@ -66,12 +83,13 @@ export class StatusUpdateComponent {
     this.docketService.getDocketDetail(docketNumber).subscribe({
       next: (response) => {
         if(response && response.data){
+          const result = response.data[0];
           this.statusUpdateForm.patchValue({
-            orderDate:response.data.bookingDate,
-            lspName:response.data.lspName,
-            fromCity:response.data.fromLocation,
-            toCity:response.data.toLocation,
-            currentStatus:response.data.transporter
+            orderDate: result.bookingDate,
+            lspName: result.lspName,
+            fromCity: result.fromLocation,
+            toCity: result.toLocation,
+            currentStatus: result.transporter
           });
         } else {
           this.sweetAlertService.error(response.error.message);

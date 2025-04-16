@@ -37,9 +37,11 @@ export class DocketListComponent implements OnInit {
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
   }
+
   ngAfterViewInit(): void {
     feather.replace(); // Ensure icons render
   }
+
   ngOnInit(): void {
     this.getDockets();
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
@@ -51,9 +53,6 @@ export class DocketListComponent implements OnInit {
      });
   }
 
-  ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-  }
 
   getDockets(page: number = 1) {
     this.filters = Object.fromEntries(
@@ -261,11 +260,16 @@ export class DocketListComponent implements OnInit {
     }
   }
 
-  openStatusUpdateModal(){
+  openStatusUpdateModal(docketData:any){
     const modalElement = document.getElementById('showModal');
     if (modalElement) {
+      this.selectedDocket=docketData
       const modal = new Modal(modalElement);
       modal.show();
     }
+  }
+
+  ngOnDestroy(): void {
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
 }
