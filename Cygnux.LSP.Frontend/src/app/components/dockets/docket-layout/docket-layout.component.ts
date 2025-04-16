@@ -11,6 +11,7 @@ import feather from 'feather-icons';
 export class DocketLayoutComponent implements AfterViewInit {
   constructor() {
     defineElement(lottie.loadAnimation);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   ngAfterViewInit() {

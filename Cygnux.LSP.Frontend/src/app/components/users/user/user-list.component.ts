@@ -51,16 +51,11 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
       if (res) { 
         this.commonService.menuRoleList = res;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         console.log("Updated from activemenuRoleList:", res);
       }
      });
-    // this.route.paramMap.subscribe(params => {
-    //   const navigationState = history.state;
-    //   if (navigationState && navigationState.start) {
-    //     this.commonService.menuRoleList = navigationState.start;
-    //     console.log(this.commonService.menuRoleList)
-    //   }
-    // });
+  
   }
 
   ngAfterViewInit(): void {}

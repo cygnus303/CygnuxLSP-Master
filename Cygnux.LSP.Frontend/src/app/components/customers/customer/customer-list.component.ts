@@ -44,6 +44,7 @@ export class CustomerListComponent implements OnInit {
    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
     if (res) { 
       this.commonService.menuRoleList = res;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       console.log("Updated from activemenuRoleList:", res);
     }
     });

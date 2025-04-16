@@ -1,21 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import {Component,EventEmitter,Input,OnChanges,OnInit,Output,SimpleChanges} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CommonService } from '../../../shared/services/common.service';
-import {
-  EmailRegex,
-  GSTRegex,
-  MobileRegex,
-  OnlyDigitRegex,
-} from '../../../shared/constants/common';
+import {EmailRegex,GSTRegex, MobileRegex,OnlyDigitRegex} from '../../../shared/constants/common';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
@@ -49,30 +36,19 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   buildForm(): void {
     this.customerForm = new FormGroup({
       customerName: new FormControl(null, [Validators.required]),
-      emailId: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(EmailRegex),
-      ]),
+      emailId: new FormControl(null, [Validators.required,Validators.pattern(EmailRegex)]),
       address: new FormControl(null, [Validators.required]),
-      pincode: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(OnlyDigitRegex),
-      ]),
+      pincode: new FormControl(null, [Validators.required,Validators.pattern(OnlyDigitRegex)]),
       city: new FormControl(null, [Validators.required]),
       state: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),   
       isAllowedForEwayBillGenration: new FormControl(false),
       isConsolidatedGSTNo: new FormControl(false),
-      consolidatedGSTNo: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(GSTRegex),
-      ]),
+      consolidatedGSTNo: new FormControl(''),
+      isConsolidatedGSTEnabled: new FormControl(false),
       country:new FormControl('INDIA'),
       purchaseHead:new FormControl(''),
-      purchaseHeadMobileNo:new FormControl(null, [
-              Validators.required,
-              Validators.pattern(MobileRegex),
-            ]),
+      purchaseHeadMobileNo:new FormControl(null, [Validators.required,Validators.pattern(MobileRegex)]),
       accountsHead:new FormControl(''), 
       accountsHeadMobileNo:new FormControl(null,Validators.pattern(MobileRegex)), 
       proprietorName:new FormControl(''),
@@ -92,6 +68,20 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       this.customerForm.reset();
       this.customerCode = '';
     }
+  }
+
+  onToggleGSTNo() {
+    const control = this.customerForm.get('consolidatedGSTNo')!;
+    if (this.customerForm.get('isConsolidatedGSTEnabled')?.value) {
+      control.setValidators([
+        Validators.required,
+        Validators.pattern(GSTRegex),
+      ]);
+    } else {
+      control.clearValidators();
+      control.setValue('');
+    }
+    control.updateValueAndValidity();
   }
 
   onClose(){

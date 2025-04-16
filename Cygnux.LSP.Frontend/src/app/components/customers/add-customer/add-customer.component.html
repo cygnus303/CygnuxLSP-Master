@@ -102,12 +102,6 @@
                 <div class="col-md-10 mb-2">
                   <div class="d-flex">
                     <label class="form-label">Do you want to Generate E-Way Bill Automatic?</label>
-                    <!-- <div class="flex-grow-1 text-end icon-state">
-                      <label class="switch">
-                        <input class="form-control" formControlName="isAllowedForEwayBillGenration" type="checkbox" />
-                        <span class="switch-state bg-success"></span>
-                      </label>
-                    </div> -->
                     <div class="flex-grow-1 text-end icon-state">
                       <label class="switch">
                         <input type="checkbox"><span class="switch-state"></span>
@@ -117,35 +111,32 @@
                 </div>
                 <div class="col-md-10 mb-2">
                   <div class="d-flex">
-                    <label class="form-label">Do you have Consolidated GSTNo for E-Way Bill
-                      Genration?</label>
-                    <!-- <div class="flex-grow-1 text-end icon-state">
-                      <label class="switch">
-                        <input formControlName="isConsolidatedGSTNo" type="checkbox" />
-                        <span class="switch-state bg-success"></span>
-                      </label>
-                    </div> -->
+                    <label class="form-label">Do you have Consolidated GSTNo for E-Way Bill Generation?</label>
                     <div class="flex-grow-1 text-end icon-state">
                       <label class="switch">
-                        <input type="checkbox"><span class="switch-state"></span>
+                        <input type="checkbox"formControlName="isConsolidatedGSTEnabled" 
+                        (change)="onToggleGSTNo()"/>
+                        <span class="switch-state"></span>
                       </label>
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2">
+                
+                <div class="row mb-2" *ngIf="this.customerForm.get('isConsolidatedGSTEnabled')?.value">
                   <div class="col-md-6">
                     <label class="col-form-label">Consolidated GSTNo.</label>
-                    <input class="form-control" formControlName="consolidatedGSTNo" type="text" required  placeholder="Enter Consolidated GSTNo"
-                      [ngClass]="{ 'border-danger': customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo'].touched}" />
-                    <div *ngIf="customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo']?.touched" class="text-danger">
-                      <small *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['required']">ConsolidatedGSTNo is
-                        required.</small>
-                      <small *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['pattern']">ConsolidatedGSTNo is
-                        invalid.</small>
+                    <input class="form-control" formControlName="consolidatedGSTNo" type="text"
+                           placeholder="Enter Consolidated GSTNo"
+                           [ngClass]="{ 'border-danger': customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo'].touched }" />
+                
+                    <div *ngIf="customerForm.controls['consolidatedGSTNo'].invalid && customerForm.controls['consolidatedGSTNo'].touched"
+                         class="text-danger">
+                      <small *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['required']">ConsolidatedGSTNo is required.</small>
+                      <small *ngIf="customerForm.controls['consolidatedGSTNo'].errors?.['pattern']">ConsolidatedGSTNo is invalid.</small>
                     </div>
-                    <!-- @Html.TextBoxFor(c => c.ConsolidatedGSTNo, new { @class = "form-control", @required = "required", @placeholder = "Consolidated GSTNo.", @autocomplete = "off" }) -->
                   </div>
                 </div>
+                
               </div>
             </div>
 
@@ -222,14 +213,6 @@
             <input id="dafault-checkbox" type="checkbox" formControlName="isActive" data-bs-original-title="" title="" />
             <label class="mb-0" for="dafault-checkbox">Active</label>
           </div>
-          <!-- <div class="mt-4">
-            <button class="btn btn-success" data-bs-original-title="" type="submit" id="btnSubmit" title=""
-              [disabled]="customerForm.invalid">
-              <i class="fa fa-check"></i> Submit</button>&nbsp;
-            <button class="btn btn-danger" type="reset">
-              <i class="fa fa-times"></i> Reset
-            </button>
-          </div> -->
           <div class="gap-2 d-flex justify-content-end pt-4">
             <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="customerForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
             <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>
