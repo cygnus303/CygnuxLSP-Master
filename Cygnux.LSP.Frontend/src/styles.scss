@@ -167,9 +167,13 @@ label {
   }
 
   .bs-blue{
-    background-color: #171829 !important;
-    color: rgb(233, 233, 233);
+    // background-color: #171829 !important;
+    // color: rgb(233, 233, 233);
+    // background: linear-gradient(to right, #1a1639 0%, rgb(30 58 106) 100%);
+    background-color: #1c1f3d;
+    color: white;
 }
+
 .modal-content{
     border: 0 !important;
 }

@@ -67,9 +67,9 @@
             <div>
               <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo2.png" alt="looginpage"></a></div>
               <div class="login-main"> 
-                <form class="theme-form">                   
+                <form class="theme-form">                
                   <h4>Reset Your Password</h4>
-                  <div class="form-group">
+                  <div class="form-group" *ngIf="!sendEmail">
                     <label class="col-form-label">Enter Your Email Address</label>
                     <div class="row">
                       <div class="col-12 col-sm-12">
@@ -87,24 +87,30 @@
                     <label class="col-form-label pt-0">Enter OTP</label>
                     <div class="row">
                       <div class="col">
-                        <input class="form-control text-center opt-text" type="text" value="00" maxlength="2">
+                        <input class="form-control text-center opt-text" type="text"  maxlength="1" #d1 (input)="d1.value && d2.focus()" 
+                        (keydown.backspace)="!d1.value ? d1.blur() : null">
                       </div>
                       <div class="col">
-                        <input class="form-control text-center opt-text" type="text" value="00" maxlength="2">
+                        <input class="form-control text-center opt-text" type="text"  maxlength="1" #d2 (input)="d2.value && d3.focus()" 
+                        (keydown.backspace)="!d2.value ? d1.focus() : null">
                       </div>
                       <div class="col">
-                        <input class="form-control text-center opt-text" type="text" value="00" maxlength="2">
+                        <input class="form-control text-center opt-text" type="text"  maxlength="1" #d3 (input)="d3.value && d4.focus()" 
+                        (keydown.backspace)="!d3.value ? d2.focus() : null">
+                      </div>
+                      <div class="col">
+                        <input class="form-control text-center opt-text" type="text"  maxlength="1" #d4>
                       </div>
                     </div>
                   </div> -->
                  <div *ngIf="sendEmail">
-                    <h6 class="mt-4">Create Your Password</h6>
+                    <!-- <h6 class="mt-4">Create Your Password</h6> -->
                     <div class="form-group">
                       <label class="col-form-label">New Password</label>
                       <div class="form-input position-relative">
                         <div class="form-input position-relative">
                           <input class="form-control" type="password"
-                            name="login[password]" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="*********">
+                             [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Enter New Password">
                           <div class="align-middle position-absolute top-50 translate-middle-y end-0 pe-3" (click)="togglePasswordVisibility()"> 
                             <i class="fa"  [style.color]="isPasswordVisible ? 'darkblue' : 'gray'" [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
                           </div>
@@ -112,15 +118,20 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-form-label">Retype Password</label>
-                      <input class="form-control" type="password" name="login[password]" required="" placeholder="*********">
+                      <label class="col-form-label">Confirm Password</label>
+                      <div class="form-input position-relative">
+                      <input class="form-control" type="password"  required="" placeholder="Enter Confirm Password">
+                      <div class="align-middle position-absolute top-50 translate-middle-y end-0 pe-3" (click)="togglePasswordVisibility()"> 
+                        <i class="fa"  [style.color]="isPasswordVisible ? 'darkblue' : 'gray'" [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                      </div>
+                    </div>
                     </div>
                     <div class="form-group mb-0">
                       <div class="checkbox p-0">
                         <input id="checkbox1" type="checkbox">
                         <label class="text-muted" for="checkbox1">Remember password</label>
                       </div>
-                      <button class="btn btn-primary btn-block w-100 mt-3" type="submit">Done</button>
+                      <button class="btn btn-primary btn-block w-100 mt-3" type="submit" (click)="resetPassword()">Done</button>
                     </div>
                     <p class="mt-4 mb-0 text-center">Already have an password?<a class="ms-2 cursor-pointer" (click)="backToLogin()">Sign in</a></p>
                  </div>

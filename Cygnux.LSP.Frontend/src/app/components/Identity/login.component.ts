@@ -92,6 +92,10 @@ export class LoginComponent implements OnInit {
         this.sendEmail =false;
       }
       sendToEmail(){
-        this.sendEmail =true;
+        this.sendEmail =true;  //It store value in api response
+      }
+
+      resetPassword(){
+        
       }
 }
