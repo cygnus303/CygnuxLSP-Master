@@ -70,7 +70,7 @@ excelData: any[] = [];
       const expectedHeaders = ['DocketNo', 'UploadDate', 'ImageLink'];
       const isValidHeaders = headers && headers.length === expectedHeaders.length && headers.every((val, i) => val === expectedHeaders[i]);
       if (!isValidHeaders) {
-        this.sweetAlertService.error('Invalid Excel. Expected: DocketNo, UploadDate, ImageLink');
+        this.sweetAlertService.error('Please upload valid excel file');
         this.resetFileSelection();
         return;
       }

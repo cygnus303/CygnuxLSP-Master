@@ -63,11 +63,40 @@ export class ImportDocketComponent {
           // };
   
           // reader.readAsArrayBuffer(file);
+          const reader = new FileReader();
+              reader.onload = (e: any) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const rows: any[][] = XLSX.utils.sheet_to_json(worksheet, {
+                  header: 1,
+                });
+                const headers = rows[0]?.map((h: any) => String(h).trim());
+                const expectedHeaders = ['LSPName', 'DocketNo', 'InvoiceNo' , 'Date','FromLocation','ToLocation','Quantity','ModeOfTransporter'];
+                const isValidHeaders = headers && headers.length === expectedHeaders.length && headers.every((val, i) => val === expectedHeaders[i]);
+                if (!isValidHeaders) {
+                  this.sweetAlertService.error('Please upload valid excel file');
+                  this.resetFileSelection();
+                  return;
+                }
+                //  Proceed if headers are correct
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+                this.files = [file];
+                this.selectedFile = file;
+              };
+              reader.readAsArrayBuffer(file);
         } else {
           this.sweetAlertService.error('Please upload a valid excel file.');
           this.files = [];
         }
       }
+    }
+
+    resetFileSelection() {
+      this.selectedFile = null;
+      this.files = [];
+      this.validateData = [];                                                                                                                                                                                                          
     }
   
     onRemoveFile(file: File) {

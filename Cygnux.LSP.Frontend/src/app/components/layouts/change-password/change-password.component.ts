@@ -11,7 +11,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   providers:[BsModalService]
 })
 export class ChangePasswordComponent {
-  private modalRef!: BsModalRef;
+  public modalRef!: BsModalRef;
   public passform!:FormGroup;
   showChangePassword = false;
 
