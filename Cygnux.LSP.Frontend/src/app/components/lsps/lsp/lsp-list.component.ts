@@ -4,6 +4,7 @@ import {
   EventEmitter,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
@@ -13,10 +14,10 @@ import { environment } from '../../../../environments/environment';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
+import { AddLspComponent } from '../add-lsp/add-lsp.component';
 
 @Component({
   selector: 'app-lsp',
@@ -30,10 +31,13 @@ export class LspListComponent implements OnInit {
   selectedLsp: LspResponse | null = null;
   page = 1; // Current page number
   pageSize = 5; // Number of items per page
-  totalItems = 0; // Total number of items
-  @Output() edit = new EventEmitter<LspResponse>();
   filters: { [key: string]: string } = {}; // Dynamic filter object
   RoleListsubscribe!:Subscription;
+  totalItems = 0; // Total number of items
+  @Output() edit = new EventEmitter<LspResponse>();
+  @ViewChild(AddLspComponent) addLspComponent!: AddLspComponent;
+
+
   constructor(
     private lspService: LspService,
     public commonService: CommonService,
@@ -170,6 +174,14 @@ export class LspListComponent implements OnInit {
       this.lspId = '';
       this.selectedLsp = null;
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addLspComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
   onPageChange(page: number) {

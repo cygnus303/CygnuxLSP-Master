@@ -6,7 +6,7 @@ import { StatusListComponent } from './status-list/status-list.component';
 
 export const DocketRoutes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: DocketLayoutComponent,
     children: [
       { path: 'list', component: DocketListComponent },

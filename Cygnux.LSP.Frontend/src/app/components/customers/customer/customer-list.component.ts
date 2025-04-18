@@ -1,4 +1,4 @@
-import {Component,EventEmitter,OnInit,Output} from '@angular/core';
+import {Component,EventEmitter,OnInit,Output, ViewChild} from '@angular/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
@@ -9,6 +9,7 @@ import lottie from 'lottie-web';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { AddCustomerComponent } from '../add-customer/add-customer.component';
 
 @Component({
   selector: 'app-customer',
@@ -23,9 +24,12 @@ export class CustomerListComponent implements OnInit {
   page = 1; // Current page number
   pageSize = 5; // Number of items per page
   totalItems = 0; // Total number of items
-  @Output() edit = new EventEmitter<CustomerResponse>();
-  RoleListsubscribe!:Subscription;
   filters: { [key: string]: string } = {}; // Dynamic filter object
+  RoleListsubscribe!:Subscription;
+  @Output() edit = new EventEmitter<CustomerResponse>();
+  @ViewChild(AddCustomerComponent) addCustomerComponent!: AddCustomerComponent;
+
+
   constructor(
     private customerService: CustomerService,
     public commonService: CommonService,
@@ -150,6 +154,14 @@ export class CustomerListComponent implements OnInit {
       this.selectedCustomer = null;
       this.customerCode = '';
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addCustomerComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
   closeDeleteModal() {

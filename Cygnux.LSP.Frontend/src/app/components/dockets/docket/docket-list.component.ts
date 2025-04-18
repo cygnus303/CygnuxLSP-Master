@@ -11,6 +11,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import feather from 'feather-icons';
 import { ImportDocketComponent } from './import-docket/import-docket.component';
+import { AddDocketComponent } from './add-docket/add-docket.component';
 
 @Component({
   selector: 'app-docket',
@@ -30,6 +31,8 @@ export class DocketListComponent implements OnInit {
   RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
+  @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
+
 
   constructor(
     public docketService: DocketService,
@@ -219,6 +222,14 @@ export class DocketListComponent implements OnInit {
       this.selectedDocket = null;
       this.docketCode = '';
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addDocketComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
   closeDeleteModal() {
