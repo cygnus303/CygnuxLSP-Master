@@ -36,7 +36,6 @@ export class ImportDocketComponent {
   
     onChangeFile(event: any) {
       const file = event.addedFiles[0];
-      
       if (file) {
         const validExcelTypes = [
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -105,11 +104,8 @@ export class ImportDocketComponent {
         next: (response) => {
           if (response && response.data) {
             this.validateData = response.data;
-    
-            // 🔽 Generate Excel and auto-download
             this.exportToExcel(this.validateData, 'Invalid_Dockets');
           }
-    
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
