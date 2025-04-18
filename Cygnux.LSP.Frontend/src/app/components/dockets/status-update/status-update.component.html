@@ -37,8 +37,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Status Date </label>
-                        <!-- <input class="form-control" formControlName="statusDate" type="text"  placeholder="Enter status Date" readonly/> -->
-                      
+                        <!-- <input class="form-control" formControlName="statusDate" type="text"  placeholder="Enter status Date" readonly/> -->     
                         <input class="form-control" placeholder="dd/mm/yyyy" #datepickerMDY="bsDatepicker" bsDatepicker required
                         formControlName="statusDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
                         <div *ngIf="statusUpdateForm.controls['statusDate'].invalid && statusUpdateForm.controls['statusDate']?.touched" class="text-danger">

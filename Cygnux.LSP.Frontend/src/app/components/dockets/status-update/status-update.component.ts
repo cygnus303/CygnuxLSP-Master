@@ -15,7 +15,6 @@ export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
   public transporter:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
-  
 
   constructor(
     private docketService:DocketService,
@@ -35,7 +34,6 @@ ngOnChanges(changes:SimpleChanges){
       // currentStatus:this.docketResponse
     })
   } 
-  
 }
 
   ngOnInit(){
