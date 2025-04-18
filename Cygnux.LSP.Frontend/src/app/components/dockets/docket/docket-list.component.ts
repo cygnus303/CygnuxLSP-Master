@@ -1,4 +1,4 @@
-import {AfterViewInit, Component,EventEmitter,OnInit, Output} from '@angular/core';
+import {Component,EventEmitter,OnInit, Output, ViewChild} from '@angular/core';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import feather from 'feather-icons';
+import { ImportDocketComponent } from './import-docket/import-docket.component';
 
 @Component({
   selector: 'app-docket',
@@ -28,6 +29,8 @@ export class DocketListComponent implements OnInit {
   filters: { [key: string]: string } = {}; // Dynamic filter object
   RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<DocketResponse>();
+  @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
+
   constructor(
     public docketService: DocketService,
     public commonService: CommonService,
@@ -52,7 +55,6 @@ export class DocketListComponent implements OnInit {
       }
      });
   }
-
 
   getDockets(page: number = 1) {
     this.filters = Object.fromEntries(
@@ -168,12 +170,20 @@ export class DocketListComponent implements OnInit {
     }
   }
 
-  openImportModal(event: Event){
-    event.preventDefault(); // Prevent default anchor behavior
+  openImportModal(event: Event) {
+    event.preventDefault();
     const modalElement = document.getElementById('importModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.ImportDocketComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
 

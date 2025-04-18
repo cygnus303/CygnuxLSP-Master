@@ -6,13 +6,13 @@ import { StatusListComponent } from './status-list/status-list.component';
 
 export const DocketRoutes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: DocketLayoutComponent,
     children: [
       { path: 'list', component: DocketListComponent },
       { path: 'status-list', component: StatusListComponent },
       { path: 'pod-upload', component: PodUploadComponent },
-      { path: 'list', redirectTo: 'Docket-List', pathMatch: 'full' } // default child
+      { path: '', redirectTo: 'list', pathMatch: 'full' } // default child
     ]
   }
 ];
