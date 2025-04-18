@@ -110,6 +110,7 @@ export class AddUserComponent implements OnInit, OnChanges {
           this.dataEmitter.emit();
           this.sweetAlertService.success(response.data.message);
           this.userForm.reset();
+          this.buildForm();
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -130,6 +131,7 @@ export class AddUserComponent implements OnInit, OnChanges {
           this.dataEmitter.emit();
           this.sweetAlertService.success(response.data.message);
           this.userForm.reset();
+          this.buildForm();
         } else {
           this.sweetAlertService.error(response.error.message);
         }
