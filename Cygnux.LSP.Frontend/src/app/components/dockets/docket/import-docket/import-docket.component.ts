@@ -104,6 +104,15 @@ export class ImportDocketComponent {
       this.validateData=[];
     }
 
+    formatDateString(dateStr: string): string {
+      if (!dateStr) return '';
+    
+      const [datePart, timePart] = dateStr.split(' ');
+      const [day, month, year] = datePart.split('-');
+      return `${day}-${month}-${year}`;
+    }
+    
+
     // uploadDocketFile(){
     //   this.commonService.updateLoader(true);
     //   const formData = new FormData();
