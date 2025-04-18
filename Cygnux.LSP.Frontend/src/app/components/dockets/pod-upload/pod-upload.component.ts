@@ -149,12 +149,13 @@ excelData: any[] = [];
       ImageLink: item.ImageLink // filename only
     }));
   
-    formData.append('data', new Blob([JSON.stringify(cleanedMappedData)], { type: 'application/json' }));
+    formData.append('excelFile', new Blob([JSON.stringify(cleanedMappedData)], { type: 'application/json' }));
   
     // Append all image files
     this.mappedData.forEach((item, index) => {
       if (item.file) {
-        formData.append('images', item.file, item.ImageLink); // name as the original filename
+        debugger
+        formData.append('imageFiles', item.file, item.ImageLink); // name as the original filename
       }
     });
     this.docketService.uploadDocket(this.identityService.getLoggedUserId(),formData).subscribe({
