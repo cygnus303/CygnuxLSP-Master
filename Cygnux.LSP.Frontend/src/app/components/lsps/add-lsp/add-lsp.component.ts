@@ -47,6 +47,7 @@ export class AddLspComponent implements OnInit, OnChanges {
     } else {
       this.lspForm.reset();
       this.lspId = '';
+      this.buildForm();
     }
   }
 
@@ -164,6 +165,7 @@ export class AddLspComponent implements OnInit, OnChanges {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspForm.reset();
+          this.buildForm();
         } else {
           this.sweetAlertService.error(response.error.message);
         }
