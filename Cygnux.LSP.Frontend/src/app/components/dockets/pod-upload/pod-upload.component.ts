@@ -139,38 +139,41 @@ excelData: any[] = [];
     return `${day}-${month}-${year}`;
   }
 
-  exportExcel(){
-    const formData = new FormData();
+ exportExcel() {
+  const formData = new FormData();
 
-    // Append JSON data as a Blob
-    const cleanedMappedData = this.mappedData.map(item => ({
-      DocketNo: item.DocketNo,
-      UploadDate: item.UploadDate,
-      ImageLink: item.ImageLink // filename only
-    }));
+  const cleanedMappedData = this.mappedData.map(item => ({
+    DocketNo: item.DocketNo,
+    UploadDate: item.UploadDate,
+    ImageLink: item.ImageLink
+  }));
+
+  if (this.selectedFile) {
+    formData.append('excelFile', this.selectedFile, this.selectedFile.name);
+  }
   
-    formData.append('excelFile', new Blob([JSON.stringify(cleanedMappedData)], { type: 'application/json' }));
+  this.mappedData.forEach((item) => {
+    if (item.file) {
+      formData.append('imageFiles', item.file, item.ImageLink);
+    }
+  });
 
-    // Append all image files
-    this.mappedData.forEach((item, index) => {
-      if (item.file) {
-        formData.append('imageFiles', item.file, item.ImageLink); // name as the original filename
+  // Submit form
+  this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.dataEmitter.emit();
+        this.sweetAlertService.success(response.data.message);
+      } else {
+        this.sweetAlertService.error(response.error.message);
       }
-    });
-    this.docketService.uploadDocket(this.identityService.getLoggedUserId(),formData).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.dataEmitter.emit()
-          this.sweetAlertService.success(response.data.message);
-        } else {
-          this.sweetAlertService.error(response.error.message);
-        }
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response);
-      },
-    });
-  } 
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response);
+    },
+  });
+}
+
 
   downloadSampleFile(event:any){
     event.preventDefault();
