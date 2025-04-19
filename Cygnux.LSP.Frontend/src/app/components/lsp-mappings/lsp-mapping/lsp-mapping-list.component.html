@@ -25,8 +25,8 @@
                                     </th>
                                   </tr>
                                   <tr class="table-th">
-                                    <th class="w-25"><input type="text" class="form-control" /></th>
-                                    <th class="w-25"><input type="text" class="form-control" /></th>
+                                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getLspMappings()"/></th>
+                                    <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLspMappings()"/></th>
                                     <th class="w-8"></th>
                                     <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                                       <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
@@ -42,9 +42,9 @@
                             <div class=" mb-3">
                               <table class="customers w-100">
                                 <tr *ngFor="let lsp of lspMappings; let i = index">
-                                  <td class="w-25" [(ngModel)]="filters['customerName']" (input)="getLspMappings()">{{lsp.customerName}}</td>
+                                  <td class="w-25">{{lsp.customerName}}</td>
                                   <td class="w-25">
-                                    <ul class="ms-2 text-left" [(ngModel)]="filters['lspName']" (input)="getLspMappings()">
+                                    <ul class="ms-2 text-left">
                                         <li *ngFor="let lspData of lsp.lspResponses">
                                             {{lspData.lspName}}
                                         </li>
