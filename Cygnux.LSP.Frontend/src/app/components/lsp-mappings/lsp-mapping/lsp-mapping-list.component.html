@@ -42,9 +42,9 @@
                             <div class=" mb-3">
                               <table class="customers w-100">
                                 <tr *ngFor="let lsp of lspMappings; let i = index">
-                                  <td class="w-25">{{lsp.customerName}}</td>
+                                  <td class="w-25" [(ngModel)]="filters['customerName']" (input)="getLspMappings()">{{lsp.customerName}}</td>
                                   <td class="w-25">
-                                    <ul class="ms-2 text-left">
+                                    <ul class="ms-2 text-left" [(ngModel)]="filters['lspName']" (input)="getLspMappings()">
                                         <li *ngFor="let lspData of lsp.lspResponses">
                                             {{lspData.lspName}}
                                         </li>

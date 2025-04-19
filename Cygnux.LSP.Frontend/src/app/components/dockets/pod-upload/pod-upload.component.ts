@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './pod-upload.component.scss'
 })
 export class PodUploadComponent {
-excelData: any[] = [];
+  excelData: any[] = [];
   files: File[] = [];
   mappedData: any[] = [];
   uploadedImages: any[] = [];
