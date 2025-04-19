@@ -62,7 +62,7 @@ internal class CustomerLspService : ICustomerLspService
               commandType: CommandType.StoredProcedure
           );
     }
-    public async Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize, Guid userId, string customerName, string lspName)
+    public async Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize, Guid userId, string? customerName, string? lspName)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
