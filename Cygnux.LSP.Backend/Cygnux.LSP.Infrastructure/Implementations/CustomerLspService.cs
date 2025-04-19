@@ -64,7 +64,7 @@ internal class CustomerLspService : ICustomerLspService
               commandType: CommandType.StoredProcedure
           );
     }
-    public async Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize, Guid userId, string? customerName, string? lspName)
+    public async Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize, Guid userId, string? customerName, string? lspName, string? product, string? origin, string? destination, int? tat)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
@@ -72,6 +72,10 @@ internal class CustomerLspService : ICustomerLspService
         parameters.Add("@UserId", userId, DbType.Guid);
         parameters.Add("@CustomerName", customerName, DbType.String);
         parameters.Add("@LSPName", lspName, DbType.String);
+        parameters.Add("@Product", product, DbType.String);
+        parameters.Add("@Origin", origin, DbType.String);
+        parameters.Add("@Destination", destination, DbType.String);
+        parameters.Add("@Tat", tat, DbType.Int32);
 
         return await _dbConnection.QueryAsync<LspTatDetailResponse>(
               StoredProcedureConstants.Usp_GetCustomerLspTat,
