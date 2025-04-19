@@ -1,24 +1,25 @@
 ﻿namespace Cygnux.LSP.Infrastructure.Implementations;
 
 using Contracts;
+using System.Text.Json.Serialization;
 
 public class UserSettings : IUserSettings
 {
     private static readonly AsyncLocal<string> userId = new();
-
-    public string UserId
+    [JsonIgnore]
+    public string? UserId
     {
         get => userId.Value!;
         set => userId.Value = value;
     }
-
-    public string UpdatedBy
+    [JsonIgnore]
+    public string? UpdatedBy
     {
         get => userId.Value!;
         set => userId.Value = value;
     }
-
-    public string CreatedBy
+    [JsonIgnore]
+    public string? CreatedBy
     {
         get => userId.Value!;
         set => userId.Value = value;

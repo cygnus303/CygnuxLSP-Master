@@ -20,9 +20,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
         _customerLspService = customerLspService;
     }
 
-    public async Task<BaseResponse<IEnumerable<LspTatDetailResponse>>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId)
+    public async Task<BaseResponse<IEnumerable<LspTatDetailResponse>>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId,string customerName, string lspName)
     {
-        var response = await _customerLspService.GetLspTatList(customerId, page, pageSize, userId);
+        var response = await _customerLspService.GetLspTatList(customerId, page, pageSize, userId,customerName,lspName);
         return new BaseResponse<IEnumerable<LspTatDetailResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 

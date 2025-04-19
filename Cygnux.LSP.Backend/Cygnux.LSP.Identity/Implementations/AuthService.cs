@@ -55,7 +55,7 @@ internal class AuthService : IAuthService
                     Token = token,
                     Roles = roleName, 
                     Email = email,
-                    RoleId = roleId
+                    RoleId = roleId    
                 });
             }
             return new BaseLoginResponse<LoginResponse>(false, message: "Password is incorrect.");
