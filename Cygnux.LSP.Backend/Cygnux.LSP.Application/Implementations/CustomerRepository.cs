@@ -41,6 +41,7 @@ internal class CustomerRepository : ICustomerRepository
 
         if (response.Status > 0)
         {
+
             var identityResult = await _userRoleService.AddUserRole(Guid.NewGuid(), createCustomerRequest.EmailId, CommonConstants.CustomerAdminRole);
             if (!identityResult.Succeeded)
             {
