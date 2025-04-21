@@ -28,8 +28,8 @@
                   </tr>
                   <tr class="table-th">
                     <th class="w-25"><input type="text" class="form-control" /></th>
-                    <th class="w-25"><input type="text" class="form-control" /></th>
-                    <th class="w-25"><input type="text" class="form-control" /></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['emailId']" (input)="getUsers()"/></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['phoneNumber']" (input)="getUsers()"/></th>
                     <th class="w-8"></th>
                     <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                       <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
