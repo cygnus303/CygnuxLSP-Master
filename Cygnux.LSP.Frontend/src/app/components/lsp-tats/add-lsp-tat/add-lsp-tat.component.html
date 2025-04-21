@@ -101,8 +101,17 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Mode</label>
-                                    <input class="form-control" formControlName="mode" type="text" required placeholder="Enter Mode"
-                                    [ngClass]="{ 'border-danger': lspTatForm.controls['mode'].invalid && lspTatForm.controls['mode'].touched}"/>
+                                    <!-- <input class="form-control" formControlName="mode" type="text" required placeholder="Enter Mode"
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['mode'].invalid && lspTatForm.controls['mode'].touched}"/> -->
+                                    <ng-select [items]="transporter"
+                                    bindLabel="codeDesc"
+                                    bindValue="codeId"
+                                    formControlName="mode"
+                                    placeholder="Search Transport Mode"
+                                    [searchable]="true"
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['mode'].invalid && lspTatForm.controls['mode'].touched}" 
+                                    >
+                                    </ng-select>
                                     <div *ngIf="lspTatForm.controls['mode'].invalid && lspTatForm.controls['mode']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['mode'].errors?.['required']">Mode
@@ -129,11 +138,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="mt-4">
-                        <button class="btn btn-success" data-bs-original-title="" type="submit" id="btnSubmit" title=""
-                            [disabled]="lspTatForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
-                        <button class="btn btn-danger" type="reset"><i class="fa fa-times"></i> Reset</button>
-                    </div> -->
                     <div class="gap-2 mt-4 d-flex justify-content-end">
                         <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="lspTatForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
                         <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>

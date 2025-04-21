@@ -13,12 +13,16 @@ import {
   EmailRegex,
   GSTRegex,
   OnlyDigitRegex,
+  zipCode,
 } from '../../../shared/constants/common';
 import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
 import { RoleService } from '../../../shared/services/role.service';
 import { RoleResponse } from '../../../shared/models/role.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { CustomerResponse } from '../../../shared/models/customer.model';
+import { IdentityService } from '../../../shared/services/identity.service';
+import { CustomerService } from '../../../shared/services/customer.service';
 
 @Component({
   selector: 'app-add-user',
@@ -30,6 +34,7 @@ export class AddUserComponent implements OnInit, OnChanges {
   public userForm!: FormGroup;
   public userId: string = '';
   public roles: RoleResponse[] = [];
+  public customers: CustomerResponse[] | null = null;
   @Input() userResponse: UserResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -37,19 +42,22 @@ export class AddUserComponent implements OnInit, OnChanges {
     private userService: UserService,
     private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private identityService:IdentityService,
+    private customerService:CustomerService
   ) {
     this.userForm = new FormGroup({});
   }
 
   ngOnInit(): void {
     this.buildForm();
+    this.getCustomers()
     this.getRoles();
   }
 
   buildForm(): void {
     this.userForm = new FormGroup({
-      customerName:new FormControl(null, [Validators.required]),
+      customerId:new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       location:new FormControl(null, [Validators.required]),
@@ -61,7 +69,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       address:new FormControl(null,[Validators.required]),
       locality:new FormControl(null,[Validators.required]),
       city:new FormControl(null,[Validators.required]),
-      zipCode:new FormControl(null),
+      zipCode:new FormControl(null,[Validators.required,Validators.pattern(zipCode)]),
       photo:new FormControl(null),
       userType:new FormControl(null,[Validators.required])
     });
@@ -99,6 +107,27 @@ export class AddUserComponent implements OnInit, OnChanges {
         }
         this.commonService.updateLoader(false);
       }}
+    });
+  }
+
+  getCustomers() {
+    this.commonService.updateLoader(true);
+    const filters: any = {
+      Page: 1,
+      UserID:this.identityService.getLoggedUserId(),
+      PageSize: 100,
+    };
+    this.customerService.getCustomerList(filters).subscribe({
+      next: (response) => {
+        if (response) {
+          this.customers = response.data;
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
     });
   }
 

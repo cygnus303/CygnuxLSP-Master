@@ -16,6 +16,8 @@ import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { TrackingListResponse } from '../../../shared/models/docket.model';
+import { DocketService } from '../../../shared/services/docket.service';
 
 @Component({
   selector: 'app-add-lsp-tat',
@@ -26,15 +28,17 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 export class AddLspTatComponent implements OnInit, OnChanges {
   public lspTatForm!: FormGroup;
   public lspTatId: string = '';
+  public lsps: LspResponse[] | null = null;
+  public customers: CustomerResponse[] | null = null;
+  public transporter:TrackingListResponse[]=[];
   @Input() lspTatResponse: LspTatResponse | null = null;
-  lsps: LspResponse[] | null = null;
-  customers: CustomerResponse[] | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private lspTatService: LspMappingService,
     private commonService: CommonService,
-    private sweetAlertService: SweetAlertService
+    private sweetAlertService: SweetAlertService,
+    private docketService :DocketService
   ) {
     this.lspTatForm = new FormGroup({});
   }
@@ -52,6 +56,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     this.getCustomers();
     this.getLsps();
     this.buildForm();
+    this.getTransporterDetail();
   }
 
   buildForm(): void {
@@ -70,6 +75,23 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       createdBy:new FormControl(''),
       userId:new FormControl(''),
       updatedBy:new FormControl('')
+    });
+  }
+
+  getTransporterDetail(){
+    this.docketService.getTrackingList('TRN').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.transporter=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
     });
   }
 

@@ -13,3 +13,4 @@ export const TwoDigitRegex = /^[0-9]{2}$/;
 export const MaxFileSize = 2098000; // 2 MB
 export const PasswordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[^\s]+$/;
 export const GSTRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+export const zipCode = /^\d{5}(?:[-\s]\d{4})?$/
