@@ -21,7 +21,7 @@ internal class CustomerLspService : ICustomerLspService
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
         parameters.Add("@PageSize", pageSize, DbType.Int32);
-        parameters.Add("@USerId", userId, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
         parameters.Add("@CustomerName", customerName, DbType.String);
         parameters.Add("@LSPName", lspName, DbType.String);
 

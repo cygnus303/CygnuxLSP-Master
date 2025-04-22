@@ -5,6 +5,7 @@ public class CreateCustomerRequest : UserSettings
 {
     public string CustomerCode { get; set; } = string.Empty;
     public string CustomerName { get; set; } = string.Empty;
+    public string U_Id { get; set; } = string.Empty;
     public string EmailId { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public string Pincode { get; set; } = string.Empty;

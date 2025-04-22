@@ -6,6 +6,7 @@ using Infrastructure.Constants;
 using Infrastructure.Contracts;
 using Infrastructure.Models.Response;
 using Infrastructure.Models.Response.Customer;
+using Microsoft.AspNetCore.Identity;
 using Models.Request.Customer;
 using Models.Response;
 using Newtonsoft.Json;
@@ -42,15 +43,20 @@ internal class CustomerRepository : ICustomerRepository
         if (response.Status > 0)
         {
 
-            var identityResult = await _userRoleService.AddUserRole(Guid.NewGuid(), createCustomerRequest.EmailId, CommonConstants.CustomerAdminRole);
-            if (!identityResult.Succeeded)
-            {
-                return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = identityResult.Errors.FirstOrDefault()?.Description });
-            }
+            //var identityResult = await _userRoleService.AddUserRole(Guid.Parse(createCustomerRequest.U_Id), createCustomerRequest.EmailId, CommonConstants.CustomerAdminRole);
+            //if (!identityResult.Succeeded)
+            //{
+            //    return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = identityResult.Errors.FirstOrDefault()?.Description });
+            //}
+            return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                 : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+        }
+        else
+        {
+            return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
         }
 
-        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
-                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+      
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> UpdateCustomer(string id, CreateCustomerRequest createCustomerRequest)

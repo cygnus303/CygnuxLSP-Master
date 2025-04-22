@@ -58,7 +58,13 @@ internal class UserRoleService : IUserRoleService
                     TwoFactorEnabled = false,
                     IsActive = true
                 };
-                await _userManager.CreateAsync(applicationUser, applicationUser.PasswordHash!);
+                var x = await _userManager.CreateAsync(applicationUser, applicationUser.PasswordHash!);
+                if (!x.Succeeded)
+                {
+                    // Log the error messages
+                    var errors = string.Join(", ", x.Errors.Select(e => e.Description));
+                    throw new Exception($"User creation failed: {errors}");
+                }
                 user = await _userManager.FindByIdAsync(userId.ToString());
             }
 
