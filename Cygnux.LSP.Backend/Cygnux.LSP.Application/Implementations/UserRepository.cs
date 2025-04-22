@@ -60,7 +60,7 @@ internal class UserRepository : IUserRepository
              await _userRoleService.UpdateUserRoles(userId, userRequest.Roles!);
         }
 
-        return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = response.Succeeded ? "User created successfully!" : response.Errors.Select(x => x.Description).FirstOrDefault() });
+        return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = response.Succeeded ? "User created successfully!" : response.Errors.Select(x => x.Description).FirstOrDefault(), Id = userId.ToString() });
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> UpdateUser(Guid id, UserRequest userRequest)
