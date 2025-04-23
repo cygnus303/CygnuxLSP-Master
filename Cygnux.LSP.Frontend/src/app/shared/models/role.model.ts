@@ -4,3 +4,8 @@ export interface RoleResponse {
   isActive: boolean;
 }
 
+export  interface RoleRequest{
+  isActive : boolean;
+  roleName : string;
+}
+

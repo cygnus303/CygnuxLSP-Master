@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
-import { RoleResponse } from '../models/role.model';
+import { RoleRequest, RoleResponse } from '../models/role.model';
 import { CommonResponse } from '../models/lsp.model';
 
 
@@ -26,7 +26,7 @@ export class RoleService {
     return this.apiHandlerService.Get('role/' + id);
   }
 
-  addRole(addRoleRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
+  addRole(addRoleRequest: RoleRequest): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('role', addRoleRequest);
   }
 

@@ -59,13 +59,13 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         proprietorName:new FormControl(''),
         proprietorMobileNo:new FormControl(null,Validators.pattern(MobileRegex)),
         proprietorEmail:new FormControl(null,Validators.pattern(EmailRegex)),
-      userId: new FormControl(this.identityService.getLoggedUserId()),
-      updatedBy: new FormControl(this.identityService.getLoggedUserId()),
-      createdBy: new FormControl(this.identityService.getLoggedUserId()),
-      firstName:new FormControl('akshay'),
-      lastName:new FormControl('abc'),
-      mobileNo:new FormControl('9876543212'),
-      roles:new FormControl('customer admin')
+        userId: new FormControl(this.identityService.getLoggedUserId()),
+        updatedBy: new FormControl(this.identityService.getLoggedUserId()),
+        createdBy: new FormControl(this.identityService.getLoggedUserId()),
+        firstName:new FormControl('akshay'),
+        lastName:new FormControl('abc'),
+        mobileNo:new FormControl('9876543212'),
+        roles:new FormControl('customer admin')
       });
     }
 
@@ -131,36 +131,9 @@ export class AddCustomerComponent implements OnInit, OnChanges {
 
   addCustomer(form: FormGroup): void {
     this.commonService.updateLoader(true);
-    const formValue = form.getRawValue();
-
-  // Construct payload manually for add
-  // const payload = {
-  //   customerCode: formValue.customerCode,
-  //   purchaseHead: formValue.purchaseHead,
-  //   purchaseHead_MobileNo: formValue.purchaseHeadMobileNo,
-  //   accountsHead: formValue.accountsHead,
-  //   accountsHead_MobileNo: formValue.accountsHeadMobileNo,
-  //   proprietorName: formValue.proprietorName,
-  //   proprietor_MobileNo: formValue.proprietorMobileNo,
-  //   proprietor_Email: formValue.proprietor_Email, // Use this exact name
-  //   pincode: formValue.pincode,
-  //   city: formValue.city,
-  //   state: formValue.state,
-  //   country: formValue.country,
-  //   isActive: formValue.isActive,
-  //   channel: formValue.channel,
-  //   region: formValue.region,
-  //   brand: formValue.brand,
-  //   subBrand: formValue.subBrand,
-  //   isAllowedForEwayBillGenration: formValue.isAllowedForEwayBillGenration,
-  //   isConsolidatedGSTNo: formValue.isConsolidatedGSTNo,
-  //   consolidatedGSTNo: formValue.consolidatedGSTNo,
-  //   businessClassification: formValue.businessClassification
-  // };
-
-  const formValues = { ...this.customerForm.value, u_Id: this.userId };
-  const { firstName, lastName, mobileNo, roles, ...payload } = formValues;
-  console.log(payload);
+    const formValues = { ...this.customerForm.value, u_Id: this.userId };
+    const { firstName, lastName, mobileNo, roles, ...payload } = formValues;
+    console.log(payload);
   
   
     this.customerService.addCustomer(payload).subscribe({

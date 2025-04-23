@@ -20,7 +20,7 @@ export class RolePermissionService {
     return this.apiHandlerService.Get('roleMenuPermission/' + id);
   }
 
-  createRolePermission(roleId: string, data: any): Observable<IApiBaseResponse<CommonResponse>> {
+  createRolePermission(roleId: string, data: RolePermissionResponse[]): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('roleMenuPermission/' + roleId, data);
   }
 }
