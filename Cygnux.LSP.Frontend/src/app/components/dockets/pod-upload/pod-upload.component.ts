@@ -13,12 +13,14 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './pod-upload.component.scss'
 })
 export class PodUploadComponent {
-  excelData: any[] = [];
-  files: File[] = [];
-  mappedData: any[] = [];
-  uploadedImages: any[] = [];
-  selectedFile: File | null = null;
+  public excelData: any[] = [];
+  public files: File[] = [];
+  public mappedData: any[] = [];
+  public uploadedImages: any[] = [];
+  public selectedFile: File | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
+
+  
   constructor(
     private docketService:DocketService,
     private identityService:IdentityService,

@@ -11,7 +11,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../../shared/services/common.service';
 import {
   EmailRegex,
-  GSTRegex,
   OnlyDigitRegex,
   zipCode,
 } from '../../../shared/constants/common';

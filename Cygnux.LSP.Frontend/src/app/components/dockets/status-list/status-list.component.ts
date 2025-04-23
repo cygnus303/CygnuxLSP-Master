@@ -12,7 +12,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
   styleUrl: './status-list.component.scss'
 })
 export class StatusListComponent {
-  files: File[] = [];
+ public  files: File[] = [];
 
 constructor(
   private sweetAlertService:SweetAlertService

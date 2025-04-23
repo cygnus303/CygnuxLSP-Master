@@ -20,12 +20,12 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
 export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerCode: string = '';
-  selectedCustomer: CustomerResponse | null = null;
-  page = 1; // Current page number
-  pageSize = 5; // Number of items per page
-  totalItems = 0; // Total number of items
-  filters: { [key: string]: string } = {}; // Dynamic filter object
-  RoleListsubscribe!:Subscription;
+  public selectedCustomer: CustomerResponse | null = null;
+  public page = 1; // Current page number
+  public pageSize = 5; // Number of items per page
+  public totalItems = 0; // Total number of items
+  public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<CustomerResponse>();
   @ViewChild(AddCustomerComponent) addCustomerComponent!: AddCustomerComponent;
 

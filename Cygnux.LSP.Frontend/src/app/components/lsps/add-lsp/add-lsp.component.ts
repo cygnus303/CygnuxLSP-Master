@@ -26,11 +26,11 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 export class AddLspComponent implements OnInit, OnChanges {
   public lspForm!: FormGroup;
   public lspId: string = '';
+  public selectedFile: File | null = null;
+  public fileError: string | null = null; // For error handling
+  public imagePreview: string | null = null; // For image preview
   @Input() lspResponse: LspResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
-  selectedFile: File | null = null;
-  fileError: string | null = null; // For error handling
-  imagePreview: string | null = null; // For image preview
 
   constructor(
     private lspService: LspService,

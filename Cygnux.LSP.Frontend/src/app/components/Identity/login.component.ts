@@ -15,10 +15,11 @@ export class LoginComponent implements OnInit {
     public loginFormGroup!: FormGroup;
     public loading = false;
     public isFormSubmit = false;
-    isPasswordVisible: boolean = false;
-    showLogin = true;
-    showForgotPassword = false;
-    sendEmail=false;
+    public isPasswordVisible: boolean = false;
+    public showLogin = true;
+    public showForgotPassword = false;
+    public sendEmail=false;
+    
     constructor(private identityService: IdentityService,
         private commonService: CommonService,
         private toasterService: ToastrService,

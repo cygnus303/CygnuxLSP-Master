@@ -17,7 +17,7 @@ import { UserService } from '../../../shared/services/user.service';
 export class AddCustomerComponent implements OnInit, OnChanges {
   public customerForm!: FormGroup;
   public customerCode: string = '';
-  customers: CustomerResponse[] | null = null;
+  public customers: CustomerResponse[] | null = null;
   public userId :string | null = null;
 
   @Input() customerResponse: CustomerResponse | null = null;

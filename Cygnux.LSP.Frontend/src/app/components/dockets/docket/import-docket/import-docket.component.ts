@@ -16,9 +16,9 @@ import { saveAs } from 'file-saver';
   styleUrl: './import-docket.component.scss'
 })
 export class ImportDocketComponent {
-  files: File[] = [];
-  selectedFile:any;
-  validateData:ValidateFileResponse[]=[];
+  public files: File[] = [];
+  public selectedFile:any;
+  public validateData:ValidateFileResponse[]=[];
   
     constructor(
       private sweetAlertService:SweetAlertService,

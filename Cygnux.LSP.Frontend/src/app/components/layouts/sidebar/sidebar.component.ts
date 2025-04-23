@@ -7,8 +7,6 @@ import { MenuResponse } from '../../../shared/models/menu.model';
 import { CommonModule } from '@angular/common';
 import feather from 'feather-icons';
 import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
-import { RolePermissionService } from '../../../shared/services/role-permission.service';
-import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
 import { ToastrService } from 'ngx-toastr';
 
 declare global {
@@ -25,14 +23,13 @@ declare global {
   styleUrls: []
 })
 export class SidebarComponent implements OnInit {
-  iscollapse:boolean=false;
+  public iscollapse:boolean=false;
   public menus: MenuResponse[] = [];
-  private rolePermission:RolePermissionResponse[] = [];
   constructor(private identityService: IdentityService,
     private router: Router,
     private toasterService: ToastrService,
     public commonService: CommonService,
-    private menuService: MenuService,private scriptLoader: ScriptLoaderService,private rolePermissionService:RolePermissionService) {
+    private menuService: MenuService,private scriptLoader: ScriptLoaderService) {
 
   }
 ngOnInit(): void {

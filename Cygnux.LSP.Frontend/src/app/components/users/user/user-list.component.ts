@@ -12,7 +12,6 @@ import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
@@ -27,13 +26,14 @@ import { IdentityService } from '../../../shared/services/identity.service';
 export class UserListComponent implements OnInit, OnDestroy {
   public users: UserResponse[] = [];
   public userCode: string = '';
-  page = 1; // Current page number
-  pageSize = 5; // Number of items per page
-  totalItems = 0; // Total number of items
-  selectedUser: UserResponse | null = null;
-  filters: { [key: string]: string } = {}; // Dynamic filter object
+  public page = 1; // Current page number
+  public pageSize = 5; // Number of items per page
+  public totalItems = 0; // Total number of items
+  public selectedUser: UserResponse | null = null;
+  public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<UserResponse>();
-  RoleListsubscribe!:Subscription;
+
   constructor(
     private userService: UserService,
     public commonService: CommonService,

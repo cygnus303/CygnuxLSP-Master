@@ -21,13 +21,14 @@ import { IdentityService } from '../../../shared/services/identity.service';
 export class LspTatListComponent implements OnInit {
   public lspMappingId: string = '';
   public lspTats: LspTatResponse[] = [];
-  selectedLsp: LspTatResponse | null = null;
-  page = 1; // Current page number
-  pageSize = 5; // Number of items per page
-  totalItems = 0; // Total number of items
+  public selectedLsp: LspTatResponse | null = null;
+  public page = 1; // Current page number
+  public pageSize = 5; // Number of items per page
+  public totalItems = 0; // Total number of items
+  public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<LspMappingResponse>();
-  RoleListsubscribe!:Subscription;
-  filters: { [key: string]: string } = {}; // Dynamic filter object
+
   constructor(
     private lspMappingService: LspMappingService,
     public commonService: CommonService,

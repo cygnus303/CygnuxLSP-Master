@@ -10,18 +10,16 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
     templateUrl: './role-permission.component.html'
 })
 export class RolePermissionComponent implements OnInit {
+    public allChecked : boolean= false;
+    public allViewChecked : boolean= false;
+    public allCreateChecked : boolean= false;
+    public allEditChecked : boolean= false;
+    public allDeleteChecked : boolean= false;
+    public allPermission: boolean= false;
+    public menus: RolePermissionResponse[] = [];
     @Input() roleId: any;
     @Output() permissionEmitter: EventEmitter<void> = new EventEmitter();
-
-    menus: RolePermissionResponse[] = [];
-
-    allChecked = false;
-    allViewChecked = false;
-    allCreateChecked = false;
-    allEditChecked = false;
-    allDeleteChecked = false;
-    allPermission=false;
-
+    
     constructor(
         private commonService: CommonService,
         private rolePermissionService: RolePermissionService,

@@ -28,9 +28,9 @@ import { EmailRegex } from '../../../shared/constants/common';
 export class AddLspMappingComponent implements OnInit, OnChanges {
   public lspMappingForm!: FormGroup;
   public lspMappingId: string = '';
+  public lsps: LspResponse[] = [];
+  public customers: CustomerResponse[] | null = null;
   @Input() lspMappingResponse: LspMappingResponse | null = null;
-  lsps: LspResponse[] = [];
-  customers: CustomerResponse[] | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
   constructor(

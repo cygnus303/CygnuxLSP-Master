@@ -27,8 +27,8 @@ export class DocketListComponent implements OnInit {
   public pageSize = 5; // Number of items per page
   public totalItems = 0; // Total number of items
   public selectedFile: File | null = null;
-  filters: { [key: string]: string } = {}; // Dynamic filter object
-  RoleListsubscribe!:Subscription;
+  public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;

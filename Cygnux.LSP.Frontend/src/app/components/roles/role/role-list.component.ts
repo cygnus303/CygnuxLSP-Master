@@ -27,13 +27,14 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public roles: RoleResponse[] = [];
   public roleId: string = '';
   public selectedRoleId: string = '';
-  page = 1; // Current page number
-  pageSize = 5; // Number of items per page
-  totalItems = 0; // Total number of items
-  selectedRole: RoleResponse | null = null;
-  roleName: string | null = null;
+  public page = 1; // Current page number
+  public pageSize = 5; // Number of items per page
+  public totalItems = 0; // Total number of items
+  public selectedRole: RoleResponse | null = null;
+  public roleName: string | null = null;
+  public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<RoleResponse>();
-  RoleListsubscribe!:Subscription;
+
   constructor(
     private roleService: RoleService,
     public commonService: CommonService,

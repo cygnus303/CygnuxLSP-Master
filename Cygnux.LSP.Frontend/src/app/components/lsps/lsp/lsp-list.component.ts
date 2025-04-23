@@ -28,12 +28,12 @@ import { AddLspComponent } from '../add-lsp/add-lsp.component';
 export class LspListComponent implements OnInit {
   public lspId: string = '';
   public lsps: LspResponse[] = [];
-  selectedLsp: LspResponse | null = null;
-  page = 1; // Current page number
-  pageSize = 5; // Number of items per page
-  filters: { [key: string]: string } = {}; // Dynamic filter object
-  RoleListsubscribe!:Subscription;
-  totalItems = 0; // Total number of items
+  public selectedLsp: LspResponse | null = null;
+  public page = 1; // Current page number
+  public pageSize = 5; // Number of items per page
+  public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public RoleListsubscribe!:Subscription;
+  public totalItems = 0; // Total number of items
   @Output() edit = new EventEmitter<LspResponse>();
   @ViewChild(AddLspComponent) addLspComponent!: AddLspComponent;
 
