@@ -135,7 +135,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspMappingForm.reset();
-          this.buildForm()
+          this.buildForm();
         } else {
           this.sweetAlertService.error(response.error.message);
         }

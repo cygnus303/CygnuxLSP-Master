@@ -94,6 +94,7 @@ export class LspTatListComponent implements OnInit {
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
+      this.lspMappingId = id;
       this.getLspMapping(id);
     }
   }

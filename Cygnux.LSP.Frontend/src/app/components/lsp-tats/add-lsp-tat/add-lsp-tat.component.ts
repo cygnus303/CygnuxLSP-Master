@@ -16,6 +16,7 @@ import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { TrackingListResponse } from '../../../shared/models/docket.model';
 import { DocketService } from '../../../shared/services/docket.service';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-add-lsp-tat',
@@ -36,7 +37,8 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     private lspTatService: LspMappingService,
     private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
-    private docketService :DocketService
+    private docketService :DocketService,
+    private identityService:IdentityService
   ) {
     this.lspTatForm = new FormGroup({});
   }
@@ -46,6 +48,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       this.lspTatId = this.lspTatResponse.lspTatId;
     } else {
       this.lspTatForm.reset();
+      this.buildForm();
       this.lspTatId = '';
     }
   }
@@ -70,8 +73,8 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       priority: new FormControl(null, [Validators.required]),
       bookingType: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
-      createdBy:new FormControl(''),
-      userId:new FormControl(''),
+      createdBy:new FormControl(this.identityService.getLoggedUserId()),
+      userId:new FormControl(this.identityService.getLoggedUserId()),
       updatedBy:new FormControl('')
     });
   }
@@ -125,13 +128,17 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
   onSubmitLspTat(form: FormGroup): void {
     if (form.valid) {
-      !this.lspTatId ? this.addLspTat(form) : this.updateLspTat(form);
+      const payload={
+        ...form.value,
+        updatedBy : this.lspTatId ? this.identityService.getLoggedUserId():null
+      }
+      !this.lspTatId ? this.addLspTat(payload) : this.updateLspTat(payload);
     }
   }
 
-  addLspTat(form: FormGroup): void {
+  addLspTat(form: any): void {
     this.commonService.updateLoader(true);
-    this.lspTatService.addLspTat(form.getRawValue()).subscribe({
+    this.lspTatService.addLspTat(form).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -150,10 +157,10 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     });
   }
 
-  updateLspTat(form: FormGroup): void {
+  updateLspTat(form: any): void {
     this.commonService.updateLoader(true);
     this.lspTatService
-      .updateLspTat(this.lspTatId, form.getRawValue())
+      .updateLspTat(this.lspTatId, form)
       .subscribe({
         next: (response) => {
           if (response.success) {

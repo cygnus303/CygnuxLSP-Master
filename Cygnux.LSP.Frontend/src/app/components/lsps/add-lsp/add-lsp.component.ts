@@ -82,6 +82,7 @@ export class AddLspComponent implements OnInit, OnChanges {
       createdBy:new FormControl(''),
       userId:new FormControl(''),
       updatedBy:new FormControl(''),
+      file:new FormControl(null,[Validators.required]),
       EntryBy:new FormControl(this.identityService.getLoggedUserId())
     });
   }
@@ -89,29 +90,29 @@ export class AddLspComponent implements OnInit, OnChanges {
   // Handle file input change
   onFileChange(event: any) {
     const file = event.target.files[0];
-
+  
     if (file) {
-      const validImageTypes = [
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-        'image/jpg',
-      ];
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
       if (validImageTypes.includes(file.type)) {
         this.selectedFile = file;
         this.fileError = null;
-
+  
+        this.lspForm.patchValue({
+          file: file
+        });
+        this.lspForm.get('file')?.markAsTouched();
+  
         // Preview the image
         const reader = new FileReader();
         reader.onload = () => {
-          this.imagePreview = reader.result as string; // Set the base64 string for preview
+          this.imagePreview = reader.result as string;
         };
         reader.readAsDataURL(file);
       } else {
-        this.fileError =
-          'Please upload a valid image file (JPEG, PNG, or GIF).';
+        this.fileError = 'Please upload a valid image file (JPEG, PNG, or GIF).';
         this.selectedFile = null;
-        this.imagePreview = null; // Clear preview if invalid file
+        this.imagePreview = null;
+        this.lspForm.patchValue({ file: null });
       }
     }
   }
@@ -119,20 +120,21 @@ export class AddLspComponent implements OnInit, OnChanges {
   onSubmitLsp(form: FormGroup): void {
     if (form.valid) {
       const formData = new FormData();
-
-      // Append all form fields using getRawValue()
+  
+      // Append all form fields except 'file'
       const formValues = form.getRawValue();
       for (const key in formValues) {
-        if (formValues.hasOwnProperty(key)) {
+        if (formValues.hasOwnProperty(key) && key !== 'file') {
           formData.append(key, formValues[key]);
         }
       }
-
-      // Append file if selected
-      if (this.selectedFile) {
-        formData.append('file', this.selectedFile);
+      if (formValues.file) {
+        formData.append('file', formValues.file);
       }
+  
       !this.lspId ? this.addLsp(formData) : this.updateLsp(formData);
+    } else {
+      form.markAllAsTouched(); // Ensures all validation messages show up
     }
   }
 
