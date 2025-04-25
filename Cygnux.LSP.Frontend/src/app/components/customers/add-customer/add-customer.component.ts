@@ -53,12 +53,12 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         isConsolidatedGSTEnabled: new FormControl(false),
         country:new FormControl('INDIA'),
         purchaseHead:new FormControl(''),
-        purchaseHeadMobileNo:new FormControl(null, [Validators.required,Validators.pattern(MobileRegex)]),
+        purchaseHeadMobileNo:new FormControl(null),
         accountsHead:new FormControl(''), 
-        accountsHeadMobileNo:new FormControl(null,Validators.pattern(MobileRegex)), 
+        accountsHeadMobileNo:new FormControl(null), 
         proprietorName:new FormControl(''),
-        proprietorMobileNo:new FormControl(null,Validators.pattern(MobileRegex)),
-        proprietorEmail:new FormControl(null,Validators.pattern(EmailRegex)),
+        proprietorMobileNo:new FormControl(null),
+        proprietorEmail:new FormControl(null),
         userId: new FormControl(this.identityService.getLoggedUserId()),
         updatedBy: new FormControl(this.identityService.getLoggedUserId()),
         createdBy: new FormControl(this.identityService.getLoggedUserId()),
@@ -113,7 +113,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit();
-          this.sweetAlertService.success(response.data.message);
+          // this.sweetAlertService.success(response.data.message);
           this.userId=response.data.id;
           this.addCustomer(form)
           // this.buildForm();

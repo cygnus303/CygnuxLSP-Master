@@ -24,11 +24,7 @@
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Location</label>
-                  <input class="form-control" formControlName="location" type="text" required placeholder="Enter Location"
-                    [ngClass]="{ 'border-danger': userForm.controls['location'].invalid && userForm.controls['location'].touched}" />
-                  <div *ngIf="userForm.controls['location'].invalid && userForm.controls['location']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['location'].errors?.['required']">Location is required.</small>
-                  </div>
+                  <input class="form-control" formControlName="location" type="text"  placeholder="Enter Location"/>
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Session Time</label>
@@ -99,12 +95,7 @@
                 
                 <div class="col-md-4">
                   <label class="col-form-label">Locality</label>
-                  <input class="form-control"  formControlName="locality" type="text" required placeholder="Enter Locality"
-                    [ngClass]="{ 'border-danger': userForm.controls['locality'].invalid && userForm.controls['locality'].touched}" />
-                  <div *ngIf="userForm.controls['locality'].invalid && userForm.controls['locality']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['locality'].errors?.['required']">Locality is
-                      required.</small>
-                  </div>
+                  <input class="form-control"  formControlName="locality" type="text"  placeholder="Enter Locality" /> 
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">City</label>

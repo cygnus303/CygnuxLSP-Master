@@ -68,6 +68,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       ...this.filters,
       Page: page,
       PageSize: this.pageSize,
+      userId:this.identityService.getLoggedUserId()
     };
     this.userService.getUserList(filters).subscribe({
       next: (response) => {
