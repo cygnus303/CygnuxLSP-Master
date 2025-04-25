@@ -53,19 +53,19 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         isConsolidatedGSTEnabled: new FormControl(false),
         country:new FormControl('INDIA'),
         purchaseHead:new FormControl(''),
-        purchaseHeadMobileNo:new FormControl(null),
+        purchaseHeadMobileNo:new FormControl(''),
         accountsHead:new FormControl(''), 
-        accountsHeadMobileNo:new FormControl(null), 
+        accountsHeadMobileNo:new FormControl(''), 
         proprietorName:new FormControl(''),
-        proprietorMobileNo:new FormControl(null),
-        proprietorEmail:new FormControl(null),
+        proprietorMobileNo:new FormControl(''),
+        proprietorEmail:new FormControl(''),
         userId: new FormControl(this.identityService.getLoggedUserId()),
         updatedBy: new FormControl(this.identityService.getLoggedUserId()),
         createdBy: new FormControl(this.identityService.getLoggedUserId()),
-        firstName:new FormControl('akshay'),
-        lastName:new FormControl('abc'),
-        mobileNo:new FormControl('9876543212'),
-        roles:new FormControl('customer admin')
+        firstName:new FormControl('',[Validators.required]),
+        lastName:new FormControl('', [Validators.required]),
+        mobileNo:new FormControl('',[Validators.required, Validators.pattern(MobileRegex)]),
+        roles:new FormControl('customer Admin')
       });
     }
 
