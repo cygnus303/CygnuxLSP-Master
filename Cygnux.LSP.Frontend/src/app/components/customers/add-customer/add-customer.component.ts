@@ -62,10 +62,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         userId: new FormControl(this.identityService.getLoggedUserId()),
         updatedBy: new FormControl(this.identityService.getLoggedUserId()),
         createdBy: new FormControl(this.identityService.getLoggedUserId()),
-        firstName:new FormControl('akshay'),
-        lastName:new FormControl('abc'),
-        mobileNo:new FormControl('9876543212'),
-        roles:new FormControl('customer admin')
+        firstName:new FormControl('',[Validators.required]),
+        lastName:new FormControl('', [Validators.required]),
+        mobileNo:new FormControl('',[Validators.required, Validators.pattern(MobileRegex)]),
+        roles:new FormControl('')
       });
     }
 
