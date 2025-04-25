@@ -19,10 +19,21 @@ internal class UserService : IUserService
 
     public async Task<IEnumerable<UserResponse>> GetUserList(int page, int pageSize, Guid userId)
     {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var roles = await _userManager.GetRolesAsync(user);
 
-        var query = _userManager.Users.Where(x => !x.IsDeleted && x.Id == userId);
+        var query = _userManager.Users.Where(x => !x.IsDeleted);
+
+        if (!roles.Contains("SA"))
+        {
+            query = query.Where(x => x.Id == userId);
+        }
 
         var totalRecords = await query.CountAsync();
+
+        //var query = _userManager.Users.Where(x => !x.IsDeleted && x.Id == userId);
+
+        //var totalRecords = await query.CountAsync();
 
         return await query
              .Skip((page - 1) * pageSize)
