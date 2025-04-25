@@ -16,9 +16,9 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetUserList([FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> GetUserList([FromQuery] int page, [FromQuery] int pageSize,Guid userId)
     {
-        return Ok(await _userRepository.GetUserList(page, pageSize));
+        return Ok(await _userRepository.GetUserList(page, pageSize, userId));
     }
 
     [HttpGet]
