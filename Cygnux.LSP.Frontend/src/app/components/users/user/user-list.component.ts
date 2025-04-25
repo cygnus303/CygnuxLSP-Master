@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<UserResponse>();
-
+  loading = false;
   constructor(
     private userService: UserService,
     public commonService: CommonService,
@@ -46,13 +46,15 @@ export class UserListComponent implements OnInit, OnDestroy {
  
 
   ngOnInit(): void {
+    this.commonService.loading.subscribe((state: boolean) => {
+      this.loading = state;
+    });
     this.getUsers();
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
     this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
       if (res) { 
         this.commonService.menuRoleList = res;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        console.log("Updated from activemenuRoleList:", res);
       }
      });
   

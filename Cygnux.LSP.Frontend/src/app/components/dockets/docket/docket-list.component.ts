@@ -32,7 +32,7 @@ export class DocketListComponent implements OnInit {
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
-
+  loading = false;
 
   constructor(
     public docketService: DocketService,
@@ -49,12 +49,14 @@ export class DocketListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.commonService.loading.subscribe((state: boolean) => {
+      this.loading = state;
+    });
     this.getDockets();
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
     this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
       if (res) { 
         this.commonService.menuRoleList = res;
-        console.log("Updated from activemenuRoleList:", res);
       }
      });
   }

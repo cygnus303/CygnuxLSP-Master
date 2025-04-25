@@ -27,7 +27,7 @@ export class LspMappingListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
   @Output() edit = new EventEmitter<LspMappingResponse>();
-
+  loading = false;
   constructor(
     private lspMappingService: LspMappingService,
     public commonService: CommonService,
@@ -39,20 +39,21 @@ export class LspMappingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.commonService.loading.subscribe((state: boolean) => {
+      this.loading = state;
+    });
     this.getLspMappings();
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
     this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
       if (res) { 
         this.commonService.menuRoleList = res;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        console.log("Updated from activemenuRoleList:", res);
       }
      });
     // this.route.paramMap.subscribe(params => {
     //   const navigationState = history.state;
     //   if (navigationState && navigationState.start) {
     //     this.commonService.menuRoleList = navigationState.start;
-    //     console.log(this.commonService.menuRoleList)
     //   }
     // });
   }

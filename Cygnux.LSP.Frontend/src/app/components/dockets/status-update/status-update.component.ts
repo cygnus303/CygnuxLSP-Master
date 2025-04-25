@@ -23,7 +23,6 @@ export class StatusUpdateComponent {
   ){}
 
 ngOnChanges(changes:SimpleChanges){
-  console.log(this.docketResponse);
   if (changes['docketResponse'] && this.docketResponse) {
     this.statusUpdateForm.patchValue({
       docketNumber:this.docketResponse.docketNo,

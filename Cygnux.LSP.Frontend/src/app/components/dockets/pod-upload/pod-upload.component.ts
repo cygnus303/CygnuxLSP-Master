@@ -128,9 +128,7 @@ export class PodUploadComponent {
         file: matchedImage?.file || null
       };
     });
-    console.log('✅ Final Mapped Data:', this.mappedData);
   }
-  
 
   excelDateToJSDate(serial: number): string {
     const excelEpoch = new Date(1899, 11, 30); 
@@ -143,7 +141,6 @@ export class PodUploadComponent {
 
  exportExcel() {
   const formData = new FormData();
-
   const cleanedMappedData = this.mappedData.map(item => ({
     DocketNo: item.DocketNo,
     UploadDate: item.UploadDate,

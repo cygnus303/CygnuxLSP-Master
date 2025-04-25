@@ -133,9 +133,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     this.commonService.updateLoader(true);
     const formValues = { ...this.customerForm.value, u_Id: this.userId };
     const { firstName, lastName, mobileNo, roles, ...payload } = formValues;
-    console.log(payload);
-  
-  
     this.customerService.addCustomer(payload).subscribe({
       next: (response) => {
         if (response.success) {

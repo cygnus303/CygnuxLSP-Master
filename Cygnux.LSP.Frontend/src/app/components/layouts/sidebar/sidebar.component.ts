@@ -72,7 +72,6 @@ getMenus() {
         // });
         const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
         if (data) {
-          console.log("Updating Subject with:", data);
           this.commonService.activemenuRoleList.next(data);
         }
       }
