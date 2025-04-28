@@ -30,6 +30,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   public lspMappingId: string = '';
   public lsps: LspResponse[] = [];
   public customers: CustomerResponse[] | null = null;
+  public lspMappingsList :LspMappingResponse[] = [];
   @Input() lspMappingResponse: LspMappingResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
@@ -58,6 +59,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.getLspMappings();
     this.getCustomers();
     this.getLsps();
     this.buildForm();
@@ -82,12 +84,35 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.customerService.getCustomerList(filters).subscribe({
       next: (response) => {
         if (response) {
-          this.customers = response.data;
+          this.lspMappingsList.forEach((elm)=>{
+            const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
+           this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId));
+          })
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+  
+  getLspMappings(page: number = 1) {
+    this.commonService.updateLoader(true);
+    const filters: any = {
+      Page: 1,
+      UserID:this.identityService.getLoggedUserId(),
+      PageSize: 500,
+    };
+    this.lspMappingService.getLspMappingList(filters).subscribe({
+      next: (response) => {
+        if (response) {
+          this.lspMappingsList = response.data;
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
         this.commonService.updateLoader(false);
       },
     });
