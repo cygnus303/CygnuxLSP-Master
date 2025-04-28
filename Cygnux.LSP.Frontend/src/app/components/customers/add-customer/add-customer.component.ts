@@ -7,6 +7,7 @@ import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { UserService } from '../../../shared/services/user.service';
+import { concatMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-add-customer',
@@ -59,13 +60,11 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         proprietorName:new FormControl(''),
         proprietorMobileNo:new FormControl(''),
         proprietorEmail:new FormControl(''),
-        userId: new FormControl(this.identityService.getLoggedUserId()),
-        updatedBy: new FormControl(this.identityService.getLoggedUserId()),
-        createdBy: new FormControl(this.identityService.getLoggedUserId()),
         firstName:new FormControl('',[Validators.required]),
         lastName:new FormControl('', [Validators.required]),
-        mobileNo:new FormControl('',[Validators.required, Validators.pattern(MobileRegex)]),
-        roles:new FormControl('customer Admin')
+        mobileNo:new FormControl('',[Validators.pattern(MobileRegex)]),
+        roles:new FormControl('customer Admin'),
+        customerCode:new FormControl('')
       });
     }
 
@@ -101,58 +100,50 @@ export class AddCustomerComponent implements OnInit, OnChanges {
 
   onSubmitCustomer(form: FormGroup): void {
     if (form.valid) {
-      // !this.customerCode ? this.addCustomer(form) : this.updateCustomer(form);
-      !this.customerCode ? this.addUser(form) : this.updateCustomer(form);
-
+      !this.customerCode ? this.addUserAndCustomer(form) : this.updateCustomer(form);
     }
   }
 
-  addUser(form: FormGroup): void {
-    this.commonService.updateLoader(true);
-    this.userService.addUser(form.getRawValue()).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.dataEmitter.emit();
-          // this.sweetAlertService.success(response.data.message);
-          this.userId=response.data.id;
-          this.addCustomer(form)
-          // this.buildForm();
-        } else {
+  addUserAndCustomer(form: FormGroup): void {
+    if (form.valid) {
+      this.commonService.updateLoader(true);
+      const { accountsHead, accountsHeadMobileNo, address, city, consolidatedGSTNo, country, customerName, 
+              isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode, 
+              proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state, ...payload } = form.getRawValue();
+      payload.phoneNumber = mobileNo;
+      this.userService.addUser(payload).pipe(
+        concatMap((userResponse) => {
+          if (userResponse.success) {
+            this.userId = userResponse.data.id;
+            const formValues = { ...form.getRawValue(), u_Id: this.userId };
+            const { mobileNo, roles, ...customerPayload } = formValues;
+            return this.customerService.addCustomer(customerPayload);
+          } else {
+            this.sweetAlertService.error(userResponse.error.message);
+            return throwError(() => new Error('User creation failed'));
+          }
+        })
+      ).subscribe({
+        next: (customerResponse) => {
+          if (customerResponse.success) {
+            this.sweetAlertService.success(customerResponse.data.message);
+            this.dataEmitter.emit();
+            this.customerForm.reset();
+            this.buildForm();
+            this.getCustomers();
+          } else {
+            this.sweetAlertService.error(customerResponse.error.message);
+          }
+          this.commonService.updateLoader(false);
+        },
+        error: (response: any) => {
           this.sweetAlertService.error(response.error.message);
+          this.commonService.updateLoader(false);
         }
-        this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
-    });
+      });
+    }
   }
-
-  addCustomer(form: FormGroup): void {
-    this.commonService.updateLoader(true);
-    const formValues = { ...this.customerForm.value, u_Id: this.userId };
-    const { firstName, lastName, mobileNo, roles, ...payload } = formValues;
-    this.customerService.addCustomer(payload).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.sweetAlertService.success(response.data.message);
-          this.dataEmitter.emit(); // Emitting the data to the parent
-          this.customerForm.reset();
-          this.buildForm();
-          this.getCustomers();
-        } else {
-          this.sweetAlertService.error(response.error.message);
-        }
-        this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
-    });
-  }
-
+  
   getCustomers() {
     this.commonService.updateLoader(true);
     const filters: any = {

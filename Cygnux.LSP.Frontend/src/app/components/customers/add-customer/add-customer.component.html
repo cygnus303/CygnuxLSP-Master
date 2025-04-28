@@ -49,10 +49,9 @@
           
                 <div class="col-md-4">
                   <label class="col-form-label">Mobile No</label>
-                  <input class="form-control" maxlength="10" formControlName="mobileNo" type="text" required  placeholder="Enter Mobile No"
+                  <input class="form-control" maxlength="10" formControlName="mobileNo" type="text"  placeholder="Enter Mobile No"
                     [ngClass]="{ 'border-danger': customerForm.controls['mobileNo'].invalid && customerForm.controls['mobileNo'].touched}" />
-                  <div *ngIf="customerForm.controls['mobileNo'].invalid && customerForm.controls['mobileNo']?.touched" class="text-danger">
-                    <small *ngIf="customerForm.controls['mobileNo'].errors?.['required']">Mobile No is required.</small>
+                  <div class="text-danger">
                     <small *ngIf="customerForm.controls['mobileNo'].errors?.['pattern']">Mobile No is invalid.</small>
                   </div>
                 </div>
