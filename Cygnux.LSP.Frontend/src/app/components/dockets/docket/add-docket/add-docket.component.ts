@@ -104,6 +104,8 @@ ngOnChanges(changes: SimpleChanges): void {
         bookingDate:form.value.bookingDate.toISOString().split('T')[0]
       }
       !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);
+    }else{
+      form.markAllAsTouched();
     }
   }
   getCustomers() {

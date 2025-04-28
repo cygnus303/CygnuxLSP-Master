@@ -45,6 +45,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspMappingResponse'] && this.lspMappingResponse) {
+      this.getCustomers();
       this.lspMappingResponse.lspIds = this.lspMappingResponse.lspResponses?.map(
         (lsp) => lsp.lspId
       ) || []; 
@@ -121,6 +122,8 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       !this.lspMappingId
         ? this.addLspMapping(dataSubmit)
         : this.updateLspMapping(dataSubmit);
+    }else{
+      form.markAllAsTouched();
     }
   }
 

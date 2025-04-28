@@ -101,6 +101,8 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   onSubmitCustomer(form: FormGroup): void {
     if (form.valid) {
       !this.customerCode ? this.addUserAndCustomer(form) : this.updateCustomer(form);
+    }else{
+      form.markAllAsTouched();
     }
   }
 

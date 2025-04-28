@@ -92,6 +92,8 @@ export class AddUserComponent implements OnInit, OnChanges {
   onSubmitUser(form: FormGroup): void {
     if (form.valid) {
       !this.userId ? this.addUser(form) : this.updateUser(form);
+    }else{
+      form.markAllAsTouched();
     }
   }
   getRoles() {

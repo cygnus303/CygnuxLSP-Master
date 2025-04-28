@@ -65,7 +65,6 @@ export class LspTatListComponent implements OnInit {
   }
 
   getLspMappings(page: number = 1) {
-    this.commonService.updateLoader(true);
     this.filters = Object.fromEntries(
       Object.entries(this.filters).filter(([key, value]) => value !== null)
     );
@@ -75,6 +74,7 @@ export class LspTatListComponent implements OnInit {
       UserID:this.identityService.getLoggedUserId(),
       PageSize: this.pageSize,
     };
+    this.commonService.updateLoader(true);
     this.lspMappingService.getLspTatList(filters).subscribe({
       next: (response) => {
         if (response) {

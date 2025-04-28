@@ -76,7 +76,7 @@
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="col-form-label">Logo:</label>
-                  <input id="file" class="form-control" type="file" (change)="onFileChange($event)" accept="image/*" formControlName="file"/>
+                  <input id="file" class="form-control" type="file" [ngClass]="{ 'border-danger': lspForm.controls['file'].invalid && lspForm.controls['file'].touched}" (change)="onFileChange($event)" accept="image/*" formControlName="file"/>
                   <div *ngIf="fileError" class="text-danger">
                     {{ fileError }}
                   </div>
@@ -129,7 +129,7 @@
             </button>
           </div> -->
           <div class="gap-2 d-flex justify-content-end">
-            <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="lspForm.invalid"><i class="fa fa-check"></i> Submit</button>&nbsp;
+            <button class="btn btn-square btn-success pull-right rounded-3" type="submit"><i class="fa fa-check"></i> Submit</button>&nbsp;
             <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>
         </div>
         </form>

@@ -44,6 +44,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspTatResponse'] && this.lspTatResponse) {
+      this.getCustomers();
       this.lspTatForm.patchValue(this.lspTatResponse);
       this.lspTatId = this.lspTatResponse.lspTatId;
     } else {
@@ -131,6 +132,8 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         updatedBy : this.lspTatId ? this.identityService.getLoggedUserId():null
       }
       !this.lspTatId ? this.addLspTat(payload) : this.updateLspTat(payload);
+    }else{
+      form.markAllAsTouched();
     }
   }
 
