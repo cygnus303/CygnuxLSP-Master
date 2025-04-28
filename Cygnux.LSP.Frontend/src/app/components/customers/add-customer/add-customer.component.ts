@@ -18,7 +18,6 @@ import { concatMap, throwError } from 'rxjs';
 export class AddCustomerComponent implements OnInit, OnChanges {
   public customerForm!: FormGroup;
   public customerCode: string = '';
-  public customers: CustomerResponse[] | null = null;
   public userId :string | null = null;
 
   @Input() customerResponse: CustomerResponse | null = null;
@@ -28,7 +27,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     private customerService: CustomerService,
     private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
-    private identityService:IdentityService,
     private userService:UserService
   ) {
     this.customerForm = new FormGroup({});
@@ -131,7 +129,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
             this.sweetAlertService.success(customerResponse.data.message);
             this.dataEmitter.emit();
             this.buildForm();
-            this.getCustomers();
           } else {
             this.sweetAlertService.error(customerResponse.error.message);
           }
@@ -144,28 +141,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       });
     }
   }
-  
-  getCustomers() {
-    this.commonService.updateLoader(true);
-    const filters: any = {
-      Page: 1,
-      UserID:this.identityService.getLoggedUserId(),
-      PageSize: 100,
-    };
-    this.customerService.getCustomerList(filters).subscribe({
-      next: (response) => {
-        if (response) {
-          this.customers = response.data;
-        }
-        this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
-    });
-  }
-
+ 
   updateCustomer(form: FormGroup): void {
     this.commonService.updateLoader(true);
     this.customerService
