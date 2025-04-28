@@ -23,4 +23,7 @@ public class CreateCustomerRequest : UserSettings
     public string ProprietorName { get; set; } = string.Empty;
     public string ProprietorMobileNo { get; set; } = string.Empty;
     public string ProprietorEmail { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string MobileNo { get; set; } = string.Empty;
 }
