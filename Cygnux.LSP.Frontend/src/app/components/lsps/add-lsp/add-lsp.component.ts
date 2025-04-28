@@ -79,9 +79,6 @@ export class AddLspComponent implements OnInit, OnChanges {
       apiPassword: new FormControl(null),
       logo: new FormControl(null),
       isActive: new FormControl(true),
-      createdBy:new FormControl(''),
-      userId:new FormControl(''),
-      updatedBy:new FormControl(''),
       file:new FormControl(null,[Validators.required]),
       EntryBy:new FormControl(this.identityService.getLoggedUserId())
     });

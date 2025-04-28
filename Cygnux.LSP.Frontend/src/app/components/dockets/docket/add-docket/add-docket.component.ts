@@ -101,9 +101,6 @@ ngOnChanges(changes: SimpleChanges): void {
         ...form.value,
         // EntryBy:this.identityService.getLoggedUserId(),
         isCancel:false,
-        userId:this.identityService.getLoggedUserId(),
-        updatedBy: this.identityService.getLoggedUserId(),
-        createdBy: this.identityService.getLoggedUserId(),
         bookingDate:form.value.bookingDate.toISOString().split('T')[0]
       }
       !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);

@@ -67,9 +67,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       lspIds: new FormControl([], [Validators.required]),
       customerId: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
-      createdBy:new FormControl(this.identityService.getLoggedUserId()),
-      userId:new FormControl(this.identityService.getLoggedUserId()),
-      updatedBy:new FormControl(null),
       supportEmail:new FormControl(null, [Validators.pattern(EmailRegex)])
     });
   }
