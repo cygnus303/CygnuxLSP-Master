@@ -46,7 +46,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspMappingResponse'] && this.lspMappingResponse) {
-      this.getCustomers();
       this.lspMappingResponse.lspIds = this.lspMappingResponse.lspResponses?.map(
         (lsp) => lsp.lspId
       ) || []; 
@@ -55,7 +54,10 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     } else {
       this.lspMappingForm.reset();
       this.lspMappingId = '';
+      this.buildForm();
     }
+    this.getCustomers();
+    this.customers=[];
   }
 
   ngOnInit(): void {
@@ -84,10 +86,12 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.customerService.getCustomerList(filters).subscribe({
       next: (response) => {
         if (response) {
-          this.lspMappingsList.forEach((elm)=>{
-            const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
-           this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId));
-          })
+          if(!this.lspMappingId){
+              const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
+             this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId));
+          }else{
+            this.customers = response.data
+          }
         }
         this.commonService.updateLoader(false);
       },
