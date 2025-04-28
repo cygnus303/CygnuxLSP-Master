@@ -118,7 +118,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           if (userResponse.success) {
             this.userId = userResponse.data.id;
             const formValues = { ...form.getRawValue(), u_Id: this.userId };
-            const { mobileNo, roles, ...customerPayload } = formValues;
+            const { roles, ...customerPayload } = formValues;
             return this.customerService.addCustomer(customerPayload);
           } else {
             this.sweetAlertService.error(userResponse.error.message);
