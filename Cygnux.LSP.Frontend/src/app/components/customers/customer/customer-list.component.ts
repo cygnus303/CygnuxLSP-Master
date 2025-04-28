@@ -26,9 +26,9 @@ export class CustomerListComponent implements OnInit {
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
+  public loading : boolean = false;
   @Output() edit = new EventEmitter<CustomerResponse>();
   @ViewChild(AddCustomerComponent) addCustomerComponent!: AddCustomerComponent;
-  loading = false;
 
   constructor(
     private customerService: CustomerService,

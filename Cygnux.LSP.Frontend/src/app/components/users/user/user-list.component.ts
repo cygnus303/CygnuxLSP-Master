@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { CommonService } from '../../../shared/services/common.service';
 import { Modal } from 'bootstrap';
@@ -16,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-user',
@@ -32,8 +34,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   public selectedUser: UserResponse | null = null;
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
+ public loading : boolean = false;
   @Output() edit = new EventEmitter<UserResponse>();
-  loading = false;
+  @ViewChild(AddUserComponent) addUserComponent!: AddUserComponent;
+
+
   constructor(
     private userService: UserService,
     public commonService: CommonService,
@@ -165,6 +170,14 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.userCode = '';
       this.selectedUser = null;
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addUserComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
   onPageChange(page: number) {

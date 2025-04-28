@@ -179,4 +179,10 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         },
       });
   }
+
+  onClose(){
+      this.lspTatForm.reset();
+      this.buildForm();
+      this.dataEmitter.emit();
+  }
 }

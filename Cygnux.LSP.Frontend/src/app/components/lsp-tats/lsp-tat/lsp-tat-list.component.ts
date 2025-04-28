@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonService } from '../../../shared/services/common.service';
 import { Modal } from 'bootstrap';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { AddLspTatComponent } from '../add-lsp-tat/add-lsp-tat.component';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -27,8 +28,10 @@ export class LspTatListComponent implements OnInit {
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
+ public loading : boolean = false;
   @Output() edit = new EventEmitter<LspMappingResponse>();
-  loading = false;
+  @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
+
 
   constructor(
     private lspMappingService: LspMappingService,
@@ -167,6 +170,14 @@ export class LspTatListComponent implements OnInit {
       this.lspMappingId = '';
       this.selectedLsp = null;
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addLspTatComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
   onPageChange(page: number) {

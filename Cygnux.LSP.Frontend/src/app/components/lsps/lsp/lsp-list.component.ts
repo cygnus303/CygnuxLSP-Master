@@ -34,9 +34,9 @@ export class LspListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
   public totalItems = 0; // Total number of items
+  public loading : boolean = false;
   @Output() edit = new EventEmitter<LspResponse>();
   @ViewChild(AddLspComponent) addLspComponent!: AddLspComponent;
-  loading = false;
 
   constructor(
     private lspService: LspService,

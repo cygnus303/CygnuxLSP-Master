@@ -4,6 +4,7 @@ import {
   EventEmitter,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { RoleService } from '../../../shared/services/role.service';
 import { CommonService } from '../../../shared/services/common.service';
@@ -16,6 +17,7 @@ import { Subscription } from 'rxjs';
 import feather from 'feather-icons';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { AddRoleComponent } from '../add-role/add-role.component';
 
 @Component({
   selector: 'app-role',
@@ -33,8 +35,10 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public selectedRole: RoleResponse | null = null;
   public roleName: string | null = null;
   public RoleListsubscribe!:Subscription;
+ public loading : boolean = false;
   @Output() edit = new EventEmitter<RoleResponse>();
-  loading = false;
+  @ViewChild(AddRoleComponent) addRoleComponent!: AddRoleComponent;
+
 
   constructor(
     private roleService: RoleService,
@@ -176,6 +180,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       this.getRoles();
     }
   }
+
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
@@ -183,6 +188,14 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       this.roleId = '';
       this.selectedRole = null;
       modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide(); 
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addRoleComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
 

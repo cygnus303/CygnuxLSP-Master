@@ -169,4 +169,10 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         },
       });
   }
+
+  onClose(){
+    this.lspMappingForm.reset();
+    this.buildForm();
+    this.dataEmitter.emit();
+  }
 }

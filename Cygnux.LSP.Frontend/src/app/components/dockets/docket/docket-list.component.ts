@@ -29,10 +29,10 @@ export class DocketListComponent implements OnInit {
   public selectedFile: File | null = null;
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
+  public loading : boolean = false;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
-  loading = false;
 
   constructor(
     public docketService: DocketService,
