@@ -6,7 +6,6 @@ import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
