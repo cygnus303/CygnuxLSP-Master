@@ -54,6 +54,7 @@ export class AddLspComponent implements OnInit, OnChanges {
   onClose(){
     this.lspForm.reset();
     this.dataEmitter.emit();
+    this.buildForm();
   }
 
   ngOnInit(): void {

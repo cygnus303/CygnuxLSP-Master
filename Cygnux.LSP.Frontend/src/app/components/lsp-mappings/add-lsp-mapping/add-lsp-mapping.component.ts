@@ -68,7 +68,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       lspIds: new FormControl([], [Validators.required]),
       customerId: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
-      supportEmail:new FormControl(null, [Validators.pattern(EmailRegex)])
+      supportEmail:new FormControl('', [Validators.pattern(EmailRegex)])
     });
   }
 
@@ -92,6 +92,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       },
     });
   }
+
   getLsps() {
     this.commonService.updateLoader(true);
     const filters: any = {
@@ -172,7 +173,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
 
   onClose(){
     this.lspMappingForm.reset();
-    this.buildForm();
     this.dataEmitter.emit();
+    this.buildForm();
   }
 }
