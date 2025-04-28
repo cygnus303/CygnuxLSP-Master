@@ -98,7 +98,7 @@ export class AddUserComponent implements OnInit, OnChanges {
   }
   getRoles() {
     this.commonService.updateLoader(true);
-    this.roleService.getRoleList(1, 100).subscribe({
+    this.roleService.getRoleList('',1, 100).subscribe({
       next: (response) => {
         if (response) {
           this.roles = response.data;

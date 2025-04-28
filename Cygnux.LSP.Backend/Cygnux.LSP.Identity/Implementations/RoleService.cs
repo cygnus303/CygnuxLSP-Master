@@ -16,16 +16,30 @@ internal class RoleService : IRoleService
         _roleManager = roleManager;
     }
 
-    public async Task<IEnumerable<RoleResponse>> GetRoleList()
+    public async Task<IEnumerable<RoleResponse>> GetRoleList(int page, int pageSize, string? roleName)
     {
-        return await _roleManager.Roles
+        var query = _roleManager.Roles.AsQueryable();
+
+        if (!string.IsNullOrEmpty(roleName))
+        {
+            query = query.Where(x => x.Name.Contains(roleName));
+        }
+
+        var roles = await query
+            .OrderBy(x => x.Name) // optional: sort alphabetically
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(x => new RoleResponse
             {
                 Id = x.Id,
                 RoleName = x.Name,
                 IsActive = x.IsActive
-            }).ToListAsync();
+            })
+            .ToListAsync();
+
+        return roles;
     }
+
 
     public async Task<RoleResponse?> GetRoleDetails(Guid id)
     {

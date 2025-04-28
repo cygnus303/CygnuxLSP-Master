@@ -27,7 +27,7 @@
                     </th>
                   </tr>
                   <tr class="table-th">
-                    <th class="w-25"><input type="text" class="form-control" /></th>
+                    <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['firstName']" (input)="getUsers()"/></th>
                     <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['emailId']" (input)="getUsers()"/></th>
                     <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['phoneNumber']" (input)="getUsers()"/></th>
                     <th class="w-8"></th>

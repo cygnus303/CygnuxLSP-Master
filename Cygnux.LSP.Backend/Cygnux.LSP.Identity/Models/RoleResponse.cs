@@ -6,4 +6,6 @@ public class RoleResponse
     public string? RoleName { get; set; }
 
     public bool IsActive { get; set; }
+    public int? TotalCount { get; set; }
+
 }

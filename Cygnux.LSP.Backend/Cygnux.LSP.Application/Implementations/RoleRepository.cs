@@ -1,6 +1,8 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Identity.Contracts;
 using Identity.Entities;
 using Identity.Models;
@@ -17,12 +19,13 @@ internal class RoleRepository : IRoleRepository
         _roleService = roleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList()
+    public async Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList(int page,int pageSize, string? roleName)
     {
-        var response = await _roleService.GetRoleList();
+        var response = await _roleService.GetRoleList(page,pageSize,roleName);
 
-        return new BaseResponse<IEnumerable<RoleResponse>>(response);
+        return new BaseResponse<IEnumerable<RoleResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
+
 
     public async Task<BaseResponse<RoleResponse?>> GetRoleDetails(Guid id)
     {

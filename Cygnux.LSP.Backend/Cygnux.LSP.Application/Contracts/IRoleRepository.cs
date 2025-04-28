@@ -7,7 +7,7 @@ using Models.Response;
 
 public interface IRoleRepository
 {
-    Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList();
+    Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList( int page, int pageSize, string? roleName);
 
     Task<BaseResponse<RoleResponse?>> GetRoleDetails(Guid id);
 

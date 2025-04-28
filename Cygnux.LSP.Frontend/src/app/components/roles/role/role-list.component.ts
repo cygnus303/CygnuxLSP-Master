@@ -35,6 +35,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public roleName: string | null = null;
   public RoleListsubscribe!:Subscription;
  public loading : boolean = false;
+ public filters: { [key: string]: string } = {}; // Dynamic filter object
   @Output() edit = new EventEmitter<RoleResponse>();
   @ViewChild(AddRoleComponent) addRoleComponent!: AddRoleComponent;
 
@@ -67,8 +68,11 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     feather.replace(); // Ensure icons render
   }
   getRoles(page: number = 1) {
+    this.filters = Object.fromEntries(
+      Object.entries(this.filters).filter(([key, value]) => value !== null)
+    );
     this.commonService.updateLoader(true);
-    this.roleService.getRoleList(page, this.pageSize).subscribe({
+    this.roleService.getRoleList(this.filters,page, this.pageSize).subscribe({
       next: (response) => {
         if (response) {
           this.roles = response.data;

@@ -6,7 +6,7 @@ using Models;
 
 public interface IRoleService
 {
-    Task<IEnumerable<RoleResponse>> GetRoleList();
+    Task<IEnumerable<RoleResponse>> GetRoleList(int page,int pageSize, string? roleName);
 
     Task<RoleResponse?> GetRoleDetails(Guid id);
 

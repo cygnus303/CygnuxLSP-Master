@@ -2,6 +2,7 @@
 
 using Application.Contracts;
 using Application.Models.Request.Role;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/v{version:apiVersion}/[controller]")]
@@ -16,9 +17,9 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetRoleList([FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> GetRoleList([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string? roleName)
     {
-        return Ok(await _roleRepository.GetRoleList());
+        return Ok(await _roleRepository.GetRoleList( page, pageSize, roleName));
     }
 
     [HttpGet]
