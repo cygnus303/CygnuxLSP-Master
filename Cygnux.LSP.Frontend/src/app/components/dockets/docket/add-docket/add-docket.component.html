@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Customer</label>
-                  <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
+                  <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId"
                     formControlName="customerId" placeholder="Select Customer" [searchable]="true"
                     (change)="onSelectCustomer($event)"
                     [ngClass]="{ 'border-danger': docketForm.controls['customerId'].invalid && docketForm.controls['customerId'].touched}">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-6 mb-1">
                   <label class="col-form-label">From WH/Store</label>
-                  <ng-select [items]="customerLocation" bindLabel="location" bindValue="location"
+                  <ng-select [items]="customerLocation" bindLabel="location" required bindValue="location"
                     formControlName="fromLocation" placeholder="Select From WH/Store" [searchable]="true" (change)="onSelectOrigin($event)"
                     [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}">
                   </ng-select>
@@ -45,8 +45,9 @@
                   <label class="col-form-label">To WH/Store</label>
                   <!-- <input class="form-control" formControlName="toLocation" type="text" required placeholder="Enter To WH/Store"
                     [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}" /> -->
-                    <ng-select [items]="customerWHStoreLocation" bindLabel="location" bindValue="location"
-                    formControlName="toLocation" placeholder="To WH/Store" [searchable]="true"></ng-select>
+                    <ng-select [items]="customerWHStoreLocation" bindLabel="location" required bindValue="location"
+                    formControlName="toLocation" placeholder="To WH/Store" [searchable]="true"
+                    [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}"></ng-select>
                   <div *ngIf="docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['toLocation'].errors?.['required']">To Location is
                       required.</small>
@@ -81,7 +82,7 @@
                     bindValue="codeId"
                     formControlName="transporter"
                     placeholder="Search transporter"
-                    [searchable]="true"
+                    [searchable]="true" required
                     [ngClass]="{ 'border-danger': docketForm.controls['transporter'].invalid && docketForm.controls['transporter'].touched}" 
                     >
                     </ng-select>
@@ -97,7 +98,7 @@
                     bindValue="codeId"
                     formControlName="transportMode"
                     placeholder="Search transportMode"
-                    [searchable]="true"
+                    [searchable]="true" required
                     [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}" 
                     >
                     </ng-select>
