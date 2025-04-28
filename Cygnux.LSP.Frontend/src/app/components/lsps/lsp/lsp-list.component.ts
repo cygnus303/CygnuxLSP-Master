@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
@@ -60,12 +59,6 @@ export class LspListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
      });
-    // this.route.paramMap.subscribe(params => {
-    //   const navigationState = history.state;
-    //   if (navigationState && navigationState.start) {
-    //     this.commonService.menuRoleList = navigationState.start;
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {

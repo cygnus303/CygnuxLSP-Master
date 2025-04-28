@@ -38,8 +38,6 @@ export class CustomerListComponent implements OnInit {
     private sweetAlertService:SweetAlertService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
-
-    
   }
 
   ngOnInit(): void {
@@ -54,12 +52,6 @@ export class CustomerListComponent implements OnInit {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     });
-    // this.route.paramMap.subscribe(params => {
-    //   const navigationState = history.state;  
-    //   if (navigationState && navigationState.start) {
-    //     this.commonService.menuRoleList = navigationState.start;
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {

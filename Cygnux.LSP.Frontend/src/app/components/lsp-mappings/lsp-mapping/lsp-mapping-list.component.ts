@@ -5,7 +5,6 @@ import { LspMappingService } from '../../../shared/services/lsp-mapping.service'
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
@@ -53,12 +52,6 @@ export class LspMappingListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
      });
-    // this.route.paramMap.subscribe(params => {
-    //   const navigationState = history.state;
-    //   if (navigationState && navigationState.start) {
-    //     this.commonService.menuRoleList = navigationState.start;
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {

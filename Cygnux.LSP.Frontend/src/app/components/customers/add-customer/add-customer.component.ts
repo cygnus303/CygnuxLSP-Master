@@ -5,7 +5,6 @@ import { CommonService } from '../../../shared/services/common.service';
 import {EmailRegex,GSTRegex, MobileRegex,OnlyDigitRegex} from '../../../shared/constants/common';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
-import { IdentityService } from '../../../shared/services/identity.service';
 import { UserService } from '../../../shared/services/user.service';
 import { concatMap, throwError } from 'rxjs';
 

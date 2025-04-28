@@ -5,7 +5,6 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { environment } from '../../../../environments/environment';
 
-
 @Component({
   selector: 'app-pod-upload',
   standalone: false,
@@ -20,7 +19,6 @@ export class PodUploadComponent {
   public selectedFile: File | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  
   constructor(
     private docketService:DocketService,
     private identityService:IdentityService,

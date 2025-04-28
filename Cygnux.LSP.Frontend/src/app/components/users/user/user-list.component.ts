@@ -38,7 +38,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   @Output() edit = new EventEmitter<UserResponse>();
   @ViewChild(AddUserComponent) addUserComponent!: AddUserComponent;
 
-
   constructor(
     private userService: UserService,
     public commonService: CommonService,
@@ -49,7 +48,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.commonService.activeNavigationUrl.next('Users');
   }
  
-
   ngOnInit(): void {
     this.commonService.loading.subscribe((state: boolean) => {
       this.loading = state;
@@ -62,7 +60,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
      });
-  
   }
 
   ngAfterViewInit(): void {}

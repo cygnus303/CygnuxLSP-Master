@@ -12,7 +12,6 @@ import { RoleResponse } from '../../../shared/models/role.model';
 import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import feather from 'feather-icons';
 import { ToastrService } from 'ngx-toastr';
@@ -39,7 +38,6 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   @Output() edit = new EventEmitter<RoleResponse>();
   @ViewChild(AddRoleComponent) addRoleComponent!: AddRoleComponent;
 
-
   constructor(
     private roleService: RoleService,
     public commonService: CommonService,
@@ -61,12 +59,6 @@ export class RoleListComponent implements OnInit, AfterViewInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
      });
-    // this.route.paramMap.subscribe(params => {
-    //   const navigationState = history.state;
-    //   if (navigationState && navigationState.start) {
-    //     this.commonService.menuRoleList = navigationState.start;
-    //   }
-    // });
   }
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
