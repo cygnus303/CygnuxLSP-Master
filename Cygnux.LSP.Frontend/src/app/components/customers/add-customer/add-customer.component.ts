@@ -111,7 +111,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       this.commonService.updateLoader(true);
       const { accountsHead, accountsHeadMobileNo, address, city, consolidatedGSTNo, country, customerName, 
               isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode, 
-              proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state, ...payload } = form.getRawValue();
+              proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state,customerCode, ...payload } = form.getRawValue();
       payload.phoneNumber = mobileNo;
       this.userService.addUser(payload).pipe(
         concatMap((userResponse) => {
@@ -130,7 +130,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           if (customerResponse.success) {
             this.sweetAlertService.success(customerResponse.data.message);
             this.dataEmitter.emit();
-            this.customerForm.reset();
             this.buildForm();
             this.getCustomers();
           } else {
