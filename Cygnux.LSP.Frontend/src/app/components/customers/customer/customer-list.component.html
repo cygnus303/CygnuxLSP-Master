@@ -131,7 +131,7 @@
                 <button data-bs-dismiss="modal" class="close"  (click)="closelspMappingModal()"><i class="fa fa-close" ></i></button>
             </div>
             <div class="modal-body" style="padding:0px;">
-              <app-add-lsp-mapping (dataEmitter)="closelspMappingModal()" [lspMappingResponse]="selectedCustomer"></app-add-lsp-mapping>
+              <app-add-lsp-mapping (dataEmitter)="closelspMappingModal()" [lspMappingResponse]="selectedCustomer" [type]="'Add'"></app-add-lsp-mapping>
             </div>
         </div>
     </div>

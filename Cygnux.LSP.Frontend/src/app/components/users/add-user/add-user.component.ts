@@ -42,21 +42,19 @@ export class AddUserComponent implements OnInit, OnChanges {
     private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
     private roleService: RoleService,
-    private identityService:IdentityService,
-    private customerService:CustomerService
   ) {
     this.userForm = new FormGroup({});
   }
 
   ngOnInit(): void {
     this.buildForm();
-    this.getCustomers()
+    // this.getCustomers()
     this.getRoles();
   }
 
   buildForm(): void {
     this.userForm = new FormGroup({
-      customerId:new FormControl(null, [Validators.required]),
+      customerName:new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       location:new FormControl(null),
@@ -111,26 +109,26 @@ export class AddUserComponent implements OnInit, OnChanges {
     });
   }
 
-  getCustomers() {
-    this.commonService.updateLoader(true);
-    const filters: any = {
-      Page: 1,
-      UserID:this.identityService.getLoggedUserId(),
-      PageSize: 100,
-    };
-    this.customerService.getCustomerList(filters).subscribe({
-      next: (response) => {
-        if (response) {
-          this.customers = response.data;
-        }
-        this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
-    });
-  }
+  // getCustomers() {
+  //   this.commonService.updateLoader(true);
+  //   const filters: any = {
+  //     Page: 1,
+  //     UserID:this.identityService.getLoggedUserId(),
+  //     PageSize: 100,
+  //   };
+  //   this.customerService.getCustomerList(filters).subscribe({
+  //     next: (response) => {
+  //       if (response) {
+  //         this.customers = response.data;
+  //       }
+  //       this.commonService.updateLoader(false);
+  //     },
+  //     error: (response: any) => {
+  //       this.sweetAlertService.error(response.error.message);
+  //       this.commonService.updateLoader(false);
+  //     },
+  //   });
+  // }
 
   addUser(form: FormGroup): void {
     this.commonService.updateLoader(true);

@@ -12,14 +12,14 @@
               <div class="row g-3">
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Customer Name</label>
-                  <!-- <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"
-                    [ngClass]="{ 'border-danger': userForm.controls['customerName'].invalid && userForm.controls['customerName'].touched}" /> -->
-                    <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
+                  <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"
+                    [ngClass]="{ 'border-danger': userForm.controls['customerName'].invalid && userForm.controls['customerName'].touched}" />
+                    <!-- <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
                     formControlName="customerId" placeholder="Select Customer" [searchable]="true"
                     [ngClass]="{ 'border-danger': userForm.controls['customerId'].invalid && userForm.controls['customerId'].touched}">
-                  </ng-select>
-                  <div *ngIf="userForm.controls['customerId'].invalid && userForm.controls['customerId']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['customerId'].errors?.['required']">CustomerName is required.</small>
+                  </ng-select> -->
+                  <div *ngIf="userForm.controls['customerName'].invalid && userForm.controls['customerName']?.touched" class="text-danger">
+                    <small *ngIf="userForm.controls['customerName'].errors?.['required']">CustomerName is required.</small>
                   </div>
                 </div>
                 <div class="col-md-4 mb-11">

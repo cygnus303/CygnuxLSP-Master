@@ -32,6 +32,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   public customers: CustomerResponse[] | null = null;
   public lspMappingsList :LspMappingResponse[] = [];
   @Input() lspMappingResponse: LspMappingResponse | null = null;
+  @Input() type: string = '';
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
   constructor(
@@ -53,11 +54,11 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       this.lspMappingId = this.lspMappingResponse.customerId ?? ''; 
     } else {
       this.lspMappingForm.reset();
-      this.lspMappingId = '';
       this.buildForm();
+      this.lspMappingId = '';
     }
-    this.getCustomers();
-    this.customers=[];
+      this.getCustomers();
+      this.customers=[];  
   }
 
   ngOnInit(): void {
@@ -147,9 +148,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
 
       const dataSubmit={
         ...form.value,
-        updatedBy:this.lspMappingId ? this.identityService.getLoggedUserId():''
+        updatedBy:this.lspMappingId ? this.identityService.getLoggedUserId():'',
       }
-      !this.lspMappingId
+      this.type === 'Add'
         ? this.addLspMapping(dataSubmit)
         : this.updateLspMapping(dataSubmit);
     }else{

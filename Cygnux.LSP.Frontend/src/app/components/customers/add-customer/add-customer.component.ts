@@ -72,7 +72,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       this.customerForm.patchValue(this.customerResponse);
       this.customerCode = this.customerResponse.customerCode;
     } else {
-      this.customerForm.reset();
+      this.buildForm();
       this.customerCode = '';
     }
   }
@@ -118,10 +118,11 @@ export class AddCustomerComponent implements OnInit, OnChanges {
             this.userId = userResponse.data.id;
             const formValues = { ...form.getRawValue(), u_Id: this.userId };
             const { roles, ...customerPayload } = formValues;
-            customerPayload.userId = this.identityService.getLoggedUserId()
-            customerPayload.updatedBy = this.identityService.getLoggedUserId()
-            customerPayload.createdBy = this.identityService.getLoggedUserId()
-            customerPayload.entryBy = this.identityService.getLoggedUserId()
+            const currentUserId = this.identityService.getLoggedUserId();
+            customerPayload.userId = currentUserId
+            customerPayload.updatedBy = currentUserId
+            customerPayload.createdBy = currentUserId
+            customerPayload.entryBy = currentUserId
             return this.customerService.addCustomer(customerPayload);
           } else {
             this.sweetAlertService.error(userResponse.error.message);
@@ -149,14 +150,13 @@ export class AddCustomerComponent implements OnInit, OnChanges {
  
   updateCustomer(form: FormGroup): void {
     this.commonService.updateLoader(true);
-    this.customerService
-      .updateCustomer(this.customerCode, form.getRawValue())
-      .subscribe({
+    const currentUserId = this.identityService.getLoggedUserId();
+    const formValues = { ...form.getRawValue(), userId:currentUserId,updatedBy:currentUserId,createdBy:currentUserId,entryBy:currentUserId, };
+    this.customerService.updateCustomer(this.customerCode, formValues).subscribe({
         next: (response) => {
           if (response.success) {
             this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit(); // Emitting the data to the parent
-            this.customerForm.reset();
             this.buildForm();
           } else {
             this.sweetAlertService.error(response.error.message);

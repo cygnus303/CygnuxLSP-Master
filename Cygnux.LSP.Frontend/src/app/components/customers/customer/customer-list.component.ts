@@ -54,9 +54,6 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-  }
 
   getCustomers(page: number = 1) {
     this.filters = Object.fromEntries(
@@ -204,5 +201,9 @@ export class CustomerListComponent implements OnInit {
       modal.show();
       this.getCustomer(customerCode);
     }
+  }
+  
+  ngOnDestroy(): void {
+    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
 }
