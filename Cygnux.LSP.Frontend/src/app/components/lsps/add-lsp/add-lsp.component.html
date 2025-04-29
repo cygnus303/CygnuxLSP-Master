@@ -76,7 +76,7 @@
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="col-form-label">Logo:</label>
-                  <input id="file" class="form-control" type="file" [ngClass]="{ 'border-danger': lspForm.controls['file'].invalid && lspForm.controls['file'].touched}" (change)="onFileChange($event)" accept="image/*" formControlName="file"/>
+                  <input  class="form-control" type="file" [ngClass]="{ 'border-danger': lspForm.controls['file'].invalid && lspForm.controls['file'].touched}" (change)="onFileChange($event)" accept="image/*" formControlName="file"/>
                   <div *ngIf="fileError" class="text-danger">
                     {{ fileError }}
                   </div>
