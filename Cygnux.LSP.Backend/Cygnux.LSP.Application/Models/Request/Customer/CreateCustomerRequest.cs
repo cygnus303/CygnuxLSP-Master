@@ -26,4 +26,6 @@ public class CreateCustomerRequest : UserSettings
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string MobileNo { get; set; } = string.Empty;
+    public Guid EntryBy { get; set; }
+
 }
