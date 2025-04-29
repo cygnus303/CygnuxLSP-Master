@@ -7,6 +7,7 @@ import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
 import { concatMap, throwError } from 'rxjs';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -26,7 +27,8 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     private customerService: CustomerService,
     private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
-    private userService:UserService
+    private userService:UserService,
+    private identityService:IdentityService
   ) {
     this.customerForm = new FormGroup({});
   }
@@ -116,6 +118,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
             this.userId = userResponse.data.id;
             const formValues = { ...form.getRawValue(), u_Id: this.userId };
             const { roles, ...customerPayload } = formValues;
+            customerPayload.userId = this.identityService.getLoggedUserId()
+            customerPayload.updatedBy = this.identityService.getLoggedUserId()
+            customerPayload.createdBy = this.identityService.getLoggedUserId()
+            customerPayload.entryBy = this.identityService.getLoggedUserId()
             return this.customerService.addCustomer(customerPayload);
           } else {
             this.sweetAlertService.error(userResponse.error.message);
