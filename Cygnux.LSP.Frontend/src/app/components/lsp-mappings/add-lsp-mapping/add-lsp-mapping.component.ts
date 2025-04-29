@@ -89,9 +89,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         if (response) {
           if(!this.lspMappingId){
               const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
-             this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId));
+             this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId) && res.isActive);
           }else{
-            this.customers = response.data
+            this.customers = response.data.filter((customer: any) => customer.isActive);
           }
         }
         this.commonService.updateLoader(false);
@@ -133,7 +133,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.lspService.getLspList(filters).subscribe({
       next: (response) => {
         if (response) {
-          this.lsps = response.data;
+         this.lsps = response.data.filter((lsp: any) => lsp.isActive);
         }
         this.commonService.updateLoader(false);
       },

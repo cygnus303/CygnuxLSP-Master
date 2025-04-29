@@ -7,7 +7,7 @@ export interface LspResponse {
     description: string;
     apiKey: string;
     apiUrl: string;
-    apiUserName: string;
+    apiUsername: string;
     apiPassword: string;
     logo: string;
     isActive: boolean;

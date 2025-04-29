@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Email Address</label>
-                  <input class="form-control" formControlName="emailId" type="text" required placeholder="Enter Email Address"
+                  <input class="form-control" formControlName="emailId" type="text" required placeholder="Enter Email Address" [readOnly]="customerCode"
                     [ngClass]="{ 'border-danger': customerForm.controls['emailId'].invalid && customerForm.controls['emailId'].touched}" />
                   <div *ngIf="customerForm.controls['emailId'].invalid && customerForm.controls['emailId']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['emailId'].errors?.['required']">Email is required.</small>
