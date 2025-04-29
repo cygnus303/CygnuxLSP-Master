@@ -76,12 +76,22 @@
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="col-form-label">Logo:</label>
-                  <input id="file" class="form-control" type="file" [ngClass]="{ 'border-danger': lspForm.controls['file'].invalid && lspForm.controls['file'].touched}" (change)="onFileChange($event)" accept="image/*" formControlName="file"/>
+                  <div class="d-flex align-items-center input-group border-found rounded" >
+                    <label class="input-group-text border-0 mb-0">
+                      Choose File
+                      <input  id="file"
+                      type="file"
+                      (change)="onFileChange($event)" accept="image/*" formControlName="file"
+                      hidden
+                    />
+                    </label>
+                    <span class="ms-2">{{ selectedFileName || 'No file chosen' }}</span>
+                  </div>                  
                   <div *ngIf="fileError" class="text-danger">
                     {{ fileError }}
                   </div>
-                  <div *ngIf="lspForm.controls['file'].invalid && lspForm.controls['file']?.touched" class="text-danger">
-                    <small *ngIf="lspForm.controls['file'].errors?.['required']">file is required.</small>
+                  <div *ngIf="lspForm.controls['logo'].invalid && lspForm.controls['logo']?.touched" class="text-danger">
+                    <small *ngIf="lspForm.controls['logo'].errors?.['required']">file is required.</small>
                   </div>
                   <!-- Image Preview Section -->
                   <div *ngIf="imagePreview || lspResponse?.logo" class="mt-4">

@@ -29,6 +29,7 @@ export class AddLspComponent implements OnInit, OnChanges {
   public selectedFile: File | null = null;
   public fileError: string | null = null; // For error handling
   public imagePreview: string | null = null; // For image preview
+  selectedFileName :string=''; // Add this property in your component
   @Input() lspResponse: LspResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
@@ -42,12 +43,17 @@ export class AddLspComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspResponse'] && this.lspResponse) {
-      this.lspForm.patchValue(this.lspResponse);
+      const urlParts = this.lspResponse.logo.split('/');
+    this.selectedFileName = urlParts[urlParts.length - 1]; 
       this.lspId = this.lspResponse.lspId;
+      this.lspForm.patchValue(this.lspResponse);
+
     } else {
       this.lspForm.reset();
       this.lspId = '';
       this.buildForm();
+      this.selectedFileName='';
+      this.imagePreview = null;
     }
   }
 
@@ -78,26 +84,23 @@ export class AddLspComponent implements OnInit, OnChanges {
       apiUrl: new FormControl(null),
       apiUsername: new FormControl(null),
       apiPassword: new FormControl(null),
-      logo: new FormControl(null),
+      logo: new FormControl('',[Validators.required]),
       isActive: new FormControl(true),
-      file:new FormControl(null,[Validators.required]),
+      file:new FormControl(null),
       EntryBy:new FormControl(this.identityService.getLoggedUserId())
     });
   }
-
-  // Handle file input change
   onFileChange(event: any) {
     const file = event.target.files[0];
-  
     if (file) {
       const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
       if (validImageTypes.includes(file.type)) {
         this.selectedFile = file;
         this.fileError = null;
-  
-        this.lspForm.patchValue({
-          file: file
-        });
+        this.selectedFileName = file.name
+        debugger
+        this.lspForm.get('logo')?.setValue(file.name);
+
         this.lspForm.get('file')?.markAsTouched();
   
         // Preview the image
@@ -126,8 +129,8 @@ export class AddLspComponent implements OnInit, OnChanges {
           formData.append(key, formValues[key]);
         }
       }
-      if (formValues.file) {
-        formData.append('file', formValues.file);
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
       }
   
       !this.lspId ? this.addLsp(formData) : this.updateLsp(formData);
