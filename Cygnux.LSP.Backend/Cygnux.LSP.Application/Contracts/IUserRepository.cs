@@ -14,5 +14,6 @@ public interface IUserRepository
     Task<BaseResponse<CommonCreateResponse>> AddUser(UserRequest userRequest);
 
     Task<BaseResponse<CommonCreateResponse>> UpdateUser(Guid id, UserRequest userRequest);
+    Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid id, DeleteUserReq deleteUreq);
 
 }

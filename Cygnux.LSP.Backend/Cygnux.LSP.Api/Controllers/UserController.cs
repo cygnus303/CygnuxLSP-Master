@@ -40,4 +40,11 @@ public class UserController : ControllerBase
     {
         return Ok(await _userRepository.UpdateUser(id, userRequest));
     }
+
+    [HttpPatch]
+    [Route("DeleteUser")]
+    public async Task<IActionResult> DeleteUser(Guid id, DeleteUserReq deleteUreq)
+    {
+        return Ok(await _userRepository.DeleteUser(id, deleteUreq));
+    }
 }

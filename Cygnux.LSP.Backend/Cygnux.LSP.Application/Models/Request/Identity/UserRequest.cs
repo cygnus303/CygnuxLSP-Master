@@ -12,3 +12,9 @@ public class UserRequest
     public string Roles { get; set; }
 
 }
+
+public  class DeleteUserReq
+{
+    public Guid id { get; set; }
+    public bool IsDeleted { get; set; }
+}

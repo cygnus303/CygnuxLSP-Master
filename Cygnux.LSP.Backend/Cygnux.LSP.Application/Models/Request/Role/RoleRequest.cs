@@ -6,3 +6,10 @@ public class RoleRequest
 
     public bool? IsActive { get; set; }
 }
+
+public class RoleDeleteReq
+{
+    public Guid Id { get; set; }
+
+    public bool IsDeleted { get; set; }
+}

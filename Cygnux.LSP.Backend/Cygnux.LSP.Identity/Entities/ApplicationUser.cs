@@ -11,3 +11,9 @@ public class ApplicationUser : IdentityUser<Guid>
     public Guid EntryBy { get; set; }
     public DateTime EntryDate { get; set; }
 }
+
+public class DeleteUser : IdentityUser<Guid>
+{
+    public Guid id { get; set; }
+    public bool IsDeleted { get; set; }
+}

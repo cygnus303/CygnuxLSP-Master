@@ -9,6 +9,7 @@ using Models.Request.Identity;
 using Models.Response;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
+using Cygnux.LSP.Application.Models.Request.Role;
 
 internal class UserRepository : IUserRepository
 {
@@ -78,5 +79,16 @@ internal class UserRepository : IUserRepository
             await _userRoleService.UpdateUserRoles(id, userRequest.Roles!);
         }
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "User updated successfully!" });
+    }
+
+    public async Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid id, DeleteUserReq deleteUreq)
+    {
+        var deleteuser = new DeleteUser
+        {
+            IsDeleted = deleteUreq.IsDeleted
+        };
+        var response = await _userService.DeleteUser(id, deleteuser);
+
+        return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "User Deleted Done!" });
     }
 }

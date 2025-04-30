@@ -1,11 +1,15 @@
 ﻿namespace Cygnux.LSP.Identity.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Constants;
+using Cygnux.LSP.Infrastructure.Models.Response;
+using Dapper;
 using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System.Data;
+using System.Data.Common;
 
 internal class RoleService : IRoleService
 {
@@ -19,6 +23,7 @@ internal class RoleService : IRoleService
     public async Task<IEnumerable<RoleResponse>> GetRoleList(int page, int pageSize, string? roleName)
     {
         var query = _roleManager.Roles.AsQueryable();
+        query = query.Where(x => x.IsDeleted == false);
 
         if (!string.IsNullOrEmpty(roleName))
         {
@@ -79,4 +84,17 @@ internal class RoleService : IRoleService
         role.IsActive = applicationRole.IsActive;
         return await _roleManager.UpdateAsync(role);
     }
+    public async Task<IdentityResult> DeleteRole(Guid roleId, DeleteRole deleterole)
+    {
+        var role = await _roleManager.FindByIdAsync(roleId.ToString());
+        if (role == null)
+        {
+            return IdentityResult.Failed(new IdentityError { Description = "Role not found." });
+        }
+      
+        role.IsDeleted = deleterole.IsDeleted;
+        return await _roleManager.UpdateAsync(role);
+    }
+
+  
 }

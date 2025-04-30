@@ -54,4 +54,15 @@ internal class RoleRepository : IRoleRepository
         var response = await _roleService.UpdateRole(id, applicationRole);
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "Role updated successfully!" });
     }
+
+    public async Task<BaseResponse<CommonCreateResponse>> DeleteRole(Guid roleId, RoleDeleteReq deletereq)
+    {
+        var deleterole = new DeleteRole
+        {
+            IsDeleted = deletereq.IsDeleted
+        };
+        var response = await _roleService.DeleteRole(roleId, deleterole);
+
+        return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "Role Deleted Done!" });
+    }
 }

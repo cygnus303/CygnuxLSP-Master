@@ -13,4 +13,5 @@ public interface IRoleService
     Task<IdentityResult> AddRole(ApplicationRole applicationRole);
 
     Task<IdentityResult> UpdateRole(Guid roleId, ApplicationRole applicationRole);
+    Task<IdentityResult> DeleteRole(Guid roleId, DeleteRole deleterole);
 }

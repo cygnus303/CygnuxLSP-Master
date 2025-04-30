@@ -101,4 +101,15 @@ internal class UserService : IUserService
 
         return IdentityResult.Failed(new IdentityError { Description = "User not found" });
     }
+    public async Task<IdentityResult> DeleteUser(Guid id, DeleteUser deleteuser)
+    {
+        var user = await _userManager.FindByIdAsync(id.ToString());
+        if (user == null)
+        {
+            return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+        }
+
+        user.IsDeleted = deleteuser.IsDeleted;
+        return await _userManager.UpdateAsync(user);
+    }
 }

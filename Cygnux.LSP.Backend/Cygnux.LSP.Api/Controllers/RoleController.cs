@@ -41,4 +41,11 @@ public class RoleController : ControllerBase
     {
         return Ok(await _roleRepository.UpdateRole(id, roleRequest));
     }
+
+    [HttpPatch]
+    [Route("DeleteRole")]
+    public async Task<IActionResult> DeleteRole(Guid roleId, RoleDeleteReq deletereq)
+    {
+        return Ok(await _roleRepository.DeleteRole(roleId, deletereq));
+    }
 }
