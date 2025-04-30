@@ -15,3 +15,8 @@ export interface AddUserRequest {
   phoneNumber: string;
   roles: string[];
 }
+
+export interface DeleteUserRequest{
+    id:string,
+    isDeleted:boolean
+}

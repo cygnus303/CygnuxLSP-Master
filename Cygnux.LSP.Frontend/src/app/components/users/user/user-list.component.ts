@@ -91,7 +91,11 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   deleteUser() {
     this.commonService.updateLoader(true);
-    this.userService.deleteUser(this.userCode).subscribe({
+    const payload={
+      id:this.userCode,
+      isDeleted:true
+    }
+    this.userService.deleteUser(this.userCode,payload).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -100,7 +104,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         }
         this.getUsers();
         this.closeDeleteModal();
-
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {

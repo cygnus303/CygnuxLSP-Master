@@ -9,3 +9,8 @@ export  interface RoleRequest{
   roleName : string;
 }
 
+export interface DeleteRoleRequest{
+  id: string,
+  isDeleted: boolean
+}
+

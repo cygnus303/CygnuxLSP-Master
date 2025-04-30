@@ -88,7 +88,11 @@ export class RoleListComponent implements OnInit, AfterViewInit {
 
   deleteRole() {
     this.commonService.updateLoader(true);
-    this.roleService.deleteRole(this.roleId).subscribe({
+    const payload={
+      id:this.roleId,
+      isDeleted:true
+    }
+    this.roleService.deleteRole(this.roleId,payload).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
