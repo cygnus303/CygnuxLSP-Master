@@ -81,6 +81,7 @@ internal class UserRepository : IUserRepository
         return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "User updated successfully!" });
     }
 
+
     public async Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid id, DeleteUserReq deleteUreq)
     {
         var deleteuser = new DeleteUser

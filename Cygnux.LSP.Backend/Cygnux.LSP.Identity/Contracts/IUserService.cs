@@ -13,5 +13,6 @@ public interface IUserService
     Task<IdentityResult> AddUser(ApplicationUser applicationUser);
 
     Task<IdentityResult> UpdateUser(Guid id, ApplicationUser applicationUser);
+
     Task<IdentityResult> DeleteUser(Guid id, DeleteUser deleteuser);
 }

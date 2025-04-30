@@ -15,5 +15,6 @@ public interface IRoleRepository
 
     Task<BaseResponse<CommonCreateResponse>> UpdateRole(Guid id, RoleRequest roleRequest);
 
+
     Task<BaseResponse<CommonCreateResponse>> DeleteRole(Guid roleId, RoleDeleteReq deletereq);
 }

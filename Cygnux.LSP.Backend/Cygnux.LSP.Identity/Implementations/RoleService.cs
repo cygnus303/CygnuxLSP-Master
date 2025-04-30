@@ -84,6 +84,7 @@ internal class RoleService : IRoleService
         role.IsActive = applicationRole.IsActive;
         return await _roleManager.UpdateAsync(role);
     }
+
     public async Task<IdentityResult> DeleteRole(Guid roleId, DeleteRole deleterole)
     {
         var role = await _roleManager.FindByIdAsync(roleId.ToString());
