@@ -20,8 +20,6 @@ import { RoleService } from '../../../shared/services/role.service';
 import { RoleResponse } from '../../../shared/models/role.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
-import { IdentityService } from '../../../shared/services/identity.service';
-import { CustomerService } from '../../../shared/services/customer.service';
 
 @Component({
   selector: 'app-add-user',
@@ -101,7 +99,6 @@ export class AddUserComponent implements OnInit, OnChanges {
         if (response) {
           this.roles = response.data;
         if (response && response.data) {
-          // Filter only active roles
           this.roles = response.data.filter((role: any) => role.isActive);
         }
         this.commonService.updateLoader(false);

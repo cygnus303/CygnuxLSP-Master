@@ -17,39 +17,59 @@ internal class UserService : IUserService
         _userManager = userManager;
     }
 
-    public async Task<IEnumerable<UserResponse>> GetUserList(int page, int pageSize, Guid userId)
+   public async Task<IEnumerable<UserResponse>> GetUserList(int page, int pageSize, Guid userId, string firstName, string emailId, string phoneNumber)
+{
+    var user = await _userManager.FindByIdAsync(userId.ToString());
+    var roles = await _userManager.GetRolesAsync(user);
+
+    var query = _userManager.Users.Where(x => !x.IsDeleted);
+
+    if (!roles.Contains("SA"))
     {
-        var user = await _userManager.FindByIdAsync(userId.ToString());
-        var roles = await _userManager.GetRolesAsync(user);
+        query = query.Where(x => x.Id == userId);
+    }
 
-        var query = _userManager.Users.Where(x => !x.IsDeleted);
-
-        if (!roles.Contains("SA"))
+        if (!string.IsNullOrEmpty(firstName) || !string.IsNullOrEmpty(emailId) || !string.IsNullOrEmpty(phoneNumber))
         {
-            query = query.Where(x => x.Id == userId);
+            if (!string.IsNullOrEmpty(firstName))
+                query = query.Where(x => x.FirstName.Contains(firstName));
+
+            if (!string.IsNullOrEmpty(emailId))
+                query = query.Where(x => x.Email.Contains(emailId));
+
+            if (!string.IsNullOrEmpty(phoneNumber))
+                query = query.Where(x => x.PhoneNumber.Contains(phoneNumber));
         }
 
-        var totalRecords = await query.CountAsync();
 
-        //var query = _userManager.Users.Where(x => !x.IsDeleted && x.Id == userId);
+        var totalRecords = await query.CountAsync();
+          //var query = _userManager.Users.Where(x => !x.IsDeleted && x.Id == userId);
 
         //var totalRecords = await query.CountAsync();
 
-        return await query
-             .Skip((page - 1) * pageSize)
-             .Take(pageSize)
-             .Select(x => new UserResponse
-             {
-                 Id = x.Id,
-                 FirstName = x.FirstName,
-                 LastName = x.LastName,
-                 EmailId = x.Email,
-                 IsActive = x.IsActive,
-                 PhoneNumber = x.PhoneNumber,
-                 TotalCount = totalRecords
-             })
-             .ToListAsync();
-    }
+    return await query
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .Select(x => new UserResponse
+        {
+            Id = x.Id,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            EmailId = x.Email,
+            IsActive = x.IsActive,
+            PhoneNumber = x.PhoneNumber,
+            City = x.City,
+            CustomerName = x.CustomerName,
+            Location = x.Location,
+            UserType = x.UserType,
+            Locality = x.Locality,
+            Address = x.Address,
+            ZipCode = x.ZipCode,
+            SessionTime = x.SessionTime,
+            TotalCount = totalRecords
+        })
+        .ToListAsync();
+}
 
     public async Task<UserResponse?> GetUserDetails(Guid id)
     {
@@ -66,6 +86,14 @@ internal class UserService : IUserService
                 EmailId = user.Email,
                 IsActive = user.IsActive,
                 PhoneNumber = user.PhoneNumber,
+                City = user.City,
+                CustomerName = user.CustomerName,
+                Location = user.Location,
+                UserType = user.UserType,
+                Locality = user.Locality,
+                Address = user.Address,
+                ZipCode = user.ZipCode,
+                SessionTime = user.SessionTime,
                 Roles = rolesAsString,
             };
         }

@@ -12,7 +12,6 @@ import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { EmailRegex, MobileRegex } from '../../../shared/constants/common';
 import { LspResponse } from '../../../shared/models/lsp.model';
-import { CustomerResponse } from '../../../shared/models/customer.model';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 
