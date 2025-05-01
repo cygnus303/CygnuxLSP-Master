@@ -96,8 +96,8 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/GetDropdowndata`,filters);
   }
 
-  validateDocketList(formData:any){
-    return this.apiHandlerService.Post(`Docket/ValidateDocketList`,formData);
+  validateDocketList(id:string,formData:any){
+    return this.apiHandlerService.Post(`Docket/ValidateDocketList?customerid=${id}`,formData);
   }
 
   getTrackingList(codeType:string){

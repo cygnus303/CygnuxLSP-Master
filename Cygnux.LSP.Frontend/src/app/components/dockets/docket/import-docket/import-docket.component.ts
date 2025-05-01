@@ -130,10 +130,9 @@ export class ImportDocketComponent {
     uploadDocketFile() {
       this.commonService.updateLoader(true);
       const formData = new FormData();
-      formData.append('customerId', this.identityService.getLoggedUserId());
       formData.append('file', this.selectedFile);
     
-      this.docketService.validateDocketList(formData).subscribe({
+      this.docketService.validateDocketList(this.identityService.getLoggedUserId(),formData).subscribe({
         next: (response) => {
           if (response && response.data) {
             this.validateData = response.data;

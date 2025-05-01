@@ -374,6 +374,8 @@ $('.simplebar-wrapper .simplebar-content-wrapper').animate({
   let pinIcon = document.querySelectorAll(".sidebar-list .fa-thumb-tack");
 
   function togglePinnedName() {
+    if (!pinTitle) return; // Exit if the element doesn't exist
+  
     if (document.getElementsByClassName("pined").length) {
       if (!pinTitle.classList.contains("show")) pinTitle.classList.add("show");
     } else {
