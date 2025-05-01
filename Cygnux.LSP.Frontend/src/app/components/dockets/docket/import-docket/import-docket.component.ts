@@ -87,6 +87,11 @@ export class ImportDocketComponent {
       }
     }
 
+    get isValidData(): boolean {
+      return this.validateData.length > 0 && this.validateData.every(item => !item.errorCode);
+    }
+    
+
     resetFileSelection() {
       this.selectedFile = null;
       this.files = [];
