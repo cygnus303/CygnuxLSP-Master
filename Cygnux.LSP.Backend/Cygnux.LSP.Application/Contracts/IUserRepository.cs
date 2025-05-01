@@ -7,7 +7,7 @@ using Models.Response;
 
 public interface IUserRepository
 {
-    Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize,Guid usreId, string firstName, string emailId, string phoneNumber);
+    Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize,Guid usreId, string? firstName, string emailId, string phoneNumber);
 
     Task<BaseResponse<UserResponse?>> GetUserDetails(Guid id);
 
