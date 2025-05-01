@@ -123,6 +123,14 @@ internal class UserService : IUserService
             user.LastName = applicationUser.LastName;
             user.PhoneNumber = applicationUser.PhoneNumber;
             user.IsActive = applicationUser.IsActive;
+            user.City = applicationUser.City;
+            user.CustomerName = applicationUser.CustomerName;
+            user.Location = applicationUser.Location;
+            user.Locality = applicationUser.Locality;
+            user.UserType = applicationUser.UserType;
+            user.Address = applicationUser.Address;
+            user.SessionTime = applicationUser.SessionTime;
+            user.ZipCode = applicationUser.ZipCode;
 
             return await _userManager.UpdateAsync(user);
         }
