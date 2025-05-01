@@ -75,7 +75,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       this.userForm.patchValue(this.userResponse);
       this.userId = this.userResponse.id;
     } else {
-      this.userForm.reset();
+      this.buildForm();
       this.userId = '';
     }
   }
