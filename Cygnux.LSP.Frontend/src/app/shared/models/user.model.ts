@@ -6,6 +6,14 @@ export interface UserResponse {
   phoneNumber: string;
   isActive: boolean;
   roles:string;
+  customerName:string;
+  location:string;
+  sessionTime:number;
+  address:string;
+  locality:string;
+  city:string;
+  zipCode:string;
+  userType:string;
 }
 
 export interface AddUserRequest {

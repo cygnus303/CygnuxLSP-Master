@@ -3,7 +3,6 @@
     <div class="card">
       <div class="modal-header bs-blue d-flex justify-content-between">
         <h5 class="modal-title" id="exampleModalLabel">{{!lspId ? 'Add Lsp': 'Update Lsp'}}</h5>
-        <!-- <button class="btn-close" type="button" ></button> -->
         <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close" ></i></button>
       </div>
       <div class="card-body pb-0 pt-4">
@@ -131,13 +130,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="mt-4">
-            <button class="btn btn-success" type="submit" [disabled]="lspForm.invalid">
-              <i class="fa fa-check"></i> Submit</button>&nbsp;
-            <button class="btn btn-danger" type="reset">
-              <i class="fa fa-times"></i> Reset
-            </button>
-          </div> -->
           <div class="gap-2 d-flex justify-content-end">
             <button class="btn btn-square btn-success pull-right rounded-3" type="submit"><i class="fa fa-check"></i> Submit</button>&nbsp;
             <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>

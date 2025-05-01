@@ -6,13 +6,14 @@
             <td><strong>Customer Name: </strong> {{ lspMappingsDetail?.customerName }}</td>
             <td><strong>Support Email Address: </strong> {{ lspMappingsDetail?.supportEmail }}</td>
           </tr>
-          <tr class="table-th">
-            <td colspan="2"><strong>Lsp Name:</strong> 
-                <tr *ngFor="let data of lspMappingsDetail?.lspResponses">
-                  <td>{{data.lspName}}</td>
-                </tr>
+            <tr class="table-th">
+              <td colspan="2" class="d-flex">
+                <strong>Lsp Name : </strong><br>
+                <span *ngFor="let data of lspMappingsDetail?.lspResponses; let last = last">
+                  &nbsp;{{ data.lspName }}<span *ngIf="!last"> , <br></span>
+                </span>
               </td>
-          </tr>
+            </tr>
         </tbody>
       </table>
     </div>

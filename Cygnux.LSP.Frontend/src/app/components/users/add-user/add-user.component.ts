@@ -46,7 +46,6 @@ export class AddUserComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.buildForm();
-    // this.getCustomers()
     this.getRoles();
   }
 
@@ -55,18 +54,18 @@ export class AddUserComponent implements OnInit, OnChanges {
       customerName:new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
-      location:new FormControl(null),
+      location:new FormControl(''),
       sessionTime:new FormControl(null),
       roles: new FormControl(null, [Validators.required]),
-      emailId: new FormControl(null, [Validators.required,Validators.pattern(EmailRegex)]),
-      phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(OnlyDigitRegex)]),
+      emailId: new FormControl('', [Validators.required,Validators.pattern(EmailRegex)]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
-      address:new FormControl(null,[Validators.required]),
-      locality:new FormControl(null),
-      city:new FormControl(null,[Validators.required]),
-      zipCode:new FormControl(null,[Validators.required,Validators.pattern(zipCode)]),
-      photo:new FormControl(null),
-      userType:new FormControl(null,[Validators.required])
+      address:new FormControl('',[Validators.required]),
+      locality:new FormControl(''),
+      city:new FormControl('',[Validators.required]),
+      zipCode:new FormControl('',[Validators.required,Validators.pattern(zipCode)]),
+      photo:new FormControl(''),
+      userType:new FormControl('',[Validators.required])
     });
   }
 
@@ -105,27 +104,6 @@ export class AddUserComponent implements OnInit, OnChanges {
       }}
     });
   }
-
-  // getCustomers() {
-  //   this.commonService.updateLoader(true);
-  //   const filters: any = {
-  //     Page: 1,
-  //     UserID:this.identityService.getLoggedUserId(),
-  //     PageSize: 100,
-  //   };
-  //   this.customerService.getCustomerList(filters).subscribe({
-  //     next: (response) => {
-  //       if (response) {
-  //         this.customers = response.data;
-  //       }
-  //       this.commonService.updateLoader(false);
-  //     },
-  //     error: (response: any) => {
-  //       this.sweetAlertService.error(response.error.message);
-  //       this.commonService.updateLoader(false);
-  //     },
-  //   });
-  // }
 
   addUser(form: FormGroup): void {
     this.commonService.updateLoader(true);

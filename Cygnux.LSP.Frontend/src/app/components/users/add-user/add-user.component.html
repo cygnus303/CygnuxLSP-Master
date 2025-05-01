@@ -65,24 +65,6 @@
                     <small *ngIf="userForm.controls['phoneNumber'].errors?.['pattern']">Phone Number is invalid.</small>
                   </div>
                 </div>
-                <!-- <div class="col-md-4">
-                  <label class="col-form-label">Password</label>
-                  <input class="form-control"  formControlName="password" type="text" required
-                    [ngClass]="{ 'border-danger': userForm.controls['password'].invalid && userForm.controls['password'].touched}" />
-                  <div *ngIf="userForm.controls['password'].invalid && userForm.controls['password']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['password'].errors?.['required']">Password is
-                      required.</small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <label class="col-form-label">Confirm Password</label>
-                  <input class="form-control"  formControlName="confirmPassword" type="text" required
-                    [ngClass]="{ 'border-danger': userForm.controls['confirmPassword'].invalid && userForm.controls['confirmPassword'].touched}" />
-                  <div *ngIf="userForm.controls['confirmPassword'].invalid && userForm.controls['confirmPassword']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['confirmPassword'].errors?.['required']">Confirm Password is
-                      required.</small>
-                  </div>
-                </div> -->
                 <div class="col-md-4">
                   <label class="col-form-label">User type</label>
                   <input class="form-control"  formControlName="userType" type="text" required placeholder="Enter User type"
@@ -125,15 +107,6 @@
                     <small *ngIf="userForm.controls['zipCode'].errors?.['pattern']">zipCode is invalid.</small>
                   </div>
                 </div>
-                <!-- <div class="col-md-4">
-                  <label class="col-form-label">User type</label>
-                  <input class="form-control"  formControlName="userType" type="text" required
-                    [ngClass]="{ 'border-danger': userForm.controls['userType'].invalid && userForm.controls['userType'].touched}" />
-                  <div *ngIf="userForm.controls['userType'].invalid && userForm.controls['userType']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['userType'].errors?.['required']">User type is
-                      required.</small>
-                  </div>
-                </div> -->
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="roles">Roles</label>

@@ -3,32 +3,32 @@
       <table class="table table-bordered table-striped">
         <tbody>
           <tr>
-            <td><strong>First Name:</strong> {{ usersDetail?.firstName }}</td>
-            <td><strong>Last Name:</strong> {{ usersDetail?.lastName }}</td>
+            <td><strong>First Name:</strong> {{ usersDetail?.firstName ? usersDetail?.firstName : '--' }}</td>
+            <td><strong>Last Name:</strong> {{ usersDetail?.lastName ? usersDetail?.lastName : '--' }}</td>
           </tr>
           <tr>
-            <td><strong>Email:</strong> {{ usersDetail?.emailId }}</td>
-            <td><strong>Phone number:</strong> {{ usersDetail?.phoneNumber }}</td>
+            <td><strong>Email:</strong> {{ usersDetail?.emailId ? usersDetail?.emailId : '--' }}</td>
+            <td><strong>Phone number:</strong> {{ usersDetail?.phoneNumber ? usersDetail?.phoneNumber : '--' }}</td>
           </tr>
           <tr>
-            <td><strong>Roles:</strong> {{ usersDetail?.roles }}</td>
-            <td><strong>Customer Name:</strong> {{ '--' }}</td>
+            <td><strong>Roles:</strong> {{ usersDetail?.roles ? usersDetail?.roles : '--' }}</td>
+            <td><strong>Customer Name:</strong> {{ usersDetail?.customerName ? usersDetail?.customerName : '--' }}</td>
           </tr>
           <tr>
-            <td><strong>Location:</strong> {{ '--' }}</td>
-            <td><strong>Session Time:</strong> {{ '--' }}</td>
+            <td><strong>Location:</strong> {{ usersDetail?.location ? usersDetail?.location : '--' }}</td>
+            <td><strong>Session Time:</strong> {{ usersDetail?.sessionTime ? usersDetail?.sessionTime : '--' }}</td>
           </tr>
           <tr>
-            <td><strong>Phone number:</strong> {{ '--' }}</td>
-            <td><strong>Address:</strong> {{ '--' }}</td>
+            <td class="w-50"><strong>Phone number:</strong> {{ usersDetail?.phoneNumber ? usersDetail?.phoneNumber : '--' }}</td>
+            <td class="w-50"><strong>Address:</strong> {{ usersDetail?.address ? usersDetail?.address : '--' }}</td>
           </tr>
           <tr>
-            <td><strong>Locality:</strong> {{ '--' }}</td>
-            <td><strong>City:</strong> {{ '--' }}</td>
+            <td><strong>Locality:</strong> {{ usersDetail?.locality ? usersDetail?.locality : '--' }}</td>
+            <td><strong>City:</strong> {{ usersDetail?.city ? usersDetail?.city : '--' }}</td>
           </tr>
           <tr>
-            <td><strong>Zip Code:</strong> {{ '--' }}</td>
-            <td><strong>User type:</strong> {{ '--' }}</td>
+            <td><strong>Zip Code:</strong> {{ usersDetail?.zipCode ? usersDetail?.zipCode : '--' }}</td>
+            <td><strong>User type:</strong> {{ usersDetail?.userType ? usersDetail?.userType : '--' }}</td>
           </tr>
         </tbody>
       </table>

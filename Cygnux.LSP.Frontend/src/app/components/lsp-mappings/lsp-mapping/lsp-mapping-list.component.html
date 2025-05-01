@@ -21,21 +21,13 @@
                                     <th class="w-25">Lsp Name</th>
                                     <th class="w-8 text-center">Active</th>
                                     <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
-                                      <!-- <img src="../assets/images/add-line.svg" title="Switch to inserting" height="25"> -->
                                     </th>
                                   </tr>
                                   <tr class="table-th">
                                     <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getLspMappings()"/></th>
                                     <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLspMappings()"/></th>
                                     <th class="w-8"></th>
-                                    <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
-                                      <!-- <div class="align-items-center d-flex justify-content-center gap-3 pt-2 pb-2 text-center cursor-pointer">
-                                        <img src="../assets/images/Search.png" title="Search" height="15">
-                                        <svg xmlns="http://www.w3.org/2000/svg" title="Clear filter" viewBox="0 0 24 24" fill="rgba(21,141,247,1)" height="18">
-                                          <path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>
-                                        </svg>
-                                      </div> -->
-                                    </th>
+                                    <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
                                   </tr>
                                 </thead>
                               </table>

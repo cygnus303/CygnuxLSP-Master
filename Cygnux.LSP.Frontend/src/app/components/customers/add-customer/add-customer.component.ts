@@ -108,7 +108,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   addUserAndCustomer(form: FormGroup): void {
     if (form.valid) {
       this.commonService.updateLoader(true);
-      const { accountsHead, accountsHeadMobileNo, address, city, consolidatedGSTNo, country, customerName, 
+      const { accountsHead, accountsHeadMobileNo, consolidatedGSTNo, country, 
               isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode, 
               proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state,customerCode, ...payload } = form.getRawValue();
       payload.phoneNumber = mobileNo;
