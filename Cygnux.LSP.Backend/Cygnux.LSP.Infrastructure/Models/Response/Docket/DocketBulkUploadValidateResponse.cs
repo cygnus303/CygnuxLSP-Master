@@ -17,6 +17,8 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string ToLocation { get; set; } = string.Empty;
         public int Quantity { get; set; }   
         public string ModeOfTransporter { get; set; } = string.Empty;
+        public Guid Customer { get; set; }
+        public Guid Lsp { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
         public bool ErrorCode { get; set; }  
     }
