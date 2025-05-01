@@ -23,9 +23,9 @@ internal class UserRepository : IUserRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize, Guid userId)
+    public async Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize, Guid userId, string firstName, string emailId, string phoneNumber)
     {
-        var response = await _userService.GetUserList(page, pageSize,userId);
+        var response = await _userService.GetUserList(page, pageSize,userId, firstName, emailId, phoneNumber);
 
         return new BaseResponse<IEnumerable<UserResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
@@ -48,6 +48,14 @@ internal class UserRepository : IUserRepository
             Email = userRequest.EmailId,
             UserName = userRequest.EmailId,
             PhoneNumber = userRequest.PhoneNumber,
+            City = userRequest.City,
+            CustomerName = userRequest.CustomerName,
+            Location = userRequest.Location,
+            UserType = userRequest.UserType,
+            Locality = userRequest.Locality,
+            Address = userRequest.Address,
+            ZipCode = userRequest.ZipCode,
+            SessionTime = userRequest.SessionTime,
             EntryBy = Guid.NewGuid(),
             EntryDate = DateTime.Now,
             PasswordHash = "Admin@123",
@@ -71,7 +79,15 @@ internal class UserRepository : IUserRepository
             FirstName = userRequest.FirstName,
             LastName = userRequest.LastName,
             PhoneNumber = userRequest.PhoneNumber,
-            IsActive = userRequest.IsActive
+            IsActive = userRequest.IsActive,
+            City = userRequest.City,
+            CustomerName = userRequest.CustomerName,
+            Location = userRequest.Location,
+            UserType = userRequest.UserType,
+            Locality = userRequest.Locality,
+            Address = userRequest.Address,
+            SessionTime = userRequest.SessionTime,
+            ZipCode = userRequest.ZipCode,
         });
 
         if (response.Succeeded)

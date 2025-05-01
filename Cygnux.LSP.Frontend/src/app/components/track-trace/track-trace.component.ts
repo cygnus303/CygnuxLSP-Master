@@ -20,8 +20,8 @@ export class TrackTraceComponent {
 
   docketnumber=[
     {"docketNumber":"ABC123"},
-    {"docketNumber":"ABC123"},
-    {"docketNumber":"ABC123"},
+    {"docketNumber":"ABC124"},
+    {"docketNumber":"ABC125"},
 
   ]
   addDocketNumber(event: KeyboardEvent): void {

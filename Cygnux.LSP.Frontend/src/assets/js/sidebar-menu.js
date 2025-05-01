@@ -370,18 +370,22 @@ $('.simplebar-wrapper .simplebar-content-wrapper').animate({
 
 
 (() => {
-  let pinTitle = document.querySelector(".pin-title");
   let pinIcon = document.querySelectorAll(".sidebar-list .fa-thumb-tack");
 
   function togglePinnedName() {
-    if (!pinTitle) return; // Exit if the element doesn't exist
-  
+    const pinTitle = document.querySelector('.pin-title'); // Replace with correct selector
+    if (!pinTitle) {
+      return;
+    }
     if (document.getElementsByClassName("pined").length) {
-      if (!pinTitle.classList.contains("show")) pinTitle.classList.add("show");
+      if (!pinTitle.classList.contains("show")) {
+        pinTitle.classList.add("show");
+      }
     } else {
       pinTitle.classList.remove("show");
     }
   }
+  
 
   pinIcon.forEach((item, index) => {
     let linkName = item.parentNode.querySelector("span").innerHTML;

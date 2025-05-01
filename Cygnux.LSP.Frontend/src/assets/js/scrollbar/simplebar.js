@@ -4949,16 +4949,18 @@
 	  var _proto = SimpleBar.prototype;
 
 	  _proto.init = function init() {
-	    // Save a reference to the instance, so we know this DOM node has already been instancied
-	    SimpleBar.instances.set(this.el, this); // We stop here on server-side
+		if (!this.el || !(this.el instanceof HTMLElement)) {
+			return; // Prevent further initialization
+		  }
+		  SimpleBar.instances.set(this.el, this);
 
-	    if (canUseDom) {
-	      this.initDOM();
-	      this.scrollbarWidth = this.getScrollbarWidth();
-	      this.recalculate();
-	      this.initListeners();
-	    }
-	  };
+			if (canUseDom) {
+				this.initDOM();
+				this.scrollbarWidth = this.getScrollbarWidth();
+				this.recalculate();
+				this.initListeners();
+			}
+		};
 
 	  _proto.initDOM = function initDOM() {
 	    var _this2 = this;
@@ -5498,8 +5500,10 @@
 	    // Handle it asynchronously to allow scripts the opportunity to delay init
 	    window.setTimeout(this.initDOMLoadedElements);
 	  } else {
-	    document.addEventListener('DOMContentLoaded', this.initDOMLoadedElements);
-	    window.addEventListener('load', this.initDOMLoadedElements);
+		document.addEventListener('DOMContentLoaded', function () {
+			togglePinnedName(); // only call it after DOM is ready
+		  });
+				  window.addEventListener('load', this.initDOMLoadedElements);
 	  }
 	};
 
