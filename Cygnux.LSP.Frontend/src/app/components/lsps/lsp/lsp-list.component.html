@@ -17,38 +17,38 @@
           <table class="table table-header align-middle w-100">
             <thead class="table-light">
               <tr class="table-th">
-                <th class="w-25">Lsp Name</th>
-                <th class="w-25">Email</th>
-                <th class="w-25">Mobile No</th>
+                <th class="w-15">Lsp Name</th>
+                <th class="w-15">Email</th>
+                <th class="w-15">Mobile No</th>
                 <th class="w-15">Alias</th>
                 <th class="w-15">Description</th>
                 <th class="w-8 text-center">Active</th>
-                <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
+                <th class="w-15 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
                 </th>
               </tr>
               <tr class="table-th">
-                <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLsps()"/></th>
-                <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['emailId']" (input)="getLsps()"/></th>
-                <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['mobileNo']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['emailId']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['mobileNo']" (input)="getLsps()"/></th>
                 <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['alias']" (input)="getLsps()"/></th>
                 <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['description']" (input)="getLsps()"/></th>
                 <th class="w-8"></th>
-                <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
+                <th class="w-15 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
               </tr>
             </thead>
           </table>
           <div class=" mb-3">
             <table class="customers w-100" *ngIf="!loading && lsps.length > 0">
               <tr *ngFor="let lsp of lsps; let i = index">
-                <td class="w-25">{{lsp.lspName}}</td>
-                <td class="w-25">{{lsp.emailId}}</td>
-                <td class="w-25">{{lsp.mobileNo}}</td>
+                <td class="w-15">{{lsp.lspName}}</td>
+                <td class="w-15">{{lsp.emailId}}</td>
+                <td class="w-15">{{lsp.mobileNo}}</td>
                 <td class="w-15">{{lsp.alias}}</td>
                 <td class="w-15">{{lsp.description}}</td>
                 <td class="w-8 text-center"> <i
                     [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
                 </td>
-                <td class="w-8" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
+                <td class="w-15" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                   <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
                     <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"
