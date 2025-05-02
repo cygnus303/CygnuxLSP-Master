@@ -102,6 +102,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response) {
           this.customers = response.data;
+          if(this.userRoles === 'Customer Admin'){
+            this.lspTatForm.patchValue(response.data[0])
+          }
         }
         this.commonService.updateLoader(false);
       },

@@ -35,7 +35,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public transportMode:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
-
+  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   constructor(
     private docketService: DocketService,
     private commonService: CommonService,
@@ -118,6 +118,9 @@ ngOnChanges(changes: SimpleChanges): void {
       next: (response) => {
         if (response) {
           this.customers = response.data;
+          if(this.userRoles === 'Customer Admin'){
+            this.docketForm.patchValue(response.data[0])
+          }
         }
         this.commonService.updateLoader(false);
       },
