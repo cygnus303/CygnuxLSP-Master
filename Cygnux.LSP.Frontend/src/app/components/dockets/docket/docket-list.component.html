@@ -41,6 +41,7 @@
                       <th class="w-15">To WH/Store</th>
                       <th class="w-15">Transporter</th>
                       <th class="w-15">Transport Mode</th>
+                      <th class="w-15">Current Status</th>
                       <th class="w-15">Quantity</th>
                       <th class="w-15 text-center">Action</th>
                     </tr>
@@ -50,6 +51,7 @@
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['toLocation']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transporter']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transportMode']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['status']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['quantity']" (input)="getDockets()"/></th>
                       <th class="w-15 text-center">
                       </th>
@@ -64,6 +66,7 @@
                     <td class="w-15">{{ docket.toLocation }}</td>
                     <td class="w-15">{{ docket.transporter }}</td>
                     <td class="w-15">{{ docket.transportMode }}</td>
+                    <td class="w-15">{{ docket.status }}</td>
                     <td class="w-15 text-center">{{ docket.quantity }}</td>
                     <td class="w-15">
                       <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
