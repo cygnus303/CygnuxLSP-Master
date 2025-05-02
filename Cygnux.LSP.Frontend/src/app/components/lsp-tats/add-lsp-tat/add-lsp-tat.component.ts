@@ -32,6 +32,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   public transporter:TrackingListResponse[]=[];
   @Input() lspTatResponse: LspTatResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
+  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
 
   constructor(
     private lspTatService: LspMappingService,

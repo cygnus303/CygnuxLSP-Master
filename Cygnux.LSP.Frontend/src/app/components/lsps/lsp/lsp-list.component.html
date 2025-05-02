@@ -18,6 +18,7 @@
             <thead class="table-light">
               <tr class="table-th">
                 <th class="w-25">Lsp Name</th>
+                <th class="w-25">Email</th>
                 <th class="w-25">Mobile No</th>
                 <th class="w-15">Alias</th>
                 <th class="w-15">Description</th>
@@ -27,6 +28,7 @@
               </tr>
               <tr class="table-th">
                 <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLsps()"/></th>
+                <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['emailId']" (input)="getLsps()"/></th>
                 <th class="w-25"><input type="text" class="form-control"  [(ngModel)]="filters['mobileNo']" (input)="getLsps()"/></th>
                 <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['alias']" (input)="getLsps()"/></th>
                 <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['description']" (input)="getLsps()"/></th>
@@ -39,6 +41,7 @@
             <table class="customers w-100" *ngIf="!loading && lsps.length > 0">
               <tr *ngFor="let lsp of lsps; let i = index">
                 <td class="w-25">{{lsp.lspName}}</td>
+                <td class="w-25">{{lsp.emailId}}</td>
                 <td class="w-25">{{lsp.mobileNo}}</td>
                 <td class="w-15">{{lsp.alias}}</td>
                 <td class="w-15">{{lsp.description}}</td>

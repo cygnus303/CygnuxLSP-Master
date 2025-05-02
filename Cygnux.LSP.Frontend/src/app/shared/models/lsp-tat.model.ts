@@ -13,6 +13,7 @@ export interface LspTatResponse {
     priority:string;
     bookingType:string;
     mode:string;
+    emailId:string;
 }
 
 export interface AddLspTatRequest {
