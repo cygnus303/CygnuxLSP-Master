@@ -11,6 +11,8 @@ export interface DocketResponse {
   quantity: number;
   transporter:string;
   status:string;
+  transportModeDesc:string;
+  transporterDesc:string;
 }
 
 export interface AddDocketRequest {
