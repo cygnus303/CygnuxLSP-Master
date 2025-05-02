@@ -50,7 +50,7 @@ ngOnChanges(changes:SimpleChanges){
       docketNumber: new FormControl(null,[Validators.required]),
       lspName:new FormControl(null), 
       orderDate:new FormControl(null),
-      statusDate:new FormControl(null,[Validators.required]),
+      statusDate:new FormControl(new Date(),[Validators.required]),
       fromCity:new FormControl(null),
       toCity:new FormControl(null),
       currentStatus:new FormControl(null),

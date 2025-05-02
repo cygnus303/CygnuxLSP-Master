@@ -83,7 +83,8 @@ ngOnChanges(changes: SimpleChanges): void {
     this.docketForm.reset();
     this.docketId = '';
     this.docketForm.patchValue({
-      bookingDate: new Date()
+      bookingDate: new Date(),
+      status:this.docketId ? null : '1'
     });
   }
 }
@@ -120,6 +121,7 @@ ngOnChanges(changes: SimpleChanges): void {
           this.customers = response.data;
           if(this.userRoles === 'Customer Admin'){
             this.docketForm.patchValue(response.data[0])
+            this.onSelectCustomer(response.data[0])
           }
         }
         this.commonService.updateLoader(false);

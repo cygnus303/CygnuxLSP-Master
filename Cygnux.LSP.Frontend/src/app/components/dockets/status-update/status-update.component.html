@@ -31,18 +31,19 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Order Date</label>
-                        <input class="form-control" formControlName="orderDate" type="text"  placeholder="Enter order Date" readonly/>
+                        <!-- <input class="form-control" formControlName="orderDate" type="text"  placeholder="Enter order Date" readonly/> -->
+                        <input type="text" class="form-control" #dp="bsDatepicker" formControlName="orderDate"  bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Status Date </label>
                         <!-- <input class="form-control" formControlName="statusDate" type="text"  placeholder="Enter status Date" readonly/> -->     
-                        <input class="form-control" placeholder="dd/mm/yyyy" #datepickerMDY="bsDatepicker" bsDatepicker required
-                        formControlName="statusDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+                        <!-- <input class="form-control" placeholder="dd/mm/yyyy" #datepickerMDY="bsDatepicker" bsDatepicker required
+                        formControlName="statusDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"> -->
+                        <input type="text" class="form-control" #dp="bsDatepicker" formControlName="statusDate"  bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}">
                         <div *ngIf="statusUpdateForm.controls['statusDate'].invalid && statusUpdateForm.controls['statusDate']?.touched" class="text-danger">
                           <small *ngIf="statusUpdateForm.controls['statusDate'].errors?.['required']">statusDate is required.</small>
-                          <small *ngIf="statusUpdateForm.controls['statusDate'].errors?.['pattern']">statusDate is invalid.</small>
                         </div>
                       </div>
                     </div>
