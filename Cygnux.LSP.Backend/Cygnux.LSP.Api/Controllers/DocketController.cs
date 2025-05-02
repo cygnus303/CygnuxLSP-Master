@@ -30,9 +30,9 @@ public class DocketController : ControllerBase
 
     [HttpGet]
     [Route("GetDocketList")]
-    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? docketNo , string? fromLocation,string? toLocation,int? quantity)
+    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? docketNo , string? fromLocation,string? toLocation,int? quantity,string? transporter,string? transportmode)
     {
-        return Ok(await _docketRepository.GetDocketList(page, pageSize,userId,docketNo,fromLocation,toLocation,quantity));
+        return Ok(await _docketRepository.GetDocketList(page, pageSize,userId,docketNo,fromLocation,toLocation,quantity,transporter,transportmode));
     }
 
     [HttpGet]

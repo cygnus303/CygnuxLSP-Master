@@ -31,10 +31,10 @@ internal class LspRepository : ILspRepository
 
     }
 
-    public async Task<BaseResponse<LspDetailResponse?>> GetLspDetails(Guid id, Guid userId)
+    public async Task<BaseResponse<LspDetailResponse>> GetLspDetails(Guid id, Guid userId)
     {
         var response = await _lspService.GetLspDetails(id,userId);
-        return new BaseResponse<LspDetailResponse?>(response);
+        return new BaseResponse<LspDetailResponse>(response);
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> AddLsp(CreateLspRequest createLsp)

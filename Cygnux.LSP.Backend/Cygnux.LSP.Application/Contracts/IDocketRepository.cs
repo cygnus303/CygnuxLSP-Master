@@ -8,7 +8,7 @@ using Models.Response;
 
 public interface IDocketRepository
 {
-    Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity);
+    Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity, string? transporter, string? transportmode);
 
     Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId,Guid userId);
 

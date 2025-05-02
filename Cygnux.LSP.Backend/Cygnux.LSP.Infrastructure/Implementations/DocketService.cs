@@ -17,7 +17,7 @@ internal class DocketService : IDocketService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity)
+    public async Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity, string? transporter, string? transportmode)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Page", page, DbType.Int32);
@@ -27,6 +27,8 @@ internal class DocketService : IDocketService
         parameters.Add("@FromLocation", fromLocation, DbType.String);
         parameters.Add("@ToLocation", toLocation, DbType.String);
         parameters.Add("@Quantity", quantity, DbType.Int32);
+        parameters.Add("@Transporter", transporter, DbType.String);
+        parameters.Add("@TransportMode", transportmode, DbType.String);
 
         return await _dbConnection.QueryAsync<DocketListResponse>(
              StoredProcedureConstants.Usp_GetDocket,
