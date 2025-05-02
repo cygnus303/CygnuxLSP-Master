@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import {  Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DocketService } from '../../../shared/services/docket.service';
 import { DocketResponse, TrackingListResponse } from '../../../shared/models/docket.model';
@@ -19,7 +19,7 @@ export class StatusUpdateComponent {
   constructor(
     private docketService:DocketService,
     private sweetAlertService:SweetAlertService,
-    private commonService:CommonService
+    private commonService:CommonService,
   ){}
 
 ngOnChanges(changes:SimpleChanges){

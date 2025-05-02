@@ -65,7 +65,7 @@ export class LspMappingListComponent implements OnInit {
     const filters: any = {
       ...this.filters,
       Page: page,
-      UserID:this.identityService.getLoggedUserId(),
+      Id:this.identityService.getLoggedUserId(),
       PageSize: this.pageSize,
     };
     this.commonService.updateLoader(true);

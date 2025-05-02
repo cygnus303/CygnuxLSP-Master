@@ -1,4 +1,4 @@
-import {Component,EventEmitter,OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, ViewChild} from '@angular/core';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -40,12 +40,14 @@ export class DocketListComponent implements OnInit {
     private toasterService: ToastrService,
     private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
+    private cdRef: ChangeDetectorRef
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
   }
 
   ngAfterViewInit(): void {
     feather.replace(); // Ensure icons render
+    this.cdRef.detectChanges();
   }
 
   ngOnInit(): void {

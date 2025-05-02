@@ -45,8 +45,19 @@
                                     <label class="text-muted" for="checkbox1">Remember password</label>
                                 </div><a class="link cursor-pointer" (click)="openForgotPassword()">Forgot password?</a>
                                 <div class="text-end mt-3">
-                                    <button class="btn btn-primary btn-block w-100" [disabled]="loginFormGroup.invalid"
-                                        type="submit">Sign in </button>
+                                  <button 
+                                  class="btn btn-primary btn-block w-100" 
+                                  [disabled]="loginFormGroup.invalid || loading"
+                                  type="submit">
+                                  <ng-container *ngIf="!loading; else loadingTemplate">
+                                    Sign in
+                                  </ng-container>
+                                  <ng-template #loadingTemplate>
+                                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Loading...
+                                  </ng-template>
+                                </button>
+                                
                                 </div>
                             </div>
                         </form>
