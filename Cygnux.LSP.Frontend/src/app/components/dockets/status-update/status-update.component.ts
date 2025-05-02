@@ -26,11 +26,11 @@ ngOnChanges(changes:SimpleChanges){
   if (changes['docketResponse'] && this.docketResponse) {
     this.statusUpdateForm.patchValue({
       docketNumber:this.docketResponse.docketNo,
-      // lspName:this.docketResponse,
+      lspName:this.docketResponse.transporterDesc,
       orderDate:this.docketResponse.bookingDate,
       fromCity:this.docketResponse.fromLocation,
       toCity:this.docketResponse.toLocation,
-      // currentStatus:this.docketResponse
+      currentStatus:this.docketResponse.currentStatus
     })
   } 
 }

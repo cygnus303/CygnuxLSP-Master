@@ -62,7 +62,15 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Current Status</label>
-                        <input class="form-control" formControlName="currentStatus" type="text"  placeholder="Enter Current Status" readonly/>
+                        <!-- <input class="form-control" formControlName="currentStatus" type="text"  placeholder="Enter Current Status" readonly/> -->
+                        <ng-select [items]="transporter"
+                       bindLabel="codeDesc"
+                       bindValue="codeId"
+                       formControlName="currentStatus"
+                       placeholder="Search Status"
+                       [searchable]="true"
+                       [disabled]="true">
+                       </ng-select>
                       </div>
                     </div>
                     <div class="col-md-6">
