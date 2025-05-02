@@ -73,7 +73,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
     this.docketId = this.docketResponse.id;
     this.docketForm.patchValue(this.docketResponse);
-    this.onSelectCustomer(this.docketResponse)
+    this.onSelectCustomer(this.docketResponse , true)
     this.onSelectOrigin(this.docketResponse)
   } else {
     this.docketForm.reset();
@@ -167,9 +167,14 @@ ngOnChanges(changes: SimpleChanges): void {
         },
       });
   }
-  onSelectCustomer(event:any){
+  onSelectCustomer(event:any ,resetLocations: boolean = false){
     this.commonService.updateLoader(true);
-   
+    if(!resetLocations){
+      this.docketForm.patchValue({
+        fromLocation:null,
+        toLocation:null
+      });
+    }
     const filters={
       CustomerId:event.customerId,
       origin:event.location ? event.location : ''
