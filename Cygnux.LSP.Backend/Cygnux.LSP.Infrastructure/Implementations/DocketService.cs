@@ -157,6 +157,19 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         );
     }
+    public async Task<CommonCreateResponse> InsertDocketData(string docketdata, Guid entryBy)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@json", docketdata, DbType.String);
+        parameters.Add("@entryBy", entryBy, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+               StoredProcedureConstants.USP_InsertValiadateDocketData,
+               param: parameters,
+               commandType: CommandType.StoredProcedure
+           ) ?? new CommonCreateResponse();
+    }
+
 
     public async Task<CommonCreateResponse> ImportPOD(string PodData,Guid User)
     {

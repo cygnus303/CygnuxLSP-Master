@@ -3,6 +3,9 @@
 using Application.Contracts;
 using Application.Models.Request.Docket;
 using Cygnux.LSP.Api.Helpers;
+using Cygnux.LSP.Infrastructure.Models.Response.Docket;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using NPOI.SS.UserModel;
@@ -131,6 +134,13 @@ public class DocketController : ControllerBase
             return Ok(await _docketRepository.GetValidateDocketImportData(data,customerid));
         }
         return Ok();
+    }
+
+    [HttpPost]
+    [Route("InsertExcelUplaodDocketData")]
+    public async Task<IActionResult> InsertDocketData(List<DocketEntryExcelUpload> docketlist,Guid entryBy)
+    {
+        return Ok(await _docketRepository.InsertDocketData(docketlist,entryBy));
     }
 
     [HttpPost("ImportPOD")]

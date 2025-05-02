@@ -44,10 +44,16 @@ public class CustomerLspController : ControllerBase
         return Ok(await _customerLspRepository.GetLspTatDetails(id, userId));
     }
 
+    //[HttpGet]
+    //public async Task<IActionResult> GetLspMappingList([FromQuery] int page, [FromQuery] int pageSize,Guid userId, string? customerName, string? lspName)
+    //{
+    //    return Ok(await _customerLspRepository.GetLspMappingList(Guid.NewGuid(), page, pageSize, userId,customerName,lspName));
+    //}
     [HttpGet]
-    public async Task<IActionResult> GetLspMappingList([FromQuery] int page, [FromQuery] int pageSize,Guid userId, string? customerName, string? lspName)
+    [Route("CustomerLspMappingList")]
+    public async Task<IActionResult> GetLspMappingList(Guid Id, [FromQuery] Dictionary<string, string> filters)
     {
-        return Ok(await _customerLspRepository.GetLspMappingList(Guid.NewGuid(), page, pageSize, userId,customerName,lspName));
+        return Ok(await _customerLspRepository.GetLspMappingList(Id, filters));
     }
 
     [HttpGet]

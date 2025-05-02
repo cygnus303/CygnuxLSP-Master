@@ -8,7 +8,7 @@ using Models.Response;
 
 public interface ICustomerLspRepository
 {
-    Task<BaseResponse<IEnumerable<LspMappingDetailResponse>>> GetLspMappingList(Guid customerId, int page, int pageSize,Guid userId,string? customerName, string? lspName);
+    Task<BaseResponse<IEnumerable<LspMappingDetailResponse>>> GetLspMappingList(Guid Id,Dictionary<string, string> filters);
 
     Task<BaseResponse<LspMappingDetailResponse?>> GetLspMappingDetails(Guid customerId, Guid userId);
 

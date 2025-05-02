@@ -45,9 +45,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
     }
 
 
-    public async Task<BaseResponse<IEnumerable<LspMappingDetailResponse>>> GetLspMappingList(Guid customerId, int page, int pageSize, Guid userId, string? customerName, string? lspName)
+    public async Task<BaseResponse<IEnumerable<LspMappingDetailResponse>>> GetLspMappingList(Guid Id, Dictionary<string, string> filters)
     {
-        var response = await _customerLspService.GetLspMappingList(customerId, page, pageSize,userId,customerName,lspName);
+        var response = await _customerLspService.GetLspMappingList(Id, JsonConvert.SerializeObject(filters));
         return new BaseResponse<IEnumerable<LspMappingDetailResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 

@@ -93,7 +93,14 @@ internal class DocketRepository : IDocketRepository
 
     public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, Guid User)
     {
-        var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(PodData),User);
+        var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(PodData), User);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+            : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+    public async Task<BaseResponse<CommonCreateResponse>> InsertDocketData(List<DocketEntryExcelUpload> docketlist, Guid entryBy)
+    {
+        var response = await _docketService.InsertDocketData(JsonConvert.SerializeObject(docketlist), entryBy);
 
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
