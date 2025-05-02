@@ -16,6 +16,7 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public int Quantity { get; set;}
       //  public Guid EntryBy  { get; set; } 
         public bool IsCancel { get; set; }
+        public string CurrentStatus { get; set; } = string.Empty;
     }
 
     public class PODDataList
