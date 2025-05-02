@@ -13,6 +13,7 @@ export interface DocketResponse {
   currentStatus:string;
   transportModeDesc:string;
   transporterDesc:string;
+  CurrentStatusDesc:string
 }
 
 export interface AddDocketRequest {
