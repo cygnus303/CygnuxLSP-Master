@@ -10,7 +10,7 @@ export interface DocketResponse {
   transportMode: string;
   quantity: number;
   transporter:string;
-  status:string;
+  currentStatus:string;
   transportModeDesc:string;
   transporterDesc:string;
 }

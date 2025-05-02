@@ -68,7 +68,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       quantity: new FormControl(null),
       // EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
       lspId:new FormControl(null),
-      status:new FormControl(this.docketId ? null : '1')
+      currentStatus:new FormControl(this.docketId ? null : '1')
     });
   }
 

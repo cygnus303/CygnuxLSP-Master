@@ -112,15 +112,15 @@
                     <ng-select [items]="transporter"
                     bindLabel="codeDesc"
                     bindValue="codeId"
-                    formControlName="status"
-                    placeholder="Search status"
+                    formControlName="currentStatus"
+                    placeholder="Search currentStatus"
                     [searchable]="true" required
                     [readonly]="!docketId"
-                    [ngClass]="{ 'border-danger': docketForm.controls['status'].invalid && docketForm.controls['status'].touched}" 
+                    [ngClass]="{ 'border-danger': docketForm.controls['currentStatus'].invalid && docketForm.controls['currentStatus'].touched}" 
                     >
                     </ng-select>
-                  <div *ngIf="docketForm.controls['status'].invalid && docketForm.controls['status']?.touched" class="text-danger">
-                    <small *ngIf="docketForm.controls['status'].errors?.['required']">status is
+                  <div *ngIf="docketForm.controls['currentStatus'].invalid && docketForm.controls['currentStatus']?.touched" class="text-danger">
+                    <small *ngIf="docketForm.controls['currentStatus'].errors?.['required']">status is
                       required.</small>
                   </div>
                 </div>
