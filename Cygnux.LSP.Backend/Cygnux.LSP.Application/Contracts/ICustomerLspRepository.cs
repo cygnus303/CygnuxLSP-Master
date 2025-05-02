@@ -16,7 +16,7 @@ public interface ICustomerLspRepository
 
     Task<BaseResponse<IEnumerable<CustomerResponse>>> GetCustomers(Guid loginid);
 
-    Task<BaseResponse<IEnumerable<LspResponse>>> GetLsps();
+    Task<BaseResponse<IEnumerable<LspResponse>>> GetLsps(Guid login);
 
     Task<BaseResponse<LspTatDetailResponse?>> GetLspTatDetails(string mappingId,Guid userId);
 

@@ -52,9 +52,10 @@ internal class CustomerLspService : ICustomerLspService
               commandType: CommandType.StoredProcedure
           );
     }
-    public async Task<IEnumerable<LspResponse>> GetLsps()
+    public async Task<IEnumerable<LspResponse>> GetLsps(Guid login)
     {
         var parameters = new DynamicParameters();
+        parameters.Add("@LoginId", login, DbType.Guid);
 
         return await _dbConnection.QueryAsync<LspResponse>(
               StoredProcedureConstants.Usp_GetMappedLsp,

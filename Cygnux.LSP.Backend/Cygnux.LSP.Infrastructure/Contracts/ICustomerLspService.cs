@@ -13,7 +13,7 @@ public interface ICustomerLspService
 
     Task<IEnumerable<CustomerResponse>> GetCustomers(Guid loginid);
 
-    Task<IEnumerable<LspResponse>> GetLsps();
+    Task<IEnumerable<LspResponse>> GetLsps(Guid login);
 
     Task<LspTatDetailResponse> GetLspTatDetails(string mappingId, Guid userId);
 
