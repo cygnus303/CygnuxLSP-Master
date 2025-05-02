@@ -28,10 +28,10 @@
                   <!-- Filter Inputs -->
                   <tr class="table-th">
                     <th class="w-25">
-                      <input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getLspMappings()" placeholder="Search Customer" />
+                      <input type="text" class="form-control" [(ngModel)]="filters['CustomerName']" (input)="getLspMappings()" placeholder="Search Customer" />
                     </th>
                     <th class="w-25">
-                      <input type="text" class="form-control" [(ngModel)]="filters['lspName']" (input)="getLspMappings()" placeholder="Search LSP" />
+                      <input type="text" class="form-control" [(ngModel)]="filters['LSPName']" (input)="getLspMappings()" placeholder="Search LSP" />
                     </th>
                     <th class="w-8"></th>
                     <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit || commonService.menuRoleList?.canDelete"></th>

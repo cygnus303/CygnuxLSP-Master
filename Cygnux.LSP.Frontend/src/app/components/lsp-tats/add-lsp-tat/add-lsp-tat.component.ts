@@ -98,7 +98,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
 
   getCustomers() {
     this.commonService.updateLoader(true);
-    this.lspTatService.getCustomers().subscribe({
+    this.lspTatService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;

@@ -77,9 +77,9 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Transporter</label>
-                    <ng-select [items]="transporter"
-                    bindLabel="codeDesc"
-                    bindValue="codeId"
+                    <ng-select [items]="lsps"
+                    bindLabel="lspName"
+                    bindValue="lspId"
                     formControlName="transporter"
                     placeholder="Search transporter"
                     [searchable]="true" required
@@ -104,6 +104,23 @@
                     </ng-select>
                   <div *ngIf="docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['transportMode'].errors?.['required']">transport Mode is
+                      required.</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">Current Status</label>
+                    <ng-select [items]="transporter"
+                    bindLabel="codeDesc"
+                    bindValue="codeId"
+                    formControlName="status"
+                    placeholder="Search status"
+                    [searchable]="true" required
+                    [readonly]="!docketId"
+                    [ngClass]="{ 'border-danger': docketForm.controls['status'].invalid && docketForm.controls['status'].touched}" 
+                    >
+                    </ng-select>
+                  <div *ngIf="docketForm.controls['status'].invalid && docketForm.controls['status']?.touched" class="text-danger">
+                    <small *ngIf="docketForm.controls['status'].errors?.['required']">status is
                       required.</small>
                   </div>
                 </div>

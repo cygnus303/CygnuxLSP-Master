@@ -23,7 +23,7 @@ export class LspMappingService {
   ) {}
 
   getLspMappingList(filters:any): Observable<IApiBaseResponse<LspMappingResponse[]>> {
-    return this.apiHandlerService.Get('customerLsp', filters);
+    return this.apiHandlerService.Get('CustomerLsp/CustomerLspMappingList', filters);
   }
 
   getLspMappingDetails(
@@ -40,8 +40,8 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`customerLsp/Tat/${id}?userId=${userId}`);
   }
 
-  getCustomers(): Observable<IApiBaseResponse<CustomerResponse[]>> {
-    return this.apiHandlerService.Get('customerLsp/Tat/Customers');
+  getCustomers(id:string): Observable<IApiBaseResponse<CustomerResponse[]>> {
+    return this.apiHandlerService.Get(`customerLsp/Tat/Customers?loginid=${id}`);
   }
 
   getLsps(): Observable<IApiBaseResponse<LspResponse[]>> {

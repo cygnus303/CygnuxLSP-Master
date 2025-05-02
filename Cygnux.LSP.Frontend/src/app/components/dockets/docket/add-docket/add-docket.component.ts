@@ -15,6 +15,7 @@ import { DocketService } from '../../../../shared/services/docket.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
 import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
+import { LspResponse } from '../../../../shared/models/lsp.model';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public customers: CustomerResponse[] = [];
   public customerLocation : CustomerLocationResponse[]=[];
   public customerWHStoreLocation : CustomerLocationResponse[]=[];
+  public lsps: LspResponse[] | null = null;
   public transporter:TrackingListResponse[]=[];
   public transportMode:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
@@ -50,6 +52,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.getCustomers();
     this.getTransporterDetail();
     this.getTransportModeDetail();
+    this.getLsps();
   }
 
   buildForm(): void {
@@ -64,7 +67,8 @@ export class AddDocketComponent implements OnInit, OnChanges {
       transportMode: new FormControl(null),
       quantity: new FormControl(null),
       // EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
-      lspId:new FormControl(null)
+      lspId:new FormControl(null),
+      status:new FormControl(this.docketId ? null : '1')
     });
   }
 
@@ -110,10 +114,26 @@ ngOnChanges(changes: SimpleChanges): void {
   }
   getCustomers() {
     this.commonService.updateLoader(true);
-    this.lspTatService.getCustomers().subscribe({
+    this.lspTatService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+
+  getLsps() {
+    this.commonService.updateLoader(true);
+    this.lspTatService.getLsps().subscribe({
+      next: (response) => {
+        if (response) {
+          this.lsps = response.data;
         }
         this.commonService.updateLoader(false);
       },

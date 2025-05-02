@@ -47,31 +47,37 @@ export class LoginComponent implements OnInit {
         if (this.loginFormGroup.invalid) {
             return;
         }
-        this.commonService.updateLoader(true);
+    
+        this.loading = true; // show loading in button
+        this.commonService.updateLoader(true); // optional global loader
+    
         this.identityService.login(this.loginFormGroup.getRawValue())
             .subscribe({
                 next: (response) => {
+                    this.loading = false; // hide button loader
+                    this.commonService.updateLoader(false); // optional
+    
                     if (response && response.success) {
                         this.toasterService.success('Login Successfully.');
                         this.identityService.setToken(response.data.token);
                         this.identityService.setRoles(response.data.roles);
-                        this.router.navigateByUrl('/dashboard');
-                        this.identityService.getLoggedUserId()
                         localStorage.setItem('email', response.data.email);
                         localStorage.setItem('roleId', response.data.roleId);
+                        this.router.navigateByUrl('/dashboard');
                     } else {
                         if (response.error) {
                             this.toasterService.error(response.error.message);
-                            this.commonService.updateLoader(false);
                         }
                     }
                 },
                 error: (response: any) => {
+                    this.loading = false;
                     this.commonService.updateLoader(false);
                     this.toasterService.error(response.error.message);
                 },
             });
     }
+    
 
     public onShowLogin(): void {
         this.buildLoginForm();
