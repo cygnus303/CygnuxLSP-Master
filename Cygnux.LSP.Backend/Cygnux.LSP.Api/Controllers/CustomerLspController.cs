@@ -25,9 +25,9 @@ public class CustomerLspController : ControllerBase
 
     [HttpGet]
     [Route("Tat/Customers")]
-    public async Task<IActionResult> GetCustomers()
+    public async Task<IActionResult> GetCustomers(Guid loginid)
     {
-        return Ok(await _customerLspRepository.GetCustomers());
+        return Ok(await _customerLspRepository.GetCustomers(loginid));
     }
 
     [HttpGet]

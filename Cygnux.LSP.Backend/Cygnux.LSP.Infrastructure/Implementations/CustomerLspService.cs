@@ -41,9 +41,10 @@ internal class CustomerLspService : ICustomerLspService
              commandType: CommandType.StoredProcedure
          ) ?? new LspMappingDetailResponse();
     }
-    public async Task<IEnumerable<CustomerResponse>> GetCustomers()
+    public async Task<IEnumerable<CustomerResponse>> GetCustomers(Guid loginid)
     {
         var parameters = new DynamicParameters();
+        parameters.Add("@LoginId", loginid, DbType.Guid);
 
         return await _dbConnection.QueryAsync<CustomerResponse>(
               StoredProcedureConstants.Usp_GetMappedCustomer,
