@@ -18,6 +18,7 @@
         public TrackingList track {  get; set; }
         public string TransporterDesc { get; set; } = string.Empty;
         public string TransportModeDesc { get; set; } = string.Empty;
+        public string CurrentStatus { get; set; } = string.Empty;
     }
 
     public class TrackingList
