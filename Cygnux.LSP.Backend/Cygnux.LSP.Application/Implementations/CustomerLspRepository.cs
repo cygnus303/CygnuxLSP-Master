@@ -32,9 +32,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<IEnumerable<CustomerResponse>>(response);
     }
 
-    public async Task<BaseResponse<IEnumerable<LspResponse>>> GetLsps()
+    public async Task<BaseResponse<IEnumerable<LspResponse>>> GetLsps(Guid login)
     {
-        var response = await _customerLspService.GetLsps();
+        var response = await _customerLspService.GetLsps(login);
         return new BaseResponse<IEnumerable<LspResponse>>(response);
     }
 

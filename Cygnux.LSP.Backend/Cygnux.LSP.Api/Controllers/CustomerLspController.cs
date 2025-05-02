@@ -32,9 +32,9 @@ public class CustomerLspController : ControllerBase
 
     [HttpGet]
     [Route("Tat/Lsps")]
-    public async Task<IActionResult> GetLsps()
+    public async Task<IActionResult> GetLsps(Guid login)
     {
-        return Ok(await _customerLspRepository.GetLsps());
+        return Ok(await _customerLspRepository.GetLsps(login));
     }
 
     [HttpGet]
