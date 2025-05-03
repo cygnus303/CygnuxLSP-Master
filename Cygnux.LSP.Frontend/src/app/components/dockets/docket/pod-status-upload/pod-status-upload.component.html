@@ -1,0 +1,99 @@
+<ng-template #Templatepod>
+    <div class="modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bs-blue d-flex justify-content-between">
+          <h5 class="modal-title">POD Upload</h5>
+          <button type="button" class="close" (click)="modalRef.hide()">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
+        <div class="modal-body pb-0">
+          <form class="needs-validation" [formGroup]="podUpdateForm" autocomplete="off">
+            <div class="tab-content">
+              <div class="tab-pane fade active show">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Docket Number</label>
+                      <input class="form-control" type="text" formControlName="docketNo" readonly placeholder="Enter docket Number" readonly/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Customer</label>
+                    <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId"
+                    formControlName="customerId" placeholder="Select Customer" [searchable]="true" readonly>
+                  </ng-select>    
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lsps">From WH/Store </label>
+                      <input class="form-control" formControlName="fromLocation" type="text"  placeholder="Enter From City" readonly/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lsps">To WH/Store</label>
+                      <input class="form-control" formControlName="toLocation" type="text"  placeholder="Enter To City" readonly/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lsps">Booking Date</label>
+                      <input type="text" class="form-control" #dp="bsDatepicker" formControlName="bookingDate" bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}" [class.disabled]="true">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Invoice No.</label>
+                    <input class="form-control" formControlName="invoiceNo" type="text" required placeholder="Enter Invoice No" readonly/>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lsps">Transporter</label>
+                      <input class="form-control" formControlName="transporterDesc" type="text"  placeholder="Enter transporter Name" readonly/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lsps">Transport Mode</label>
+                      <input class="form-control" formControlName="transporterDesc" type="text"  placeholder="Enter transporter Name" readonly/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="col-form-label">Quantity</label>
+                    <input class="form-control" formControlName="quantity" type="text" required placeholder="Enter Quantity" readonly/>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lsps">Current Status</label>
+                      <input class="form-control" formControlName="currentStatus" type="text"  placeholder="Enter Current Status" readonly/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Upload Date</label>
+                      <input type="text" class="form-control" formControlName="uploadDate" #dp="bsDatepicker" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY' }" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>POD</label>
+                      <input class="form-control" formControlName="pod" type="file" accept="image/*" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gap-2 d-flex justify-content-end mb-3">
+              <button class="btn btn-success rounded-3" type="submit">
+                <i class="fa fa-check"></i> Submit
+              </button>
+              <button class="btn btn-danger rounded-3" type="reset">
+                <i class="fa fa-times"></i> Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>

@@ -14,13 +14,14 @@ import { ImportDocketComponent } from './import-docket/import-docket.component';
 import { AddDocketComponent } from './add-docket/add-docket.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormControl, FormGroup } from '@angular/forms';
+import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.component';
 
 @Component({
   selector: 'app-docket',
   standalone: false,
   templateUrl: './docket-list.component.html',
   styleUrls: ['./docket-list.component.scss'],
-  providers:[BsModalService]
+ 
 })
 export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
@@ -33,12 +34,10 @@ export class DocketListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
   public loading : boolean = false;
-  public modalRef!: BsModalRef;
-  podUpdateForm!:FormGroup;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
-  @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
+  @ViewChild('PodStatusUpload') PodStatusUpload!: PodStatusUploadComponent;
   constructor(
     public docketService: DocketService,
     public commonService: CommonService,
@@ -46,14 +45,10 @@ export class DocketListComponent implements OnInit {
     private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
     private cdRef: ChangeDetectorRef,
-    private modalService: BsModalService
+    
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
-    this.podUpdateForm = new FormGroup({
-      docketNo : new FormControl(''),
-       uploadDate : new FormControl(new Date()),
-       pod : new FormControl(null),
-    });
+   
   }
 
   ngAfterViewInit(): void {
@@ -306,9 +301,7 @@ export class DocketListComponent implements OnInit {
   }
 
   openPodUpdateModal(data:any){
-    debugger
-    this.podUpdateForm.patchValue(data)
-    this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
+    this.PodStatusUpload.showPopup(data);
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import { DocketLayoutComponent } from './docket-layout/docket-layout.component';
 import { StatusListComponent } from './status-list/status-list.component';
 import { StatusUpdateComponent } from './status-update/status-update.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { PodStatusUploadComponent } from './docket/pod-status-upload/pod-status-upload.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     PodUploadComponent,
     DocketLayoutComponent,
     StatusListComponent,
-    StatusUpdateComponent
+    StatusUpdateComponent,
+    PodStatusUploadComponent
   ],
   imports: [
     CommonModule,
