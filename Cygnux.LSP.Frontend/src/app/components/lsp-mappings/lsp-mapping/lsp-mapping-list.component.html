@@ -41,21 +41,22 @@
                 <!-- Table Body -->
                 <tbody class="customers w-100" *ngIf="!loading && lspMappings.length > 0">
                   <ng-container *ngFor="let lsp of lspMappings">
-                    <ng-container class="customers w-100" *ngFor="let lspData of lsp.lspResponses; let j = index">
-                      <tr >
+                    <ng-container *ngFor="let lspData of lsp.lspResponses; let j = index">
+                      <!-- Added inline style for background color -->
+                      <tr class="customers w-100"> 
                         <!-- Render customerName once with rowspan -->
                         <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length" class="align-middle">
                           {{ lsp.customerName }}
                         </td>
-          
+                
                         <!-- MULTIPLE DATA -->
                         <td>{{ lspData.lspName }}</td>
-          
+                
                         <!-- Status icon -->
                         <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle">
                           <i [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
                         </td>
-          
+                
                         <!-- Actions -->
                         <td *ngIf="j === 0 && (commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit || commonService.menuRoleList?.canDelete)"
                             [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle">

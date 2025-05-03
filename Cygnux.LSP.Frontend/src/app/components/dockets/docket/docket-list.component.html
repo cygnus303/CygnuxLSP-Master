@@ -83,7 +83,7 @@
                           <!-- <i data-feather="check-square" height="16"></i> -->
                            <img src="/assets/images/update.png" width="23" height="22">
                         </div>
-                        <div [popover]="'POD Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <div (click)="openPodUpdateModal(docket)" [popover]="'POD Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                            <img src="/assets/images/pod.svg" width="37" height="27">
                         </div>
                       </div>
@@ -186,3 +186,53 @@
       </div>
   </div>
 </div>
+
+<ng-template #Templatepod>
+  <div class="modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bs-blue d-flex justify-content-between">
+        <h5 class="modal-title">POD Update</h5>
+        <button type="button" class="close" (click)="modalRef?.hide()">
+          <i class="fa fa-close"></i>
+        </button>
+      </div>
+      <div class="modal-body pb-0">
+        <form class="needs-validation" [formGroup]="podUpdateForm" autocomplete="off">
+          <div class="tab-content">
+            <div class="tab-pane fade active show">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Docket Number</label>
+                    <input class="form-control" type="text" formControlName="docketNo" placeholder="Enter docket Number" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Upload Date</label>
+                    <input type="text" class="form-control" formControlName="uploadDate" #dp="bsDatepicker" bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY' }" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>POD</label>
+                    <input class="form-control" formControlName="pod" type="file" accept="image/*" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gap-2 d-flex justify-content-end mb-3">
+            <button class="btn btn-success rounded-3" type="submit">
+              <i class="fa fa-check"></i> Submit
+            </button>
+            <button class="btn btn-danger rounded-3" type="reset">
+              <i class="fa fa-times"></i> Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

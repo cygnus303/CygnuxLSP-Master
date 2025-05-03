@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -12,12 +12,15 @@ import { ToastrService } from 'ngx-toastr';
 import feather from 'feather-icons';
 import { ImportDocketComponent } from './import-docket/import-docket.component';
 import { AddDocketComponent } from './add-docket/add-docket.component';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-docket',
   standalone: false,
   templateUrl: './docket-list.component.html',
   styleUrls: ['./docket-list.component.scss'],
+  providers:[BsModalService]
 })
 export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
@@ -30,19 +33,27 @@ export class DocketListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
   public loading : boolean = false;
+  public modalRef!: BsModalRef;
+  podUpdateForm!:FormGroup;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
-
+  @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
   constructor(
     public docketService: DocketService,
     public commonService: CommonService,
     private toasterService: ToastrService,
     private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private modalService: BsModalService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
+    this.podUpdateForm = new FormGroup({
+      docketNo : new FormControl(''),
+       uploadDate : new FormControl(new Date()),
+       pod : new FormControl(null),
+    });
   }
 
   ngAfterViewInit(): void {
@@ -292,6 +303,12 @@ export class DocketListComponent implements OnInit {
       const modal = new Modal(modalElement);
       modal.show();
     }
+  }
+
+  openPodUpdateModal(data:any){
+    debugger
+    this.podUpdateForm.patchValue(data)
+    this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
   }
 
   ngOnDestroy(): void {

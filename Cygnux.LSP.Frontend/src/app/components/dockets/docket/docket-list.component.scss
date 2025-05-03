@@ -1,3 +1,13 @@
 #importModal{
     --bs-modal-width: 1300px;
 }
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+  }
+  
+  .modal-content {
+    margin: auto;
+  }
+  

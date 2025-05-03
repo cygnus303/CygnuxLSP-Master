@@ -85,7 +85,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this.buildForm();
     this.docketForm.patchValue({
       bookingDate: new Date(),
-      status:this.docketId ? null : '1'
+      status:this.docketId ? null : '1',
     });
   }
 }
