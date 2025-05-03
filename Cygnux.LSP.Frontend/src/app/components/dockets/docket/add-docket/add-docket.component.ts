@@ -48,11 +48,11 @@ export class AddDocketComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getTransporterDetail();
-    this.buildForm();
     this.docketId = '';
     this.getCustomers();
     this.getTransportModeDetail();
     this.getLsps();
+    this.buildForm();
   }
 
   buildForm(): void {
@@ -68,7 +68,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       quantity: new FormControl(null),
       // EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
       lspId:new FormControl(null),
-      currentStatus:new FormControl(this.docketId ? null : '1')
+      currentStatus:new FormControl(this.docketId === '' ? '1' : null)
     });
   }
 
@@ -80,8 +80,9 @@ ngOnChanges(changes: SimpleChanges): void {
     this.onSelectCustomer(this.docketResponse , true)
     this.onSelectOrigin(this.docketResponse)
   } else {
-    this.docketForm.reset();
+    // this.docketForm.reset();
     this.docketId = '';
+    this.buildForm();
     this.docketForm.patchValue({
       bookingDate: new Date(),
       status:this.docketId ? null : '1'
@@ -178,9 +179,9 @@ ngOnChanges(changes: SimpleChanges): void {
         next: (response) => {
           if (response.success) {
             this.sweetAlertService.success(response.data.message);
-            this.dataEmitter.emit(); // Emitting the data to the parent
             this.docketForm.reset();
             this.buildForm();
+            this.dataEmitter.emit(); // Emitting the data to the parent
           } else {
             this.sweetAlertService.error(response.error.message);
           }
