@@ -12,5 +12,7 @@
         public string Transporter { get; set; } = string.Empty;
         public string TransportMode { get; set; } = string.Empty;
         public int Quantity { get; set; }
+        public string CurrentStatus { get; set; } = string.Empty;
+        public string CurrentStatusDesc { get; set; } = string.Empty;
     }
 }
