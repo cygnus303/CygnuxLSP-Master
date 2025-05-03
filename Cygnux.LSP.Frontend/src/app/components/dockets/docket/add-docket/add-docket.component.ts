@@ -49,10 +49,10 @@ export class AddDocketComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getTransporterDetail();
     this.docketId = '';
+    this.buildForm();
     this.getCustomers();
     this.getTransportModeDetail();
     this.getLsps();
-    this.buildForm();
   }
 
   buildForm(): void {
@@ -98,6 +98,7 @@ ngOnChanges(changes: SimpleChanges): void {
   onClose(){
     this.docketForm.reset();
     this.buildForm();
+    this.getCustomers();
     this.dataEmitter.emit();
   }
 
