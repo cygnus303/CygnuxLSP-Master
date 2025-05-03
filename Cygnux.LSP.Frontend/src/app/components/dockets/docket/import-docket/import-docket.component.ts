@@ -27,13 +27,23 @@ export class ImportDocketComponent {
       private identityService:IdentityService
     ){}
   
+    // downloadSampleFile(event: any) {
+    //   event.preventDefault();
+    //   let path = '/assets/uploads/Docket_Import.xlsx'
+    //     // environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
+    //   window.open(path, '_blank');
+    // }
+  
     downloadSampleFile(event: any) {
       event.preventDefault();
-      let path = '/assets/uploads/Docket_Import.xlsx'
-        // environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
-      window.open(path, '_blank');
+      const link = document.createElement('a');
+      link.href = '/assets/uploads/Docket_Import.xlsx';
+      link.download = 'Docket_Import.xlsx'; // Optional: set download filename
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-  
+    
     onChangeFile(event: any) {
       const file = event.addedFiles[0];
       if (file) {

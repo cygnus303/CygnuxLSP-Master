@@ -32,8 +32,16 @@
           </div>
         </div>
         <div class="d-flex justify-content-end pt-3 gap-2">
-          <button class="btn btn-square btn-primary pull-right rounded-3" (click)="downloadSampleFile($event)">Download
-            Import Template</button>
+          <!-- <button class="btn btn-square btn-primary pull-right rounded-3" (click)="downloadSampleFile($event)">Download
+            Import Template</button> -->
+            <a
+            href="assets/uploads/Docket_Import.xlsx"
+            download="Docket_Import.xlsx"
+            class="btn btn-square btn-primary pull-right rounded-3"
+          >
+            Download Import Template
+          </a>
+          
           <button class="btn btn-square btn-success rounded-3" (click)="uploadDocketFile()">Upload</button>
         </div>
           <div *ngIf="validateData.length > 0" class="overflow-y h-100 px-2 mt-4">
