@@ -29,8 +29,8 @@ export class ImportDocketComponent {
   
     downloadSampleFile(event: any) {
       event.preventDefault();
-      let path =
-        environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
+      let path = '/assets/images/Docket_Import.xlsx'
+        // environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
       window.open(path, '_blank');
     }
   
