@@ -44,9 +44,10 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`customerLsp/Tat/Customers?loginid=${id}`);
   }
 
-  getLsps(): Observable<IApiBaseResponse<LspResponse[]>> {
-    return this.apiHandlerService.Get('customerLsp/Tat/Lsps');
+  getLsps(id:string): Observable<IApiBaseResponse<LspResponse[]>> {
+    return this.apiHandlerService.Get(`customerLsp/Tat/Lsps?login=${id}`);
   }
+  
 
   addLspMapping(
     addLspRequest: AddLspRequest

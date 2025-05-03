@@ -135,7 +135,7 @@ ngOnChanges(changes: SimpleChanges): void {
 
   getLsps() {
     this.commonService.updateLoader(true);
-    this.lspTatService.getLsps().subscribe({
+    this.lspTatService.getLsps(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;

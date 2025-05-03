@@ -41,8 +41,8 @@
                 <!-- Table Body -->
                 <tbody class="customers w-100" *ngIf="!loading && lspMappings.length > 0">
                   <ng-container *ngFor="let lsp of lspMappings">
-                    <ng-container *ngFor="let lspData of lsp.lspResponses; let j = index">
-                      <tr>
+                    <ng-container class="customers" *ngFor="let lspData of lsp.lspResponses; let j = index">
+                      <tr >
                         <!-- Render customerName once with rowspan -->
                         <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length" class="align-middle">
                           {{ lsp.customerName }}
