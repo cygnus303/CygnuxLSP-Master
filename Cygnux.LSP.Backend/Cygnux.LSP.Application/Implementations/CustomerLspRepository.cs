@@ -63,9 +63,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<CommonCreateResponse>(response);
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> UpdateLspMapping(Guid id, CreateLspMappingRequest createLspMapping)
+    public async Task<BaseResponse<CommonCreateResponse>> UpdateLspMapping(Guid LspMapId, CreateLspMappingRequest createLspMapping)
     {
-        var response = await _customerLspService.UpdateLspMapping(id, JsonConvert.SerializeObject(createLspMapping));
+        var response = await _customerLspService.UpdateLspMapping(LspMapId, JsonConvert.SerializeObject(createLspMapping));
         return new BaseResponse<CommonCreateResponse>(response);
     }
     public async Task<BaseResponse<CommonCreateResponse>> DeleteLspMapping(Guid id)

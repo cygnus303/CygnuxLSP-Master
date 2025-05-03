@@ -108,9 +108,10 @@ internal class CustomerLspService : ICustomerLspService
          ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> UpdateLspMapping(Guid id, string updateLspMappingJson)
+    public async Task<CommonCreateResponse> UpdateLspMapping(Guid LspMapId, string updateLspMappingJson)
     {
         var parameters = new DynamicParameters();
+        parameters.Add("@LspMapId", LspMapId, DbType.Guid);
         parameters.Add("@CustomerLspJson", updateLspMappingJson, DbType.String);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(

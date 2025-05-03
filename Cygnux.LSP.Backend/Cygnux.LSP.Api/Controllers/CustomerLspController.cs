@@ -64,15 +64,17 @@ public class CustomerLspController : ControllerBase
     }
 
     [HttpPost]
+    [Route("AddLspMap")]
     public async Task<IActionResult> AddLspMapping(CreateLspMappingRequest createLspMapping)
     {
         return Ok(await _customerLspRepository.AddLspMapping(createLspMapping));
     }
 
-    [HttpPost("{id}")]
-    public async Task<IActionResult> UpdateLspMapping(Guid id, CreateLspMappingRequest createLspMapping)
+    [HttpPost]
+    [Route("UpdateLspMap")]
+    public async Task<IActionResult> UpdateLspMapping(Guid LspMapId, CreateLspMappingRequest createLspMapping)
     {
-        return Ok(await _customerLspRepository.UpdateLspMapping(id, createLspMapping));
+        return Ok(await _customerLspRepository.UpdateLspMapping(LspMapId, createLspMapping));
     }
 
     [HttpPatch]

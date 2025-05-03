@@ -24,7 +24,7 @@ public interface ICustomerLspRepository
 
     Task<BaseResponse<CommonCreateResponse>> DeleteLspMapping(Guid id);
 
-    Task<BaseResponse<CommonCreateResponse>> UpdateLspMapping(Guid id, CreateLspMappingRequest createLspMapping);
+    Task<BaseResponse<CommonCreateResponse>> UpdateLspMapping(Guid LspMapId, CreateLspMappingRequest createLspMapping);
 
     Task<BaseResponse<CommonCreateResponse>> AddCustomerLspTat(CreateCustomerLspTatRequest createCustomerLspTat);
 

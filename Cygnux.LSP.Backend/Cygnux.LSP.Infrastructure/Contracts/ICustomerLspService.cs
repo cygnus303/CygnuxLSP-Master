@@ -19,7 +19,7 @@ public interface ICustomerLspService
 
     Task<CommonCreateResponse> AddLspMapping(string addLspMappingJson);
 
-    Task<CommonCreateResponse> UpdateLspMapping(Guid id, string updateLspMappingJson);
+    Task<CommonCreateResponse> UpdateLspMapping(Guid LspMapId, string updateLspMappingJson);
     Task<CommonCreateResponse> DeleteLspMapping(Guid id);
 
 
