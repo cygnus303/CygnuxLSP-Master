@@ -60,6 +60,8 @@ export class AddLspComponent implements OnInit, OnChanges {
     this.lspForm.reset();
     this.dataEmitter.emit();
     this.buildForm();
+    this.selectedFileName='';
+    this.imagePreview = null;
   }
 
   ngOnInit(): void {
@@ -146,6 +148,8 @@ export class AddLspComponent implements OnInit, OnChanges {
           this.dataEmitter.emit();
           this.lspForm.reset();
           this.buildForm();
+          this.selectedFileName='';
+         this.imagePreview = null;
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -167,6 +171,8 @@ export class AddLspComponent implements OnInit, OnChanges {
           this.dataEmitter.emit();
           this.lspForm.reset();
           this.buildForm();
+          this.selectedFileName='';
+         this.imagePreview = null;
         } else {
           this.sweetAlertService.error(response.error.message);
         }
