@@ -47,10 +47,10 @@ export class AddDocketComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.getTransporterDetail();
     this.buildForm();
     this.docketId = '';
     this.getCustomers();
-    this.getTransporterDetail();
     this.getTransportModeDetail();
     this.getLsps();
   }
