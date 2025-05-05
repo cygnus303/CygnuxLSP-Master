@@ -22,14 +22,14 @@ export class LspMappingService {
     @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
   ) {}
 
-  getLspMappingList(filters:any): Observable<IApiBaseResponse<LspMappingResponse[]>> {
-    return this.apiHandlerService.Get('CustomerLsp/CustomerLspMappingList', filters);
+  getLspMappingList(id:string,filters:any): Observable<IApiBaseResponse<LspMappingResponse[]>> {
+    return this.apiHandlerService.Get(`CustomerLsp/CustomerLspMappingList?Id=${id}`, filters);
   }
 
   getLspMappingDetails(
-    id: string,userId:string
+    id: string,
   ): Observable<IApiBaseResponse<LspMappingResponse>> {
-    return this.apiHandlerService.Get(`customerLsp/${id}?userId=${userId}`);
+    return this.apiHandlerService.Get(`CustomerLsp/CustomerLspMappingDetails/?Id=${id}`);
   }
 
   getLspTatList(filters:any): Observable<IApiBaseResponse<LspTatResponse[]>> {
@@ -52,14 +52,14 @@ export class LspMappingService {
   addLspMapping(
     addLspRequest: AddLspRequest
   ): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('customerLsp', addLspRequest);
+    return this.apiHandlerService.Post('CustomerLsp/AddLspMap', addLspRequest);
   }
 
   updateLspMapping(
     id: string,
     addLspRequest: AddLspRequest
   ): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('customerLsp/' + id, addLspRequest);
+    return this.apiHandlerService.Post(`CustomerLsp/UpdateLspMap?LspMapId=${id}` , addLspRequest);
   }
   addLspTat(
     addLspRequest: AddLspRequest

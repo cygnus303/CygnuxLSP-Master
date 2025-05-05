@@ -1,5 +1,4 @@
 export interface LspMappingResponse {
-    lspMappingId?: string;
     customerId: string;
     lspResponses?: LspResponse[] | undefined;
     lspIds?: string[] | undefined;
@@ -7,6 +6,9 @@ export interface LspMappingResponse {
     customerName?: string;
     isActive?: boolean;
     supportEmail?:string;
+    lspMappingId?:any;
+    lspName?:string;
+    lspId?:string;
 }
 export interface LspResponse {
     lspId: string;

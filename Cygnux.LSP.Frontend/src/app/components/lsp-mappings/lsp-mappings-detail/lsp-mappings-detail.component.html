@@ -8,10 +8,10 @@
           </tr>
             <tr class="table-th">
               <td colspan="2" class="d-flex">
-                <strong>Lsp Name : </strong><br>
-                <span *ngFor="let data of lspMappingsDetail?.lspResponses; let last = last">
+                <strong>Lsp Name : </strong>{{ lspMappingsDetail?.lspName}}
+                <!-- <span *ngFor="let data of lspMappingsDetail?.lspResponses; let last = last">
                   &nbsp;{{ data.lspName }}<span *ngIf="!last"> , <br></span>
-                </span>
+                </span> -->
               </td>
             </tr>
         </tbody>

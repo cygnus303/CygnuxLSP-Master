@@ -47,11 +47,11 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspMappingResponse'] && this.lspMappingResponse) {
-      this.lspMappingResponse.lspIds = this.lspMappingResponse.lspResponses?.map(
-        (lsp) => lsp.lspId
-      ) || []; 
+      this.lspMappingResponse.lspIds = this.lspMappingResponse.lspId
+      ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
+      : [];    
       this.lspMappingForm.patchValue(this.lspMappingResponse);
-      this.lspMappingId = this.lspMappingResponse.customerId ?? ''; 
+      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? ''; 
     } else {
       this.lspMappingForm.reset();
       this.buildForm();
@@ -107,10 +107,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.commonService.updateLoader(true);
     const filters: any = {
       Page: 1,
-      UserID:this.identityService.getLoggedUserId(),
       PageSize: 500,
     };
-    this.lspMappingService.getLspMappingList(filters).subscribe({
+    this.lspMappingService.getLspMappingList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
           this.lspMappingsList = response.data;
@@ -145,11 +144,13 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
   onSubmitLspMapping(form: FormGroup): void {
     if (form.valid) {
-
       const dataSubmit={
         ...form.value,
+        LspId: form.value.lspIds?.join(',') || '',
         updatedBy:this.lspMappingId ? this.identityService.getLoggedUserId():'',
+        EntryBy:this.identityService.getLoggedUserId()
       }
+      delete dataSubmit.lspIds;
       this.type === 'Add'
         ? this.addLspMapping(dataSubmit)
         : this.updateLspMapping(dataSubmit);
@@ -162,18 +163,18 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.commonService.updateLoader(true);
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
       next: (response) => {
-        if (response.success) {
+        if (response.data.status.toString() === '1') {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspMappingForm.reset();
           this.buildForm();
         } else {
-          this.sweetAlertService.error(response.error.message);
+          this.sweetAlertService.error(response.data.message);
         }
         this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
+        this.sweetAlertService.error(response.data.message);
         this.commonService.updateLoader(false);
       },
     });
@@ -185,17 +186,17 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       .updateLspMapping(this.lspMappingId,dataSubmit)
       .subscribe({
         next: (response) => {
-          if (response.success) {
-            this.sweetAlertService.success(response.data.message);
+          this.sweetAlertService.success(response.data.message);
+          if (response.data.status.toString() === '1') {
             this.dataEmitter.emit();
             this.lspMappingForm.reset();
           } else {
-            this.sweetAlertService.error(response.error.message);
+            this.sweetAlertService.error(response.data.message);
           }
           this.commonService.updateLoader(false);
         },
         error: (response: any) => {
-          this.sweetAlertService.error(response.error.message);
+          this.sweetAlertService.error(response.data.message);
           this.commonService.updateLoader(false);
         },
       });

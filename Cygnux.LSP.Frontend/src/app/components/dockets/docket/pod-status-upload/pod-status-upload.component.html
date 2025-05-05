@@ -19,10 +19,12 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <label class="col-form-label">Customer</label>
-                    <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
-                    formControlName="customerId" placeholder="Select Customer" [searchable]="true" readonly>
-                  </ng-select>    
+                    <div class="form-group">
+                      <label class="col-form-label">Customer</label>
+                      <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId" formControlName="customerId"
+                        placeholder="Select Customer" [searchable]="true" readonly>
+                      </ng-select>
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
@@ -59,8 +61,10 @@
                     </div>
                   </div>
                   <div class="col-md-6">
+                    <div class="form-group">
                     <label class="col-form-label">Quantity</label>
                     <input class="form-control" formControlName="quantity" type="text" placeholder="Enter Quantity" readonly/>
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">

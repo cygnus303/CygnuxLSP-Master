@@ -65,14 +65,21 @@ export class LspMappingListComponent implements OnInit {
     const filters: any = {
       ...this.filters,
       Page: page,
-      Id:this.identityService.getLoggedUserId(),
       PageSize: this.pageSize,
     };
     this.commonService.updateLoader(true);
-    this.lspMappingService.getLspMappingList(filters).subscribe({
+    this.lspMappingService.getLspMappingList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
           this.lspMappings = response.data;
+          this.lspMappings = response.data.map((item: any) => ({
+            ...item,
+            lspResponses: item.lspName.split(',').map((name: string, index: number) => ({
+              lspName: name.trim(),
+              lspId: item.lspId.split(',')[index]?.trim() || ''
+            }))
+          }));
+          
           this.totalItems = response.totalCount;
         }
         this.commonService.updateLoader(false);
@@ -123,7 +130,7 @@ export class LspMappingListComponent implements OnInit {
   }
   getLspMapping(id: string) {
     this.commonService.updateLoader(true);
-    this.lspMappingService.getLspMappingDetails(id,this.identityService.getLoggedUserId()).subscribe({
+    this.lspMappingService.getLspMappingDetails(id).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;
