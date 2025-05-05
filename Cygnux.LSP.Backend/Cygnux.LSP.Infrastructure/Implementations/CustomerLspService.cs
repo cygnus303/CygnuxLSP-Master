@@ -29,14 +29,13 @@ internal class CustomerLspService : ICustomerLspService
           );
     }
 
-    public async Task<LspMappingDetailResponse> GetLspMappingDetails(Guid customerId, Guid userId)
+    public async Task<LspMappingDetailResponse> GetLspMappingDetails(Guid Id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@CustomerId", customerId, DbType.Guid);
-        parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@Id", Id, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<LspMappingDetailResponse>(
-             StoredProcedureConstants.Usp_GetCustomerLsp,
+             StoredProcedureConstants.USP_GetCustomerLSPDetails,
              param: parameters,
              commandType: CommandType.StoredProcedure
          ) ?? new LspMappingDetailResponse();

@@ -57,10 +57,10 @@ public class CustomerLspController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id}")]
-    public async Task<IActionResult> GetLspMappingDetails(Guid id,Guid userId)
+    [Route("CustomerLspMappingDetails")]
+    public async Task<IActionResult> GetLspMappingDetails(Guid Id)
     {
-        return Ok(await _customerLspRepository.GetLspMappingDetails(id, userId));
+        return Ok(await _customerLspRepository.GetLspMappingDetails(Id));
     }
 
     [HttpPost]

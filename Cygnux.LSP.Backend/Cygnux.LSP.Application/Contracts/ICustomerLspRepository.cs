@@ -10,7 +10,7 @@ public interface ICustomerLspRepository
 {
     Task<BaseResponse<IEnumerable<LspMappingListResponse>>> GetLspMappingList(Guid Id,Dictionary<string, string> filters);
 
-    Task<BaseResponse<LspMappingDetailResponse?>> GetLspMappingDetails(Guid customerId, Guid userId);
+    Task<BaseResponse<LspMappingDetailResponse?>> GetLspMappingDetails(Guid Id);
 
     Task<BaseResponse<IEnumerable<LspTatDetailResponse>>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId, string? customerName, string? lspName, string? product, string? origin, string? destination, int? tat);
 
