@@ -33,12 +33,12 @@ export class PodStatusUploadComponent {
        toLocation: new FormControl(''),
        quantity: new FormControl(''),
        invoiceNo: new FormControl(''),
-       currentStatus: new FormControl(''),
+       currentStatusDesc: new FormControl(''),
        Customer:new FormControl('')
     });
+  this.getCustomers();
   }
 showPopup(data:any){
-  this.getCustomers();
   data.bookingDate = new Date(data.bookingDate)
   this.podUpdateForm.patchValue(data)
   this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });

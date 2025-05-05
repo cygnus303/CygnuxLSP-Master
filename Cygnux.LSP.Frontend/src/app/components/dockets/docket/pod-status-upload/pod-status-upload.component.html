@@ -20,58 +20,58 @@
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Customer</label>
-                    <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId"
+                    <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
                     formControlName="customerId" placeholder="Select Customer" [searchable]="true" readonly>
                   </ng-select>    
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="lsps">From WH/Store </label>
-                      <input class="form-control" formControlName="fromLocation" type="text"  placeholder="Enter From City" readonly/>
+                      <input class="form-control" formControlName="fromLocation" type="text"  placeholder="Enter From WH/Store" readonly/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="lsps">To WH/Store</label>
-                      <input class="form-control" formControlName="toLocation" type="text"  placeholder="Enter To City" readonly/>
+                      <input class="form-control" formControlName="toLocation" type="text"  placeholder="Enter To WH/Store" readonly/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="lsps">Booking Date</label>
-                      <input type="text" class="form-control" #dp="bsDatepicker" formControlName="bookingDate" bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}" [class.disabled]="true">
+                      <input type="text" class="form-control" #dp="bsDatepicker"  placeholder="Enter To Booking Date"  formControlName="bookingDate" bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}" [class.disabled]="true">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Invoice No.</label>
-                    <input class="form-control" formControlName="invoiceNo" type="text" required placeholder="Enter Invoice No" readonly/>
+                    <input class="form-control" formControlName="invoiceNo" type="text" placeholder="Enter Invoice No" readonly/>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="lsps">Transporter</label>
-                      <input class="form-control" formControlName="transporterDesc" type="text"  placeholder="Enter transporter Name" readonly/>
+                      <input class="form-control" formControlName="transporterDesc" type="text"  placeholder="Enter Transporter" readonly/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="lsps">Transport Mode</label>
-                      <input class="form-control" formControlName="transporterDesc" type="text"  placeholder="Enter transporter Name" readonly/>
+                      <input class="form-control" formControlName="transportModeDesc" type="text"  placeholder="Enter Transport Mode" readonly/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <label class="col-form-label">Quantity</label>
-                    <input class="form-control" formControlName="quantity" type="text" required placeholder="Enter Quantity" readonly/>
+                    <input class="form-control" formControlName="quantity" type="text" placeholder="Enter Quantity" readonly/>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="lsps">Current Status</label>
-                      <input class="form-control" formControlName="currentStatus" type="text"  placeholder="Enter Current Status" readonly/>
+                      <input class="form-control" formControlName="currentStatusDesc" type="text" placeholder="Enter Current Status" readonly/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Upload Date</label>
-                      <input type="text" class="form-control" formControlName="uploadDate" #dp="bsDatepicker" bsDatepicker
+                      <input type="text" class="form-control" formControlName="uploadDate" #dp="bsDatepicker" placeholder="Enter Upload Date" bsDatepicker
                         [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY' }" />
                     </div>
                   </div>
