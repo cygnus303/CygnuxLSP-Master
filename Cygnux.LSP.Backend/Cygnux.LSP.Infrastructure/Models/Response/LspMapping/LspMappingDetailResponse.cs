@@ -14,7 +14,7 @@ public class LspMappingDetailResponse
         set
         {
             _lspResponse = value;
-            // Deserialize LspIds directly into LspResponse when LspIds is set
+
             LspResponses = JsonConvert.DeserializeObject<List<LspRequest>>(_lspResponse);
         }
     }
@@ -27,6 +27,23 @@ public class LspMappingDetailResponse
 
     public bool IsActive { get; set; }
     public int? TotalCount { get; set; }
+
+}
+
+
+public class LspMappingListResponse
+{
+    public Guid LspMappingId { get; set; }
+    public Guid CustomerId { get; set; }
+   
+    public string CustomerName { get; set; } = string.Empty;
+    public string LspName { get; set; } = string.Empty;
+
+    public string SupportEmail { get; set; } = string.Empty;
+
+    public bool IsActive { get; set; }
+    public int? TotalCount { get; set; }
+    public required string LspId { get; set; }
 
 }
 

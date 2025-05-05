@@ -5,7 +5,7 @@ using Models.Response.LspMapping;
 
 public interface ICustomerLspService
 {
-    Task<IEnumerable<LspMappingDetailResponse>> GetLspMappingList(Guid Id,string filters);
+    Task<IEnumerable<LspMappingListResponse>> GetLspMappingList(Guid Id,string filters);
 
     Task<LspMappingDetailResponse> GetLspMappingDetails(Guid customerId, Guid userId);
 

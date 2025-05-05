@@ -16,13 +16,13 @@ internal class CustomerLspService : ICustomerLspService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<LspMappingDetailResponse>> GetLspMappingList(Guid id, string filters)
+    public async Task<IEnumerable<LspMappingListResponse>> GetLspMappingList(Guid id, string filters)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Id", id, DbType.Guid);
         parameters.Add("@JsonData", filters, DbType.String);
 
-        return await _dbConnection.QueryAsync<LspMappingDetailResponse>(
+        return await _dbConnection.QueryAsync<LspMappingListResponse>(
               StoredProcedureConstants.Usp_GetCustomerLsp_New,
               param: parameters,
               commandType: CommandType.StoredProcedure
