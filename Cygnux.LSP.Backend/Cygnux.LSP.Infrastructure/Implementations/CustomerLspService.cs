@@ -122,7 +122,7 @@ internal class CustomerLspService : ICustomerLspService
 
     public async Task<CommonCreateResponse> DeleteLspMapping(Guid id)
     {
-        var deleteQuery = "Update CustomerLsp Set IsDeleted = 1 Where CustomerId = @Id";
+        var deleteQuery = "Update CustomerLsp Set IsDeleted = 1 Where Id = @Id";
         var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
         if (rowAffected > 0)
         {
