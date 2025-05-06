@@ -3,39 +3,39 @@
       <table class="table table-bordered table-striped">
         <tbody>
           <tr>
-            <td><strong>Customer Name:</strong> {{ customerDetail?.customerName }}</td>
-            <td><strong>Customer Code:</strong> {{ customerDetail?.customerCode }}</td>
+            <td><strong>Customer Name:</strong> {{ customerDetail?.customerName ? customerDetail?.customerName:'--' }}</td>
+            <td><strong>Customer Code:</strong> {{ customerDetail?.customerCode ? customerDetail?.customerCode:'--' }}</td>
           </tr>
           <tr>
-            <td class="w-50"><strong>Email: </strong> {{ customerDetail?.emailId }}</td>
-            <td class="w-50"><strong>Address: </strong> {{ customerDetail?.address }}</td>
+            <td class="w-50"><strong>Email: </strong> {{ customerDetail?.emailId ? customerDetail?.emailId:'--' }}</td>
+            <td class="w-50"><strong>Address: </strong> {{ customerDetail?.address ? customerDetail?.address:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>City:</strong> {{ customerDetail?.city }}</td>
-            <td><strong>Pincode:</strong> {{ customerDetail?.pincode}}</td>
+            <td><strong>City:</strong> {{ customerDetail?.city ? customerDetail?.city:'--' }}</td>
+            <td><strong>Pincode:</strong> {{ customerDetail?.pincode ? customerDetail?.pincode:'--'}}</td>
           </tr>
           <tr>
-            <td><strong>State:</strong> {{ customerDetail?.state }}</td>
-            <td><strong>Country:</strong> {{ customerDetail?.country }}</td>
+            <td><strong>State:</strong> {{ customerDetail?.state ? customerDetail?.state:'--' }}</td>
+            <td><strong>Country:</strong> {{ customerDetail?.country ? customerDetail?.country:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>Tenant ID:</strong> {{ customerDetail?.tenantId }}</td>
-            <td><strong>Consolidated GSTNo:</strong> {{ customerDetail?.consolidatedGSTNo }}</td>
+            <td><strong>Tenant ID:</strong> {{ customerDetail?.tenantId ? customerDetail?.tenantId:'--' }}</td>
+            <td><strong>Consolidated GSTNo:</strong> {{ customerDetail?.consolidatedGSTNo ? customerDetail?.consolidatedGSTNo:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>Purchase Head:</strong> {{ customerDetail?.purchaseHead }}</td>
-            <td><strong>Purchase Head Mobile No:</strong> {{ customerDetail?.purchaseHeadMobileNo }}</td>
+            <td><strong>Purchase Head:</strong> {{ customerDetail?.purchaseHead ? customerDetail?.purchaseHead:'--' }}</td>
+            <td><strong>Purchase Head Mobile No:</strong> {{ customerDetail?.purchaseHeadMobileNo ? customerDetail?.purchaseHeadMobileNo:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>Accounts Head:</strong> {{ customerDetail?.accountsHead }}</td>
-            <td><strong>Accounts Head Mobile No:</strong> {{ customerDetail?.accountsHeadMobileNo }}</td>
+            <td><strong>Accounts Head:</strong> {{ customerDetail?.accountsHead ? customerDetail?.accountsHead:'--' }}</td>
+            <td><strong>Accounts Head Mobile No:</strong> {{ customerDetail?.accountsHeadMobileNo ? customerDetail?.accountsHeadMobileNo:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>Proprietor Name:</strong> {{ customerDetail?.proprietorName }}</td>
-            <td><strong>Proprietor Mobile No:</strong> {{ customerDetail?.proprietorMobileNo }}</td>
+            <td><strong>Proprietor Name:</strong> {{ customerDetail?.proprietorName ? customerDetail?.proprietorName:'--' }}</td>
+            <td><strong>Proprietor Mobile No:</strong> {{ customerDetail?.proprietorMobileNo ? customerDetail?.proprietorMobileNo:'--' }}</td>
           </tr>
           <tr>
-            <td colspan="2"><strong>Proprietor E-mail:</strong> {{ customerDetail?.proprietorEmail }}</td>
+            <td colspan="2"><strong>Proprietor E-mail:</strong> {{ customerDetail?.proprietorEmail ? customerDetail?.proprietorEmail:'--' }}</td>
           </tr>
         </tbody>
       </table>

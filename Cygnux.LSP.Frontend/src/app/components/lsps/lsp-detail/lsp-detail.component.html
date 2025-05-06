@@ -3,24 +3,23 @@
       <table class="table table-bordered table-striped">
         <tbody>
           <tr>
-            <td><strong>Lsp Name:</strong> {{ lspDetail?.lspName }}</td>
-            <td><strong>Email:</strong> {{ lspDetail?.emailId }}</td>
+            <td><strong>Lsp Name:</strong> {{ lspDetail?.lspName ? lspDetail?.lspName:'--' }}</td>
+            <td><strong>Email:</strong> {{ lspDetail?.emailId ? lspDetail?.emailId:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>Mobile Number:</strong> {{ lspDetail?.mobileNo }}</td>
-            <td><strong>Alias:</strong> {{ lspDetail?.alias }}</td>
+            <td><strong>Mobile Number:</strong> {{ lspDetail?.mobileNo ? lspDetail?.mobileNo:'--' }}</td>
+            <td><strong>Alias:</strong> {{ lspDetail?.alias ? lspDetail?.alias:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>Description:</strong> {{ lspDetail?.description }}</td>
-            <td><strong>Alias:</strong> {{ lspDetail?.alias }}</td>
+            <td><strong>Description:</strong> {{ lspDetail?.description ? lspDetail?.description:'--' }}</td>
+            <td><strong>IsActive:</strong> {{ lspDetail?.isActive ? lspDetail?.isActive:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>IsActive:</strong> {{ lspDetail?.isActive }}</td>
-            <td><strong>API Key:</strong> {{ lspDetail?.apiKey }}</td>
+            <td><strong>API Key:</strong> {{ lspDetail?.apiKey ? lspDetail?.apiKey:'--' }}</td>
+            <td><strong>API Url:</strong> {{ lspDetail?.apiUrl ? lspDetail?.apiUrl:'--' }}</td>
           </tr>
           <tr>
-            <td><strong>API Url:</strong> {{ lspDetail?.apiUrl }}</td>
-            <td><strong>API UserName:</strong> {{ lspDetail?.apiUsername }}</td>
+            <td colspan="2"><strong>API UserName:</strong> {{ lspDetail?.apiUsername ? lspDetail?.apiUsername:'--' }}</td>
           </tr>
         </tbody>
       </table>
