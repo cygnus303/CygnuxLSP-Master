@@ -71,9 +71,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   buildForm(): void {
     this.lspMappingForm = new FormGroup({
       lspIds: new FormControl([], [Validators.required]),
-      customerId: new FormControl(null, [Validators.required]),
-      isActive: new FormControl(true),
-      supportEmail:new FormControl('', [Validators.pattern(EmailRegex)])
+      CustomerId: new FormControl(null, [Validators.required]),
+      IsActive: new FormControl(true),
+      SupportEmail:new FormControl('', [Validators.pattern(EmailRegex)])
     });
   }
 
@@ -87,12 +87,12 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.customerService.getCustomerList(filters).subscribe({
       next: (response) => {
         if (response) {
-          // if(!this.lspMappingId){
-          //     const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
-          //    this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId) && res.isActive);
-          // }else{
-          // }
-          this.customers = response.data.filter((customer: any) => customer.isActive);
+          if(!this.lspMappingId){
+              const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
+             this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId) && res.isActive);
+          }else{
+            this.customers = response.data.filter((customer: any) => customer.isActive);
+          }
         }
         this.commonService.updateLoader(false);
       },
@@ -147,8 +147,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       const dataSubmit={
         ...form.value,
         LspId: form.value.lspIds?.join(',') || '',
-        updatedBy:this.lspMappingId ? this.identityService.getLoggedUserId():'',
-        EntryBy:this.identityService.getLoggedUserId()
+        UserId:this.identityService.getLoggedUserId(),
+        updatedBy:this.identityService.getLoggedUserId(),
+        CreatedBy:this.identityService.getLoggedUserId()
       }
       delete dataSubmit.lspIds;
       this.type === 'Add'
