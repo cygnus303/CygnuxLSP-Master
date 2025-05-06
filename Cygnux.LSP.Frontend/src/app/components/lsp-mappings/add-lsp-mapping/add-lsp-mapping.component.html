@@ -10,13 +10,13 @@
                 <div class="col-md-6">
                   <label class="col-form-label">Customer Name</label>
                   <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
-                    formControlName="CustomerId" placeholder="Select Customer" [searchable]="true"
+                    formControlName="customerId" placeholder="Select Customer" [searchable]="true"
                     [readonly]="lspMappingId ? true : false"
-                    [ngClass]="{ 'border-danger': lspMappingForm.controls['CustomerId'].invalid && lspMappingForm.controls['CustomerId'].touched}">
+                    [ngClass]="{ 'border-danger': lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId'].touched}">
                   </ng-select>
 
-                  <div *ngIf="lspMappingForm.controls['CustomerId'].invalid && lspMappingForm.controls['CustomerId']?.touched" class="text-danger">
-                    <small *ngIf="lspMappingForm.controls['CustomerId'].errors?.['required']">Customer is
+                  <div *ngIf="lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId']?.touched" class="text-danger">
+                    <small *ngIf="lspMappingForm.controls['customerId'].errors?.['required']">Customer is
                       required.</small>
                   </div>
                 </div>
@@ -37,15 +37,15 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="lsps">Support Email Address</label>
-                  <input class="form-control" formControlName="SupportEmail" type="text"  placeholder="Enter support email"
-                  [ngClass]="{ 'border-danger': lspMappingForm.controls['SupportEmail'].invalid && lspMappingForm.controls['SupportEmail'].touched}" />
+                  <input class="form-control" formControlName="supportEmail" type="text"  placeholder="Enter support email"
+                  [ngClass]="{ 'border-danger': lspMappingForm.controls['supportEmail'].invalid && lspMappingForm.controls['supportEmail'].touched}" />
                   <div class="text-danger">
-                    <small *ngIf="lspMappingForm.controls['SupportEmail'].errors?.['pattern']">Support Email Address is invalid.</small>
+                    <small *ngIf="lspMappingForm.controls['supportEmail'].errors?.['pattern']">Support Email Address is invalid.</small>
                   </div>
                 </div>
               </div>
               <div class="checkbox p-0" *ngIf="lspMappingId != ''">
-                <input id="dafault-checkbox" type="checkbox" formControlName="IsActive" />
+                <input id="dafault-checkbox" type="checkbox" formControlName="isActive" />
                 <label class="mb-0" for="dafault-checkbox">Active</label>
               </div>
             </div>

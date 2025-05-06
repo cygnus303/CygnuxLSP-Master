@@ -71,9 +71,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   buildForm(): void {
     this.lspMappingForm = new FormGroup({
       lspIds: new FormControl([], [Validators.required]),
-      CustomerId: new FormControl(null, [Validators.required]),
-      IsActive: new FormControl(true),
-      SupportEmail:new FormControl('', [Validators.pattern(EmailRegex)])
+      customerId: new FormControl(null, [Validators.required]),
+      isActive: new FormControl(true),
+      supportEmail:new FormControl('', [Validators.pattern(EmailRegex)])
     });
   }
 
