@@ -18,6 +18,7 @@ import { LspMappingService } from '../../../shared/services/lsp-mapping.service'
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { EmailRegex } from '../../../shared/constants/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-lsp-mapping',
@@ -51,7 +52,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
       : [];    
       this.lspMappingForm.patchValue(this.lspMappingResponse);
-      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? ''; 
+      this.lspMappingId = this.lspMappingResponse.customerId ?? ''; 
     } else {
       this.lspMappingForm.reset();
       this.buildForm();
@@ -184,7 +185,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   updateLspMapping(dataSubmit: any): void {
     this.commonService.updateLoader(true);
     this.lspMappingService
-      .updateLspMapping(this.lspMappingId,dataSubmit)
+      .updateLspMapping(this.lspMappingResponse?.lspMappingId,dataSubmit)
       .subscribe({
         next: (response) => {
           this.sweetAlertService.success(response.data.message);
