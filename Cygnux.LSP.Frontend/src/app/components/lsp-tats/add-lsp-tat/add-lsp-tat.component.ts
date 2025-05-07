@@ -45,19 +45,23 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspTatResponse'] && this.lspTatResponse) {
-      this.getCustomers();
       this.lspTatForm.patchValue(this.lspTatResponse);
       this.lspTatId = this.lspTatResponse.lspTatId;
+      this.getLsps(this.lspTatResponse.customerId);
     } else {
       this.lspTatForm.reset();
       this.buildForm();
       this.lspTatId = '';
     }
+    this.getCustomers();
+    if(this.customers){
+      if(this.userRoles === 'Customer Admin'){
+        this.lspTatForm.patchValue(this.customers[0])
+      }
+    }
   }
 
   ngOnInit(): void {
-    this.getCustomers();
-    this.getLsps();
     this.buildForm();
     this.getTransporterDetail();
   }
@@ -102,9 +106,6 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response) {
           this.customers = response.data;
-          if(this.userRoles === 'Customer Admin'){
-            this.lspTatForm.patchValue(response.data[0])
-          }
         }
         this.commonService.updateLoader(false);
       },
@@ -114,9 +115,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       },
     });
   }
-  getLsps() {
+  getLsps(customerId:string) {
     this.commonService.updateLoader(true);
-    this.lspTatService.getLsps(this.identityService.getLoggedUserId()).subscribe({
+    this.lspTatService.getLsps(customerId).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
