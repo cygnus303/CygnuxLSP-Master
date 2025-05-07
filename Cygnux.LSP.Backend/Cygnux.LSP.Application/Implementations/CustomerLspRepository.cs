@@ -38,9 +38,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<IEnumerable<LspResponse>>(response);
     }
 
-    public async Task<BaseResponse<LspTatDetailResponse?>> GetLspTatDetails(string mappingId, Guid userId)
+    public async Task<BaseResponse<LspTatDetailResponse?>> GetLspTatDetails(Guid Id)
     {
-        var response = await _customerLspService.GetLspTatDetails(mappingId, userId);
+        var response = await _customerLspService.GetLspTatDetails(Id);
         return new BaseResponse<LspTatDetailResponse?>(response);
     }
 
