@@ -225,6 +225,9 @@ ngOnChanges(changes: SimpleChanges): void {
   onSelectOrigin(event:any){
     this.commonService.updateLoader(true);
     this.docketForm.patchValue({
+      toLocation:null
+    });
+    this.docketForm.patchValue({
       lspId: event.lspId
     });
     const filters={

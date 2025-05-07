@@ -38,11 +38,6 @@ ngOnChanges(changes:SimpleChanges){
   ngOnInit(){
     this.buildForm();
     this.getTransporterDetail();
-    // this.statusUpdateForm.controls['docketNumber'].valueChanges.subscribe((value) => {
-    //   if(value){
-    //     this.getDocketNoChange(value);
-    //   }
-    // });
   }
 
   buildForm(){
@@ -76,27 +71,35 @@ ngOnChanges(changes:SimpleChanges){
     });
   }
 
-  getDocketNoChange(docketNumber:any){
-    this.docketService.getDocketDetail(docketNumber).subscribe({
-      next: (response) => {
-        if(response && response.data){
-          const result = response.data[0];
-          this.statusUpdateForm.patchValue({
-            orderDate: result.bookingDate,
-            lspName: result.lspName,
-            fromCity: result.fromLocation,
-            toCity: result.toLocation,
-            currentStatus: result.transporter
-          });
-        } else {
-          this.sweetAlertService.error(response.error.message);
-        }
-        this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
-    });
+  onSubmitStatus(form: FormGroup){
+    if (form.valid) {
+      let forms = {
+        ...form.value,
+      }
   }
+}
+
+  // getDocketNoChange(docketNumber:any){
+  //   this.docketService.getDocketDetail(docketNumber).subscribe({
+  //     next: (response) => {
+  //       if(response && response.data){
+  //         const result = response.data[0];
+  //         this.statusUpdateForm.patchValue({
+  //           orderDate: result.bookingDate,
+  //           lspName: result.lspName,
+  //           fromCity: result.fromLocation,
+  //           toCity: result.toLocation,
+  //           currentStatus: result.transporter
+  //         });
+  //       } else {
+  //         this.sweetAlertService.error(response.error.message);
+  //       }
+  //       this.commonService.updateLoader(false);
+  //     },
+  //     error: (response: any) => {
+  //       this.sweetAlertService.error(response.error.message);
+  //       this.commonService.updateLoader(false);
+  //     },
+  //   });
+  // }
 }

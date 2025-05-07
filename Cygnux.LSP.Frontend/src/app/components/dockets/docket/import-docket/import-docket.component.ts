@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
-import { environment } from '../../../../../environments/environment';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { CommonService } from '../../../../shared/services/common.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';

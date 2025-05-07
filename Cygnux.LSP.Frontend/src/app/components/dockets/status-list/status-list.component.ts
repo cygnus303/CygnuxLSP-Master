@@ -13,17 +13,10 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 })
 export class StatusListComponent {
  public  files: File[] = [];
-
-constructor(
-  private sweetAlertService:SweetAlertService
-){
-  defineElement(lottie.loadAnimation);
-}
-
+constructor(private sweetAlertService: SweetAlertService) {defineElement(lottie.loadAnimation)}
 downloadSampleFile(event:any){
   event.preventDefault();
-  let path =
-    environment.apiUrl.replace('/api/v1', '') + 'Uploads/Status_Import.xlsx';
+  let path = environment.apiUrl.replace('/api/v1', '') + 'Uploads/Status_Import.xlsx';
   window.open(path, '_blank');
 }
 
