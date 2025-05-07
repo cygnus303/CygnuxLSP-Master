@@ -85,7 +85,7 @@ internal class CustomerLspService : ICustomerLspService
     public async Task<LspTatDetailResponse> GetLspTatDetails(Guid Id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@Id", Id, DbType.String);
+        parameters.Add("@Id", Id, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<LspTatDetailResponse>(
              StoredProcedureConstants.USP_GetCustomerLspTatDetails,
