@@ -181,13 +181,14 @@ export class LspMappingListComponent implements OnInit {
     this.getLspMappings(this.page);
   }
 
-  lspMappingsDetail(event: Event, customerId: string){
+  lspMappingsDetail(event: Event, lsp: any){
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('lspMappingsDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
-      this.getLspMapping(customerId);
+      this.selectedLsp = lsp;
+      // this.getLspMapping(customerId);
     }
   }
 }
