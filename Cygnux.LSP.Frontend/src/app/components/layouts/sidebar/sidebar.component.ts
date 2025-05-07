@@ -70,9 +70,9 @@ getMenus() {
         //     canCreate: permission ? permission.canCreate : false
         //   };
         // });
-        // const urlPart = this.router.url === '/docket/list' ? '/' + this.router.url.split('/')[1] : this.router.url;
-        // const data = this.menus.find(res => res.navigationUrl.includes(urlPart));
-        const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
+        const urlPart = this.router.url === '/docket/list' ? '/' + this.router.url.split('/')[1] : this.router.url;
+        const data = this.menus.find(res => res.navigationUrl.includes(urlPart));
+        // const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
         if (data) {
           this.commonService.activemenuRoleList.next(data);
         }
