@@ -18,7 +18,6 @@ import { LspMappingService } from '../../../shared/services/lsp-mapping.service'
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { EmailRegex } from '../../../shared/constants/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-lsp-mapping',
