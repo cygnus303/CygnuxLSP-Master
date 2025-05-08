@@ -53,4 +53,17 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string Transporter {  get; set; } = string.Empty;
         public string CurrentStatusCode {  get; set; } = string.Empty;
     }
+
+    public class DocketStatusUpdate
+    {
+        public int Id { get; set; }
+        public string LspName { get; set; } = string .Empty ;
+        public string DocketNumber { get; set; } = string.Empty;
+        public string NextDocketStatus { get; set; } = string.Empty;
+        public DateTime StatusDate { get; set; }
+        public int ErrorCode { get; set; }
+        public string ErrorMessage { get; set; } = string.Empty;
+        public Guid Transporter { get; set; }
+        public string CurrentStatusCode { get; set; } = string.Empty;
+    }
 }

@@ -23,4 +23,6 @@ public interface IDocketService
     Task<CommonCreateResponse> InsertDocketData(string docketdata, Guid entryBy);
     Task<CommonCreateResponse> ImportPOD(string PodData,Guid User);
     Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid custId);
+
+    Task<CommonCreateResponse> UpdateDocketStatus(string docketstslist, Guid entryBy);
 }

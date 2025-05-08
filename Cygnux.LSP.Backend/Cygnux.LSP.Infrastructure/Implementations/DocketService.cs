@@ -196,4 +196,17 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         );
     }
+    public async Task<CommonCreateResponse> UpdateDocketStatus(string docketstslist, Guid entryBy)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonInput", docketstslist, DbType.String);
+        parameters.Add("@EntryBy", entryBy, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+               StoredProcedureConstants.USP_UpdateDocketStatus,
+               param: parameters,
+               commandType: CommandType.StoredProcedure
+           ) ?? new CommonCreateResponse();
+    }
+
 }

@@ -112,5 +112,13 @@ internal class DocketRepository : IDocketRepository
         return new BaseResponse<IEnumerable<DocketStatusResponseData>>(response);
     }
 
+    public async Task<BaseResponse<CommonCreateResponse>> UpdateDocketStatus(List<DocketStatusUpdate> docketstslist, Guid entryBy)
+    {
+        var response = await _docketService.UpdateDocketStatus(JsonConvert.SerializeObject(docketstslist), entryBy);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+            : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+
 
 }

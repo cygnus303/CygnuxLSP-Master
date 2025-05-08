@@ -288,7 +288,6 @@ public class DocketController : ControllerBase
         }
     }
 
-
     [HttpPost]
     [Route("ValidateDocketStatus")]
     public async Task<IActionResult> GetValidateDocketStatusUpdateData(IFormFile file, Guid custId)
@@ -301,5 +300,10 @@ public class DocketController : ControllerBase
         return Ok();
     }
 
-
+    [HttpPost]
+    [Route("UpdateDocketStatus")]
+    public async Task<IActionResult> UpdateDocketStatus(List<DocketStatusUpdate> docketstslist, Guid entryBy)
+    {
+        return Ok(await _docketRepository.UpdateDocketStatus(docketstslist, entryBy));
+    }
 }
