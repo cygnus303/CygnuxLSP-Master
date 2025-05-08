@@ -2,6 +2,7 @@
 
 using Application.Contracts;
 using Application.Models.Request.Docket;
+using ClosedXML.Excel;
 using Cygnux.LSP.Api.Helpers;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using DocumentFormat.OpenXml.Presentation;
@@ -19,16 +20,18 @@ public class DocketController : ControllerBase
     private readonly IDocketRepository _docketRepository;
     private readonly IWebHostEnvironment _env;
     private readonly IConfiguration _iconfiguration;
+    private readonly ICustomerLspRepository _customerLspRepository;
 
     //public DocketController(IDocketRepository docketRepository)
     //{
     //    _docketRepository = docketRepository;
     //}
-    public DocketController(IWebHostEnvironment env, IDocketRepository docketRepository,IConfiguration iconfiguration)
+    public DocketController(IWebHostEnvironment env, IDocketRepository docketRepository,IConfiguration iconfiguration, ICustomerLspRepository customerLspRepository)
     {
         _env = env;
         _docketRepository = docketRepository;
         _iconfiguration = iconfiguration;
+        _customerLspRepository = customerLspRepository;
     }
 
     [HttpGet]
@@ -73,9 +76,6 @@ public class DocketController : ControllerBase
         return Ok(result);
     }
 
-
-
-
     [HttpPost]
     [Route("AddDocket")]
     public async Task<IActionResult> AddDocket(CreateDocketRequest createDocketDto)
@@ -96,19 +96,6 @@ public class DocketController : ControllerBase
     {
         return Ok(await _docketRepository.DeleteDocket(id));
     }
-
-    //[HttpPost]
-    //[Route("ImportPOD")]
-    //public async Task<IActionResult> ImportPODData(IFormFile file, string? User)
-    //{
-    //    var PodData = ExcelReadHelper.ExtractAllRows(file);
-    //    if (PodData is not null)
-    //    {
-    //        return Ok(await _docketRepository.ImportPOD(PodData, User));
-    //    }
-    //    return Ok();
-    //}
-
 
     [HttpGet]
     [Route("GetDropdowndata")]
@@ -311,6 +298,77 @@ public class DocketController : ControllerBase
     //        return StatusCode(500, $"Internal server error: {ex.Message}");
     //    }
     //}
+
+ 
+    [HttpGet("DownloadTrackingExcel")]
+    public async Task<IActionResult> DownloadTrackingExcel([FromQuery] Guid login)
+    {
+        var response = await _docketRepository.GetTrackingList("DOCKSTAUS");
+        var lsplist = await _customerLspRepository.GetLsps(login);
+
+        if (response == null || response.Data == null || !response.Data.Any())
+            return NotFound("No records found for the selected code.");
+
+        if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
+            return NotFound("No records found for the selected code.");
+
+        using (var workbook = new XLWorkbook())
+        {
+            var mainSheet = workbook.Worksheets.Add("Main Sheet");
+            var listSheet = workbook.Worksheets.Add("DropdownList");
+
+            // Populate dropdown values in a separate sheet
+            int row = 1, lsprows = 1;
+            foreach (var item in response.Data)
+            {
+                listSheet.Cell(row, 1).Value = item.CodeId +":"+ item.CodeDesc; // Use item.Code if needed
+                row++;
+            }
+            foreach (var itemlsp in lsplist.Data)
+            {
+                listSheet.Cell(lsprows, 2).Value = itemlsp.LSPCode +":"+ itemlsp.LspName; // Use item.Code if needed
+                lsprows++;
+            }
+
+            // Define named range for the list (e.g., A1:A10)
+            var listRange = listSheet.Range($"A1:A{response.Data.Count()}");
+            listRange.AddToNamed("TrackingOptions");
+            var listRangelsp = listSheet.Range($"B1:B{lsplist.Data.Count()}");
+            listRangelsp.AddToNamed("LspOptions");
+
+            // Hide the dropdown sheet
+            listSheet.Visibility = XLWorksheetVisibility.VeryHidden;
+
+            // Add header to main sheet
+            mainSheet.Cell("A1").Value = "LSP Name";
+            mainSheet.Cell("B1").Value = "Docket Number";
+            mainSheet.Cell("C1").Value = "Next Docket Status";
+            mainSheet.Cell("D1").Value = "Status Date";
+
+            // Apply data validation
+            var validationStatus = mainSheet.Range("C2:C1048576").CreateDataValidation();
+            validationStatus.IgnoreBlanks = true;
+            validationStatus.InCellDropdown = true;
+            validationStatus.AllowedValues = XLAllowedValues.List;
+            validationStatus.List("=TrackingOptions");
+
+            var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
+            validationLsp.IgnoreBlanks = true;
+            validationLsp.InCellDropdown = true;
+            validationLsp.AllowedValues = XLAllowedValues.List;
+            validationLsp.List("=LspOptions");
+
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+                return File(stream.ToArray(),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    $"DocketSatusUpload.xlsx");
+            }
+        }
+    }
 
 
 
