@@ -287,7 +287,8 @@ export class DocketListComponent implements OnInit {
       const modal = new Modal(modalElement);
       modal.show();
       this.isSelected = type;
-      this.getDocket(docketList);
+      this.selectedDocket = docketList;
+      // this.getDocket(docketList);
     }
   }
 

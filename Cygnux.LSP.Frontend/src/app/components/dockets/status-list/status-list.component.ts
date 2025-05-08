@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
-import { environment } from '../../../../environments/environment';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
