@@ -31,4 +31,5 @@ public static class StoredProcedureConstants
     public const string USP_ValidateBulkUploadDocketData = "USP_ValidateBulkUploadDocketData";
     public const string PODUplaodDataFromExcel = "PODUplaodDataFromExcel";
     public const string USP_InsertValiadateDocketData = "USP_InsertValiadateDocketData";
+    public const string USP_ValidateDocketStatusData = "USP_ValidateDocketStatusData";
 }

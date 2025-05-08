@@ -183,4 +183,17 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+
+    public async Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid custId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@json", bulkDocket, DbType.String);
+        parameters.Add("@CustomerID", custId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DocketStatusResponseData>(
+            StoredProcedureConstants.USP_ValidateDocketStatusData,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
 }

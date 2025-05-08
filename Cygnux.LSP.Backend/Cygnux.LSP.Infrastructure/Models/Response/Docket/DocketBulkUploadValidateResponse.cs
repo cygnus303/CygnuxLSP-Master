@@ -40,4 +40,17 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public bool IsCancel { get; set; }
     }
 
+
+    public class DocketStatusResponseData
+    {
+        public int Id { get; set; }
+        public string LSPName { get; set; } = string.Empty ;
+        public string DocketNumber { get; set; } = string.Empty;
+        public string NextDocketStatus { get; set; } = string.Empty;
+        public DateTime StatusDate { get; set; } 
+        public int ErrorCode { get; set; } 
+        public string ErrorMessage { get; set; } = string.Empty;
+        public string Transporter {  get; set; } = string.Empty;
+        public string CurrentStatusCode {  get; set; } = string.Empty;
+    }
 }

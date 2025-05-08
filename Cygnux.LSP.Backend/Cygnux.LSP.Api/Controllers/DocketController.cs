@@ -217,88 +217,6 @@ public class DocketController : ControllerBase
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
-
-    //public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, string? User)
-    //{
-    //    if (excelFile == null || excelFile.Length == 0)
-    //        return BadRequest("No Excel file uploaded.");
-
-    //    var podDataList = new List<PODDataList>();
-
-    //    try
-    //    {
-    //        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages");
-
-    //        // Make sure the folder exists
-    //        if (!Directory.Exists(uploadsFolder))
-    //        {
-    //            Directory.CreateDirectory(uploadsFolder); // Create folder if not exists
-    //        }
-
-    //        using (var stream = new MemoryStream())
-    //        {
-    //            await excelFile.CopyToAsync(stream);
-    //            stream.Position = 0;
-
-    //            XSSFWorkbook workbook = new XSSFWorkbook(stream);
-    //            ISheet sheet = workbook.GetSheetAt(0);
-
-    //            int rowCount = sheet.LastRowNum;
-    //            for (int row = 1; row <= rowCount; row++)
-    //            {
-    //                IRow currentRow = sheet.GetRow(row);
-    //                if (currentRow == null) continue;
-
-    //                string docketNo = currentRow.GetCell(0)?.ToString()?.Trim();
-    //                string uploadDateText = currentRow.GetCell(1)?.ToString()?.Trim();
-    //                string imageLink = currentRow.GetCell(2)?.ToString()?.Trim();
-
-    //                if (string.IsNullOrEmpty(docketNo))
-    //                    continue;
-
-    //                var podEntry = new PODDataList
-    //                {
-    //                    DocketNo = docketNo,
-    //                    UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
-    //                    ImageLink = null
-    //                };
-
-    //                if (!string.IsNullOrEmpty(imageLink) && System.IO.File.Exists(imageLink))
-    //                {
-    //                    // Create a unique filename
-    //                    //var uniqueFileName = $"{Guid.NewGuid()}{Path.GetExtension(imageLink)}";
-    //                    var uniqueFileName = $"{podEntry.DocketNo}{Path.GetExtension(imageLink)}";
-    //                    var savePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-    //                    // Copy the file to server folder
-    //                    System.IO.File.Copy(imageLink, savePath, true);
-
-    //                    // Save only the relative path in DB
-    //                    podEntry.ImageLink = Path.Combine("UploadedImages", uniqueFileName).Replace("\\", "/");
-    //                }
-    //                else
-    //                {
-    //                    podEntry.ImageLink = null;
-    //                }
-
-    //                podDataList.Add(podEntry);
-    //            }
-    //        }
-
-    //        if (podDataList.Any())
-    //        {
-    //            var result = await _docketRepository.ImportPOD(podDataList, User);
-    //            return Ok(result);
-    //        }
-
-    //        return Ok(new { message = "No valid data found in Excel file." });
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return StatusCode(500, $"Internal server error: {ex.Message}");
-    //    }
-    //}
-
  
     [HttpGet("DownloadSampleStatusUpload")]
     public async Task<IActionResult> DownloadTrackingExcel([FromQuery] Guid login)
@@ -371,6 +289,17 @@ public class DocketController : ControllerBase
     }
 
 
+    [HttpPost]
+    [Route("ValidateDocketStatus")]
+    public async Task<IActionResult> GetValidateDocketStatusUpdateData(IFormFile file, Guid custId)
+    {
+        var data = ExcelReadHelper.ExtractAllRows(file);
+        if (data is not null)
+        {
+            return Ok(await _docketRepository.GetValidateDocketStatusUpdateData(data, custId));
+        }
+        return Ok();
+    }
 
 
 }
