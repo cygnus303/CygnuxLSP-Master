@@ -150,7 +150,7 @@ export class ImportDocketComponent {
         next: (response) => {
           if (response && response.data) {
             this.validateData = response.data;
-            this.exportToExcel(this.validateData, 'Invalid_Dockets');
+            this.docketService.exportToExcel(this.validateData, 'Invalid_Dockets');
           }
           this.commonService.updateLoader(false);
         },
@@ -161,24 +161,7 @@ export class ImportDocketComponent {
       });
     }
 
-    exportToExcel(data: any[], fileName: string): void {
-      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-      const workbook: XLSX.WorkBook = {
-        Sheets: { 'Errors': worksheet },
-        SheetNames: ['Errors']
-      };
-    
-      const excelBuffer: any = XLSX.write(workbook, {
-        bookType: 'xlsx',
-        type: 'array'
-      });
-    
-      const blob: Blob = new Blob([excelBuffer], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
-      });
-    
-      saveAs(blob, `${fileName}.xlsx`);
-    }
+   
 
     onClose(){
       this.validateData=[];

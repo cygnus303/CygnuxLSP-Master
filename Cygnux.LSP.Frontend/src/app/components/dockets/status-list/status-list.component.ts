@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import * as XLSX from 'xlsx';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
-
+import { ValidateDocketStatusList } from '../../../shared/models/docket.model';
 @Component({
   selector: 'app-status-list',
   standalone: false,
@@ -16,29 +15,32 @@ import { CommonService } from '../../../shared/services/common.service';
 export class StatusListComponent {
  public  files: File[] = [];
  public selectedFile:any;
-constructor(private sweetAlertService: SweetAlertService,public docketService:DocketService,public commonService: CommonService,  private identityService:IdentityService) {defineElement(lottie.loadAnimation)}
-downloadSampleFile(event: any) {
-  event.preventDefault();
-  this.commonService.updateLoader(true);
-  this.docketService.DownloadSampleStatusUpload(this.identityService.getLoggedUserId()).subscribe({
-    next: (response: Blob) => {
-      const blob = new Blob([response], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      });
-      const url = window.URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.download = 'DocketStatusUpload.xlsx';
-      anchor.click();
-      window.URL.revokeObjectURL(url);
-      this.commonService.updateLoader(false);
-    },
-    error: (error) => {
-      this.sweetAlertService.error('Failed to download file.');
-      this.commonService.updateLoader(false);
-    }
-  });
-}
+ public validateDocketStatusList:ValidateDocketStatusList[]=[];
+
+  constructor(private sweetAlertService: SweetAlertService,public docketService:DocketService,public commonService: CommonService,  private identityService:IdentityService) {defineElement(lottie.loadAnimation)}
+
+  downloadSampleFile(event: any) {
+    event.preventDefault();
+    this.commonService.updateLoader(true);
+    this.docketService.downloadSampleStatusUpload(this.identityService.getLoggedUserId()).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = 'DocketStatusUpload.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+        this.commonService.updateLoader(false);
+      },
+      error: (error) => {
+        this.sweetAlertService.error('Failed to download file.');
+        this.commonService.updateLoader(false);
+      }
+    });
+  }
 
   onChangeFile(event: any) {
     const file = event.addedFiles[0];
@@ -51,16 +53,6 @@ downloadSampleFile(event: any) {
       this.selectedFile = file;
       if (validExcelTypes.includes(file.type)) {
         this.files = [file];
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const sheetName = workbook.SheetNames[0];
-          const worksheet = workbook.Sheets[sheetName];
-          const jsonData = XLSX.utils.sheet_to_json(worksheet); // Extract as array of objects
-          // this.statusUpdate = Array.isArray(jsonData) ? jsonData : [];
-        };
-        // reader.readAsArrayBuffer(file);
       } else {
         this.sweetAlertService.error('Please upload a valid excel file.');
         this.files = [];
@@ -69,11 +61,51 @@ downloadSampleFile(event: any) {
   }
 
   onRemove(file: File) {
-      this.files = this.files.filter(f => f !== file);
-      // this.statusUpdate=[];
-    }
-
-  exportExcel(){
-    this.selectedFile
+    this.files = this.files.filter(f => f !== file);
+    this.validateDocketStatusList = [];
   }
+
+  get isValidData(): boolean {
+    return this.validateDocketStatusList.length > 0 && this.validateDocketStatusList.every(item => item.errorCode === 1);
+  }
+    
+  exportExcel() {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    this.docketService.validateDocketStatus(this.identityService.getLoggedUserId(), formData).subscribe({
+      next: (response) => {
+        this.validateDocketStatusList = response.data;
+        const cleanedData = this.validateDocketStatusList.map(({ id, errorCode, transporter, currentStatusCode, statusDate, ...rest }) => {
+          const formattedDate = new Date(statusDate).toLocaleDateString('en-US');
+          return { ...rest, statusDate: formattedDate };
+        });
+        this.docketService.exportToExcel(cleanedData, 'Invalid_Dockets');
+        this.commonService.updateLoader(false);
+      },
+      error: (error) => {
+        this.sweetAlertService.error(error);
+        this.commonService.updateLoader(false);
+      }
+    });
+  }
+  
+  onSave(){
+    this.commonService.updateLoader(true);
+    this.docketService.updateDocketStatus(this.identityService.getLoggedUserId(),this.validateDocketStatusList).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.files = [];
+          this.validateDocketStatusList = [];
+          this.sweetAlertService.success(response.data.message);
+        } else {
+          this.sweetAlertService.error(response.data.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.data.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+}
 }

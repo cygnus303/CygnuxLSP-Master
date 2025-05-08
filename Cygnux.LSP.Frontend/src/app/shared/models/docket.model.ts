@@ -52,3 +52,15 @@ export interface ValidateFileResponse{
     errorMessage: string,
     errorCode: boolean
 }
+
+export interface ValidateDocketStatusList{
+  id: number,
+  lspName: string;
+  docketNumber: string;
+  nextDocketStatus: string;
+  statusDate: string;
+  errorCode: number,
+  errorMessage: string;
+  transporter: string;
+  currentStatusCode: string;
+}

@@ -25,3 +25,34 @@
     -webkit-box-shadow: 0px 0px 3px var(--theme-deafult);
     box-shadow: 0px 0px 3px var(--theme-deafult);
   }
+
+  .green{
+    td {
+      background-color: #c5dfcc9e;
+      // color:green;
+    }
+  }
+  
+  .pink{
+    td{
+      background-color: #f9d7dd9e;
+      // color:red;
+    }
+  }
+
+  .overflow-y{
+    height: 300px !important;
+    overflow: auto;
+    .excelData-table{
+        &.table {
+            border: 1px solid #C3C3C3;
+            border-top: none;
+      
+            thead {
+              position: sticky;
+              top: 0;
+              z-index: 999;
+            }
+        }  
+    }
+  }

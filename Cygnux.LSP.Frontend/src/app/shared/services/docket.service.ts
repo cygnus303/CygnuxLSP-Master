@@ -4,6 +4,8 @@ import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse} from '../interfaces/api-base-action-response';
 import { CommonResponse } from '../models/lsp.model';
 import { AddDocketRequest, DocketResponse } from '../models/docket.model';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 interface IRange {
   value: Date[];
   label: string;
@@ -60,6 +62,23 @@ export class DocketService {
     },
   ];
 
+  exportToExcel(data: any[], fileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = {
+      Sheets: { 'Errors': worksheet },
+      SheetNames: ['Errors']
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array'
+    });
+    const blob: Blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+    });
+  
+    saveAs(blob, `${fileName}.xlsx`);
+  }
+
   getDocketList(filters:any): Observable<IApiBaseResponse<DocketResponse[]>> {
     return this.apiHandlerService.Get('docket/GetDocketList', filters);
   }
@@ -112,8 +131,14 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`)
   }
 
-  DownloadSampleStatusUpload(login: string): Observable<Blob> {
+  downloadSampleStatusUpload(login: string): Observable<Blob> {
     return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleStatusUpload?login=${login}`);
   }
 
+  validateDocketStatus(id:string,formData:any){
+    return this.apiHandlerService.Post(`Docket/ValidateDocketStatus?custId=${id}`,formData);
+  }
+  updateDocketStatus(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Post(`Docket/UpdateDocketStatus?entryBy=${id}`,formData);
+  }
 }
