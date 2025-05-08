@@ -59,7 +59,8 @@ getMenus() {
   .subscribe({
     next: (response) => {
       if (response) {
-        this.menus = response.data
+        this.menus = response.data;
+        this.menuService.setMenusToCache(this.menus);
         // map((menu: any) => {
         //   const permission = this.rolePermission.find(p => p.menuId === menu.menuId);
         //   return {

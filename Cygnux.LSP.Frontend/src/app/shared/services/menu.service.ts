@@ -9,6 +9,7 @@ import { IdentityService } from './identity.service';
   providedIn: 'root'
 })
 export class MenuService {
+  private cachedMenus: MenuResponse[] = [];
 
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService,private identifyService:IdentityService) { }
 
@@ -22,4 +23,13 @@ export class MenuService {
   getMenuDetails(id: string): Observable<IApiBaseResponse<MenuResponse>> {
     return this.apiHandlerService.Get('menu/' + id);
   }
+
+  setMenusToCache(menus: MenuResponse[]) {
+    this.cachedMenus = menus;
+  }
+  
+  getMenusFromCache(): MenuResponse[] {
+    return this.cachedMenus;
+  }
+
 }
