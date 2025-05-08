@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, ViewChild} from '@angular/core';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -12,8 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 import feather from 'feather-icons';
 import { ImportDocketComponent } from './import-docket/import-docket.component';
 import { AddDocketComponent } from './add-docket/add-docket.component';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormControl, FormGroup } from '@angular/forms';
 import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.component';
 
 @Component({

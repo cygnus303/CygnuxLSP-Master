@@ -4,6 +4,7 @@ import { tap } from 'rxjs/internal/operators/tap';
 import { IApiBaseActions, IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
 import { environment } from '../../../environments/environment';
 import { ResponseMessages } from '../constants/response-message';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -51,4 +52,8 @@ export class ApiHandlerService implements IApiBaseActions {
     }
     return httpParams;
   }
+  DownloadFile(url: string): Observable<Blob> {
+    return this.httpClient.get<Blob>(environment.apiUrl + url, {responseType: 'blob' as 'json'});
+  }
+  
 }

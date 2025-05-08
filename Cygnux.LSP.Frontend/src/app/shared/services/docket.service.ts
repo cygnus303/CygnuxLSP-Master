@@ -112,4 +112,8 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`)
   }
 
+  DownloadSampleStatusUpload(login: string): Observable<Blob> {
+    return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleStatusUpload?login=${login}`);
+  }
+
 }
