@@ -300,7 +300,7 @@ public class DocketController : ControllerBase
     //}
 
  
-    [HttpGet("DownloadTrackingExcel")]
+    [HttpGet("DownloadSampleStatusUpload")]
     public async Task<IActionResult> DownloadTrackingExcel([FromQuery] Guid login)
     {
         var response = await _docketRepository.GetTrackingList("DOCKSTAUS");
