@@ -33,6 +33,7 @@ export class DocketListComponent implements OnInit {
   public selectedFile: File | null = null;
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
+  public isSelected: string='';
   public loading : boolean = false;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
@@ -164,13 +165,13 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-  editModal(event: Event, docketCode: string) {
+  editModal(event: Event, docketList: any) {
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
-      this.getDocket(docketCode);
+      this.getDocket(docketList);
     }
   }
   deleteModal(event: Event, docketCode: string) {
@@ -209,9 +210,9 @@ export class DocketListComponent implements OnInit {
     }
   }
 
-  getDocket(docketCode: string) {
+  getDocket(docketList: any) {
     this.commonService.updateLoader(true);
-    this.docketService.getDocketDetails(docketCode,this.identityService.getLoggedUserId()).subscribe({
+    this.docketService.getDocketDetails(docketList.id,docketList.entryBy).subscribe({
       next: (response) => {
         if (response) {
           this.selectedDocket = response.data;
@@ -281,20 +282,22 @@ export class DocketListComponent implements OnInit {
     this.getDockets(this.page);
   }
 
-  docketDetail(event: Event, id: string){
+  docketDetail(event: Event, docketList: any ,type:string){
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('docketDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
-      this.getDocket(id);
+      this.isSelected = type;
+      this.getDocket(docketList);
     }
   }
 
-  openStatusUpdateModal(docketData:any){
+  openStatusUpdateModal(docketData:any ,type:string){
     const modalElement = document.getElementById('showModal');
     if (modalElement) {
       this.selectedDocket=docketData
+      this.isSelected = type;
       const modal = new Modal(modalElement);
       modal.show();
     }

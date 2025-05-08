@@ -34,6 +34,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public transporter:TrackingListResponse[]=[];
   public transportMode:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
+  @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   constructor(
@@ -77,8 +78,10 @@ ngOnChanges(changes: SimpleChanges): void {
     this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
     this.docketId = this.docketResponse.id;
     this.docketForm.patchValue(this.docketResponse);
-    this.onSelectCustomer(this.docketResponse , true)
-    this.onSelectOrigin(this.docketResponse)
+      if(!this.isSelected){
+        this.onSelectCustomer(this.docketResponse , true)
+        this.onSelectOrigin(this.docketResponse)
+      }
   } else {
     // this.docketForm.reset();
     this.docketId = '';
