@@ -2,6 +2,7 @@
 
 using Application.Contracts;
 using Application.Models.Request.Docket;
+using Azure;
 using ClosedXML.Excel;
 using Cygnux.LSP.Api.Helpers;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
@@ -111,6 +112,81 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
     }
 
+    [HttpGet("DownloadSampleDocketUpload")]
+    public async Task<IActionResult> DownloadDocketUplaodFile([FromQuery] Guid login)
+    {
+        var transmode = await _docketRepository.GetTrackingList("TRN");
+        var lsplist = await _customerLspRepository.GetLsps(login);
+
+        if (transmode == null || transmode.Data == null || !transmode.Data.Any())
+            return NotFound("No records found for the Transport mode.");
+
+        if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
+            return NotFound("No records found for the Lsp list.");
+
+        using (var workbook = new XLWorkbook())
+        {
+            var mainSheet = workbook.Worksheets.Add("Main Sheet");
+            var listSheet = workbook.Worksheets.Add("DropdownList");
+
+            // Populate dropdown values in a separate sheet
+            int j = 1, k = 1;
+          
+            foreach (var itemj in transmode.Data)
+            {
+                listSheet.Cell(j, 1).Value = itemj.CodeId + ":" + itemj.CodeDesc; 
+                j++;
+            }
+            foreach (var itemk in lsplist.Data)
+            {
+                listSheet.Cell(k, 2).Value = itemk.LSPCode + ":" + itemk.LspName; 
+                k++;
+            }
+
+            // Define named range for the list (e.g., A1:A10)
+           
+            var modeRange = listSheet.Range($"A1:A{transmode.Data.Count()}");
+            modeRange.AddToNamed("ModeOption");
+            var lspRange = listSheet.Range($"B1:B{lsplist.Data.Count()}");
+            lspRange.AddToNamed("LspOption");
+
+            // Hide the dropdown sheet
+            listSheet.Visibility = XLWorksheetVisibility.VeryHidden;
+
+            // Add header to main sheet
+            mainSheet.Cell("A1").Value = "LSP Name";
+            mainSheet.Cell("B1").Value = "Docket No";
+            mainSheet.Cell("C1").Value = "Invoice No";
+            mainSheet.Cell("D1").Value = "Date";
+            mainSheet.Cell("E1").Value = "From Location";
+            mainSheet.Cell("F1").Value = "To Location";
+            mainSheet.Cell("G1").Value = "Quantity";
+            mainSheet.Cell("H1").Value = "Mode of Transporter";
+
+            // Apply data validation
+            var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
+            validationLsp.IgnoreBlanks = true;
+            validationLsp.InCellDropdown = true;
+            validationLsp.AllowedValues = XLAllowedValues.List;
+            validationLsp.List("=LspOption");
+
+            var validationStatus = mainSheet.Range("H2:H1048576").CreateDataValidation();
+            validationStatus.IgnoreBlanks = true;
+            validationStatus.InCellDropdown = true;
+            validationStatus.AllowedValues = XLAllowedValues.List;
+            validationStatus.List("=ModeOption");
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+                return File(stream.ToArray(),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    $"Docket_Upload.xlsx");
+            }
+        }
+    }
+
     [HttpPost]
     [Route("ValidateDocketList")]
     public async Task<IActionResult> GetValidateDocketImportData(IFormFile file, Guid customerid)
@@ -128,94 +204,6 @@ public class DocketController : ControllerBase
     public async Task<IActionResult> InsertDocketData(List<DocketEntryExcelUpload> docketlist,Guid entryBy)
     {
         return Ok(await _docketRepository.InsertDocketData(docketlist,entryBy));
-    }
-
-    [HttpPost("ImportPOD")]
-    public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, List<IFormFile> imageFiles, Guid User)
-    {
-        if (excelFile == null || excelFile.Length == 0)
-            return BadRequest("No Excel file uploaded.");
-
-        if (imageFiles == null || !imageFiles.Any())
-            return BadRequest("No image files uploaded.");
-
-        var podDataList = new List<PODDataList>();
-
-        try
-        {
-            //var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages");
-            var uploadsFolder = _iconfiguration.GetValue<string>("ImagePath");
-
-            if (!Directory.Exists(uploadsFolder))
-            {
-                Directory.CreateDirectory(uploadsFolder);
-            }
-
-            using (var stream = new MemoryStream())
-            {
-                await excelFile.CopyToAsync(stream);
-                stream.Position = 0;
-
-                XSSFWorkbook workbook = new XSSFWorkbook(stream);
-                ISheet sheet = workbook.GetSheetAt(0);
-
-                int rowCount = sheet.LastRowNum;
-                for (int row = 1; row <= rowCount; row++)
-                {
-                    IRow currentRow = sheet.GetRow(row);
-                    if (currentRow == null) continue;
-
-                    string docketNo = currentRow.GetCell(0)?.ToString()?.Trim();
-                    string uploadDateText = currentRow.GetCell(1)?.ToString()?.Trim();
-                    string imageFileName = currentRow.GetCell(2)?.ToString()?.Trim();
-
-                    if (string.IsNullOrEmpty(docketNo))
-                        continue;
-
-                    var podEntry = new PODDataList
-                    {
-                        DocketNo = docketNo,
-                        UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
-                        ImageLink = null
-                    };
-
-                    if (!string.IsNullOrEmpty(imageFileName))
-                    {
-                        //var matchedImage = imageFiles.FirstOrDefault(f => f.FileName.Equals(imageFileName, StringComparison.OrdinalIgnoreCase));
-                        var matchedImage = imageFiles.FirstOrDefault(f =>
-                            Path.GetFileName(f.FileName).Equals(Path.GetFileName(imageFileName), StringComparison.OrdinalIgnoreCase));
-
-                        if (matchedImage != null)
-                        {
-                            var uniqueFileName = $"{docketNo}{Path.GetExtension(matchedImage.FileName)}";
-                            var savePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                            using (var fileStream = new FileStream(savePath, FileMode.Create))
-                            {
-                                await matchedImage.CopyToAsync(fileStream);
-                            }
-
-                            //podEntry.ImageLink = Path.Combine("UploadedImages", uniqueFileName).Replace("\\", "/");
-                            podEntry.ImageLink = "http://192.168.0.158:5000/PODUpload/CUSTOMERID/2025/APRIL/"+ uniqueFileName;
-                        }
-                    }
-
-                    podDataList.Add(podEntry);
-                }
-            }
-
-            if (podDataList.Any())
-            {
-                var result = await _docketRepository.ImportPOD(podDataList, User);
-                return Ok(result);
-            }
-
-            return Ok(new { message = "No valid data found in Excel file." });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
     }
  
     [HttpGet("DownloadSampleStatusUpload")]
@@ -305,5 +293,93 @@ public class DocketController : ControllerBase
     public async Task<IActionResult> UpdateDocketStatus(List<DocketStatusUpdate> docketstslist, Guid entryBy)
     {
         return Ok(await _docketRepository.UpdateDocketStatus(docketstslist, entryBy));
+    }
+
+    [HttpPost("ImportPOD")]
+    public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, List<IFormFile> imageFiles, Guid User)
+    {
+        if (excelFile == null || excelFile.Length == 0)
+            return BadRequest("No Excel file uploaded.");
+
+        if (imageFiles == null || !imageFiles.Any())
+            return BadRequest("No image files uploaded.");
+
+        var podDataList = new List<PODDataList>();
+
+        try
+        {
+            //var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages");
+            var uploadsFolder = _iconfiguration.GetValue<string>("ImagePath");
+
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            using (var stream = new MemoryStream())
+            {
+                await excelFile.CopyToAsync(stream);
+                stream.Position = 0;
+
+                XSSFWorkbook workbook = new XSSFWorkbook(stream);
+                ISheet sheet = workbook.GetSheetAt(0);
+
+                int rowCount = sheet.LastRowNum;
+                for (int row = 1; row <= rowCount; row++)
+                {
+                    IRow currentRow = sheet.GetRow(row);
+                    if (currentRow == null) continue;
+
+                    string docketNo = currentRow.GetCell(0)?.ToString()?.Trim();
+                    string uploadDateText = currentRow.GetCell(1)?.ToString()?.Trim();
+                    string imageFileName = currentRow.GetCell(2)?.ToString()?.Trim();
+
+                    if (string.IsNullOrEmpty(docketNo))
+                        continue;
+
+                    var podEntry = new PODDataList
+                    {
+                        DocketNo = docketNo,
+                        UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
+                        ImageLink = null
+                    };
+
+                    if (!string.IsNullOrEmpty(imageFileName))
+                    {
+                        //var matchedImage = imageFiles.FirstOrDefault(f => f.FileName.Equals(imageFileName, StringComparison.OrdinalIgnoreCase));
+                        var matchedImage = imageFiles.FirstOrDefault(f =>
+                            Path.GetFileName(f.FileName).Equals(Path.GetFileName(imageFileName), StringComparison.OrdinalIgnoreCase));
+
+                        if (matchedImage != null)
+                        {
+                            var uniqueFileName = $"{docketNo}{Path.GetExtension(matchedImage.FileName)}";
+                            var savePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                            using (var fileStream = new FileStream(savePath, FileMode.Create))
+                            {
+                                await matchedImage.CopyToAsync(fileStream);
+                            }
+
+                            //podEntry.ImageLink = Path.Combine("UploadedImages", uniqueFileName).Replace("\\", "/");
+                            podEntry.ImageLink = "http://192.168.0.158:5000/PODUpload/CUSTOMERID/2025/APRIL/" + uniqueFileName;
+                        }
+                    }
+
+                    podDataList.Add(podEntry);
+                }
+            }
+
+            if (podDataList.Any())
+            {
+                var result = await _docketRepository.ImportPOD(podDataList, User);
+                return Ok(result);
+            }
+
+            return Ok(new { message = "No valid data found in Excel file." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
     }
 }
