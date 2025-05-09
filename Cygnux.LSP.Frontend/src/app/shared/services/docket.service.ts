@@ -131,6 +131,10 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`)
   }
 
+  InsertExcelUplaodDocketData(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Post(`Docket/InsertExcelUplaodDocketData?entryBy=${id}`,formData);
+  }
+
   downloadSampleStatusUpload(login: string): Observable<Blob> {
     return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleStatusUpload?login=${login}`);
   }
