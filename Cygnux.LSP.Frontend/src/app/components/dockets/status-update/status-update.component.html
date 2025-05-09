@@ -13,23 +13,23 @@
                   <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Docket Number</label>
-                        <input class="form-control" formControlName="docketNumber" type="text"  placeholder="Enter docket Number"readonly/>
-                        <div *ngIf="statusUpdateForm.controls['docketNumber'].invalid && statusUpdateForm.controls['docketNumber']?.touched" class="text-danger">
-                          <small *ngIf="statusUpdateForm.controls['docketNumber'].errors?.['required']">docketNumber is required.</small>
-                          <small *ngIf="statusUpdateForm.controls['docketNumber'].errors?.['pattern']">docketNumber is invalid.</small>
+                        <input class="form-control" formControlName="docketNo" type="text"  placeholder="Enter docket Number"readonly/>
+                        <div *ngIf="statusUpdateForm.controls['docketNo'].invalid && statusUpdateForm.controls['docketNo']?.touched" class="text-danger">
+                          <small *ngIf="statusUpdateForm.controls['docketNo'].errors?.['required']">docketNumber is required.</small>
+                          <small *ngIf="statusUpdateForm.controls['docketNo'].errors?.['pattern']">docketNumber is invalid.</small>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">LSP Name</label>
-                        <input class="form-control" formControlName="lspName" type="text"  placeholder="Enter Lsp Name" readonly/>
+                        <input class="form-control" formControlName="transporterDesc" type="text"  placeholder="Enter Lsp Name" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Order Date</label>
-                        <input type="text" class="form-control" #dp="bsDatepicker" formControlName="orderDate"  bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}">
+                        <input type="text" class="form-control" #dp="bsDatepicker" formControlName="bookingDate"  bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}">
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -46,13 +46,13 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">From City </label>
-                        <input class="form-control" formControlName="fromCity" type="text"  placeholder="Enter city" readonly/>
+                        <input class="form-control" formControlName="fromLocation" type="text"  placeholder="Enter city" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">To City </label>
-                        <input class="form-control" formControlName="toCity" type="text"  placeholder="Enter city" readonly/>
+                        <input class="form-control" formControlName="toLocation" type="text"  placeholder="Enter city" readonly/>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -64,12 +64,12 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="lsps">Change Status</label>
-                       <ng-select [items]="transporter" bindLabel="codeDesc" bindValue="codeId" formControlName="changeStatus" placeholder="Search Status" [searchable]="true"
-                          [ngClass]="{ 'border-danger': statusUpdateForm.controls['changeStatus'].invalid && statusUpdateForm.controls['changeStatus'].touched}">
+                       <ng-select [items]="transporter" bindLabel="codeDesc" bindValue="codeId" formControlName="nextDocketStatus" placeholder="Search Status" [searchable]="true"
+                          [ngClass]="{ 'border-danger': statusUpdateForm.controls['nextDocketStatus'].invalid && statusUpdateForm.controls['nextDocketStatus'].touched}">
                        </ng-select>
-                        <div *ngIf="statusUpdateForm.controls['changeStatus'].invalid && statusUpdateForm.controls['changeStatus']?.touched" class="text-danger">
-                          <small *ngIf="statusUpdateForm.controls['changeStatus'].errors?.['required']">changeStatus is required.</small>
-                          <small *ngIf="statusUpdateForm.controls['changeStatus'].errors?.['pattern']">changeStatus is invalid.</small>
+                        <div *ngIf="statusUpdateForm.controls['nextDocketStatus'].invalid && statusUpdateForm.controls['nextDocketStatus']?.touched" class="text-danger">
+                          <small *ngIf="statusUpdateForm.controls['nextDocketStatus'].errors?.['required']">changeStatus is required.</small>
+                          <small *ngIf="statusUpdateForm.controls['nextDocketStatus'].errors?.['pattern']">changeStatus is invalid.</small>
                         </div>
                       </div>
                     </div>

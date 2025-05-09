@@ -181,7 +181,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
           <div class="modal-body" style="padding:0px;">
-              <app-status-update [docketResponse]="selectedDocket"></app-status-update>
+              <app-status-update [docketResponse]="selectedDocket" (dataEmitter)="closestatusupdateModal()"></app-status-update>
           </div>
       </div>
   </div>

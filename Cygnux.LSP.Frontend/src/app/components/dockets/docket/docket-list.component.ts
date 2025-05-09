@@ -275,6 +275,15 @@ export class DocketListComponent implements OnInit {
     }
   } 
 
+  closestatusupdateModal(){
+    const modalElement: any = document.getElementById('showModal');
+    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hide the modal
+      this.getDockets();
+    }
+  } 
+
   onPageChange(page: number) {
     this.page = page;
     this.getDockets(this.page);
@@ -297,6 +306,7 @@ export class DocketListComponent implements OnInit {
     if (modalElement) {
       this.selectedDocket=docketData
       this.isSelected = type;
+      // this.getDocket(docketData);
       const modal = new Modal(modalElement);
       modal.show();
     }
