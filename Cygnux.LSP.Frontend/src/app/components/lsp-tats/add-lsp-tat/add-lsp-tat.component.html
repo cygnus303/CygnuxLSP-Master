@@ -15,7 +15,7 @@
                                 <div class="col-md-6">
                                     <label class="col-form-label">Customer Name</label>
                                     <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"  (change)="getLsps($event.customerId)"
-                                        formControlName="customerId" placeholder="Select Customer" [readonly]="lspTatId ? true : false"
+                                        formControlName="customerId" placeholder="Select Customer" [readonly]="lspTatId ? true : false" (change)="getCustomers($event)"
                                         [ngClass]="{ 'border-danger': lspTatForm.controls['customerId'].invalid && lspTatForm.controls['customerId'].touched}">
                                     </ng-select>
                                     <div *ngIf="lspTatForm.controls['customerId'].invalid && lspTatForm.controls['customerId']?.touched"

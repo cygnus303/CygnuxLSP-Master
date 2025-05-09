@@ -37,9 +37,9 @@
                   <thead class="table-light">
                     <tr class="table-th">
                       <th class="w-15">Docket Name</th>
+                      <th class="w-15">Transporter</th>
                       <th class="w-15">From WH/Store</th>
                       <th class="w-15">To WH/Store</th>
-                      <th class="w-15">Transporter</th>
                       <th class="w-10">Transport Mode</th>
                       <th class="w-10">Current Status</th>
                       <th class="w-8">Quantity</th>
@@ -47,9 +47,9 @@
                     </tr>
                     <tr class="table-th">
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['docketNo']" (input)="getDockets()"/></th>
+                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transporter']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['fromLocation']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['toLocation']" (input)="getDockets()"/></th>
-                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['transporter']" (input)="getDockets()"/></th>
                       <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['transportMode']" (input)="getDockets()"/></th>
                       <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['status']" (input)="getDockets()"/></th>
                       <th class="w-8"><input type="text" class="form-control" [(ngModel)]="filters['quantity']" (input)="getDockets()"/></th>
@@ -62,9 +62,9 @@
                 <table class="customers w-100" *ngIf="!loading && dockets.length > 0">
                   <tr *ngFor="let docket of dockets; let i = index">
                     <td class="w-15">{{ docket.docketNo }}</td>
+                    <td class="w-15">{{ docket.transporterDesc }}</td>
                     <td class="w-15">{{ docket.fromLocation }}</td>
                     <td class="w-15">{{ docket.toLocation }}</td>
-                    <td class="w-15">{{ docket.transporterDesc }}</td>
                     <td class="w-10">{{ docket.transportModeDesc }}</td>
                     <td class="w-10">{{ docket.currentStatusDesc }}</td>
                     <td class="w-8 text-center">{{ docket.quantity }}</td>
