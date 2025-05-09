@@ -40,17 +40,19 @@ export interface TrackingListResponse{
 }
 
 export interface ValidateFileResponse{
-    customerName: string,
-    lspName: string,
-    docketNo: string,
-    invoiceNo: string,
-    date: string,
-    fromLocation: string,
-    toLocation: string,
-    quantity: number,
-    modeOfTransporter: string,
-    errorMessage: string,
-    errorCode: boolean
+    customerName: string;
+    lspName: string;
+    docketNo: string;
+    invoiceNo: string;
+    date: string;
+    fromLocation: string;
+    toLocation: string;
+    quantity: number;
+    modeOfTransporter: string;
+    errorMessage: string;
+    errorCode: boolean;
+    customer:string;
+    lsp:string;
 }
 
 export interface ValidateDocketStatusList{

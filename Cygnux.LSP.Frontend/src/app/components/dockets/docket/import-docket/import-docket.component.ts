@@ -161,11 +161,30 @@ export class ImportDocketComponent {
       });
     }
 
-   
-
     onClose(){
       this.validateData=[];
       this.files=[];
     }
-    
+
+    onSave(){
+      this.commonService.updateLoader(true);
+      const transformedList = this.validateData.map(({ lsp, errorMessage, errorCode, date, customer, ...rest }) => ({
+       ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false }));
+        this.docketService.InsertExcelUplaodDocketData(this.identityService.getLoggedUserId(),transformedList).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.validateData=[];
+            this.files = [];
+            this.sweetAlertService.success(response.data.message);
+          } else {
+            this.sweetAlertService.error(response.data.message);
+          }
+          this.commonService.updateLoader(false);
+        },
+        error: (response: any) => {
+          this.sweetAlertService.error(response.data.message);
+          this.commonService.updateLoader(false);
+        },
+      });
+  }
 }
