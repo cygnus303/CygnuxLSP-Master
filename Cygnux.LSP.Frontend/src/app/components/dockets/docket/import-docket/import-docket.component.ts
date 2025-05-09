@@ -1,13 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, output } from '@angular/core';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { CommonService } from '../../../../shared/services/common.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';
 import { IdentityService } from '../../../../shared/services/identity.service';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
-
-
 @Component({
   selector: 'app-import-docket',
   standalone: false,
@@ -18,7 +14,7 @@ export class ImportDocketComponent {
   public files: File[] = [];
   public selectedFile:any;
   public validateData:ValidateFileResponse[]=[];
-  
+  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
     constructor(
       private sweetAlertService:SweetAlertService,
       private docketService:DocketService,
@@ -118,26 +114,6 @@ export class ImportDocketComponent {
       this.validateData=[];
     }
 
-    // uploadDocketFile(){
-    //   this.commonService.updateLoader(true);
-    //   const formData = new FormData();
-    //   formData.append('customerId',this.identityService.getLoggedUserId())
-    //   formData.append('file', this.selectedFile);
-    //   this.docketService.validateDocketList(formData).subscribe({
-    //     next: (response) => {
-    //       if (response) {
-    //         // this.edit.emit(response.data);
-    //         this.validateData=response.data
-    //       }
-    //       this.commonService.updateLoader(false);
-    //     },
-    //     error: (response: any) => {
-    //       this.sweetAlertService.error(response.error.Message);
-    //       this.commonService.updateLoader(false);
-    //     },
-    //   });
-    // }
-
     uploadDocketFile() {
       this.commonService.updateLoader(true);
       const formData = new FormData();
@@ -166,12 +142,13 @@ export class ImportDocketComponent {
     onSave(){
       this.commonService.updateLoader(true);
       const transformedList = this.validateData.map(({ lsp, errorMessage, errorCode, date, customer, ...rest }) => ({
-       ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false ,entryby:this.identityService.getLoggedUserId()}));
+       ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false}));
         this.docketService.InsertExcelUplaodDocketData(this.identityService.getLoggedUserId(),transformedList).subscribe({
         next: (response) => {
           if (response.success) {
             this.validateData=[];
             this.files = [];
+            this.dataEmitter.emit()
             this.sweetAlertService.success(response.data.message);
           } else {
             this.sweetAlertService.error(response.data.message);
