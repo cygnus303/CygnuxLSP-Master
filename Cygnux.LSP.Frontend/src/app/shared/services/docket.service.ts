@@ -135,6 +135,10 @@ export class DocketService {
     return this.apiHandlerService.Post(`Docket/InsertExcelUplaodDocketData?entryBy=${id}`,formData);
   }
 
+  downloadSampleDocketUpload(login: string): Observable<Blob> {
+    return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleDocketUpload?login=${login}`);
+  }
+
   downloadSampleStatusUpload(login: string): Observable<Blob> {
     return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleStatusUpload?login=${login}`);
   }

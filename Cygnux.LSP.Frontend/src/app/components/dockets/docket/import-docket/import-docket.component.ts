@@ -26,21 +26,27 @@ export class ImportDocketComponent {
       private identityService:IdentityService
     ){}
   
-    // downloadSampleFile(event: any) {
-    //   event.preventDefault();
-    //   let path = '/assets/uploads/Docket_Import.xlsx'
-    //     // environment.apiUrl.replace('/api/v1', '') + 'Uploads/Docket_Import.xlsx';
-    //   window.open(path, '_blank');
-    // }
-  
     downloadSampleFile(event: any) {
       event.preventDefault();
-      const link = document.createElement('a');
-      link.href = '/assets/uploads/Docket_Import.xlsx';
-      link.download = 'Docket_Import.xlsx'; // Optional: set download filename
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      this.commonService.updateLoader(true);
+      this.docketService.downloadSampleDocketUpload(this.identityService.getLoggedUserId()).subscribe({
+        next: (response: Blob) => {
+          const blob = new Blob([response], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          });
+          const url = window.URL.createObjectURL(blob);
+          const anchor = document.createElement('a');
+          anchor.href = url;
+          anchor.download = 'DocketUpload.xlsx';
+          anchor.click();
+          window.URL.revokeObjectURL(url);
+          this.commonService.updateLoader(false);
+        },
+        error: (error) => {
+          this.sweetAlertService.error('Failed to download file.');
+          this.commonService.updateLoader(false);
+        }
+      });
     }
     
     onChangeFile(event: any) {
@@ -66,29 +72,29 @@ export class ImportDocketComponent {
           // };
   
           // reader.readAsArrayBuffer(file);
-          const reader = new FileReader();
-              reader.onload = (e: any) => {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const sheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[sheetName];
-                const rows: any[][] = XLSX.utils.sheet_to_json(worksheet, {
-                  header: 1,
-                });
-                const headers = rows[0]?.map((h: any) => String(h).trim());
-                const expectedHeaders = ['LSPName', 'DocketNo', 'InvoiceNo' , 'Date','FromLocation','ToLocation','Quantity','ModeOfTransporter'];
-                const isValidHeaders = headers && headers.length === expectedHeaders.length && headers.every((val, i) => val === expectedHeaders[i]);
-                if (!isValidHeaders) {
-                  this.sweetAlertService.error('Please upload valid excel file');
-                  this.resetFileSelection();
-                  return;
-                }
-                //  Proceed if headers are correct
-                const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
-                this.files = [file];
-                this.selectedFile = file;
-              };
-              reader.readAsArrayBuffer(file);
+          // const reader = new FileReader();
+              // reader.onload = (e: any) => {
+              //   const data = new Uint8Array(e.target.result);
+              //   const workbook = XLSX.read(data, { type: 'array' });
+              //   const sheetName = workbook.SheetNames[0];
+              //   const worksheet = workbook.Sheets[sheetName];
+              //   const rows: any[][] = XLSX.utils.sheet_to_json(worksheet, {
+              //     header: 1,
+              //   });
+              //   const headers = rows[0]?.map((h: any) => String(h).trim());
+              //   const expectedHeaders = ['LSPName', 'DocketNo', 'InvoiceNo' , 'Date','FromLocation','ToLocation','Quantity','ModeOfTransporter'];
+              //   const isValidHeaders = headers && headers.length === expectedHeaders.length && headers.every((val, i) => val === expectedHeaders[i]);
+              //   if (!isValidHeaders) {
+              //     this.sweetAlertService.error('Please upload valid excel file');
+              //     this.resetFileSelection();
+              //     return;
+              //   }
+              //   //  Proceed if headers are correct
+              //   const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+              // };
+              // this.files = [file];
+              // this.selectedFile = file;
+              // reader.readAsArrayBuffer(file);
         } else {
           this.sweetAlertService.error('Please upload a valid excel file.');
           this.files = [];
@@ -160,7 +166,7 @@ export class ImportDocketComponent {
     onSave(){
       this.commonService.updateLoader(true);
       const transformedList = this.validateData.map(({ lsp, errorMessage, errorCode, date, customer, ...rest }) => ({
-       ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false }));
+       ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false ,entryby:this.identityService.getLoggedUserId()}));
         this.docketService.InsertExcelUplaodDocketData(this.identityService.getLoggedUserId(),transformedList).subscribe({
         next: (response) => {
           if (response.success) {

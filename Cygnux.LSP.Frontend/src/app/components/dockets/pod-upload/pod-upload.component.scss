@@ -64,7 +64,7 @@
   }
 
 .overflow-y{
-    height: 230px !important;
+  max-height: 300px !important;
     overflow: auto;
     .excelData-table{
         &.table {
