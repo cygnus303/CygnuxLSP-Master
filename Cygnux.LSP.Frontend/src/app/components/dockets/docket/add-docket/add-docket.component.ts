@@ -90,6 +90,7 @@ ngOnChanges(changes: SimpleChanges): void {
       bookingDate: new Date(),
       status:this.docketId ? null : '1',
     });
+    this.getCustomers();
   }
 }
 
@@ -124,7 +125,7 @@ ngOnChanges(changes: SimpleChanges): void {
       next: (response) => {
         if (response) {
           this.customers = response.data;
-          if(this.userRoles === 'Customer Admin'){
+          if(this.userRoles !== 'SA' && response.data.length > 0){
             this.docketForm.patchValue(response.data[0])
             this.onSelectCustomer(response.data[0])
           }

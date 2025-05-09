@@ -54,11 +54,6 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       this.lspTatId = '';
     }
     this.getCustomers();
-    if(this.customers){
-      if(this.userRoles === 'Customer Admin'){
-        this.lspTatForm.patchValue(this.customers[0])
-      }
-    }
   }
 
   ngOnInit(): void {
@@ -106,6 +101,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response) {
           this.customers = response.data;
+          if(this.userRoles !== 'SA' && response.data.length > 0){
+            this.lspTatForm.patchValue(response.data[0]);
+          }
         }
         this.commonService.updateLoader(false);
       },
@@ -188,6 +186,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   onClose(){
       this.lspTatForm.reset();
       this.buildForm();
+      this.getCustomers();
       this.dataEmitter.emit();
   }
 }

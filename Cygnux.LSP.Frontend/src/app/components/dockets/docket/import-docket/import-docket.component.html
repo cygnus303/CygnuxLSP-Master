@@ -64,9 +64,9 @@
                 <tr *ngFor="let data of validateData" [ngClass]="data.errorCode ?'pink':'green'">
                   <td class="text-center fontSize">{{ data.docketNo }}</td>
                   <td class="text-center fontSize">{{data.lspName}}</td>
-                  <td class="text-center fontSize"> {{formatDateString(data.date)}}</td>
+                  <td class="text-center fontSize"> {{data.date}}</td>
                   <td class="text-center fontSize">{{data.invoiceNo}}</td>
-                  <td class="text-center fontSize">{{formatDateString(data.date)}}</td>
+                  <td class="text-center fontSize">{{data.date}}</td>
                   <td class="text-center fontSize">{{data.fromLocation}}</td>
                   <td class="text-center fontSize">{{data.toLocation}}</td>
                   <td class="text-center fontSize">{{data.quantity}}</td>
