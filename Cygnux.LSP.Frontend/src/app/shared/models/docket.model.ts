@@ -1,5 +1,6 @@
 export interface DocketResponse {
   id: string;
+  docketId:string;
   docketNo: string;
   bookingDate: Date;
   fromLocation: string;

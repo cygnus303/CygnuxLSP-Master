@@ -77,7 +77,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
 ngOnChanges(changes: SimpleChanges): void {
   if (changes['docketResponse'] && this.docketResponse) {
     this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
-    this.docketId = this.docketResponse.id;
+    this.docketId = this.docketResponse.docketId;
     this.docketForm.patchValue(this.docketResponse);
       if(!this.isSelected){
         this.onSelectCustomer(this.docketResponse , true)
