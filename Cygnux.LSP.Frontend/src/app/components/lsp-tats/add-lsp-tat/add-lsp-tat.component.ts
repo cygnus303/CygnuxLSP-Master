@@ -45,10 +45,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspTatResponse'] && this.lspTatResponse) {
-      debugger
-      this.lspTatForm.patchValue(this.lspTatResponse);
-      this.lspTatId = this.lspTatResponse.lspTatId;
       this.getLsps(this.lspTatResponse.customerId);
+      this.lspTatId = this.lspTatResponse.lspTatId;
+      this.lspTatForm.patchValue(this.lspTatResponse);
     } else {
       this.lspTatForm.reset();
       this.buildForm();
@@ -99,13 +98,15 @@ export class AddLspTatComponent implements OnInit, OnChanges {
 
   getCustomers(event?:any) {
     this.commonService.updateLoader(true);
+    if(event){
+      this.lspTatForm.patchValue({
+        lspId: null
+      })
+    }
     this.lspTatService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;
-          this.lspTatForm.patchValue({
-            lspId:null
-          })
           if(this.userRoles !== 'SA' && response.data.length > 0){
             this.lspTatForm.patchValue(response.data[0]);
           }
@@ -192,6 +193,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       this.lspTatForm.reset();
       this.buildForm();
       this.getCustomers();
+      this.getLsps(this.identityService.getLoggedUserId());
       this.dataEmitter.emit();
   }
 }
