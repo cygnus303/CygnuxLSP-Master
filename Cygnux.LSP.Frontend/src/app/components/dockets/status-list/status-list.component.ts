@@ -6,6 +6,7 @@ import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { ValidateDocketStatusList } from '../../../shared/models/docket.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-status-list',
   standalone: false,
@@ -17,7 +18,13 @@ export class StatusListComponent {
  public selectedFile:any;
  public validateDocketStatusList:ValidateDocketStatusList[]=[];
 
-  constructor(private sweetAlertService: SweetAlertService,public docketService:DocketService,public commonService: CommonService,  private identityService:IdentityService) {defineElement(lottie.loadAnimation)}
+  constructor(
+    private sweetAlertService: SweetAlertService,
+    public docketService:DocketService,
+    public commonService: CommonService,
+    private identityService:IdentityService,
+    private router:Router
+  ) {defineElement(lottie.loadAnimation)}
 
   downloadSampleFile(event: any) {
     event.preventDefault();
@@ -97,6 +104,7 @@ export class StatusListComponent {
           this.files = [];
           this.validateDocketStatusList = [];
           this.sweetAlertService.success(response.data.message);
+          this.router.navigateByUrl('docket/list');
         } else {
           this.sweetAlertService.error(response.data.message);
         }
