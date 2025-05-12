@@ -78,11 +78,11 @@ ngOnChanges(changes: SimpleChanges): void {
   if (changes['docketResponse'] && this.docketResponse) {
     this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
     this.docketId = this.docketResponse.docketId;
+    if(!this.isSelected){
+      this.onSelectCustomer(this.docketResponse , true)
+      this.onSelectOrigin(this.docketResponse)
+    }
     this.docketForm.patchValue(this.docketResponse);
-      if(!this.isSelected){
-        this.onSelectCustomer(this.docketResponse , true)
-        this.onSelectOrigin(this.docketResponse)
-      }
   } else {
     // this.docketForm.reset();
     this.docketId = '';
@@ -230,9 +230,7 @@ ngOnChanges(changes: SimpleChanges): void {
   onSelectOrigin(event:any){
     this.commonService.updateLoader(true);
     this.docketForm.patchValue({
-      toLocation:null
-    });
-    this.docketForm.patchValue({
+      toLocation:null,
       lspId: event.lspId
     });
     const filters={
