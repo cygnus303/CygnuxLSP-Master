@@ -209,7 +209,6 @@ export class DocketListComponent implements OnInit {
 
   getDocket(docketList: any) {
     this.commonService.updateLoader(true);
-    console.log(docketList);
     
     this.docketService.getDocketDetails(docketList.docketId).subscribe({
       next: (response) => {

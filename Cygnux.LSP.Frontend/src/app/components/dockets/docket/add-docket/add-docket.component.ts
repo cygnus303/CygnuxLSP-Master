@@ -111,6 +111,7 @@ ngOnChanges(changes: SimpleChanges): void {
     if (form.valid) {
       let forms = {
         ...form.value,
+        lspId:this.docketForm.value.transporter,
         // EntryBy:this.identityService.getLoggedUserId(),
         isCancel:false,
         bookingDate:form.value.bookingDate.toISOString().split('T')[0]
