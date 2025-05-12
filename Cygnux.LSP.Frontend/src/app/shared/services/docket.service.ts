@@ -149,4 +149,8 @@ export class DocketService {
   updateDocketStatus(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post(`Docket/UpdateDocketStatus?entryBy=${id}`,formData);
   }
+
+  singleUpdateDocketSts(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Post(`Docket/SingleUpdateDocketSts?DocketId=${id}`,formData);
+  }
 }
