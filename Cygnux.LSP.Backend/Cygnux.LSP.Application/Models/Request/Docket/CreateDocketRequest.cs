@@ -27,4 +27,11 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         //public byte[] ImagePath { get; set; }
     }
 
+    public class DocketStatusReq
+    {
+        public int DocketId { get; set; }
+        public string DocketNo { get; set; }
+        public string CurrentStatus { get; set; } = string.Empty;
+        public Guid LspId { get; set; }
+    }
 }

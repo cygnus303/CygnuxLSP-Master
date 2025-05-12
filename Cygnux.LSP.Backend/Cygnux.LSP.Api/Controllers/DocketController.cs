@@ -91,6 +91,13 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.UpdateDocket(id, createDocketDto));
     }
 
+    [HttpPost]
+    [Route("SingleUpdateDocket")]
+    public async Task<IActionResult> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts)
+    {
+        return Ok(await _docketRepository.SingleDocketStsUpdate(DocketId, docksts));
+    }
+
     [HttpPatch]
     [Route("DeleteDocket/{id}")]
     public async Task<IActionResult> DeleteDocket(Guid id)

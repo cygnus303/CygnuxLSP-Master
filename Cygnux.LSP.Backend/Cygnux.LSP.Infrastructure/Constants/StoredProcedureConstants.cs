@@ -20,6 +20,7 @@ public static class StoredProcedureConstants
     public const string Usp_Lsp = "Usp_Lsp";
     public const string Usp_Menu = "Usp_Menu";
     public const string Usp_Docket = "Usp_Docket";
+    public const string USP_DocketStatusUpdate_Single = "USP_DocketStatusUpdate";
     public const string Usp_GetDocket = "Usp_GetDocket";
     public const string Usp_GetDocket_New = "Usp_GetDocket_New";
     public const string USP_GetDocketDetail = "USP_GetDocketDetail";

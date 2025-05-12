@@ -13,6 +13,7 @@ public interface IDocketService
     Task<IEnumerable<DocList>> GetDocketData(string docketno);
     Task<CommonCreateResponse> AddDocket(string addDocketJson);
     Task<CommonCreateResponse> UpdateDocket(Guid id, string updateDocketJson);
+    Task<CommonCreateResponse> SingleDocketStsUpdate(Guid DocketId, string docksts);
     Task<CommonCreateResponse> DeleteDocket(Guid id);
     Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination);
     Task<IEnumerable<DocketBulkUploadValidateResponse>> GetValidateDocketImportData(string bulkDocket, Guid customerid);
