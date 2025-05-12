@@ -45,7 +45,6 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspTatResponse'] && this.lspTatResponse) {
-      debugger
       this.lspTatForm.patchValue(this.lspTatResponse);
       this.lspTatId = this.lspTatResponse.lspTatId;
       this.getLsps(this.lspTatResponse.customerId);
