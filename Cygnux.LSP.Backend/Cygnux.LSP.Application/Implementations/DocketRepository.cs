@@ -2,6 +2,7 @@
 
 using Contracts;
 using Cygnux.LSP.Infrastructure.Models.Response.Customer;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Cygnux.LSP.Infrastructure.Models.Response.RoleMenuPermission;
 using Infrastructure.Contracts;
 using Infrastructure.Models.Response;
@@ -20,16 +21,15 @@ internal class DocketRepository : IDocketRepository
         _docketService = docketService;
     }
 
-    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity, string? transporter, string? transportmode)
+    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(Guid userId, Dictionary<string, string> reqFilter)
     {
-        var response = await _docketService.GetDocketList(page, pageSize,userId,docketNo,fromLocation,toLocation,quantity,transporter,transportmode);
-        //return new BaseResponse<IEnumerable<DocketListResponse>>(response);
+        var response = await _docketService.GetDocketList(userId, JsonConvert.SerializeObject(reqFilter));
         return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
-    public async Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId, Guid userId)
+    public async Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId)
     {
-        var response = await _docketService.GetDocketDetails(docketId,userId);
+        var response = await _docketService.GetDocketDetails(docketId);
 
         return new BaseResponse<DocketDetailResponse?>(response);
     }

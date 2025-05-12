@@ -37,16 +37,16 @@ public class DocketController : ControllerBase
 
     [HttpGet]
     [Route("GetDocketList")]
-    public async Task<IActionResult> GetDocketList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? docketNo , string? fromLocation,string? toLocation,int? quantity,string? transporter,string? transportmode)
+    public async Task<IActionResult> GetDocketList(Guid userId, [FromQuery] Dictionary<string, string> reqFilter)
     {
-        return Ok(await _docketRepository.GetDocketList(page, pageSize,userId,docketNo,fromLocation,toLocation,quantity,transporter,transportmode));
+        return Ok(await _docketRepository.GetDocketList(userId,reqFilter));
     }
 
     [HttpGet]
-    [Route("GetDocketDetail/{id}")]
-    public async Task<IActionResult> GetDocketDetails(Guid id, Guid userId)
+    [Route("GetDocketDetail")]
+    public async Task<IActionResult> GetDocketDetails(Guid docketId)
     {
-        return Ok(await _docketRepository.GetDocketDetails(id,userId));
+        return Ok(await _docketRepository.GetDocketDetails(docketId));
     }
     [HttpPost]
     [Route("import")]
@@ -295,6 +295,18 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.UpdateDocketStatus(docketstslist, entryBy));
     }
 
+    //public string GetFinancialYear(DateTime date)
+    //{
+    //    int year = date.Month >= 4 ? date.Year : date.Year - 1;
+    //    return $"{year}-{(year + 1).ToString().Substring(2)}";
+    //}
+
+    //public string GetMonthName(DateTime date)
+    //{
+    //    return date.ToString("MMMM").ToUpper();
+    //}
+
+
     [HttpPost("ImportPOD")]
     public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, List<IFormFile> imageFiles, Guid User)
     {
@@ -308,8 +320,13 @@ public class DocketController : ControllerBase
 
         try
         {
-            //var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages");
+            //var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadPOD/{customerId}/{currentFinancialyear}/{month}in string/");
             var uploadsFolder = _iconfiguration.GetValue<string>("ImagePath");
+
+            //DateTime currentDate = DateTime.Now;
+
+            //string financialYear = GetFinancialYear(currentDate);
+            //string monthName = GetMonthName(currentDate);
 
             if (!Directory.Exists(uploadsFolder))
             {

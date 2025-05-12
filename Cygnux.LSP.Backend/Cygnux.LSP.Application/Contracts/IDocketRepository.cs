@@ -8,9 +8,9 @@ using Models.Response;
 
 public interface IDocketRepository
 {
-    Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity, string? transporter, string? transportmode);
+    Task<BaseResponse<IEnumerable<DocketListResponse>>> GetDocketList(Guid userId, Dictionary<string, string> reqFilter);
 
-    Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId,Guid userId);
+    Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId);
 
     Task<BaseResponse<CommonCreateResponse>> ImportDocket(List<Dictionary<string, string>> createDockets);
     Task<BaseResponse<IEnumerable<TrackingList>>> GetTrackingList(string codetype);

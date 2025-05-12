@@ -17,34 +17,26 @@ internal class DocketService : IDocketService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<DocketListResponse>> GetDocketList(int page, int pageSize, Guid userId, string? docketNo, string? fromLocation, string? toLocation, int? quantity, string? transporter, string? transportmode)
+    public async Task<IEnumerable<DocketListResponse>> GetDocketList(Guid userId,string reqFilter)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@Page", page, DbType.Int32);
-        parameters.Add("@PageSize", pageSize, DbType.Int32);
         parameters.Add("@UserId", userId, DbType.Guid);
-        parameters.Add("@DocketNo", docketNo, DbType.String);
-        parameters.Add("@FromLocation", fromLocation, DbType.String);
-        parameters.Add("@ToLocation", toLocation, DbType.String);
-        parameters.Add("@Quantity", quantity, DbType.Int32);
-        parameters.Add("@Transporter", transporter, DbType.String);
-        parameters.Add("@TransportMode", transportmode, DbType.String);
+        parameters.Add("@jsonReq", reqFilter, DbType.String);
 
         return await _dbConnection.QueryAsync<DocketListResponse>(
-             StoredProcedureConstants.Usp_GetDocket,
+             StoredProcedureConstants.Usp_GetDocket_New,
              parameters,
              commandType: CommandType.StoredProcedure
          );
     }
 
-    public async Task<DocketDetailResponse> GetDocketDetails(Guid docketId, Guid userId)
+    public async Task<DocketDetailResponse> GetDocketDetails(Guid docketId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Id", docketId, DbType.Guid);
-        parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<DocketDetailResponse>(
-            StoredProcedureConstants.Usp_GetDocket,
+            StoredProcedureConstants.USP_GetDocketDetail,
             param: parameters,
             commandType: CommandType.StoredProcedure
         ) ?? new DocketDetailResponse();
