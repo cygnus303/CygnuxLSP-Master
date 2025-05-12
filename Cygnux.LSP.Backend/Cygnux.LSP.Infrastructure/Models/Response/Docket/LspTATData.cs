@@ -8,7 +8,8 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
 {
     public class LspTATData
     {
-        public string? Location { get; set; }
+        public string? FromLocation { get; set; }
+        public string? ToLocation { get; set; }
         public Guid CustomerId { get; set; }
         public Guid LspId { get; set; }
         public string? Mode { get; set; }
