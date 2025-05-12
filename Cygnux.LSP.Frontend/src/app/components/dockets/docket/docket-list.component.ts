@@ -77,9 +77,8 @@ export class DocketListComponent implements OnInit {
       ...this.filters,
       Page: page,
       PageSize: this.pageSize,
-      UserID:this.identityService.getLoggedUserId()
     };
-    this.docketService.getDocketList(filters).subscribe({
+    this.docketService.getDocketList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
           this.dockets = response.data;
@@ -210,7 +209,9 @@ export class DocketListComponent implements OnInit {
 
   getDocket(docketList: any) {
     this.commonService.updateLoader(true);
-    this.docketService.getDocketDetails(docketList.id,docketList.entryBy).subscribe({
+    console.log(docketList);
+    
+    this.docketService.getDocketDetails(docketList.docketId).subscribe({
       next: (response) => {
         if (response) {
           this.selectedDocket = response.data;
@@ -296,17 +297,17 @@ export class DocketListComponent implements OnInit {
       const modal = new Modal(modalElement);
       modal.show();
       this.isSelected = type;
-      this.selectedDocket = docketList;
-      // this.getDocket(docketList);
+      // this.selectedDocket = docketList;
+      this.getDocket(docketList);
     }
   }
 
   openStatusUpdateModal(docketData:any ,type:string){
     const modalElement = document.getElementById('showModal');
     if (modalElement) {
-      this.selectedDocket=docketData
+      // this.selectedDocket=docketData
       this.isSelected = type;
-      // this.getDocket(docketData);
+      this.getDocket(docketData);
       const modal = new Modal(modalElement);
       modal.show();
     }

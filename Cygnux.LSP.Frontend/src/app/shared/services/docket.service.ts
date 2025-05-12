@@ -79,15 +79,15 @@ export class DocketService {
     saveAs(blob, `${fileName}.xlsx`);
   }
 
-  getDocketList(filters:any): Observable<IApiBaseResponse<DocketResponse[]>> {
-    return this.apiHandlerService.Get('docket/GetDocketList', filters);
+  getDocketList(userId:string,filters:any): Observable<IApiBaseResponse<DocketResponse[]>> {
+    return this.apiHandlerService.Get(`Docket/GetDocketList?userId=${userId}`, filters);
   }
 
   importDocket(formData: any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('docket/import', formData);
   }
-  getDocketDetails(id: string,userId:string): Observable<IApiBaseResponse<DocketResponse>> {
-    return this.apiHandlerService.Get(`docket/GetDocketDetail/${id}?userId=${userId}`);
+  getDocketDetails(id: string): Observable<IApiBaseResponse<DocketResponse>> {
+    return this.apiHandlerService.Get(`docket/GetDocketDetail?docketId=${id}`);
   }
 
   addDocket(
