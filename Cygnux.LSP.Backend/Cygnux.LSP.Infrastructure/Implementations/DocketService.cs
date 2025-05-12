@@ -124,10 +124,11 @@ internal class DocketService : IDocketService
         return new CommonCreateResponse();
     }*/
 
-    public async Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, string? origin, string? destination)
+    public async Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@CustomerId", CustomerId, DbType.Guid);
+        parameters.Add("@LspId", LspId, DbType.Guid);
         parameters.Add("@Origin", origin, DbType.String);
         parameters.Add("@Destination", destination, DbType.String);
 

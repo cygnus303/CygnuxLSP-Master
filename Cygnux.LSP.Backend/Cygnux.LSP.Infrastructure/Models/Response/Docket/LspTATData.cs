@@ -10,6 +10,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
     {
         public string? Location { get; set; }
         public Guid CustomerId { get; set; }
-        public Guid LspId {  get; set; }
+        public Guid LspId { get; set; }
+        public string? Mode { get; set; }
     }
 }

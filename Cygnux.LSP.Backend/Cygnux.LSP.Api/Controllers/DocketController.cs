@@ -100,17 +100,17 @@ public class DocketController : ControllerBase
 
     [HttpGet]
     [Route("GetDropdowndata")]
-    public async Task<IActionResult> GetTATdataFrom(Guid CustomerId, string? origin, string? destination)
+    public async Task<IActionResult> GetTATdataFrom(Guid CustomerId, Guid? LspId, string? origin, string? destination)
     {
-        return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
+        return Ok(await _docketRepository.GetTATdata(CustomerId, LspId, origin, destination));
     }
 
-    [HttpGet]
+    /*[HttpGet]
     [Route("GetDropdowndataTo")]
     public async Task<IActionResult> GetTATdataTo(Guid CustomerId, string? origin, string? destination)
     {
         return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
-    }
+    }*/
 
     [HttpGet("DownloadSampleDocketUpload")]
     public async Task<IActionResult> DownloadDocketUplaodFile([FromQuery] Guid login)

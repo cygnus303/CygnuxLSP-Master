@@ -78,9 +78,9 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
-    public async Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, string? origin, string? destination)
+    public async Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination)
     {
-        var response = await _docketService.GetTATdata(CustomerId, origin, destination);
+        var response = await _docketService.GetTATdata(CustomerId, LspId, origin, destination);
         return new BaseResponse<IEnumerable<LspTATData>>(response);
         //return new BaseResponse<IEnumerable<LspTATData>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
