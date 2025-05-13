@@ -3,6 +3,8 @@ import { CommonService } from '../../shared/services/common.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
 import feather from 'feather-icons';
+import { TrackTraceService } from '../../shared/services/track-trace.service';
+import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
 @Component({
   selector: 'app-track-trace',
   standalone: false,
@@ -11,35 +13,39 @@ import feather from 'feather-icons';
 })
 export class TrackTraceComponent {
   status = "in-transit";
-  constructor( public commonService: CommonService){
+  constructor( public commonService: CommonService, private trackTraceService:TrackTraceService){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
   docketInput: string = '';
   docketList: string[] = [];
-
-  docketnumber=[
-    {"docketNumber":"ABC123"},
-    {"docketNumber":"ABC124"},
-    {"docketNumber":"ABC125"},
-
-  ]
+  trackTraceList:TrackTraceResponse[]=[];
   addDocketNumber(event: KeyboardEvent): void {
-    const inputElement = event.target as HTMLInputElement;
-    const value = inputElement.value.trim();
-
-    if (event.key === ',' && value) {
-      const docketNumber = value.slice(0, -1); // Remove the trailing comma
+    if (event.key === ',' && this.docketInput.trim()) {
+      const docketNumber = this.docketInput.trim().slice(0, -1); // remove trailing comma
       if (docketNumber) {
         this.docketList.push(docketNumber);
-        inputElement.value = ''; // Clear input after adding
+        this.docketInput = ''; // Clear input bound to ngModel
       }
     }
   }
+  onSearchTrackTrace(){
+    const docketString = this.docketList.length ? this.docketList.join(',') : null;
+    this.trackTraceService.GetTrackigList(docketString).subscribe(res => {
+      this.trackTraceList = res.data;
+
+      // Delay to ensure Angular has rendered the DOM
+      setTimeout(() => {
+        feather.replace();
+      });
+    });
+  }
+  
   ngAfterViewInit(): void {
     feather.replace(); // Ensure icons render
   }
   removeDocket(docket: string): void {
     this.docketList = this.docketList.filter(d => d !== docket);
+    this.onSearchTrackTrace();
   }
 }

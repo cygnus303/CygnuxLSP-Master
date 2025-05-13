@@ -57,6 +57,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       this.buildForm();
       this.lspMappingId = '';
     }
+     this.getLspMappings();
       this.getCustomers();
       this.customers=[];  
   }
