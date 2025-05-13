@@ -24,6 +24,7 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public string DocketNo { get; set; }
         public DateTime UploadDate { get; set; }
         public string ImageLink { get; set; } // store server path like /UploadedImages/ABC121.png
+        public string? LSPName { get; set; }
         //public byte[] ImagePath { get; set; }
     }
 

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 [Route("api/v{version:apiVersion}/[controller]")]
@@ -112,12 +113,6 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.GetTATdata(CustomerId, LspId, origin, destination));
     }
 
-    /*[HttpGet]
-    [Route("GetDropdowndataTo")]
-    public async Task<IActionResult> GetTATdataTo(Guid CustomerId, string? origin, string? destination)
-    {
-        return Ok(await _docketRepository.GetTATdata(CustomerId, origin, destination));
-    }*/
 
     [HttpGet("DownloadSampleDocketUpload")]
     public async Task<IActionResult> DownloadDocketUplaodFile([FromQuery] Guid login)
@@ -314,6 +309,59 @@ public class DocketController : ControllerBase
     //}
 
 
+    [HttpGet("DownloadSampleForPODupload")]
+    public async Task<IActionResult> DownloadSamplePODupload([FromQuery] Guid login)
+    {
+        var lsplist = await _customerLspRepository.GetLsps(login);
+
+        if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
+            return NotFound("No records found for the selected code.");
+
+        using (var workbook = new XLWorkbook())
+        {
+            var mainSheet = workbook.Worksheets.Add("Main Sheet");
+            var listSheet = workbook.Worksheets.Add("DropdownList");
+
+            // Populate dropdown values in column A of the list sheet
+            int lsprows = 1;
+            foreach (var itemlsp in lsplist.Data)
+            {
+                listSheet.Cell(lsprows, 1).Value = $"{itemlsp.LSPCode}:{itemlsp.LspName}";
+                lsprows++;
+            }
+
+            // Define named range for LSP dropdown in column A
+            var listRangeLsp = listSheet.Range($"A1:A{lsplist.Data.Count()}");
+            listRangeLsp.AddToNamed("LspOptions");
+
+            // Hide the dropdown list sheet
+            listSheet.Visibility = XLWorksheetVisibility.VeryHidden;
+
+            // Add headers to main sheet
+            mainSheet.Cell("A1").Value = "LSPName";
+            mainSheet.Cell("B1").Value = "DocketNo";
+            mainSheet.Cell("C1").Value = "UploadDate";
+            mainSheet.Cell("D1").Value = "ImageLink";
+
+            // Apply dropdown list validation for LSPName column
+            var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
+            validationLsp.IgnoreBlanks = true;
+            validationLsp.InCellDropdown = true;
+            validationLsp.AllowedValues = XLAllowedValues.List;
+            validationLsp.List("=LspOptions");
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+                return File(stream.ToArray(),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "DocketPODUpload.xlsx");
+            }
+        }
+    }
+
+
     [HttpPost("ImportPOD")]
     public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, List<IFormFile> imageFiles, Guid User)
     {
@@ -327,13 +375,14 @@ public class DocketController : ControllerBase
 
         try
         {
-            //var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadPOD/{customerId}/{currentFinancialyear}/{month}in string/");
             var uploadsFolder = _iconfiguration.GetValue<string>("ImagePath");
 
-            //DateTime currentDate = DateTime.Now;
+            DateTime currentDate = DateTime.Now;
+            int year = currentDate.Month >= 4 ? currentDate.Year : currentDate.Year - 1;
+            var finyear = $"{year}-{(year + 1).ToString().Substring(2)}";
+            var month = currentDate.ToString("MMMM").ToUpper();
 
-            //string financialYear = GetFinancialYear(currentDate);
-            //string monthName = GetMonthName(currentDate);
+            uploadsFolder = Path.Combine(uploadsFolder, finyear, month, User.ToString());
 
             if (!Directory.Exists(uploadsFolder))
             {
@@ -354,25 +403,28 @@ public class DocketController : ControllerBase
                     IRow currentRow = sheet.GetRow(row);
                     if (currentRow == null) continue;
 
-                    string docketNo = currentRow.GetCell(0)?.ToString()?.Trim();
-                    string uploadDateText = currentRow.GetCell(1)?.ToString()?.Trim();
-                    string imageFileName = currentRow.GetCell(2)?.ToString()?.Trim();
+                    string lspName = currentRow.GetCell(0)?.ToString()?.Trim();
+                    string docketNo = currentRow.GetCell(1)?.ToString()?.Trim();
+                    string uploadDateText = currentRow.GetCell(2)?.ToString()?.Trim();
+                    string imageFilePath = currentRow.GetCell(3)?.ToString()?.Trim();
 
                     if (string.IsNullOrEmpty(docketNo))
                         continue;
 
                     var podEntry = new PODDataList
                     {
+                        LSPName = lspName,
                         DocketNo = docketNo,
                         UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
                         ImageLink = null
                     };
 
-                    if (!string.IsNullOrEmpty(imageFileName))
+                    if (!string.IsNullOrEmpty(imageFilePath))
                     {
-                        //var matchedImage = imageFiles.FirstOrDefault(f => f.FileName.Equals(imageFileName, StringComparison.OrdinalIgnoreCase));
+                        string imageFileName = Path.GetFileName(imageFilePath);
+
                         var matchedImage = imageFiles.FirstOrDefault(f =>
-                            Path.GetFileName(f.FileName).Equals(Path.GetFileName(imageFileName), StringComparison.OrdinalIgnoreCase));
+                            Path.GetFileName(f.FileName).Equals(imageFileName, StringComparison.OrdinalIgnoreCase));
 
                         if (matchedImage != null)
                         {
@@ -384,8 +436,7 @@ public class DocketController : ControllerBase
                                 await matchedImage.CopyToAsync(fileStream);
                             }
 
-                            //podEntry.ImageLink = Path.Combine("UploadedImages", uniqueFileName).Replace("\\", "/");
-                            podEntry.ImageLink = "http://192.168.0.158:5000/PODUpload/CUSTOMERID/2025/APRIL/" + uniqueFileName;
+                            podEntry.ImageLink = $"http://192.168.0.158:5000/PODUpload/{finyear.Split('-')[0]}/{month}/{User.ToString()}/{uniqueFileName}";
                         }
                     }
 
@@ -406,4 +457,5 @@ public class DocketController : ControllerBase
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
+
 }
