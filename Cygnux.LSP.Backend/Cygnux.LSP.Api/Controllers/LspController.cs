@@ -17,16 +17,16 @@ public class LspController : ControllerBase
 
     [HttpGet]
     [Route("GetLSPList")]
-    public async Task<IActionResult> GetLspList([FromQuery] int page, [FromQuery] int pageSize, Guid userId, string? lspName, string? mobileNo, string? alias, string? description)
+    public async Task<IActionResult> GetLspList(Guid userId, [FromQuery] Dictionary<string, string> jsonreq)
     {
-        return Ok(await _lspRepository.GetLspList(page, pageSize, userId, lspName, mobileNo, alias, description));
+        return Ok(await _lspRepository.GetLspList(userId, jsonreq));
     }
 
     [HttpGet]
-    [Route("GetDetails/{id}")]
-    public async Task<IActionResult> GetLspDetails(Guid id, Guid userId)
+    [Route("GetDetails")]
+    public async Task<IActionResult> GetLspDetails(Guid lspid)
     {
-        return Ok(await _lspRepository.GetLspDetails(id, userId));
+        return Ok(await _lspRepository.GetLspDetails(lspid));
     }
 
     [HttpPost]
@@ -34,8 +34,9 @@ public class LspController : ControllerBase
     public async Task<IActionResult> AddLSP([FromForm] CreateLspRequest createLsp, IFormFile file)
     {
         if (file != null && file.Length > 0)
+        if (file != null && file.Length > 0)
         {
-            // Process file
+            // Process fileGetLSPList
             var filePath = Path.Combine("Uploads", file.FileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
