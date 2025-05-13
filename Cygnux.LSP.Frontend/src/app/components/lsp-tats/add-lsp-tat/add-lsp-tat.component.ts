@@ -48,7 +48,10 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     if (changes['lspTatResponse'] && this.lspTatResponse) {
       this.getLsps(this.lspTatResponse.customerId);
       this.lspTatId = this.lspTatResponse.lspTatId;
-      this.lspTatForm.patchValue(this.lspTatResponse);
+      this.lspTatForm.patchValue({
+        ...this.lspTatResponse,
+        priority:this.lspTatResponse.priority.toString()
+      });
     } else {
       this.lspTatForm.reset();
       this.buildForm();
