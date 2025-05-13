@@ -83,8 +83,17 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Priority</label>
-                                    <input class="form-control" formControlName="priority" type="text" required placeholder="Enter Priority"
-                                    [ngClass]="{ 'border-danger': lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority'].touched}"/>
+                                    <!-- <input class="form-control" formControlName="priority" type="text" required placeholder="Enter Priority"
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority'].touched}"/> -->
+                                    <ng-select [items]="priority"
+                                    bindLabel="codeDesc"
+                                    bindValue="codeId"
+                                    formControlName="priority"
+                                    placeholder="Search Priority"
+                                    [searchable]="true"
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority'].touched}" 
+                                    >
+                                    </ng-select>
                                     <div *ngIf="lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['priority'].errors?.['required']">Priority

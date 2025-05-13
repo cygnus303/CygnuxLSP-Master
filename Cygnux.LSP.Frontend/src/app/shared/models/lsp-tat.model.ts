@@ -14,6 +14,8 @@ export interface LspTatResponse {
     bookingType:string;
     mode:string;
     emailId:string;
+    modedesc:string;
+    priorityDesc:string;
 }
 
 export interface AddLspTatRequest {

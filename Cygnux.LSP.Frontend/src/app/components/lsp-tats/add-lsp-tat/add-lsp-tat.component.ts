@@ -30,6 +30,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   public lsps: LspResponse[] | null = null;
   public customers: CustomerResponse[] | null = null;
   public transporter:TrackingListResponse[]=[];
+  public priority:TrackingListResponse[]=[];
   @Input() lspTatResponse: LspTatResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
@@ -59,6 +60,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.buildForm();
     this.getTransporterDetail();
+    this.getPriorityDetail();
     this.getLsps(this.identityService.getLoggedUserId());
   }
 
@@ -95,6 +97,24 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       },
     });
   }
+
+  getPriorityDetail(){
+    this.docketService.getTrackingList('PRIORITY').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.priority=response.data;
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
+  }
+
 
   getCustomers(event?:any) {
     this.commonService.updateLoader(true);
