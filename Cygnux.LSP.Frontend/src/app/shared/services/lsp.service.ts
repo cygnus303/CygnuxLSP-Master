@@ -21,7 +21,7 @@ export class LspService {
   }
 
   addLsp(addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('lsp/AddLsp/', addLspRequest);
+    return this.apiHandlerService.Post('lsp/AddLsp', addLspRequest);
   }
 
   updateLsp(id: string, addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
