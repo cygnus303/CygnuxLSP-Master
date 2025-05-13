@@ -29,9 +29,10 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
 
     public class DocketStatusReq
     {
-        public int DocketId { get; set; }
-        public string DocketNo { get; set; }
+        /*public Guid DocketId { get; set; }
+        public string DocketNo { get; set; }= string.Empty;*/
         public string CurrentStatus { get; set; } = string.Empty;
-        public Guid LspId { get; set; }
+
+        /*public Guid LspId { get; set; }*/
     }
 }

@@ -13,13 +13,11 @@ public class LspTatDetailResponse
     public string Destination { get; set; } = string.Empty;
     public string DestinationState { get; set; } = string.Empty;
     public string Mode { get; set; } = string.Empty;
-
+    public string Modedesc {  get; set; } = string.Empty;
     public int Tat { get; set; }
-
     public int Priority { get; set; }
-
+    public string PriorityDesc { get; set; } = string.Empty;
     public bool IsActive { get; set; }
-
     public string BookingType { get; set; } = string.Empty;
     public int? TotalCount { get; set; }
 

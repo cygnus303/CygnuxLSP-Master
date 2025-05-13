@@ -7,7 +7,7 @@
             <div class="email-tags">
                 <span *ngFor="let docket of docketList"  class="email-tag">
                     {{ docket }}
-                    <span class="ms-2 text-white fw-bold" style="cursor:pointer;"
+                    <span class="ms-2 text-danger fw-bold" style="cursor:pointer;"
                         (click)="removeDocket(docket)">✖</span>
                 </span>
             </div>
