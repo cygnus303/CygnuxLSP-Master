@@ -74,10 +74,7 @@ ngOnChanges(changes:SimpleChanges){
     this.commonService.updateLoader(true);
     if (form.valid) {
       const payload = {
-        docketId:parseInt(form.value.docketId),
-        docketNo:form.value.docketNo,
         currentStatus:form.value.nextDocketStatus,
-        lspId:form.value.transporter
       }
         this.docketService.singleUpdateDocketSts(form.value.docketId,payload).subscribe({
         next: (response) => {
