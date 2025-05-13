@@ -1,6 +1,7 @@
 ﻿namespace Cygnux.LSP.Application.IoC;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Contracts;
 using Identity.IoC;
 using Implementations;
 using Infrastructure.IoC;
@@ -20,6 +21,7 @@ public static class ServiceRegistration
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
         services.AddScoped<IDocketRepository, DocketRepository>();
+        services.AddScoped<ITrackingRepository, TrackingRepository>();
         services.AddScoped<IRoleMenuPermissionRepository, RoleMenuPermissionRepository>();
 
         services.ConfigureIdentityServices(configuration);

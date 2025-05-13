@@ -11,17 +11,17 @@ using Models.Request.LspMapping;
 using Models.Response;
 using Newtonsoft.Json;
 
-internal class Trackingrepository : ITrackingRepository
+internal class TrackingRepository : ITrackingRepository
 {
     private readonly ITrackingservice _trackingService;
 
-    public Trackingrepository(ITrackingservice trackingService)
+    public TrackingRepository(ITrackingservice trackingService)
     {
         _trackingService = trackingService;
     }
-    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetTrackigList(string Docketnumber)
+    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetTrackigList(string docketNOs)
     {
-        var response = await _trackingService.GetTrackigList(Docketnumber);
+        var response = await _trackingService.GetTrackigList(docketNOs);
         return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 

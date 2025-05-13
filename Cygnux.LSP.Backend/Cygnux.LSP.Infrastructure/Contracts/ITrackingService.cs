@@ -6,5 +6,5 @@ using Models.Response.LspMapping;
 
 public interface ITrackingservice
 {
-    Task<IEnumerable<DocketListResponse>> GetTrackigList(string Docketnumber);
+    Task<IEnumerable<DocketListResponse>> GetTrackigList(string docketNOs);
 }
