@@ -16,32 +16,26 @@ internal class LspService : ILspService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<LspListResponse>> GetLspList(int page, int pageSize, Guid userId, string? lspName, string? mobileNo, string? alias, string? description)
+    public async Task<IEnumerable<LspListResponse>> GetLspList(Guid userId, string jsonreq)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@Page", page, DbType.Int32);
-        parameters.Add("@PageSize", pageSize, DbType.Int32);
         parameters.Add("@UserId", userId, DbType.Guid);
-        parameters.Add("@LspName", lspName, DbType.String);
-        parameters.Add("@MobileNo", mobileNo, DbType.String);
-        parameters.Add("@Alias", alias, DbType.String);
-        parameters.Add("@Description", description, DbType.String);
+        parameters.Add("@jsonreqst", userId, DbType.String);
 
         return await _dbConnection.QueryAsync<LspListResponse>(
-             StoredProcedureConstants.Usp_GetLsp,
+             StoredProcedureConstants.Usp_GetLsp_new,
              parameters,
              commandType: CommandType.StoredProcedure
          );
     }
 
-    public async Task<LspDetailResponse> GetLspDetails(Guid id, Guid userId)
+    public async Task<LspDetailResponse> GetLspDetails(Guid lspid)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@LspId", id, DbType.Guid);
-        parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@LspId", lspid, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<LspDetailResponse>(
-            StoredProcedureConstants.Usp_GetLsp,
+            StoredProcedureConstants.USP_GetLspDetail,
             param: parameters,
             commandType: CommandType.StoredProcedure
         ) ?? new LspDetailResponse();

@@ -22,18 +22,18 @@ internal class LspRepository : ILspRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(int page, int pageSize, Guid userId, string? lspName, string? mobileNo, string? alias, string? description)
+    public async Task<BaseResponse<IEnumerable<LspListResponse>>> GetLspList(Guid userId, Dictionary<string, string> jsonreq)
     {
-        var response = await _lspService.GetLspList(page, pageSize, userId,lspName,mobileNo,alias,description);
+        var response = await _lspService.GetLspList(userId, JsonConvert.SerializeObject(jsonreq));
 
         return new BaseResponse<IEnumerable<LspListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
         //return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
 
     }
 
-    public async Task<BaseResponse<LspDetailResponse>> GetLspDetails(Guid id, Guid userId)
+    public async Task<BaseResponse<LspDetailResponse>> GetLspDetails(Guid lspid)
     {
-        var response = await _lspService.GetLspDetails(id,userId);
+        var response = await _lspService.GetLspDetails(lspid);
         return new BaseResponse<LspDetailResponse>(response);
     }
 
