@@ -123,9 +123,9 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`)
   }
 
-  getDestinationToData(filters:any){
-    return this.apiHandlerService.Get(`Docket/GetDropdowndataTo`,filters);
-  }
+  // getDestinationToData(filters:any){
+  //   return this.apiHandlerService.Get(`Docket/GetDropdowndataTo`,filters);
+  // }
 
   getDocketDetail(docketNo:number){
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`)

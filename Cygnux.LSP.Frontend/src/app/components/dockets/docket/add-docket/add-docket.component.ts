@@ -32,6 +32,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public customerWHStoreLocation : CustomerLocationResponse[]=[];
   public lsps: LspResponse[] | null = null;
   public transporter:TrackingListResponse[]=[];
+  public customerId : string='' ;
   public transportMode:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
@@ -80,11 +81,10 @@ ngOnChanges(changes: SimpleChanges): void {
     this.docketId = this.docketResponse.docketId;
     if(!this.isSelected){
       this.onSelectCustomer(this.docketResponse , true)
-      this.onSelectOrigin(this.docketResponse)
+      // this.onSelectOrigin(this.docketResponse)
     }
     this.docketForm.patchValue(this.docketResponse);
   } else {
-    // this.docketForm.reset();
     this.docketId = '';
     this.buildForm();
     this.docketForm.patchValue({
@@ -129,7 +129,9 @@ ngOnChanges(changes: SimpleChanges): void {
           this.customers = response.data;
           if(this.userRoles !== 'SA' && response.data.length > 0){
             this.docketForm.patchValue(response.data[0])
-            this.onSelectCustomer(response.data[0])
+            // this.onSelectCustomer(response.data[0])
+            // this.onSelectOrigin(response.data[0])
+            this.customerId=response.data[0].customerId
           }
         }
         this.commonService.updateLoader(false);
@@ -228,32 +230,72 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  onSelectOrigin(event:any){
+  onSelectOrigin(event: any, type: string): void {
     this.commonService.updateLoader(true);
-    this.docketForm.patchValue({
-      toLocation:null,
-      lspId: event.lspId
-    });
-    const filters={
-      CustomerId:event.customerId,
-      origin:event.location ? event.location : event.fromLocation
+  
+    const formValues = this.docketForm.value;
+    let selectedLsp = formValues.transporter || '';
+    let selectedFromLocation = formValues.fromLocation || '';
+    let selectedToLocation = formValues.toLocation || '';
+  
+    switch (type) {
+      case 'lsp':
+        selectedLsp = event.lspId;
+        selectedFromLocation = '';
+        selectedToLocation = '';
+        this.docketForm.patchValue({
+          fromLocation: null,
+          toLocation: null
+        });
+        break;
+  
+      case 'fromLocation':
+        selectedFromLocation = event.fromLocation;
+        selectedToLocation = '';
+        this.docketForm.patchValue({
+          toLocation: null
+        });
+        break;
+  
+      case 'toLocation':
+        selectedToLocation = event.toLocation;
+        break;
     }
+  
+    const filters = {
+      CustomerId: formValues.customerId || this.customerId,
+      LspId: selectedLsp,
+      origin: selectedFromLocation,
+      destination: selectedToLocation
+    };
+  
     this.docketService.getLocationData(filters).subscribe({
       next: (response) => {
         if (response.success) {
-          this.customerWHStoreLocation=response.data;
+          if (type === 'lsp') {
+            this.customerLocation = response.data;
+          } else if (type === 'fromLocation') {
+            this.customerWHStoreLocation = response.data;
+          }
+  
+          if (response.data?.[0]?.mode) {
+            this.docketForm.patchValue({
+              transportMode: response.data[0].mode
+            });
+          }
         } else {
           this.sweetAlertService.error(response.error.message);
         }
         this.commonService.updateLoader(false);
       },
-      error: (response: any) => {
+      error: (response) => {
         this.sweetAlertService.error(response.error.message);
         this.commonService.updateLoader(false);
-      },
+      }
     });
   }
-
+  
+  
   getTransporterDetail(){
     this.docketService.getTrackingList('DOCKSTAUS').subscribe({
       next: (response) => {
