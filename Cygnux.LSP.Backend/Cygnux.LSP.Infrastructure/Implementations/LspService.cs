@@ -20,7 +20,7 @@ internal class LspService : ILspService
     {
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId, DbType.Guid);
-        parameters.Add("@jsonreqst", userId, DbType.String);
+        parameters.Add("@jsonreqst", jsonreq, DbType.String);
 
         return await _dbConnection.QueryAsync<LspListResponse>(
              StoredProcedureConstants.Usp_GetLsp_new,

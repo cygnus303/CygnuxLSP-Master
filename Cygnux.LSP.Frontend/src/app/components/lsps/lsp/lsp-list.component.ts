@@ -73,10 +73,9 @@ export class LspListComponent implements OnInit {
     const filters: any = {
       ...this.filters,
       Page: page,
-      PageSize: this.pageSize,
-      UserID:this.identityService.getLoggedUserId(),
+      PageSize: this.pageSize
     };
-    this.lspService.getLspList(filters).subscribe({
+    this.lspService.getLspList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
@@ -129,7 +128,7 @@ export class LspListComponent implements OnInit {
   }
   getLsp(id: string) {
     this.commonService.updateLoader(true);
-    this.lspService.getLspDetails(id,this.identityService.getLoggedUserId()).subscribe({
+    this.lspService.getLspDetails(id).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;
