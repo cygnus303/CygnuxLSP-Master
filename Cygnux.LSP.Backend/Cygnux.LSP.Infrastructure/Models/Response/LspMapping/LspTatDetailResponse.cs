@@ -9,7 +9,6 @@ public class LspTatDetailResponse
     public string LspName { get; set; } = string.Empty;
     public string Product { get; set; } = string.Empty;
     public string Origin { get; set; } = string.Empty;
-
     public string Destination { get; set; } = string.Empty;
     public string DestinationState { get; set; } = string.Empty;
     public string Mode { get; set; } = string.Empty;
