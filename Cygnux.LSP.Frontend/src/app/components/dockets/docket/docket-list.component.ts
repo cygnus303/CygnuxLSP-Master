@@ -162,12 +162,13 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-  editModal(event: Event, docketList: any) {
+  editModal(event: Event, docketList: any,type:string) {
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
+      this.isSelected = type;
       this.getDocket(docketList);
     }
   }

@@ -79,9 +79,9 @@ ngOnChanges(changes: SimpleChanges): void {
   if (changes['docketResponse'] && this.docketResponse) {
     this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
     this.docketId = this.docketResponse.docketId;
-    if(!this.isSelected){
+    if(this.isSelected === 'edit'){
       this.onSelectCustomer(this.docketResponse , true)
-      // this.onSelectOrigin(this.docketResponse)
+      this.onSelectOrigin(this.docketResponse, 'lsp')
     }
     this.docketForm.patchValue(this.docketResponse);
   } else {
@@ -232,7 +232,6 @@ ngOnChanges(changes: SimpleChanges): void {
 
   onSelectOrigin(event: any, type: string): void {
     this.commonService.updateLoader(true);
-  
     const formValues = this.docketForm.value;
     let selectedLsp = formValues.transporter || '';
     let selectedFromLocation = formValues.fromLocation || '';
@@ -240,7 +239,7 @@ ngOnChanges(changes: SimpleChanges): void {
   
     switch (type) {
       case 'lsp':
-        selectedLsp = event.lspId;
+        selectedLsp = event?.lspId || event?.transporter;
         selectedFromLocation = '';
         selectedToLocation = '';
         this.docketForm.patchValue({
