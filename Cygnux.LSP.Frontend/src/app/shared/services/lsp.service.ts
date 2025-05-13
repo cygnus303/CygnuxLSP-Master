@@ -12,12 +12,12 @@ export class LspService {
 
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
 
-  getLspList(filters: any): Observable<IApiBaseResponse<LspResponse[]>> {
-    return this.apiHandlerService.Get('lsp/GetLSPList', filters);
+  getLspList(userId:string,filters: any): Observable<IApiBaseResponse<LspResponse[]>> {
+    return this.apiHandlerService.Get(`lsp/GetLSPList?userId=${userId}`, filters);
   }
 
-  getLspDetails(id: string,userId:string): Observable<IApiBaseResponse<LspResponse>> {
-    return this.apiHandlerService.Get(`lsp/GetDetails/${id}?userId=${userId}`);
+  getLspDetails(id: string): Observable<IApiBaseResponse<LspResponse>> {
+    return this.apiHandlerService.Get(`lsp/GetDetails?lspid=${id}`);
   }
 
   addLsp(addLspRequest: any): Observable<IApiBaseResponse<CommonResponse>> {

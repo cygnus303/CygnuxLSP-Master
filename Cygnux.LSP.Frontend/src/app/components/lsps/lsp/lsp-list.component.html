@@ -27,11 +27,11 @@
                 </th>
               </tr>
               <tr class="table-th">
-                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['lspName']" (input)="getLsps()"/></th>
-                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['emailId']" (input)="getLsps()"/></th>
-                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['mobileNo']" (input)="getLsps()"/></th>
-                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['alias']" (input)="getLsps()"/></th>
-                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['description']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['LspName']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['Email']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['MobileNo']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['Alias']" (input)="getLsps()"/></th>
+                <th class="w-15"><input type="text" class="form-control"  [(ngModel)]="filters['Description']" (input)="getLsps()"/></th>
                 <th class="w-8"></th>
                 <th class="w-15 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
               </tr>
