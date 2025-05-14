@@ -14,9 +14,15 @@
                                     (click)="removeDocket(docket)">✖</span>
                             </span>
                         </div>
-                        <input class="form-control shadow-sm" type="text"
-                            placeholder="Enter Docket Numbers, separated by comma" (keyup)="addDocketNumber($event)"
-                            [(ngModel)]="docketInput" />
+                        <input
+                        class="form-control shadow-sm"
+                        type="text"
+                        placeholder="Enter Docket Numbers, separated by comma"
+                        (keyup)="addDocketNumber($event)"
+                        (blur)="finalizeDocketInput()"
+                        (keyup.enter)="finalizeDocketInput()"
+                        [(ngModel)]="docketInput"
+                      />
                     </div>
                 </div>
                 <div class="col-auto" (click)="onSearchTrackTrace()">

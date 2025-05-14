@@ -14,22 +14,38 @@ import { IdentityService } from '../../shared/services/identity.service';
 })
 export class TrackTraceComponent {
   status = "in-transit";
-  constructor( public commonService: CommonService, private trackTraceService:TrackTraceService,private identityService:IdentityService){
-    defineElement(lottie.loadAnimation);
-    this.commonService.activeNavigationUrl.next('Track Trace');
-  }
   docketInput: string = '';
   docketList: string[] = [];
   trackTraceList:TrackTraceResponse[]=[];
+
+
+  constructor( 
+   public commonService: CommonService,
+   private trackTraceService:TrackTraceService,
+   private identityService:IdentityService
+  ){
+    defineElement(lottie.loadAnimation);
+    this.commonService.activeNavigationUrl.next('Track Trace');
+  }
+
   addDocketNumber(event: KeyboardEvent): void {
     if (event.key === ',' && this.docketInput.trim()) {
-      const docketNumber = this.docketInput.trim().slice(0, -1); // remove trailing comma
+      const docketNumber = this.docketInput.trim().slice(0, -1); // remove comma
       if (docketNumber) {
         this.docketList.push(docketNumber);
-        this.docketInput = ''; // Clear input bound to ngModel
+        this.docketInput = '';
       }
     }
   }
+  
+  finalizeDocketInput(): void {
+    const docketNumber = this.docketInput.trim();
+    if (docketNumber && !this.docketList.includes(docketNumber)) {
+      this.docketList.push(docketNumber);
+      this.docketInput = '';
+    }
+  }
+
   onSearchTrackTrace(){
     const docketString = this.docketList.length ? this.docketList.join(',') : null;
     this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
@@ -45,6 +61,7 @@ export class TrackTraceComponent {
   ngAfterViewInit(): void {
     feather.replace(); // Ensure icons render
   }
+
   removeDocket(docket: string): void {
     this.docketList = this.docketList.filter(d => d !== docket);
     this.onSearchTrackTrace();
