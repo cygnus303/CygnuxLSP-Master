@@ -17,10 +17,11 @@ internal class TrackingService : ITrackingservice
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<DocketListResponse>> GetTrackigList(string docketNOs)
+    public async Task<IEnumerable<DocketListResponse>> GetTrackigList(string docketNOs, Guid userid)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@docknumber", docketNOs, DbType.String);
+        parameters.Add("@UserId", userid, DbType.Guid);
 
         return await _dbConnection.QueryAsync<DocketListResponse>(
              StoredProcedureConstants.Usp_TrackingList,

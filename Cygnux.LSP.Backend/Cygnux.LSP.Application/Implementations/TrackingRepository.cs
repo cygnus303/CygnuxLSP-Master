@@ -19,9 +19,9 @@ internal class TrackingRepository : ITrackingRepository
     {
         _trackingService = trackingService;
     }
-    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetTrackigList(string docketNOs)
+    public async Task<BaseResponse<IEnumerable<DocketListResponse>>> GetTrackigList(string docketNOs,Guid userid)
     {
-        var response = await _trackingService.GetTrackigList(docketNOs);
+        var response = await _trackingService.GetTrackigList(docketNOs,userid);
         return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 

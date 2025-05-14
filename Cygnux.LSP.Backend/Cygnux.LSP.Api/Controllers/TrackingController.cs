@@ -27,9 +27,9 @@ public class TrackingController : ControllerBase
 
     [HttpGet]
     [Route("GetTrackigList")]
-    public async Task<IActionResult> GetTrackigList(string docketNOs)
+    public async Task<IActionResult> GetTrackigList(string docketNOs,Guid userid)
     {
-        return Ok(await _trackingRepository.GetTrackigList(docketNOs));
+        return Ok(await _trackingRepository.GetTrackigList(docketNOs,userid));
     }
 
 }
