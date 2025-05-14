@@ -13,7 +13,7 @@ export class TrackTraceService {
       @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
     ) {}
 
-    GetTrackigList(id:string | null): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
-        return this.apiHandlerService.Get(`Tracking/GetTrackigList?docketNOs=${id}`);
+    GetTrackigList(id:string | null,userid:string): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
+        return this.apiHandlerService.Get(`Tracking/GetTrackigList?docketNOs=${id}&userid=${userid}`);
       }
 }

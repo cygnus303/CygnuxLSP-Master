@@ -1,73 +1,89 @@
-<div class="row align-items-center mb-5 fade-in">
-    <div class="col-auto">
-        <label class="col-form-label fw-bold">Docket Numbers:</label>
-    </div>
-    <div class="col">
-        <div class="email-container">
-            <div class="email-tags">
-                <span *ngFor="let docket of docketList"  class="email-tag">
-                    {{ docket }}
-                    <span class="ms-2 text-danger fw-bold" style="cursor:pointer;"
-                        (click)="removeDocket(docket)">✖</span>
-                </span>
+<div class="row" class="fade-in">
+    <div class="col-sm-12">
+        <div class="card ">
+            <div class="row align-items-center mb-5 p-3 fade-in">
+                <div class="col-auto">
+                    <label class="col-form-label fw-bold">Docket Numbers:</label>
+                </div>
+                <div class="col">
+                    <div class="email-container">
+                        <div class="email-tags">
+                            <span *ngFor="let docket of docketList" class="email-tag">
+                                {{ docket }}
+                                <span class="ms-2 text-danger fw-bold" style="cursor:pointer;"
+                                    (click)="removeDocket(docket)">✖</span>
+                            </span>
+                        </div>
+                        <input class="form-control shadow-sm" type="text"
+                            placeholder="Enter Docket Numbers, separated by comma" (keyup)="addDocketNumber($event)"
+                            [(ngModel)]="docketInput" />
+                    </div>
+                </div>
+                <div class="col-auto" (click)="onSearchTrackTrace()">
+                    <button class="btn btn-square btn-primary pull-right rounded-3">Search</button>
+                </div>
             </div>
-            <input class="form-control shadow-sm" type="text" placeholder="Enter Docket Numbers, separated by comma"
-                (keyup)="addDocketNumber($event)" [(ngModel)]="docketInput" />
-        </div>
-    </div>
-    <div class="col-auto" (click)="onSearchTrackTrace()">
-        <button class="btn btn-square btn-primary pull-right rounded-3">Search</button>
-    </div>
-</div>
-<div class="overflow">
-    <div class="row w-100">
-        <div class="col-4 fade-in" *ngFor="let data of trackTraceList;let i=index">
-            <div class="card p-5">
-                <div class="text-center mb-4"> <strong>Docket Number:</strong> {{data.docketNo}}</div>
-                <div class="progress-container">
-                    <!-- Ordered -->
-                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
-                        placement="bottom" [popoverTitle]="'Description'"
-                        [class.active]="data.currentStatus === '1' || data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
-                        <div class="circle"><i data-feather="file-text"></i></div>
-                        <span class="span">Ordered</span>
-                    </div>
-    
-                    <div class="line"
-                        [class.active]="data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
-                    </div>
-    
-                    <!-- Packed -->
-                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
-                    placement="bottom" [popoverTitle]="'Description'"
-                        [class.active]=" data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
-                        <div class="circle"><i data-feather="package"></i></div>
-                        <span class="span">Packed</span>
-                    </div>
-    
-                    <div class="line" [class.active]="data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'"></div>
-    
-                    <!-- In Transit -->
-                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
-                    placement="bottom" [popoverTitle]="'Description'" [class.active]="data.currentStatus === '4' || data.currentStatus === '5' || data.currentStatus === '6'">
-                        <div class="circle"><i data-feather="truck"></i></div>
-                        <span class="span">In Transit</span>
-                    </div>
-    
-                    <div class="line" [class.active]="data.currentStatus === '5' || data.currentStatus === '6'"></div>
-    
-                    <!-- Delivered -->
-                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
-                    placement="bottom" [popoverTitle]="'Description'" [class.active]="data.currentStatus === '6'">
-                        <div class="circle"><i data-feather="home"></i></div>
-                        <span class="span">Delivered</span>
+            <div class="overflow">
+                <div class="row w-100 p-3">
+                    <div class="col-4 fade-in" *ngFor="let data of trackTraceList;let i=index">
+                        <div class="card box-shadow p-5">
+                            <div class="text-center mb-4"> <strong>Docket Number:</strong> {{data.docketNo}}</div>
+                            <div class="progress-container">
+                                <!-- Ordered -->
+                                <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
+                                    container="body" [popoverContext]="{index: data}" triggers="hover"
+                                    placement="bottom" [popoverTitle]="'Description'"
+                                    [class.active]="data.currentStatus === '1' || data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                    <div class="circle"><i data-feather="file-text"></i></div>
+                                    <span class="span">Ordered</span>
+                                </div>
+
+                                <div class="line"
+                                    [class.active]="data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                </div>
+
+                                <!-- Packed -->
+                                <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
+                                    container="body" [popoverContext]="{index: data}" triggers="hover"
+                                    placement="bottom" [popoverTitle]="'Description'"
+                                    [class.active]=" data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                    <div class="circle"><i data-feather="package"></i></div>
+                                    <span class="span">Packed</span>
+                                </div>
+
+                                <div class="line"
+                                    [class.active]="data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                </div>
+
+                                <!-- In Transit -->
+                                <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
+                                    container="body" [popoverContext]="{index: data}" triggers="hover"
+                                    placement="bottom" [popoverTitle]="'Description'"
+                                    [class.active]="data.currentStatus === '4' || data.currentStatus === '5' || data.currentStatus === '6'">
+                                    <div class="circle"><i data-feather="truck"></i></div>
+                                    <span class="span">In Transit</span>
+                                </div>
+
+                                <div class="line"
+                                    [class.active]="data.currentStatus === '5' || data.currentStatus === '6'">
+                                </div>
+
+                                <!-- Delivered -->
+                                <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
+                                    container="body" [popoverContext]="{index: data}" triggers="hover"
+                                    placement="bottom" [popoverTitle]="'Description'"
+                                    [class.active]="data.currentStatus === '6'">
+                                    <div class="circle"><i data-feather="home"></i></div>
+                                    <span class="span">Delivered</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <ng-template #hourPopover let-index="index" class="p-5" style="z-index: 9999 !important;">
     <div class="p-2">

@@ -5,6 +5,7 @@ import lottie from 'lottie-web';
 import feather from 'feather-icons';
 import { TrackTraceService } from '../../shared/services/track-trace.service';
 import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
+import { IdentityService } from '../../shared/services/identity.service';
 @Component({
   selector: 'app-track-trace',
   standalone: false,
@@ -13,7 +14,7 @@ import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
 })
 export class TrackTraceComponent {
   status = "in-transit";
-  constructor( public commonService: CommonService, private trackTraceService:TrackTraceService){
+  constructor( public commonService: CommonService, private trackTraceService:TrackTraceService,private identityService:IdentityService){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
@@ -31,7 +32,7 @@ export class TrackTraceComponent {
   }
   onSearchTrackTrace(){
     const docketString = this.docketList.length ? this.docketList.join(',') : null;
-    this.trackTraceService.GetTrackigList(docketString).subscribe(res => {
+    this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
       this.trackTraceList = res.data;
 
       // Delay to ensure Angular has rendered the DOM
