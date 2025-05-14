@@ -1,7 +1,7 @@
 <div class="row" class="fade-in">
     <div class="col-sm-12">
         <div class="card ">
-            <div class="row align-items-center mb-5 p-3 fade-in">
+            <div class="row align-items-center p-3 fade-in">
                 <div class="col-auto">
                     <label class="col-form-label fw-bold">Docket Numbers:</label>
                 </div>
@@ -24,9 +24,9 @@
                 </div>
             </div>
             <div class="overflow">
-                <div class="row w-100 p-3">
+                <div class="row w-100 p-4 pe-0" *ngIf="trackTraceList.length > 0; else noData">
                     <div class="col-4 fade-in" *ngFor="let data of trackTraceList;let i=index">
-                        <div class="card box-shadow p-5">
+                        <div class="card box-shadow p-5 ">
                             <div class="text-center mb-4"> <strong>Docket Number:</strong> {{data.docketNo}}</div>
                             <div class="progress-container">
                                 <!-- Ordered -->
@@ -80,6 +80,16 @@
                         </div>
                     </div>
                 </div>
+                <ng-template #noData>
+                    <div class="text-center w-100">
+                      <div class="border-tracktrace m-4">
+                        <h6 class="text-muted">
+                          To view docket details, kindly input the docket number in the search field
+                        </h6>
+                      </div>
+                    </div>
+                  </ng-template>
+                  
             </div>
         </div>
     </div>
