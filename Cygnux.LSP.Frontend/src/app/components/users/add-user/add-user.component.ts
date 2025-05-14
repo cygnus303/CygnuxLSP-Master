@@ -56,7 +56,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       lastName: new FormControl(null, [Validators.required]),
       location:new FormControl(''),
       sessionTime:new FormControl(null),
-      roles: new FormControl(null, [Validators.required]),
+      roles: new FormControl('SA', [Validators.required]),
       emailId: new FormControl('', [Validators.required,Validators.pattern(EmailRegex)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
@@ -71,6 +71,7 @@ export class AddUserComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['userResponse'] && this.userResponse) {
+      // this.userResponse.userType = this.userResponse.roles
       this.userForm.patchValue(this.userResponse);
       this.userId = this.userResponse.id;
     } else {

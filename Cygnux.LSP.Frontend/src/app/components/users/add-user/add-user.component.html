@@ -10,18 +10,11 @@
           <div class="tab-content" id="info-tabContent">
             <div class="tab-pane fade active show" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
               <div class="row g-3">
-                <div class="col-md-4 mb-11">
+                <!-- <div class="col-md-4 mb-11">
                   <label class="col-form-label">Customer Name</label>
                   <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"/>
-                </div>
-                <div class="col-md-4 mb-11">
-                  <label class="col-form-label">Location</label>
-                  <input class="form-control" formControlName="location" type="text"  placeholder="Enter Location"/>
-                </div>
-                <div class="col-md-4 mb-11">
-                  <label class="col-form-label">Session Time</label>
-                  <input class="form-control" formControlName="sessionTime" type="number" placeholder="Enter Session Time"/>
-                </div>
+                </div> -->
+                
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">First Name</label>
                   <input class="form-control" formControlName="firstName" type="text" required placeholder="Enter First Name"
@@ -61,7 +54,14 @@
                   <label class="col-form-label">User type</label>
                   <input class="form-control"  formControlName="userType" type="text" required placeholder="Enter User type"/>
                 </div>
-                
+                <div class="col-md-4 mb-11">
+                  <label class="col-form-label">Location</label>
+                  <input class="form-control" formControlName="location" type="text"  placeholder="Enter Location"/>
+                </div>
+                <div class="col-md-4 mb-11">
+                  <label class="col-form-label">Session Time</label>
+                  <input class="form-control" formControlName="sessionTime" type="number" placeholder="Enter Session Time"/>
+                </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Locality</label>
                   <input class="form-control"  formControlName="locality" type="text"  placeholder="Enter Locality" /> 
@@ -98,7 +98,7 @@
                   <div class="form-group">
                     <label for="roles">Roles</label>
                     <ng-select [items]="roles" bindLabel="roleName" bindValue="roleName" formControlName="roles"
-                      placeholder="Select roles" [closeOnSelect]="false" [searchable]="true"
+                      placeholder="Select roles" [closeOnSelect]="false" [searchable]="true" readonly="true"
                       [ngClass]="{ 'border-danger': userForm.controls['roles'].invalid && userForm.controls['roles'].touched}">
                     </ng-select>
                     <div *ngIf="userForm.controls['roles'].invalid && userForm.controls['roles'].touched" class="text-danger">

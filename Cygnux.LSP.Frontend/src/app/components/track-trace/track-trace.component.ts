@@ -13,11 +13,9 @@ import { IdentityService } from '../../shared/services/identity.service';
   styleUrl: './track-trace.component.scss'
 })
 export class TrackTraceComponent {
-  status = "in-transit";
   docketInput: string = '';
   docketList: string[] = [];
   trackTraceList:TrackTraceResponse[]=[];
-
 
   constructor( 
    public commonService: CommonService,

@@ -39,39 +39,38 @@
                                 <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
                                     container="body" [popoverContext]="{index: data}" triggers="hover"
                                     placement="bottom" [popoverTitle]="'Description'"
-                                    [class.active]="data.currentStatus === '1' || data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                    [class.active]="['1','2','3','4','5','6'].includes(data.currentStatus)">
                                     <div class="circle"><i data-feather="file-text"></i></div>
                                     <span class="span">Ordered</span>
                                 </div>
 
                                 <div class="line"
-                                    [class.active]="data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                [class.active]="['2','3','4','5','6'].includes(data.currentStatus)">
                                 </div>
 
                                 <!-- Packed -->
                                 <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
                                     container="body" [popoverContext]="{index: data}" triggers="hover"
                                     placement="bottom" [popoverTitle]="'Description'"
-                                    [class.active]=" data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                    [class.active]="['3','4','5','6'].includes(data.currentStatus)">
                                     <div class="circle"><i data-feather="package"></i></div>
                                     <span class="span">Packed</span>
                                 </div>
 
                                 <div class="line"
-                                    [class.active]="data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
+                                [class.active]="['4','5','6'].includes(data.currentStatus)">
                                 </div>
 
                                 <!-- In Transit -->
                                 <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"
                                     container="body" [popoverContext]="{index: data}" triggers="hover"
                                     placement="bottom" [popoverTitle]="'Description'"
-                                    [class.active]="data.currentStatus === '4' || data.currentStatus === '5' || data.currentStatus === '6'">
+                                    [class.active]="['4','5','6'].includes(data.currentStatus)">
                                     <div class="circle"><i data-feather="truck"></i></div>
                                     <span class="span">In Transit</span>
                                 </div>
 
-                                <div class="line"
-                                    [class.active]="data.currentStatus === '5' || data.currentStatus === '6'">
+                                <div class="line" [class.active]="['5','6'].includes(data.currentStatus)">
                                 </div>
 
                                 <!-- Delivered -->
