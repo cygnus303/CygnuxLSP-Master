@@ -67,7 +67,7 @@ internal class CustomerRepository : ICustomerRepository
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> DeleteCustomer(string id)
+    public async Task<BaseResponse<CommonCreateResponse>> DeleteCustomer(Guid id)
     {
         var response = await _customerService.DeleteCustomer(id);
 

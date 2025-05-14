@@ -42,7 +42,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> DeleteCustomer(string id)
+    public async Task<IActionResult> DeleteCustomer(Guid id)
     {
         return Ok(await _customerRepository.DeleteCustomer(id));
     }

@@ -13,5 +13,5 @@ public interface ICustomerService
 
     Task<CommonCreateResponse> UpdateCustomer(string id, string updateCustomerJson);
 
-    Task<CommonCreateResponse> DeleteCustomer(string id);
+    Task<CommonCreateResponse> DeleteCustomer(Guid id);
 }

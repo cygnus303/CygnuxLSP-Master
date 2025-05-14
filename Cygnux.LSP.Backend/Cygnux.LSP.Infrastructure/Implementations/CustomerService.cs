@@ -71,14 +71,15 @@ internal class CustomerService : ICustomerService
           ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> DeleteCustomer(string id)
+    public async Task<CommonCreateResponse> DeleteCustomer(Guid id)
     {
-        var deleteQuery = "Update Customer Set IsDeleted = 1 Where CustomerCode = @Id";
-        var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
-        if (rowAffected > 0)
-        {
-            return new CommonCreateResponse { Status = 1, Message = "Customer deleted successfully" };
-        }
-        return new CommonCreateResponse();
+        var parameters = new DynamicParameters();
+        parameters.Add("@Id", id, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_CustomerDelete,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
     }
 }
