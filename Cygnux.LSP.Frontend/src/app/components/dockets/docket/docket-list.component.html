@@ -83,7 +83,8 @@
                           <!-- <i data-feather="check-square" height="16"></i> -->
                            <img src="/assets/images/update.png" width="23" height="22">
                         </div>
-                        <div (click)="openPodUpdateModal(docket)" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}" [popover]="'POD Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <div  (click)=" docket.currentStatus !== '6' ? null : openPodUpdateModal(docket)" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate,
+                           'disabled-icon': docket.currentStatus !== '6'}" [popover]="'POD Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                            <img src="/assets/images/pod.svg" width="37" height="27">
                         </div>
                       </div>

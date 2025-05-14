@@ -66,6 +66,10 @@
     }
 }
 
+.disabled-icon {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 
 .fade-in {
   opacity: 0;

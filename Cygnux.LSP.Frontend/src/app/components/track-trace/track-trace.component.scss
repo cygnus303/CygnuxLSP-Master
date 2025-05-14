@@ -63,10 +63,21 @@
     padding: 8px;
   }
 
-  .overflow{
-    height: 675px;
+  .overflow {
+    position: relative; /* ensure relative context */
+    z-index: 1;
+    height: 660px;
     overflow: auto;
   }
+
+  ::ng-deep .popover {
+    z-index: 9999 !important;
+  }
+
+  ::ng-deep .bs-popover-top > .arrow::before {
+  border-top-color: #171829 !important; /* match your header bg */
+}
+
 
   .email-container {
     display: flex;

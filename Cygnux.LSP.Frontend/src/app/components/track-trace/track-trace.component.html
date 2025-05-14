@@ -26,7 +26,7 @@
                 <div class="text-center mb-4"> <strong>Docket Number:</strong> {{data.docketNo}}</div>
                 <div class="progress-container">
                     <!-- Ordered -->
-                    <div class="step" #popoverRef="bs-popover" [popover]="hourPopover" [popoverContext]="{index: data}" triggers="hover"
+                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
                         placement="bottom" [popoverTitle]="'Description'"
                         [class.active]="data.currentStatus === '1' || data.currentStatus === '2' || data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
                         <div class="circle"><i data-feather="file-text"></i></div>
@@ -38,7 +38,7 @@
                     </div>
     
                     <!-- Packed -->
-                    <div class="step" #popoverRef="bs-popover" [popover]="hourPopover" [popoverContext]="{index: data}" triggers="hover"
+                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
                     placement="bottom" [popoverTitle]="'Description'"
                         [class.active]=" data.currentStatus === '3' || data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'">
                         <div class="circle"><i data-feather="package"></i></div>
@@ -48,7 +48,7 @@
                     <div class="line" [class.active]="data.currentStatus === '4' || data.currentStatus === '5'|| data.currentStatus === '6'"></div>
     
                     <!-- In Transit -->
-                    <div class="step" #popoverRef="bs-popover" [popover]="hourPopover" [popoverContext]="{index: data}" triggers="hover"
+                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
                     placement="bottom" [popoverTitle]="'Description'" [class.active]="data.currentStatus === '4' || data.currentStatus === '5' || data.currentStatus === '6'">
                         <div class="circle"><i data-feather="truck"></i></div>
                         <span class="span">In Transit</span>
@@ -57,7 +57,7 @@
                     <div class="line" [class.active]="data.currentStatus === '5' || data.currentStatus === '6'"></div>
     
                     <!-- Delivered -->
-                    <div class="step" #popoverRef="bs-popover" [popover]="hourPopover" [popoverContext]="{index: data}" triggers="hover"
+                    <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body" [popoverContext]="{index: data}" triggers="hover"
                     placement="bottom" [popoverTitle]="'Description'" [class.active]="data.currentStatus === '6'">
                         <div class="circle"><i data-feather="home"></i></div>
                         <span class="span">Delivered</span>
@@ -69,7 +69,7 @@
 </div>
 
 
-<ng-template #hourPopover let-index="index" class="p-5">
+<ng-template #hourPopover let-index="index" class="p-5" style="z-index: 9999 !important;">
     <div class="p-2">
       <div class="mb-1"><strong>Date : </strong> {{index.bookingDate | date :'dd-MM-yyyy'}} </div>
       <div><strong>From Address : </strong>  {{index.fromLocation}} </div>
