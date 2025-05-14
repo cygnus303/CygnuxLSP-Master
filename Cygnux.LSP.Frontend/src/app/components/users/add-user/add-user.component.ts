@@ -51,7 +51,7 @@ export class AddUserComponent implements OnInit, OnChanges {
 
   buildForm(): void {
     this.userForm = new FormGroup({
-      customerName:new FormControl(null, [Validators.required]),
+      customerName:new FormControl(null),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       location:new FormControl(''),
@@ -65,7 +65,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       city:new FormControl('',[Validators.required]),
       zipCode:new FormControl('',[Validators.required,Validators.pattern(zipCode)]),
       photo:new FormControl(''),
-      userType:new FormControl('',[Validators.required])
+      userType:new FormControl('')
     });
   }
 

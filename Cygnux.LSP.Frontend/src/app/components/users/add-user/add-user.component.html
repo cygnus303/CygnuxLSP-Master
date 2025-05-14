@@ -12,15 +12,7 @@
               <div class="row g-3">
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Customer Name</label>
-                  <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"
-                    [ngClass]="{ 'border-danger': userForm.controls['customerName'].invalid && userForm.controls['customerName'].touched}" />
-                    <!-- <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"
-                    formControlName="customerId" placeholder="Select Customer" [searchable]="true"
-                    [ngClass]="{ 'border-danger': userForm.controls['customerId'].invalid && userForm.controls['customerId'].touched}">
-                  </ng-select> -->
-                  <div *ngIf="userForm.controls['customerName'].invalid && userForm.controls['customerName']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['customerName'].errors?.['required']">CustomerName is required.</small>
-                  </div>
+                  <input class="form-control" formControlName="customerName" type="text" required placeholder="Enter Customer Name"/>
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Location</label>
@@ -67,12 +59,7 @@
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">User type</label>
-                  <input class="form-control"  formControlName="userType" type="text" required placeholder="Enter User type"
-                    [ngClass]="{ 'border-danger': userForm.controls['userType'].invalid && userForm.controls['userType'].touched}" />
-                  <div *ngIf="userForm.controls['userType'].invalid && userForm.controls['userType']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['userType'].errors?.['required']">User type is
-                      required.</small>
-                  </div>
+                  <input class="form-control"  formControlName="userType" type="text" required placeholder="Enter User type"/>
                 </div>
                 
                 <div class="col-md-4">
