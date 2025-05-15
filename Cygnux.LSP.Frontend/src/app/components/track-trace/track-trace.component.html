@@ -21,6 +21,9 @@
                 <div class="col-auto" (click)="onSearchTrackTrace()">
                     <button class="btn btn-square btn-primary pull-right rounded-3">Search</button>
                 </div>
+                <div class="col-auto" [routerLink]="'/track'">
+                  <button class="btn btn-square btn-success pull-right rounded-3">Dashboard</button>
+              </div>
             </div>
             <div class="overflow">
                 <div class="row w-100 p-4 pe-0" *ngIf="trackTraceList.length > 0; else noData">
