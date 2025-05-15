@@ -6,6 +6,7 @@ import feather from 'feather-icons';
 import { TrackTraceService } from '../../shared/services/track-trace.service';
 import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
 import { IdentityService } from '../../shared/services/identity.service';
+import { Roles } from '../../shared/constants/common';
 @Component({
   selector: 'app-track-trace',
   standalone: false,
@@ -16,11 +17,11 @@ export class TrackTraceComponent {
   docketInput: string = '';
   docketList: string[] = [];
   trackTraceList:TrackTraceResponse[]=[];
-
+  userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
   constructor( 
    public commonService: CommonService,
    private trackTraceService:TrackTraceService,
-   private identityService:IdentityService
+   public identityService:IdentityService
   ){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
@@ -54,13 +55,17 @@ finalizeDocketInput(): void {
     this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
       this.trackTraceList = res.data;
 
-      // Delay to ensure Angular has rendered the DOM
       setTimeout(() => {
         feather.replace();
       });
     });
   }
-  
+
+  removeCard(docket: string): void {
+    this.docketList = this.docketList.filter(item => item !== docket);
+    this.trackTraceList = this.trackTraceList.filter(item => item.docketNo !== docket);
+  }
+
   ngAfterViewInit(): void {
     feather.replace(); // Ensure icons render
   }

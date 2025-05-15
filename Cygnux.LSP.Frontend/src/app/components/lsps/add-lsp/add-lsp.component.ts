@@ -140,58 +140,34 @@ export class AddLspComponent implements OnInit, OnChanges {
         formData.append('file', this.selectedFile);
       }
   
-      !this.lspId ? this.addLspAndUser(form, formData) : this.updateLsp(formData);
+      !this.lspId ? this.addLsp(formData) : this.updateLsp(formData);
     } else {
       form.markAllAsTouched(); // Ensures all validation messages show up
     }
   }
 
-  addLspAndUser(form: FormGroup, formData: FormData): void {
-    if (form.valid) {
-      this.commonService.updateLoader(true);
   
-      // Prepare user payload
-      const {
-        lspName, mobileNo, alias, description,
-        apiKey, apiUrl, apiUsername, apiPassword,
-        logo, isActive, file, EntryBy, ...userPayload
-      } = form.getRawValue();
-  
-      userPayload.firstName = lspName;
-      userPayload.phoneNumber = mobileNo;
-  
-      this.userService.addUser(userPayload).pipe(
-        concatMap((userResponse) => {
-          if (userResponse.success) {
-            // User created successfully, now call addLsp
-            return this.lspService.addLsp(formData);
-          } else {
-            this.sweetAlertService.error(userResponse.error.message);
-            return throwError(() => new Error('User creation failed'));
-          }
-        })
-      ).subscribe({
-        next: (lspResponse) => {
-          if (lspResponse.success) {
-            this.sweetAlertService.success(lspResponse.data.message);
-            this.dataEmitter.emit();
-            this.lspForm.reset();
-            this.buildForm();
-            this.selectedFileName = '';
-            this.imagePreview = null;
-          } else {
-            this.sweetAlertService.error(lspResponse.error.message);
-          }
-          this.commonService.updateLoader(false);
-        },
-        error: (error: any) => {
-          this.sweetAlertService.error(error.error?.message || error.message);
-          this.commonService.updateLoader(false);
+  addLsp(formData: any): void {
+    this.commonService.updateLoader(true);
+    this.lspService.addLsp(formData).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.sweetAlertService.success(response.data.message);
+          this.dataEmitter.emit();
+          this.lspForm.reset();
+          this.buildForm();
+          this.selectedFileName='';
+         this.imagePreview = null;
+        } else {
+          this.sweetAlertService.error(response.error.message);
         }
-      });
-    } else {
-      form.markAllAsTouched();
-    }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
   }
 
   updateLsp(formData: any): void {

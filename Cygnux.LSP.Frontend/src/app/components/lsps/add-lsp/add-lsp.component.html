@@ -146,7 +146,7 @@
           </div>
           <div class="gap-2 d-flex justify-content-end">
             <button class="btn btn-square btn-success pull-right rounded-3" type="submit"><i class="fa fa-check"></i> Submit</button>&nbsp;
-            <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button>
+            <button class="btn btn-square btn-danger pull-right rounded-3" type="reset" *ngIf="!lspId"><i class="fa fa-times"></i> Reset</button>
         </div>
         </form>
       </div>

@@ -125,4 +125,27 @@
     text-align: center;
     background-color: #f3f5fa;
   }
+  .font-size{
+    font-size: 12px !important;
+  }
+  .custom-table {
+    border-collapse: collapse;
+    width: 100%;
+    border:1px solid rgb(229 229 229);
+    // border-radius: 10px !important;
+    overflow: hidden; /* ensures border-radius is visible on inner elements */
+    background-color: transparent;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    border: 1px solid rgb(229 229 229);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem !important;
+  }
+  
+  .custom-table th {
+    font-weight: 600;
+    background-color: transparent;
+  }
   
