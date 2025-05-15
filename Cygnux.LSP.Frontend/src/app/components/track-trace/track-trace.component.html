@@ -110,8 +110,8 @@
                                         <td>{{ data.currentStatus }}</td>
                                       </tr>
                                       <tr>
-                                        <th>Booking Date</th>
-                                        <td>{{ data.bookingDate | date:'dd-MM-yyyy' }}</td>
+                                        <th>Date</th>
+                                        <td>{{ data.entryDate | date:'dd-MM-yyyy' }}</td>
                                       </tr>
                                       <tr>
                                         <th>From Location</th>
@@ -161,7 +161,7 @@
 
 <ng-template #hourPopover let-index="index" class="p-5" style="z-index: 9999 !important;">
     <div class="p-2">
-      <div class="mb-1"><strong>Date : </strong> {{index.bookingDate | date :'dd-MM-yyyy'}} </div>
+      <div class="mb-1"><strong>Date : </strong> {{index.entryDate | date :'dd-MM-yyyy'}} </div>
       <div><strong>From Address : </strong>  {{index.fromLocation}} </div>
       <div><strong>To Address : </strong>  {{index.toLocation}} </div>
       <div><strong>Transport Mode : </strong>  {{index.transportModeDesc}} </div>
