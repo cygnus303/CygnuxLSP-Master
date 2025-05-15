@@ -37,7 +37,7 @@ export class LspMappingListComponent implements OnInit {
     private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
   ) {defineElement(lottie.loadAnimation);
-    this.commonService.activeNavigationUrl.next('Lsp Mapping');
+    this.commonService.activeNavigationUrl.next('LSP Mapping');
   }
 
   ngOnInit(): void {

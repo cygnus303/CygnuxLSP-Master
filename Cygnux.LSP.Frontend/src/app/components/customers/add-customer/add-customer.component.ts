@@ -112,6 +112,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
               isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode, 
               proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state,customerCode, ...payload } = form.getRawValue();
       payload.phoneNumber = mobileNo;
+      payload.zipCode = pincode;
       this.userService.addUser(payload).pipe(
         concatMap((userResponse) => {
           if (userResponse.success) {

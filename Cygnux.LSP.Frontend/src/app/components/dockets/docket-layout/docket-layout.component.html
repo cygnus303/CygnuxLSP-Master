@@ -2,8 +2,8 @@
     <div class="card-body p-0">
       <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
         <li class="nav-item pt-3 ps-3" ><a class="nav-link active py-2 px-4" id="pills-warningdocket-tab" data-bs-toggle="pill" [routerLink]="'list'"routerLinkActive="active" role="tab"  aria-controls="pills-warningdocket" aria-selected="true"><i data-feather="file-text" style="height: 15px;"></i>Docket</a></li>
-        <li class="nav-item pt-3 ps-2" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}"><a class="nav-link py-2 px-4" id="pills-warningstatus-update-tab" data-bs-toggle="pill" role="tab"[routerLink]="'status-list'"routerLinkActive="active" aria-controls="pills-warningstatus-update" aria-selected="false"><i class="ri-upload-2-line"></i>Docket Status Update</a></li>
-        <li class="nav-item pt-3 ps-2" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}"><a class="nav-link py-2 px-4" id="pills-warningpod-update-tab" data-bs-toggle="pill" role="tab" [routerLink]="'pod-upload'"routerLinkActive="active" aria-controls="pills-warningpod-update" aria-selected="false"><i class="ri-article-line"></i>POD Update</a></li>
+        <li class="nav-item pt-3 ps-2" [ngClass]="{'disabled-image': commonService.menuRoleList?.canCreate}"><a class="nav-link py-2 px-4" id="pills-warningstatus-update-tab" data-bs-toggle="pill" role="tab"[routerLink]="'status-list'"routerLinkActive="active" aria-controls="pills-warningstatus-update" aria-selected="false"><i class="ri-upload-2-line"></i>Docket Status Update</a></li>
+        <li class="nav-item pt-3 ps-2" [ngClass]="{'disabled-image': commonService.menuRoleList?.canCreate}"><a class="nav-link py-2 px-4" id="pills-warningpod-update-tab" data-bs-toggle="pill" role="tab" [routerLink]="'pod-upload'"routerLinkActive="active" aria-controls="pills-warningpod-update" aria-selected="false"><i class="ri-article-line"></i>POD Update</a></li>
       </ul>
       <div class="tab-content" id="pills-warningtabContent">
         <router-outlet></router-outlet>

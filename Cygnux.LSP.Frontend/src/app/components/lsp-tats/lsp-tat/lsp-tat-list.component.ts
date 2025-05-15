@@ -39,7 +39,7 @@ export class LspTatListComponent implements OnInit {
     private sweetAlertService:SweetAlertService,
     private identityService : IdentityService
   ) {defineElement(lottie.loadAnimation);
-    this.commonService.activeNavigationUrl.next('Lsp Tat');
+    this.commonService.activeNavigationUrl.next('LSP Tat');
   }
 
   ngOnInit(): void {

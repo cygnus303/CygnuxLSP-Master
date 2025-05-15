@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="modal-header bs-blue d-flex justify-content-between">
-                <h5 class="modal-title" id="exampleModalLabel">{{!lspTatId ? 'Add Lsp Tat':'Update Lsp Tat'}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{!lspTatId ? 'Add LSP Tat':'Update LSP Tat'}}</h5>
                 <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close" ></i></button>
             </div>
             <div class="card-body pb-0">
@@ -25,14 +25,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="col-form-label">Lsp Name</label>
+                                    <label class="col-form-label">LSP Name</label>
                                     <ng-select [items]="lsps" bindLabel="lspName" bindValue="lspId"
-                                        formControlName="lspId" placeholder="Select Lsp"
+                                        formControlName="lspId" placeholder="Select LSP"
                                         [searchable]="true" [ngClass]="{ 'border-danger': lspTatForm.controls['lspId'].invalid && lspTatForm.controls['lspId'].touched}">
                                     </ng-select>
                                     <div *ngIf="lspTatForm.controls['lspId'].invalid && lspTatForm.controls['lspId']?.touched"
                                         class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['lspId'].errors?.['required']">Lsp
+                                        <small *ngIf="lspTatForm.controls['lspId'].errors?.['required']">LSP
                                             is required.</small>
                                     </div>
                                 </div>

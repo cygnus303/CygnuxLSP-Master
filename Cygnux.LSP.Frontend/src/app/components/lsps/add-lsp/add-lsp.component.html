@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="modal-header bs-blue d-flex justify-content-between">
-        <h5 class="modal-title" id="exampleModalLabel">{{!lspId ? 'Add Lsp': 'Update Lsp'}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{!lspId ? 'Add LSP': 'Update LSP'}}</h5>
         <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close" ></i></button>
       </div>
       <div class="card-body pb-0 pt-4">
@@ -25,11 +25,11 @@
             <div class="tab-pane fade active show" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
               <div class="row g-3">
                 <div class="col-md-6 mb-11">
-                  <label class="col-form-label">Lsp Name</label>
+                  <label class="col-form-label">LSP Name</label>
                   <input class="form-control" formControlName="lspName" type="text" required placeholder="Enter Lsp Name"
                     [ngClass]="{ 'border-danger': lspForm.controls['lspName'].invalid && lspForm.controls['lspName'].touched}" />
                   <div *ngIf="lspForm.controls['lspName'].invalid && lspForm.controls['lspName']?.touched" class="text-danger">
-                    <small *ngIf="lspForm.controls['lspName'].errors?.['required']">Lsp name is required.</small>
+                    <small *ngIf="lspForm.controls['lspName'].errors?.['required']">LSP name is required.</small>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -62,6 +62,20 @@
                   </div>
                 </div>
               </div>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="col-form-label">City</label>
+                  <input class="form-control" formControlName="city" type="text" required placeholder="Enter City"/>
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">Pincode</label>
+                  <input class="form-control" maxlength="6" formControlName="zipCode" type="text" required  placeholder="Enter pincode"/> 
+                </div>
+                  <div class="col-md-4">
+                    <label class="col-form-label">Address</label>
+                    <textarea class="form-control" formControlName="address" type="text" required  placeholder="Enter Address" ></textarea>
+                  </div>
+                </div>
               <div class="row g-3">
                 <div class="col-md-12">
                   <label class="col-form-label">Description</label>
