@@ -37,7 +37,7 @@ internal class RoleRepository : IRoleRepository
     {
         var applicationRole = new ApplicationRole
         {
-            IsActive = roleRequest.IsActive ?? true,
+            IsActive = roleRequest.IsActive ?? false,
             Name = roleRequest.RoleName
         };
         var response = await _roleService.AddRole(applicationRole);
