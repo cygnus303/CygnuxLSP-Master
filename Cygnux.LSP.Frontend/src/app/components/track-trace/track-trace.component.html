@@ -34,6 +34,8 @@
                     <div class="col-4 fade-in" *ngFor="let data of trackTraceList;let i=index">
                         <div class="card box-shadow p-5 ">
                             <div class="text-center mb-4"> <strong>Docket Number:</strong> {{data.docketNo}}</div>
+                            <div class="text-center mb-4"> <strong>CustomerName:</strong> {{data.customerName}}</div>
+                            <div class="text-center mb-4"> <strong>Transporter:</strong> {{data.transporterDesc}}</div>
                             <div class="progress-container">
                                 <!-- Ordered -->
                                 <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover"

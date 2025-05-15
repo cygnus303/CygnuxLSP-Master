@@ -16,7 +16,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #eeb82f;
+    background-color: #dddcdb;
     color: white;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
   .line {
     width: 50px;
     height: 5px;
-    border-bottom: 2px dashed #eeb82f; /* Default Dotted Line */
+    border-bottom: 2px dashed #dddcdb; /* Default Dotted Line */
     transition: all 0.3s ease-in-out;
   }
   

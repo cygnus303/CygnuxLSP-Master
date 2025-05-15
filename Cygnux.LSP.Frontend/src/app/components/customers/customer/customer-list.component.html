@@ -53,7 +53,7 @@
                           <i class="ri-eye-fill align-bottom text-muted" (click)="customerDetail($event,customer.customerCode)"></i>
                         </div>
                         <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteModal($event,customer.customerCode)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteModal($event,customer.customerId)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
                         </div>
                         <div>
                           <a (click)="lspMappingonModal($event,customer)"><i class="ri-truck-line"></i></a>

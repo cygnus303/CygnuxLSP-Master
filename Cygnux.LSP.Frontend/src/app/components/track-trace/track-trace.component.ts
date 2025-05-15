@@ -38,13 +38,18 @@ export class TrackTraceComponent {
     }
   }
   
-  finalizeDocketInput(): void {
-    const docketNumber = this.docketInput.trim();
-    if (docketNumber && !this.docketList.includes(docketNumber)) {
-      this.docketList.push(docketNumber);
-      this.docketInput = '';
-    }
+finalizeDocketInput(): void {
+  const input = this.docketInput.trim();
+  if (input) {
+    const newDockets = input
+      .split(/[\s,]+/) // split by space or comma
+      .map(d => d.trim())
+      .filter(d => d && !this.docketList.includes(d));
+
+    this.docketList.push(...newDockets);
+    this.docketInput = '';
   }
+}
 
   onSearchTrackTrace(){
     const docketString = this.docketList.length ? this.docketList.join(',') : null;
