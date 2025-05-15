@@ -36,7 +36,7 @@
                   </thead>
                 </table>
               <div class=" mb-3">
-                <table class="customers w-100" *ngIf="!loading && customers.length > 0">
+                <table class="customers w-100">
                   <tr *ngFor="let customer of customers; let i = index">
                     <td class="w-25">{{customer.customerName}}</td>
                     <td class="w-25">{{customer.customerCode}}</td>

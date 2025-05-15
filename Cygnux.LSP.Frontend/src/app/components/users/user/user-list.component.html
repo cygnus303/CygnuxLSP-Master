@@ -43,7 +43,7 @@
                 </thead>
               </table>
               <div class=" mb-3">
-                <table class="customers w-100" *ngIf="!loading && users.length > 0">
+                <table class="customers w-100">
                   <tr *ngFor="let user of users; let i = index">
                     <td class="w-25">{{ user.firstName }}</td>
                     <td class="w-25">{{ user.emailId }}</td>

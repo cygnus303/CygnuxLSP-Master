@@ -38,7 +38,7 @@
             </thead>
           </table>
           <div class=" mb-3">
-            <table class="customers w-100" *ngIf="!loading && lsps.length > 0">
+            <table class="customers w-100">
               <tr *ngFor="let lsp of lsps; let i = index">
                 <td class="w-15">{{lsp.lspName}}</td>
                 <td class="w-15">{{lsp.emailId}}</td>

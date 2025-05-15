@@ -59,7 +59,7 @@
                   </thead>
                 </table>
               <div class=" mb-3">
-                <table class="customers w-100" *ngIf="!loading && dockets.length > 0">
+                <table class="customers w-100" >
                   <tr *ngFor="let docket of dockets; let i = index">
                     <td class="w-15">{{ docket.docketNo }}</td>
                     <td class="w-15">{{ docket.transporterDesc }}</td>

@@ -39,7 +39,7 @@
                 </thead>
           
                 <!-- Table Body -->
-                <tbody class="customers w-100" *ngIf="!loading && lspMappings.length > 0">
+                <tbody class="customers w-100">
                   <ng-container *ngFor="let lsp of lspMappings; let i = index">
                     <ng-container *ngFor="let lspData of lsp.lspResponses; let j = index">
                       <tr class="customers w-100" [ngStyle]="{'background-color': i % 2 === 0 ? '#ffffff' : '#f8f9fa', 'border-bottom': '1px solid #dee2e6'}">
