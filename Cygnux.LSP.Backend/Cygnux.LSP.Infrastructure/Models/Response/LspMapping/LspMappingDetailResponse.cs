@@ -24,7 +24,7 @@ public class LspMappingListResponse
     public string LspName { get; set; } = string.Empty;
 
     public string SupportEmail { get; set; } = string.Empty;
-
+    public bool IsDeleted { get; set; } 
     public bool IsActive { get; set; }
     public int? TotalCount { get; set; }
     public required string LspId { get; set; }
