@@ -79,11 +79,11 @@
                         <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="deleteDocket(docket.id)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
                         </div>
-                        <div (click)="openStatusUpdateModal(docket , 'StatusUpdate')" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}" [popover]="'Status Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <div (click)="openStatusUpdateModal(docket , 'StatusUpdate')" [ngClass]="{'disabled-image': commonService.menuRoleList?.canCreate}" [popover]="'Status Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                           <!-- <i data-feather="check-square" height="16"></i> -->
                            <img src="/assets/images/update.png" width="23" height="22">
                         </div>
-                        <div  (click)=" docket.currentStatus !== '6' ? null : openPodUpdateModal(docket)" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate,
+                        <div  (click)=" docket.currentStatus !== '6' ? null : openPodUpdateModal(docket)" [ngClass]="{'disabled-image': commonService.menuRoleList?.canCreate,
                            'disabled-icon': docket.currentStatus !== '6'}" [popover]="'POD Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                            <img src="/assets/images/pod.svg" width="37" height="27">
                         </div>

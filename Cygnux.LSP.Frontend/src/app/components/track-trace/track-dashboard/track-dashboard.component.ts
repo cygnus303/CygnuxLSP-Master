@@ -13,6 +13,7 @@ import {
   ApexFill,
   ApexTooltip
 } from "ng-apexcharts";
+import { CommonService } from "../../../shared/services/common.service";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -61,8 +62,9 @@ public donutChartOptions: any = {
   };
 
   constructor(
-    private router:Router
+     public commonService: CommonService,
   ) {
+    this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {
       series: [
         {
