@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Application.Models.Request.Lsp;
 using Infrastructure.Implementations;
+using System.Numerics;
 
 public class CreateLspRequest /*: UserSettings*/
 {
@@ -13,6 +14,9 @@ public class CreateLspRequest /*: UserSettings*/
     public string ApiUrl { get; set; } = string.Empty;
     public string ApiUsername { get; set; } = string.Empty;
     public string ApiPassword { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public decimal ZipCode { get; set; }
+    public string Address { get; set; } = string.Empty;
     public string Logo { get; set; } = string.Empty;
     public required string EntryBy { get; set; } 
     public bool? IsActive { get; set; }
