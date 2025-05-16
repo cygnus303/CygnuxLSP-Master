@@ -14,6 +14,9 @@ public class LspDetailResponse
     public string ApiUsername { get; set; } = string.Empty;
     public string ApiPassword { get; set; } = string.Empty;
     public string Logo { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public decimal ZipCode { get; set; }
+    public string Address { get; set; } = string.Empty;
     public DateTime EntryDate { get; set; }
     public int? TotalCount { get; set; }
 }
