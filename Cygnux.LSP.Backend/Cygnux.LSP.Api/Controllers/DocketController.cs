@@ -310,45 +310,45 @@ public class DocketController : ControllerBase
 
 
     [HttpGet("DownloadSampleForPODupload")]
-    public async Task<IActionResult> DownloadSamplePODupload([FromQuery] Guid login)
+    public IActionResult DownloadSamplePODupload([FromQuery] Guid login)
     {
-        var lsplist = await _customerLspRepository.GetLsps(login);
+        // var lsplist = await _customerLspRepository.GetLsps(login);
 
-        if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
-            return NotFound("No records found for the selected code.");
+        //if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
+        //    return NotFound("No records found for the selected code.");
 
         using (var workbook = new XLWorkbook())
         {
             var mainSheet = workbook.Worksheets.Add("Main Sheet");
-            var listSheet = workbook.Worksheets.Add("DropdownList");
+            //var listSheet = workbook.Worksheets.Add("DropdownList");
 
             // Populate dropdown values in column A of the list sheet
-            int lsprows = 1;
-            foreach (var itemlsp in lsplist.Data)
-            {
-                listSheet.Cell(lsprows, 1).Value = $"{itemlsp.LSPCode}:{itemlsp.LspName}";
-                lsprows++;
-            }
+            //int lsprows = 1;
+            //foreach (var itemlsp in lsplist.Data)
+            //{
+            //    listSheet.Cell(lsprows, 1).Value = $"{itemlsp.LSPCode}:{itemlsp.LspName}";
+            //    lsprows++;
+            //}
 
             // Define named range for LSP dropdown in column A
-            var listRangeLsp = listSheet.Range($"A1:A{lsplist.Data.Count()}");
-            listRangeLsp.AddToNamed("LspOptions");
+            //var listRangeLsp = listSheet.Range($"A1:A{lsplist.Data.Count()}");
+            //listRangeLsp.AddToNamed("LspOptions");
 
             // Hide the dropdown list sheet
-            listSheet.Visibility = XLWorksheetVisibility.VeryHidden;
+            //listSheet.Visibility = XLWorksheetVisibility.VeryHidden;
 
             // Add headers to main sheet
-            mainSheet.Cell("A1").Value = "LSPName";
-            mainSheet.Cell("B1").Value = "DocketNo";
-            mainSheet.Cell("C1").Value = "UploadDate";
-            mainSheet.Cell("D1").Value = "ImageLink";
+            //mainSheet.Cell("A1").Value = "LSPName";
+            mainSheet.Cell("A1").Value = "DocketNo";
+            mainSheet.Cell("B1").Value = "UploadDate";
+            mainSheet.Cell("C1").Value = "ImageLink";
 
             // Apply dropdown list validation for LSPName column
-            var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
-            validationLsp.IgnoreBlanks = true;
-            validationLsp.InCellDropdown = true;
-            validationLsp.AllowedValues = XLAllowedValues.List;
-            validationLsp.List("=LspOptions");
+            //var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
+            //validationLsp.IgnoreBlanks = true;
+            //validationLsp.InCellDropdown = true;
+            //validationLsp.AllowedValues = XLAllowedValues.List;
+            //validationLsp.List("=LspOptions");
 
             using (var stream = new MemoryStream())
             {
@@ -359,6 +359,18 @@ public class DocketController : ControllerBase
                     "DocketPODUpload.xlsx");
             }
         }
+    }
+
+    [HttpPost]
+    [Route("ValidatePODUpload")]
+    public async Task<IActionResult> ValidatePODUplaodData(IFormFile file, Guid lspuser)
+    {
+        var data = ExcelReadHelper.ExtractAllRows(file);
+        if (data is not null)
+        {
+            return Ok(await _docketRepository.ValidatePODUplaodData(data, lspuser));
+        }
+        return Ok();
     }
 
 
@@ -428,7 +440,8 @@ public class DocketController : ControllerBase
 
                         if (matchedImage != null)
                         {
-                            var uniqueFileName = $"{docketNo}{Path.GetExtension(matchedImage.FileName)}";
+                            //var uniqueFileName = $"{docketNo}{Path.GetExtension(matchedImage.FileName)}";
+                            var uniqueFileName = $"{Path.GetExtension(matchedImage.FileName)}";
                             var savePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                             using (var fileStream = new FileStream(savePath, FileMode.Create))

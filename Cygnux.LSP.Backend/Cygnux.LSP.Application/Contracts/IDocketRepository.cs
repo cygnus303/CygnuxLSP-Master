@@ -26,5 +26,7 @@ public interface IDocketRepository
     Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, Guid User);
     Task<BaseResponse<IEnumerable<DocketStatusResponseData>>> GetValidateDocketStatusUpdateData(List<Dictionary<string, string>> bulkDocket, Guid custId);
     Task<BaseResponse<CommonCreateResponse>> UpdateDocketStatus(List<DocketStatusUpdate> docketstslist, Guid entryBy);
+    Task<BaseResponse<IEnumerable<ValidatePODResponse>>> ValidatePODUplaodData(List<Dictionary<string, string>> bulkPOD, Guid lspuser);
+
 
 }

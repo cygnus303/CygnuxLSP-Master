@@ -66,4 +66,18 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public Guid Transporter { get; set; }
         public string CurrentStatusCode { get; set; } = string.Empty;
     }
+
+    public class ValidatePODResponse
+    {
+        public int Id { get; set; }
+        public string DocketNo { get; set; }= string.Empty;
+        public DateTime UploadDate { get; set; }
+        public string ImageLink { get; set; } = string.Empty;
+        public string ImageName { get; set; } = string.Empty;
+        public string LSPName { get; set; } = string.Empty;
+        public Guid? CustomerId { get; set; }
+        public string CustomerName { get; set; } = string.Empty;
+        public string ValidationStatus { get; set; } = string.Empty;
+        public bool IsValid { get; set; }
+    }
 }
