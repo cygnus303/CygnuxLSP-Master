@@ -7,6 +7,7 @@ import { TrackTraceService } from '../../shared/services/track-trace.service';
 import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
 import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
+import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-track-trace',
   standalone: false,
@@ -49,6 +50,14 @@ finalizeDocketInput(): void {
     this.docketInput = '';
   }
 }
+
+  openPOD(){
+     const modalElement = document.getElementById('PODModal');
+        if (modalElement) {
+          const modal = new Modal(modalElement);
+          modal.show();
+        }
+  }
 
   onSearchTrackTrace(){
     const docketString = this.docketList.length ? this.docketList.join(',') : null;
