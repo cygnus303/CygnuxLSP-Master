@@ -15,10 +15,13 @@ import { Modal } from 'bootstrap';
   styleUrl: './track-trace.component.scss'
 })
 export class TrackTraceComponent {
-  docketInput: string = '';
-  docketList: string[] = [];
-  trackTraceList:TrackTraceResponse[]=[];
-  userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
+  public docketInput: string = '';
+  public docketList: string[] = [];
+  public expandedIndex: number | null = null;
+  public trackTraceList:TrackTraceResponse[]=[];
+  public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
+
+  
   constructor( 
    public commonService: CommonService,
    private trackTraceService:TrackTraceService,
@@ -83,4 +86,10 @@ finalizeDocketInput(): void {
     this.docketList = this.docketList.filter(d => d !== docket);
     this.onSearchTrackTrace();
   }
+
+toggleMoreView(index: number): void {
+  this.expandedIndex = this.expandedIndex === index ? null : index;
+}
+
+
 }
