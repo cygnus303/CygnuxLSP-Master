@@ -139,7 +139,7 @@ export class AddLspComponent implements OnInit, OnChanges {
       if (this.selectedFile) {
         formData.append('file', this.selectedFile);
       }
-  
+    formData.append('firstName',this.lspForm.value.lspName)
       !this.lspId ? this.addLsp(formData) : this.updateLsp(formData);
     } else {
       form.markAllAsTouched(); // Ensures all validation messages show up
