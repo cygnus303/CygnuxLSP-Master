@@ -214,5 +214,18 @@ internal class DocketService : IDocketService
                commandType: CommandType.StoredProcedure
            ) ?? new CommonCreateResponse();
     }
+    public async Task<IEnumerable<ValidatePODResponse>> ValidatePODUplaodData(string bulkPOD, Guid lspuser)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonData", bulkPOD, DbType.String);
+        parameters.Add("@UserLSPId ", lspuser, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<ValidatePODResponse>(
+            StoredProcedureConstants.USP_ValidatePODJson,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
+
 
 }
