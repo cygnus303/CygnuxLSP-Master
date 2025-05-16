@@ -10,7 +10,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { EmailRegex, MobileRegex } from '../../../shared/constants/common';
+import { EmailRegex, MobileRegex, zipCode } from '../../../shared/constants/common';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
@@ -94,7 +94,7 @@ export class AddLspComponent implements OnInit, OnChanges {
       EntryBy:new FormControl(this.identityService.getLoggedUserId()),
       roles:new FormControl('lsp Admin'),
       city:new FormControl(''),
-      zipCode:new FormControl(''),
+      zipCode:new FormControl('',Validators.pattern(zipCode)),
       address:new FormControl(''),
     });
   }

@@ -69,7 +69,8 @@
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Pincode</label>
-                  <input class="form-control" maxlength="6" formControlName="zipCode" type="text" required  placeholder="Enter pincode"/> 
+                  <input class="form-control" maxlength="6" formControlName="zipCode" type="text" required placeholder="Enter pincode"
+                    pattern="[0-9]*" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                 </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Address</label>
