@@ -164,3 +164,12 @@
     border-radius: 50px;
     transform: translatex(-19px);
   }
+
+.chevron-left  {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease-in-out;
+}
+.chevron-left:click .fade-in{
+  transform: translateX(50px);
+  transition: transform 0.2s ease-in-out;
+}
