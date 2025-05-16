@@ -153,4 +153,8 @@ export class DocketService {
   singleUpdateDocketSts(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post(`Docket/SingleUpdateDocketSts?DocketId=${id}`,formData);
   }
+
+  DownloadSampleForPODupload(login: string): Observable<Blob> {
+    return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleForPODupload?login=${login}`);
+  }
 }

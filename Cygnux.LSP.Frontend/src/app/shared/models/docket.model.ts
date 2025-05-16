@@ -15,6 +15,7 @@ export interface DocketResponse {
   transportModeDesc:string;
   transporterDesc:string;
   currentStatusDesc:string
+  customerName:string;
 }
 
 export interface AddDocketRequest {
