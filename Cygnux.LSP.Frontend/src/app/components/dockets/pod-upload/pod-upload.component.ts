@@ -139,26 +139,15 @@ export class PodUploadComponent {
     return `${day}-${month}-${year}`;
   }
 
- exportExcel() {
-  const formData = new FormData();
-  const cleanedMappedData = this.mappedData.map(item => ({
-    DocketNo: item.DocketNo,
-    UploadDate: item.UploadDate,
-    ImageLink: item.ImageLink
-  }));
 
-  if (this.selectedFile) {
-    formData.append('excelFile', this.selectedFile, this.selectedFile.name);
+  validatePODData(){
+     const formData = new FormData();
+
+  if (this.selectedFile !== null) {
+    formData.append('file', this.selectedFile, this.selectedFile.name);
   }
-  
-  this.mappedData.forEach((item) => {
-    if (item.file) {
-      formData.append('imageFiles', item.file, item.ImageLink);
-    }
-  });
 
-  // Submit form
-  this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
+  this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response.success) {
         this.dataEmitter.emit();
@@ -168,10 +157,44 @@ export class PodUploadComponent {
       }
     },
     error: (response: any) => {
-      this.sweetAlertService.error(response);
+      this.sweetAlertService.error('Failed to upload data.');
     },
   });
-}
+  }
+  
+//  exportExcel() {
+//   const formData = new FormData();
+//   const cleanedMappedData = this.mappedData.map(item => ({
+//     DocketNo: item.DocketNo,
+//     UploadDate: item.UploadDate,
+//     ImageLink: item.ImageLink
+//   }));
+
+//   if (this.selectedFile) {
+//     formData.append('excelFile', this.selectedFile, this.selectedFile.name);
+//   }
+  
+//   this.mappedData.forEach((item) => {
+//     if (item.file) {
+//       formData.append('imageFiles', item.file, item.ImageLink);
+//     }
+//   });
+
+//   // Submit form
+//   this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
+//     next: (response) => {
+//       if (response.success) {
+//         this.dataEmitter.emit();
+//         this.sweetAlertService.success(response.data.message);
+//       } else {
+//         this.sweetAlertService.error(response.error.message);
+//       }
+//     },
+//     error: (response: any) => {
+//       this.sweetAlertService.error(response);
+//     },
+//   });
+// }
 
 
 downloadSampleFile(event: any) {

@@ -157,4 +157,8 @@ export class DocketService {
   DownloadSampleForPODupload(login: string): Observable<Blob> {
     return this.apiHandlerService.DownloadFile(`Docket/DownloadSampleForPODupload?login=${login}`);
   }
+
+  validatePOD(id:string,formData:any){
+    return this.apiHandlerService.Post(`Docket/ValidatePODUpload?lspuser=${id}`,formData);
+  }
 }
