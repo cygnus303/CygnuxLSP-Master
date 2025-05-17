@@ -33,6 +33,7 @@ export class DocketListComponent implements OnInit {
   public RoleListsubscribe!:Subscription;
   public isSelected: string='';
   public loading : boolean = false;
+  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;

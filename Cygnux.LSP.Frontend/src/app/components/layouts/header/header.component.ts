@@ -4,7 +4,6 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { Subscription } from 'rxjs';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-// import feather from 'feather-icons';
 
 @Component({
   selector: 'app-header',
@@ -27,10 +26,6 @@ export class HeaderComponent implements OnDestroy{
   ngOnDestroy(): void {
     if(this.activeNavigationUrlSubscription){this.activeNavigationUrlSubscription.unsubscribe()}
   }
-
-  // ngAfterViewInit() {
-  //   feather.replace(); // Ensure icons render
-  // }
  
   signout(): void {
     this.identityService.clearToken();

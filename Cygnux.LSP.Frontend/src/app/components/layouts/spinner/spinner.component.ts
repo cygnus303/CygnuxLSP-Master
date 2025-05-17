@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, Inject, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { CommonEngine } from '@angular/ssr';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-spinner',

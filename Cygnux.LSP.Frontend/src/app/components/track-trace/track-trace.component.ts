@@ -8,11 +8,20 @@ import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
 import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
 import { Modal } from 'bootstrap';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 @Component({
   selector: 'app-track-trace',
   standalone: false,
   templateUrl: './track-trace.component.html',
-  styleUrl: './track-trace.component.scss'
+  styleUrl: './track-trace.component.scss',
+   animations: [
+     trigger('collapseAnimation', [
+      state('void', style({ height: '0px', opacity: 0, overflow: 'hidden' })),
+      state('*', style({ height: '*', opacity: 1, overflow: 'hidden' })),
+      transition('void <=> *', animate('300ms ease-in-out')),
+    ])
+  ]
 })
 export class TrackTraceComponent {
   public docketInput: string = '';

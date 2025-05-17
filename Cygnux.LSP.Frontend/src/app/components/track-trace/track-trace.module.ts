@@ -7,6 +7,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { FormsModule } from '@angular/forms';
 import { TrackDashboardComponent } from './track-dashboard/track-dashboard.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [TrackTraceComponent,TrackDashboardComponent],
@@ -15,7 +16,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     PopoverModule.forRoot(),
     FormsModule,
     RouterModule.forChild(TrackTraceRoutes),
-    NgApexchartsModule
+    NgApexchartsModule,
+    BsDatepickerModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -14,6 +14,7 @@ import {
   ApexTooltip
 } from "ng-apexcharts";
 import { CommonService } from "../../../shared/services/common.service";
+import { TrackTraceService } from "../../../shared/services/track-trace.service";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -35,6 +36,8 @@ export type ChartOptions = {
 })
 export class TrackDashboardComponent {
   public chartOptions: ChartOptions;
+   dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
 public donutChartOptions: any = {
     series: [44, 55, 41],
     chart: {
@@ -62,7 +65,7 @@ public donutChartOptions: any = {
   };
 
   constructor(
-     public commonService: CommonService,
+     public commonService: CommonService,public trackTraceService:TrackTraceService,
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {

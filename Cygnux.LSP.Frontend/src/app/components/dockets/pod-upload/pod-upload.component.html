@@ -58,6 +58,8 @@
                 <thead class="table-light">
                   <tr>
                     <th class="text-center">Docket No</th>
+                    <th class="text-center">LSP Name</th>
+                    <th class="text-center">Customer Name</th>
                     <th class="text-center">Upload Date</th>
                     <th class="text-center">ImageLink</th>
                     <th class="text-center">Reason</th>
@@ -65,10 +67,12 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let row of mappedData">
-                    <td class="text-center">{{ row.DocketNo || 'N/A' }}</td>
-                    <td class="text-center">{{ row.UploadDate ? row.UploadDate : 'Missing date' }}</td>
-                     <td class="text-center"><i [ngClass]="row.ImageLink ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                     <td class="text-center">{{ row.file && row.file.name ? 'Image attached': 'No Matches Images With DocketNumber'}}
+                     <td class="text-center">{{ row.docketNo || 'N/A' }}</td>
+                     <td class="text-center">{{ row.lspName }}</td>
+                     <td class="text-center">{{ row.customerName }}</td>
+                     <td class="text-center">{{ row.uploadDate | date:'dd-MM-yyyy' }}</td>
+                     <td class="text-center"><i [ngClass]="row.imageLink ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
+                     <td class="text-center">{{ row.validationStatus}}
                     </td>
                   </tr>
                 </tbody>
@@ -76,7 +80,8 @@
           </div>
           <div class="d-flex justify-content-end pt-3 mt-3 gap-2">
             <button class="btn col-2 btn-square btn-primary pull-right rounded-3"  (click)="downloadSampleFile($event)"> Download Import Template </button>
-            <button class="btn btn-square btn-success rounded-3" (click)="validatePODData()">Upload</button>
+            <button *ngIf="!isValidData"  class="btn btn-square btn-success rounded-3" (click)="validatePODData()">Upload</button>
+             <button *ngIf="isValidData"  class="btn btn-square btn-success rounded-3" (click)="exportExcel()">Save</button>
           </div>
         </div>
       </div>

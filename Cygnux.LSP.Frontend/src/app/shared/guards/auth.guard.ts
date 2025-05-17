@@ -1,6 +1,5 @@
 import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
 import { IdentityService } from "../services/identity.service";
 import { MenuService } from "../services/menu.service";
 

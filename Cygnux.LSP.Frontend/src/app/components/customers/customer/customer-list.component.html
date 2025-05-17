@@ -85,16 +85,16 @@
         </div>
       </div>
 
-<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body" style="padding:0px;">
-        <app-add-customer (dataEmitter)="closeEditModal()" [customerResponse]="selectedCustomer"></app-add-customer>
+  <div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body" style="padding:0px;">
+          <app-add-customer (dataEmitter)="closeEditModal()" [customerResponse]="selectedCustomer"></app-add-customer>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <div class="modal fade in" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg ">
     <div class="modal-content">

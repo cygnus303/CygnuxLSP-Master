@@ -37,8 +37,8 @@
                   <thead class="table-light">
                     <tr class="table-th">
                       <th class="w-15">Docket Name</th>
-                      <th class="w-15">Transporter</th>
-                      <!-- <th class="w-15">Customer Name</th> -->
+                      <th class="w-15" *ngIf="userRoles.includes('Customer Admin')">Transporter</th>
+                      <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')">Customer Name</th>
                       <th class="w-15">From WH/Store</th>
                       <th class="w-15">To WH/Store</th>
                       <th class="w-10">Transport Mode</th>
@@ -48,8 +48,8 @@
                     </tr>
                     <tr class="table-th">
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['DocketNo']" (input)="getDockets()"/></th>
-                      <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['Transporter']" (input)="getDockets()"/></th>
-                      <!-- <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getDockets()"/></th> -->
+                      <th class="w-15" *ngIf="userRoles.includes('Customer Admin')"><input type="text" class="form-control" [(ngModel)]="filters['Transporter']" (input)="getDockets()"/></th>
+                      <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')"><input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['FromLocation']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['ToLocation']" (input)="getDockets()"/></th>
                       <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['TransportMode']" (input)="getDockets()"/></th>
@@ -64,8 +64,8 @@
                 <table class="customers w-100" >
                   <tr *ngFor="let docket of dockets; let i = index">
                     <td class="w-15">{{ docket.docketNo }}</td>
-                    <td class="w-15">{{ docket.transporterDesc }}</td>
-                    <!-- <td class="w-15">{{ docket.customerName }}</td> -->
+                    <td class="w-15" *ngIf="userRoles.includes('Customer Admin')">{{ docket.transporterDesc }}</td>
+                    <td class="w-15" *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
                     <td class="w-15">{{ docket.fromLocation }}</td>
                     <td class="w-15">{{ docket.toLocation }}</td>
                     <td class="w-10">{{ docket.transportModeDesc }}</td>

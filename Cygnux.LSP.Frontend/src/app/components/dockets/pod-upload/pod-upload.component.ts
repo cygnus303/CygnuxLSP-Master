@@ -3,9 +3,7 @@ import * as XLSX from 'xlsx';
 import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
-import { environment } from '../../../../environments/environment';
 import { CommonService } from '../../../shared/services/common.service';
-
 @Component({
   selector: 'app-pod-upload',
   standalone: false,
@@ -65,23 +63,11 @@ export class PodUploadComponent {
       const workbook = XLSX.read(data, { type: 'array' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const rows: any[][] = XLSX.utils.sheet_to_json(worksheet, {
-        header: 1,
-      });
-      const headers = rows[0]?.map((h: any) => String(h).trim());
-      const expectedHeaders = ['DocketNo', 'UploadDate', 'ImageLink'];
-      const isValidHeaders = headers && headers.length === expectedHeaders.length && headers.every((val, i) => val === expectedHeaders[i]);
-      if (!isValidHeaders) {
-        this.sweetAlertService.error('Please upload valid excel file');
-        this.resetFileSelection();
-        return;
-      }
-      //  Proceed if headers are correct
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
       this.excelData = jsonData;
       this.files = [file];
       this.selectedFile = file;
-      this.tryMapExcelToImages();
+      // this.tryMapExcelToImages();
     };
     reader.readAsArrayBuffer(file);
   }
@@ -96,7 +82,7 @@ export class PodUploadComponent {
     const index = this.uploadedImages.findIndex(img => img.name === file.name);
     if (index !== -1) {
       this.uploadedImages.splice(index, 1);
-      this.tryMapExcelToImages(); // Re-map after removal
+      // this.tryMapExcelToImages(); // Re-map after removal
     }
   }
 
@@ -108,7 +94,7 @@ export class PodUploadComponent {
         file:files[i]
       });
     }
-    this.tryMapExcelToImages()
+    // this.tryMapExcelToImages()
   }
 
   tryMapExcelToImages() {
@@ -117,37 +103,58 @@ export class PodUploadComponent {
       return;
     }
     this.mappedData = this.excelData.map((row: any) => {
-      const docketNo = row['DocketNo'];
+      const docketNo = row['DocketNo']
       const matchedImage = this.uploadedImages.find(img =>
         img.name.toLowerCase().includes(docketNo?.toString().toLowerCase())
       );
       return {
-        DocketNo: docketNo,
+        DocketNo: docketNo.toString(),
         UploadDate: this.excelDateToJSDate(row['UploadDate']), // Converts Excel date to "dd-MM-yyyy"
-        ImageLink: matchedImage?.name || null,
-        file: matchedImage?.file || null
+        ImageLink: matchedImage?.file || null,
+        ImageName: matchedImage?.name || null,
       };
     });
   }
 
-  excelDateToJSDate(serial: number): string {
-    const excelEpoch = new Date(1899, 11, 30); 
-    const date = new Date(excelEpoch.getTime() + serial * 86400000);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  }
+     get isValidData(): boolean {
+      return this.mappedData.length > 0 && this.mappedData.every(item => item.validationStatus === 'Valid');
+    }
 
-
-  validatePODData(){
-     const formData = new FormData();
-
+validatePODData(): void {
+  const formData = new FormData();
   if (this.selectedFile !== null) {
     formData.append('file', this.selectedFile, this.selectedFile.name);
   }
-
   this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.mappedData = response.data
+        this.dataEmitter.emit();
+        this.sweetAlertService.success(response.data.message);
+      } else {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: () => {
+      this.sweetAlertService.error('Failed to upload data.');
+    }
+  });
+}
+  
+ exportExcel() {
+  const formData = new FormData();
+  if (this.selectedFile) {
+    formData.append('excelFile', this.selectedFile, this.selectedFile.name);
+  }
+  
+  this.uploadedImages.forEach((item) => {
+    if (item.file) {
+      formData.append('imageFiles', item.file, item.name);
+    }
+  });
+
+  // Submit form
+  this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response.success) {
         this.dataEmitter.emit();
@@ -157,46 +164,19 @@ export class PodUploadComponent {
       }
     },
     error: (response: any) => {
-      this.sweetAlertService.error('Failed to upload data.');
+      this.sweetAlertService.error(response);
     },
   });
+}
+
+  excelDateToJSDate(serial: number): string {
+    const excelEpoch = new Date(1899, 11, 30); 
+    const date = new Date(excelEpoch.getTime() + serial * 86400000);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}-${day}-${year}`;
   }
-  
-//  exportExcel() {
-//   const formData = new FormData();
-//   const cleanedMappedData = this.mappedData.map(item => ({
-//     DocketNo: item.DocketNo,
-//     UploadDate: item.UploadDate,
-//     ImageLink: item.ImageLink
-//   }));
-
-//   if (this.selectedFile) {
-//     formData.append('excelFile', this.selectedFile, this.selectedFile.name);
-//   }
-  
-//   this.mappedData.forEach((item) => {
-//     if (item.file) {
-//       formData.append('imageFiles', item.file, item.ImageLink);
-//     }
-//   });
-
-//   // Submit form
-//   this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
-//     next: (response) => {
-//       if (response.success) {
-//         this.dataEmitter.emit();
-//         this.sweetAlertService.success(response.data.message);
-//       } else {
-//         this.sweetAlertService.error(response.error.message);
-//       }
-//     },
-//     error: (response: any) => {
-//       this.sweetAlertService.error(response);
-//     },
-//   });
-// }
-
-
 downloadSampleFile(event: any) {
   event.preventDefault();
   this.commonService.updateLoader(true);

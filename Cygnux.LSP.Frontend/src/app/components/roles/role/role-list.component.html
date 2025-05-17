@@ -73,10 +73,6 @@
     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <!-- <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Role</h5>
-                <button class="btn-close" type="button" (click)="closeEditModal()"></button>
-            </div> -->
             <div class="modal-body" style="padding:0px;">
                 <app-add-role (dataEmitter)="closeEditModal()" [roleResponse]="selectedRole"></app-add-role>
             </div>
@@ -93,8 +89,6 @@
                 <div class="role-name"><strong>Role Name&nbsp;:</strong>&nbsp;&nbsp;{{roleName}}</div>
                 <button data-bs-dismiss="modal" class="close"><i data-feather="x" ></i></button>
               </div>
-              <!-- <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
-              data-bs-original-title="" title=""></button> -->
             <div class="modal-body" style="padding:0px;">
                 <app-role-permission (permissionEmitter)="closePermissionModal()"  [roleId]="selectedRoleId"></app-role-permission>
             </div>

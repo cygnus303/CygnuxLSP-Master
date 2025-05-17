@@ -17,3 +17,8 @@ export interface TrackTraceResponse{
     currentStatus: string;
     currentStatusDesc: string;
 }
+
+export interface IRange {
+  value: Date[];
+  label: string;
+}

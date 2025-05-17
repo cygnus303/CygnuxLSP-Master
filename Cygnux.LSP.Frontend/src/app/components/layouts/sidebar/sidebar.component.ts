@@ -38,7 +38,6 @@ ngOnInit(): void {
   .then(() => {})
   .catch((error) => console.error(error)); 
   setTimeout(() => {
-  // this.getRolePermission();
   this.getMenus();
 
 }, 300);
@@ -61,19 +60,8 @@ getMenus() {
       if (response) {
         this.menus = response.data;
         this.menuService.setMenusToCache(this.menus);
-        // map((menu: any) => {
-        //   const permission = this.rolePermission.find(p => p.menuId === menu.menuId);
-        //   return {
-        //     ...menu,
-        //     canView: permission ? permission.canView : false,
-        //     canEdit: permission ? permission.canEdit : false,
-        //     canDelete: permission ? permission.canDelete : false,
-        //     canCreate: permission ? permission.canCreate : false
-        //   };
-        // });
         const urlPart = this.router.url === '/docket/list' ? '/' + this.router.url.split('/')[1] : this.router.url;
         const data = this.menus.find(res => res.navigationUrl.includes(urlPart));
-        // const data = this.menus.find(res => res.navigationUrl.includes(this.router.url));
         if (data) {
           this.commonService.activemenuRoleList.next(data);
         }
