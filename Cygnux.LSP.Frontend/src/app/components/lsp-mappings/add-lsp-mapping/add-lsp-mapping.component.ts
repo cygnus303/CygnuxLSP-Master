@@ -79,7 +79,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
 
   getCustomers() {
-    this.commonService.updateLoader(true);
     const filters: any = {
       Page: 1,
       UserID:this.identityService.getLoggedUserId(),
@@ -95,17 +94,14 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
             this.customers = response.data.filter((customer: any) => customer.isActive);
           }
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
   
   getLspMappings(page: number = 1) {
-    this.commonService.updateLoader(true);
     const filters: any = {
       Page: 1,
       PageSize: 500,
@@ -115,16 +111,13 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         if (response) {
           this.lspMappingsList = response.data;
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   getLsps() {
-    this.commonService.updateLoader(true);
     const filters: any = {
       Page: 1,
       PageSize: 100,
@@ -134,11 +127,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         if (response) {
          this.lsps = response.data.filter((lsp: any) => lsp.isActive);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -161,7 +152,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
 
   addLspMapping(dataSubmit: any): void {
-    this.commonService.updateLoader(true);
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
       next: (response) => {
         if (response.data.status.toString() === '1') {
@@ -172,17 +162,14 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.data.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.data.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   updateLspMapping(dataSubmit: any): void {
-    this.commonService.updateLoader(true);
     this.lspMappingService
       .updateLspMapping(this.lspMappingResponse?.lspMappingId,dataSubmit)
       .subscribe({
@@ -194,11 +181,9 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
           } else {
             this.sweetAlertService.error(response.data.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.data.message);
-          this.commonService.updateLoader(false);
         },
       });
   }

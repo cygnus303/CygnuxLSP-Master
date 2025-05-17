@@ -36,18 +36,15 @@ export class RolePermissionComponent implements OnInit {
     }
 
     getMenus() {
-        this.commonService.updateLoader(true);
         this.rolePermissionService.getRolePermissionByRole(this.roleId).subscribe({
             next: (response) => {
                 if (response) {
                     this.menus = response.data;
                     this.updateMainCheckbox();
                 }
-                this.commonService.updateLoader(false);
             },
             error: (response: any) => {
                 this.toastrService.error(response.error.message);
-                this.commonService.updateLoader(false);
             },
         });
     }
@@ -103,7 +100,6 @@ export class RolePermissionComponent implements OnInit {
     
 
     savePermissions(): void {
-        this.commonService.updateLoader(true);
         this.rolePermissionService.createRolePermission(this.roleId, this.menus).subscribe({
             next: (response) => {
                 if (response.success) {
@@ -112,11 +108,9 @@ export class RolePermissionComponent implements OnInit {
                 } else {
                     this.sweetAlertService.error(response.error.message);
                 }
-                this.commonService.updateLoader(false);
             },
             error: (response: any) => {
                 this.sweetAlertService.error(response.error.message);
-                this.commonService.updateLoader(false);
             },
         });
     }

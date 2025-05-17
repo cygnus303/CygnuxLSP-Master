@@ -45,17 +45,14 @@ showPopup(data:any){
 }
 
 getCustomers() {
-  this.commonService.updateLoader(true);
   this.lspTatService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
     next: (response) => {
       if (response) {
         this.customers = response.data;
       }
-      this.commonService.updateLoader(false);
     },
     error: (response: any) => {
       this.sweetAlertService.error(response.error.message);
-      this.commonService.updateLoader(false);
     },
   });
 }

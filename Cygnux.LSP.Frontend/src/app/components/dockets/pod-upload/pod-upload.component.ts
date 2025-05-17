@@ -179,7 +179,6 @@ validatePODData(): void {
   }
 downloadSampleFile(event: any) {
   event.preventDefault();
-  this.commonService.updateLoader(true);
   this.docketService.DownloadSampleForPODupload(this.identityService.getLoggedUserId()).subscribe({
     next: (response: Blob) => {
       const blob = new Blob([response], {
@@ -191,11 +190,9 @@ downloadSampleFile(event: any) {
       anchor.download = 'DocketPODUpload.xlsx';
       anchor.click();
       window.URL.revokeObjectURL(url);
-      this.commonService.updateLoader(false);
     },
     error: (error) => {
       this.sweetAlertService.error('Failed to download file.');
-      this.commonService.updateLoader(false);
     }
   });
 }

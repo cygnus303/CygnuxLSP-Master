@@ -92,11 +92,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -109,18 +107,15 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
 
   getCustomers(event?:any) {
-    this.commonService.updateLoader(true);
     if(event){
       this.lspTatForm.patchValue({
         lspId: null
@@ -134,26 +129,21 @@ export class AddLspTatComponent implements OnInit, OnChanges {
             this.lspTatForm.patchValue(response.data[0]);
           }
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
   getLsps(customerId:string) {
-    this.commonService.updateLoader(true);
     this.lspTatService.getLsps(customerId).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -170,7 +160,6 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
 
   addLspTat(form: any): void {
-    this.commonService.updateLoader(true);
     this.lspTatService.addLspTat(form).subscribe({
       next: (response) => {
         if (response.success) {
@@ -181,17 +170,14 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   updateLspTat(form: any): void {
-    this.commonService.updateLoader(true);
     this.lspTatService
       .updateLspTat(this.lspTatId, form)
       .subscribe({
@@ -203,11 +189,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
           } else {
             this.sweetAlertService.error(response.error.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.error.message);
-          this.commonService.updateLoader(false);
         },
       });
   }

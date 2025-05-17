@@ -61,17 +61,14 @@ ngOnChanges(changes:SimpleChanges){
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   onSubmitStatus(form: FormGroup){
-    this.commonService.updateLoader(true);
     if (form.valid) {
       const payload = {
         currentStatus:form.value.nextDocketStatus,
@@ -85,11 +82,9 @@ ngOnChanges(changes:SimpleChanges){
           } else {
             this.sweetAlertService.error(response.data.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.data.message);
-          this.commonService.updateLoader(false);
         },
       });
   }

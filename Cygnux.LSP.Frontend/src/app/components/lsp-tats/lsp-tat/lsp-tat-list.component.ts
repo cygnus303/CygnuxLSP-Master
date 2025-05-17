@@ -106,7 +106,6 @@ export class LspTatListComponent implements OnInit {
     }
   }
   deleteLspMappingTat() {
-    this.commonService.updateLoader(true);
     this.lspMappingService.deleteLspMappingTat(this.lspMappingId).subscribe({
       next: (response) => {
         if (response.success) {
@@ -114,29 +113,24 @@ export class LspTatListComponent implements OnInit {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
         this.closeDeleteModal();
         this.getLspMappings();
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
   getLspMapping(id: string) {
-    this.commonService.updateLoader(true);
     this.lspMappingService.getLspTatDetails(id).subscribe({
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;
           this.edit.emit();
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

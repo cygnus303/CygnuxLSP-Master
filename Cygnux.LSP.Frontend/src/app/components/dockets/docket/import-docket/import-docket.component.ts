@@ -24,7 +24,6 @@ export class ImportDocketComponent {
   
     downloadSampleFile(event: any) {
       event.preventDefault();
-      this.commonService.updateLoader(true);
       this.docketService.downloadSampleDocketUpload(this.identityService.getLoggedUserId()).subscribe({
         next: (response: Blob) => {
           const blob = new Blob([response], {
@@ -36,11 +35,9 @@ export class ImportDocketComponent {
           anchor.download = 'DocketUpload.xlsx';
           anchor.click();
           window.URL.revokeObjectURL(url);
-          this.commonService.updateLoader(false);
         },
         error: (error) => {
           this.sweetAlertService.error('Failed to download file.');
-          this.commonService.updateLoader(false);
         }
       });
     }
@@ -80,7 +77,6 @@ export class ImportDocketComponent {
     }
 
     uploadDocketFile() {
-      this.commonService.updateLoader(true);
       const formData = new FormData();
       formData.append('file', this.selectedFile);
     
@@ -90,11 +86,9 @@ export class ImportDocketComponent {
             this.validateData = response.data;
             this.docketService.exportToExcel(this.validateData, 'Invalid_Dockets');
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.error.Message);
-          this.commonService.updateLoader(false);
         },
       });
     }
@@ -105,7 +99,6 @@ export class ImportDocketComponent {
     }
 
     onSave(){
-      this.commonService.updateLoader(true);
       const transformedList = this.validateData.map(({ lsp, errorMessage, errorCode, date, customer, ...rest }) => ({
        ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false}));
         this.docketService.InsertExcelUplaodDocketData(this.identityService.getLoggedUserId(),transformedList).subscribe({
@@ -118,11 +111,9 @@ export class ImportDocketComponent {
           } else {
             this.sweetAlertService.error(response.data.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.data.message);
-          this.commonService.updateLoader(false);
         },
       });
   }

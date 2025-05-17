@@ -62,9 +62,7 @@ export class UserListComponent implements OnInit, OnDestroy {
      });
   }
 
-  ngAfterViewInit(): void {}
   getUsers(page: number = 1) {
-    this.commonService.updateLoader(true);
     this.filters = Object.fromEntries(
       Object.entries(this.filters).filter(([key, value]) => value !== null)
     );
@@ -80,17 +78,14 @@ export class UserListComponent implements OnInit, OnDestroy {
           this.users = response.data;
           this.totalItems = response.totalCount;
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.toastrService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   deleteUser() {
-    this.commonService.updateLoader(true);
     const payload={
       id:this.userCode,
       isDeleted:true
@@ -104,11 +99,9 @@ export class UserListComponent implements OnInit, OnDestroy {
         }
         this.getUsers();
         this.closeDeleteModal();
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -132,18 +125,15 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
   getUser(userCode: string) {
-    this.commonService.updateLoader(true);
     this.userService.getUserDetails(userCode,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedUser = response.data;
           this.edit.emit(response.data);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

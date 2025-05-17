@@ -67,7 +67,6 @@ export class AddRoleComponent implements OnInit, OnChanges {
   }
 
   addRole(form: FormGroup): void {
-    this.commonService.updateLoader(true);
     this.roleService.addRole(form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
@@ -77,17 +76,14 @@ export class AddRoleComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   updateRole(form: FormGroup): void {
-    this.commonService.updateLoader(true);
     this.roleService.updateRole(this.roleId, form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
@@ -97,11 +93,9 @@ export class AddRoleComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

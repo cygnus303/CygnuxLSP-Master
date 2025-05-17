@@ -65,16 +65,28 @@
               <div class="row g-3">
                 <div class="col-md-4">
                   <label class="col-form-label">City</label>
-                  <input class="form-control" formControlName="city" type="text" required placeholder="Enter City"/>
+                  <input class="form-control" formControlName="city" type="text" required placeholder="Enter City"
+                  [ngClass]="{ 'border-danger': lspForm.controls['city'].invalid && lspForm.controls['city'].touched}"/>
+                  <div *ngIf="lspForm.controls['city'].invalid && lspForm.controls['city']?.touched" class="text-danger">
+                    <small *ngIf="lspForm.controls['city'].errors?.['required']">City is required.</small>
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Pincode</label>
                   <input class="form-control" maxlength="6" formControlName="zipCode" type="text" required placeholder="Enter pincode"
-                    pattern="[0-9]*" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                      [ngClass]="{ 'border-danger': lspForm.controls['zipCode'].invalid && lspForm.controls['zipCode'].touched}"/>
+                    <div *ngIf="lspForm.controls['zipCode'].invalid && lspForm.controls['zipCode']?.touched" class="text-danger">
+                    <small *ngIf="lspForm.controls['zipCode'].errors?.['required']">Pincode is required.</small>
+                    <small *ngIf="lspForm.controls['zipCode'].errors?.['pattern']">Pincode is invalid.</small>
+                  </div>
                 </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Address</label>
-                    <textarea class="form-control" formControlName="address" type="text" required  placeholder="Enter Address" ></textarea>
+                    <textarea class="form-control" formControlName="address" type="text" required  placeholder="Enter Address" 
+                    [ngClass]="{ 'border-danger': lspForm.controls['address'].invalid && lspForm.controls['address'].touched}"></textarea>
+                    <div *ngIf="lspForm.controls['address'].invalid && lspForm.controls['address']?.touched" class="text-danger">
+                    <small *ngIf="lspForm.controls['address'].errors?.['required']">City is required.</small>
+                  </div>
                   </div>
                 </div>
               <div class="row g-3">

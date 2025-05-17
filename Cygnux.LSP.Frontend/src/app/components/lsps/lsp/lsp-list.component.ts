@@ -90,7 +90,6 @@ export class LspListComponent implements OnInit {
     });
   }
   deleteLsp() {
-    this.commonService.updateLoader(true);
     this.lspService.deleteLsp(this.lspId).subscribe({
       next: (response) => {
         if (response.success) {
@@ -98,16 +97,15 @@ export class LspListComponent implements OnInit {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
         this.closeDeleteModal();
         this.getLsps();
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
+
   editModal(event: Event, id: string) {
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('exampleModalLong');
@@ -117,6 +115,7 @@ export class LspListComponent implements OnInit {
       this.getLsp(id);
     }
   }
+
   deleteModal(event: Event, id: string) {
     event.preventDefault(); // Prevent default anchor behavior
     const modalElement = document.getElementById('deleteModal');
@@ -126,8 +125,8 @@ export class LspListComponent implements OnInit {
       modal.show();
     }
   }
+  
   getLsp(id: string) {
-    this.commonService.updateLoader(true);
     this.lspService.getLspDetails(id).subscribe({
       next: (response) => {
         if (response) {
@@ -137,11 +136,9 @@ export class LspListComponent implements OnInit {
             this.selectedLsp.logo.replace(/\\/g, '/');
           this.edit.emit(response.data);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

@@ -122,7 +122,6 @@ ngOnChanges(changes: SimpleChanges): void {
     }
   }
   getCustomers() {
-    this.commonService.updateLoader(true);
     this.lspTatService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
@@ -134,33 +133,27 @@ ngOnChanges(changes: SimpleChanges): void {
             this.customerId=response.data[0].customerId
           }
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   getLsps() {
-    this.commonService.updateLoader(true);
     this.lspTatService.getLsps(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   addDocket(form: any): void {
-    this.commonService.updateLoader(true);
     this.docketService.addDocket(form).subscribe({
       next: (response) => {
         if (response.success) {
@@ -171,17 +164,14 @@ ngOnChanges(changes: SimpleChanges): void {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   updateDocket(form: any): void {
-    this.commonService.updateLoader(true);
     this.docketService
       .updateDocket(this.docketId, form)
       .subscribe({
@@ -194,16 +184,13 @@ ngOnChanges(changes: SimpleChanges): void {
           } else {
             this.sweetAlertService.error(response.error.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.error.message);
-          this.commonService.updateLoader(false);
         },
       });
   }
   onSelectCustomer(event:any ,resetLocations: boolean = false){
-    this.commonService.updateLoader(true);
     if(!resetLocations){
       this.docketForm.patchValue({
         fromLocation:null,
@@ -221,17 +208,14 @@ ngOnChanges(changes: SimpleChanges): void {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   onSelectOrigin(event: any, type: string): void {
-    this.commonService.updateLoader(true);
     const formValues = this.docketForm.value;
     let selectedLsp = formValues.transporter || '';
     let selectedFromLocation = formValues.fromLocation || '';
@@ -285,11 +269,9 @@ ngOnChanges(changes: SimpleChanges): void {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       }
     });
   }
@@ -303,11 +285,9 @@ ngOnChanges(changes: SimpleChanges): void {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -320,11 +300,9 @@ ngOnChanges(changes: SimpleChanges): void {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

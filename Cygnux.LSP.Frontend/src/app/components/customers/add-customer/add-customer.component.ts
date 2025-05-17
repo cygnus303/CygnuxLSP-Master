@@ -107,7 +107,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
 
   addUserAndCustomer(form: FormGroup): void {
     if (form.valid) {
-      this.commonService.updateLoader(true);
       const { accountsHead, accountsHeadMobileNo, consolidatedGSTNo, country, 
               isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode, 
               proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state,customerCode, ...payload } = form.getRawValue();
@@ -139,18 +138,15 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           } else {
             this.sweetAlertService.error(customerResponse.error.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.error.message);
-          this.commonService.updateLoader(false);
         }
       });
     }
   }
  
   updateCustomer(form: FormGroup): void {
-    this.commonService.updateLoader(true);
     const currentUserId = this.identityService.getLoggedUserId();
     const formValues = { ...form.getRawValue(), userId:currentUserId,updatedBy:currentUserId,createdBy:currentUserId,entryBy:currentUserId, };
     this.customerService.updateCustomer(this.customerCode, formValues).subscribe({
@@ -162,11 +158,9 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           } else {
             this.sweetAlertService.error(response.error.message);
           }
-          this.commonService.updateLoader(false);
         },
         error: (response: any) => {
           this.sweetAlertService.error(response.error.message);
-          this.commonService.updateLoader(false);
         },
       });
   }

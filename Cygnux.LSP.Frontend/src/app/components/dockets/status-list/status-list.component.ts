@@ -28,7 +28,6 @@ export class StatusListComponent {
 
   downloadSampleFile(event: any) {
     event.preventDefault();
-    this.commonService.updateLoader(true);
     this.docketService.downloadSampleStatusUpload(this.identityService.getLoggedUserId()).subscribe({
       next: (response: Blob) => {
         const blob = new Blob([response], {
@@ -40,11 +39,9 @@ export class StatusListComponent {
         anchor.download = 'DocketStatusUpload.xlsx';
         anchor.click();
         window.URL.revokeObjectURL(url);
-        this.commonService.updateLoader(false);
       },
       error: (error) => {
         this.sweetAlertService.error('Failed to download file.');
-        this.commonService.updateLoader(false);
       }
     });
   }
@@ -87,17 +84,15 @@ export class StatusListComponent {
           return { ...rest, statusDate: formattedDate };
         });
         this.docketService.exportToExcel(cleanedData, 'Invalid_Dockets');
-        this.commonService.updateLoader(false);
       },
       error: (error) => {
         this.sweetAlertService.error(error);
-        this.commonService.updateLoader(false);
       }
     });
   }
   
   onSave(){
-    this.commonService.updateLoader(true);
+    this.commonService.updateLoader(true)
     this.docketService.updateDocketStatus(this.identityService.getLoggedUserId(),this.validateDocketStatusList).subscribe({
       next: (response) => {
         if (response.success) {
