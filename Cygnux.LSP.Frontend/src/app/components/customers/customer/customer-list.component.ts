@@ -161,7 +161,7 @@ export class CustomerListComponent implements OnInit {
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
 
-      this.getCustomers(this.page);
+      // this.getCustomers(this.page);
     }
   }
   onPageChange(page: number) {
@@ -183,7 +183,7 @@ export class CustomerListComponent implements OnInit {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-      this.getCustomers(this.page);
+      // this.getCustomers(this.page);
     }
   }
 

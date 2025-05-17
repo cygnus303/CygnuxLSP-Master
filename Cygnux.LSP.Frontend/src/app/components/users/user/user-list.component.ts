@@ -63,6 +63,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   getUsers(page: number = 1) {
+    this.commonService.updateLoader(true);
     this.filters = Object.fromEntries(
       Object.entries(this.filters).filter(([key, value]) => value !== null)
     );
@@ -77,10 +78,12 @@ export class UserListComponent implements OnInit, OnDestroy {
         if (response) {
           this.users = response.data;
           this.totalItems = response.totalCount;
+          this.commonService.updateLoader(false);
         }
       },
       error: (response: any) => {
         this.toastrService.error(response.error.message);
+          this.commonService.updateLoader(false);
       },
     });
   }
@@ -150,7 +153,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-      this.getUsers();
+      // this.getUsers();
     }
   }
   openModal() {
