@@ -71,18 +71,18 @@ export class CustomerListComponent implements OnInit {
         if (response) {
           this.customers = response.data;
           this.totalItems = response.totalCount;
+          this.commonService.updateLoader(false);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.toasterService.error(response.error.message);
         this.commonService.updateLoader(false);
+
       },
     });
   }
 
   deleteCustomer() {
-    this.commonService.updateLoader(true);
     this.customerService.deleteCustomer(this.customerCode).subscribe({
       next: (response) => {
         if (response.success) {
@@ -92,12 +92,9 @@ export class CustomerListComponent implements OnInit {
         }
         this.getCustomers(this.page);
         this.closeDeleteModal();
-
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -122,18 +119,15 @@ export class CustomerListComponent implements OnInit {
     }
   }
   getCustomer(customerCode: string) {
-    this.commonService.updateLoader(true);
     this.customerService.getCustomerDetails(customerCode,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedCustomer = response.data;
           this.edit.emit(response.data);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.toasterService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

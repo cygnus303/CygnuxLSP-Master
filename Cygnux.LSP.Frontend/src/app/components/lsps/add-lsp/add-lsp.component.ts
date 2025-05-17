@@ -10,7 +10,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { EmailRegex, MobileRegex, zipCode } from '../../../shared/constants/common';
+import { EmailRegex, MobileRegex, OnlyDigitRegex, PincodeRegex, zipCode } from '../../../shared/constants/common';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
@@ -36,7 +36,6 @@ export class AddLspComponent implements OnInit, OnChanges {
 
   constructor(
     private lspService: LspService,
-    private userService: UserService,
     private commonService: CommonService,
     private identityService:IdentityService,
     private sweetAlertService:SweetAlertService
@@ -93,9 +92,9 @@ export class AddLspComponent implements OnInit, OnChanges {
       file:new FormControl(null),
       EntryBy:new FormControl(this.identityService.getLoggedUserId()),
       roles:new FormControl('lsp Admin'),
-      city:new FormControl(''),
-      zipCode:new FormControl('',Validators.pattern(zipCode)),
-      address:new FormControl(''),
+      city:new FormControl('',[Validators.required]),
+      zipCode:new FormControl('', [Validators.required,Validators.pattern(OnlyDigitRegex)]),
+      address:new FormControl('',[Validators.required]),
     });
   }
   onFileChange(event: any) {
@@ -140,6 +139,7 @@ export class AddLspComponent implements OnInit, OnChanges {
         formData.append('file', this.selectedFile);
       }
     formData.append('firstName',this.lspForm.value.lspName)
+  
       !this.lspId ? this.addLsp(formData) : this.updateLsp(formData);
     } else {
       form.markAllAsTouched(); // Ensures all validation messages show up
@@ -148,7 +148,6 @@ export class AddLspComponent implements OnInit, OnChanges {
 
   
   addLsp(formData: any): void {
-    this.commonService.updateLoader(true);
     this.lspService.addLsp(formData).subscribe({
       next: (response) => {
         if (response.success) {
@@ -161,17 +160,14 @@ export class AddLspComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   updateLsp(formData: any): void {
-    this.commonService.updateLoader(true);
     this.lspService.updateLsp(this.lspId, formData).subscribe({
       next: (response) => {
         if (response.success) {
@@ -184,11 +180,9 @@ export class AddLspComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

@@ -93,7 +93,6 @@ export class AddUserComponent implements OnInit, OnChanges {
     }
   }
   getRoles() {
-    this.commonService.updateLoader(true);
     this.roleService.getRoleList('',1, 100).subscribe({
       next: (response) => {
         if (response) {
@@ -101,13 +100,11 @@ export class AddUserComponent implements OnInit, OnChanges {
         if (response && response.data) {
           this.roles = response.data.filter((role: any) => role.isActive);
         }
-        this.commonService.updateLoader(false);
       }}
     });
   }
 
   addUser(form: FormGroup): void {
-    this.commonService.updateLoader(true);
     this.userService.addUser(form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
@@ -118,17 +115,14 @@ export class AddUserComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   updateUser(form: FormGroup): void {
-    this.commonService.updateLoader(true);
     this.userService.updateUser(this.userId, form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
@@ -139,11 +133,9 @@ export class AddUserComponent implements OnInit, OnChanges {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

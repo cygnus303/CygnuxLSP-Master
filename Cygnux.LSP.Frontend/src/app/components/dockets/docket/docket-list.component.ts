@@ -123,8 +123,8 @@ export class DocketListComponent implements OnInit {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.click();
   }
+
   importDocket(dataToSubmit: any): void {
-    this.commonService.updateLoader(true);
     this.docketService.importDocket(dataToSubmit).subscribe({
       next: (response) => {
         if (response.success) {
@@ -132,17 +132,14 @@ export class DocketListComponent implements OnInit {
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response);
-        this.commonService.updateLoader(false);
       },
     });
   }
 
   deleteDocket(docketCode?:any) {
-    this.commonService.updateLoader(true);
     this.docketService.deleteDocket(docketCode).subscribe({
       next: (response) => {
         if (response.success) {
@@ -152,12 +149,9 @@ export class DocketListComponent implements OnInit {
         }
         this.getDockets();
         this.closeDeleteModal();
-
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -209,7 +203,6 @@ export class DocketListComponent implements OnInit {
   }
 
   getDocket(docketList: any) {
-    this.commonService.updateLoader(true);
     
     this.docketService.getDocketDetails(docketList.docketId).subscribe({
       next: (response) => {
@@ -217,11 +210,9 @@ export class DocketListComponent implements OnInit {
           this.selectedDocket = response.data;
           this.edit.emit(response.data);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.toasterService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }

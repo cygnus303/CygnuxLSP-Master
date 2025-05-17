@@ -87,7 +87,6 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   }
 
   deleteRole() {
-    this.commonService.updateLoader(true);
     const payload={
       id:this.roleId,
       isDeleted:true
@@ -101,12 +100,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
         }
         this.getRoles();
         this.closeDeleteModal();
-
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
@@ -140,18 +136,15 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     }
   }
   getRole(roleId: string) {
-    this.commonService.updateLoader(true);
     this.roleService.getRoleDetails(roleId).subscribe({
       next: (response) => {
         if (response) {
           this.selectedRole = response.data;
           this.edit.emit(response.data);
         }
-        this.commonService.updateLoader(false);
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-        this.commonService.updateLoader(false);
       },
     });
   }
