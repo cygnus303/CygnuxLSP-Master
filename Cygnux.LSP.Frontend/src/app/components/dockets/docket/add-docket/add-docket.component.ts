@@ -234,6 +234,7 @@ ngOnChanges(changes: SimpleChanges): void {
         selectedLsp = event?.lspId || event?.transporter;
         selectedFromLocation = '';
         selectedToLocation = '';
+        this.customerWHStoreLocation = [];
         this.docketForm.patchValue({
           fromLocation: null,
           toLocation: null
