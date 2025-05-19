@@ -125,6 +125,11 @@ validatePODData(): void {
   if (this.selectedFile !== null) {
     formData.append('file', this.selectedFile, this.selectedFile.name);
   }
+  this.uploadedImages.forEach((item) => {
+    if (item.file) {
+      formData.append('images', item.file, item.name); // ✅ same key for all images
+    }
+  });
   this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response.success) {

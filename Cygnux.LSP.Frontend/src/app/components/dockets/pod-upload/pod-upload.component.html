@@ -66,13 +66,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let row of mappedData">
-                     <td class="text-center">{{ row.docketNo || 'N/A' }}</td>
-                     <td class="text-center">{{ row.lspName }}</td>
-                     <td class="text-center">{{ row.customerName }}</td>
-                     <td class="text-center">{{ row.uploadDate | date:'dd-MM-yyyy' }}</td>
-                     <td class="text-center"><i [ngClass]="row.imageLink ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                     <td class="text-center">{{ row.validationStatus}}
+                  <tr *ngFor="let data of mappedData">
+                     <td class="text-center">{{ data.docketNo || 'N/A' }}</td>
+                     <td class="text-center">{{ data.lspName }}</td>
+                     <td class="text-center">{{ data.customerName }}</td>
+                     <td class="text-center">{{ data.uploadDate | date:'dd-MM-yyyy' }}</td>
+                     <td class="text-center"><i [ngClass]="data.imageLink ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
+                     <td class="text-center">{{ data.validationStatus}}
                     </td>
                   </tr>
                 </tbody>
@@ -81,7 +81,7 @@
           <div class="d-flex justify-content-end pt-3 mt-3 gap-2">
             <button class="btn col-2 btn-square btn-primary pull-right rounded-3"  (click)="downloadSampleFile($event)"> Download Import Template </button>
             <button *ngIf="!isValidData"  class="btn btn-square btn-success rounded-3" (click)="validatePODData()">Upload</button>
-             <button *ngIf="isValidData"  class="btn btn-square btn-success rounded-3" (click)="exportExcel()">Save</button>
+             <button *ngIf="isValidData"  class="btn btn-square btn-success rounded-3" (click)="tryMapExcelToImages()">Save</button>
           </div>
         </div>
       </div>
