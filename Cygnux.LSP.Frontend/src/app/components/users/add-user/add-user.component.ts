@@ -52,17 +52,17 @@ export class AddUserComponent implements OnInit, OnChanges {
 
   buildForm(): void {
     this.userForm = new FormGroup({
-      customerName:new FormControl(null),
+      // customerName:new FormControl(null),
       firstName: new FormControl(null, [Validators.required]),
-      lastName: new FormControl(null, [Validators.required]),
-      location:new FormControl(''),
-      sessionTime:new FormControl(null),
+      lastName: new FormControl(null),
+      // location:new FormControl(''),
+      sessionTime:new FormControl(''),
       roles: new FormControl('SA', [Validators.required]),
       emailId: new FormControl('', [Validators.required,Validators.pattern(EmailRegex)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
       address:new FormControl('',[Validators.required]),
-      locality:new FormControl(''),
+      // locality:new FormControl(''),
       city:new FormControl('',[Validators.required]),
       zipCode:new FormControl(null,[Validators.required,Validators.pattern(PincodeRegex)]),
       photo:new FormControl(''),
