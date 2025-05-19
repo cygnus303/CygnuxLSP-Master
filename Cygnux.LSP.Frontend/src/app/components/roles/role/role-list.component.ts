@@ -162,7 +162,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
 
-      // this.getRoles();
+      this.getRoles();
     }
   }
   closePermissionModal() {

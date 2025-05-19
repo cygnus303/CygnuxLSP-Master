@@ -161,7 +161,7 @@ export class CustomerListComponent implements OnInit {
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
 
-      // this.getCustomers(this.page);
+      this.getCustomers(this.page);
     }
   }
   onPageChange(page: number) {

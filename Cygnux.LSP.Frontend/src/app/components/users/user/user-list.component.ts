@@ -153,7 +153,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-      // this.getUsers();
+      this.getUsers();
     }
   }
   openModal() {

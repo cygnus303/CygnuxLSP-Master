@@ -246,7 +246,7 @@ export class DocketListComponent implements OnInit {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-      // this.getDockets();
+      this.getDockets();
     }
   }
 

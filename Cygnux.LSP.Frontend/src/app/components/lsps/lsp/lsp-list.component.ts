@@ -154,7 +154,7 @@ export class LspListComponent implements OnInit {
     const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
     if (modalInstance) {
       modalInstance.hide(); // Hide the modal
-      // this.getLsps();
+      this.getLsps();
     }
   }
   openModal() {
