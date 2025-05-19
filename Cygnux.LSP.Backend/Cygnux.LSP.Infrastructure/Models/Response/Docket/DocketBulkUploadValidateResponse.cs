@@ -80,4 +80,13 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string ValidationStatus { get; set; } = string.Empty;
         public bool IsValid { get; set; }
     }
+
+    public class DocketUploadModel
+    {
+        public string DocketNo { get; set; } = string.Empty;
+        public DateTime UpdateDate { get; set; }
+        public string ImageName { get; set; } = string.Empty;
+        public string ValidationStatus { get; set; } = string.Empty;
+    }
+
 }

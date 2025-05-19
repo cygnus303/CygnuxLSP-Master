@@ -127,9 +127,9 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
-    public async Task<BaseResponse<IEnumerable<ValidatePODResponse>>> ValidatePODUplaodData(List<Dictionary<string, string>> bulkPOD, Guid lspuser)
+    public async Task<BaseResponse<IEnumerable<ValidatePODResponse>>> ValidatePODUplaodData(string jsonDocketData, string jsonImageNames, Guid lspuser)
     {
-        var response = await _docketService.ValidatePODUplaodData(JsonConvert.SerializeObject(bulkPOD), lspuser);
+        var response = await _docketService.ValidatePODUplaodData(jsonDocketData,jsonImageNames,lspuser);
 
         return new BaseResponse<IEnumerable<ValidatePODResponse>>(response);
     }

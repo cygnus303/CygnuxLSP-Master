@@ -10,8 +10,10 @@ using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using OfficeOpenXml;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -28,7 +30,7 @@ public class DocketController : ControllerBase
     //{
     //    _docketRepository = docketRepository;
     //}
-    public DocketController(IWebHostEnvironment env, IDocketRepository docketRepository,IConfiguration iconfiguration, ICustomerLspRepository customerLspRepository)
+    public DocketController(IWebHostEnvironment env, IDocketRepository docketRepository, IConfiguration iconfiguration, ICustomerLspRepository customerLspRepository)
     {
         _env = env;
         _docketRepository = docketRepository;
@@ -40,7 +42,7 @@ public class DocketController : ControllerBase
     [Route("GetDocketList")]
     public async Task<IActionResult> GetDocketList(Guid userId, [FromQuery] Dictionary<string, string> reqFilter)
     {
-        return Ok(await _docketRepository.GetDocketList(userId,reqFilter));
+        return Ok(await _docketRepository.GetDocketList(userId, reqFilter));
     }
 
     [HttpGet]
@@ -61,7 +63,7 @@ public class DocketController : ControllerBase
         return Ok();
     }
 
-        
+
     [HttpGet]
     [Route("TrackingList")]
     public async Task<IActionResult> GetTrackingList(string codetype)
@@ -133,20 +135,20 @@ public class DocketController : ControllerBase
 
             // Populate dropdown values in a separate sheet
             int j = 1, k = 1;
-          
+
             foreach (var itemj in transmode.Data)
             {
-                listSheet.Cell(j, 1).Value = itemj.CodeId + ":" + itemj.CodeDesc; 
+                listSheet.Cell(j, 1).Value = itemj.CodeId + ":" + itemj.CodeDesc;
                 j++;
             }
             foreach (var itemk in lsplist.Data)
             {
-                listSheet.Cell(k, 2).Value = itemk.LSPCode + ":" + itemk.LspName; 
+                listSheet.Cell(k, 2).Value = itemk.LSPCode + ":" + itemk.LspName;
                 k++;
             }
 
             // Define named range for the list (e.g., A1:A10)
-           
+
             var modeRange = listSheet.Range($"A1:A{transmode.Data.Count()}");
             modeRange.AddToNamed("ModeOption");
             var lspRange = listSheet.Range($"B1:B{lsplist.Data.Count()}");
@@ -196,18 +198,18 @@ public class DocketController : ControllerBase
         var data = ExcelReadHelper.ExtractAllRows(file);
         if (data is not null)
         {
-            return Ok(await _docketRepository.GetValidateDocketImportData(data,customerid));
+            return Ok(await _docketRepository.GetValidateDocketImportData(data, customerid));
         }
         return Ok();
     }
 
     [HttpPost]
     [Route("InsertExcelUplaodDocketData")]
-    public async Task<IActionResult> InsertDocketData(List<DocketEntryExcelUpload> docketlist,Guid entryBy)
+    public async Task<IActionResult> InsertDocketData(List<DocketEntryExcelUpload> docketlist, Guid entryBy)
     {
-        return Ok(await _docketRepository.InsertDocketData(docketlist,entryBy));
+        return Ok(await _docketRepository.InsertDocketData(docketlist, entryBy));
     }
- 
+
     [HttpGet("DownloadSampleStatusUpload")]
     public async Task<IActionResult> DownloadTrackingExcel([FromQuery] Guid login)
     {
@@ -229,12 +231,12 @@ public class DocketController : ControllerBase
             int row = 1, lsprows = 1;
             foreach (var item in response.Data)
             {
-                listSheet.Cell(row, 1).Value = item.CodeId +":"+ item.CodeDesc; // Use item.Code if needed
+                listSheet.Cell(row, 1).Value = item.CodeId + ":" + item.CodeDesc; // Use item.Code if needed
                 row++;
             }
             foreach (var itemlsp in lsplist.Data)
             {
-                listSheet.Cell(lsprows, 2).Value = itemlsp.LSPCode +":"+ itemlsp.LspName; // Use item.Code if needed
+                listSheet.Cell(lsprows, 2).Value = itemlsp.LSPCode + ":" + itemlsp.LspName; // Use item.Code if needed
                 lsprows++;
             }
 
@@ -297,17 +299,6 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.UpdateDocketStatus(docketstslist, entryBy));
     }
 
-    //public string GetFinancialYear(DateTime date)
-    //{
-    //    int year = date.Month >= 4 ? date.Year : date.Year - 1;
-    //    return $"{year}-{(year + 1).ToString().Substring(2)}";
-    //}
-
-    //public string GetMonthName(DateTime date)
-    //{
-    //    return date.ToString("MMMM").ToUpper();
-    //}
-
 
     [HttpGet("DownloadSampleForPODupload")]
     public IActionResult DownloadSamplePODupload([FromQuery] Guid login)
@@ -361,16 +352,29 @@ public class DocketController : ControllerBase
         }
     }
 
+
     [HttpPost]
     [Route("ValidatePODUpload")]
-    public async Task<IActionResult> ValidatePODUplaodData(IFormFile file, Guid lspuser)
+    public async Task<IActionResult> ValidatePODUplaodData(IFormFile file, List<IFormFile> images, Guid lspuser)
     {
-        var data = ExcelReadHelper.ExtractAllRows(file);
-        if (data is not null)
-        {
-            return Ok(await _docketRepository.ValidatePODUplaodData(data, lspuser));
-        }
-        return Ok();
+        if (file == null || images == null || !images.Any())
+            return BadRequest("Excel file and image list are required.");
+
+        // 1. Parse Excel to JSON
+        var docketData = ExcelReadHelper.ExtractAllRows(file); // This should return a List<YourDocketModel>
+        if (docketData == null || !docketData.Any())
+            return BadRequest("Invalid or empty Excel data.");
+
+        string jsonDocketData = JsonConvert.SerializeObject(docketData);
+
+        // 2. Extract image file names only
+        var imageNames = images.Select(img => img.FileName).ToList();
+        string jsonImageNames = JsonConvert.SerializeObject(imageNames);
+
+        // 3. Call Repository to execute SQL procedure
+        var result = await _docketRepository.ValidatePODUplaodData(jsonDocketData, jsonImageNames, lspuser);
+
+        return Ok(result);
     }
 
 
