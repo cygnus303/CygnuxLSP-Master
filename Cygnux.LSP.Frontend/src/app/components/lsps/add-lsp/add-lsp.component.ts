@@ -95,6 +95,7 @@ export class AddLspComponent implements OnInit, OnChanges {
       city:new FormControl('',[Validators.required]),
       zipCode:new FormControl('', [Validators.required,Validators.pattern(OnlyDigitRegex)]),
       address:new FormControl('',[Validators.required]),
+      userType:new FormControl('L')
     });
   }
   onFileChange(event: any) {

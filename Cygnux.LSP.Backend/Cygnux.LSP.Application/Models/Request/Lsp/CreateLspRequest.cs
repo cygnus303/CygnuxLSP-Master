@@ -18,6 +18,8 @@ public class CreateLspRequest /*: UserSettings*/
     public decimal ZipCode { get; set; }
     public string Address { get; set; } = string.Empty;
     public string Logo { get; set; } = string.Empty;
-    public required string EntryBy { get; set; } 
+    public required string EntryBy { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
     public bool? IsActive { get; set; }
 }

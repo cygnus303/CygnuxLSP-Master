@@ -63,7 +63,8 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         lastName:new FormControl('', [Validators.required]),
         mobileNo:new FormControl('',[Validators.required,Validators.pattern(MobileRegex)]),
         roles:new FormControl('customer Admin'),
-        customerCode:new FormControl('')
+        customerCode:new FormControl(''),
+        userType:new FormControl('C')
       });
     }
 

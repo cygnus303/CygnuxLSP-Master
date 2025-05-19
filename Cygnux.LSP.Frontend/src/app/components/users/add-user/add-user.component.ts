@@ -66,7 +66,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       city:new FormControl('',[Validators.required]),
       zipCode:new FormControl(null,[Validators.required,Validators.pattern(PincodeRegex)]),
       photo:new FormControl(''),
-      userType:new FormControl('')
+      userType:new FormControl('S')
     });
   }
 
