@@ -81,9 +81,9 @@ export class AddUserComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-      this.userForm.reset();
+      // this.userForm.reset();
         this.buildForm();
-        this.dataEmitter.emit();
+        // this.dataEmitter.emit();
   }
   onSubmitUser(form: FormGroup): void {
     if (form.valid) {

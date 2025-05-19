@@ -101,10 +101,10 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
   onClose(){
-    this.docketForm.reset();
+    // this.docketForm.reset();
     this.buildForm();
     this.getCustomers();
-    this.dataEmitter.emit();
+    // this.dataEmitter.emit();
   }
 
   onSubmitDocket(form: FormGroup): void {

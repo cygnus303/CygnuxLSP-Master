@@ -197,10 +197,10 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-      this.lspTatForm.reset();
+      // this.lspTatForm.reset();
       this.buildForm();
       this.getCustomers();
       this.getLsps(this.identityService.getLoggedUserId());
-      this.dataEmitter.emit();
+      // this.dataEmitter.emit();
   }
 }

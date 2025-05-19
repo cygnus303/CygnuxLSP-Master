@@ -92,9 +92,9 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-    this.customerForm.reset();
+    // this.customerForm.reset();
     this.buildForm();
-    this.dataEmitter.emit();
+    // this.dataEmitter.emit();
   }
 
   onSubmitCustomer(form: FormGroup): void {
