@@ -158,9 +158,13 @@ ngOnChanges(changes: SimpleChanges): void {
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
-          this.dataEmitter.emit(); // Emitting the data to the parent
-          this.docketForm.reset();
           this.buildForm();
+          this.dataEmitter.emit();
+          if(this.userRoles !== 'SA'){
+          this.docketForm.patchValue({
+            customerId:this.customerId
+          })
+        }
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -178,9 +182,13 @@ ngOnChanges(changes: SimpleChanges): void {
         next: (response) => {
           if (response.success) {
             this.sweetAlertService.success(response.data.message);
-            this.docketForm.reset();
             this.buildForm();
-            this.dataEmitter.emit(); // Emitting the data to the parent
+            this.dataEmitter.emit();
+            if(this.userRoles !== 'SA'){
+          this.docketForm.patchValue({
+            customerId:this.customerId
+          })
+        }
           } else {
             this.sweetAlertService.error(response.error.message);
           }
