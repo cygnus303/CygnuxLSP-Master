@@ -74,6 +74,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public DateTime UploadDate { get; set; }
         public string ImageLink { get; set; } = string.Empty;
         public string ImageName { get; set; } = string.Empty;
+        public Guid? LSPId { get; set; }
         public string LSPName { get; set; } = string.Empty;
         public Guid? CustomerId { get; set; }
         public string CustomerName { get; set; } = string.Empty;
