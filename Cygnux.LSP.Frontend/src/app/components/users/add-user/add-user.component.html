@@ -85,13 +85,13 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <label class="col-form-label">Zip Code</label>
-                  <input class="form-control"  formControlName="zipCode" type="text" placeholder="Enter Zip Code" maxlength="10"
+                  <label class="col-form-label">Pincode</label>
+                  <input class="form-control" maxlength="6" formControlName="zipCode" type="text" placeholder="Enter Pin Code"  
                   [ngClass]="{ 'border-danger': userForm.controls['zipCode'].invalid && userForm.controls['zipCode'].touched}"/>
                   <div *ngIf="userForm.controls['zipCode'].invalid && userForm.controls['zipCode']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['zipCode'].errors?.['required']">zipCode is
+                    <small *ngIf="userForm.controls['zipCode'].errors?.['required']">Pincode is
                       required.</small>
-                    <small *ngIf="userForm.controls['zipCode'].errors?.['pattern']">zipCode is invalid.</small>
+                   <small *ngIf="userForm.controls['zipCode'].errors?.['pattern']">Pincode is invalid.</small>
                   </div>
                 </div>
                 <div class="col-md-4">

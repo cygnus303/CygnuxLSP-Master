@@ -12,6 +12,7 @@ import { CommonService } from '../../../shared/services/common.service';
 import {
   EmailRegex,
   OnlyDigitRegex,
+  PincodeRegex,
   zipCode,
 } from '../../../shared/constants/common';
 import { UserResponse } from '../../../shared/models/user.model';
@@ -63,7 +64,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       address:new FormControl('',[Validators.required]),
       locality:new FormControl(''),
       city:new FormControl('',[Validators.required]),
-      zipCode:new FormControl('',[Validators.required,Validators.pattern(zipCode)]),
+      zipCode:new FormControl(null,[Validators.required,Validators.pattern(PincodeRegex)]),
       photo:new FormControl(''),
       userType:new FormControl('')
     });
