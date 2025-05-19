@@ -34,7 +34,7 @@ internal class UserService : IUserService
     {
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId, DbType.Guid);
-        parameters.Add("@jsonReq", reqFilter, DbType.String);
+        parameters.Add("@jsonreqst", reqFilter, DbType.String);
 
         return await _dbConnection.QueryAsync<UserResponse>(
             StoredProcedureConstants.USP_GetUserList,
