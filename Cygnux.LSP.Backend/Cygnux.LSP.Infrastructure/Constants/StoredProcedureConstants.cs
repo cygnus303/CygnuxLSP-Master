@@ -41,4 +41,5 @@ public static class StoredProcedureConstants
     public const string USP_UpdateDocketStatus = "USP_UpdateDocketStatus";
     public const string USP_CustomerDelete = "USP_CustomerDelete";
     public const string USP_ValidatePODJson = "USP_ValidatePODJson";
+    public const string USP_GetUserList = "USP_GetUserList";
 }

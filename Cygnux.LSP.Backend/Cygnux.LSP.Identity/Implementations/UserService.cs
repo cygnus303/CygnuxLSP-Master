@@ -1,76 +1,48 @@
 ﻿namespace Cygnux.LSP.Identity.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Constants;
+using Dapper;
 using Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Models;
 using System.Data;
+using System.Data.Common;
 
 internal class UserService : IUserService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IDbConnection _dbConnection;
+
 
     public UserService(UserManager<ApplicationUser> userManager,
-        RoleManager<ApplicationRole> roleManager)
+    RoleManager<ApplicationRole> roleManager,
+    IConfiguration configuration)
     {
         _userManager = userManager;
+
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        _dbConnection = new SqlConnection(connectionString); // ✅ SqlConnection from System.Data.SqlClient
     }
 
 
-    public async Task<IEnumerable<UserResponse>> GetUserList(int page, int pageSize, Guid userId, string firstName, string emailId, string phoneNumber)
+
+    public async Task<IEnumerable<UserResponse>> GetUserList(Guid userId, string reqFilter)
     {
-        var user = await _userManager.FindByIdAsync(userId.ToString());
-        var roles = await _userManager.GetRolesAsync(user);
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@jsonReq", reqFilter, DbType.String);
 
-        var query = _userManager.Users.Where(x => !x.IsDeleted);
-
-        if (!roles.Contains("SA"))
-        {
-            query = query.Where(x => x.Id == userId);
-        }
-
-        if (!string.IsNullOrEmpty(firstName) || !string.IsNullOrEmpty(emailId) || !string.IsNullOrEmpty(phoneNumber))
-        {
-            if (!string.IsNullOrEmpty(firstName))
-                query = query.Where(x => x.FirstName.Contains(firstName));
-
-            if (!string.IsNullOrEmpty(emailId))
-                query = query.Where(x => x.Email.Contains(emailId));
-
-            if (!string.IsNullOrEmpty(phoneNumber))
-                query = query.Where(x => x.PhoneNumber.Contains(phoneNumber));
-        }
-
-
-        var totalRecords = await query.CountAsync();
-        //var query = _userManager.Users.Where(x => !x.IsDeleted && x.Id == userId);
-
-        //var totalRecords = await query.CountAsync();
-
-        return await query
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .Select(x => new UserResponse
-            {
-                Id = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                EmailId = x.Email,
-                IsActive = x.IsActive,
-                PhoneNumber = x.PhoneNumber,
-                City = x.City,
-                CustomerName = x.CustomerName,
-                Location = x.Location,
-                UserType = x.UserType,
-                Locality = x.Locality,
-                Address = x.Address,
-                ZipCode = x.ZipCode,
-                SessionTime = x.SessionTime,
-                TotalCount = totalRecords
-            })
-            .ToListAsync();
+        return await _dbConnection.QueryAsync<UserResponse>(
+            StoredProcedureConstants.USP_GetUserList,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
     }
+
     public async Task<UserResponse?> GetUserDetails(Guid id)
     {
         var user = await _userManager.Users.Where(x => x.Id == id && !x.IsDeleted).FirstOrDefaultAsync();

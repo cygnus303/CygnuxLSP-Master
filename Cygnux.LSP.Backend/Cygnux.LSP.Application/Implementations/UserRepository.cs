@@ -10,6 +10,7 @@ using Models.Response;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
 using Cygnux.LSP.Application.Models.Request.Role;
+using Newtonsoft.Json;
 
 internal class UserRepository : IUserRepository
 {
@@ -23,9 +24,9 @@ internal class UserRepository : IUserRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(int page, int pageSize, Guid userId, string firstName, string emailId, string phoneNumber)
+    public async Task<BaseResponse<IEnumerable<UserResponse>>> GetUserList(Guid userId, Dictionary<string, string> reqFilter)
     {
-        var response = await _userService.GetUserList(page, pageSize,userId, firstName, emailId, phoneNumber);
+        var response = await _userService.GetUserList(userId, JsonConvert.SerializeObject(reqFilter));
 
         return new BaseResponse<IEnumerable<UserResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }

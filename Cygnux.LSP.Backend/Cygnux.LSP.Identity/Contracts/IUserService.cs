@@ -6,7 +6,7 @@ using Models;
 
 public interface IUserService
 {
-    Task<IEnumerable<UserResponse>> GetUserList(int page, int pageSize, Guid userId, string firstName, string emailId, string phoneNumber);
+    Task<IEnumerable<UserResponse>> GetUserList(Guid userId, string reqFilter);
 
     Task<UserResponse?> GetUserDetails(Guid id);
 
