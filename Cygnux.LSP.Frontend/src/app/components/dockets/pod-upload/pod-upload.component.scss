@@ -66,16 +66,30 @@
 .overflow-y{
   max-height: 300px !important;
     overflow: auto;
-    .excelData-table{
+    .excelData-table{ 
         &.table {
             border: 1px solid #C3C3C3;
-            border-top: none;
-      
             thead {
               position: sticky;
               top: 0;
               z-index: 999;
+              
             }
         }  
     }
 }
+.green{
+    td{
+      background-color: #c5dfcc9e !important; /* light green */
+      border-bottom: 2px solid #4eb15d6e   !important;
+     border-collapse: collapse !important;
+    }
+}
+
+.pink{
+  td{
+     background-color: #f9d7dd9e !important; /* light red */
+      border-bottom: 2px solid #ffa6a663  !important;
+     border-collapse: collapse !important;
+  }
+} 

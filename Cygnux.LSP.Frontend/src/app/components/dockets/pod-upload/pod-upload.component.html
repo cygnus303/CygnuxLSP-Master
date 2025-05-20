@@ -53,31 +53,33 @@
           </div>
           
           <!-- Table to display Excel data -->
-            <div *ngIf="mappedData.length > 0" class="overflow-y h-100 px-2 mt-4">
-              <table class="table mt-3 table-bordered excelData-table">
-                <thead class="table-light">
-                  <tr>
-                    <th class="text-center">Docket No</th>
-                    <th class="text-center">LSP Name</th>
-                    <th class="text-center">Customer Name</th>
-                    <th class="text-center">Upload Date</th>
-                    <th class="text-center">ImageLink</th>
-                    <th class="text-center">Reason</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let data of mappedData">
-                     <td class="text-center">{{ data.docketNo || 'N/A' }}</td>
-                     <td class="text-center">{{ data.lspName }}</td>
-                     <td class="text-center">{{ data.customerName }}</td>
-                     <td class="text-center">{{ data.uploadDate | date:'dd-MM-yyyy' }}</td>
-                     <td class="text-center"><i [ngClass]="data.imageName ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                     <td class="text-center">{{ data.validationStatus}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        <div *ngIf="mappedData.length > 0" class="overflow-y h-100 px-2 mt-4">
+            <table class="table mt-3 w-100 excelData-table">
+              <thead class="table-light">
+                <tr>
+                  <th class="text-center">Docket No</th>
+                  <th class="text-center">LSP Name</th>
+                  <th class="text-center">Customer Name</th>
+                  <th class="text-center">Upload Date</th>
+                  <th class="text-center">Image Link</th>
+                  <th class="text-center">Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of mappedData" [ngClass]="!data.isValid ? 'pink' : 'green'" >
+                  <td class="text-center p-2">{{ data.docketNo || 'N/A' }}</td>
+                  <td class="text-center p-2">{{ data.lspName }}</td>
+                  <td class="text-center p-2">{{ data.customerName }}</td>
+                  <td class="text-center p-2">{{ data.uploadDate | date: 'dd-MM-yyyy' }}</td>
+                  <td class="text-center p-2">
+                    <i [ngClass]="data.imageName ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
+                  </td>
+                  <td class="text-center p-2 w-20" [title]="data.validationStatus">{{ data.validationStatus }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+
           <div class="d-flex justify-content-end pt-3 mt-3 gap-2">
             <button class="btn col-2 btn-square btn-primary pull-right rounded-3"  (click)="downloadSampleFile($event)"> Download Import Template </button>
             <button *ngIf="!isValidData" class="btn btn-square btn-success rounded-3" (click)="validatePODData()">Upload</button>

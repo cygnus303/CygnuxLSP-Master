@@ -69,6 +69,15 @@ export class PodUploadComponent {
     const index = this.uploadedImages.findIndex(img => img.name === file.name);
     if (index !== -1) {
       this.uploadedImages.splice(index, 1);
+      const removedImageName = file.name.toLowerCase();
+
+    this.mappedData.forEach(record => {
+      if (record.imageName?.toLowerCase() === removedImageName) {
+        record.isValid = false;
+        record.validationStatus = 'Image was removed after validation.';
+        record.imageName = ''; 
+      }
+    });
     }
   }
 
@@ -83,7 +92,6 @@ export class PodUploadComponent {
   }
 
 exportExcel() {
-  debugger
   const formData = new FormData();
   this.uploadedImages.forEach((item) => {
     if (item.file) {
