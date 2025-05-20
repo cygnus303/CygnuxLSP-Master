@@ -42,14 +42,19 @@ internal class LspRepository : ILspRepository
         var response = await _lspService.AddLsp(JsonConvert.SerializeObject(createLsp));
         if (response.Status > 0)
         {
-            var identityResult = await _userRoleService.AddUserRole(Guid.NewGuid(), createLsp.EmailId, CommonConstants.LspAdminRole);
-            if (!identityResult.Succeeded)
-            {
-                return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = identityResult.Errors.FirstOrDefault()?.Description });
-            }
+            //var identityResult = await _userRoleService.AddUserRole(Guid.NewGuid(), createLsp.EmailId, CommonConstants.LspAdminRole);
+            //if (!identityResult.Succeeded)
+            //{
+            //    return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = identityResult.Errors.FirstOrDefault()?.Description });
+            //}
+
+            return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
         }
-        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
-            : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+        else
+        {
+            return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+        }
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> UpdateLsp(Guid id, CreateLspRequest createLsp)
