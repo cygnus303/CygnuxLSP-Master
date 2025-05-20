@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import * as XLSX from 'xlsx';
 import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
-import { CommonService } from '../../../shared/services/common.service';
+import { ValidDatePOD } from '../../../shared/models/docket.model';
 @Component({
   selector: 'app-pod-upload',
   standalone: false,
@@ -11,18 +10,17 @@ import { CommonService } from '../../../shared/services/common.service';
   styleUrl: './pod-upload.component.scss'
 })
 export class PodUploadComponent {
-  public excelData: any[] = [];
   public files: File[] = [];
-  public mappedData: any[] = [];
+  public mappedData: ValidDatePOD[] = [];
   public uploadedImages: any[] = [];
   public selectedFile: File | null = null;
+  public validDate:ValidDatePOD[]=[]
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private docketService:DocketService,
     private identityService:IdentityService,
     private sweetAlertService:SweetAlertService,
-    private commonService:CommonService,
   ){}
 
   ngOnInit(){}
@@ -48,41 +46,29 @@ export class PodUploadComponent {
     const validExcelTypes = [
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'application/vnd.ms-excel',
-      'text/csv',
-    ];
-  
+      'text/csv'];
     if (!validExcelTypes.includes(file.type)) {
       this.sweetAlertService.error('Please upload a valid Excel file.');
       this.resetFileSelection();
       return;
     }
-  
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: 'array' });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
-      this.excelData = jsonData;
       this.files = [file];
       this.selectedFile = file;
-      // this.tryMapExcelToImages();
-    };
-    reader.readAsArrayBuffer(file);
   }
   
+  get isValidData(): boolean {
+    return this.mappedData.length > 0 && this.mappedData.every(item => item.isValid);
+  }
+
   resetFileSelection() {
     this.selectedFile = null;
     this.files = [];
-    this.excelData = [];                                                                                                                                                                                                          
   }
  
   onRemoveimg(file: any) {
     const index = this.uploadedImages.findIndex(img => img.name === file.name);
     if (index !== -1) {
       this.uploadedImages.splice(index, 1);
-      // this.tryMapExcelToImages(); // Re-map after removal
     }
   }
 
@@ -94,71 +80,18 @@ export class PodUploadComponent {
         file:files[i]
       });
     }
-    // this.tryMapExcelToImages()
   }
 
-  tryMapExcelToImages() {
-    if (!this.excelData?.length || !this.uploadedImages?.length) {
-      this.mappedData = [];
-      return;
-    }
-    this.mappedData = this.excelData.map((row: any) => {
-      const docketNo = row['DocketNo']
-      const matchedImage = this.uploadedImages.find(img =>
-        img.name.toLowerCase().includes(docketNo?.toString().toLowerCase())
-      );
-      return {
-        DocketNo: docketNo.toString(),
-        UploadDate: this.excelDateToJSDate(row['UploadDate']), // Converts Excel date to "dd-MM-yyyy"
-        ImageLink: matchedImage?.file || null,
-        ImageName: matchedImage?.name || null,
-      };
-    });
-  }
-
-     get isValidData(): boolean {
-      return this.mappedData.length > 0 && this.mappedData.every(item => item.validationStatus === 'Valid');
-    }
-
-validatePODData(): void {
+exportExcel() {
+  debugger
   const formData = new FormData();
-  if (this.selectedFile !== null) {
-    formData.append('file', this.selectedFile, this.selectedFile.name);
-  }
-  this.uploadedImages.forEach((item) => {
-    if (item.file) {
-      formData.append('images', item.file, item.name); // ✅ same key for all images
-    }
-  });
-  this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
-    next: (response) => {
-      if (response.success) {
-        this.mappedData = response.data
-        this.dataEmitter.emit();
-        this.sweetAlertService.success(response.data.message);
-      } else {
-        this.sweetAlertService.error(response.error.message);
-      }
-    },
-    error: () => {
-      this.sweetAlertService.error('Failed to upload data.');
-    }
-  });
-}
-  
- exportExcel() {
-  const formData = new FormData();
-  if (this.selectedFile) {
-    formData.append('excelFile', this.selectedFile, this.selectedFile.name);
-  }
-  
   this.uploadedImages.forEach((item) => {
     if (item.file) {
       formData.append('imageFiles', item.file, item.name);
     }
   });
+  formData.append('mappedData', new Blob([JSON.stringify(this.mappedData)], { type: 'application/json' }));
 
-  // Submit form
   this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response.success) {
@@ -174,14 +107,32 @@ validatePODData(): void {
   });
 }
 
-  excelDateToJSDate(serial: number): string {
-    const excelEpoch = new Date(1899, 11, 30); 
-    const date = new Date(excelEpoch.getTime() + serial * 86400000);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}-${day}-${year}`;
+validatePODData(): void {
+  const formData = new FormData();
+  if (this.selectedFile !== null) {
+    formData.append('file', this.selectedFile, this.selectedFile.name);
   }
+  this.uploadedImages.forEach((item) => {
+    if (item.file) {
+      formData.append('images', item.file, item.name); 
+    }
+  });
+  this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.mappedData = response.data
+        this.dataEmitter.emit();
+        // this.sweetAlertService.success(response.data.message);
+      } else {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: () => {
+      this.sweetAlertService.error('Failed to upload data.');
+    }
+  });
+}
+
 downloadSampleFile(event: any) {
   event.preventDefault();
   this.docketService.DownloadSampleForPODupload(this.identityService.getLoggedUserId()).subscribe({

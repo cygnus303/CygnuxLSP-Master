@@ -95,7 +95,7 @@
                             </div>
                             <div class="d-flex justify-content-end cursor-pointer mt-3">
                               <div *ngIf="data.currentStatus === '6'" class="me-3">
-                                <i class="ri-eye-fill align-bottom text-muted" (click)="openPOD()"></i>
+                                <i class="ri-eye-fill align-bottom text-muted" (click)="openPOD(Templatepod)"></i>
                               </div>
                               <a class="btn btn-link p-0" (click)="toggleMoreView(i)">
                                 {{ expandedIndex === i ? 'less view' : 'more view' }}
@@ -146,21 +146,24 @@
     </div>
   </ng-template>
 
-<div class="modal fade in editDialog" id="PODModal" tabindex="-1" role="dialog" aria-labelledby="PODModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">POD</h5>
-                <button data-bs-dismiss="modal" class="close"><i class="fa fa-close" ></i></button>
-            </div>
-            <div class="modal-body" style="padding:0px;">
-             
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal"> <i class="icon-download"></i>Download</button>
-                <button type="button" class="btn btn-danger">Cancel</button>
-            </div>
-        </div>
+<ng-template #Templatepod>
+  <div class="modal-content">
+    <div class="modal-header bs-blue d-flex justify-content-between">
+      <h5 class="modal-title">POD</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <i class="fa fa-close"></i>
+      </button>
     </div>
-</div>
+
+    <div class="modal-body" style="padding: 0px;">
+      <p>Insert POD preview or details here.</p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success">
+        <i class="icon-download"></i> Download
+      </button>
+      <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+    </div>
+  </div>
+</ng-template>

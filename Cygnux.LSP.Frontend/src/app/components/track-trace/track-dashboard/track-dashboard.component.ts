@@ -1,9 +1,7 @@
-import { Component, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component } from "@angular/core";
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ChartComponent,
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,

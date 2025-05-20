@@ -68,3 +68,22 @@ export interface ValidateDocketStatusList{
   transporter: string;
   currentStatusCode: string;
 }
+
+export interface ValidDatePOD {
+  id: number;
+  docketNo: string;
+  uploadDate: string;
+  imageLink: string;
+  imageName: string;
+  lspId: string;
+  lspName: string;
+  customerId: string;
+  customerName: string;
+  validationStatus: string;
+  isValid: boolean;
+}
+
+export interface UploadedImages {
+  file: File | null;
+  name: string;
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
@@ -7,8 +7,8 @@ import { TrackTraceService } from '../../shared/services/track-trace.service';
 import { TrackTraceResponse } from '../../shared/models/trackTrace.model';
 import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
-import { Modal } from 'bootstrap';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-track-trace',
@@ -21,7 +21,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('*', style({ height: '*', opacity: 1, overflow: 'hidden' })),
       transition('void <=> *', animate('300ms ease-in-out')),
     ])
-  ]
+  ], 
+  providers:[BsModalService]
 })
 export class TrackTraceComponent {
   public docketInput: string = '';
@@ -29,12 +30,12 @@ export class TrackTraceComponent {
   public expandedIndex: number | null = null;
   public trackTraceList:TrackTraceResponse[]=[];
   public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
-
-  
+  public modalRef!: BsModalRef;
   constructor( 
    public commonService: CommonService,
    private trackTraceService:TrackTraceService,
-   public identityService:IdentityService
+   public identityService:IdentityService,
+   private modalService: BsModalService
   ){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
@@ -63,12 +64,8 @@ finalizeDocketInput(): void {
   }
 }
 
-  openPOD(){
-     const modalElement = document.getElementById('PODModal');
-        if (modalElement) {
-          const modal = new Modal(modalElement);
-          modal.show();
-        }
+  openPOD(Templatepod: TemplateRef<any>){
+    this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
   }
 
   onSearchTrackTrace(){
@@ -99,6 +96,4 @@ finalizeDocketInput(): void {
 toggleMoreView(index: number): void {
   this.expandedIndex = this.expandedIndex === index ? null : index;
 }
-
-
 }
