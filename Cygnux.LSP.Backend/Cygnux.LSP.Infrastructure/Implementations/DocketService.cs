@@ -176,20 +176,6 @@ internal class DocketService : IDocketService
            ) ?? new CommonCreateResponse();
     }
 
-
-    public async Task<CommonCreateResponse> ImportPOD(string PodData,Guid User)
-    {
-        var parameters = new DynamicParameters();
-        parameters.Add("@JsonData", PodData, DbType.String);
-        parameters.Add("@EntryBy", User, DbType.Guid);
-
-        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
-            StoredProcedureConstants.PODUplaodDataFromExcel,
-            param: parameters,
-            commandType: CommandType.StoredProcedure
-        ) ?? new CommonCreateResponse();
-    }
-
     public async Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid custId)
     {
         var parameters = new DynamicParameters();
@@ -228,5 +214,16 @@ internal class DocketService : IDocketService
         );
     }
 
+    public async Task<CommonCreateResponse> ImportPOD(string podDataList, Guid User)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonData", podDataList, DbType.String);
+        parameters.Add("@UserName", User, DbType.Guid);
 
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.PODUplaodDataFromExcel,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }

@@ -99,9 +99,9 @@ internal class DocketRepository : IDocketRepository
         return new BaseResponse<IEnumerable<DocketBulkUploadValidateResponse>>(response);
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> PodData, Guid User)
+    public async Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> podDataList, Guid User)
     {
-        var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(PodData), User);
+        var response = await _docketService.ImportPOD(JsonConvert.SerializeObject(podDataList), User);
 
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });

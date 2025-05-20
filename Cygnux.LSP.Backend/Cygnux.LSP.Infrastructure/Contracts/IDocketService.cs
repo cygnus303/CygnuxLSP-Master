@@ -18,7 +18,7 @@ public interface IDocketService
     Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination);
     Task<IEnumerable<DocketBulkUploadValidateResponse>> GetValidateDocketImportData(string bulkDocket, Guid customerid);
     Task<CommonCreateResponse> InsertDocketData(string docketdata, Guid entryBy);
-    Task<CommonCreateResponse> ImportPOD(string PodData,Guid User);
+    Task<CommonCreateResponse> ImportPOD(string podDataList, Guid User);
     Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid custId);
     Task<CommonCreateResponse> UpdateDocketStatus(string docketstslist, Guid entryBy);
     Task<IEnumerable<ValidatePODResponse>> ValidatePODUplaodData(string jsonDocketData, string jsonImageNames, Guid lspuser);

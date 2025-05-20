@@ -34,7 +34,7 @@ public static class StoredProcedureConstants
     public const string USP_DeleteDocket = "USP_DeleteDocket";
     public const string USP_CustomerTATRootDropdown = "USP_CustomerTATRootDropdown";
     public const string USP_ValidateBulkUploadDocketData = "USP_ValidateBulkUploadDocketData";
-    public const string PODUplaodDataFromExcel = "PODUplaodDataFromExcel";
+    public const string PODUplaodDataFromExcel = "InsertPODUploadFromJson";
     public const string USP_InsertValiadateDocketData = "USP_InsertValiadateDocketData";
     public const string USP_ValidateDocketStatusData = "USP_ValidateDocketStatusData";
     public const string Usp_TrackingList = "Usp_TrackingList";

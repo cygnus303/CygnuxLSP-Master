@@ -378,101 +378,76 @@ public class DocketController : ControllerBase
     }
 
 
-    [HttpPost("ImportPOD")]
-    public async Task<IActionResult> UploadExcelWithImages(IFormFile excelFile, List<IFormFile> imageFiles, Guid User)
+    [HttpPost]
+    [Route("ImportPOD")]
+    public async Task<IActionResult> ImportPOD([FromForm] string docketJson, [FromForm] List<IFormFile> imgfiles, [FromForm]  Guid User)
     {
-        if (excelFile == null || excelFile.Length == 0)
-            return BadRequest("No Excel file uploaded.");
-
-        if (imageFiles == null || !imageFiles.Any())
-            return BadRequest("No image files uploaded.");
-
+        var allowedExtensions = new[] { ".png", ".jpeg", ".jpg", ".tiff",".tif" };
+        var dockets = JsonConvert.DeserializeObject<List<ValidatePODResponse>>(docketJson);
         var podDataList = new List<PODDataList>();
 
-        try
+        foreach (var docket in dockets.Where(d => d.IsValid == true))
         {
-            var uploadsFolder = _iconfiguration.GetValue<string>("ImagePath");
+            var imageFile = imgfiles.FirstOrDefault(f => f.FileName == docket.ImageName);
+            if (imageFile == null || Path.GetFileNameWithoutExtension(docket.ImageName) != docket.DocketNo)
+                continue;
 
+            var extension = Path.GetExtension(imageFile.FileName).ToLower();
+            if (!allowedExtensions.Contains(extension))
+                continue;
+
+            // Financial Year
             DateTime currentDate = DateTime.Now;
             int year = currentDate.Month >= 4 ? currentDate.Year : currentDate.Year - 1;
             var finyear = $"{year}-{(year + 1).ToString().Substring(2)}";
             var month = currentDate.ToString("MMMM").ToUpper();
 
-            uploadsFolder = Path.Combine(uploadsFolder, finyear, month, User.ToString());
+            // Safe IDs for folder names
+            var customerId = (docket.CustomerId ?? Guid.Empty).ToString();
+            var lspId = docket.LSPId.ToString();
 
-            if (!Directory.Exists(uploadsFolder))
+            // Build server file path
+            var uploadRoot = _iconfiguration.GetValue<string>("ImagePath"); // Physical root path
+            var uploadFolder = Path.Combine(uploadRoot, "PODUpload", customerId, lspId, finyear, month);
+
+            // Ensure directory exists
+            if (!Directory.Exists(uploadFolder))
+                Directory.CreateDirectory(uploadFolder);
+
+            // Save image with unique name
+            var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+            var savePath = Path.Combine(uploadFolder, docket.ImageName);
+
+            using (var stream = new FileStream(savePath, FileMode.Create))
             {
-                Directory.CreateDirectory(uploadsFolder);
+                await imageFile.CopyToAsync(stream);
             }
 
-            using (var stream = new MemoryStream())
+            // Generate public access URL
+            var podLink = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerId}/{lspId}/{finyear}/{month}/{docket.ImageName}";
+
+            // Add to list for DB insert
+            var podDetail = new PODDataList
             {
-                await excelFile.CopyToAsync(stream);
-                stream.Position = 0;
+                DocketNo = docket.DocketNo,
+                CustomerId = docket.CustomerId ?? Guid.Empty,
+                LspId = docket.LSPId,
+                POD = uniqueFileName,
+                PODFileName = docket.ImageName,
+                PODLink = podLink
+            };
 
-                XSSFWorkbook workbook = new XSSFWorkbook(stream);
-                ISheet sheet = workbook.GetSheetAt(0);
-
-                int rowCount = sheet.LastRowNum;
-                for (int row = 1; row <= rowCount; row++)
-                {
-                    IRow currentRow = sheet.GetRow(row);
-                    if (currentRow == null) continue;
-
-                    string lspName = currentRow.GetCell(0)?.ToString()?.Trim();
-                    string docketNo = currentRow.GetCell(1)?.ToString()?.Trim();
-                    string uploadDateText = currentRow.GetCell(2)?.ToString()?.Trim();
-                    string imageFilePath = currentRow.GetCell(3)?.ToString()?.Trim();
-
-                    if (string.IsNullOrEmpty(docketNo))
-                        continue;
-
-                    var podEntry = new PODDataList
-                    {
-                        LSPName = lspName,
-                        DocketNo = docketNo,
-                        UploadDate = (DateTime)(DateTime.TryParse(uploadDateText, out var parsedDate) ? parsedDate : (DateTime?)null),
-                        ImageLink = null
-                    };
-
-                    if (!string.IsNullOrEmpty(imageFilePath))
-                    {
-                        string imageFileName = Path.GetFileName(imageFilePath);
-
-                        var matchedImage = imageFiles.FirstOrDefault(f =>
-                            Path.GetFileName(f.FileName).Equals(imageFileName, StringComparison.OrdinalIgnoreCase));
-
-                        if (matchedImage != null)
-                        {
-                            //var uniqueFileName = $"{docketNo}{Path.GetExtension(matchedImage.FileName)}";
-                            var uniqueFileName = $"{Path.GetExtension(matchedImage.FileName)}";
-                            var savePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                            using (var fileStream = new FileStream(savePath, FileMode.Create))
-                            {
-                                await matchedImage.CopyToAsync(fileStream);
-                            }
-
-                            podEntry.ImageLink = $"http://192.168.0.158:5000/PODUpload/{finyear.Split('-')[0]}/{month}/{User.ToString()}/{uniqueFileName}";
-                        }
-                    }
-
-                    podDataList.Add(podEntry);
-                }
-            }
-
-            if (podDataList.Any())
-            {
-                var result = await _docketRepository.ImportPOD(podDataList, User);
-                return Ok(result);
-            }
-
-            return Ok(new { message = "No valid data found in Excel file." });
+            podDataList.Add(podDetail);
         }
-        catch (Exception ex)
+
+        if (podDataList.Any())
         {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
+            var result = await _docketRepository.ImportPOD(podDataList, User);
+            return Ok(result);
         }
+
+        return Ok(new { message = "Success" });
     }
 
 }
+
