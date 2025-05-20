@@ -7,6 +7,7 @@ public class CreateLspRequest /*: UserSettings*/
     //public int LspId { get; set; }
     public string LspName { get; set; } = string.Empty;
     public string EmailId { get; set; } = string.Empty;
+    public string U_Id { get; set; } = string.Empty;
     public string MobileNo { get; set; } = string.Empty;
     public string Alias { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
