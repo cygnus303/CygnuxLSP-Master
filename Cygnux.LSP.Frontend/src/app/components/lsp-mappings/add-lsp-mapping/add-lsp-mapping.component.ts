@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspService } from '../../../shared/services/lsp.service';
-import { CommonService } from '../../../shared/services/common.service';
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { LspResponse } from '../../../shared/models/lsp.model';
@@ -39,7 +38,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     private lspService: LspService,
     private customerService: CustomerService,
     private lspMappingService: LspMappingService,
-    private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
     private identityService:IdentityService
   ) {
@@ -189,7 +187,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-    // this.lspMappingForm.reset();
     // this.dataEmitter.emit();
     this.buildForm();
   }

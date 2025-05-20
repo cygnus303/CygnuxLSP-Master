@@ -25,7 +25,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
 
   constructor(
     private customerService: CustomerService,
-    private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
     private userService:UserService,
     private identityService:IdentityService
@@ -93,7 +92,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-    // this.customerForm.reset();
     this.buildForm();
     // this.dataEmitter.emit();
   }

@@ -26,11 +26,11 @@ export class AddLspComponent implements OnInit, OnChanges {
   public lspForm!: FormGroup;
   public lspId: string = '';
   public selectedFile: File | null = null;
-  public fileError: string | null = null; // For error handling
-  public imagePreview: string | null = null; // For image preview
-  selectedFileName :string=''; // Add this property in your component
+  public fileError: string | null = null;
+  public imagePreview: string | null = null; 
+  public selectedFileName :string = '';
   public userId :string | null = null;
-  public tempFormData:any;
+  public tempFormData!:FormData;
   @Input() lspResponse: LspResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
@@ -59,7 +59,6 @@ export class AddLspComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-    // this.lspForm.reset();
     // this.dataEmitter.emit();
     this.buildForm();
     this.selectedFileName='';
@@ -178,8 +177,6 @@ export class AddLspComponent implements OnInit, OnChanges {
     },
   });
 }
-
-
 
   addLsp(formData: any): void {
     formData.append('u_Id',this.userId)

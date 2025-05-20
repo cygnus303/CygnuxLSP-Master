@@ -10,7 +10,6 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerResponse } from '../../../../shared/models/customer.model';
 import { DocketResponse, CustomerLocationResponse, TrackingListResponse } from '../../../../shared/models/docket.model';
-import { CommonService } from '../../../../shared/services/common.service';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
 import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
@@ -34,13 +33,14 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public transporter:TrackingListResponse[]=[];
   public customerId : string='' ;
   public transportMode:TrackingListResponse[]=[];
+  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
-  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+
   constructor(
     private docketService: DocketService,
-    private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
     private lspTatService: LspMappingService,
     private identityService:IdentityService,
@@ -69,7 +69,6 @@ export class AddDocketComponent implements OnInit, OnChanges {
       transporter: new FormControl(null),
       transportMode: new FormControl(null),
       quantity: new FormControl(null),
-      // EntryBy  :new FormControl(this.identityService.getLoggedUserId()),
       lspId:new FormControl(null),
       currentStatus:new FormControl(this.docketId === '' ? '1' : null)
     });
@@ -101,7 +100,6 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
   onClose(){
-    // this.docketForm.reset();
     this.buildForm();
     this.getCustomers();
     // this.dataEmitter.emit();
@@ -112,7 +110,6 @@ ngOnChanges(changes: SimpleChanges): void {
       let forms = {
         ...form.value,
         lspId:this.docketForm.value.transporter,
-        // EntryBy:this.identityService.getLoggedUserId(),
         isCancel:false,
         bookingDate:form.value.bookingDate.toISOString().split('T')[0]
       }

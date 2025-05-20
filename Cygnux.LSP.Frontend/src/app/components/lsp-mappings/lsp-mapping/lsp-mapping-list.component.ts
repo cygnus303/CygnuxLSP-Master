@@ -36,7 +36,8 @@ export class LspMappingListComponent implements OnInit {
     private toastrService: ToastrService,
     private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
-  ) {defineElement(lottie.loadAnimation);
+  ) {
+    defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Mapping');
   }
 
@@ -107,7 +108,7 @@ export class LspMappingListComponent implements OnInit {
     });
   }
   editModal(event: Event, id: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -117,7 +118,7 @@ export class LspMappingListComponent implements OnInit {
     }
   }
   deleteModal(event: Event, id: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('deleteModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -140,23 +141,23 @@ export class LspMappingListComponent implements OnInit {
   }
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
     }
   }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       this.getLspMappings();
     }
   }
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
-      const modal = new Modal(modalElement); // Using Bootstrap's JS modal method
+      const modal = new Modal(modalElement);
       this.lspMappingId = '';
       this.selectedLsp = null;
       modal.show();
@@ -176,7 +177,7 @@ export class LspMappingListComponent implements OnInit {
   }
 
   lspMappingsDetail(event: Event, lsp: any){
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('lspMappingsDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);

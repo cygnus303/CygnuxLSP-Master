@@ -19,7 +19,13 @@ export class PodStatusUploadComponent {
   public customers: CustomerResponse[] = [];
   public modalRef!: BsModalRef;
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
-  constructor(private modalService: BsModalService,private commonService: CommonService,private identityService:IdentityService,private lspTatService: LspMappingService,private sweetAlertService: SweetAlertService){
+
+  constructor(
+    private modalService: BsModalService,
+    private identityService:IdentityService,
+    private lspTatService: LspMappingService,
+    private sweetAlertService: SweetAlertService
+  ){
     this.podUpdateForm = new FormGroup({
       docketNo : new FormControl(''),
        uploadDate : new FormControl(new Date()),

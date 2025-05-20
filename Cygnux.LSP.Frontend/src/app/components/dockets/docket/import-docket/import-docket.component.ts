@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, output } from '@angular/core';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { DocketService } from '../../../../shared/services/docket.service';
-import { CommonService } from '../../../../shared/services/common.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';
 import { IdentityService } from '../../../../shared/services/identity.service';
 @Component({
@@ -18,7 +17,6 @@ export class ImportDocketComponent {
     constructor(
       private sweetAlertService:SweetAlertService,
       private docketService:DocketService,
-      private commonService:CommonService,
       private identityService:IdentityService
     ){}
   

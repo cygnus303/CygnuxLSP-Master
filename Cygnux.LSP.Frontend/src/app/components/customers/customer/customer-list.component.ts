@@ -100,7 +100,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   editModal(event: Event, customerCode: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -110,7 +110,7 @@ export class CustomerListComponent implements OnInit {
     }
   }
   deleteModal(event: Event, customerCode: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('deleteModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -134,7 +134,7 @@ export class CustomerListComponent implements OnInit {
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
-      const modal = new Modal(modalElement); // Using Bootstrap's JS modal method
+      const modal = new Modal(modalElement);
       this.selectedCustomer = null;
       this.customerCode = '';
       modal.show();
@@ -150,16 +150,16 @@ export class CustomerListComponent implements OnInit {
   }
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
     }
   }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
 
       this.getCustomers(this.page);
     }
@@ -170,7 +170,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   lspMappingonModal(event: Event, customer: any) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalLspMapping');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -180,15 +180,15 @@ export class CustomerListComponent implements OnInit {
   }
   closelspMappingModal() {
     const modalElement: any = document.getElementById('exampleModalLspMapping');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       // this.getCustomers(this.page);
     }
   }
 
   customerDetail(event: Event, customerCode: string){
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('customerDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);

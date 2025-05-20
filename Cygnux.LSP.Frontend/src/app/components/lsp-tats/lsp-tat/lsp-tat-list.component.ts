@@ -87,7 +87,7 @@ export class LspTatListComponent implements OnInit {
   }
 
   editModal(event: Event, id: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -97,7 +97,7 @@ export class LspTatListComponent implements OnInit {
     }
   }
   deleteModal(event: Event, id: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('deleteModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -136,16 +136,16 @@ export class LspTatListComponent implements OnInit {
   }
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
     }
   }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
 
       this.getLspMappings();
     }
@@ -153,7 +153,7 @@ export class LspTatListComponent implements OnInit {
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
-      const modal = new Modal(modalElement); // Using Bootstrap's JS modal method
+      const modal = new Modal(modalElement);
       this.lspMappingId = '';
       this.selectedLsp = null;
       modal.show();
@@ -173,7 +173,7 @@ export class LspTatListComponent implements OnInit {
   }
 
   lspTatsDetail(event: Event, lspTatId: string){
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('lspTatsDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);

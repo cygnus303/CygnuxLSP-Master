@@ -143,23 +143,23 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
     }
   }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       this.getUsers();
     }
   }
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
-      const modal = new Modal(modalElement); // Using Bootstrap's JS modal method
+      const modal = new Modal(modalElement);
       this.userCode = '';
       this.selectedUser = null;
       modal.show();
@@ -179,7 +179,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   usersDetail(event: Event, id: string){
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('usersDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);

@@ -24,7 +24,9 @@ export class StatusListComponent {
     public commonService: CommonService,
     private identityService:IdentityService,
     private router:Router
-  ) {defineElement(lottie.loadAnimation)}
+  ) {
+    defineElement(lottie.loadAnimation)
+  }
 
   downloadSampleFile(event: any) {
     event.preventDefault();

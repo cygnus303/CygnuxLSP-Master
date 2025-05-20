@@ -65,7 +65,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
   ngAfterViewInit(): void {
-    feather.replace(); // Ensure icons render
+    feather.replace();
   }
   getRoles(page: number = 1) {
     this.filters = Object.fromEntries(
@@ -108,7 +108,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   }
 
   editModal(event: Event, roleId: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -117,7 +117,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     }
   }
   deleteModal(event: Event, roleId: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('deleteModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -126,7 +126,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     }
   }
   permissionModal(event: Event, roleList: any) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalPermission');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -151,25 +151,25 @@ export class RoleListComponent implements OnInit, AfterViewInit {
 
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
     }
   }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
 
       this.getRoles();
     }
   }
   closePermissionModal() {
     const modalElement: any = document.getElementById('exampleModalPermission');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       // this.getRoles();
     }
   }
@@ -177,7 +177,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
-      const modal = new Modal(modalElement); // Using Bootstrap's JS modal method
+      const modal = new Modal(modalElement);
       this.roleId = '';
       this.selectedRole = null;
       modal.show();

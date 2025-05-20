@@ -18,8 +18,7 @@ export class StatusUpdateComponent {
  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(
     private docketService:DocketService,
-    private sweetAlertService:SweetAlertService,
-    private commonService:CommonService,
+    private sweetAlertService:SweetAlertService
   ){}
 
 ngOnChanges(changes:SimpleChanges){

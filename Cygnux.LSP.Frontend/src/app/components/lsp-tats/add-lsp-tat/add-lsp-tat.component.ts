@@ -8,7 +8,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../../shared/services/common.service';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
@@ -37,7 +36,6 @@ export class AddLspTatComponent implements OnInit, OnChanges {
 
   constructor(
     private lspTatService: LspMappingService,
-    private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
     private docketService :DocketService,
     private identityService:IdentityService
@@ -197,7 +195,6 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-      // this.lspTatForm.reset();
       this.buildForm();
       this.getCustomers();
       this.getLsps(this.identityService.getLoggedUserId());

@@ -93,7 +93,7 @@ export class DocketListComponent implements OnInit {
       },
     });
   }
-  // Handle file input change
+
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -158,7 +158,7 @@ export class DocketListComponent implements OnInit {
   }
 
   editModal(event: Event, docketList: any,type:string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -168,7 +168,7 @@ export class DocketListComponent implements OnInit {
     }
   }
   deleteModal(event: Event, docketCode: string) {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('deleteModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -195,7 +195,7 @@ export class DocketListComponent implements OnInit {
   }
 
   openUploadModal(event: Event){
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('uploadModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
@@ -220,7 +220,7 @@ export class DocketListComponent implements OnInit {
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
-      const modal = new Modal(modalElement); // Using Bootstrap's JS modal method
+      const modal = new Modal(modalElement);
       this.selectedDocket = null;
       this.docketCode = '';
       modal.show();
@@ -236,44 +236,44 @@ export class DocketListComponent implements OnInit {
   }
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
     }
   }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       this.getDockets();
     }
   }
 
   closeImportModal() {
     const modalElement: any = document.getElementById('importModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       this.getDockets();
     }
   }
 
   closeUploadModal(){
     const modalElement: any = document.getElementById('uploadModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
+      modalInstance.hide();
       this.getDockets();
     }
   } 
 
   closestatusupdateModal(){
     const modalElement: any = document.getElementById('showModal');
-    const modalInstance = Modal.getInstance(modalElement); // Get the modal instance
+    const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
-      modalInstance.hide(); // Hide the modal
-      // this.getDockets();
+      modalInstance.hide();
+      this.getDockets();
     }
   } 
 
@@ -283,7 +283,7 @@ export class DocketListComponent implements OnInit {
   }
 
   docketDetail(event: Event, docketList: any ,type:string){
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     const modalElement = document.getElementById('docketDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);
