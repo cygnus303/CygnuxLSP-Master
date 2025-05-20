@@ -25,11 +25,7 @@
                 </div>
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Last Name</label>
-                  <input class="form-control" formControlName="lastName" type="text" required placeholder="Enter Last Name"
-                    [ngClass]="{ 'border-danger': userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched}" />
-                  <div *ngIf="userForm.controls['lastName'].invalid && userForm.controls['lastName']?.touched" class="text-danger">
-                    <small *ngIf="userForm.controls['lastName'].errors?.['required']">Lastname is required.</small>
-                  </div>
+                  <input class="form-control" formControlName="lastName" type="text"  placeholder="Enter Last Name" />
                 </div>
                 <div class="col-md-4">
                   <label class="col-form-label">Email Address</label>

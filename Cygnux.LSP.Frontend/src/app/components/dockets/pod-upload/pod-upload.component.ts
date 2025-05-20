@@ -22,7 +22,6 @@ export class PodUploadComponent {
     private docketService:DocketService,
     private identityService:IdentityService,
     private sweetAlertService:SweetAlertService,
-    private commonService:CommonService,
   ){}
 
   ngOnInit(){}
@@ -67,7 +66,6 @@ export class PodUploadComponent {
       this.excelData = jsonData;
       this.files = [file];
       this.selectedFile = file;
-      // this.tryMapExcelToImages();
     };
     reader.readAsArrayBuffer(file);
   }
@@ -82,7 +80,6 @@ export class PodUploadComponent {
     const index = this.uploadedImages.findIndex(img => img.name === file.name);
     if (index !== -1) {
       this.uploadedImages.splice(index, 1);
-      // this.tryMapExcelToImages(); // Re-map after removal
     }
   }
 
@@ -97,28 +94,10 @@ export class PodUploadComponent {
     // this.tryMapExcelToImages()
   }
 
-  tryMapExcelToImages() {
-    if (!this.excelData?.length || !this.uploadedImages?.length) {
-      this.mappedData = [];
-      return;
-    }
-    this.mappedData = this.excelData.map((row: any) => {
-      const docketNo = row['DocketNo']
-      const matchedImage = this.uploadedImages.find(img =>
-        img.name.toLowerCase().includes(docketNo?.toString().toLowerCase())
-      );
-      return {
-        DocketNo: docketNo.toString(),
-        UploadDate: this.excelDateToJSDate(row['UploadDate']), // Converts Excel date to "dd-MM-yyyy"
-        ImageLink: matchedImage?.file || null,
-        ImageName: matchedImage?.name || null,
-      };
-    });
-  }
 
-     get isValidData(): boolean {
+  get isValidData(): boolean {
       return this.mappedData.length > 0 && this.mappedData.every(item => item.validationStatus === 'Valid');
-    }
+  }
 
 validatePODData(): void {
   const formData = new FormData();
@@ -146,19 +125,26 @@ validatePODData(): void {
   });
 }
   
- exportExcel() {
+exportExcel() {
   const formData = new FormData();
-  if (this.selectedFile) {
-    formData.append('excelFile', this.selectedFile, this.selectedFile.name);
-  }
-  
-  this.uploadedImages.forEach((item) => {
+
+   const validDocketNumbers = this.mappedData.map(item => item.docketNo);
+
+  const filteredImages = this.uploadedImages.filter(image =>
+    validDocketNumbers.includes(image.name.replace(/\.[^/.]+$/, "")) // removes file extension
+  );
+
+  filteredImages.forEach((item) => {
     if (item.file) {
-      formData.append('imageFiles', item.file, item.name);
+      formData.append('images', item.file, item.name);
     }
   });
 
-  // Submit form
+  // Add JSON data as a blob (if needed by backend)
+  const jsonBlob = new Blob([JSON.stringify(this.mappedData)], { type: 'application/json' });
+  formData.append('jsonData', jsonBlob);
+
+  // Submit the form
   this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response.success) {
@@ -174,14 +160,6 @@ validatePODData(): void {
   });
 }
 
-  excelDateToJSDate(serial: number): string {
-    const excelEpoch = new Date(1899, 11, 30); 
-    const date = new Date(excelEpoch.getTime() + serial * 86400000);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}-${day}-${year}`;
-  }
 downloadSampleFile(event: any) {
   event.preventDefault();
   this.docketService.DownloadSampleForPODupload(this.identityService.getLoggedUserId()).subscribe({

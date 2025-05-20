@@ -31,14 +31,16 @@ export class AddLspComponent implements OnInit, OnChanges {
   public fileError: string | null = null; // For error handling
   public imagePreview: string | null = null; // For image preview
   selectedFileName :string=''; // Add this property in your component
+  public userId :string | null = null;
+  public tempFormData:any;
   @Input() lspResponse: LspResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private lspService: LspService,
-    private commonService: CommonService,
     private identityService:IdentityService,
-    private sweetAlertService:SweetAlertService
+    private sweetAlertService:SweetAlertService,
+    private userService:UserService
   ) {
     this.lspForm = new FormGroup({});
   }
@@ -126,29 +128,63 @@ export class AddLspComponent implements OnInit, OnChanges {
   }
 
   onSubmitLsp(form: FormGroup): void {
-    if (form.valid) {
-      const formData = new FormData();
-  
-      // Append all form fields except 'file'
-      const formValues = form.getRawValue();
-      for (const key in formValues) {
-        if (formValues.hasOwnProperty(key) && key !== 'file') {
-          formData.append(key, formValues[key]);
-        }
-      }
-      if (this.selectedFile) {
-        formData.append('file', this.selectedFile);
-      }
-    formData.append('firstName',this.lspForm.value.lspName)
-  
-      !this.lspId ? this.addLsp(formData) : this.updateLsp(formData);
-    } else {
-      form.markAllAsTouched(); // Ensures all validation messages show up
-    }
-  }
+  if (form.valid) {
+    const formValues = form.getRawValue();
 
-  
+    const jsonPayload: any = {};
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && key !== 'file') {
+        jsonPayload[key] = formValues[key];
+      }
+    }
+
+    jsonPayload['firstName'] = formValues['lspName'];
+
+    const formData = new FormData();
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && key !== 'file') {
+        formData.append(key, formValues[key]);
+      }
+    }
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile);
+    }
+    formData.append('firstName', formValues['lspName']);
+
+    this.tempFormData = formData;
+
+    !this.lspId ? this.addUser(jsonPayload) : this.updateLsp(formData);
+  } else {
+    form.markAllAsTouched();
+  }
+}
+
+
+ addUser(jsonPayload: any) {
+        const { alias, apiKey, apiPassword, apiUrl, mobileNo,
+              apiUsername, description, EntryBy, logo, ...payload } = jsonPayload;
+              payload.phoneNumber = mobileNo
+  this.userService.addUser(payload).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.dataEmitter.emit();
+        this.userId = response.data.id;
+        this.buildForm();
+        this.addLsp(this.tempFormData);
+      } else {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
+}
+
+
+
   addLsp(formData: any): void {
+    formData.append('u_Id',this.userId)
     this.lspService.addLsp(formData).subscribe({
       next: (response) => {
         if (response.success) {
