@@ -87,7 +87,7 @@ exportExcel() {
   const formData = new FormData();
   this.uploadedImages.forEach((item) => {
     if (item.file) {
-      formData.append('imageFiles', item.file, item.name);
+      formData.append('images', item.file, item.name);
     }
   });
   formData.append('mappedData', new Blob([JSON.stringify(this.mappedData)], { type: 'application/json' }));
