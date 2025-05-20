@@ -9,13 +9,11 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspService } from '../../../shared/services/lsp.service';
-import { CommonService } from '../../../shared/services/common.service';
-import { EmailRegex, MobileRegex, OnlyDigitRegex, PincodeRegex, zipCode } from '../../../shared/constants/common';
+import { EmailRegex, MobileRegex, OnlyDigitRegex } from '../../../shared/constants/common';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
-import { concatMap, throwError } from 'rxjs';
 
 
 @Component({
