@@ -16,6 +16,7 @@ export interface LspTatResponse {
     emailId:string;
     modedesc:string;
     priorityDesc:string;
+    modeDescription:string;
 }
 
 export interface AddLspTatRequest {

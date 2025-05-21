@@ -34,7 +34,7 @@
                                     <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['product']" (input)="getLspMappings()"/></th>
                                     <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['origin']" (input)="getLspMappings()"/></th>
                                     <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['destination']" (input)="getLspMappings()"/></th>
-                                    <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['mode']" (input)="getLspMappings()"/></th>
+                                    <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['modeDescription']" (input)="getLspMappings()"/></th>
                                     <th class="w-5"><input type="text" class="form-control" [(ngModel)]="filters['tat']" (input)="getLspMappings()"/></th>
                                     <th class="w-8"></th>
                                     <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
@@ -49,7 +49,7 @@
                                     <td class="w-15">{{lsp.product}}</td>
                                     <td class="w-10">{{lsp.origin}}</td>
                                     <td class="w-10">{{lsp.destination}}</td>
-                                    <td class="w-10">{{lsp.mode}}</td>
+                                    <td class="w-10">{{lsp.modeDescription}}</td>
                                     <td class="w-5 text-center">{{lsp.tat}}</td>
                                     <td class="w-8 text-center"><i [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
                                     <td class="w-8"*ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
