@@ -117,7 +117,6 @@ downloadPod(data:any) {
 
 downloadImagesAsZip() {
   const zip = new JSZip();
-
   const imagePromises = this.trackTraceList.map(item =>
     fetch(item.podLink)
       .then(response => response.blob())

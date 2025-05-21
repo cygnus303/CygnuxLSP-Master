@@ -155,8 +155,9 @@
       </button>
     </div>
 
-    <div class="modal-body" style="padding: 0px;">
-      <img [src]="selectedPodImageUrl?.podLink" alt="POD Image" />
+    <div class="modal-body p-2 d-flex justify-content-center rounded align-items-center overflow-auto" style="max-height: 75vh;">
+      <img [src]="selectedPodImageUrl?.podLink" alt="POD Image" class="img-fluid object-fit-contain"
+        style="max-height: 70vh;" />
     </div>
 
     <div class="modal-footer">
