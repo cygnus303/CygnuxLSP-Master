@@ -1,8 +1,7 @@
 import {Component,EventEmitter,Input,OnChanges,OnInit,Output,SimpleChanges} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../../shared/services/customer.service';
-import { CommonService } from '../../../shared/services/common.service';
-import {EmailRegex,GSTRegex, MobileRegex,OnlyDigitRegex} from '../../../shared/constants/common';
+import {EmailRegex,GSTRegex, mobileNo, MobileRegex,OnlyDigitRegex} from '../../../shared/constants/common';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
@@ -52,12 +51,12 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         isConsolidatedGSTEnabled: new FormControl(false),
         country:new FormControl('INDIA'),
         purchaseHead:new FormControl(''),
-        purchaseHeadMobileNo:new FormControl(''),
+        purchaseHeadMobileNo:new FormControl('', Validators.pattern(mobileNo)),
         accountsHead:new FormControl(''), 
-        accountsHeadMobileNo:new FormControl(''), 
+        accountsHeadMobileNo:new FormControl('', Validators.pattern(mobileNo)), 
         proprietorName:new FormControl(''),
-        proprietorMobileNo:new FormControl(''),
-        proprietorEmail:new FormControl(''),
+        proprietorMobileNo:new FormControl('', Validators.pattern(mobileNo)),
+        proprietorEmail:new FormControl('',Validators.pattern(EmailRegex)),
         firstName:new FormControl('',[Validators.required]),
         lastName:new FormControl('', [Validators.required]),
         mobileNo:new FormControl('',[Validators.required,Validators.pattern(MobileRegex)]),

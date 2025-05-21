@@ -29,6 +29,7 @@ export class TrackTraceComponent {
   public docketList: string[] = [];
   public expandedIndex: number | null = null;
   public trackTraceList:TrackTraceResponse[]=[];
+  public selectedPodImageUrl?:TrackTraceResponse;
   public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
   public modalRef!: BsModalRef;
   constructor( 
@@ -64,7 +65,8 @@ finalizeDocketInput(): void {
   }
 }
 
-  openPOD(Templatepod: TemplateRef<any>){
+  openPOD(Templatepod: TemplateRef<any>,data:TrackTraceResponse){
+     this.selectedPodImageUrl = data;
     this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
   }
 
@@ -96,4 +98,23 @@ finalizeDocketInput(): void {
 toggleMoreView(index: number): void {
   this.expandedIndex = this.expandedIndex === index ? null : index;
 }
+
+downloadPod(data:any) {
+  const imageUrl = 'https://images.pexels.com/photos/235986/pexels-photo-235986.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+
+  fetch(imageUrl)
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = data.docketNo; // Set your desired filename
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Image download failed:', error));
+}
+
 }

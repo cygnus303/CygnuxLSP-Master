@@ -95,7 +95,7 @@
                             </div>
                             <div class="d-flex justify-content-end cursor-pointer mt-3">
                               <div *ngIf="data.currentStatus === '6'" class="me-3">
-                                <i class="ri-eye-fill align-bottom text-muted" (click)="openPOD(Templatepod)"></i>
+                                <i class="ri-eye-fill align-bottom text-muted" (click)="openPOD(Templatepod,data)"></i>
                               </div>
                               <a class="btn btn-link p-0" (click)="toggleMoreView(i)">
                                 {{ expandedIndex === i ? 'less view' : 'more view' }}
@@ -107,7 +107,7 @@
                                     <tbody>
                                       <tr><th class="w-50">Docket No</th><td>{{ data.docketNo }}</td></tr>
                                       <tr><th>Customer Name</th><td>{{ data.customerName }}</td></tr>
-                                      <tr><th>Current Status</th><td>{{ data.currentStatus }}</td></tr>
+                                      <tr><th>Current Status</th><td>{{ data.currentStatusDesc }}</td></tr>
                                       <tr><th>Date</th><td>{{ data.entryDate | date:'dd-MM-yyyy' }}</td></tr>
                                       <tr><th>From Location</th><td>{{ data.fromLocation }}</td></tr>
                                       <tr><th>To Location</th><td>{{ data.toLocation }}</td></tr>
@@ -160,7 +160,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-success">
+      <button type="button" class="btn btn-success" (click)="downloadPod(this.selectedPodImageUrl)">
         <i class="icon-download"></i> Download
       </button>
       <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>

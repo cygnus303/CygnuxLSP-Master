@@ -163,8 +163,10 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
-          this.lspTatForm.reset();
           this.buildForm()
+           if(this.userRoles !== 'SA' && this.customers && this.customers.length > 0){
+            this.lspTatForm.patchValue(this.customers[0]);
+          }
         } else {
           this.sweetAlertService.error(response.error.message);
         }

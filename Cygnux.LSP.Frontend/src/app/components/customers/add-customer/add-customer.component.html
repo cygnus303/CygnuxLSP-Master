@@ -175,7 +175,14 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Purchase Head Mobile No.</label>
-                    <input class="form-control" formControlName="purchaseHeadMobileNo" type="text" maxlength="10"  placeholder="Enter Purchase Head Mobile"/>
+                    <input class="form-control" formControlName="purchaseHeadMobileNo" type="text" maxlength="10"  placeholder="Enter Purchase Head Mobile" 
+                    [ngClass]="{'border-danger': customerForm.controls['purchaseHeadMobileNo'].invalid && customerForm.controls['purchaseHeadMobileNo'].touched}"/>
+                    <div *ngIf="customerForm.get('purchaseHeadMobileNo')?.touched && customerForm.get('purchaseHeadMobileNo')?.invalid"
+                      class="text-danger">
+                      <div *ngIf="customerForm.get('purchaseHeadMobileNo')?.errors?.['pattern']">
+                        Mobile number must be 10 digits.
+                      </div>
+                    </div>
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Accounts Head</label>
@@ -185,7 +192,14 @@
                 <div class="row g-3">
                   <div class="col-md-4">
                     <label class="col-form-label">Accounts Head Mobile No.</label>
-                    <input class="form-control" formControlName="accountsHeadMobileNo" type="text" maxlength="10" placeholder="Enter Accounts Head Mobile No" />
+                    <input class="form-control" formControlName="accountsHeadMobileNo" type="text" maxlength="10" placeholder="Enter Accounts Head Mobile No"
+                    [ngClass]="{'border-danger': customerForm.controls['accountsHeadMobileNo'].invalid && customerForm.controls['accountsHeadMobileNo'].touched}" />
+                     <div *ngIf="customerForm.get('accountsHeadMobileNo')?.touched && customerForm.get('accountsHeadMobileNo')?.invalid"
+                      class="text-danger">
+                      <div *ngIf="customerForm.get('accountsHeadMobileNo')?.errors?.['pattern']">
+                        Mobile number must be 10 digits.
+                      </div>
+                    </div>
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Proprietor Name</label>
@@ -193,13 +207,24 @@
                   </div>
                   <div class="col-md-4">
                     <label class="col-form-label">Proprietor Mobile No.</label>
-                    <input class="form-control" formControlName="proprietorMobileNo" type="text" maxlength="10" placeholder="Enter Proprietor Mobile No"/>
+                    <input class="form-control" formControlName="proprietorMobileNo" type="text" maxlength="10" placeholder="Enter Proprietor Mobile No"
+                    [ngClass]="{'border-danger': customerForm.controls['proprietorMobileNo'].invalid && customerForm.controls['proprietorMobileNo'].touched}"/>
+                    <div *ngIf="customerForm.get('proprietorMobileNo')?.touched && customerForm.get('proprietorMobileNo')?.invalid"
+                      class="text-danger">
+                      <div *ngIf="customerForm.get('proprietorMobileNo')?.errors?.['pattern']">
+                        Mobile number must be 10 digits.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="row g-3">
                   <div class="col-md-4">
                     <label class="col-form-label">Proprietor E-mail.</label>
-                    <input class="form-control" formControlName="proprietorEmail" type="text"  placeholder="Enter Proprietor E-mail"/>
+                    <input class="form-control" formControlName="proprietorEmail" type="text"  placeholder="Enter Proprietor E-mail"
+                    [ngClass]="{ 'border-danger': customerForm.controls['proprietorEmail'].invalid && customerForm.controls['proprietorEmail'].touched}"/>
+                    <div *ngIf="customerForm.controls['proprietorEmail'].invalid && customerForm.controls['proprietorEmail']?.touched" class="text-danger">
+                    <small *ngIf="customerForm.controls['proprietorEmail'].errors?.['pattern']">Email is invalid.</small>
+                  </div>
                   </div>
                 </div>
               </div>
