@@ -26,6 +26,13 @@ app.UseStaticFiles(new StaticFileOptions
            Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
     RequestPath = "/Uploads"
 });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "PODUpload")),
+    RequestPath = "/PODUpload"
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

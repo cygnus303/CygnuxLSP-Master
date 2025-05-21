@@ -408,7 +408,7 @@ public class DocketController : ControllerBase
 
             // Build server file path
             var uploadRoot = _iconfiguration.GetValue<string>("ImagePath"); // Physical root path
-            var uploadFolder = Path.Combine(uploadRoot, "PODUpload", customerId, lspId, finyear, month);
+            var uploadFolder = Path.Combine(uploadRoot, customerId, lspId, finyear, month);
 
             // Ensure directory exists
             if (!Directory.Exists(uploadFolder))
@@ -424,7 +424,7 @@ public class DocketController : ControllerBase
             }
 
             // Generate public access URL
-            var podLink = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerId}/{lspId}/{finyear}/{month}/{docket.ImageName}";
+            var podLink = $"{Request.Scheme}://{Request.Host}/{customerId}/{lspId}/{finyear}/{month}/{docket.ImageName}";
 
             // Add to list for DB insert
             var podDetail = new PODDataList
@@ -432,7 +432,8 @@ public class DocketController : ControllerBase
                 DocketNo = docket.DocketNo,
                 CustomerId = docket.CustomerId ?? Guid.Empty,
                 LspId = docket.LSPId,
-                POD = uniqueFileName,
+                /*POD = uniqueFileName,*/
+                POD = docket.ImageLink,
                 PODFileName = docket.ImageName,
                 PODLink = podLink
             };
