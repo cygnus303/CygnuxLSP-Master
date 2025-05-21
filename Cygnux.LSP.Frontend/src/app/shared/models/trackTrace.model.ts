@@ -16,6 +16,7 @@ export interface TrackTraceResponse{
     entryDate: string;
     currentStatus: string;
     currentStatusDesc: string;
+    podLink:string;
 }
 
 export interface IRange {
