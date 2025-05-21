@@ -22,7 +22,8 @@
         public string CurrentStatusDesc { get; set; } = string.Empty;
         public int? TotalCount { get; set; }
         public TrackingList? track {  get; set; }
-       
+        public string PODLink { get; set; } = string.Empty;
+
     }
 
     public class TrackingList
