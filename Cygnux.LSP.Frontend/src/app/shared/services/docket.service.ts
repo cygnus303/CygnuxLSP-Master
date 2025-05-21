@@ -107,8 +107,8 @@ export class DocketService {
     return this.apiHandlerService.Patch('docket/DeleteDocket/' + id, null);
   }
 
-  uploadDocket(userId:string,formData:any){
-    return this.apiHandlerService.Post(`Docket/ImportPOD?User=${userId}`, formData);
+  uploadDocket(formData:any){
+    return this.apiHandlerService.Post(`Docket/ImportPOD`, formData);
   }
 
   getLocationData(filters:any){

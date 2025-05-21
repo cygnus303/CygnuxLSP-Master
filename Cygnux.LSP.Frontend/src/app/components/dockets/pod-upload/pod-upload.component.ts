@@ -99,8 +99,10 @@ exportExcel() {
     }
   });
   formData.append('docketJson', JSON.stringify(this.mappedData));
+  formData.append('User', this.identityService.getLoggedUserId());
 
-  this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
+
+  this.docketService.uploadDocket(formData).subscribe({
     next: (response) => {
       if (response.success) {
         this.dataEmitter.emit();
