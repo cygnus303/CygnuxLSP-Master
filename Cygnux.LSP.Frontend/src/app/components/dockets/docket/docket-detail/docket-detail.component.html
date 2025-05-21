@@ -18,7 +18,23 @@
             <td><strong>Booking Date:</strong> {{ docketDetail?.bookingDate | date:'dd/MM/yyyy' }}</td>
             <td><strong>Quantity:</strong> {{ docketDetail?.quantity }}</td>
           </tr>
+          <tr>
+            <td>
+              <strong>POD Image :</strong> &nbsp;
+              @if (docketDetail?.podLink) {
+              <i class="fa fa-eye" style="cursor: pointer; color: #007bff;" (click)="openPodModal()" [popover]="'View POD'" placement="auto" triggers="hover" [outsideClick]="true" container="body"></i>
+              }
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+<div class="custom-modal" [class.show]="showPodImage" (click)="closePodModal()"
+  [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
+  <div class="custom-modal-content" (click)="$event.stopPropagation()">
+    <button class="btn-close" type="button" (click)="closePodModal()"></button>
+    <img [src]="docketDetail?.podLink" alt="POD Image" />
+  </div>
+</div>

@@ -9,6 +9,8 @@ import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
 
 @Component({
   selector: 'app-track-trace',
@@ -74,7 +76,6 @@ finalizeDocketInput(): void {
     const docketString = this.docketList.length ? this.docketList.join(',') : null;
     this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
       this.trackTraceList = res.data;
-
       setTimeout(() => {
         feather.replace();
       });
@@ -100,11 +101,8 @@ toggleMoreView(index: number): void {
 }
 
 downloadPod(data:any) {
-  const imageUrl = 'https://images.pexels.com/photos/235986/pexels-photo-235986.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-
-  fetch(imageUrl)
-    .then(response => response.blob())
-    .then(blob => {
+  const imageUrl = data.podLink
+  fetch(imageUrl).then(response => response.blob()).then(blob => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -117,4 +115,21 @@ downloadPod(data:any) {
     .catch(error => console.error('Image download failed:', error));
 }
 
+downloadImagesAsZip() {
+  const zip = new JSZip();
+
+  const imagePromises = this.trackTraceList.map(item =>
+    fetch(item.podLink)
+      .then(response => response.blob())
+      .then(blob => {
+        zip.file(`docket_${item.docketNo}.jpg`, blob);
+      })
+  );
+
+  Promise.all(imagePromises).then(() => {
+    zip.generateAsync({ type: 'blob' }).then((content: Blob) => {
+      saveAs(content, 'dockets.zip');
+    });
+  });
+}
 }

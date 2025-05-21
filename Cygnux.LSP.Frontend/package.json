@@ -34,6 +34,7 @@
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
     "jsgrid": "^1.5.3",
+    "jszip": "^3.10.1",
     "jwt-decode": "^4.0.0",
     "lord-icon-element": "^4.1.2",
     "lottie-web": "^5.12.2",

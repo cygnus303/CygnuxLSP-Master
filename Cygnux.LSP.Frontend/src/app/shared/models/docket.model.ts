@@ -16,6 +16,7 @@ export interface DocketResponse {
   transporterDesc:string;
   currentStatusDesc:string
   customerName:string;
+  podLink:string;
 }
 
 export interface AddDocketRequest {

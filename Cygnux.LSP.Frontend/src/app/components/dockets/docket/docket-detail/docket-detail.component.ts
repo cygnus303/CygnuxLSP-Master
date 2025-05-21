@@ -9,5 +9,12 @@ import { DocketResponse } from '../../../../shared/models/docket.model';
 })
 export class DocketDetailComponent {
   @Input() docketDetail: DocketResponse | null = null;
+showPodImage = false;
+ openPodModal() {
+    this.showPodImage = true;
+  }
 
+  closePodModal() {
+    this.showPodImage = false;
+  }
 }
