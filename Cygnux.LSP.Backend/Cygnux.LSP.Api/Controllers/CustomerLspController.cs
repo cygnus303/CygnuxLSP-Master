@@ -18,9 +18,9 @@ public class CustomerLspController : ControllerBase
 
     [HttpGet]
     [Route("Tat")]
-    public async Task<IActionResult> GetLspTatList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? customerName,string? lspName,string? product,string? origin,string?destination,int? tat)
+    public async Task<IActionResult> GetLspTatList([FromQuery] int page, [FromQuery] int pageSize,Guid userId,string? customerName,string? lspName,string? product,string? origin,string?destination,int? tat,string? modeDescription)
     {
-        return Ok(await _customerLspRepository.GetLspTatList(Guid.NewGuid(), page, pageSize, userId,customerName,lspName,product,origin,destination,tat));
+        return Ok(await _customerLspRepository.GetLspTatList(Guid.NewGuid(), page, pageSize, userId,customerName,lspName,product,origin,destination,tat, modeDescription));
     }
 
     [HttpGet]
