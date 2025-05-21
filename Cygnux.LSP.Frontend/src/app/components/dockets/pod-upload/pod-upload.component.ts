@@ -95,10 +95,10 @@ exportExcel() {
   const formData = new FormData();
   this.uploadedImages.forEach((item) => {
     if (item.file) {
-      formData.append('images', item.file, item.name);
+      formData.append('imgfiles', item.file, item.name);
     }
   });
-  formData.append('mappedData', new Blob([JSON.stringify(this.mappedData)], { type: 'application/json' }));
+  formData.append('docketJson', JSON.stringify(this.mappedData));
 
   this.docketService.uploadDocket(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
