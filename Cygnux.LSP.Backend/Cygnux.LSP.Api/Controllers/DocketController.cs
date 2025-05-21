@@ -424,7 +424,7 @@ public class DocketController : ControllerBase
             }
 
             // Generate public access URL
-            var podLink = $"{Request.Scheme}://{Request.Host}/{customerId}/{lspId}/{finyear}/{month}/{docket.ImageName}";
+            var podLink = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerId}/{lspId}/{finyear}/{month}/{docket.ImageName}";
 
             // Add to list for DB insert
             var podDetail = new PODDataList
