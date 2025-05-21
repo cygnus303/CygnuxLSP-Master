@@ -12,6 +12,7 @@ public class LspTatDetailResponse
     public string Destination { get; set; } = string.Empty;
     public string DestinationState { get; set; } = string.Empty;
     public string Mode { get; set; } = string.Empty;
+    public string ModeDescription { get; set; } = string.Empty;
     public string Modedesc {  get; set; } = string.Empty;
     public int Tat { get; set; }
     public int Priority { get; set; }
