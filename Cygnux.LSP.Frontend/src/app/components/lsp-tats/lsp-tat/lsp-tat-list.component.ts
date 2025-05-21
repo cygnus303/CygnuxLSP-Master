@@ -146,7 +146,6 @@ export class LspTatListComponent implements OnInit {
     const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
       modalInstance.hide();
-
       this.getLspMappings();
     }
   }

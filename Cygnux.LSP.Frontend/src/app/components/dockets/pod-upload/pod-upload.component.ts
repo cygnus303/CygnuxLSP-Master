@@ -30,8 +30,7 @@ export class PodUploadComponent {
     if (this.selectedFile === file) {
       this.selectedFile = null;
     }
-    this.uploadedImages=[];
-    this.mappedData=[];
+   this.selectedFile = null;
   }
   
   onClose(){
@@ -107,6 +106,10 @@ exportExcel() {
       if (response.success) {
         this.dataEmitter.emit();
         this.sweetAlertService.success(response.data.message);
+          this.files = [];
+          this.mappedData = [];
+          this.uploadedImages=[];
+
       } else {
         this.sweetAlertService.error(response.error.message);
       }
