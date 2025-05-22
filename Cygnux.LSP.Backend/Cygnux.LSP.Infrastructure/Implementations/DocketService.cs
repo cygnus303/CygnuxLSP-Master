@@ -176,11 +176,11 @@ internal class DocketService : IDocketService
            ) ?? new CommonCreateResponse();
     }
 
-    public async Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid custId)
+    public async Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid Lspid)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@json", bulkDocket, DbType.String);
-        parameters.Add("@CustomerID", custId, DbType.Guid);
+        parameters.Add("@JsonInput", bulkDocket, DbType.String);
+        parameters.Add("@LspId", Lspid, DbType.Guid);
 
         return await _dbConnection.QueryAsync<DocketStatusResponseData>(
             StoredProcedureConstants.USP_ValidateDocketStatusData,

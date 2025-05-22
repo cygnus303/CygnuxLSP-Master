@@ -113,9 +113,9 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
-    public async Task<BaseResponse<IEnumerable<DocketStatusResponseData>>> GetValidateDocketStatusUpdateData(List<Dictionary<string, string>> bulkDocket, Guid custId)
+    public async Task<BaseResponse<IEnumerable<DocketStatusResponseData>>> GetValidateDocketStatusUpdateData(List<Dictionary<string, string>> bulkDocket, Guid Lspid)
     {
-        var response = await _docketService.GetValidateDocketStatusUpdateData(JsonConvert.SerializeObject(bulkDocket), custId);
+        var response = await _docketService.GetValidateDocketStatusUpdateData(JsonConvert.SerializeObject(bulkDocket), Lspid);
 
         return new BaseResponse<IEnumerable<DocketStatusResponseData>>(response);
     }

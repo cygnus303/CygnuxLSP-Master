@@ -19,7 +19,7 @@ public interface IDocketService
     Task<IEnumerable<DocketBulkUploadValidateResponse>> GetValidateDocketImportData(string bulkDocket, Guid customerid);
     Task<CommonCreateResponse> InsertDocketData(string docketdata, Guid entryBy);
     Task<CommonCreateResponse> ImportPOD(string podDataList, Guid User);
-    Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid custId);
+    Task<IEnumerable<DocketStatusResponseData>> GetValidateDocketStatusUpdateData(string bulkDocket, Guid Lspid);
     Task<CommonCreateResponse> UpdateDocketStatus(string docketstslist, Guid entryBy);
     Task<IEnumerable<ValidatePODResponse>> ValidatePODUplaodData(string jsonDocketData, string jsonImageNames, Guid lspuser);
 }

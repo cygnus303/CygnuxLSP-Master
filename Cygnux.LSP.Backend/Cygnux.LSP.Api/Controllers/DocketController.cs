@@ -282,12 +282,12 @@ public class DocketController : ControllerBase
 
     [HttpPost]
     [Route("ValidateDocketStatus")]
-    public async Task<IActionResult> GetValidateDocketStatusUpdateData(IFormFile file, Guid custId)
+    public async Task<IActionResult> GetValidateDocketStatusUpdateData(IFormFile file, Guid Lspid)
     {
         var data = ExcelReadHelper.ExtractAllRows(file);
         if (data is not null)
         {
-            return Ok(await _docketRepository.GetValidateDocketStatusUpdateData(data, custId));
+            return Ok(await _docketRepository.GetValidateDocketStatusUpdateData(data, Lspid));
         }
         return Ok();
     }
