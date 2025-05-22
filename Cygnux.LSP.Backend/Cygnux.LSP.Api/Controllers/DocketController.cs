@@ -214,13 +214,13 @@ public class DocketController : ControllerBase
     public async Task<IActionResult> DownloadTrackingExcel([FromQuery] Guid login)
     {
         var response = await _docketRepository.GetTrackingList("DOCKSTAUS");
-        var lsplist = await _customerLspRepository.GetLsps(login);
+        //var lsplist = await _customerLspRepository.GetLsps(login);
 
         if (response == null || response.Data == null || !response.Data.Any())
             return NotFound("No records found for the selected code.");
 
-        if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
-            return NotFound("No records found for the selected code.");
+        //if (lsplist == null || lsplist.Data == null || !lsplist.Data.Any())
+        //    return NotFound("No records found for the selected code.");
 
         using (var workbook = new XLWorkbook())
         {
@@ -228,45 +228,45 @@ public class DocketController : ControllerBase
             var listSheet = workbook.Worksheets.Add("DropdownList");
 
             // Populate dropdown values in a separate sheet
-            int row = 1, lsprows = 1;
+            int row = 1; //, lsprows = 1;
             foreach (var item in response.Data)
             {
                 listSheet.Cell(row, 1).Value = item.CodeId + ":" + item.CodeDesc; // Use item.Code if needed
                 row++;
             }
-            foreach (var itemlsp in lsplist.Data)
-            {
-                listSheet.Cell(lsprows, 2).Value = itemlsp.LSPCode + ":" + itemlsp.LspName; // Use item.Code if needed
-                lsprows++;
-            }
+            //foreach (var itemlsp in lsplist.Data)
+            //{
+            //    listSheet.Cell(lsprows, 2).Value = itemlsp.LSPCode + ":" + itemlsp.LspName; // Use item.Code if needed
+            //    lsprows++;
+            //}
 
             // Define named range for the list (e.g., A1:A10)
             var listRange = listSheet.Range($"A1:A{response.Data.Count()}");
             listRange.AddToNamed("TrackingOptions");
-            var listRangelsp = listSheet.Range($"B1:B{lsplist.Data.Count()}");
-            listRangelsp.AddToNamed("LspOptions");
+            //var listRangelsp = listSheet.Range($"B1:B{lsplist.Data.Count()}");
+            //listRangelsp.AddToNamed("LspOptions");
 
             // Hide the dropdown sheet
             listSheet.Visibility = XLWorksheetVisibility.VeryHidden;
 
             // Add header to main sheet
-            mainSheet.Cell("A1").Value = "LSP Name";
-            mainSheet.Cell("B1").Value = "Docket Number";
-            mainSheet.Cell("C1").Value = "Next Docket Status";
-            mainSheet.Cell("D1").Value = "Status Date";
+            //mainSheet.Cell("A1").Value = "LSP Name";
+            mainSheet.Cell("A1").Value = "Docket Number";
+            mainSheet.Cell("B1").Value = "Next Docket Status";
+            mainSheet.Cell("C1").Value = "Status Date";
 
             // Apply data validation
-            var validationStatus = mainSheet.Range("C2:C1048576").CreateDataValidation();
+            var validationStatus = mainSheet.Range("B2:B1048576").CreateDataValidation();
             validationStatus.IgnoreBlanks = true;
             validationStatus.InCellDropdown = true;
             validationStatus.AllowedValues = XLAllowedValues.List;
             validationStatus.List("=TrackingOptions");
 
-            var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
-            validationLsp.IgnoreBlanks = true;
-            validationLsp.InCellDropdown = true;
-            validationLsp.AllowedValues = XLAllowedValues.List;
-            validationLsp.List("=LspOptions");
+            //var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
+            //validationLsp.IgnoreBlanks = true;
+            //validationLsp.InCellDropdown = true;
+            //validationLsp.AllowedValues = XLAllowedValues.List;
+            //validationLsp.List("=LspOptions");
 
 
             using (var stream = new MemoryStream())
