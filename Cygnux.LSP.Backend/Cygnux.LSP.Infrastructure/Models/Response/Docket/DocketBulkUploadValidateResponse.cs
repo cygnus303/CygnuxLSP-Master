@@ -59,15 +59,27 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
 
     public class DocketStatusUpdate
     {
+        //public int Id { get; set; }
+        //public string LspName { get; set; } = string .Empty ;
+        //public string DocketNumber { get; set; } = string.Empty;
+        //public string NextDocketStatus { get; set; } = string.Empty;
+        //public DateTime StatusDate { get; set; }
+        //public int ErrorCode { get; set; }
+        //public string ErrorMessage { get; set; } = string.Empty;
+        //public Guid Transporter { get; set; }
+        //public string CurrentStatusCode { get; set; } = string.Empty;
         public int Id { get; set; }
-        public string LspName { get; set; } = string .Empty ;
         public string DocketNumber { get; set; } = string.Empty;
         public string NextDocketStatus { get; set; } = string.Empty;
         public DateTime StatusDate { get; set; }
         public int ErrorCode { get; set; }
-        public string ErrorMessage { get; set; } = string.Empty;
-        public Guid Transporter { get; set; }
-        public string CurrentStatusCode { get; set; } = string.Empty;
+        public string? ErrorMessage { get; set; } = string.Empty;
+        public Guid? CustomerId { get; set; }
+        public Guid? Transporter { get; set; }
+        public string? CustomerName { get; set; } = string.Empty;
+        public string? LSPName { get; set; } = string.Empty;
+        public string? CurrentStatusCode { get; set; } = string.Empty;
+        public string? CurrentStatusCodeDesc { get; set; } = string.Empty;
     }
 
     public class ValidatePODResponse
