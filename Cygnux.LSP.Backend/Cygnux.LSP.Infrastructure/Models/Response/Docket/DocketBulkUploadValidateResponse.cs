@@ -50,7 +50,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public int ErrorCode { get; set; } 
         public string? ErrorMessage { get; set; } = string.Empty;
         public Guid? CustomerId { get; set; }
-        public string? Transporter {  get; set; } = string.Empty;
+        public Guid? Transporter {  get; set; }
         public string? CustomerName { get; set; } = string.Empty;
         public string? LSPName { get; set; } = string.Empty;
         public string? CurrentStatusCode { get; set; } = string.Empty;
