@@ -31,7 +31,6 @@
                 <table class="table mt-3 table-bordered excelData-table w-100">
                   <thead class="table-light sticky-top">
                     <tr>
-                      <th class="text-center">Lsp Name</th>
                       <th class="text-center">Docket No</th>
                       <th class="text-center">Next Docket Status</th>
                       <th class="text-center">Status Date</th>
@@ -40,11 +39,10 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let data of validateDocketStatusList" [ngClass]="!data.errorCode ?'pink':'green'">
-                      <td class="text-center">{{ data.lspName}}</td>
                       <td class="text-center">{{ data.docketNumber}}</td>
-                      <td class="text-center">{{ data.nextDocketStatus}}</td>
+                      <td class="text-center"> {{ data.nextDocketStatus.includes(':') ? data.nextDocketStatus.split(':')[1] : data.nextDocketStatus }}</td>
                       <td class="text-center">{{ data.statusDate | date: 'dd-MM-yyyy' }}</td>
-                      <td class="text-center">{{ data.errorMessage}}</td>
+                      <td class="text-center">{{ data.errorCode===0?data.errorMessage:'success'}}</td>
                     </tr>
                   </tbody>
                 </table>

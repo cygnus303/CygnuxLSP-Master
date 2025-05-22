@@ -144,7 +144,7 @@ export class DocketService {
   }
 
   validateDocketStatus(id:string,formData:any){
-    return this.apiHandlerService.Post(`Docket/ValidateDocketStatus?custId=${id}`,formData);
+    return this.apiHandlerService.Post(`Docket/ValidateDocketStatus?Lspid=${id}`,formData);
   }
   updateDocketStatus(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post(`Docket/UpdateDocketStatus?entryBy=${id}`,formData);

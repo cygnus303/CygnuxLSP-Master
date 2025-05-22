@@ -64,6 +64,7 @@ finalizeDocketInput(): void {
 
     this.docketList.push(...newDockets);
     this.docketInput = '';
+    this.onSearchTrackTrace();
   }
 }
 
@@ -100,35 +101,90 @@ toggleMoreView(index: number): void {
   this.expandedIndex = this.expandedIndex === index ? null : index;
 }
 
-downloadPod(data:any) {
-  const imageUrl = data.podLink
-  fetch(imageUrl).then(response => response.blob()).then(blob => {
+downloadPod(pod: any): void {
+  if (!pod?.podLink) {
+    console.error('No image link found.');
+    return;
+  }
+
+  // Force HTTPS in case backend returns HTTP
+  const secureUrl = pod.podLink.startsWith('http://')
+    ? pod.podLink.replace('http://', 'https://')
+    : pod.podLink;
+
+  fetch(secureUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.blob();
+    })
+    .then(blob => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = data.docketNo; // Set your desired filename
+      a.download = this.extractFileName(secureUrl); // Use cleaned URL
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+      a.remove();
+      window.URL.revokeObjectURL(url); // Clean up
     })
-    .catch(error => console.error('Image download failed:', error));
+    .catch(error => {
+      console.error('Image download failed:', error);
+      alert('Failed to download image. Please try again or check the image URL.');
+    });
 }
 
-downloadImagesAsZip() {
-  const zip = new JSZip();
-  const imagePromises = this.trackTraceList.map(item =>
-    fetch(item.podLink)
-      .then(response => response.blob())
-      .then(blob => {
-        zip.file(`docket_${item.docketNo}.jpg`, blob);
-      })
-  );
+extractFileName(url: string): string {
+  try {
+    const path = url.split('?')[0]; // Remove query params
+    const filename = path.substring(path.lastIndexOf('/') + 1);
+    return filename || `downloaded_image_${Date.now()}.jpg`;
+  } catch {
+    return `downloaded_image_${Date.now()}.jpg`;
+  }
+}
 
-  Promise.all(imagePromises).then(() => {
-    zip.generateAsync({ type: 'blob' }).then((content: Blob) => {
-      saveAs(content, 'dockets.zip');
+downloadImagesAsZip(): void {
+  const zip = new JSZip();
+
+  const imagePromises = this.trackTraceList
+    .filter(item => item.podLink!='-') // ✅ Only process items with a valid podLink
+    .map(item => {
+      const secureUrl = item.podLink.replace('http://', 'https://');
+
+      return fetch(secureUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.blob();
+        })
+        .then(blob => {
+          zip.file(`docket_${item.docketNo}.jpg`, blob);
+        })
+        .catch(err => {
+          console.error(`Failed to fetch ${secureUrl}:`, err);
+        });
     });
+
+  // Wait for all images to be added to the zip
+  Promise.all(imagePromises).then(() => {
+    if (zip.files && Object.keys(zip.files).length > 0) {
+      zip.generateAsync({ type: "blob" }).then(zipBlob => {
+        const url = window.URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'POD_Images.zip';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      });
+    } else {
+    }
   });
 }
+
+
 }
