@@ -226,4 +226,18 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+
+    public async Task<CommonCreateResponse> SinglePODUploadFile(string docketNo, string docPod, Guid lspuser)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@DocketNo", docketNo, DbType.String);
+        parameters.Add("@DocketJson", docPod, DbType.String);
+        parameters.Add("@UserName", lspuser, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_InsertUpdateSinglePODUpload,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
+    }
 }

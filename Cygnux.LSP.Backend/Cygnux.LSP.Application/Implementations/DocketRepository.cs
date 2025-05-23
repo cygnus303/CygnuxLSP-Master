@@ -133,4 +133,12 @@ internal class DocketRepository : IDocketRepository
 
         return new BaseResponse<IEnumerable<ValidatePODResponse>>(response);
     }
+
+    public async Task<BaseResponse<CommonCreateResponse>> SinglePODUploadFile(string docketNo, DocketPODUploadReq docPod, Guid lspuser)
+    {
+        var response = await _docketService.SinglePODUploadFile(docketNo, JsonConvert.SerializeObject(docPod),lspuser);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
 }
