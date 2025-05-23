@@ -90,6 +90,9 @@
                            'disabled-icon': docket.currentStatus !== '6'}" [popover]="'POD Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                            <img src="/assets/images/pod.svg" width="37" height="27">
                         </div>
+                        <div (click)="docket.currentStatus !== '6'  ? null : openPOD(Templatepod,docket)" [ngClass]="{'disabled-image': !userRoles.includes('Customer Admin') ,'disabled-icon': docket.currentStatus !== '6'}" [popover]="'POD View/Downloads'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                           <img src="/assets/images/file.svg" class="filter-contrast-50" width="25" height="22">
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -192,3 +195,26 @@
 </div>
 
 <pod-status-upload #PodStatusUpload></pod-status-upload>
+
+<ng-template #Templatepod>
+  <div class="modal-content">
+    <div class="modal-header bs-blue d-flex justify-content-between">
+      <h5 class="modal-title">POD</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <i class="fa fa-close"></i>
+      </button>
+    </div>
+
+    <div class="modal-body p-2 d-flex justify-content-center rounded align-items-center overflow-auto" style="max-height: 75vh;">
+      <img [src]="selectedDocket?.podLink" alt="POD Image" class="img-fluid object-fit-contain"
+        style="max-height: 70vh;" />
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="downloadPod(selectedDocket)">
+        <i class="icon-download"></i> Download
+      </button>
+      <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+    </div>
+  </div>
+</ng-template>

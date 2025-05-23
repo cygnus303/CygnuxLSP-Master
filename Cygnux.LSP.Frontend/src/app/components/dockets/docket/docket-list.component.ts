@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -13,13 +13,14 @@ import feather from 'feather-icons';
 import { ImportDocketComponent } from './import-docket/import-docket.component';
 import { AddDocketComponent } from './add-docket/add-docket.component';
 import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.component';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-docket',
   standalone: false,
   templateUrl: './docket-list.component.html',
   styleUrls: ['./docket-list.component.scss'],
- 
+ providers:[BsModalService]
 })
 export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
@@ -33,6 +34,7 @@ export class DocketListComponent implements OnInit {
   public RoleListsubscribe!:Subscription;
   public isSelected: string='';
   public loading : boolean = false;
+   public modalRef!: BsModalRef;
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
@@ -45,6 +47,7 @@ export class DocketListComponent implements OnInit {
     private sweetAlertService:SweetAlertService,
     private identityService:IdentityService,
     private cdRef: ChangeDetectorRef,
+    private modalService: BsModalService
     
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
@@ -204,7 +207,6 @@ export class DocketListComponent implements OnInit {
   }
 
   getDocket(docketList: any) {
-    
     this.docketService.getDocketDetails(docketList.docketId).subscribe({
       next: (response) => {
         if (response) {
@@ -234,6 +236,56 @@ export class DocketListComponent implements OnInit {
       modalElement.addEventListener('click', handleOutsideClick);
     }
   }
+
+  openPOD(Templatepod: TemplateRef<any>,data:any){
+     this.getDocket(data);
+    this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
+  }
+
+  downloadPod(pod: any): void {
+  if (!pod?.podLink) {
+    console.error('No image link found.');
+    return;
+  }
+
+  // Force HTTPS in case backend returns HTTP
+  const secureUrl = pod.podLink.startsWith('http://')
+    ? pod.podLink.replace('http://', 'https://')
+    : pod.podLink;
+
+  fetch(secureUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.blob();
+    })
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = this.extractFileName(secureUrl); // Use cleaned URL
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url); // Clean up
+    })
+    .catch(error => {
+      console.error('Image download failed:', error);
+      alert('Failed to download image. Please try again or check the image URL.');
+    });
+}
+  
+extractFileName(url: string): string {
+  try {
+    const path = url.split('?')[0]; // Remove query params
+    const filename = path.substring(path.lastIndexOf('/') + 1);
+    return filename || `downloaded_image_${Date.now()}.jpg`;
+  } catch {
+    return `downloaded_image_${Date.now()}.jpg`;
+  }
+}
+    
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
     const modalInstance = Modal.getInstance(modalElement);
