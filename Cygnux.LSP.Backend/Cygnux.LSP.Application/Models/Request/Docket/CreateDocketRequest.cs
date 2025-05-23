@@ -48,6 +48,7 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
 
     public class DocketPODUploadReq
     {
+        /*public string DocketNo { get; set;} = string.Empty;*/
         public Guid? LspId { get; set; }
         public Guid? CustomerId { get; set; }
         public string? PODLink { get; set; } = string.Empty;

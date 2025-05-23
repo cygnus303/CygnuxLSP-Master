@@ -2,19 +2,12 @@
 
 using Application.Contracts;
 using Application.Models.Request.Docket;
-using Azure;
 using ClosedXML.Excel;
 using Cygnux.LSP.Api.Helpers;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
-using DocumentFormat.OpenXml.Presentation;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using OfficeOpenXml;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 [Route("api/v{version:apiVersion}/[controller]")]
@@ -452,19 +445,18 @@ public class DocketController : ControllerBase
 
     [HttpPost]
     [Route("SinglePODUpload")]
-    public async Task<IActionResult> SinglePODUploadFile(string docketNo, DocketPODUploadReq docPod,IFormFile imageFile,Guid lspuser)
+    public async Task<IActionResult> SinglePODUploadFile(IFormFile imageFile,string docketNo,Guid? customerId,Guid? lspId,string podFileName,string podLink,DateTime uploadDate,Guid lspuser)
     {
         if (imageFile == null || imageFile.Length == 0)
             return BadRequest("No image file uploaded.");
 
-        // Allowed extensions
         var allowedExtensions = new[] { ".png", ".jpg", ".jpeg", ".tiff", ".tif" };
         var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
 
         if (!allowedExtensions.Contains(fileExtension))
             return BadRequest("Invalid file extension. Allowed: .png, .jpg, .jpeg, .tiff, .tif");
 
-        // Check if image file name matches the docket number
+        // Validate filename matches DocketNo
         var fileNameWithoutExt = Path.GetFileNameWithoutExtension(imageFile.FileName);
         if (!fileNameWithoutExt.Equals(docketNo, StringComparison.OrdinalIgnoreCase))
             return BadRequest($"Image filename must match the docket number (expected: {docketNo}).");
@@ -472,42 +464,43 @@ public class DocketController : ControllerBase
         // Financial year logic
         DateTime currentDate = DateTime.Now;
         int year = currentDate.Month >= 4 ? currentDate.Year : currentDate.Year - 1;
-        var finYear = $"{year}-{(year + 1).ToString().Substring(2)}";
-        var month = currentDate.ToString("MMMM").ToUpper();
+        string finYear = $"{year}-{(year + 1).ToString().Substring(2)}";
+        string month = currentDate.ToString("MMMM").ToUpper();
 
-        // Get CustomerId and LSPId from input
-        var customerId = (docPod.CustomerId ?? Guid.Empty).ToString();
-        var lspId = docPod.LspId.ToString();
+        // Paths
+        string customerIdStr = (customerId ?? Guid.Empty).ToString();
+        string lspIdStr = (lspId ?? Guid.Empty).ToString();
 
-        // Get image base path from configuration
-        var rootPath = _iconfiguration.GetValue<string>("ImagePath");
+        string? rootPath = _iconfiguration.GetValue<string>("ImagePath");
+        string fullPath = Path.Combine(rootPath, customerIdStr, lspIdStr, finYear, month);
 
-        // Build dynamic path
-        var fullPath = Path.Combine(rootPath, customerId, lspId, finYear, month);
         if (!Directory.Exists(fullPath))
             Directory.CreateDirectory(fullPath);
 
         // Save file
-        var savedFilePath = Path.Combine(fullPath, imageFile.FileName);
+        string savedFilePath = Path.Combine(fullPath, imageFile.FileName);
         using (var stream = new FileStream(savedFilePath, FileMode.Create))
         {
             await imageFile.CopyToAsync(stream);
         }
 
-        // Build public image URL (assuming static file serving is properly configured)
-        var imageUrl = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerId}/{lspId}/{finYear}/{month}/{imageFile.FileName}";
+        // Image public URL
+        string imageUrl = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerIdStr}/{lspIdStr}/{finYear}/{month}/{imageFile.FileName}";
 
-        // Inject image link into docksts
-        docPod.PODFileName = imageFile.FileName;
-        docPod.PODLink = imageUrl;
-        docPod.UploadDate = Convert.ToDateTime(docPod.UploadDate);
+        // Build DTO
+        var docpod = new DocketPODUploadReq
+        {
+            LspId = lspId,
+            CustomerId = customerId,
+            PODFileName = imageFile.FileName,
+            PODLink = imageUrl,
+            UploadDate = uploadDate
+        };
 
-        // Call repo
-        var result = await _docketRepository.SinglePODUploadFile(docketNo, docPod,lspuser);
-
+        var result = await _docketRepository.SinglePODUploadFile(docketNo, docpod, lspuser);
         return Ok(result);
-       
     }
+
 
 }
 
