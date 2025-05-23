@@ -445,7 +445,7 @@ public class DocketController : ControllerBase
 
     [HttpPost]
     [Route("SinglePODUpload")]
-    public async Task<IActionResult> SinglePODUploadFile(IFormFile imageFile,string docketNo,Guid? customerId,Guid? lspId,string podFileName,string podLink,DateTime uploadDate,Guid lspuser)
+    public async Task<IActionResult> SinglePODUploadFile(IFormFile imageFile,string docketNo, [FromForm] string docpodJson,Guid lspuser)
     {
         if (imageFile == null || imageFile.Length == 0)
             return BadRequest("No image file uploaded.");
@@ -455,6 +455,8 @@ public class DocketController : ControllerBase
 
         if (!allowedExtensions.Contains(fileExtension))
             return BadRequest("Invalid file extension. Allowed: .png, .jpg, .jpeg, .tiff, .tif");
+
+        var docpodData = JsonConvert.DeserializeObject<DocketPODUploadReq>(docpodJson);
 
         // Validate filename matches DocketNo
         var fileNameWithoutExt = Path.GetFileNameWithoutExtension(imageFile.FileName);
@@ -468,8 +470,8 @@ public class DocketController : ControllerBase
         string month = currentDate.ToString("MMMM").ToUpper();
 
         // Paths
-        string customerIdStr = (customerId ?? Guid.Empty).ToString();
-        string lspIdStr = (lspId ?? Guid.Empty).ToString();
+        string customerIdStr = (docpodData.CustomerId ?? Guid.Empty).ToString();
+        string lspIdStr = (docpodData.LspId ?? Guid.Empty).ToString();
 
         string? rootPath = _iconfiguration.GetValue<string>("ImagePath");
         string fullPath = Path.Combine(rootPath, customerIdStr, lspIdStr, finYear, month);
@@ -490,11 +492,11 @@ public class DocketController : ControllerBase
         // Build DTO
         var docpod = new DocketPODUploadReq
         {
-            LspId = lspId,
-            CustomerId = customerId,
+            LspId = docpodData.LspId,
+            CustomerId = docpodData.CustomerId,
             PODFileName = imageFile.FileName,
             PODLink = imageUrl,
-            UploadDate = uploadDate
+            UploadDate = docpodData.UploadDate
         };
 
         var result = await _docketRepository.SinglePODUploadFile(docketNo, docpod, lspuser);
