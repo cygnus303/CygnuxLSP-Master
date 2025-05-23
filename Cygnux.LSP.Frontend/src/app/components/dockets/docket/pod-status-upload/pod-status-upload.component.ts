@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   providers:[BsModalService]
 })
 export class PodStatusUploadComponent {
+  podImageUrl: string | null = null;
   public podUpdateForm!:FormGroup;
   public customers: CustomerResponse[] = [];
   public selectedFile: File | null = null;
@@ -59,6 +60,7 @@ export class PodStatusUploadComponent {
 showPopup(data:any){
   data.bookingDate = new Date(data?.bookingDate)
   data.LspId=data.transporter;
+   this.podImageUrl = data.podLink;
   this.podUpdateForm.patchValue(data)
   
   this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
@@ -77,28 +79,18 @@ getCustomers() {
   });
 }
 
-getDocket(docketList: any) {
-    this.docketService.getDocketDetails(docketList.docketId).subscribe({
-      next: (response) => {
-        if (response) {
-  this.podUpdateForm.patchValue(response.data)
-        }
-      },
-      error: (response: any) => {
-        this.toasterService.error(response.error.message);
-      },
-    });
-  }
-
-onFileSelected(event: any): void {
+onFileSelected(event: any) {
   const file = event.target.files[0];
   if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.podImageUrl = e.target.result;
+    };
+    reader.readAsDataURL(file);
     this.selectedFile = file;
 
-    // Optionally update the form control if needed
-    this.podUpdateForm.patchValue({
-      PODFileName: file.name
-    });
+    // Optional: update the form control value
+    this.podUpdateForm.get('PODFileName')?.setValue(file.name);
   }
 }
 
