@@ -356,10 +356,16 @@ extractFileName(url: string): string {
       modal.show();
     }
   }
+  
+openPodUpdateModal(data: any) {
+  this.getDocket(data);
 
-  openPodUpdateModal(data:any){
-    this.PodStatusUpload.showPopup(data);
-  }
+  setTimeout(() => {
+    this.PodStatusUpload.showPopup(this.selectedDocket);
+  }, 100);  // delay of 100 ms
+}
+
+
 
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}

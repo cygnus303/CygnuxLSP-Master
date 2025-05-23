@@ -161,4 +161,8 @@ export class DocketService {
   validatePOD(id:string,formData:any){
     return this.apiHandlerService.Post(`Docket/ValidatePODUpload?lspuser=${id}`,formData);
   }
+
+  singlePOD(docketNumber:string,id:string,formData:any){
+    return this.apiHandlerService.Post(`Docket/SinglePODUpload?docketNo=${docketNumber}&lspuser=${id}`,formData);
+  }
 }
