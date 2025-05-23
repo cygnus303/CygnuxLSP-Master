@@ -82,14 +82,14 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>POD</label>
-                      <input class="form-control" formControlName="pod" type="file" accept="image/*" />
+                      <input class="form-control" formControlName="PODLink" type="file" accept="image/*" (change)="onFileSelected($event)"/>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="gap-2 d-flex justify-content-end mb-3">
-              <button class="btn btn-success rounded-3" type="submit">
+              <button class="btn btn-success rounded-3" type="submit" (click)="savePOD()">
                 <i class="fa fa-check"></i> Submit
               </button>
               <button class="btn btn-danger rounded-3" type="reset">

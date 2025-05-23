@@ -204,7 +204,6 @@ export class DocketListComponent implements OnInit {
   }
 
   getDocket(docketList: any) {
-    
     this.docketService.getDocketDetails(docketList.docketId).subscribe({
       next: (response) => {
         if (response) {
@@ -304,10 +303,16 @@ export class DocketListComponent implements OnInit {
       modal.show();
     }
   }
+  
+openPodUpdateModal(data: any) {
+  this.getDocket(data);
 
-  openPodUpdateModal(data:any){
-    this.PodStatusUpload.showPopup(data);
-  }
+  setTimeout(() => {
+    this.PodStatusUpload.showPopup(this.selectedDocket);
+  }, 100);  // delay of 100 ms
+}
+
+
 
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
