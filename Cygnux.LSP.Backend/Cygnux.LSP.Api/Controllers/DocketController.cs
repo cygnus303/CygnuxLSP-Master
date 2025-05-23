@@ -452,7 +452,7 @@ public class DocketController : ControllerBase
 
     [HttpPost]
     [Route("SinglePODUpload")]
-    public async Task<IActionResult> SinglePODUploadFile([FromForm] string docketNo, [FromForm] DocketPODUploadReq docPod,[FromForm] IFormFile imageFile,Guid lspuser)
+    public async Task<IActionResult> SinglePODUploadFile(string docketNo, DocketPODUploadReq docPod,IFormFile imageFile,Guid lspuser)
     {
         if (imageFile == null || imageFile.Length == 0)
             return BadRequest("No image file uploaded.");
