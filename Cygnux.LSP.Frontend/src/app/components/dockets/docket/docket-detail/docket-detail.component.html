@@ -18,12 +18,10 @@
             <td><strong>Booking Date:</strong> {{ docketDetail?.bookingDate | date:'dd/MM/yyyy' }}</td>
             <td><strong>Quantity:</strong> {{ docketDetail?.quantity }}</td>
           </tr>
-          <tr>
+          <tr *ngIf="docketDetail?.podLink !== '-'" >
             <td>
               <strong>POD Image :</strong> &nbsp;
-              @if (docketDetail?.podLink) {
               <i class="fa fa-eye" style="cursor: pointer; color: #007bff;" (click)="openPodModal()" [popover]="'View POD'" placement="auto" triggers="hover" [outsideClick]="true" container="body"></i>
-              }
             </td>
           </tr>
         </tbody>
@@ -31,10 +29,10 @@
     </div>
   </div>
 
-<div class="custom-modal" [class.show]="showPodImage" (click)="closePodModal()"
+<div class="custom-modal d-flex justify-content-center align-items-center" [class.show]="showPodImage" (click)="closePodModal()"
   [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
   <div class="custom-modal-content" (click)="$event.stopPropagation()">
-    <button class="btn-close" type="button" (click)="closePodModal()"></button>
+    <span class="custom-close" (click)="closePodModal()">×</span>
     <img [src]="docketDetail?.podLink" alt="POD Image" />
   </div>
 </div>
