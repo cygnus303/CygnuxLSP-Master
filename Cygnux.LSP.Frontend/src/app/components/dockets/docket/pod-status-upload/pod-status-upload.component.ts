@@ -58,12 +58,13 @@ export class PodStatusUploadComponent {
   }
 
 showPopup(data:any){
+if(data){
+  data.LspId=data?.transporter;
   data.bookingDate = new Date(data?.bookingDate)
-  data.LspId=data.transporter;
-   this.podImageUrl = data.podLink;
   this.podUpdateForm.patchValue(data)
-  
+  this.podImageUrl = data?.podLink;
   this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
+}
 }
 
 getCustomers() {
