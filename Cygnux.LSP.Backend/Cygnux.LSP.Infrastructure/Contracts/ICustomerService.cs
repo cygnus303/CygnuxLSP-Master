@@ -14,4 +14,5 @@ public interface ICustomerService
     Task<CommonCreateResponse> UpdateCustomer(string id, string updateCustomerJson);
 
     Task<CommonCreateResponse> DeleteCustomer(Guid id);
+    Task<IEnumerable<CustomerDeleteDataRes>> DeleteCustomerData(Guid custId);
 }
