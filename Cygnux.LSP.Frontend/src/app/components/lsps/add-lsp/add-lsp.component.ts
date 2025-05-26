@@ -166,7 +166,7 @@ export class AddLspComponent implements OnInit, OnChanges {
       if (response.success) {
         this.dataEmitter.emit();
         this.userId = response.data.id;
-        this.buildForm();
+        this.onClose();
         this.addLsp(this.tempFormData);
       } else {
         this.sweetAlertService.error(response.error.message);
@@ -186,9 +186,7 @@ export class AddLspComponent implements OnInit, OnChanges {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.lspForm.reset();
-          this.buildForm();
-          this.selectedFileName='';
-         this.imagePreview = null;
+          this.onClose();
         } else {
           this.sweetAlertService.error(response.error.message);
         }
