@@ -9,6 +9,8 @@ using Identity.Models;
 using Infrastructure.Models.Response;
 using Models.Request.Role;
 using Models.Response;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 internal class RoleRepository : IRoleRepository
 {
@@ -19,9 +21,9 @@ internal class RoleRepository : IRoleRepository
         _roleService = roleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList(int page,int pageSize, string? roleName)
+    public async Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList(Dictionary<string, string> reqFilter)
     {
-        var response = await _roleService.GetRoleList(page,pageSize,roleName);
+        var response = await _roleService.GetRoleList(JsonConvert.SerializeObject(reqFilter));
 
         return new BaseResponse<IEnumerable<RoleResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }

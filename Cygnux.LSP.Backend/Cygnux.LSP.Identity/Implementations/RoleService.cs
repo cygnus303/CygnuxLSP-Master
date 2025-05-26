@@ -1,6 +1,9 @@
 ﻿namespace Cygnux.LSP.Identity.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Constants;
+using Cygnux.LSP.Infrastructure.Models.Response.Docket;
+using Dapper;
 //using Cygnux.LSP.Infrastructure.Constants;
 //using Cygnux.LSP.Infrastructure.Models.Response;
 //using Dapper;
@@ -14,35 +17,24 @@ using System.Data.Common;
 internal class RoleService : IRoleService
 {
     private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly IDbConnection _dbConnection;
 
-    public RoleService(RoleManager<ApplicationRole> roleManager)
+    public RoleService(RoleManager<ApplicationRole> roleManager, IDbConnection dbConnection)
     {
         _roleManager = roleManager;
+        _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<RoleResponse>> GetRoleList(int page, int pageSize, string? roleName)
+    public async Task<IEnumerable<RoleResponse>> GetRoleList(string reqFilter)
     {
-        var query = _roleManager.Roles.AsQueryable();
-        query = query.Where(x => x.IsDeleted == false);
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonRequest", reqFilter, DbType.String);
 
-        if (!string.IsNullOrEmpty(roleName))
-        {
-            query = query.Where(x => x.Name.Contains(roleName));
-        }
-
-        var roles = await query
-            .OrderBy(x => x.Name) // optional: sort alphabetically
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .Select(x => new RoleResponse
-            {
-                Id = x.Id,
-                RoleName = x.Name,
-                IsActive = x.IsActive
-            })
-            .ToListAsync();
-
-        return roles;
+        return await _dbConnection.QueryAsync<RoleResponse>(
+             StoredProcedureConstants.USP_RoleList,
+             parameters,
+             commandType: CommandType.StoredProcedure
+         );
     }
 
 

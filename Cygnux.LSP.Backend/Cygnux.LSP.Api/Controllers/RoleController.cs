@@ -17,9 +17,9 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetRoleList([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string? roleName)
+    public async Task<IActionResult> GetRoleList([FromQuery] Dictionary<string, string> reqFilter)
     {
-        return Ok(await _roleRepository.GetRoleList( page, pageSize, roleName));
+        return Ok(await _roleRepository.GetRoleList(reqFilter));
     }
 
     [HttpGet]
