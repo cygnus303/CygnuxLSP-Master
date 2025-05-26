@@ -76,6 +76,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       next: (response) => {
         if (response) {
           this.roles = response.data;
+          this.totalItems = response.totalCount;
         }
         this.commonService.updateLoader(false);
       },
