@@ -49,7 +49,7 @@
                     <tr class="table-th">
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['DocketNo']" (input)="getDockets()"/></th>
                       <th class="w-15" *ngIf="userRoles.includes('Customer Admin')"><input type="text" class="form-control" [(ngModel)]="filters['Transporter']" (input)="getDockets()"/></th>
-                      <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')"><input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getDockets()"/></th>
+                      <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')"><input type="text" class="form-control" [(ngModel)]="filters['CustomerName']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['FromLocation']" (input)="getDockets()"/></th>
                       <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['ToLocation']" (input)="getDockets()"/></th>
                       <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['TransportMode']" (input)="getDockets()"/></th>

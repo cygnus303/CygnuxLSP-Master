@@ -14,6 +14,7 @@ import { CommonService } from '../../../shared/services/common.service';
 export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
   public transporter:TrackingListResponse[]=[];
+  nextStatusOptions: any[] = [];
   @Input() docketResponse: DocketResponse | null = null;
  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(
@@ -30,7 +31,35 @@ ngOnChanges(changes:SimpleChanges){
   ngOnInit(){
     this.buildForm();
     this.getTransporterDetail();
+  //   this.statusUpdateForm.get('currentStatus')?.valueChanges.subscribe((currentStatusId: string) => {
+  //   this.updateNextStatusOptions(currentStatusId);
+  // });
   }
+
+//  updateNextStatusOptions(currentStatusId: string) {
+//   const currentIndex = this.transporter.findIndex((status:any) => status.codeId === currentStatusId);
+
+//   if (currentIndex !== -1) {
+//     const currentStatus = this.transporter[currentIndex];
+
+//     // If current status is "Delivered"
+//     if (currentStatus.codeDesc.toLowerCase() === 'delivered') {
+//       this.nextStatusOptions = [currentStatus];
+//       this.statusUpdateForm.get('nextDocketStatus')?.setValue(currentStatus.codeId);
+//       this.statusUpdateForm.get('nextDocketStatus')?.disable(); // Disable the control
+//     } else if (currentIndex + 1 < this.transporter.length) {
+//       const nextStatus = this.transporter[currentIndex + 1];
+//       this.nextStatusOptions = [nextStatus];
+//       this.statusUpdateForm.get('nextDocketStatus')?.enable(); // Enable control if previously disabled
+//       this.statusUpdateForm.get('nextDocketStatus')?.setValue(null);
+//     } else {
+//       this.nextStatusOptions = [];
+//       this.statusUpdateForm.get('nextDocketStatus')?.reset();
+//       this.statusUpdateForm.get('nextDocketStatus')?.enable();
+//     }
+//   }
+// }
+
 
   buildForm(){
     this.statusUpdateForm = new FormGroup({

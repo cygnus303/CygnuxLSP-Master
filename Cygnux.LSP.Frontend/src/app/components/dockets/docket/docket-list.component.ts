@@ -310,7 +310,7 @@ extractFileName(url: string): string {
       this.getDockets();
     }
   }
-
+  
   closeUploadModal(){
     const modalElement: any = document.getElementById('uploadModal');
     const modalInstance = Modal.getInstance(modalElement);
@@ -356,7 +356,7 @@ extractFileName(url: string): string {
       modal.show();
     }
   }
-  
+
 openPodUpdateModal(data: any) {
   this.getDocket(data);
 
@@ -364,8 +364,6 @@ openPodUpdateModal(data: any) {
     this.PodStatusUpload.showPopup(this.selectedDocket);
   }, 100);  // delay of 100 ms
 }
-
-
 
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
