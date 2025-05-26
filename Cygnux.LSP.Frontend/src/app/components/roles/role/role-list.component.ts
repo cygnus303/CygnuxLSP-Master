@@ -72,7 +72,12 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       Object.entries(this.filters).filter(([key, value]) => value !== null)
     );
     this.commonService.updateLoader(true);
-    this.roleService.getRoleList(this.filters,page, this.pageSize).subscribe({
+    const filters={
+      ...this.filters,
+      Page: this.page,
+      PageSize:this.pageSize
+    }
+    this.roleService.getRoleList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.roles = response.data;

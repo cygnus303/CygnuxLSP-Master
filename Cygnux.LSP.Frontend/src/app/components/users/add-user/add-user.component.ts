@@ -93,7 +93,11 @@ export class AddUserComponent implements OnInit, OnChanges {
     }
   }
   getRoles() {
-    this.roleService.getRoleList('',1, 100).subscribe({
+    const filters={
+      Page: 1,
+      PageSize:100
+    }
+    this.roleService.getRoleList(filters).subscribe({
       next: (response) => {
         if (response) {
           this.roles = response.data;
