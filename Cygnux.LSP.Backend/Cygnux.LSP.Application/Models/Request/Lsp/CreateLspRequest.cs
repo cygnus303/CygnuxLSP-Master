@@ -11,10 +11,10 @@ public class CreateLspRequest /*: UserSettings*/
     public string MobileNo { get; set; } = string.Empty;
     public string Alias { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string ApiKey { get; set; } = string.Empty;
-    public string ApiUrl { get; set; } = string.Empty;
-    public string ApiUsername { get; set; } = string.Empty;
-    public string ApiPassword { get; set; } = string.Empty;
+    public string? ApiKey { get; set; } = string.Empty;
+    public string? ApiUrl { get; set; } = string.Empty;
+    public string? ApiUsername { get; set; } = string.Empty;
+    public string? ApiPassword { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public decimal ZipCode { get; set; }
     public string Address { get; set; } = string.Empty;
