@@ -149,9 +149,10 @@ downloadImagesAsZip(): void {
   const zip = new JSZip();
 
   const imagePromises = this.trackTraceList
-    .filter(item => item.podLink!='-') // ✅ Only process items with a valid podLink
+    .filter(item => item.podLink && item.podLink !== '-') // skip invalid podLinks
     .map(item => {
       const secureUrl = item.podLink.replace('http://', 'https://');
+      const fileName = `docket_${item.docketNo}_${item.transporterDesc}.jpg`;
 
       return fetch(secureUrl)
         .then(response => {
@@ -161,16 +162,15 @@ downloadImagesAsZip(): void {
           return response.blob();
         })
         .then(blob => {
-          zip.file(`docket_${item.docketNo}.jpg`, blob);
+          zip.file(fileName, blob);
         })
         .catch(err => {
           console.error(`Failed to fetch ${secureUrl}:`, err);
         });
     });
 
-  // Wait for all images to be added to the zip
   Promise.all(imagePromises).then(() => {
-    if (zip.files && Object.keys(zip.files).length > 0) {
+    if (Object.keys(zip.files).length > 0) {
       zip.generateAsync({ type: "blob" }).then(zipBlob => {
         const url = window.URL.createObjectURL(zipBlob);
         const a = document.createElement('a');
@@ -182,6 +182,7 @@ downloadImagesAsZip(): void {
         window.URL.revokeObjectURL(url);
       });
     } else {
+      alert('No valid images found to download.');
     }
   });
 }

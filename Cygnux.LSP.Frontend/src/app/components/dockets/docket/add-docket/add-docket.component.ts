@@ -151,6 +151,9 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
   addDocket(form: any): void {
+    form.CreatedBy= this.identityService.getLoggedUserId();
+    form.UpdatedBy= this.identityService.getLoggedUserId();
+    form.UserId  = this.identityService.getLoggedUserId();
     this.docketService.addDocket(form).subscribe({
       next: (response) => {
         if (response.success) {
