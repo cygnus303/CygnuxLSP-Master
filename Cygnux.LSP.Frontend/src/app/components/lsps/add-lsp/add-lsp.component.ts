@@ -82,10 +82,10 @@ export class AddLspComponent implements OnInit, OnChanges {
       ]),
       alias: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      apiKey: new FormControl(null),
-      apiUrl: new FormControl(null),
-      apiUsername: new FormControl(null),
-      apiPassword: new FormControl(null),
+      apiKey: new FormControl(''),
+      apiUrl: new FormControl(''),
+      apiUsername: new FormControl(''),
+      apiPassword: new FormControl(''),
       logo: new FormControl('',[Validators.required]),
       isActive: new FormControl(true),
       file:new FormControl(null),
@@ -164,9 +164,8 @@ export class AddLspComponent implements OnInit, OnChanges {
   this.userService.addUser(payload).subscribe({
     next: (response) => {
       if (response.success) {
-        this.dataEmitter.emit();
+        // this.dataEmitter.emit();
         this.userId = response.data.id;
-        this.onClose();
         this.addLsp(this.tempFormData);
       } else {
         this.sweetAlertService.error(response.error.message);
