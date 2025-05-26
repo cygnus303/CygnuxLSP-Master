@@ -55,8 +55,6 @@ internal class CustomerRepository : ICustomerRepository
         {
             return new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
         }
-
-      
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> UpdateCustomer(string id, CreateCustomerRequest createCustomerRequest)
@@ -74,4 +72,12 @@ internal class CustomerRepository : ICustomerRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+  
+    public async Task<BaseResponse<IEnumerable<CustomerDeleteDataRes>>> DeleteCustomerData(Guid custId)
+    {
+        var response = await _customerService.DeleteCustomerData(custId);
+        return new BaseResponse<IEnumerable<CustomerDeleteDataRes>>(response);
+    }
+
+   
 }

@@ -74,12 +74,24 @@ internal class CustomerService : ICustomerService
     public async Task<CommonCreateResponse> DeleteCustomer(Guid id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@Id", id, DbType.Guid);
+        parameters.Add("@CustomerId", id, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
               StoredProcedureConstants.USP_CustomerDelete,
               param: parameters,
               commandType: CommandType.StoredProcedure
           ) ?? new CommonCreateResponse();
+    }
+
+    public async Task<IEnumerable<CustomerDeleteDataRes>> DeleteCustomerData(Guid custId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CustomerId", custId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<CustomerDeleteDataRes>(
+             StoredProcedureConstants.USP_DeleteCustomerDetails,
+             parameters,
+             commandType: CommandType.StoredProcedure
+         );
     }
 }

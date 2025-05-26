@@ -2,6 +2,7 @@
 
 using Application.Contracts;
 using Application.Models.Request.Customer;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,9 +42,17 @@ public class CustomerController : ControllerBase
         return Ok(await _customerRepository.UpdateCustomer(id, createCustomerDto));
     }
 
-    [HttpPatch("{id}")]
+    [HttpPatch]
+    [Route("DeleteCustomer")]
     public async Task<IActionResult> DeleteCustomer(Guid id)
     {
         return Ok(await _customerRepository.DeleteCustomer(id));
+    }
+
+    [HttpGet]
+    [Route("DeleteCustomerData")]
+    public async Task<IActionResult> DeleteCustomerData(Guid custId)
+    {
+        return Ok(await _customerRepository.DeleteCustomerData(custId));
     }
 }

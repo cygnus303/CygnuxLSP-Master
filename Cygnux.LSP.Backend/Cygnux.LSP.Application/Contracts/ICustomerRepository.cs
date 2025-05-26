@@ -16,4 +16,5 @@ public interface ICustomerRepository
     Task<BaseResponse<CommonCreateResponse>> UpdateCustomer(string id, CreateCustomerRequest createCustomerRequest);
 
     Task<BaseResponse<CommonCreateResponse>> DeleteCustomer(Guid id);
+    Task<BaseResponse<IEnumerable<CustomerDeleteDataRes>>> DeleteCustomerData(Guid custId);
 }

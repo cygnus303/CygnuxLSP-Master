@@ -19,4 +19,6 @@ public class BaseResponse<T>
         Success = false;
         Error = error;
     }
+
+   
 }
