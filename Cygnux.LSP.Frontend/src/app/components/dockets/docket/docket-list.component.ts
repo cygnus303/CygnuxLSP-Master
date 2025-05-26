@@ -358,11 +358,17 @@ extractFileName(url: string): string {
   }
 
 openPodUpdateModal(data: any) {
-  this.getDocket(data);
+  // this.getDocket(data);
 
-  setTimeout(() => {
-    this.PodStatusUpload.showPopup(this.selectedDocket);
-  }, 100);  // delay of 100 ms
+  // setTimeout(() => {
+  //   this.PodStatusUpload.showPopup(this.selectedDocket);
+  // }, 100);  // delay of 100 ms
+   const editSubscription = this.edit.subscribe((docket: any) => {
+    this.PodStatusUpload.showPopup(docket);
+    editSubscription.unsubscribe(); // Clean up after showing popup
+  });
+
+  this.getDocket(data); // This will trigger edit.emit() when done
 }
 
   ngOnDestroy(): void {
