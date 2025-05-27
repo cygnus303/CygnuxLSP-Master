@@ -12,7 +12,6 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string LSPName { get; set; } = string.Empty;
         public string DocketNo { get; set; } = string.Empty;
         public string InvoiceNo { get; set; } = string.Empty;
-        /* to check Datetime*/
         public string Date { get; set; } = string.Empty;
         public string FromLocation { get; set; } = string.Empty;
         public string ToLocation { get; set; } = string.Empty;
