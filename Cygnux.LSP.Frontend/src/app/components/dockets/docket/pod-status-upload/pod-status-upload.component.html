@@ -57,7 +57,7 @@
                   <div class="col-md-6">
                       <label>Upload Date</label>
                       <input type="text" class="form-control" formControlName="uploadDate" #dp="bsDatepicker" placeholder="Enter Upload Date" bsDatepicker
-                        [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY' }"  [placement]="'top'"/>
+                        [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY' }"  [placement]="'top'" [class.disabled]="isReadonlyMode?true:false"/>
                   </div>
                   <!-- <div class="col-md-6">
                       <label>POD</label>
@@ -66,7 +66,7 @@
                     <div class="col-md-6">
                       <label>POD</label>
                       <input class="form-control" formControlName="PODLink" type="file" accept="image/*"
-                        (change)="onFileSelected($event)" />
+                        (change)="onFileSelected($event)" *ngIf="!isReadonlyMode"/>
                       <div *ngIf="podImageUrl !== '-'" class="mt-2">
                           <img [src]="podImageUrl" alt="POD Image" class="img-thumbnail" style="max-width: 100%; height: 200px; object-fit: cover;" />
                       </div>
@@ -74,13 +74,10 @@
                   </div>
                 </div>
               </div>
-            <div class="gap-2 d-flex justify-content-end mb-3 mt-3">
+            <div class="gap-2 d-flex justify-content-end mb-3 mt-3" *ngIf="!isReadonlyMode">
               <button class="btn btn-success rounded-3" type="submit" (click)="savePOD()">
                 <i class="fa fa-check"></i> Submit
               </button>
-              <!-- <button class="btn btn-danger rounded-3" type="reset">
-                <i class="fa fa-times"></i> Reset
-              </button> -->
             </div>
           </form>
         </div>

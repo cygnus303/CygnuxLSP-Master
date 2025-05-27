@@ -22,6 +22,7 @@ export class PodStatusUploadComponent {
   public customers: CustomerResponse[] = [];
   public selectedFile: File | null = null;
   public modalRef!: BsModalRef;
+  public isReadonlyMode : boolean = false;
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
 
   constructor(
@@ -63,6 +64,8 @@ if(data){
   data.bookingDate = new Date(data?.bookingDate)
   this.podUpdateForm.patchValue(data)
   this.podImageUrl = data?.podLink;
+
+   this.isReadonlyMode = data.podLink !== '-';
   this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
 }
 }
