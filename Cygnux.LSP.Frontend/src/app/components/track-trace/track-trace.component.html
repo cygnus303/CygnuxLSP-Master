@@ -27,7 +27,7 @@
                 <!-- <div class="col-auto" [routerLink]="'/track'">
                   <button class="btn btn-square btn-success pull-right rounded-3">Dashboard</button>
               </div> -->
-              <div class="col-auto" (click)="downloadImagesAsZip()">
+              <div class="col-auto" (click)="downloadImagesAsZip()" *ngIf="!isLSP">
                 <button class="btn btn-square btn-danger pull-right rounded-3">
                   <i class="fa fa-download"></i>
                 </button>
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end cursor-pointer mt-3">
-                              <div *ngIf="data.currentStatus === '6'" class="me-3">
+                              <div *ngIf="data.currentStatus === '6'&& !isLSP" class="me-3">
                                 <i class="ri-eye-fill align-bottom text-muted" (click)="openPOD(Templatepod,data)"></i>
                               </div>
                               <a class="btn btn-link p-0" (click)="toggleMoreView(i)">
