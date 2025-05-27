@@ -21,7 +21,7 @@ public interface IDocketRepository
     Task<BaseResponse<CommonCreateResponse>> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts);
     Task<BaseResponse<CommonCreateResponse>> DeleteDocket(Guid docketId);
     Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination);
-    Task<BaseResponse<IEnumerable<DocketBulkUploadValidateResponse>>> GetValidateDocketImportData(List<Dictionary<string, string>> bulkDocket, Guid customerid);
+    Task<BaseResponse<IEnumerable<DocketExcelUploadValidate>>> GetValidateDocketImportData(List<Dictionary<string, string>> bulkDocket, Guid customerid);
     Task<BaseResponse<CommonCreateResponse>> InsertDocketData(List<DocketEntryExcelUpload> docketlist, Guid entryBy);
     Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> podDataList, Guid User);
     Task<BaseResponse<IEnumerable<DocketStatusResponseData>>> GetValidateDocketStatusUpdateData(List<Dictionary<string, string>> bulkDocket, Guid Lspid);
