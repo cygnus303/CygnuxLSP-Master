@@ -92,17 +92,19 @@ export class CustomerListComponent implements OnInit {
 //       modal.show();
 //     }
 // }
-mappingCustomer(event: Event, customerId: string) {
+
+mappingCustomer(customerId: string) {
   this.customerService.checkMappingCustomer(customerId).subscribe({
     next: (response) => {
-      if (response.data.length>0) {
-        // Safe to delete directly
-        this.deleteCustomer(customerId);
+      if (response.data.length <= 1) {
+       this.sweetAlertService.delete(
+          'Are you sure you want to delete this customer?',
+          () => this.deleteCustomer(customerId) 
+        ); 
       } else {
-        // Ask user for confirmation before deleting
         this.sweetAlertService.delete(
           'Are you sure you want to delete this customer? This customer is currently mapped.',
-          () => this.deleteCustomer(customerId) // Pass the actual delete logic
+          () => this.deleteCustomer(customerId) 
         );
       }
     },
@@ -111,7 +113,6 @@ mappingCustomer(event: Event, customerId: string) {
     },
   });
 }
-
 
   deleteCustomer(customerId:string) {
     this.customerService.deleteCustomer(customerId).subscribe({
