@@ -160,6 +160,9 @@ public class DocketController : ControllerBase
             mainSheet.Cell("G1").Value = "Quantity";
             mainSheet.Cell("H1").Value = "Mode of Transporter";
 
+            mainSheet.Column(4).Style.NumberFormat.Format = "@";
+            mainSheet.Cell("D2").SetValue("dd-MM-yyyy");
+
             // Apply data validation
             var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();
             validationLsp.IgnoreBlanks = true;
