@@ -27,20 +27,23 @@ export class SweetAlertService {
     });
   }
 
-  delete(){
+  delete(message:string, onConfirm: () => void){
     Swal.fire({
-      title: "Patient has a Planned Admission, no services can be added!",
-      icon: 'warning',
-      showCancelButton: false,
-      showConfirmButton: true,
-      confirmButtonText: "Ok",
-      confirmButtonColor: '#171829',
-      customClass: {
-        container: 'notification-popup'
-      }
-    }).then((result) => {
-
-    });
+    title: message,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#171829',
+    cancelButtonColor: '#aaa',
+    customClass: {
+      container: 'notification-popup'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      onConfirm(); // 🔥 call the actual delete function
+    }
+  });
   }
 
   error(message:any){

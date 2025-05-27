@@ -33,6 +33,10 @@ export class CustomerService {
   }
 
   deleteCustomer(id: string): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch('customer/' + id, null);
+    return this.apiHandlerService.Patch(`customer/DeleteCustomer?id=${id}`, null);
+  }
+
+  checkMappingCustomer(id:string):Observable<IApiBaseResponse<any[]>> {
+    return this.apiHandlerService.Get(`customer/DeleteCustomerData?custId=${id}`);
   }
 }

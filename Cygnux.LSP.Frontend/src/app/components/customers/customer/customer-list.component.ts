@@ -20,6 +20,7 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
 export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerCode: string = '';
+  public customerId: string = '';
   public selectedCustomer: CustomerResponse | null = null;
   public page = 1; // Current page number
   public pageSize = 5; // Number of items per page
@@ -82,8 +83,38 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  deleteCustomer() {
-    this.customerService.deleteCustomer(this.customerCode).subscribe({
+// mappingCustomer(event: Event,customerId:string){
+// event.preventDefault();
+//     const modalElement = document.getElementById('checkDeleteModal');
+//     if (modalElement) {
+//       const modal = new Modal(modalElement);
+//       this.customerId = customerId;
+//       modal.show();
+//     }
+// }
+mappingCustomer(event: Event, customerId: string) {
+  this.customerService.checkMappingCustomer(customerId).subscribe({
+    next: (response) => {
+      if (response.data.length>0) {
+        // Safe to delete directly
+        this.deleteCustomer(customerId);
+      } else {
+        // Ask user for confirmation before deleting
+        this.sweetAlertService.delete(
+          'Are you sure you want to delete this customer? This customer is currently mapped.',
+          () => this.deleteCustomer(customerId) // Pass the actual delete logic
+        );
+      }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
+}
+
+
+  deleteCustomer(customerId:string) {
+    this.customerService.deleteCustomer(customerId).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -109,12 +140,12 @@ export class CustomerListComponent implements OnInit {
       this.getCustomer(customerCode);
     }
   }
-  deleteModal(event: Event, customerCode: string) {
+  deleteModal(event: Event, customerId: string) {
     event.preventDefault();
     const modalElement = document.getElementById('deleteModal');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.customerCode = customerCode;
+      this.customerId = customerId;
       modal.show();
     }
   }
