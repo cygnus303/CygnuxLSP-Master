@@ -105,7 +105,7 @@ export class ImportDocketComponent {
             this.validateData=[];
             this.files = [];
             this.dataEmitter.emit()
-            this.sweetAlertService.success(response.data.message);
+            this.sweetAlertService.success(response.data.message); 
           } else {
             this.sweetAlertService.error(response.data.message);
           }

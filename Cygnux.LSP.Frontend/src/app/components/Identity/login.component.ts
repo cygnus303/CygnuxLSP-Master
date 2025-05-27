@@ -58,12 +58,12 @@ export class LoginComponent implements OnInit {
                     this.commonService.updateLoader(false); // optional
     
                     if (response && response.success) {
-                        this.toasterService.success('Login Successfully.');
                         this.identityService.setToken(response.data.token);
                         this.identityService.setRoles(response.data.roles);
                         localStorage.setItem('email', response.data.email);
                         localStorage.setItem('roleId', response.data.roleId);
                         this.router.navigateByUrl('/dashboard');
+                        this.toasterService.success('Login Successfully.');
                     } else {
                         if (response.error) {
                             this.toasterService.error(response.error.message);
