@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
-import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
+import { IApiBaseResponse } from '../interfaces/api-base-action-response';
 import { AddCustomerRequest, CustomerResponse } from '../models/customer.model';
 import { CommonResponse } from '../models/lsp.model';
 import { IdentityService } from './identity.service';
-import { userId } from '../constants/common';
 
 
 @Injectable({
