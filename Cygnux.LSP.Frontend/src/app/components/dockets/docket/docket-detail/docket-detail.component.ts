@@ -8,8 +8,11 @@ import { DocketResponse } from '../../../../shared/models/docket.model';
   styleUrl: './docket-detail.component.scss'
 })
 export class DocketDetailComponent {
+  public showPodImage : boolean = false;
+  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Input() docketDetail: DocketResponse | null = null;
-showPodImage = false;
+  
+
  openPodModal() {
     this.showPodImage = true;
   }

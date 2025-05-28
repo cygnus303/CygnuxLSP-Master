@@ -9,7 +9,6 @@ import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 
 @Component({
@@ -32,6 +31,7 @@ export class TrackTraceComponent {
   public expandedIndex: number | null = null;
   public trackTraceList:TrackTraceResponse[]=[];
   public selectedPodImageUrl?:TrackTraceResponse;
+  public isLSP:boolean=false;
   public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
   public modalRef!: BsModalRef;
   constructor( 
@@ -42,6 +42,10 @@ export class TrackTraceComponent {
   ){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
+  }
+
+  ngOnInit(){
+    this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='lsp Admin';
   }
 
   addDocketNumber(event: KeyboardEvent): void {
