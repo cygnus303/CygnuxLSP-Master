@@ -24,7 +24,7 @@ export class PodStatusUploadComponent {
   public modalRef!: BsModalRef;
   public isReadonlyMode : boolean = false;
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
-
+@Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(
     private modalService: BsModalService,
     private identityService:IdentityService,
@@ -130,6 +130,7 @@ Customer,...payload}=this.podUpdateForm.value
       if (response) {
         this.buildForm();
         this.modalRef.hide();
+        this.dataEmitter.emit();
         this.sweetAlertService.success(response.data.message);
       }
     },

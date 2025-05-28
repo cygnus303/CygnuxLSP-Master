@@ -238,7 +238,7 @@ export class DocketListComponent implements OnInit {
   }
 
   openPOD(Templatepod: TemplateRef<any>,data:any){
-     this.getDocket(data);
+    this.getDocket(data);
     this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
   }
 
@@ -358,17 +358,11 @@ extractFileName(url: string): string {
   }
 
 openPodUpdateModal(data: any) {
-  // this.getDocket(data);
-
-  // setTimeout(() => {
-  //   this.PodStatusUpload.showPopup(this.selectedDocket);
-  // }, 100);  // delay of 100 ms
    const editSubscription = this.edit.subscribe((docket: any) => {
     this.PodStatusUpload.showPopup(docket);
-    editSubscription.unsubscribe(); // Clean up after showing popup
+    editSubscription.unsubscribe();
   });
-
-  this.getDocket(data); // This will trigger edit.emit() when done
+  this.getDocket(data); 
 }
 
   ngOnDestroy(): void {
