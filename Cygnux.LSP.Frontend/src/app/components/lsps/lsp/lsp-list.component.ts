@@ -188,4 +188,41 @@ export class LspListComponent implements OnInit {
       this.getLsp(lspId);
     }
   }
+
+  checkDeleteLSP(lspId:string){
+    this.lspService.checkMappinglsp(lspId).subscribe({
+      next: (response) => {
+        if (response.data.length <= 1) {
+          this.sweetAlertService.delete(
+            'Are you sure you want to delete this LSP?',
+            () => this.deleteLSP(lspId)
+          );
+        } else {
+        this.sweetAlertService.delete(
+          'Are you sure you want to delete this LSP? This LSP is currently mapped.',
+          () => this.deleteLSP(lspId));
+        }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
+}
+
+  deleteLSP(lspId:string) {
+    this.lspService.deleteLsp(lspId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.sweetAlertService.success(response.data.message);
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.getLsps(this.page);
+        // this.closeDeleteModal();
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
 }
