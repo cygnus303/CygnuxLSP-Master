@@ -73,10 +73,10 @@ public class CustomerLspController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("{id}")]
-    public async Task<IActionResult> DeleteLspMapping(Guid id)
+    [Route("DeleteLSPMap")]
+    public async Task<IActionResult> DeleteLspMapping(Guid CustomerLspId)
     {
-        return Ok(await _customerLspRepository.DeleteLspMapping(id));
+        return Ok(await _customerLspRepository.DeleteLspMapping(CustomerLspId));
     }
 
     [HttpPost]
@@ -94,9 +94,23 @@ public class CustomerLspController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("Tat/{id}")]
-    public async Task<IActionResult> DeleteLspMappingTat(Guid id)
+    [Route("Tat/DeleteLSPTAT")]
+    public async Task<IActionResult> DeleteLspMappingTat(Guid TatId)
     {
-        return Ok(await _customerLspRepository.DeleteLspMappingTat(id));
+        return Ok(await _customerLspRepository.DeleteLspMappingTat(TatId));
     }
+
+    [HttpGet]
+    [Route("GetDeleteCustomerLspMapData")]
+    public async Task<IActionResult> DeleteCustomerLspDetail(Guid Id)
+    {
+        return Ok(await _customerLspRepository.DeleteCustomerLspDetail(Id));
+    }
+    [HttpGet]
+    [Route("Tat/GetDeleteCustomerLspTATData")]
+    public async Task<IActionResult> DeleteCustomerLspTATDetail(Guid Id)
+    {
+        return Ok(await _customerLspRepository.DeleteCustomerLspTATDetail(Id));
+    }
+
 }

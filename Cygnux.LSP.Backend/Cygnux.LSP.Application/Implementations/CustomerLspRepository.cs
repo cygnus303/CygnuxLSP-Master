@@ -68,9 +68,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
         var response = await _customerLspService.UpdateLspMapping(LspMapId, JsonConvert.SerializeObject(createLspMapping));
         return new BaseResponse<CommonCreateResponse>(response);
     }
-    public async Task<BaseResponse<CommonCreateResponse>> DeleteLspMapping(Guid id)
+    public async Task<BaseResponse<CommonCreateResponse>> DeleteLspMapping(Guid Id)
     {
-        var response = await _customerLspService.DeleteLspMapping(id);
+        var response = await _customerLspService.DeleteLspMapping(Id);
         return new BaseResponse<CommonCreateResponse>(response);
     }
 
@@ -90,5 +90,15 @@ internal class CustomerLspRepository : ICustomerLspRepository
     {
         var response = await _customerLspService.UpdateCustomerLspTat(id, JsonConvert.SerializeObject(createCustomerLspTat));
         return new BaseResponse<CommonCreateResponse>(response);
+    }
+    public async Task<BaseResponse<IEnumerable<DeleteCutomerLSPData>>> DeleteCustomerLspDetail(Guid Id)
+    {
+        var response = await _customerLspService.DeleteCustomerLspDetail(Id);
+        return new BaseResponse<IEnumerable<DeleteCutomerLSPData>>(response);
+    }
+    public async Task<BaseResponse<IEnumerable<DeleteCustomerLspTatDetail>>> DeleteCustomerLspTATDetail(Guid Id)
+    {
+        var response = await _customerLspService.DeleteCustomerLspTATDetail(Id);
+        return new BaseResponse<IEnumerable<DeleteCustomerLspTatDetail>>(response);
     }
 }

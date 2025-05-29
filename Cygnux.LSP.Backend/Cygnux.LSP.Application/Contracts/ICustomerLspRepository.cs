@@ -22,7 +22,7 @@ public interface ICustomerLspRepository
 
     Task<BaseResponse<CommonCreateResponse>> AddLspMapping(CreateLspMappingRequest createLsp);
 
-    Task<BaseResponse<CommonCreateResponse>> DeleteLspMapping(Guid id);
+    Task<BaseResponse<CommonCreateResponse>> DeleteLspMapping(Guid Id);
 
     Task<BaseResponse<CommonCreateResponse>> UpdateLspMapping(Guid LspMapId, CreateLspMappingRequest createLspMapping);
 
@@ -31,4 +31,6 @@ public interface ICustomerLspRepository
     Task<BaseResponse<CommonCreateResponse>> UpdateCustomerLspTat(string id, CreateCustomerLspTatRequest createCustomerLspTat);
 
     Task<BaseResponse<CommonCreateResponse>> DeleteLspMappingTat(Guid id);
+    Task<BaseResponse<IEnumerable<DeleteCutomerLSPData>>> DeleteCustomerLspDetail(Guid Id);
+    Task<BaseResponse<IEnumerable<DeleteCustomerLspTatDetail>>> DeleteCustomerLspTATDetail(Guid Id);
 }

@@ -120,26 +120,50 @@ internal class CustomerLspService : ICustomerLspService
          ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> DeleteLspMapping(Guid id)
+    //public async Task<CommonCreateResponse> DeleteLspMapping(Guid id)
+    //{
+    //    var deleteQuery = "Update CustomerLsp Set IsDeleted = 1 Where Id = @Id";
+    //    var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
+    //    if (rowAffected > 0)
+    //    {
+    //        return new CommonCreateResponse { Status = 1, Message = "Lsp mapping deleted successfully" };
+    //    }
+    //    return new CommonCreateResponse();
+    //}
+
+    public async Task<CommonCreateResponse> DeleteLspMapping(Guid Id)
     {
-        var deleteQuery = "Update CustomerLsp Set IsDeleted = 1 Where Id = @Id";
-        var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
-        if (rowAffected > 0)
-        {
-            return new CommonCreateResponse { Status = 1, Message = "Lsp mapping deleted successfully" };
-        }
-        return new CommonCreateResponse();
+        var parameters = new DynamicParameters();
+        parameters.Add("@CustomerLspId", Id, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_Delete_CustomerLsp_Relations,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> DeleteLspMappingTat(Guid id)
+    //public async Task<CommonCreateResponse> DeleteLspMappingTat(Guid id)
+    //{
+    //    var deleteQuery = "Update CustomerLspTat Set IsDeleted = 1 Where Id = @Id";
+    //    var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
+    //    if (rowAffected > 0)
+    //    {
+    //        return new CommonCreateResponse { Status = 1, Message = "Lsp tat deleted successfully" };
+    //    }
+    //    return new CommonCreateResponse();
+    //}
+
+    public async Task<CommonCreateResponse> DeleteLspMappingTat(Guid Id)
     {
-        var deleteQuery = "Update CustomerLspTat Set IsDeleted = 1 Where Id = @Id";
-        var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
-        if (rowAffected > 0)
-        {
-            return new CommonCreateResponse { Status = 1, Message = "Lsp tat deleted successfully" };
-        }
-        return new CommonCreateResponse();
+        var parameters = new DynamicParameters();
+        parameters.Add("@TatId", Id, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_Delete_CustomerLspTat_And_Dockets,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
     }
 
     public async Task<CommonCreateResponse> AddCustomerLspTat(string addCustomerLspTatJson)
@@ -166,4 +190,28 @@ internal class CustomerLspService : ICustomerLspService
              commandType: CommandType.StoredProcedure
          ) ?? new CommonCreateResponse();
     }
+
+    public async Task<IEnumerable<DeleteCutomerLSPData>> DeleteCustomerLspDetail(Guid id)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CustomerLspId", id, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DeleteCutomerLSPData>(
+              StoredProcedureConstants.USP_Get_DeleteCustomerLspData,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          );
+    }
+    public async Task<IEnumerable<DeleteCustomerLspTatDetail>> DeleteCustomerLspTATDetail(Guid id)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@TatId", id, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DeleteCustomerLspTatDetail>(
+              StoredProcedureConstants.USP_Get_CustomerLspTat_Details,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          );
+    }
+
 }

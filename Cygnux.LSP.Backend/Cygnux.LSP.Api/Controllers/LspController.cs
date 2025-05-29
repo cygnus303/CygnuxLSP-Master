@@ -75,9 +75,8 @@ public class LspController : ControllerBase
         return Ok(await _lspRepository.DeleteLsp(lspid));
     }
 
-
     [HttpGet]
-    [Route("DeleteLSPData")]
+    [Route("GetDeleteLSPData")]
     public async Task<IActionResult> DeleteLSPDetails(Guid lspid)
     {
         return Ok(await _lspRepository.DeleteLSPDetails(lspid));

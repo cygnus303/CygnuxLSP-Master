@@ -20,12 +20,14 @@ public interface ICustomerLspService
     Task<CommonCreateResponse> AddLspMapping(string addLspMappingJson);
 
     Task<CommonCreateResponse> UpdateLspMapping(Guid LspMapId, string updateLspMappingJson);
-    Task<CommonCreateResponse> DeleteLspMapping(Guid id);
-
+    Task<CommonCreateResponse> DeleteLspMapping(Guid Id);
 
     Task<CommonCreateResponse> AddCustomerLspTat(string addCustomerLspTatJson);
 
     Task<CommonCreateResponse> UpdateCustomerLspTat(string id, string updateCustomerLspTatJson);
 
     Task<CommonCreateResponse> DeleteLspMappingTat(Guid id);
+
+    Task<IEnumerable<DeleteCutomerLSPData>> DeleteCustomerLspDetail(Guid Id);
+    Task<IEnumerable<DeleteCustomerLspTatDetail>> DeleteCustomerLspTATDetail(Guid Id);
 }
