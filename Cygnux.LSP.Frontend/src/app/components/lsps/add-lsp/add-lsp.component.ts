@@ -44,7 +44,6 @@ export class AddLspComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspResponse'] && this.lspResponse) {
-      this.lspForm.patchValue({logo:''})
       const urlParts = this.lspResponse.logo.split('/');
     this.selectedFileName = urlParts[urlParts.length - 1]; 
       this.lspId = this.lspResponse.lspId;
