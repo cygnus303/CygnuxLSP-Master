@@ -7,14 +7,15 @@
             <td><strong>Support Email Address: </strong> {{ lspMappingsDetail?.supportEmail }}</td>
           </tr>
             <tr class="table-th">
-              <td colspan="2" class="d-flex">
-                <strong>LSP Name : </strong>{{ lspMappingsDetail?.lspName}}
-                <!-- <span *ngFor="let data of lspMappingsDetail?.lspResponses; let last = last">
-                  &nbsp;{{ data.lspName }}<span *ngIf="!last"> , <br></span>
-                </span> -->
+              <td colspan="2" class="d-flex align-items-center">
+                <strong>LSP Name: </strong>&nbsp;
+                <span *ngFor="let data of lspMappingsDetail?.lspResponses; let last = last">
+                  {{ data.lspName }}<span *ngIf="!last">&nbsp;, &nbsp;&nbsp;</span>
+                </span>
               </td>
             </tr>
         </tbody>
       </table>
     </div>
   </div>
+  

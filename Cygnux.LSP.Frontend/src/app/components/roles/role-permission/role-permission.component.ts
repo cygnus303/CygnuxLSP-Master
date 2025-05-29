@@ -104,6 +104,7 @@ export class RolePermissionComponent implements OnInit {
             next: (response) => {
                 if (response.success) {
                     this.permissionEmitter.emit();
+                    window.location.reload();
                     this.sweetAlertService.success(response.data.message);
                 } else {
                     this.sweetAlertService.error(response.error.message);

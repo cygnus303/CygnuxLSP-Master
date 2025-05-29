@@ -11,6 +11,9 @@ export interface LspResponse {
     apiPassword: string;
     logo: string;
     isActive: boolean;
+    address:string;
+    zipCode:number;
+    city:string;
 }
 
 export interface AddLspRequest {
