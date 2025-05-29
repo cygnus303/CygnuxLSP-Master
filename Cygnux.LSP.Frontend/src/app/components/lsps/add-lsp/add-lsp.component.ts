@@ -44,6 +44,7 @@ export class AddLspComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspResponse'] && this.lspResponse) {
+      this.lspForm.patchValue({logo:''})
       const urlParts = this.lspResponse.logo.split('/');
     this.selectedFileName = urlParts[urlParts.length - 1]; 
       this.lspId = this.lspResponse.lspId;
@@ -105,6 +106,7 @@ export class AddLspComponent implements OnInit, OnChanges {
         this.selectedFile = file;
         this.fileError = null;
         this.selectedFileName = file.name
+        debugger
         this.lspForm.get('logo')?.setValue(file.name);
 
         this.lspForm.get('file')?.markAsTouched();
