@@ -45,4 +45,6 @@ public static class StoredProcedureConstants
     public const string USP_InsertUpdateSinglePODUpload = "USP_InsertUpdateSinglePODUpload";
     public const string USP_RoleList = "USP_RoleList";
     public const string USP_DeleteCustomerDetails = "USP_DeleteCustomerDetails";
+    public const string USP_DeleteLSPData = "USP_DeleteLSPData";
+    public const string USP_DeleteLSPAndUpdateRelations = "USP_DeleteLSPAndUpdateRelations";
 }

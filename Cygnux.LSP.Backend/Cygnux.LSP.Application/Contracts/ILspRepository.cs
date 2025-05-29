@@ -15,5 +15,6 @@ public interface ILspRepository
 
     Task<BaseResponse<CommonCreateResponse>> UpdateLsp(Guid id, CreateLspRequest createLsp);
 
-    Task<BaseResponse<CommonCreateResponse>> DeleteLsp(Guid id);
+    Task<BaseResponse<CommonCreateResponse>> DeleteLsp(Guid lspid);
+    Task<BaseResponse<DeleteLSPDataResponse?>> DeleteLSPDetails(Guid lspid);
 }

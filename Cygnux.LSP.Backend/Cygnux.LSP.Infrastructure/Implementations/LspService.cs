@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Infrastructure.Implementations;
 
+using Azure;
 using Constants;
 using Contracts;
 using Dapper;
@@ -66,14 +67,64 @@ internal class LspService : ILspService
         ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> DeleteLsp(Guid id)
+    //public async Task<CommonCreateResponse> DeleteLsp(Guid id)
+    //{
+    //    var deleteQuery = "Update Lsp Set IsDeleted = 1 Where LspId = @Id";
+    //    var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
+    //    if (rowAffected > 0)
+    //    {
+    //        return new CommonCreateResponse { Status = 1, Message = "Lsp deleted successfully" };
+    //    }
+    //    return new CommonCreateResponse();
+    //}
+    public async Task<CommonCreateResponse> DeleteLsp(Guid lspid)
     {
-        var deleteQuery = "Update Lsp Set IsDeleted = 1 Where LspId = @Id";
-        var rowAffected = await _dbConnection.ExecuteAsync(deleteQuery, new { Id = id });
-        if (rowAffected > 0)
-        {
-            return new CommonCreateResponse { Status = 1, Message = "Lsp deleted successfully" };
-        }
-        return new CommonCreateResponse();
+        var parameters = new DynamicParameters();
+        parameters.Add("@LSPID", lspid, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_DeleteLSPAndUpdateRelations,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
     }
+
+
+    public async Task<DeleteLSPDataResponse> DeleteLSPDetails(Guid lspid)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@LSPID", lspid, DbType.Guid);
+
+        var response = new DeleteLSPDataResponse();
+
+        using var multi = await _dbConnection.QueryMultipleAsync(
+            StoredProcedureConstants.USP_DeleteLSPData,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        );
+
+        // Read results safely in expected order
+        if (!multi.IsConsumed)
+            response.CustomerMappings = (await multi.ReadAsync<CustomerLSPData>()).ToList();
+
+        if (!multi.IsConsumed)
+            response.TatDetails = (await multi.ReadAsync<CustomerLspTatData>()).ToList();
+
+        if (!multi.IsConsumed)
+            response.Dockets = (await multi.ReadAsync<LSPDocketData>()).ToList();
+
+        if (!multi.IsConsumed)
+        {
+            var statusResult = await multi.ReadFirstOrDefaultAsync<StatusResult>();
+            if (statusResult != null)
+            {
+                response.Status = statusResult.Status;
+                response.Message = statusResult.Message;
+            }
+        }
+
+        return response;
+    }
+
+
 }

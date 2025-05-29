@@ -65,11 +65,17 @@ internal class LspRepository : ILspRepository
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> DeleteLsp(Guid id)
+    public async Task<BaseResponse<CommonCreateResponse>> DeleteLsp(Guid lspid)
     {
-        var response = await _lspService.DeleteLsp(id);
+        var response = await _lspService.DeleteLsp(lspid);
 
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+
+    public async Task<BaseResponse<DeleteLSPDataResponse>> DeleteLSPDetails(Guid lspid)
+    {
+        var response = await _lspService.DeleteLSPDetails(lspid);
+        return new BaseResponse<DeleteLSPDataResponse>(response);
     }
 }

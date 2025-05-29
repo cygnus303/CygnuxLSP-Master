@@ -13,5 +13,6 @@ public interface ILspService
 
     Task<CommonCreateResponse> UpdateLsp(Guid id, string updateLspJson);
 
-    Task<CommonCreateResponse> DeleteLsp(Guid id);
+    Task<CommonCreateResponse> DeleteLsp(Guid lspid);
+    Task<DeleteLSPDataResponse> DeleteLSPDetails(Guid lspid);
 }
