@@ -69,7 +69,7 @@ public class LspController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("DeleteLsp/{id}")]
+    [Route("DeleteLsp")]
     public async Task<IActionResult> DeleteLSP(Guid lspid)
     {
         return Ok(await _lspRepository.DeleteLsp(lspid));

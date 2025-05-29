@@ -29,6 +29,10 @@ export class LspService {
   }
 
   deleteLsp(id: string): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch('lsp/DeleteLsp/' + id, null);
+    return this.apiHandlerService.Patch(`lsp/DeleteLsp?lspid=${id}`);
+  }
+
+  checkMappinglsp(id:string): Observable<IApiBaseResponse<any[]>> {
+    return this.apiHandlerService.Get(`lsp/DeleteLSPData?lspid=${id}`);
   }
 }
