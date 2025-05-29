@@ -91,15 +91,29 @@ export class LspMappingListComponent implements OnInit {
       },
     });
   }
-  deleteLspMapping() {
-    this.lspMappingService.deleteLspMapping(this.lspMappingId).subscribe({
+
+  getDeleteLspmapping(lspmappingId:string){
+ this.lspMappingService.getDeleteLSPMappingData(lspmappingId).subscribe({
+      next: (response) => {
+          this.sweetAlertService.delete(
+            'Are you sure you want to delete this LSP Mapping?',
+            () => this.deleteLspMapping(lspmappingId)
+          );
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
+}
+
+  deleteLspMapping(lspmappingId:string) {
+    this.lspMappingService.deleteLspMapping(lspmappingId).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.closeDeleteModal();
         this.getLspMappings();
       },
       error: (response: any) => {
@@ -107,6 +121,7 @@ export class LspMappingListComponent implements OnInit {
       },
     });
   }
+
   editModal(event: Event, id: string) {
     event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
@@ -117,15 +132,16 @@ export class LspMappingListComponent implements OnInit {
       this.getLspMapping(id);
     }
   }
-  deleteModal(event: Event, id: string) {
-    event.preventDefault();
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.lspMappingId = id;
-      modal.show();
-    }
-  }
+  // deleteModal(event: Event, id: string) {
+  //   event.preventDefault();
+  //   const modalElement = document.getElementById('deleteModal');
+  //   if (modalElement) {
+  //     const modal = new Modal(modalElement);
+  //     this.lspMappingId = id;
+  //     modal.show();
+  //   }
+  // }
+
   getLspMapping(id: string) {
     this.lspMappingService.getLspMappingDetails(id).subscribe({
       next: (response) => {
@@ -139,13 +155,13 @@ export class LspMappingListComponent implements OnInit {
       },
     });
   }
-  closeDeleteModal() {
-    const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement);
-    if (modalInstance) {
-      modalInstance.hide();
-    }
-  }
+  // closeDeleteModal() {
+  //   const modalElement: any = document.getElementById('deleteModal');
+  //   const modalInstance = Modal.getInstance(modalElement);
+  //   if (modalInstance) {
+  //     modalInstance.hide();
+  //   }
+  // }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     const modalInstance = Modal.getInstance(modalElement);

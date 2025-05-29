@@ -96,24 +96,39 @@ export class LspTatListComponent implements OnInit {
       this.getLspMapping(id);
     }
   }
-  deleteModal(event: Event, id: string) {
-    event.preventDefault();
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.lspMappingId = id;
-      modal.show();
-    }
+  // deleteModal(event: Event, id: string) {
+  //   event.preventDefault();
+  //   const modalElement = document.getElementById('deleteModal');
+  //   if (modalElement) {
+  //     const modal = new Modal(modalElement);
+  //     this.lspMappingId = id;
+  //     modal.show();
+  //   }
+  // }
+
+
+  getDeleteLspTat(tatId:string){
+    this.lspMappingService.getDeleteLSPTatData(tatId).subscribe({
+      next: (response) => {
+          this.sweetAlertService.delete(
+            'Are you sure you want to delete this LSP Tat?',
+            () => this.deleteLspMappingTat(tatId)
+          );
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
   }
-  deleteLspMappingTat() {
-    this.lspMappingService.deleteLspMappingTat(this.lspMappingId).subscribe({
+  deleteLspMappingTat(tatId:string) {
+    this.lspMappingService.deleteLspMappingTat(tatId).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.closeDeleteModal();
+        // this.closeDeleteModal();
         this.getLspMappings();
       },
       error: (response: any) => {
@@ -134,13 +149,13 @@ export class LspTatListComponent implements OnInit {
       },
     });
   }
-  closeDeleteModal() {
-    const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement);
-    if (modalInstance) {
-      modalInstance.hide();
-    }
-  }
+  // closeDeleteModal() {
+  //   const modalElement: any = document.getElementById('deleteModal');
+  //   const modalInstance = Modal.getInstance(modalElement);
+  //   if (modalInstance) {
+  //     modalInstance.hide();
+  //   }
+  // }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     const modalInstance = Modal.getInstance(modalElement);

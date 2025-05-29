@@ -89,22 +89,22 @@ export class LspListComponent implements OnInit {
       },
     });
   }
-  deleteLsp() {
-    this.lspService.deleteLsp(this.lspId).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.sweetAlertService.success(response.data.message);
-        } else {
-          this.sweetAlertService.error(response.error.message);
-        }
-        this.closeDeleteModal();
-        this.getLsps();
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-      },
-    });
-  }
+  // deleteLsp() {
+  //   this.lspService.deleteLsp(this.lspId).subscribe({
+  //     next: (response) => {
+  //       if (response.success) {
+  //         this.sweetAlertService.success(response.data.message);
+  //       } else {
+  //         this.sweetAlertService.error(response.error.message);
+  //       }
+  //       this.closeDeleteModal();
+  //       this.getLsps();
+  //     },
+  //     error: (response: any) => {
+  //       this.sweetAlertService.error(response.error.message);
+  //     },
+  //   });
+  // }
 
   editModal(event: Event, id: string) {
     event.preventDefault();
@@ -116,15 +116,15 @@ export class LspListComponent implements OnInit {
     }
   }
 
-  deleteModal(event: Event, id: string) {
-    event.preventDefault();
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.lspId = id;
-      modal.show();
-    }
-  }
+  // deleteModal(event: Event, id: string) {
+  //   event.preventDefault();
+  //   const modalElement = document.getElementById('deleteModal');
+  //   if (modalElement) {
+  //     const modal = new Modal(modalElement);
+  //     this.lspId = id;
+  //     modal.show();
+  //   }
+  // }
   
   getLsp(id: string) {
     this.lspService.getLspDetails(id).subscribe({
@@ -142,13 +142,13 @@ export class LspListComponent implements OnInit {
       },
     });
   }
-  closeDeleteModal() {
-    const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement);
-    if (modalInstance) {
-      modalInstance.hide();
-    }
-  }
+  // closeDeleteModal() {
+  //   const modalElement: any = document.getElementById('deleteModal');
+  //   const modalInstance = Modal.getInstance(modalElement);
+  //   if (modalInstance) {
+  //     modalInstance.hide();
+  //   }
+  // }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     const modalInstance = Modal.getInstance(modalElement);
@@ -189,19 +189,13 @@ export class LspListComponent implements OnInit {
     }
   }
 
-  checkDeleteLSP(lspId:string){
+  getDeleteLSP(lspId:string){
     this.lspService.checkMappinglsp(lspId).subscribe({
       next: (response) => {
-        if (response.data.length <= 1) {
           this.sweetAlertService.delete(
             'Are you sure you want to delete this LSP?',
             () => this.deleteLSP(lspId)
           );
-        } else {
-        this.sweetAlertService.delete(
-          'Are you sure you want to delete this LSP? This LSP is currently mapped.',
-          () => this.deleteLSP(lspId));
-        }
     },
     error: (response: any) => {
       this.sweetAlertService.error(response.error.message);

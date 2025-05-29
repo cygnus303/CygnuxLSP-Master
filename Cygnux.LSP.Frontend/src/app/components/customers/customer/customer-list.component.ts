@@ -171,7 +171,7 @@ export class CustomerListComponent implements OnInit {
           this.sweetAlertService.error(response.error.message);
         }
         this.getCustomers(this.page);
-        this.closeDeleteModal();
+        // this.closeDeleteModal();
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
@@ -189,15 +189,15 @@ export class CustomerListComponent implements OnInit {
       this.getCustomer(customerCode);
     }
   }
-  deleteModal(event: Event, customerId: string) {
-    event.preventDefault();
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.customerId = customerId;
-      modal.show();
-    }
-  }
+  // deleteModal(event: Event, customerId: string) {
+  //   event.preventDefault();
+  //   const modalElement = document.getElementById('deleteModal');
+  //   if (modalElement) {
+  //     const modal = new Modal(modalElement);
+  //     this.customerId = customerId;
+  //     modal.show();
+  //   }
+  // }
   getCustomer(customerCode: string) {
     this.customerService.getCustomerDetails(customerCode,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
@@ -228,13 +228,13 @@ export class CustomerListComponent implements OnInit {
       modalElement.addEventListener('click', handleOutsideClick);
     }
   }
-  closeDeleteModal() {
-    const modalElement: any = document.getElementById('deleteModal');
-    const modalInstance = Modal.getInstance(modalElement);
-    if (modalInstance) {
-      modalInstance.hide();
-    }
-  }
+  // closeDeleteModal() {
+  //   const modalElement: any = document.getElementById('deleteModal');
+  //   const modalInstance = Modal.getInstance(modalElement);
+  //   if (modalInstance) {
+  //     modalInstance.hide();
+  //   }
+  // }
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     const modalInstance = Modal.getInstance(modalElement);

@@ -75,12 +75,22 @@ export class LspMappingService {
   }
 
   deleteLspMapping(id: string): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch('customerLsp/' + id, null);
+    return this.apiHandlerService.Patch(`CustomerLsp/DeleteLSPMap?CustomerLspId=${id}`);
   }
 
   deleteLspMappingTat(
     id: string
   ): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch('customerLsp/Tat/' + id, null);
+    return this.apiHandlerService.Patch(`CustomerLsp/Tat/DeleteLSPTAT?TatId=${id}`);
   }
+
+  getDeleteLSPMappingData(id:string): Observable<IApiBaseResponse<any[]>> {
+    return this.apiHandlerService.Get(`CustomerLsp/GetDeleteCustomerLspMapData?Id=${id}`);
+  }
+
+  getDeleteLSPTatData(id:string): Observable<IApiBaseResponse<any[]>> {
+    return this.apiHandlerService.Get(`CustomerLsp/Tat/GetDeleteCustomerLspTATData?Id=${id}`);
+  }
+
+
 }

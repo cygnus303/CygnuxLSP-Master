@@ -63,7 +63,7 @@
                     </div>
                     <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"
-                        height="20" (click)="checkDeleteLSP(lsp.lspId)">
+                        height="20" (click)="getDeleteLSP(lsp.lspId)">
                         <path
                           d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z">
                         </path>
@@ -109,12 +109,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bs-blue d-flex justify-content-between">
                 <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
-                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 <button data-bs-dismiss="modal" class="close"><i class="fa fa-close" ></i></button>
             </div>
             <div class="modal-body">
@@ -126,7 +125,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="modal fade editDialog" id="lspDetail" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
