@@ -3,6 +3,7 @@ import { DocketService } from '../../../shared/services/docket.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ValidDatePOD } from '../../../shared/models/docket.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-pod-upload',
   standalone: false,
@@ -21,6 +22,7 @@ export class PodUploadComponent {
     private docketService:DocketService,
     private identityService:IdentityService,
     private sweetAlertService:SweetAlertService,
+    private router:Router
   ){}
 
   ngOnInit(){}
@@ -31,6 +33,8 @@ export class PodUploadComponent {
       this.selectedFile = null;
     }
    this.selectedFile = null;
+   this.mappedData = [];
+   this.uploadedImages = [];
   }
   
   onClose(){
@@ -99,17 +103,15 @@ exportExcel() {
   });
   formData.append('docketJson', JSON.stringify(this.mappedData));
   formData.append('User', this.identityService.getLoggedUserId());
-
-
   this.docketService.uploadDocket(formData).subscribe({
     next: (response) => {
       if (response.success) {
         this.dataEmitter.emit();
+        this.files = [];
+        this.mappedData = [];
+        this.uploadedImages=[];
         this.sweetAlertService.success(response.data.message);
-          this.files = [];
-          this.mappedData = [];
-          this.uploadedImages=[];
-
+        this.router.navigateByUrl('docket/list');
       } else {
         this.sweetAlertService.error(response.error.message);
       }

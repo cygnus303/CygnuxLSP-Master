@@ -93,20 +93,68 @@ export class CustomerListComponent implements OnInit {
 //     }
 // }
 
-mappingCustomer(customerId: string) {
-  this.customerService.checkMappingCustomer(customerId).subscribe({
-    next: (response) => {
-      if (response.data.length <= 1) {
-       this.sweetAlertService.delete(
-          'Are you sure you want to delete this customer?',
-          () => this.deleteCustomer(customerId) 
-        ); 
-      } else {
+  mappingCustomer(customerId: string) {
+    this.customerService.checkMappingCustomer(customerId).subscribe({
+      next: (response) => {
+        if (response.data.length <= 1) {
+          this.sweetAlertService.delete(
+            'Are you sure you want to delete this customer?',
+            () => this.deleteCustomer(customerId)
+          );
+        } else {
         this.sweetAlertService.delete(
           'Are you sure you want to delete this customer? This customer is currently mapped.',
-          () => this.deleteCustomer(customerId) 
-        );
-      }
+          () => this.deleteCustomer(customerId));
+
+        //   const tableHtml = `<div style="font-size: 15px; text-align: center;">
+        //               <div style="margin-bottom: 12px; font-weight: 500;">
+        //                 ⚠️ This customer is currently mapped.<br>Are you sure you want to delete?
+        //               </div>
+        //               <div style="display: flex; justify-content: center;">
+        //                 <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+        //                   <table style="width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed;">
+        //                     <thead style="position: sticky; top: 0; background-color: #f2f2f2; z-index: 1;">
+        //                       <tr>
+        //                         <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">LSP Name</th>
+        //                         <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">Docket No</th>
+        //                         <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">Origin</th>
+        //                         <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">Destination</th>
+        //                       </tr>
+        //                     </thead>
+        //                     <tbody>
+        //                       ${response.data.map((item: any) => `
+        //                         <tr>
+        //                           <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.lspName || '-'}</td>
+        //                           <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.docketNo || '-'}</td>
+        //                           <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.origin || '-'}</td>
+        //                           <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.destination || '-'}</td>
+        //                         </tr>
+        //                       `).join('')}
+        //                     </tbody>
+        //                   </table>
+        //                 </div>
+        //               </div>
+        //             </div>`;
+        //       Swal.fire({
+        //         html: tableHtml,
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonText: 'Yes, Delete',
+        //         cancelButtonText: 'Cancel',
+        //         width: 700,
+        //         customClass: {
+        //           popup: 'animated fadeIn',
+        //           confirmButton: 'swal2-confirm btn btn-danger',
+        //           cancelButton: 'swal2-cancel btn btn-secondary'
+        //         },
+        //         buttonsStyling: false
+        //       }).then((result) => {
+        //         if (result.isConfirmed) {
+        //           this.deleteCustomer(customerId);
+        //         }
+        //       });
+        // }
+        }
     },
     error: (response: any) => {
       this.sweetAlertService.error(response.error.message);
