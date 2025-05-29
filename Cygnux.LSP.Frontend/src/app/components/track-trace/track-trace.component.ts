@@ -186,7 +186,7 @@ downloadImagesAsZip(): void {
         window.URL.revokeObjectURL(url);
       });
     } else {
-      alert('No valid images found to download.');
+      // alert('No valid images found to download.');
     }
   });
 }
