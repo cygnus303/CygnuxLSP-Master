@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Priority</label>
-                                    <ng-select [items]="priority"
+                                    <!-- <ng-select [items]="priority"
                                     bindLabel="codeDesc"
                                     bindValue="codeId"
                                     formControlName="priority"
@@ -92,12 +92,14 @@
                                     required
                                     [ngClass]="{ 'border-danger': lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority'].touched}" 
                                     >
-                                    </ng-select>
-                                    <div *ngIf="lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority']?.touched"
-                                        class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['priority'].errors?.['required']">Priority
-                                            is required.</small>
-                                    </div>
+                                    </ng-select> -->
+                                     <input class="form-control" formControlName="priority" type="number" placeholder="Enter priority" min="1" max="10"
+                                        required [ngClass]="{ 'border-danger': lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority'].touched}"/>
+                                        <div *ngIf="lspTatForm.controls['priority'].invalid && lspTatForm.controls['priority']?.touched" class="text-danger">
+                                            <small *ngIf="lspTatForm.controls['priority'].errors?.['required']">Priority is required.</small>
+                                            <small *ngIf="lspTatForm.controls['priority'].errors?.['min']">Minimum value is 1.</small>
+                                            <small *ngIf="lspTatForm.controls['priority'].errors?.['max']">Maximum value is 10.</small>
+                                        </div>
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Booking Type</label>
@@ -105,9 +107,7 @@
                                     [ngClass]="{ 'border-danger': lspTatForm.controls['bookingType'].invalid && lspTatForm.controls['bookingType'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['bookingType'].invalid && lspTatForm.controls['bookingType']?.touched"
                                         class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['bookingType'].errors?.['required']">Booking
-                                            Type
-                                            is required.</small>
+                                        <small *ngIf="lspTatForm.controls['bookingType'].errors?.['required']">Booking Type is required.</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-11">
