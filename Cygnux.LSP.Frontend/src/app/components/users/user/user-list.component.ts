@@ -71,9 +71,9 @@ export class UserListComponent implements OnInit, OnDestroy {
       ...this.filters,
       Page: page,
       PageSize: this.pageSize,
-      userId:this.identityService.getLoggedUserId()
+     
     };
-    this.userService.getUserList(filters).subscribe({
+    this.userService.getUserList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
           this.users = response.data;
@@ -88,15 +88,18 @@ export class UserListComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteUser() {
+  deleteUser(userCode:string) {
     const payload={
-      id:this.userCode,
+      id:userCode,
       isDeleted:true
     }
-    this.userService.deleteUser(this.userCode,payload).subscribe({
+    this.userService.deleteUser(userCode,payload).subscribe({
       next: (response) => {
         if (response.success) {
-          this.sweetAlertService.success(response.data.message);
+          this.sweetAlertService.delete(
+            'Are you sure you want to delete this LSP Tat?',
+            () => this.sweetAlertService.success(response.data.message)
+          );
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -128,7 +131,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
   getUser(userCode: string) {
-    this.userService.getUserDetails(userCode,this.identityService.getLoggedUserId()).subscribe({
+    this.userService.getUserDetails(userCode).subscribe({
       next: (response) => {
         if (response) {
           this.selectedUser = response.data;

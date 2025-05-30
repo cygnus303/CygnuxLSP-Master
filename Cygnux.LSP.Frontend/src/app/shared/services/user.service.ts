@@ -13,20 +13,20 @@ export class UserService {
 
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService) { }
 
-  getUserList(filters:any): Observable<IApiBaseResponse<UserResponse[]>> {
-    return this.apiHandlerService.Get('user', filters);
+  getUserList(id:string,filters:any): Observable<IApiBaseResponse<UserResponse[]>> {
+    return this.apiHandlerService.Get(`User/GetUserList?userId=${id}`, filters);
   }
 
-  getUserDetails(id: string,userId:string): Observable<IApiBaseResponse<UserResponse>> {
-    return this.apiHandlerService.Get(`user/${id}?userId=${userId}`);
+  getUserDetails(id: string): Observable<IApiBaseResponse<UserResponse>> {
+    return this.apiHandlerService.Get(`User/GetUserDetail?id=${id}`);
   }
 
   addUser(adduserRequest: AddUserRequest): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('user', adduserRequest);
+    return this.apiHandlerService.Post('User/AddUser', adduserRequest);
   }
 
   updateUser(id: string, adduserRequest: AddUserRequest): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post('user/' + id, adduserRequest);
+    return this.apiHandlerService.Post(`User/UpdateUser?id=${id}`, adduserRequest);
   }
 
   deleteUser(id: string,deleteUserRequest:DeleteUserRequest): Observable<IApiBaseResponse<CommonResponse>> {

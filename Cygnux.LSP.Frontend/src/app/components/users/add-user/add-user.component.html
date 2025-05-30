@@ -54,10 +54,10 @@
                   <label class="col-form-label">Session Time (Minutes)</label>
                   <input class="form-control" formControlName="sessionTime" type="number" min="1" max="60" placeholder="Enter Session Time"/>
                   <small *ngIf="userForm.get('sessionTime')?.errors?.['min'] && userForm.get('sessionTime')?.touched" class="text-danger">
-                      Minimum value is 1
+                      Session Time should be minimum 1 hour.
                     </small>
                     <small *ngIf="userForm.get('sessionTime')?.errors?.['max'] && userForm.get('sessionTime')?.touched" class="text-danger">
-                      Maximum value is 60
+                      Session Time should be minimum 1 hour.
                     </small>
                 </div>
                 <!-- <div class="col-md-4 mb-11">

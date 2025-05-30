@@ -58,7 +58,7 @@
                         </div>
                         <div  [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)"
-                            class="m-0" height="20" (click)="deleteModal($event,user.id)">
+                            class="m-0" height="20" (click)="deleteUser(user.id)">
                             <path
                               d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z">
                             </path>
@@ -103,7 +103,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header modal-header bs-blue d-flex justify-content-between">
@@ -121,7 +121,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="modal fade editDialog" id="usersDetail" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLongTitle" aria-hidden="true">

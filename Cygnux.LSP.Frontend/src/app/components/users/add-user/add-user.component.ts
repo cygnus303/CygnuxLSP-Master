@@ -50,19 +50,21 @@ export class AddUserComponent implements OnInit, OnChanges {
     this.getRoles();
   }
 
+
+  // Hello Guys...my self archi virani... i am new joing as a angular developer in abc softetch...i am happy to sharing that we will progress in 
   buildForm(): void {
     this.userForm = new FormGroup({
-      // customerName:new FormControl(null),
+      customerName:new FormControl(''),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null),
-      // location:new FormControl(''),
-      sessionTime:new FormControl('',[Validators.min(1), Validators.max(60)]),
+      location:new FormControl(''),
+      sessionTime:new FormControl(1,[Validators.min(0), Validators.max(60)]),
       roles: new FormControl('SA', [Validators.required]),
       emailId: new FormControl('', [Validators.required,Validators.pattern(EmailRegex)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
       address:new FormControl('',[Validators.required]),
-      // locality:new FormControl(''),
+      locality:new FormControl(''),
       city:new FormControl('',[Validators.required]),
       zipCode:new FormControl(null,[Validators.required,Validators.pattern(PincodeRegex)]),
       photo:new FormControl(''),
