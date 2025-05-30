@@ -31,21 +31,67 @@ public class LspController : ControllerBase
 
     [HttpPost]
     [Route("AddLsp")]
+    //public async Task<IActionResult> AddLSP([FromForm] CreateLspRequest createLsp, IFormFile file)
+    //{
+    //    if (file != null && file.Length > 0)
+    //    {
+    //        // Process fileGetLSPList
+    //        var filePath = Path.Combine("Uploads", file.FileName);
+    //        using (var stream = new FileStream(filePath, FileMode.Create))
+    //        {
+    //            await file.CopyToAsync(stream);
+    //        }
+    //        createLsp.Logo = filePath;
+    //    }
+    //    return Ok(await _lspRepository.AddLsp(createLsp));
+    //}
+
     public async Task<IActionResult> AddLSP([FromForm] CreateLspRequest createLsp, IFormFile file)
     {
         if (file != null && file.Length > 0)
-        if (file != null && file.Length > 0)
         {
-            // Process fileGetLSPList
-            var filePath = Path.Combine("Uploads", file.FileName);
+            var folderPath = Path.Combine("Uploads", "LspLogo");
+
+            // Ensure the directory exists
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            var filePath = Path.Combine(folderPath, file.FileName);
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
+
             createLsp.Logo = filePath;
         }
+
         return Ok(await _lspRepository.AddLsp(createLsp));
     }
+
+
+    //[HttpPost]
+    //[Route("UpdateLsp/{id}")]
+    //public async Task<IActionResult> UpdatedLSP(Guid id, [FromForm] CreateLspRequest createLsp, IFormFile? file)
+    //{
+    //    if (file != null && file.Length > 0)
+    //    {
+    //        // Process file
+    //        var filePath = Path.Combine("Uploads", file.FileName);
+    //        using (var stream = new FileStream(filePath, FileMode.Create))
+    //        {
+    //            await file.CopyToAsync(stream);
+    //        }
+    //        createLsp.Logo = filePath;
+    //    }
+    //    else if (!string.IsNullOrEmpty(createLsp.Logo))
+    //    {
+    //        createLsp.Logo = createLsp.Logo.Replace($"{Request.Scheme}://{Request.Host}/", "");
+    //    }
+    //    return Ok(await _lspRepository.UpdateLsp(id, createLsp));
+    //}
 
     [HttpPost]
     [Route("UpdateLsp/{id}")]
@@ -53,20 +99,32 @@ public class LspController : ControllerBase
     {
         if (file != null && file.Length > 0)
         {
-            // Process file
-            var filePath = Path.Combine("Uploads", file.FileName);
+            var folderPath = Path.Combine("Uploads", "LspLogo");
+
+            // Ensure the directory exists
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            var filePath = Path.Combine(folderPath, file.FileName);
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
+
             createLsp.Logo = filePath;
         }
         else if (!string.IsNullOrEmpty(createLsp.Logo))
         {
+            // Remove base URL if logo already exists and is passed from client
             createLsp.Logo = createLsp.Logo.Replace($"{Request.Scheme}://{Request.Host}/", "");
         }
+
         return Ok(await _lspRepository.UpdateLsp(id, createLsp));
     }
+
 
     [HttpPatch]
     [Route("DeleteLsp")]
