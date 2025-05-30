@@ -33,6 +33,6 @@ export class LspService {
   }
 
   checkMappinglsp(id:string): Observable<IApiBaseResponse<any[]>> {
-    return this.apiHandlerService.Get(`lsp/DeleteLSPData?lspid=${id}`);
+    return this.apiHandlerService.Get(`lsp/GetDeleteLSPData?lspid=${id}`);
   }
 }
