@@ -105,7 +105,7 @@ export class AddLspComponent implements OnInit, OnChanges {
         this.selectedFile = file;
         this.fileError = null;
         this.selectedFileName = file.name
-        this.lspForm.get('logo')?.setValue('https://uatlspapi.cygnux.in/Uploads/'+file.name);
+        this.lspForm.get('logo')?.setValue(file.name);
 
         this.lspForm.get('file')?.markAsTouched();
   
