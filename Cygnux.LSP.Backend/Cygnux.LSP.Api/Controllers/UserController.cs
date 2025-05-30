@@ -16,26 +16,28 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Route("GetUserList")]
     public async Task<IActionResult> GetUserList(Guid userId, [FromQuery] Dictionary<string, string> reqFilter)
     {
         return Ok(await _userRepository.GetUserList(userId,reqFilter));
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route("GetUserDetail")]
     public async Task<IActionResult> GetUserDetails(Guid id)
     {
         return Ok(await _userRepository.GetUserDetails(id));
     }
 
     [HttpPost]
+    [Route("AddUser")]
     public async Task<IActionResult> AddUser(UserRequest userRequest)
     {
         return Ok(await _userRepository.AddUser(userRequest));
     }
 
     [HttpPost]
-    [Route("{id}")]
+    [Route("UpdateUser")]
     public async Task<IActionResult> UpdateUser(Guid id, UserRequest userRequest)
     {
         return Ok(await _userRepository.UpdateUser(id, userRequest));

@@ -17,8 +17,8 @@ public class UserRequest
     public string Locality { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public string ZipCode { get; set; } = string.Empty;
-    public DateTime? SessionTime { get; set; }
-
+    /*public DateTime? SessionTime { get; set; }*/
+    public int SessionTime { get; set; }
 }
 
 public  class DeleteUserReq
