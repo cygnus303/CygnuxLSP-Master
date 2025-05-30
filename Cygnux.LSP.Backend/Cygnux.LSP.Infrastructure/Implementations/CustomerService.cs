@@ -16,31 +16,27 @@ internal class CustomerService : ICustomerService
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<CustomerListResponse>> GetCustomerList(string? customerCode,int page, int pageSize, Guid userId,string? CustomerName,string? EmailId)
+    public async Task<IEnumerable<CustomerListResponse>> GetCustomerList(Guid userId, string json)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@CustomerCode", customerCode, DbType.String);
-        parameters.Add("@Page", page, DbType.Int32);
-        parameters.Add("@PageSize", pageSize, DbType.Int32);
         parameters.Add("@UserId", userId, DbType.Guid);
-        parameters.Add("@CustomerName", CustomerName, DbType.String);
-        parameters.Add("@EmailId", EmailId, DbType.String);
+        parameters.Add("@jsoninput", json, DbType.String);
 
         return await _dbConnection.QueryAsync<CustomerListResponse>(
-             StoredProcedureConstants.Usp_GetCustomer,
+             StoredProcedureConstants.Usp_GetCustomer_new,
              parameters,
              commandType: CommandType.StoredProcedure
          );
     }
 
-    public async Task<CustomerDetailResponse> GetCustomerDetails(string customerCode, Guid userId)
+    public async Task<CustomerDetailResponse> GetCustomerDetails(Guid custId, Guid userId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@CustomerCode", customerCode, DbType.String);
+        parameters.Add("@CustomerId", custId, DbType.Guid);
         parameters.Add("@UserId", userId, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<CustomerDetailResponse>(
-            StoredProcedureConstants.Usp_GetCustomer,
+            StoredProcedureConstants.Usp_GetCustomer_new,
             param: parameters,
             commandType: CommandType.StoredProcedure
         ) ?? new CustomerDetailResponse();

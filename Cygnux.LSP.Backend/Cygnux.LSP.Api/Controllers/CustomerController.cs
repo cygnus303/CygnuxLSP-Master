@@ -18,16 +18,17 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCustomerList(string? customerCode, [FromQuery] int page, [FromQuery] int pageSize, Guid userId, string? CustomerName, string? EmailId)
+    [Route("GetCustomerList")]
+    public async Task<IActionResult> GetCustomerList(Guid userId,[FromQuery] Dictionary<string, string> json)
     {
-        return Ok(await _customerRepository.GetCustomerList(customerCode,page, pageSize, userId, CustomerName,EmailId));
+        return Ok(await _customerRepository.GetCustomerList(userId,json));
     }
 
     [HttpGet]
-    [Route("{id}")]
-    public async Task<IActionResult> GetCustomerDetails(string id,Guid userId)
+    [Route("GetCustomerDetail")]
+    public async Task<IActionResult> GetCustomerDetails(Guid custId, Guid userId)
     {
-        return Ok(await _customerRepository.GetCustomerDetails(id,userId));
+        return Ok(await _customerRepository.GetCustomerDetails(custId,userId));
     }
 
     [HttpPost]

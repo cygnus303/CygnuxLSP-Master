@@ -3,6 +3,7 @@
 public static class StoredProcedureConstants
 {
     public const string Usp_GetCustomer = "Usp_GetCustomer";
+    public const string Usp_GetCustomer_new = "Usp_GetCustomer_new";
     public const string Usp_GetLsp = "Usp_GetLsp";
     public const string Usp_GetLsp_new = "Usp_GetLsp_new";
     public const string USP_GetLspDetail = "USP_GetLspDetail";

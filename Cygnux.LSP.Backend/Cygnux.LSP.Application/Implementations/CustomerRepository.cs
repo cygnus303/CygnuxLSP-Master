@@ -23,15 +23,15 @@ internal class CustomerRepository : ICustomerRepository
         _userRoleService = userRoleService;
     }
 
-    public async Task<BaseResponse<IEnumerable<CustomerListResponse>>> GetCustomerList(string? customerCode, int page, int pageSize, Guid userId, string? CustomerName, string? EmailId)
+    public async Task<BaseResponse<IEnumerable<CustomerListResponse>>> GetCustomerList(Guid userId, Dictionary<string, string> json)
     {
-        var response = await _customerService.GetCustomerList(customerCode,page, pageSize, userId,CustomerName,EmailId);
+        var response = await _customerService.GetCustomerList(userId, JsonConvert.SerializeObject(json));
         return new BaseResponse<IEnumerable<CustomerListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
-    public async Task<BaseResponse<CustomerDetailResponse?>> GetCustomerDetails(string customerCode, Guid userId)
+    public async Task<BaseResponse<CustomerDetailResponse?>> GetCustomerDetails(Guid custId, Guid userId)
     {
-        var response = await _customerService.GetCustomerDetails(customerCode,userId);
+        var response = await _customerService.GetCustomerDetails(custId,userId);
 
         return new BaseResponse<CustomerDetailResponse?>(response);
     }
