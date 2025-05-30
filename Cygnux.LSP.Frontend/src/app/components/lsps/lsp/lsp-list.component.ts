@@ -131,9 +131,9 @@ export class LspListComponent implements OnInit {
       next: (response) => {
         if (response) {
           this.selectedLsp = response.data;
-          this.selectedLsp.logo =
-            environment.apiUrl.replace('/api/v1', '') +
-            this.selectedLsp.logo.replace(/\\/g, '/');
+          // this.selectedLsp.logo =
+          //   environment.apiUrl.replace('/api/v1', '') +
+          //   this.selectedLsp.logo.replace(/\\/g, '/');
           this.edit.emit(response.data);
         }
       },
