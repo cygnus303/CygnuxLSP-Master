@@ -15,12 +15,12 @@ export class CustomerService {
   constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService, private identityService:IdentityService
 ) { }
 
-  getCustomerList( filters: any): Observable<IApiBaseResponse<CustomerResponse[]>> {
-    return this.apiHandlerService.Get('customer', filters);
+  getCustomerList( id:string,filters: any): Observable<IApiBaseResponse<CustomerResponse[]>> {
+    return this.apiHandlerService.Get(`Customer/GetCustomerList?userId=${id}`, filters);
   }
 
   getCustomerDetails(id: string,userId: string): Observable<IApiBaseResponse<CustomerResponse>> {
-    return this.apiHandlerService.Get(`customer/${id}?userId=${userId}`);
+    return this.apiHandlerService.Get(`Customer/GetCustomerDetail?custId=${id}&userId=${userId}`);
   }
 
   addCustomer(addcustomerRequest: AddCustomerRequest): Observable<IApiBaseResponse<CommonResponse>> {

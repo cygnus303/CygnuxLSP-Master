@@ -19,7 +19,6 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
 })
 export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
-  public customerCode: string = '';
   public customerId: string = '';
   public selectedCustomer: CustomerResponse | null = null;
   public page = 1; // Current page number
@@ -63,11 +62,10 @@ export class CustomerListComponent implements OnInit {
     const filters: any = {
       ...this.filters,
       Page: page,
-      UserID:this.identityService.getLoggedUserId(),
       PageSize: this.pageSize,
     };
     this.commonService.updateLoader(true);
-    this.customerService.getCustomerList(filters).subscribe({
+    this.customerService.getCustomerList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;
@@ -179,14 +177,14 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  editModal(event: Event, customerCode: string) {
+  editModal(event: Event, customerId: string) {
     event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
-      this.customerCode = customerCode;
-      this.getCustomer(customerCode);
+      this.customerId = customerId;
+      this.getCustomer(customerId);
     }
   }
   // deleteModal(event: Event, customerId: string) {
@@ -198,8 +196,8 @@ export class CustomerListComponent implements OnInit {
   //     modal.show();
   //   }
   // }
-  getCustomer(customerCode: string) {
-    this.customerService.getCustomerDetails(customerCode,this.identityService.getLoggedUserId()).subscribe({
+  getCustomer(customerId: string) {
+    this.customerService.getCustomerDetails(customerId,this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedCustomer = response.data;
@@ -216,7 +214,7 @@ export class CustomerListComponent implements OnInit {
     if (modalElement) {
       const modal = new Modal(modalElement);
       this.selectedCustomer = null;
-      this.customerCode = '';
+      this.customerId = '';
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
@@ -254,7 +252,7 @@ export class CustomerListComponent implements OnInit {
     const modalElement = document.getElementById('exampleModalLspMapping');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.getCustomer(customer.customerCode);
+      this.getCustomer(customer.customerId);
       modal.show();
     }
   }
@@ -267,13 +265,13 @@ export class CustomerListComponent implements OnInit {
     }
   }
 
-  customerDetail(event: Event, customerCode: string){
+  customerDetail(event: Event, customerId: string){
     event.preventDefault();
     const modalElement = document.getElementById('customerDetail');
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
-      this.getCustomer(customerCode);
+      this.getCustomer(customerId);
     }
   }
   
