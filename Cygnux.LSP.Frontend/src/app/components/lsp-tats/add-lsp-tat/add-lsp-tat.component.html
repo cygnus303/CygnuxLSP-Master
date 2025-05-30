@@ -131,14 +131,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-11">
-                                    <label class="col-form-label">Tat</label>
-                                    <input class="form-control" formControlName="tat" type="text" required placeholder="Enter Tat"
+                                    <label class="col-form-label">TAT (Turnaround time in days)</label>
+                                    <input class="form-control" formControlName="tat" type="number" required placeholder="Enter Tat" min="1" max="10"
                                     [ngClass]="{ 'border-danger': lspTatForm.controls['tat'].invalid && lspTatForm.controls['tat'].touched}"/>
                                     <div *ngIf="lspTatForm.controls['tat'].invalid && lspTatForm.controls['tat']?.touched"
                                         class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['tat'].errors?.['required']">Tat
-                                            name
-                                            is required.</small>
+                                        <small *ngIf="lspTatForm.controls['tat'].errors?.['required']">Tat name is required.</small>
+                                        <small *ngIf="lspTatForm.controls['tat'].errors?.['min']">Minimum value is 1.</small>
+                                        <small *ngIf="lspTatForm.controls['tat'].errors?.['max']">Maximum value is 10.</small>
                                     </div>
                                 </div>
                             </div>

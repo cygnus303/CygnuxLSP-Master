@@ -74,7 +74,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       destination: new FormControl(null, [Validators.required]),
       destinationState: new FormControl(null, [Validators.required]),
       mode: new FormControl(null, [Validators.required]),
-      tat: new FormControl(null, [Validators.required]),
+      tat: new FormControl(null, [Validators.required,Validators.min(1), Validators.max(10)]),
       priority: new FormControl(null, [Validators.required,Validators.min(1), Validators.max(10)]),
       bookingType: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
