@@ -44,17 +44,17 @@ export class AddLspComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspResponse'] && this.lspResponse) {
-      const urlParts = this.lspResponse.logo.split('/');
-    this.selectedFileName = urlParts[urlParts.length - 1]; 
+     const urlParts = this.lspResponse.logo.split('\\');
+     this.selectedFileName = urlParts[urlParts.length - 1]
+      this.imagePreview = environment.apiUrl.replace('/api/v1', '') + this.lspResponse.logo.replace(/\\/g, '/');
       this.lspId = this.lspResponse.lspId;
       this.lspForm.patchValue(this.lspResponse);
-      this.imagePreview = environment.apiUrl.replace('/api/v1', '') + this.lspResponse.logo.replace(/\\/g, '/');
     } else {
       this.lspForm.reset();
       this.lspId = '';
-      this.buildForm();
       this.selectedFileName='';
       this.imagePreview = null;
+      this.buildForm();
     }
   }
 
