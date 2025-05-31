@@ -14,7 +14,7 @@ import { LspResponse } from '../../../shared/models/lsp.model';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add-lsp',
@@ -48,7 +48,7 @@ export class AddLspComponent implements OnInit, OnChanges {
     this.selectedFileName = urlParts[urlParts.length - 1]; 
       this.lspId = this.lspResponse.lspId;
       this.lspForm.patchValue(this.lspResponse);
-
+      this.imagePreview = environment.apiUrl.replace('/api/v1', '') + this.lspResponse.logo.replace(/\\/g, '/');
     } else {
       this.lspForm.reset();
       this.lspId = '';

@@ -120,9 +120,9 @@
                     <small *ngIf="lspForm.controls['logo'].errors?.['required']">file is required.</small>
                   </div>
                   <!-- Image Preview Section -->
-                  <div *ngIf="imagePreview || lspResponse?.logo" class="mt-4">
+                  <div *ngIf="imagePreview" class="mt-4">
                     <h6>Logo Preview:</h6>
-                    <img [src]="imagePreview || lspResponse?.logo" style="max-width: 100px; max-height: 100px" />
+                    <img [src]="imagePreview" style="max-width: 100px; max-height: 100px" />
                   </div>
                 </div>
 
