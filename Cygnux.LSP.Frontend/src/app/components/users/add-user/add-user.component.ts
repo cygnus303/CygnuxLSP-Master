@@ -13,7 +13,6 @@ import {
   EmailRegex,
   OnlyDigitRegex,
   PincodeRegex,
-  zipCode,
 } from '../../../shared/constants/common';
 import { UserResponse } from '../../../shared/models/user.model';
 import { UserService } from '../../../shared/services/user.service';
@@ -38,7 +37,6 @@ export class AddUserComponent implements OnInit, OnChanges {
 
   constructor(
     private userService: UserService,
-    private commonService: CommonService,
     private sweetAlertService: SweetAlertService,
     private roleService: RoleService,
   ) {
