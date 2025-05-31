@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
 import { CommonResponse } from '../models/lsp.model';
-import { AddUserRequest, DeleteUserRequest, UserResponse } from '../models/user.model';
+import { AddUserRequest, UserResponse } from '../models/user.model';
 
 
 @Injectable({
@@ -29,7 +29,7 @@ export class UserService {
     return this.apiHandlerService.Post(`User/UpdateUser?id=${id}`, adduserRequest);
   }
 
-  deleteUser(id: string,deleteUserRequest:DeleteUserRequest): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Patch(`user/DeleteUser?id=${id}` , deleteUserRequest);
+  deleteUser(id: string): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Patch(`user/DeleteUser?userid=${id}`);
   }
 }

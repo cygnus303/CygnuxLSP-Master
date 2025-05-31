@@ -89,16 +89,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(userCode:string) {
-    const payload={
-      id:userCode,
-      isDeleted:true
-    }
-    this.userService.deleteUser(userCode,payload).subscribe({
+    this.userService.deleteUser(userCode).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.delete(
-            'Are you sure you want to delete this LSP Tat?',
-            () => this.sweetAlertService.success(response.data.message)
+            'Are you sure you want to delete this User?',
+            () => this.sweetAlertService.success('User deleted Successfully!')
           );
         } else {
           this.sweetAlertService.error(response.error.message);
