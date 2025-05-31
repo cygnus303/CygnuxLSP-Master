@@ -31,9 +31,9 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("AddUser")]
-    public async Task<IActionResult> AddUser(UserRequest userRequest)
+    public async Task<IActionResult> AddUser(UserRequest userRequest , Guid user)
     {
-        return Ok(await _userRepository.AddUser(userRequest));
+        return Ok(await _userRepository.AddUser(userRequest,user));
     }
 
     [HttpPost]
@@ -44,10 +44,17 @@ public class UserController : ControllerBase
     }
 
 
+    //[HttpPatch]
+    //[Route("DeleteUser")]
+    //public async Task<IActionResult> DeleteUser(Guid id, DeleteUserReq deleteUreq)
+    //{
+    //    return Ok(await _userRepository.DeleteUser(id, deleteUreq));
+    //}
+
     [HttpPatch]
     [Route("DeleteUser")]
-    public async Task<IActionResult> DeleteUser(Guid id, DeleteUserReq deleteUreq)
+    public async Task<IActionResult> DeleteUser(Guid userid)
     {
-        return Ok(await _userRepository.DeleteUser(id, deleteUreq));
+        return Ok(await _userRepository.DeleteUser(userid));
     }
 }

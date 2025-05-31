@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Data;
 using Cygnux.LSP.Application.Models.Request.Role;
 using Newtonsoft.Json;
+using Cygnux.LSP.Infrastructure.Contracts;
 
 internal class UserRepository : IUserRepository
 {
@@ -37,7 +38,7 @@ internal class UserRepository : IUserRepository
         return new BaseResponse<UserResponse?>(response);
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> AddUser(UserRequest userRequest)
+    public async Task<BaseResponse<CommonCreateResponse>> AddUser(UserRequest userRequest, Guid user)
     {
 
         var userId = Guid.NewGuid();
@@ -57,7 +58,8 @@ internal class UserRepository : IUserRepository
             Address = userRequest.Address,
             ZipCode = userRequest.ZipCode,
             SessionTime = userRequest.SessionTime,
-            EntryBy = Guid.NewGuid(),
+            //EntryBy = Guid.NewGuid(),
+            EntryBy = user,
             EntryDate = DateTime.Now,
             PasswordHash = "Admin@123",
             IsActive = true,
@@ -99,14 +101,22 @@ internal class UserRepository : IUserRepository
     }
 
 
-    public async Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid id, DeleteUserReq deleteUreq)
-    {
-        var deleteuser = new DeleteUser
-        {
-            IsDeleted = deleteUreq.IsDeleted
-        };
-        var response = await _userService.DeleteUser(id, deleteuser);
+    //public async Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid id, DeleteUserReq deleteUreq)
+    //{
+    //    var deleteuser = new DeleteUser
+    //    {
+    //        IsDeleted = deleteUreq.IsDeleted
+    //    };
+    //    var response = await _userService.DeleteUser(id, deleteuser);
 
-        return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "User Deleted Done!" });
+    //    return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = "User Deleted Done!" });
+    //}
+
+    public async Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid userid)
+    {
+        var response = await _userService.DeleteUser(userid);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+            : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
 }

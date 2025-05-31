@@ -2,6 +2,7 @@
 
 using Contracts;
 using Cygnux.LSP.Infrastructure.Constants;
+using Cygnux.LSP.Infrastructure.Models.Response;
 using Dapper;
 using Entities;
 using Microsoft.AspNetCore.Identity;
@@ -110,8 +111,15 @@ internal class UserService : IUserService
         return IdentityResult.Failed(new IdentityError { Description = "User not found" });
     }
 
-    public Task<IdentityResult> DeleteUser(Guid id, DeleteUser deleteuser)
+    public async Task<CommonCreateResponse> DeleteUser(Guid userid)
     {
-        throw new NotImplementedException();
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userid, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+              StoredProcedureConstants.USP_DeleteUserAndRelations,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          ) ?? new CommonCreateResponse();
     }
 }

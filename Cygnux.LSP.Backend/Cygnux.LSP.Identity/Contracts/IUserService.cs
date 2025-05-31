@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Identity.Contracts;
 
+using Cygnux.LSP.Infrastructure.Models.Response;
 using Entities;
 using Microsoft.AspNetCore.Identity;
 using Models;
@@ -14,5 +15,6 @@ public interface IUserService
 
     Task<IdentityResult> UpdateUser(Guid id, ApplicationUser applicationUser);
 
-    Task<IdentityResult> DeleteUser(Guid id, DeleteUser deleteuser);
+    //Task<IdentityResult> DeleteUser(Guid id, DeleteUser deleteuser);
+    Task<CommonCreateResponse> DeleteUser(Guid userid);
 }
