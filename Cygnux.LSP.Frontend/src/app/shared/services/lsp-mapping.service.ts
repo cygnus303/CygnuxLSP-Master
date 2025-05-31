@@ -8,6 +8,8 @@ import {
 import {
   AddLspRequest,
   CommonResponse,
+  CustomerLspMap,
+  CustomerLspTat,
   LspResponse,
 } from '../models/lsp.model';
 import { LspMappingResponse } from '../models/lsp-mapping.model';
@@ -84,11 +86,11 @@ export class LspMappingService {
     return this.apiHandlerService.Patch(`CustomerLsp/Tat/DeleteLSPTAT?TatId=${id}`);
   }
 
-  getDeleteLSPMappingData(id:string): Observable<IApiBaseResponse<any[]>> {
+  getDeleteLSPMappingData(id:string): Observable<IApiBaseResponse<CustomerLspMap[]>> {
     return this.apiHandlerService.Get(`CustomerLsp/GetDeleteCustomerLspMapData?Id=${id}`);
   }
 
-  getDeleteLSPTatData(id:string): Observable<IApiBaseResponse<any[]>> {
+  getDeleteLSPTatData(id:string): Observable<IApiBaseResponse<CustomerLspTat[]>> {
     return this.apiHandlerService.Get(`CustomerLsp/Tat/GetDeleteCustomerLspTATData?Id=${id}`);
   }
 

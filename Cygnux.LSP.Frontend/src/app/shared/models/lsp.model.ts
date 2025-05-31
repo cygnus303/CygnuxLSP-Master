@@ -36,3 +36,52 @@ export interface CommonResponse {
     status: string;
     id: string;
 }
+
+export interface LspMappingResponse {
+  customerMappings: CustomerMapping[];
+  tatDetails: TatDetail[];
+  dockets: Docket[];
+  status: boolean;
+}
+
+export interface CustomerMapping {
+  customerId: string;
+  customerName: string;
+  lspId: string;
+  lspName: string;
+}
+
+export interface TatDetail {
+  lspId: string;
+  lspName: string;
+  origin: string;
+  destination: string;
+}
+
+export interface Docket {
+  docketNo: string;
+  transporter: string;
+}
+
+export interface CustomerLspMap {
+  customerLspMapId: string;
+  customerId: string;
+  customerName: string;
+  lspId: string;
+  lspName: string;
+  tatId: string;
+  origin: string;
+  destination: string;
+  docketNo: string;
+}
+
+export interface CustomerLspTat {
+  tatId: string;
+  customerId: string;
+  customerName: string;
+  lspId: string;
+  lspName: string;
+  origin: string;
+  destination: string;
+  docketNo: string;
+}

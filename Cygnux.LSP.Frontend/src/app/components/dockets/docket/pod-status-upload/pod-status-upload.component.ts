@@ -24,14 +24,14 @@ export class PodStatusUploadComponent {
   public modalRef!: BsModalRef;
   public isReadonlyMode : boolean = false;
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
-@Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
+  
   constructor(
     private modalService: BsModalService,
     private identityService:IdentityService,
     private lspTatService: LspMappingService,
     private sweetAlertService: SweetAlertService,
-    private docketService:DocketService,
-    private toasterService:ToastrService
+    private docketService:DocketService
   ){
     this.buildForm();
     this.getCustomers();

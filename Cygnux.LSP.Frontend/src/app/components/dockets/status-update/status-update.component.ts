@@ -14,7 +14,6 @@ import { CommonService } from '../../../shared/services/common.service';
 export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
   public transporter:TrackingListResponse[]=[];
-  nextStatusOptions: any[] = [];
   @Input() docketResponse: DocketResponse | null = null;
  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(
