@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
-import { AddCustomerRequest, CustomerResponse } from '../models/customer.model';
+import { AddCustomerRequest, CustomerMapping, CustomerResponse } from '../models/customer.model';
 import { CommonResponse } from '../models/lsp.model';
 import { IdentityService } from './identity.service';
 
@@ -35,7 +35,7 @@ export class CustomerService {
     return this.apiHandlerService.Patch(`customer/DeleteCustomer?id=${id}`, null);
   }
 
-  checkMappingCustomer(id:string):Observable<IApiBaseResponse<any[]>> {
+  checkMappingCustomer(id:string):Observable<IApiBaseResponse<CustomerMapping[]>> {
     return this.apiHandlerService.Get(`customer/DeleteCustomerData?custId=${id}`);
   }
 }

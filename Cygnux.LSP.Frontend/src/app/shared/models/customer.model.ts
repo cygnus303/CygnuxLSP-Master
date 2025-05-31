@@ -54,3 +54,17 @@ export interface AddCustomerRequest {
     consolidatedGSTNo: string;
     businessClassification: string;
 }
+
+export interface CustomerMapping {
+  customerId: string;
+  customerCode: string;
+  customerName: string;
+  lspId: string;
+  lspName: string;
+  origin: string;
+  destination: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  docketNo: string;
+}
