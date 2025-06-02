@@ -20,6 +20,7 @@ import { RoleService } from '../../../shared/services/role.service';
 import { RoleResponse } from '../../../shared/models/role.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-add-user',
@@ -39,6 +40,7 @@ export class AddUserComponent implements OnInit, OnChanges {
     private userService: UserService,
     private sweetAlertService: SweetAlertService,
     private roleService: RoleService,
+    private identityService:IdentityService
   ) {
     this.userForm = new FormGroup({});
   }
@@ -107,7 +109,7 @@ export class AddUserComponent implements OnInit, OnChanges {
   }
 
   addUser(form: FormGroup): void {
-    this.userService.addUser(form.getRawValue()).subscribe({
+    this.userService.addUser(this.identityService.getLoggedUserId(),form.getRawValue()).subscribe({
       next: (response) => {
         if (response.success) {
           this.dataEmitter.emit();

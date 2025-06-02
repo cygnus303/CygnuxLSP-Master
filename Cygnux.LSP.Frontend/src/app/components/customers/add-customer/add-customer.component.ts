@@ -110,7 +110,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
               proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state,customerCode, ...payload } = form.getRawValue();
       payload.phoneNumber = mobileNo;
       payload.zipCode = pincode;
-      this.userService.addUser(payload).pipe(
+      this.userService.addUser(this.identityService.getLoggedUserId(),payload).pipe(
         concatMap((userResponse) => {
           if (userResponse.success) {
             this.userId = userResponse.data.id;

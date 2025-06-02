@@ -161,7 +161,7 @@ export class AddLspComponent implements OnInit, OnChanges {
         const { alias, apiKey, apiPassword, apiUrl, mobileNo,
               apiUsername, description, EntryBy, logo, ...payload } = jsonPayload;
               payload.phoneNumber = mobileNo
-  this.userService.addUser(payload).subscribe({
+  this.userService.addUser(this.identityService.getLoggedUserId(),payload).subscribe({
     next: (response) => {
       if (response.success) {
         // this.dataEmitter.emit();
