@@ -120,7 +120,7 @@ export class DocketService {
   }
 
   getTrackingList(codeType:string){
-    return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`)
+    return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`);
   }
 
   // getDestinationToData(filters:any){
@@ -128,7 +128,7 @@ export class DocketService {
   // }
 
   getDocketDetail(docketNo:number){
-    return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`)
+    return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`);
   }
 
   InsertExcelUplaodDocketData(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {

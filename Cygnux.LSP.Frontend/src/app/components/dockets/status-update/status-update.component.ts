@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DocketService } from '../../../shared/services/docket.service';
 import { DocketResponse, TrackingListResponse } from '../../../shared/models/docket.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
-import { CommonService } from '../../../shared/services/common.service';
 
 @Component({
   selector: 'app-status-update',
@@ -15,7 +14,8 @@ export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
   public transporter:TrackingListResponse[]=[];
   @Input() docketResponse: DocketResponse | null = null;
- @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(
     private docketService:DocketService,
     private sweetAlertService:SweetAlertService
@@ -25,7 +25,7 @@ ngOnChanges(changes:SimpleChanges){
   if (changes['docketResponse'] && this.docketResponse) {
     this.statusUpdateForm.patchValue(this.docketResponse)
   }
-}
+} 
 
   ngOnInit(){
     this.buildForm();
