@@ -29,6 +29,7 @@ export class HeaderComponent implements OnDestroy{
  
   signout(): void {
     this.identityService.clearToken();
+    localStorage.clear();
     this.router.navigateByUrl('/login');
   }
 
