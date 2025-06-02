@@ -19,6 +19,10 @@ public class BaseResponse<T>
         Success = false;
         Error = error;
     }
-
-   
+}
+public class BaseResponseError<T>
+{
+    public bool Status { get; set; }
+    public string Message { get; set; }
+    public T Data { get; set; }
 }

@@ -4,10 +4,12 @@ using Application.Contracts;
 using Application.Models.Request.Docket;
 using ClosedXML.Excel;
 using Cygnux.LSP.Api.Helpers;
+using Cygnux.LSP.Application.Models.Response;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using NPOI.HPSF;
 
 
 [Route("api/v{version:apiVersion}/[controller]")]
@@ -464,7 +466,13 @@ public class DocketController : ControllerBase
         // Validate filename matches DocketNo
         var fileNameWithoutExt = Path.GetFileNameWithoutExtension(imageFile.FileName);
         if (!fileNameWithoutExt.Equals(docketNo, StringComparison.OrdinalIgnoreCase))
-            return BadRequest($"Image filename must match the docket number (expected: {docketNo}).");
+            //return BadRequest($"Image filename must match the docket number (expected: {docketNo}).");
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = $"Image filename must match the docket number (expected: {docketNo}).",
+                Data = false
+            });
 
         // Financial year logic
         DateTime currentDate = DateTime.Now;
