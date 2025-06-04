@@ -25,4 +25,10 @@ internal class TrackingRepository : ITrackingRepository
         return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
+    public async Task<BaseResponse<IEnumerable<Trackinglist>>> GetDashboardList(Guid userid, string fromDate, string toDate)
+    {
+        var response = await _trackingService.GetDashboardList(userid, fromDate, toDate);
+        return new BaseResponse<IEnumerable<Trackinglist>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
+    }
+
 }

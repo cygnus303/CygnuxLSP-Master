@@ -53,4 +53,5 @@ public static class StoredProcedureConstants
     public const string USP_Get_CustomerLspTat_Details = "USP_Get_CustomerLspTat_Details";
     public const string USP_Delete_CustomerLspTat_And_Dockets = "USP_Delete_CustomerLspTat_And_Dockets";
     public const string USP_DeleteUserAndRelations = "USP_DeleteUserAndRelations";
+    public const string USP_DocketCount = "USP_DocketCount";
 }

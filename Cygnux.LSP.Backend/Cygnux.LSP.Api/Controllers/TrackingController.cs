@@ -32,4 +32,12 @@ public class TrackingController : ControllerBase
         return Ok(await _trackingRepository.GetTrackigList(docketNOs,userid));
     }
 
+    [HttpGet]
+    [Route("GetDashboardData")]
+    public async Task<IActionResult> GetDashboardData(Guid userid,string fromDate, string toDate)
+    {
+        return Ok(await _trackingRepository.GetDashboardList(userid, fromDate, toDate));
+    }
+
+
 }
