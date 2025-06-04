@@ -1,7 +1,6 @@
    
 
 <div class="container-fluid">
-  
  <div class="row mb-3 d-flex">
     <div class="col-1">
       <label class="col-form-label">Date Range</label>
@@ -19,8 +18,9 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-2 col-lg-2" *ngFor="let data of docketCount">
-      <div class="card o-hidden">
+    <div class="col-sm-2 col-lg-2 " *ngFor="let data of docketCount">
+      <div class="dashboard-2">
+        <div class="card o-hidden ">
         <div class="card-header pb-0 cursor-pointer" >
           <div class="d-flex">
             <div class="flex-grow-1">
@@ -40,6 +40,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
 
@@ -108,7 +109,6 @@
                 <div class="d-flex">
                   <div class="flex-grow-1">
                     <div class="profit-wrapper header-text-success icon-bg-success"><i class="fa fa-arrow-up"></i></div>
-                    <!-- <h6 class="header-text-success">94.40%</h6> -->
                     <p class="mb-0">Click here to see more docket details..</p>
                   </div>
                 </div>
