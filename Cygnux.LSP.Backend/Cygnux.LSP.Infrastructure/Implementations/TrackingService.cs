@@ -41,8 +41,5 @@ internal class TrackingService : ITrackingservice
              parameters,
              commandType: CommandType.StoredProcedure
          );
-
-
     }
-
 }
