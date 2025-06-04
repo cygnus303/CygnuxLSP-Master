@@ -84,12 +84,12 @@ export class TrackDashboardComponent {
     ]
   };
    data = [
-  { count: '5', name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,test:'header-text-danger'},
-  { count: '10', name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",test:'header-text-secondary'},
-  { count: '40', name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",test:'header-text-primary' },
-  { count: '20', name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",test:'header-text-info'},
-  { count: '60', name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",test:'header-text-warning'},
-  { count: '20', name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",test:'header-text-success'}
+  { count: 5, name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,test:'header-text-danger'},
+  { count: 10, name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",test:'header-text-secondary'},
+  { count: 40, name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",test:'header-text-primary' },
+  { count: 20, name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",test:'header-text-info'},
+  { count: 60, name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",test:'header-text-warning'},
+  { count: 20, name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",test:'header-text-success'}
 ];
 
 dockets=[

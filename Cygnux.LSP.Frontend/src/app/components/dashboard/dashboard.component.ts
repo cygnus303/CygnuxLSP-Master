@@ -8,7 +8,9 @@ import { CommonService } from '../../shared/services/common.service';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+
 constructor(private commonService:CommonService){
   this.commonService.activeNavigationUrl.next('Dashboard');
 }
+
 }
