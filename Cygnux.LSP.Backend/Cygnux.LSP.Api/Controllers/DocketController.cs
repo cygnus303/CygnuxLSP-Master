@@ -91,9 +91,9 @@ public class DocketController : ControllerBase
 
     [HttpPost]
     [Route("SingleUpdateDocketSts")]
-    public async Task<IActionResult> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts)
+    public async Task<IActionResult> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts,Guid user)
     {
-        return Ok(await _docketRepository.SingleDocketStsUpdate(DocketId, docksts));
+        return Ok(await _docketRepository.SingleDocketStsUpdate(DocketId, docksts,user));
     }
 
     [HttpPatch]

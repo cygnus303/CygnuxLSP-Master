@@ -71,9 +71,9 @@ internal class DocketRepository : IDocketRepository
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts)
+    public async Task<BaseResponse<CommonCreateResponse>> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts, Guid user)
     {
-        var response = await _docketService.SingleDocketStsUpdate(DocketId, JsonConvert.SerializeObject(docksts));
+        var response = await _docketService.SingleDocketStsUpdate(DocketId, JsonConvert.SerializeObject(docksts),user);
 
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });

@@ -101,11 +101,12 @@ internal class DocketService : IDocketService
           ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> SingleDocketStsUpdate(Guid DocketId, string docksts)
+    public async Task<CommonCreateResponse> SingleDocketStsUpdate(Guid DocketId, string docksts, Guid user)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@ID", DocketId, DbType.Guid);
         parameters.Add("@docketSts", docksts, DbType.String);
+        parameters.Add("@userID", user, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
               StoredProcedureConstants.USP_DocketStatusUpdate_Single,
