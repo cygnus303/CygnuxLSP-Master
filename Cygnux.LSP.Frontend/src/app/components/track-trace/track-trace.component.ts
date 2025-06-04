@@ -80,7 +80,13 @@ finalizeDocketInput(): void {
   onSearchTrackTrace(){
     const docketString = this.docketList.length ? this.docketList.join(',') : null;
     this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
-      this.trackTraceList = res.data;
+      // this.trackTraceList = res.data;
+      this.trackTraceList = res.data.map((item: any) => {
+        return {
+          ...item,
+          statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]') // Convert string to JSON array
+        };
+      });
       setTimeout(() => {
         feather.replace();
       });
