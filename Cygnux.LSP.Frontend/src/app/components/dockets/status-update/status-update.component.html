@@ -57,14 +57,14 @@
                           <small *ngIf="statusUpdateForm.controls['nextDocketStatus'].errors?.['pattern']">changeStatus is invalid.</small>
                       </div>
                     </div>
-                    <div class="col-md-6" *ngIf="statusUpdateForm.get('nextDocketStatus')?.value == '6'">
+                    <!-- <div class="col-md-6" *ngIf="statusUpdateForm.get('nextDocketStatus')?.value == '6'">
                         <label for="lsps">POD</label>
                         <input class="form-control" formControlName="pod" type="file" accept="image/*" />
                         <div *ngIf="statusUpdateForm.controls['pod'].invalid && statusUpdateForm.controls['pod']?.touched" class="text-danger">
                           <small *ngIf="statusUpdateForm.controls['pod'].errors?.['required']">pod is required.</small>
                           <small *ngIf="statusUpdateForm.controls['pod'].errors?.['pattern']">pod is invalid.</small>
                         </div>
-                    </div>
+                    </div> -->
               </div>
             </div>
           </div>
