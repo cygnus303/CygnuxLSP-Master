@@ -1,13 +1,11 @@
 import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { CommonService } from '../../../../shared/services/common.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
 import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { CustomerResponse } from '../../../../shared/models/customer.model';
 import { DocketService } from '../../../../shared/services/docket.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'pod-status-upload',
@@ -64,8 +62,7 @@ if(data){
   data.bookingDate = new Date(data?.bookingDate)
   this.podUpdateForm.patchValue(data)
   this.podImageUrl = data?.podLink;
-
-   this.isReadonlyMode = data.podLink !== '-';
+  this.isReadonlyMode = data.podLink !== '-';
   this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
 }
 }
@@ -92,7 +89,6 @@ onFileSelected(event: any) {
     };
     reader.readAsDataURL(file);
     this.selectedFile = file;
-
     // Optional: update the form control value
     this.podUpdateForm.get('PODFileName')?.setValue(file.name);
   }
@@ -105,26 +101,22 @@ formatDate(date: Date): string {
   return `${day}-${month}-${year}`;
 }
 
-
 savePOD(): void {
   const formData = new FormData();
   const{transportModeDesc,
-transporterDesc,
-bookingDate,
-statusDate,
-fromLocation,
-toLocation,
-quantity,
-invoiceNo,
-currentStatusDesc,
-Customer,...payload}=this.podUpdateForm.value
-
+    transporterDesc,
+    bookingDate,
+    statusDate,
+    fromLocation,
+    toLocation,
+    quantity,
+    invoiceNo,
+    currentStatusDesc,
+    Customer,...payload} = this.podUpdateForm.value
   formData.append('docpodJson',JSON.stringify(payload));
-
   if (this.selectedFile) {
     formData.append('imageFile', this.selectedFile, this.selectedFile.name);
   }
-
   this.docketService.singlePOD(this.podUpdateForm.value.docketNo,this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response) {

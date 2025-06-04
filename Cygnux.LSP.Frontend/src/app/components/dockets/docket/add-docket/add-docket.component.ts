@@ -24,15 +24,15 @@ import { LspResponse } from '../../../../shared/models/lsp.model';
   styleUrls: ['./add-docket.component.scss'],
 })
 export class AddDocketComponent implements OnInit, OnChanges {
-  public docketForm!: FormGroup;
-  public docketId: string = '';
   public customers: CustomerResponse[] = [];
   public customerLocation : CustomerLocationResponse[]=[];
   public customerWHStoreLocation : CustomerLocationResponse[]=[];
-  public lsps: LspResponse[] | null = null;
   public transporter:TrackingListResponse[]=[];
-  public customerId : string='' ;
   public transportMode:TrackingListResponse[]=[];
+  public lsps: LspResponse[] | null = null;
+  public docketForm!: FormGroup;
+  public docketId: string = '';
+  public customerId : string='' ;
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
 
   @Input() docketResponse: DocketResponse | null = null;
