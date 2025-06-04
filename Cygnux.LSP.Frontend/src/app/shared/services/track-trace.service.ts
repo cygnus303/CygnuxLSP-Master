@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
 import { Observable } from 'rxjs';
-import { IRange, TrackTraceResponse } from '../models/trackTrace.model';
+import { DocketCountResponse, IRange, TrackTraceResponse } from '../models/trackTrace.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,4 +52,8 @@ export class TrackTraceService {
       label: 'Last Month',
     },
   ];
+
+    getTrackigCountDetail(id: string,fromDate:string,toDate:string): Observable<IApiBaseResponse<DocketCountResponse[]>> {
+      return this.apiHandlerService.Get(`Tracking/GetDashboardData?userid=${id}&fromDate=${fromDate}&toDate=${toDate}`);
+    }
 }

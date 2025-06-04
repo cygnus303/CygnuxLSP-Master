@@ -23,3 +23,12 @@ export interface IRange {
   value: Date[];
   label: string;
 }
+
+export interface DocketCountResponse{
+  name:string,
+  count:number,
+  headerColor:string;
+  progress:string;
+  color:string;
+  icon:string;
+}

@@ -13,6 +13,9 @@ import {
 } from "ng-apexcharts";
 import { CommonService } from "../../../shared/services/common.service";
 import { TrackTraceService } from "../../../shared/services/track-trace.service";
+import { IdentityService } from "../../../shared/services/identity.service";
+import { SweetAlertService } from "../../../shared/services/toastr.service";
+import { DocketCountResponse } from "../../../shared/models/trackTrace.model";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -33,9 +36,11 @@ export type ChartOptions = {
   styleUrls: ['./track-dashboard.component.scss']
 })
 export class TrackDashboardComponent {
+  public totalDocket:number = 0;
   public chartOptions: ChartOptions;
-   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
-   dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  public docketCount:DocketCountResponse[]=[];
+  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+  public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
     new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
   public donutChartOptions: any = {
     series: [44, 55, 41],
@@ -83,13 +88,13 @@ export class TrackDashboardComponent {
       }
     ]
   };
-   data = [
-  { count: 5, name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,test:'header-text-danger'},
-  { count: 10, name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",test:'header-text-secondary'},
-  { count: 40, name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",test:'header-text-primary' },
-  { count: 20, name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",test:'header-text-info'},
-  { count: 60, name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",test:'header-text-warning'},
-  { count: 20, name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",test:'header-text-success'}
+   dashboardMeta = [
+  { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,headerColor:'header-text-danger'},
+  { name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",headerColor:'header-text-secondary'},
+  { name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",headerColor:'header-text-primary' },
+  { name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",headerColor:'header-text-info'},
+  { name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",headerColor:'header-text-warning'},
+  { name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",headerColor:'header-text-success'}
 ];
 
 dockets=[
@@ -244,7 +249,10 @@ dockets=[
 
 
   constructor(
-     public commonService: CommonService,public trackTraceService:TrackTraceService,
+     public commonService: CommonService,
+     public trackTraceService:TrackTraceService,
+     private identityService:IdentityService,
+     private sweetAlertService:SweetAlertService
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {
@@ -296,5 +304,51 @@ dockets=[
         }
       }
     };
+  }
+
+onDateRangeSelected(selectedRange: any): void {
+  const [fromDate, toDate] = selectedRange;
+
+  const fromdate = this.formatDate(fromDate);
+  const todate = this.formatDate(toDate);
+
+  this.getDocketCount(fromdate, todate);
+}
+
+formatDate(date: Date): string {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+
+  getDocketCount(fromdate:any, todate:any){
+    this.trackTraceService.getTrackigCountDetail(this.identityService.getLoggedUserId(),fromdate,todate).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          const apiData = response.data;
+          this.totalDocket= response.totalCount;
+          const mergedData: any[] = [];
+
+          this.dashboardMeta.forEach(meta => {
+            const matchedItem = apiData.find((item: any) => item.name === meta.name);
+
+            mergedData.push({
+              name: meta.name,
+              icon: meta.icon,
+              color: meta.color,
+              progress: meta.progress,
+              headerColor: meta.headerColor,
+              count: matchedItem ? matchedItem.count : 0,
+            });
+          });
+
+          this.docketCount = mergedData;
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },})
   }
 }

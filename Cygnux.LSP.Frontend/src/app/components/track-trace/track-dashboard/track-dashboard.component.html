@@ -8,7 +8,7 @@
     </div>
     <div class="col-5">
       <div class="form-group mb-3">
-        <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [(ngModel)]="dateRange"
+        <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [(ngModel)]="dateRange"  (bsValueChange)="onDateRangeSelected($event)"
           [bsConfig]="{rangeInputFormat: 'DD.MM.YYYY', dateInputFormat:
                      'DD.MM.YYYY',ranges: trackTraceService.ranges }">
       </div>
@@ -19,12 +19,12 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-2 col-lg-2" *ngFor="let data of data">
+    <div class="col-sm-2 col-lg-2" *ngFor="let data of docketCount">
       <div class="card o-hidden">
         <div class="card-header pb-0 cursor-pointer" >
           <div class="d-flex">
             <div class="flex-grow-1">
-              <p class="square-after f-w-600" [ngClass]="data.test">{{data.name}}<i class="fa fa-circle"> </i></p>
+              <p class="square-after f-w-600" [ngClass]="data.headerColor">{{data.name}}<i class="fa fa-circle"> </i></p>
                <h4 [appCountUp]="data.count">{{data.count}}</h4>
             </div>
           <div class="d-flex static-widget">
@@ -100,7 +100,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="flex-grow-1">
                     <p class="square-after f-w-600 header-text-success">Track Dockets<i class="fa fa-circle"> </i></p>
-                    <h4 [appCountUp]="2490"></h4>
+                    <h4 [appCountUp]="totalDocket"></h4>
                   </div>
                 </div>
               </div>
