@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DocketService } from '../../../shared/services/docket.service';
 import { DocketResponse, TrackingListResponse } from '../../../shared/models/docket.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import { IdentityService } from '../../../shared/services/identity.service';
 
 @Component({
   selector: 'app-status-update',
@@ -18,7 +19,8 @@ export class StatusUpdateComponent {
 
   constructor(
     private docketService:DocketService,
-    private sweetAlertService:SweetAlertService
+    private sweetAlertService:SweetAlertService,
+    private identityService:IdentityService
   ){}
 
 ngOnChanges(changes:SimpleChanges){
@@ -100,7 +102,7 @@ ngOnChanges(changes:SimpleChanges){
       const payload = {
         currentStatus:form.value.nextDocketStatus,
       }
-        this.docketService.singleUpdateDocketSts(form.value.docketId,payload).subscribe({
+        this.docketService.singleUpdateDocketSts(form.value.docketId,this.identityService.getLoggedUserId(),payload).subscribe({
         next: (response) => {
           if (response.success) {
             this.buildForm();

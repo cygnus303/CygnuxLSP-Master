@@ -150,8 +150,8 @@ export class DocketService {
     return this.apiHandlerService.Post(`Docket/UpdateDocketStatus?entryBy=${id}`,formData);
   }
 
-  singleUpdateDocketSts(id:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post(`Docket/SingleUpdateDocketSts?DocketId=${id}`,formData);
+  singleUpdateDocketSts(id:string,userId:string,formData:any): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Post(`Docket/SingleUpdateDocketSts?DocketId=${id}&user=${userId}`,formData);
   }
 
   DownloadSampleForPODupload(login: string): Observable<Blob> {
