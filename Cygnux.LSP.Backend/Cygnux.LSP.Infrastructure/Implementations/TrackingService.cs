@@ -29,4 +29,20 @@ internal class TrackingService : ITrackingservice
              commandType: CommandType.StoredProcedure
          );
     }
+    public async Task<IEnumerable<Trackinglist>> GetDashboardList(Guid userid, string fromDate, string toDate)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userid, DbType.Guid);
+        parameters.Add("@FromDate", fromDate, DbType.String);
+        parameters.Add("@ToDate", toDate, DbType.String);
+
+        return await _dbConnection.QueryAsync<Trackinglist>(
+             StoredProcedureConstants.USP_DocketCount,
+             parameters,
+             commandType: CommandType.StoredProcedure
+         );
+
+
+    }
+
 }
