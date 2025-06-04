@@ -12,9 +12,6 @@
                      'DD.MM.YYYY',ranges: trackTraceService.ranges }">
       </div>
     </div>
-    <!-- <div class="col-6">
-       <button class="btn btn-square btn-primary pull-right rounded-3" [routerLink]="'list'">Track Dockets</button>
-    </div> -->
   </div>
 
   <div class="row">
@@ -47,13 +44,6 @@
     <div class="row pe-0">
       <div class="col-lg-9 col-md-12 box-col-7">
         <div class="card o-hidden p-3">
-          <!-- <div class="card-header pb-0">
-            <div class="d-flex">
-              <div class="flex-grow-1">
-                <h4>Marketing Expenses</h4>
-              </div>
-            </div>
-          </div> -->
           <div class="row d-flex">
             <div class="col-1">
               <label class="col-form-label">Search</label>
@@ -71,7 +61,7 @@
                       <thead class="sticky-top">
                         <tr>
                           <th class="w-15 ps-3">Docket Name</th>
-                          <th class="w-15" *ngIf="userRoles.includes('Customer Admin')">Transporter</th>
+                          <th class="w-15" *ngIf="!userRoles.includes('lsp Admin')">Transporter</th>
                           <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')">Customer Name</th>
                           <th class="w-15">From WH/Store</th>
                           <th class="w-15">To WH/Store</th>
@@ -81,7 +71,7 @@
                       <tbody>
                         <tr *ngFor="let docket of dockets; let i = index">
                           <td class="w-15 ps-3">{{ docket.docketNo }}</td>
-                          <td class="w-15" *ngIf="userRoles.includes('Customer Admin')">{{ docket.transporterDesc }}</td>
+                          <td class="w-15" *ngIf="!userRoles.includes('lsp Admin')">{{ docket.transporterDesc }}</td>
                           <td class="w-15" *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
                           <td class="w-15">{{ docket.fromLocation }}</td>
                           <td class="w-15">{{ docket.toLocation }}</td>

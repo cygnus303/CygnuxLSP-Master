@@ -88,165 +88,107 @@ export class TrackDashboardComponent {
       }
     ]
   };
-   dashboardMeta = [
-  { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,headerColor:'header-text-danger'},
-  { name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",headerColor:'header-text-secondary'},
-  { name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",headerColor:'header-text-primary' },
-  { name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",headerColor:'header-text-info'},
-  { name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",headerColor:'header-text-warning'},
-  { name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",headerColor:'header-text-success'}
-];
+  dashboardMeta = [
+    { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,headerColor:'header-text-danger'},
+    { name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",headerColor:'header-text-secondary'},
+    { name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",headerColor:'header-text-primary' },
+    { name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",headerColor:'header-text-info'},
+    { name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",headerColor:'header-text-warning'},
+    { name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",headerColor:'header-text-success'}
+  ];
 
-dockets=[
-    {
-        "docketId": "b3106f81-f694-435f-b8d3-2043330da287",
-        "docketNo": "6756776",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "surat",
-        "toLocation": "mumbai",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "3",
-        "transporter": "580414af-5d74-459a-8855-ad65c58464cc",
-        "transporterDesc": "Wipro",
-        "transportMode": "2",
-        "transportModeDesc": "Surface",
-        "quantity": 4,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:48:43.977",
-        "currentStatus": "2",
-        "currentStatusDesc": "Pick Up",
-        "totalCount": 13,
-        "podLink": "-"
-    },
-    {
-        "docketId": "b3106f81-f694-435f-b8d3-2043330da287",
-        "docketNo": "6756776",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "surat",
-        "toLocation": "mumbai",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "3",
-        "transporter": "580414af-5d74-459a-8855-ad65c58464cc",
-        "transporterDesc": "Wipro",
-        "transportMode": "2",
-        "transportModeDesc": "Surface",
-        "quantity": 4,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:48:43.977",
-        "currentStatus": "2",
-        "currentStatusDesc": "Pick Up",
-        "totalCount": 13,
-        "podLink": "-"
-    },
-    {
-        "docketId": "b3106f81-f694-435f-b8d3-2043330da287",
-        "docketNo": "6756776",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "surat",
-        "toLocation": "mumbai",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "3",
-        "transporter": "580414af-5d74-459a-8855-ad65c58464cc",
-        "transporterDesc": "Wipro",
-        "transportMode": "2",
-        "transportModeDesc": "Surface",
-        "quantity": 4,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:48:43.977",
-        "currentStatus": "2",
-        "currentStatusDesc": "Pick Up",
-        "totalCount": 13,
-        "podLink": "-"
-    },
-    {
-        "docketId": "4a147925-39f9-4d20-a6f6-b6c4cc2538d7",
-        "docketNo": "8988989",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "Chad",
-        "toLocation": "Niger",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "7",
-        "transporter": "580414af-5d74-459a-8855-ad65c58464cc",
-        "transporterDesc": "Wipro",
-        "transportMode": "2",
-        "transportModeDesc": "Surface",
-        "quantity": 7,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:48:24.83",
-        "currentStatus": "1",
-        "currentStatusDesc": "Booked",
-        "totalCount": 13,
-        "podLink": "-"
-    },
-    {
-        "docketId": "04f95815-325d-4293-a675-5b7ec57cd51d",
-        "docketNo": "56757",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "Sudan",
-        "toLocation": "Abeche",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "6",
-        "transporter": "580414af-5d74-459a-8855-ad65c58464cc",
-        "transporterDesc": "Wipro",
-        "transportMode": "1",
-        "transportModeDesc": "Train",
-        "quantity": 6,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:48:11.593",
-        "currentStatus": "4",
-        "currentStatusDesc": "In-Transit",
-        "totalCount": 13,
-        "podLink": "-"
-    },
-    {
-        "docketId": "ef93d696-c186-43d1-843e-5ed71ca9ef95",
-        "docketNo": "454545",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "Salli",
-        "toLocation": "Haripura",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "54",
-        "transporter": "580414af-5d74-459a-8855-ad65c58464cc",
-        "transporterDesc": "Wipro",
-        "transportMode": "2",
-        "transportModeDesc": "Surface",
-        "quantity": 5,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:46:39.433",
-        "currentStatus": "5",
-        "currentStatusDesc": "Out for Delivered",
-        "totalCount": 13,
-        "podLink": "-"
-    },
-    {
-        "docketId": "3a551a53-b4a1-4a58-af41-299e652ea0bd",
-        "docketNo": "12340",
-        "bookingDate": "2025-06-03T00:00:00",
-        "fromLocation": "Chad",
-        "toLocation": "Niger",
-        "customerId": "1a898f96-f8f6-4e22-85d7-765402b4261e",
-        "customerName": "vidhi",
-        "invoiceNo": "1",
-        "transporter": "580414AF-5D74-459A-8855-AD65C58464CC",
-        "transporterDesc": "Wipro",
-        "transportMode": "2",
-        "transportModeDesc": "Surface",
-        "quantity": 2,
-        "entryBy": "1859fd76-8029-40d2-846d-125fc7539e46",
-        "entryDate": "2025-06-03T11:24:28.083",
-        "currentStatus": "6",
-        "currentStatusDesc": "Delivered",
-        "totalCount": 13,
-        "podLink": "http://uatlspapi.cygnux.in/PODUpload/1a898f96-f8f6-4e22-85d7-765402b4261e/580414af-5d74-459a-8855-ad65c58464cc/2025-26/JUNE/12340.jpg"
-    }
-]
-
+  dockets=[
+        {
+            "docketNo": "6756776",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "surat",
+            "toLocation": "mumbai",
+            "customerName": "vidhi",
+            "transporterDesc": "Wipro",
+            "transportMode": "2",
+            "transportModeDesc": "Surface",
+            "quantity": 4,
+            "currentStatusDesc": "Pick Up",
+        },
+        {
+            "docketNo": "6756776",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "surat",
+            "toLocation": "mumbai",
+            "customerName": "vidhi",
+            "invoiceNo": "3",
+            "transporterDesc": "Wipro",
+            "transportMode": "2",
+            "transportModeDesc": "Surface",
+            "quantity": 4,
+            "currentStatusDesc": "Pick Up",
+        },
+        {
+            "docketNo": "6756776",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "surat",
+            "toLocation": "mumbai",
+            "customerName": "vidhi",
+            "invoiceNo": "3",
+            "transporterDesc": "Wipro",
+            "transportMode": "2",
+            "transportModeDesc": "Surface",
+            "quantity": 4,
+            "currentStatusDesc": "Pick Up",
+        },
+        {
+            "docketNo": "8988989",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "Chad",
+            "toLocation": "Niger",
+            "customerName": "vidhi",
+            "invoiceNo": "7",
+            "transporterDesc": "Wipro",
+            "transportMode": "2",
+            "transportModeDesc": "Surface",
+            "quantity": 7,
+            "currentStatusDesc": "Booked",
+        },
+        {
+            "docketNo": "56757",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "Sudan",
+            "toLocation": "Abeche",
+            "customerName": "vidhi",
+            "invoiceNo": "6",
+            "transporterDesc": "Wipro",
+            "transportMode": "1",
+            "transportModeDesc": "Train",
+            "quantity": 6,
+            "currentStatusDesc": "In-Transit",
+        },
+        {
+            "docketNo": "454545",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "Salli",
+            "toLocation": "Haripura",
+            "customerName": "vidhi",
+            "invoiceNo": "54",
+            "transporterDesc": "Wipro",
+            "transportMode": "2",
+            "transportModeDesc": "Surface",
+            "quantity": 5,
+            "currentStatusDesc": "Out for Delivered",
+        },
+        {
+            "docketNo": "12340",
+            "bookingDate": "2025-06-03T00:00:00",
+            "fromLocation": "Chad",
+            "toLocation": "Niger",
+            "customerName": "vidhi",
+            "invoiceNo": "1",
+            "transporterDesc": "Wipro",
+            "transportMode": "2",
+            "transportModeDesc": "Surface",
+            "quantity": 2,
+            "currentStatusDesc": "Delivered",
+        }
+    ]
 
   constructor(
      public commonService: CommonService,
@@ -308,10 +250,8 @@ dockets=[
 
 onDateRangeSelected(selectedRange: any): void {
   const [fromDate, toDate] = selectedRange;
-
   const fromdate = this.formatDate(fromDate);
   const todate = this.formatDate(toDate);
-
   this.getDocketCount(fromdate, todate);
 }
 
@@ -322,18 +262,15 @@ formatDate(date: Date): string {
   return `${day}-${month}-${year}`;
 }
 
-
   getDocketCount(fromdate:any, todate:any){
     this.trackTraceService.getTrackigCountDetail(this.identityService.getLoggedUserId(),fromdate,todate).subscribe({
       next: (response) => {
         if (response && response.data) {
-          const apiData = response.data;
           this.totalDocket= response.totalCount;
           const mergedData: any[] = [];
 
           this.dashboardMeta.forEach(meta => {
-            const matchedItem = apiData.find((item: any) => item.name === meta.name);
-
+            const matchedItem = response.data.find((item: any) => item.name === meta.name);
             mergedData.push({
               name: meta.name,
               icon: meta.icon,
