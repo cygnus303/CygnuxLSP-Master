@@ -46,10 +46,10 @@
                     <small *ngIf="userForm.controls['phoneNumber'].errors?.['pattern']">Phone Number is invalid.</small>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <label class="col-form-label">User type</label>
                   <input class="form-control"  formControlName="userType" type="text" placeholder="Enter User type" readonly/>
-                </div>
+                </div> -->
                 <div class="col-md-4 mb-11">
                   <label class="col-form-label">Session Time (Minutes)</label>
                   <input class="form-control" formControlName="sessionTime" type="number" min="1" max="60" placeholder="Enter Session Time"/>
