@@ -453,20 +453,32 @@ public class DocketController : ControllerBase
     public async Task<IActionResult> SinglePODUploadFile(IFormFile imageFile,string docketNo, [FromForm] string docpodJson,Guid lspuser)
     {
         if (imageFile == null || imageFile.Length == 0)
-            return BadRequest("No image file uploaded.");
+            /*return BadRequest("No image file uploaded.");*/
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "No image file uploaded.",
+                Data = false
+            });
 
         var allowedExtensions = new[] { ".png", ".jpg", ".jpeg", ".tiff", ".tif" };
         var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
 
         if (!allowedExtensions.Contains(fileExtension))
-            return BadRequest("Invalid file extension. Allowed: .png, .jpg, .jpeg, .tiff, .tif");
+            /*return BadRequest("Invalid file extension. Allowed: .png, .jpg, .jpeg, .tiff, .tif");*/
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "Invalid file extension. Allowed: .png, .jpg, .jpeg, .tiff, .tif",
+                Data = false
+            });
 
         var docpodData = JsonConvert.DeserializeObject<DocketPODUploadReq>(docpodJson);
 
         // Validate filename matches DocketNo
         var fileNameWithoutExt = Path.GetFileNameWithoutExtension(imageFile.FileName);
         if (!fileNameWithoutExt.Equals(docketNo, StringComparison.OrdinalIgnoreCase))
-            //return BadRequest($"Image filename must match the docket number (expected: {docketNo}).");
+            /*return BadRequest($"Image filename must match the docket number (expected: {docketNo}).");*/
             return BadRequest(new BaseResponseError<bool>
             {
                 Status = false,
