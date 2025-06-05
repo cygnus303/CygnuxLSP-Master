@@ -109,7 +109,7 @@ ngOnChanges(changes:SimpleChanges){
             this.dataEmitter.emit();
             this.sweetAlertService.success(response.data.message);
           } else {
-            this.sweetAlertService.error(response.data.message);
+            this.sweetAlertService.error(response.error.message);
           }
         },
         error: (response: any) => {
