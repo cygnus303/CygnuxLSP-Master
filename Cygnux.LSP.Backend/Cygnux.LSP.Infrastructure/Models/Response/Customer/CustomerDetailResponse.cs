@@ -27,6 +27,6 @@ public class CustomerDetailResponse
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string MobileNo { get; set; } = string.Empty;
-    public Guid? lspmappingId {  get; set; }
+    public Guid? lspMappingId {  get; set; }
     public string LspId { get; set; } = string.Empty;
 }
