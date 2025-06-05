@@ -100,7 +100,7 @@
                   <div class="form-group">
                     <label for="roles">Roles</label>
                     <ng-select [items]="roles" bindLabel="roleName" bindValue="roleName" formControlName="roles"
-                      placeholder="Select roles" [closeOnSelect]="false" [searchable]="true" readonly="true"
+                      placeholder="Select roles" [closeOnSelect]="false" [searchable]="true"
                       [ngClass]="{ 'border-danger': userForm.controls['roles'].invalid && userForm.controls['roles'].touched}">
                     </ng-select>
                     <div *ngIf="userForm.controls['roles'].invalid && userForm.controls['roles'].touched" class="text-danger">
