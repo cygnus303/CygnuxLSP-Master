@@ -49,7 +49,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
       : [];    
       this.lspMappingForm.patchValue(this.lspMappingResponse);
-      this.lspMappingId = this.lspMappingResponse.customerId ?? ''; 
+      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? ''; 
     } else {
       this.lspMappingForm.reset();
       this.buildForm();
@@ -84,7 +84,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
     this.customerService.getCustomerList(this.identityService.getLoggedUserId(),filters).subscribe({
       next: (response) => {
         if (response) {
-          if(!this.lspMappingId){
+          if(!this.lspMappingResponse ){
               const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
             //  this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId) && res.isActive);
              this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId));
@@ -143,7 +143,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         CreatedBy:this.identityService.getLoggedUserId()
       }
       delete dataSubmit.lspIds;
-      this.type === 'Add'
+      !this.lspMappingId
         ? this.addLspMapping(dataSubmit)
         : this.updateLspMapping(dataSubmit);
     }else{

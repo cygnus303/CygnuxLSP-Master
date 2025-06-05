@@ -11,7 +11,7 @@
                   <div class="form-group">
                     <label class="lsps">Customer Name</label>
                     <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId" formControlName="customerId"
-                      placeholder="Select Customer" [searchable]="true" [readonly]="lspMappingId ? true : false"
+                      placeholder="Select Customer" [searchable]="true" [readonly]="this.lspMappingResponse ? true : false"
                       [ngClass]="{ 'border-danger': lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId'].touched}">
                     </ng-select>
                     <div *ngIf="lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId']?.touched"
