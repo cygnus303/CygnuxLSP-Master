@@ -24,5 +24,6 @@ public static class ServiceRegistration
         services.AddScoped<IDocketService, DocketService>();
         services.AddScoped<IRoleMenuPermissionService, RoleMenuPermissionService>();
         services.AddScoped<ITrackingservice, TrackingService>();
+        services.AddScoped<IAuthenticationservice, AuthenticationService>();
     }
 }
