@@ -1,5 +1,5 @@
 <!-- login page start-->
-<div class="container-fluid p-0"  *ngIf="showLogin">
+<div class="container-fluid p-0" >
     <div class="row m-0">
         <div class="col-12 p-0">
             <div class="login-card">
@@ -43,7 +43,7 @@
                                 <div class="checkbox p-0">
                                     <input id="checkbox1" type="checkbox">
                                     <label class="text-muted" for="checkbox1">Remember password</label>
-                                </div><a class="link cursor-pointer" (click)="openForgotPassword()">Forgot password?</a>
+                                </div><a class="link cursor-pointer" routerLink="forgot-password">Forgot password?</a>
                                 <div class="text-end mt-3">
                                   <button 
                                   class="btn btn-primary btn-block w-100" 
@@ -93,7 +93,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="mt-4 mb-4"><span class="reset-password-link">If don't receive OTP?  <a class="btn-link text-danger">Resend</a></span></div>
+                  <div class="mt-4 mb-4"><span class="reset-password-link">If don't receive OTP?  <a class="btn-link text-danger">Resend</a></span></div>
                   <div class="form-group">
                     <label class="col-form-label pt-0">Enter OTP</label>
                     <div class="row">
@@ -113,9 +113,8 @@
                         <input class="form-control text-center opt-text" type="text"  maxlength="1" #d4>
                       </div>
                     </div>
-                  </div> -->
-                 <div *ngIf="sendEmail">
-                    <!-- <h6 class="mt-4">Create Your Password</h6> -->
+                  </div>
+                 <!-- <div *ngIf="sendEmail">
                     <div class="form-group">
                       <label class="col-form-label">New Password</label>
                       <div class="form-input position-relative">
@@ -145,7 +144,7 @@
                       <button class="btn btn-primary btn-block w-100 mt-3" type="submit" (click)="resetPassword()">Done</button>
                     </div>
                     <p class="mt-4 mb-0 text-center">Already have an password?<a class="ms-2 cursor-pointer" (click)="backToLogin()">Sign in</a></p>
-                 </div>
+                 </div> -->
                 </form>
               </div>
             </div>

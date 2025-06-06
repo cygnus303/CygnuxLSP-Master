@@ -78,11 +78,11 @@ ngOnChanges(changes: SimpleChanges): void {
   if (changes['docketResponse'] && this.docketResponse) {
     this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
     this.docketId = this.docketResponse.docketId;
+    this.docketForm.patchValue(this.docketResponse);
     if(this.isSelected === 'edit'){
       this.onSelectCustomer(this.docketResponse , true)
-      this.onSelectOrigin(this.docketResponse, 'lsp')
+      this.onSelectOrigin(this.docketResponse)
     }
-    this.docketForm.patchValue(this.docketResponse);
   } else {
     this.docketId = '';
     this.buildForm();
@@ -223,12 +223,11 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  onSelectOrigin(event: any, type: string): void {
+  onSelectOrigin(event: any, type?: string): void {
     const formValues = this.docketForm.value;
     let selectedLsp = formValues.transporter || '';
     let selectedFromLocation = formValues.fromLocation || '';
     let selectedToLocation = formValues.toLocation || '';
-  
     switch (type) {
       case 'lsp':
         selectedLsp = event?.lspId || event?.transporter;
@@ -253,11 +252,10 @@ ngOnChanges(changes: SimpleChanges): void {
         selectedToLocation = event.toLocation;
         break;
     }
-  
     const filters = {
       CustomerId: formValues.customerId || this.customerId,
-      LspId: selectedLsp,
-      origin: selectedFromLocation,
+      LspId: selectedLsp ,
+      origin: selectedFromLocation ,
       destination: selectedToLocation
     };
   

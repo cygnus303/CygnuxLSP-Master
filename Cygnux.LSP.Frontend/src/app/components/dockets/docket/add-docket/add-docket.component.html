@@ -37,7 +37,7 @@
                   <label class="col-form-label">Customer</label>
                   <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId"
                     formControlName="customerId" placeholder="Select Customer" [searchable]="true"
-                    (change)="onSelectCustomer($event)"  [readonly]="docketId"
+                    (change)="onSelectCustomer($event)" [readonly]="docketId ? true:false"
                     [ngClass]="{ 'border-danger': docketForm.controls['customerId'].invalid && docketForm.controls['customerId'].touched}">
                   </ng-select>
                   <div *ngIf="docketForm.controls['customerId'].invalid && docketForm.controls['customerId']?.touched" class="text-danger">
