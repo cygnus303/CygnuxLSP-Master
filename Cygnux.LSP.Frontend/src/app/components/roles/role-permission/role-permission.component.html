@@ -25,6 +25,14 @@
                                 <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allDeleteChecked"
                                     (change)="toggleColumn('canDelete')"> Delete
                             </th>
+                              <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allDeleteChecked"
+                                    (change)="toggleColumn('canStatusUpdate')"> UpdStat
+                            </th>
+                             <th>
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allDeleteChecked"
+                                    (change)="toggleColumn('canStatusUpdate')"> POD
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +59,26 @@
                                 <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canDelete"
                                     (change)="updatePermissionCheckbox(menu)">
                             </td>
+                            <td>
+                                <ng-container *ngIf="menu.menuName.includes('Docket'); else noStatusUpdate">
+                                    <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canStatusUpdate"
+                                        (change)="updatePermissionCheckbox(menu)">
+                                </ng-container>
+                                <ng-template #noStatusUpdate>
+                                    <span>-</span>
+                                </ng-template>
+                            </td>
+                            
+                            <td>
+                                <ng-container *ngIf="menu.menuName.includes('Docket'); else noPOD">
+                                    <input type="checkbox" class="form-check-input me-2" [(ngModel)]="menu.canPOD"
+                                        (change)="updatePermissionCheckbox(menu)">
+                                </ng-container>
+                                <ng-template #noPOD>
+                                    <span>-</span>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>

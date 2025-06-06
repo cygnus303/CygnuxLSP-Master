@@ -6,4 +6,6 @@ export interface RolePermissionResponse {
     canEdit: boolean;
     canCreate: boolean;
     canDelete: boolean;
+    canStatusUpdate:boolean;
+    canPOD:boolean;
 }
