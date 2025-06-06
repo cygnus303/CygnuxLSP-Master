@@ -170,14 +170,8 @@ export class DocketListComponent implements OnInit {
       this.getDocket(docketList);
     }
   }
-  deleteModal(event: Event, docketCode: string) {
-    event.preventDefault();
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.docketCode = docketCode;
-      modal.show();
-    }
+  deleteModal(docketCode: string) {
+    this.sweetAlertService.cancel("Are you sure to cancel docket?",() => this.deleteDocket(docketCode))
   }
 
   openImportModal(event: Event) {

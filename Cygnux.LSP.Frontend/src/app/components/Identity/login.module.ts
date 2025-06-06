@@ -5,9 +5,10 @@ import { LoginComponent } from './login.component';
 import { LoginRoutes } from './login.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 
 @NgModule({
-  declarations:[LoginComponent,ForgotPasswordComponent],
+  declarations:[LoginComponent,ForgotPasswordComponent,OtpVerificationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(LoginRoutes),
