@@ -86,15 +86,10 @@ export class RolePermissionComponent implements OnInit {
     
 
     updatePermissionCheckbox(menu: any) {
-        // Check if all permissions are selected for this specific menu
         const allPermissionsSelected = menu.canView && menu.canCreate && menu.canEdit && menu.canDelete;
-    
-        // Update the main menu checkbox state dynamically without adding `isChecked`
         if (!allPermissionsSelected) {
-            this.allChecked = false; // Uncheck the "Menu Name" checkbox if any permission is unchecked
+            this.allChecked = false;
         }
-    
-        // Update the main header checkboxes to reflect the current state
         this.updateMainCheckbox();
     }
     

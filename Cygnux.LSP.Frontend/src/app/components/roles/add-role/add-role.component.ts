@@ -55,9 +55,7 @@ export class AddRoleComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-    // this.roleForm.reset();
       this.buildForm();
-      // this.dataEmitter.emit();
   }
 
   onSubmitRole(form: FormGroup): void {

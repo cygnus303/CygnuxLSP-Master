@@ -132,15 +132,6 @@ export class LspMappingListComponent implements OnInit {
       this.getLspMapping(id);
     }
   }
-  // deleteModal(event: Event, id: string) {
-  //   event.preventDefault();
-  //   const modalElement = document.getElementById('deleteModal');
-  //   if (modalElement) {
-  //     const modal = new Modal(modalElement);
-  //     this.lspMappingId = id;
-  //     modal.show();
-  //   }
-  // }
 
   getLspMapping(id: string) {
     this.lspMappingService.getLspMappingDetails(id).subscribe({
@@ -155,13 +146,7 @@ export class LspMappingListComponent implements OnInit {
       },
     });
   }
-  // closeDeleteModal() {
-  //   const modalElement: any = document.getElementById('deleteModal');
-  //   const modalInstance = Modal.getInstance(modalElement);
-  //   if (modalInstance) {
-  //     modalInstance.hide();
-  //   }
-  // }
+
   closeEditModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     const modalInstance = Modal.getInstance(modalElement);

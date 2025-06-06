@@ -189,7 +189,6 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   }
 
   onClose(){
-    // this.dataEmitter.emit();
     this.buildForm();
   }
 }
