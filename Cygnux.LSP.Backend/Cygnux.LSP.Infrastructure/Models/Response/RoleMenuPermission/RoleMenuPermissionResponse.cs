@@ -9,4 +9,6 @@ public class RoleMenuPermissionResponse
     public bool CanView { get; set; }
     public bool CanEdit { get; set; }
     public bool CanDelete { get; set; }
+    public bool CanPOD { get; set; }
+    public bool CanStatusUpdate { get; set; }
 }
