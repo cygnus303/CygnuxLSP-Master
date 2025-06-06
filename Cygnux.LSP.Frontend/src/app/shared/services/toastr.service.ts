@@ -46,6 +46,25 @@ export class SweetAlertService {
   });
   }
 
+   cancel(message:string, onConfirm: () => void){
+    Swal.fire({
+    title: message,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, cancel!',
+    cancelButtonText: 'No',
+    confirmButtonColor: '#171829',
+    cancelButtonColor: '#aaa',
+    customClass: {
+      container: 'notification-popup'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      onConfirm(); // 🔥 call the actual delete function
+    }
+  });
+  }
+
   error(message:any){
     Swal.fire({
       icon: "error",
