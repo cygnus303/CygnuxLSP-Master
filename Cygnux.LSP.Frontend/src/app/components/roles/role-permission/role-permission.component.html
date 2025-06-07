@@ -26,12 +26,12 @@
                                     (change)="toggleColumn('canDelete')"> Delete
                             </th>
                               <th>
-                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allDeleteChecked"
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allStatusUpdate"
                                     (change)="toggleColumn('canStatusUpdate')"> UpdStat
                             </th>
                              <th>
-                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allDeleteChecked"
-                                    (change)="toggleColumn('canStatusUpdate')"> POD
+                                <input type="checkbox" class="form-check-input me-2" [(ngModel)]="allPod"
+                                    (change)="toggleColumn('canPOD')"> POD
                             </th>
                         </tr>
                     </thead>
@@ -39,7 +39,7 @@
                         <tr *ngFor="let menu of menus">
                             <td>
                                 <input type="checkbox" class="form-check-input me-2"
-                                    [checked]="menu.canView && menu.canCreate && menu.canEdit && menu.canDelete"
+                                    [checked]="isAllPermissionsChecked(menu)"
                                     (change)="toggleRow(menu, $event)"> 
                                 {{ menu.menuName }}
                             </td>
