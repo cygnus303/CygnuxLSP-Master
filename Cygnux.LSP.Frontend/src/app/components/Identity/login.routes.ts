@@ -14,5 +14,5 @@ export const LoginRoutes: Routes = [{
   path: 'forgot-password', component: ForgotPasswordComponent 
 },
 { 
-  path: 'otp-verification', component: OtpVerificationComponent 
+  path: 'otp-verification/:id', component: OtpVerificationComponent 
 }];
