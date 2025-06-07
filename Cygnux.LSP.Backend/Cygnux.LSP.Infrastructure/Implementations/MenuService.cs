@@ -18,7 +18,7 @@ internal class MenuService : IMenuService
 
     public async Task<IEnumerable<MenuResponse>> GetMenuList(Guid userId)
     {
-        var selectQuery = "SELECT M.MenuId, M.MenuName, M.Icon, M.NavigationUrl,RMP.CanView,RMP.CanCreate,RMP.CanEdit,RMP.CanDelete " +
+        var selectQuery = "SELECT M.MenuId, M.MenuName, M.Icon, M.NavigationUrl,RMP.CanView,RMP.CanCreate,RMP.CanEdit,RMP.CanDelete,RMP.CanPOD,RMP.CanstatusUpdate " +
       "FROM UserRoles UR " +
       "INNER JOIN RoleMenuPermission RMP ON RMP.RoleId = UR.RoleId " +
       "INNER JOIN Menu M ON M.MenuId = RMP.MenuId " +
