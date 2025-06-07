@@ -11,6 +11,7 @@ using Cygnux.LSP.Api.Models;
 using Cygnux.LSP.Identity;
 using Newtonsoft.Json;
 using static Cygnux.LSP.Api.Models.OtpVerification;
+using Cygnux.LSP.Application.Models.Response;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -32,11 +33,23 @@ public class AuthenticationController : ControllerBase
     {
         var user = await _context.Users.FindAsync(request.UserId);
         if (user == null)
-            return NotFound("User not found.");
+            /*return NotFound("User not found.");*/
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User not found.",
+                Data = false
+            });
 
         // Validate email
         if (string.IsNullOrWhiteSpace(user.Email) || !IsValidEmail(user.Email))
-            return BadRequest("User email is invalid.");
+            /*return BadRequest("User email is invalid.");*/
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User email is invalid.",
+                Data = false
+            });
 
         // Generate random 6-digit OTP
         var otp = new Random().Next(100000, 999999).ToString();
