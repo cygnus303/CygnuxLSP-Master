@@ -8,4 +8,6 @@ export interface MenuResponse {
     canEdit: boolean;
     canDelete: boolean;
     canCreate:boolean;
+    canstatusUpdate:boolean;
+    canPOD:boolean;
 }

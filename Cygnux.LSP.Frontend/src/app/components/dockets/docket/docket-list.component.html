@@ -114,13 +114,13 @@
                             </svg>
                           </div>
                           <div (click)="docket.currentStatus === '6' ? null : openStatusUpdateModal(docket , 'StatusUpdate')"
-                            [ngClass]="{'disabled-image': commonService.menuRoleList?.canCreate,'disabled-icon': docket.currentStatus === '6'}"
+                            [ngClass]="{'disabled-image': !commonService.menuRoleList?.canstatusUpdate,'disabled-icon': docket.currentStatus === '6'}"
                             [popover]="'Status Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                             <img src="/assets/images/update.png" width="23" height="22">
                           </div>
                           <div
                             (click)="docket.currentStatus !== '6' || (docket.currentStatus === '6' && docket.podLink !== '-') ? null : openPodUpdateModal(docket)"
-                            [ngClass]="{'disabled-image': commonService.menuRoleList?.canCreate, 'disabled-icon': docket.currentStatus !== '6' || (docket.currentStatus === '6' && docket.podLink !== '-')}"
+                            [ngClass]="{'disabled-image': !commonService.menuRoleList?.canPOD, 'disabled-icon': docket.currentStatus !== '6' || (docket.currentStatus === '6' && docket.podLink !== '-')}"
                             [popover]="docket.currentStatus !== '6' ? 'Current status is not Delivered yet' : (docket.currentStatus === '6' && docket.podLink !== '-') ? 'POD Already Upload' : 'POD Upload'"
                             placement="auto" triggers="hover" [outsideClick]="true" container="body">
                             <img src="/assets/images/pod.svg" width="37" height="27">

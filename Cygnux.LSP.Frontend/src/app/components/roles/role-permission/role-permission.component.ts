@@ -4,6 +4,7 @@ import { RolePermissionService } from '../../../shared/services/role-permission.
 import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-role-permission',
@@ -99,8 +100,20 @@ export class RolePermissionComponent implements OnInit {
             next: (response) => {
                 if (response.success) {
                     this.permissionEmitter.emit();
-                    window.location.reload();
-                    this.sweetAlertService.success(response.data.message);
+                     Swal.fire({
+                          title: response.data.message,
+                          icon: 'success',
+                          showCancelButton: false,
+                          showConfirmButton: true,
+                          confirmButtonText: "Ok",
+                          confirmButtonColor: '#171829',
+                          customClass: {
+                            container: 'notification-popup'
+                          }
+                        }).then(()=>{
+                            window.location.reload();
+                        });
+                //    this.sweetAlertService.success(response.data.message)
                 } else {
                     this.sweetAlertService.error(response.error.message);
                 }

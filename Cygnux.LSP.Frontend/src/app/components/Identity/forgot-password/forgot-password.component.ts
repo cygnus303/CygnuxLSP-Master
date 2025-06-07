@@ -11,16 +11,16 @@ export class ForgotPasswordComponent {
   passwordForm!: FormGroup;
   isPasswordVisible = false;
   isConfirmVisible = false;
-constructor() {
-  this.passwordForm = new FormGroup({
-    newPassword: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
-    ]),
-    confirmPassword: new FormControl('')
-  }, { validators: this.passwordMatchValidator }); // ✅ corrected here
-}
+  constructor() {
+    this.passwordForm = new FormGroup({
+      newPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
+      ]),
+      confirmPassword: new FormControl('')
+    }, { validators: this.passwordMatchValidator });
+  }
 
 
  passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
