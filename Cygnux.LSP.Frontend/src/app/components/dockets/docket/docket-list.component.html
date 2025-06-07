@@ -43,8 +43,8 @@
                       <th class="w-10">To WH/Store</th>
                       <th class="w-10">Transport Mode</th>
                       <th class="w-10">Current Status</th>
-                      <th class="w-8">Quantity</th>
-                      <th class="w-15 text-center">Action</th>
+                      <th class="w-6">Quantity</th>
+                      <th class="text-center w-15">Action</th>
                     </tr>
                     <tr class="table-th">
                       <th class="w-10">
@@ -68,10 +68,10 @@
                       <th class="w-10">
                         <input type="text" class="form-control" [(ngModel)]="filters['CurrentStatus']" (input)="getDockets()" />
                       </th>
-                      <th class="w-8">
+                      <th class="w-6">
                         <input type="text" class="form-control" [(ngModel)]="filters['Quantity']" (input)="getDockets()" />
                       </th>
-                      <th class="w-15 text-center"></th>
+                      <th class="text-center w-15"> </th>
                     </tr>
                   </thead>
                 </table>
@@ -86,7 +86,7 @@
                       <td class="w-10">{{ docket.toLocation }}</td>
                       <td class="w-10">{{ docket.transportModeDesc }}</td>
                       <td class="w-10">{{ docket.currentStatusDesc }}</td>
-                      <td class="w-8 text-center">{{ docket.quantity }}</td>
+                      <td class="w-6 text-center">{{ docket.quantity }}</td>
                       <td class="w-15">
                         <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
                           <div (click)="editModal($event, docket, 'edit')"

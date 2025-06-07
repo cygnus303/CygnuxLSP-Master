@@ -51,61 +51,30 @@ toggleSidebar(){
   }
 }
 
-// getMenus() {
-//   this.commonService.updateLoader(true);
-//   this.menuService.getMenuList()
-//   .subscribe({
-//     next: (response) => {
-//       if (response) {
-//         this.menus = response.data;
-//         this.menuService.setMenusToCache(this.menus);
-//         const urlPart = this.router.url === '/docket/list' ? '/' + this.router.url.split('/')[1] : this.router.url;
-//         const data = this.menus.find(res => res.navigationUrl.includes(urlPart));
-//         if (data) {
-//           this.commonService.activemenuRoleList.next(data);
-//         }
-//       }
-//       this.commonService.updateLoader(false);
-//       setTimeout(() => {
-//         feather.replace();
-//       }, 0);
-//     },
-//     error: (response: any) => {
-//       this.toasterService.error(response.error.message);
-//       this.commonService.updateLoader(false);
-//     },
-//   });
-// }
-
 getMenus() {
   this.commonService.updateLoader(true);
   this.menuService.getMenuList()
-    .subscribe({
-      next: (response) => {
-        if (response) {
-          // Filter out "POD" and "StatusUpdate" based on menuName or menuId
-          const filteredMenus = response.data.filter((menu: any) =>
-            menu.menuName !== 'POD' && menu.menuName !== 'StatusUpdate'
-          );
-
-          this.menus = filteredMenus;
-          this.menuService.setMenusToCache(this.menus);
-          const urlPart = this.router.url === '/docket/list' ? '/' + this.router.url.split('/')[1] : this.router.url;
-          const data = this.menus.find(res => res.navigationUrl.includes(urlPart));
-          if (data) {
-            this.commonService.activemenuRoleList.next(data);
-          }
+  .subscribe({
+    next: (response) => {
+      if (response) {
+        this.menus = response.data;
+        this.menuService.setMenusToCache(this.menus);
+        const urlPart = this.router.url === '/docket/list' ? '/' + this.router.url.split('/')[1] : this.router.url;
+        const data = this.menus.find(res => res.navigationUrl.includes(urlPart));
+        if (data) {
+          this.commonService.activemenuRoleList.next(data);
         }
-        this.commonService.updateLoader(false);
-        setTimeout(() => {
-          feather.replace();
-        }, 0);
-      },
-      error: (response: any) => {
-        this.toasterService.error(response.error.message);
-        this.commonService.updateLoader(false);
-      },
-    });
+      }
+      this.commonService.updateLoader(false);
+      setTimeout(() => {
+        feather.replace();
+      }, 0);
+    },
+    error: (response: any) => {
+      this.toasterService.error(response.error.message);
+      this.commonService.updateLoader(false);
+    },
+  });
 }
 
 
