@@ -28,3 +28,9 @@ public class OtpRequest
 {
     public Guid UserId { get; set; }
 }
+public class OtpVerifyRequest
+{
+    public Guid RequestId { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public required string OTP { get; set; }
+}

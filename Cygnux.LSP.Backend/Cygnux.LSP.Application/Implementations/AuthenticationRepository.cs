@@ -22,9 +22,14 @@ internal class AuthenticationRepository : IAuthenticationRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+    public async Task<BaseResponse<CommonCreateResponse>> OtpVerified(string otpreq)
+    {
+        var response = await _authenticationService.OtpVerified(otpreq);
 
-    //public Task<BaseResponse<CommonCreateResponse>> AddOTPDetails(string otpentry)
-    //{
-    //    throw new NotImplementedException();
-    //}
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+
+
+
 }

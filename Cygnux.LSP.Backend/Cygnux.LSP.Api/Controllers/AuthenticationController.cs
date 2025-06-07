@@ -12,6 +12,7 @@ using Cygnux.LSP.Identity;
 using Newtonsoft.Json;
 using static Cygnux.LSP.Api.Models.OtpVerification;
 using Cygnux.LSP.Application.Models.Response;
+using Microsoft.EntityFrameworkCore;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -109,6 +110,40 @@ public class AuthenticationController : ControllerBase
         {
             return false;
         }
+    }
+
+    /*
+    public async Task<bool> IsEmailRealAsync(string email)
+    {
+        var client = new HttpClient();
+        var response = await client.GetAsync($"http://apilayer.net/api/check?access_key=YOUR_API_KEY&email={email}&smtp=1&format=1");
+
+        if (!response.IsSuccessStatusCode)
+            return false;
+
+        var json = await response.Content.ReadAsStringAsync();
+        dynamic result = JsonConvert.DeserializeObject(json);
+
+        return result.smtp_check == true;
+    }
+    */
+
+    [HttpPost("verifyOTP")]
+    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest otpreq)
+    {
+        // Get user by email
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == otpreq.Email);
+        if (user == null)
+            /*return NotFound("User not found with the provided email.");*/
+
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User not found.",
+                Data = false
+            });
+
+        return Ok( await _authenticationRepository.OtpVerified(JsonConvert.SerializeObject(otpreq)));
     }
 
 

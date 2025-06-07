@@ -56,4 +56,5 @@ public static class StoredProcedureConstants
     public const string USP_DocketCount = "USP_DocketCount";
 
     public const string USP_OtpVerification= "USP_InsertLoginOTPverification";
+    public const string USP_VerifyOTP = "USP_VerifyOTP";
 }

@@ -28,4 +28,16 @@ internal class AuthenticationService : IAuthenticationservice
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+
+    public async Task<CommonCreateResponse> OtpVerified(string otpreq)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonInput", otpreq, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_VerifyOTP,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }
