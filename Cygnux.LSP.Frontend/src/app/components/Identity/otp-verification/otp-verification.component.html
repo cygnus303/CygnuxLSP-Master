@@ -7,51 +7,56 @@
             <div><a class="logo" href="index.html"><img class="img-fluid for-light"
                   src="../assets/images/logo/logo2.png" alt="looginpage"></a></div>
             <div class="login-main">
-              <form class="theme-form">
+              <form class="theme-form" #emailForm="ngForm" (ngSubmit)="sendOtp()">
                 <h4>Reset Your Password</h4>
                 <div class="form-group">
                   <label class="col-form-label">Enter Your Email Address</label>
                   <div class="row">
                     <div class="col-12 col-sm-12">
-                      <input class="form-control mb-1" type="email" placeholder="Enter Your Email">
+                      <input class="form-control mb-1" type="email" name="email" [(ngModel)]="email"
+                        placeholder="Enter Your Email" required email #emailInput="ngModel">
+                      <div class="text-danger" *ngIf="emailInput.invalid && emailInput.touched">
+                        Enter a valid email address
+                      </div>
                     </div>
                     <div class="col-12">
                       <div class="text-end">
-                        <button class="btn btn-primary btn-block m-t-10" type="submit">Send</button>
+                        <button class="btn btn-primary btn-block m-t-10" type="submit" [disabled]="emailForm.invalid">
+                          Send
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                <div class="form-group">
+                <div class="form-group" *ngIf="showOtp">
                   <label class="col-form-label pt-0">Enter OTP</label>
                   <div class="row">
                     <div class="col">
-                      <input class="form-control text-center opt-text" type="text" maxlength="1" #d1
-                        (input)="d1.value && d2.focus()" (keydown.backspace)="!d1.value ? d1.blur() : null">
+                      <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d1"
+                        name="d1" (input)="moveFocus($event, d2)" #d1>
                     </div>
                     <div class="col">
-                      <input class="form-control text-center opt-text" type="text" maxlength="1" #d2
-                        (input)="d2.value && d3.focus()" (keydown.backspace)="!d2.value ? d1.focus() : null">
+                      <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d2"
+                        name="d2" (input)="moveFocus($event, d3)" (keydown.backspace)="backspace($event, d1)" #d2>
                     </div>
                     <div class="col">
-                      <input class="form-control text-center opt-text" type="text" maxlength="1" #d3
-                        (input)="d3.value && d4.focus()" (keydown.backspace)="!d3.value ? d2.focus() : null">
+                      <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d3"
+                        name="d3" (input)="moveFocus($event, d4)" (keydown.backspace)="backspace($event, d2)" #d3>
                     </div>
                     <div class="col">
-                      <input class="form-control text-center opt-text" type="text" maxlength="1" #d4
-                        (input)="d4.value && d5.focus()" (keydown.backspace)="!d4.value ? d3.focus() : null">
+                      <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d4"
+                        name="d4" (input)="moveFocus($event, d5)" (keydown.backspace)="backspace($event, d3)" #d4>
                     </div>
                     <div class="col">
-                      <input class="form-control text-center opt-text" type="text" maxlength="1" #d5
-                        (input)="d5.value && d6.focus()" (keydown.backspace)="!d5.value ? d4.focus() : null">
+                      <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d5"
+                        name="d5" (input)="moveFocus($event, d6)" (keydown.backspace)="backspace($event, d4)" #d5>
                     </div>
                     <div class="col">
-                      <input class="form-control text-center opt-text" type="text" maxlength="1" #d6
-                        (keydown.backspace)="!d6.value ? d5.focus() : null">
+                      <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d6"
+                        name="d6" (input)="verifyOtp()" (keydown.backspace)="backspace($event, d5)" #d6>
                     </div>
                   </div>
-                  <div class="mt-4 mb-4"><span class="reset-password-link">If don't receive OTP?<a
+                   <div class="mt-4 mb-4"><span class="reset-password-link">If don't receive OTP?<a
                                         class="btn-link text-danger">Resend</a></span></div>
                 </div>
               </form>

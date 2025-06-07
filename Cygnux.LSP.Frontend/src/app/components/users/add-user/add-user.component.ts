@@ -113,18 +113,18 @@ export class AddUserComponent implements OnInit, OnChanges {
   addUser(form: FormGroup): void {
     this.userService.addUser(this.identityService.getLoggedUserId(),form.getRawValue()).subscribe({
       next: (response) => {
-        if (response.success) {
+        if (response.data.status.toString().includes('1')) {
           this.dataEmitter.emit();
           this.sweetAlertService.success(response.data.message);
           this.sendUsermail(response.data.id)
           this.userForm.reset();
           this.buildForm();
         } else {
-          this.sweetAlertService.error(response.error.message);
+          this.sweetAlertService.error(response.data.message);
         }
       },
       error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
+        this.sweetAlertService.error(response.data.message);
       },
     });
   }
