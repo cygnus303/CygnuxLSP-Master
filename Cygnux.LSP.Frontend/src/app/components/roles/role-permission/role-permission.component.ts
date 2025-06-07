@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CommonService } from '../../../shared/services/common.service';
 import { RolePermissionService } from '../../../shared/services/role-permission.service';
 import { RolePermissionResponse } from '../../../shared/models/role-permission.model';
 import { ToastrService } from 'ngx-toastr';
@@ -16,12 +15,14 @@ export class RolePermissionComponent implements OnInit {
     public allEditChecked : boolean= false;
     public allDeleteChecked : boolean= false;
     public allPermission: boolean= false;
+    public allStatusUpdate: boolean= false;
+    public allPod: boolean= false;
+
     public menus: RolePermissionResponse[] = [];
     @Input() roleId: any;
     @Output() permissionEmitter: EventEmitter<void> = new EventEmitter();
     
     constructor(
-        private commonService: CommonService,
         private rolePermissionService: RolePermissionService,
         private toastrService: ToastrService,
         private sweetAlertService:SweetAlertService
@@ -50,11 +51,16 @@ export class RolePermissionComponent implements OnInit {
     }
 
     toggleColumn(column: string) {
-        const isChecked = this.menus.every((menu:any) => menu[column]);
-        this.menus.forEach((menu:any) => menu[column] = !isChecked);
+        const menusToUpdate = column === 'canStatusUpdate' 
+            ? this.menus.filter(menu => menu.menuName.includes('Docket'))
+            : this.menus;
+
+        const isChecked = menusToUpdate.every((menu:any) => menu[column]);
+
+        menusToUpdate.forEach((menu:any) => menu[column] = !isChecked);
+
         this.updateMainCheckbox();
     }
-    
 
     toggleRow(menu: any, event: Event) {
         const checked = (event.target as HTMLInputElement).checked;
@@ -62,8 +68,22 @@ export class RolePermissionComponent implements OnInit {
         menu.canCreate = checked;
         menu.canEdit = checked;
         menu.canDelete = checked;
+         if (menu.menuName.includes('Docket')) {
+        menu.canStatusUpdate = checked;
+        menu.canPOD = checked;
+    }
         this.updateMainCheckbox();
     }
+
+    isAllPermissionsChecked(menu: any): boolean {
+    const basePermissions = menu.canView && menu.canCreate && menu.canEdit && menu.canDelete;
+
+    if (menu.menuName.includes('Docket')) {
+        return basePermissions && menu.canStatusUpdate && menu.canPOD;
+    }
+
+    return basePermissions;
+}
 
     toggleAllRows(event: Event) {
         const checked = (event.target as HTMLInputElement).checked;
@@ -72,21 +92,30 @@ export class RolePermissionComponent implements OnInit {
             menu.canCreate = checked;
             menu.canEdit = checked;
             menu.canDelete = checked;
+            menu.canStatusUpdate = checked;
+            menu.canPOD = checked;
         });
         this.updateMainCheckbox();
     }
 
     updateMainCheckbox() {
-        this.allChecked = this.menus.every(menu => menu.canView && menu.canCreate && menu.canEdit && menu.canDelete);
+        this.allChecked = this.menus.every(menu => menu.canView && menu.canCreate && menu.canEdit && menu.canDelete && (!menu.menuName.includes('Docket') || (menu.canStatusUpdate && menu.canPOD)));
         this.allViewChecked = this.menus.every(menu => menu.canView);
         this.allCreateChecked = this.menus.every(menu => menu.canCreate);
         this.allEditChecked = this.menus.every(menu => menu.canEdit);
         this.allDeleteChecked = this.menus.every(menu => menu.canDelete);
+         this.allStatusUpdate = this.menus
+        .filter(menu => menu.menuName.includes('Docket'))
+        .every(menu => menu.canStatusUpdate);
+
+    this.allPod = this.menus
+        .filter(menu => menu.menuName.includes('Docket'))
+        .every(menu => menu.canPOD);
     }
     
 
     updatePermissionCheckbox(menu: any) {
-        const allPermissionsSelected = menu.canView && menu.canCreate && menu.canEdit && menu.canDelete;
+        const allPermissionsSelected = menu.canView && menu.canCreate && menu.canEdit && menu.canDelete && menu.canStatusUpdate && menu.canPOD;
         if (!allPermissionsSelected) {
             this.allChecked = false;
         }
@@ -99,8 +128,8 @@ export class RolePermissionComponent implements OnInit {
             next: (response) => {
                 if (response.success) {
                     this.permissionEmitter.emit();
-                    window.location.reload();
                     this.sweetAlertService.success(response.data.message);
+                    window.location.reload();
                 } else {
                     this.sweetAlertService.error(response.error.message);
                 }
