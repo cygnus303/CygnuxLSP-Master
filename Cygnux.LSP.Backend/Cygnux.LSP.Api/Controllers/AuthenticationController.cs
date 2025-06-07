@@ -10,6 +10,7 @@ using System.Net;
 using Cygnux.LSP.Api.Models;
 using Cygnux.LSP.Identity;
 using Newtonsoft.Json;
+using static Cygnux.LSP.Api.Models.OtpVerification;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -26,7 +27,7 @@ public class AuthenticationController : ControllerBase
         _context = context;
     }
 
-    [HttpPost("send-otp-email")]
+    [HttpPost("SendOTPMail")]
     public async Task<IActionResult> SendOtpEmail([FromBody] OtpRequest request, Guid Entryby)
     {
         var user = await _context.Users.FindAsync(request.UserId);
@@ -39,31 +40,46 @@ public class AuthenticationController : ControllerBase
 
         // Generate random 6-digit OTP
         var otp = new Random().Next(100000, 999999).ToString();
+        var reqid = Guid.NewGuid();
 
         // Create verification link
-        var verificationLink = $"https://uatlsp.cygnux.in/login/otp-verification/{request.UserId}";
+        var verificationLink = $"https://uatlsp.cygnux.in/login/otp-verification/{reqid}";
 
-        // Create OTP entry
+        // Create OTP entry object (we’ll save only after email succeeds)
         var otpEntry = new OtpVerification
         {
             UserId = request.UserId,
             OTP = otp,
             OTPLink = verificationLink,
             OTPCreateTime = DateTime.Now,
-            EntryBy = Entryby
+            EntryBy = Entryby,
+            RequestId = reqid,
+            IsMailSend = true
         };
-
-        // Save OTP entry
-        await _authenticationRepository.AddOTPDetails(JsonConvert.SerializeObject(otpEntry));
 
         // Email content
         var subject = "Verify your account";
         var body = $"Please verify your account using the link below:\n{verificationLink}\n\nYour OTP is: {otp}";
 
-        // Send email
-        await _emailService.SendEmailAsync(user.Email, subject, body);
+        try
+        {
+            // Send email
+            await _emailService.SendEmailAsync(user.Email, subject, body);
 
-        return Ok(new { Message = "OTP email sent successfully." });
+            // Save OTP entry only after successful email
+            await _authenticationRepository.AddOTPDetails(JsonConvert.SerializeObject(otpEntry));
+
+            return Ok(new { Message = "OTP email sent successfully." });
+        }
+        catch (Exception ex)
+        {
+            // Optional: log exception here
+            return StatusCode(500, new
+            {
+                Message = "Failed to send OTP email.",
+                Error = ex.Message
+            });
+        }
     }
 
     /// <summary>
@@ -82,41 +98,5 @@ public class AuthenticationController : ControllerBase
         }
     }
 
-    //[HttpPost("sendOTPemail")]
-    //public async Task<IActionResult> SendOtpEmail([FromBody] OtpRequest request,Guid Entryby)
-    //{
-    //    var user = await _context.Users.FindAsync(request.UserId);
-    //    if (user == null)
-    //        return NotFound("User not found.");
-
-    //    // Generate random 6-digit OTP
-    //    var otp = new Random().Next(100000, 999999).ToString();
-
-    //    // Create verification link
-    //    var verificationLink = $"https://uatlsp.cygnux.in/login/otp-verification/{request.UserId}";
-
-    //    var otpEntry = new OtpVerification
-    //    {
-    //        UserId = request.UserId,
-    //        OTP = otp,
-    //        OTPLink = verificationLink,
-    //        OTPCreateTime = DateTime.Now,
-    //        EntryBy = Entryby
-    //    };
-
-    //    //_context.OtpVerifications.Add(otpEntry);
-    //    //await _context.SaveChangesAsync();
-
-    //    await _authenticationRepository.AddOTPDetails(JsonConvert.SerializeObject(otpEntry));
-
-    //    // Email content
-    //    var subject = "Verify your account";
-    //    var body = $"Please verify your account using the link below:\n{verificationLink}\nYour OTP is: {otp}";
-
-    //    // Send email (simplified)
-    //    await _emailService.SendEmailAsync(user.Email, subject, body);
-
-    //    return Ok(new { Message = "OTP email sent successfully." });
-    //}
 
 }

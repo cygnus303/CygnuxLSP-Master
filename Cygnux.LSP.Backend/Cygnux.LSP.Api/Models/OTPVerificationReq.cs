@@ -20,6 +20,8 @@ public class OtpVerification
     public bool IsLoggedIn { get; set; }
     public Guid EntryBy { get; set; }
     public DateTime EntryDate { get; set; }
+    public Guid RequestId { get; set; }
+    public bool IsMailSend { get; set; }
 }
 
 public class OtpRequest
