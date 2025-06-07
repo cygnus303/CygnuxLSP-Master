@@ -21,6 +21,7 @@ import { RoleResponse } from '../../../shared/models/role.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-add-user',
@@ -40,7 +41,8 @@ export class AddUserComponent implements OnInit, OnChanges {
     private userService: UserService,
     private sweetAlertService: SweetAlertService,
     private roleService: RoleService,
-    private identityService:IdentityService
+    private identityService:IdentityService,
+    private authenticationService:AuthenticationService
   ) {
     this.userForm = new FormGroup({});
   }
@@ -114,10 +116,30 @@ export class AddUserComponent implements OnInit, OnChanges {
         if (response.success) {
           this.dataEmitter.emit();
           this.sweetAlertService.success(response.data.message);
+          this.sendUsermail(response.data.id)
           this.userForm.reset();
           this.buildForm();
         } else {
           this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
+
+  sendUsermail(id:any){
+    const filters={
+      userId : id
+    }
+    this.authenticationService.sendOTPMail(this.identityService.getLoggedUserId(),filters).subscribe({
+      next: (response) => {
+        if (response.success) {
+          // this.sweetAlertService.success(response.data.message);
+        } else {
+          // this.sweetAlertService.error(response.error.message);
         }
       },
       error: (response: any) => {

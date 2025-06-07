@@ -138,7 +138,11 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       const modal = new Modal(modalElement);
       this.selectedRoleId = roleList.id;
       this.roleName = roleList.roleName
-      modal.show();
+       this.selectedRoleId = '';
+      setTimeout(() => {
+        this.selectedRoleId = roleList.id;
+        modal.show();
+      }, 0);
     }
   }
   getRole(roleId: string) {
