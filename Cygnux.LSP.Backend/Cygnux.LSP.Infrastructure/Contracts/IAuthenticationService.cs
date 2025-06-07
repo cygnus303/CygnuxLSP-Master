@@ -6,5 +6,6 @@ using Models.Response.LspMapping;
 
 public interface IAuthenticationservice
 {
-    
+    Task<CommonCreateResponse> AddOTPDetails(string otpentry);
+
 }

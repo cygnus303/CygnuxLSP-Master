@@ -1,5 +1,8 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 using Contracts;
+using Cygnux.LSP.Application.Models.Request.Docket;
+using Cygnux.LSP.Application.Models.Response;
+using Cygnux.LSP.Infrastructure.Models.Response;
 using Infrastructure.Contracts;
 
 
@@ -12,5 +15,16 @@ internal class AuthenticationRepository : IAuthenticationRepository
         _authenticationService = authenticationService;
     }
 
+    public async Task<BaseResponse<CommonCreateResponse>> AddOTPDetails(string otpentry)
+    {
+        var response = await _authenticationService.AddOTPDetails(otpentry);
 
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+
+    //public Task<BaseResponse<CommonCreateResponse>> AddOTPDetails(string otpentry)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }

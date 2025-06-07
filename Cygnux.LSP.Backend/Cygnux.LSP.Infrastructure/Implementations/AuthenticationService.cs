@@ -17,5 +17,15 @@ internal class AuthenticationService : IAuthenticationservice
         _dbConnection = dbConnection;
     }
 
-    
+    public async Task<CommonCreateResponse> AddOTPDetails(string otpentry)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonInput", otpentry, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_OtpVerification,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }

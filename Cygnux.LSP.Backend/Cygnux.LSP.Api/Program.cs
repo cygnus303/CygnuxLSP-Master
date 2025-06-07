@@ -1,11 +1,13 @@
 using Cygnux.LSP.Api.IoC;
 using Cygnux.LSP.Api.Middleware;
+using Cygnux.LSP.Application.Contracts;
 using Cygnux.LSP.Identity.IoC;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureApiServices(builder.Configuration);
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 var loggerFactory = app.Services.GetService<ILoggerFactory>();

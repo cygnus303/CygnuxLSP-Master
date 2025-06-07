@@ -104,6 +104,7 @@ internal class UserService : IUserService
             user.Address = applicationUser.Address;
             user.SessionTime = applicationUser.SessionTime;
             user.ZipCode = applicationUser.ZipCode;
+            user.Email = applicationUser.Email;
 
             return await _userManager.UpdateAsync(user);
         }

@@ -91,6 +91,7 @@ internal class UserRepository : IUserRepository
             Address = userRequest.Address,
             SessionTime = userRequest.SessionTime,
             ZipCode = userRequest.ZipCode,
+            Email = userRequest.EmailId
         });
 
         if (response.Succeeded)
