@@ -55,7 +55,7 @@ export class OtpVerificationComponent {
         next: (response) => {
           if(response.success){
           this.toastrService.success(response.data.message);
-          this.router.navigateByUrl('login/changePassword')
+         this.router.navigateByUrl(`login/changePassword/${this.otpId}`);
           }else{
             this.toastrService.error(response.error.message)
           }

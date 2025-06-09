@@ -11,7 +11,7 @@ export const LoginRoutes: Routes = [{
   canActivate: [LoginGuard]
 },
 { 
-  path: 'changePassword', component: ForgotPasswordComponent 
+  path: 'changePassword/:id', component: ForgotPasswordComponent 
 },
 { 
   path: 'otp-verification/:id', component: OtpVerificationComponent 
