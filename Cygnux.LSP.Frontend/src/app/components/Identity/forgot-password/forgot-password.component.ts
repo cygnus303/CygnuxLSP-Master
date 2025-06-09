@@ -40,7 +40,6 @@ export class ForgotPasswordComponent {
   onSubmit() {
     if (this.passwordForm.valid) {
       console.log('New password:', this.passwordForm.value.newPassword);
-      // send to API
     }
   }
 }
