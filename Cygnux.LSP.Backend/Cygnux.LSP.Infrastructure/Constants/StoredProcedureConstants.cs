@@ -57,4 +57,6 @@ public static class StoredProcedureConstants
 
     public const string USP_OtpVerification= "USP_InsertLoginOTPverification";
     public const string USP_VerifyOTP = "USP_VerifyOTP";
+    public const string USP_ValidateOTPUser = "USP_ValidateResendOTPRequest";
+    public const string USP_UpdateOTPOnResend = "USP_UpdateOTPOnResend";
 }

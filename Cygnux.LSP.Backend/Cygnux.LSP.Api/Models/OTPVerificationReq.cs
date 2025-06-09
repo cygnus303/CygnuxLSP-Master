@@ -34,3 +34,15 @@ public class OtpVerifyRequest
     public string Email { get; set; } = string.Empty;
     public required string OTP { get; set; }
 }
+public class OtpResendRequest
+{
+    public Guid RequestId { get; set; }
+    public required string EmailId { get; set; }
+}
+
+public class OtpResendValidationResponse
+{
+    public bool Status { get; set; }        
+    public string Message { get; set; } = string.Empty;
+    public Guid UserId { get; set; }
+}

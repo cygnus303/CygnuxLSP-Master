@@ -8,4 +8,6 @@ public interface IAuthenticationservice
 {
     Task<CommonCreateResponse> AddOTPDetails(string otpentry);
     Task<CommonCreateResponse> OtpVerified(string otpreq);
+    Task<CommonCreateResponse> CheckOTPRecord(string otpResend);
+    Task<CommonCreateResponse> UpdateResendOTP(string otp, Guid RequestId);
 }
