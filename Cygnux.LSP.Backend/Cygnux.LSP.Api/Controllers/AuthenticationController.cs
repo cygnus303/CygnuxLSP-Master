@@ -183,7 +183,12 @@ public class AuthenticationController : ControllerBase
 
         if (updateResult != null && updateResult.Result.Data.Status == 1)
         {
-            return Ok(new { Message = "OTP resent successfully." });
+            //return Ok(new { Message = "OTP resent successfully." });
+            return Ok(new BaseResponseError<bool>
+            {
+                Status = true,
+                Message = "OTP resent successfully."
+            });
         }
         else
         {
