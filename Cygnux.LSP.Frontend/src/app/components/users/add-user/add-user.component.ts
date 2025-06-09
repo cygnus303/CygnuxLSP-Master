@@ -143,7 +143,7 @@ export class AddUserComponent implements OnInit, OnChanges {
         }
       },
       error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
+        // this.sweetAlertService.error(response.error.message);
       },
     });
   }

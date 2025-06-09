@@ -21,4 +21,8 @@ export class AuthenticationService {
   verifyOTP(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
       return this.apiHandlerService.Post(`Authentication/verifyOTP`, filters);
   }
+
+  resendOTP(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
+      return this.apiHandlerService.Post(`Authentication/resendOTP`, filters);
+  }
 }

@@ -67,4 +67,24 @@ export class OtpVerificationComponent {
     
     }
   }
+
+  resendOTP(){
+    const filters={
+        requestId:this.otpId,
+        emailId:this.email,
+      }
+    this.authenticationService.resendOTP(filters).subscribe({
+        next: (response) => {
+          if(response.success){
+          this.toastrService.success(response.data.message);
+          this.router.navigateByUrl('login/changePassword')
+          }else{
+            this.toastrService.error(response.error.message)
+          }
+        },
+        error: (response) => {
+          this.toastrService.error(response.error.message)
+        }
+      });
+  }
 }
