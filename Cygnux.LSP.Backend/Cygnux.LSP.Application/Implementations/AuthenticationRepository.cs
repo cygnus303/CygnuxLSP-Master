@@ -30,6 +30,19 @@ internal class AuthenticationRepository : IAuthenticationRepository
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
 
+    public async Task<BaseResponse<CommonCreateResponse>> CheckOTPRecord(string otpResend)
+    {
+        var response = await _authenticationService.CheckOTPRecord(otpResend);
 
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+    public async Task<BaseResponse<CommonCreateResponse>> UpdateResendOTP(string otp, Guid RequestId)
+    {
+        var response = await _authenticationService.UpdateResendOTP(otp,RequestId);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
 
 }

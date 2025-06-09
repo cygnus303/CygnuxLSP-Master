@@ -40,4 +40,28 @@ internal class AuthenticationService : IAuthenticationservice
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+    public async Task<CommonCreateResponse> CheckOTPRecord(string otpResend)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonInput", otpResend, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_ValidateOTPUser,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
+    public async Task<CommonCreateResponse> UpdateResendOTP(string otp, Guid RequestId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@NewOTP", otp, DbType.String);
+        parameters.Add("@RequestId", RequestId, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_UpdateOTPOnResend,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
+
 }

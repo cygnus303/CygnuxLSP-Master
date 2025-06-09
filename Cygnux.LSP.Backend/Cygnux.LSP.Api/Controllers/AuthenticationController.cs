@@ -136,7 +136,7 @@ public class AuthenticationController : ControllerBase
         if (user == null)
             /*return NotFound("User not found with the provided email.");*/
 
-            return BadRequest(new BaseResponseError<bool>
+            return NotFound(new BaseResponseError<bool>
             {
                 Status = false,
                 Message = "User not found.",
@@ -144,6 +144,51 @@ public class AuthenticationController : ControllerBase
             });
 
         return Ok( await _authenticationRepository.OtpVerified(JsonConvert.SerializeObject(otpreq)));
+    }
+
+
+    [HttpPost("resendOTP")]
+    public async Task<IActionResult> ResendOtp([FromBody] OtpResendRequest otpResend)
+    {
+        // Step 1: Validate User and RequestId
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == otpResend.EmailId);
+        if (user == null)
+            return NotFound(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User not found.",
+                Data = false
+            });
+
+        // Step 2: Check OTP record
+        var otpRecord = _authenticationRepository.CheckOTPRecord(JsonConvert.SerializeObject(otpResend));
+        if (otpRecord == null)
+            return NotFound(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "OTP record not found for given request.",
+                Data = false
+            });
+
+        // Step 3: Generate new OTP
+        var newOtp = new Random().Next(100000, 999999).ToString();
+
+        // Step 4: Send OTP via email (no link)
+        var subject = "Your Resent OTP";
+        var body = $"Your new OTP is: {newOtp}";
+        await _emailService.SendEmailAsync(otpResend.EmailId, subject, body);
+
+        // Step 5: Call procedure to update OTP
+        var updateResult = _authenticationRepository.UpdateResendOTP(newOtp, otpResend.RequestId);
+
+        if (updateResult != null && updateResult.Result.Data.Status == 1)
+        {
+            return Ok(new { Message = "OTP resent successfully." });
+        }
+        else
+        {
+            return StatusCode(500, new { Message = "Resend Process Failure." });
+        }
     }
 
 
