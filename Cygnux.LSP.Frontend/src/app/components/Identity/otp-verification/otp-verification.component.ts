@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-otp-verification',
@@ -7,14 +10,27 @@ import { Component } from '@angular/core';
   styleUrl: './otp-verification.component.scss'
 })
 export class OtpVerificationComponent {
-  email: string = '';
-  showOtp: boolean = false;
+  public email: string = '';
+  public showOtp: boolean = false;
+  public  otp = { d1: '', d2: '', d3: '', d4: '', d5: '', d6: '' };
+  public otpId:string='';
+
+  constructor(
+      private authenticationService:AuthenticationService,
+      private route: ActivatedRoute,
+      private router:Router,
+      private toastrService:ToastrService
+  ){}
+
+ ngOnInit(): void {
+    this.otpId = this.route.snapshot.paramMap.get('id') || '';
+  }
+
   sendOtp() {
     if (this.email) {
       this.showOtp = true;
     }
   }
-  otp = { d1: '', d2: '', d3: '', d4: '', d5: '', d6: '' };
   moveFocus(event: any, nextInput: any) {
     if (event.target.value.length === 1) {
       nextInput.focus();
@@ -30,16 +46,25 @@ export class OtpVerificationComponent {
   verifyOtp() {
     const otpCode = Object.values(this.otp).join('');
     if (otpCode.length === 6) {
-      console.log('Entered OTP:', otpCode);
-
-      // this.http.post('your-api-endpoint', { email: this.email, otp: otpCode }).subscribe({
-      //   next: (res) => {
-      //     console.log('OTP verified successfully', res);
-      //   },
-      //   error: (err) => {
-      //     console.error('Invalid OTP', err);
-      //   }
-      // });
+      const filters={
+        requestId:this.otpId,
+        email:this.email,
+        otp:otpCode
+      }
+      this.authenticationService.verifyOTP(filters).subscribe({
+        next: (response) => {
+          if(response.success){
+          this.toastrService.success(response.data.message);
+          this.router.navigateByUrl('login/changePassword')
+          }else{
+            this.toastrService.error(response.error.message)
+          }
+        },
+        error: (response) => {
+          this.toastrService.error(response.error.message)
+        }
+      });
+    
     }
   }
 }
