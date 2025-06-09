@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using static Cygnux.LSP.Api.Models.OtpVerification;
 using Cygnux.LSP.Application.Models.Response;
 using Microsoft.EntityFrameworkCore;
+using Cygnux.LSP.Infrastructure.Models.Response;
+using Org.BouncyCastle.Ocsp;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -179,22 +181,7 @@ public class AuthenticationController : ControllerBase
         await _emailService.SendEmailAsync(otpResend.EmailId, subject, body);
 
         // Step 5: Call procedure to update OTP
-        var updateResult = _authenticationRepository.UpdateResendOTP(newOtp, otpResend.RequestId);
-
-        if (updateResult != null && updateResult.Result.Data.Status == 1)
-        {
-            //return Ok(new { Message = "OTP resent successfully." });
-            return Ok(new BaseResponseError<bool>
-            {
-                Status = true,
-                Message = "OTP resent successfully."
-            });
-        }
-        else
-        {
-            return StatusCode(500, new { Message = "Resend Process Failure." });
-        }
+        return Ok(await _authenticationRepository.UpdateResendOTP(newOtp, otpResend.RequestId));
     }
-
 
 }
