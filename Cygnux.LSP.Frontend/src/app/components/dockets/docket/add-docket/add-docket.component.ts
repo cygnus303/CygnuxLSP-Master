@@ -55,7 +55,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.buildForm();
     this.getCustomers();
     this.getTransportModeDetail();
-    this.getLsps();
+    this.getLsps(this.identityService.getLoggedUserId())
   }
 
   buildForm(): void {
@@ -137,8 +137,8 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  getLsps() {
-    this.lspTatService.getLsps(this.identityService.getLoggedUserId()).subscribe({
+  getLsps(customerId:string) {
+    this.lspTatService.getLsps(customerId).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
@@ -205,6 +205,7 @@ ngOnChanges(changes: SimpleChanges): void {
         toLocation:null
       });
     }
+    this.getLsps(event.customerId)
     const filters={
       CustomerId:event.customerId,
       origin:event.location ? event.location : ''
