@@ -10,6 +10,7 @@ import { Roles } from '../../shared/constants/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import JSZip from 'jszip';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-track-trace',
@@ -38,11 +39,19 @@ export class TrackTraceComponent {
    public commonService: CommonService,
    private trackTraceService:TrackTraceService,
    public identityService:IdentityService,
-   private modalService: BsModalService
+   private modalService: BsModalService,
+   private router: Router
   ){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
+// isContentVisible = false;
+// slideContentInAndNavigate() {
+//   this.isContentVisible = !this.isContentVisible;
+//  setTimeout(() => {
+//    this.router.navigate(['/track']);
+//  }, 600); 
+// }
 
   ngOnInit(){
     this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='lsp Admin';

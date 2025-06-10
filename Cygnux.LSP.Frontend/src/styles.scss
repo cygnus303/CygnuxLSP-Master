@@ -160,15 +160,16 @@ label {
 }
 
 .customers tr:nth-child(even){background-color: #f9f9f9;}
-  
-::ng-deep .customers tr:hover {
-    background-color: #f4f4f4 !important; 
-  }
-  
-  .customers td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    color: #5a5a5a;
+
+.customers td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  color: #5a5a5a;
+}
+
+.customers tr:hover {
+     background-color: #f9f9f9 !important; // Light gray-blue hover
+     cursor: pointer !important;
   }
 
   .border-danger{
@@ -182,8 +183,8 @@ label {
   }
 
   .bg-colorheader:hover{
-    background-color:rgb(23 24 41 / 71%);
-    color: rgb(245, 245, 245);
+    background-color: #c6c6c645;
+    // color: rgb(245, 245, 245);
     transition: .5s;
    
   }

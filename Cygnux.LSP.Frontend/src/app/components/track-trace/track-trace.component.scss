@@ -173,3 +173,18 @@
   transform: translateX(50px);
   transition: transform 0.2s ease-in-out;
 }
+.fade-in {
+  transition: transform 0.6s ease-in-out;
+}
+
+// .slide-wrapper{
+//   opacity: 0;
+//   transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+//   transform: translateX(50%);
+// }
+
+// .slide-in {
+//   transform: translateX(0%);
+//   transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+//   opacity: 1;
+// }
