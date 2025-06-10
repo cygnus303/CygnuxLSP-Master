@@ -9,6 +9,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UsersDetailComponent } from './users-detail/users-detail.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { UsersDetailComponent } from './users-detail/users-detail.component';
         FormsModule,
         NgMultiSelectDropDownModule.forRoot(),
         NgbPaginationModule,
-        NgSelectModule
+        NgSelectModule,
+        PopoverModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

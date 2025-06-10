@@ -9,6 +9,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LspMappingsDetailComponent } from './lsp-mappings-detail/lsp-mappings-detail.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { LspMappingsDetailComponent } from './lsp-mappings-detail/lsp-mappings-d
         FormsModule,
         NgMultiSelectDropDownModule.forRoot(),
         NgbPaginationModule,
-        NgSelectModule
+        NgSelectModule,
+        PopoverModule
     ],
     exports:[AddLspMappingComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

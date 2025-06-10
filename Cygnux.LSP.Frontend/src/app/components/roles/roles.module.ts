@@ -8,6 +8,7 @@ import { RoleRoutes } from './roles.routes';
 import { RolePermissionComponent } from './role-permission/role-permission.component';
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         NgbModule,
         NgbPaginationModule,
         NgSelectModule,
+        PopoverModule
     ],
     exports: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

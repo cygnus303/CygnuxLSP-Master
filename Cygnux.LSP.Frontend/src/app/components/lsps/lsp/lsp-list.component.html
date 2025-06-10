@@ -50,7 +50,8 @@
                 </td>
                 <td class="w-15" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                   <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}">
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}" [popover]="'Edit'" placement="auto"
+                            triggers="hover" [outsideClick]="true" container="body">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"
                         height="20" (click)="editModal($event,lsp.lspId)">
                         <path
@@ -58,10 +59,12 @@
                         </path>
                       </svg>
                     </div>
-                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}">
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'" placement="auto"
+                            triggers="hover" [outsideClick]="true" container="body">
                       <i class="ri-eye-fill align-bottom text-muted" (click)="lspDetail($event,lsp.lspId)"></i>
                     </div>
-                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}">
+                    <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
+                            placement="auto" triggers="hover" [outsideClick]="true" container="body">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"
                         height="20" (click)="getDeleteLSP(lsp.lspId)">
                         <path

@@ -7,6 +7,7 @@ import { AddLspComponent } from './add-lsp/add-lsp.component';
 import { LspRoutes } from './lsps.routes';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { LspDetailComponent } from './lsp-detail/lsp-detail.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { LspDetailComponent } from './lsp-detail/lsp-detail.component';
         ReactiveFormsModule,
         CommonModule,
         FormsModule,
-        NgbPaginationModule
+        NgbPaginationModule,
+        PopoverModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

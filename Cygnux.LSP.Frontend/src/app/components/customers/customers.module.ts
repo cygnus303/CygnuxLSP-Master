@@ -9,6 +9,7 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { LspMappingModule } from '../lsp-mappings/lsp-mappings.module';
 import { AddLspMappingComponent } from '../lsp-mappings/add-lsp-mapping/add-lsp-mapping.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
         FormsModule,
         LspMappingModule,
         NgbPaginationModule,
+        PopoverModule
     ],
     exports: [
         CustomerListComponent,

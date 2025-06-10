@@ -8,6 +8,7 @@ import { LspTatRoutes } from './lsp-tats.routes';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LspTatsDetailComponent } from './lsp-tats-detail/lsp-tats-detail.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { LspTatsDetailComponent } from './lsp-tats-detail/lsp-tats-detail.compon
         CommonModule,
         FormsModule,
         NgbPaginationModule,
-        NgSelectModule
+        NgSelectModule,
+        PopoverModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
