@@ -25,4 +25,8 @@ export class AuthenticationService {
   resendOTP(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
       return this.apiHandlerService.Post(`Authentication/resendOTP`, filters);
   }
+
+  resetPassword(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
+      return this.apiHandlerService.Post(`Authentication/ResetPassword`, filters);
+  }
 }

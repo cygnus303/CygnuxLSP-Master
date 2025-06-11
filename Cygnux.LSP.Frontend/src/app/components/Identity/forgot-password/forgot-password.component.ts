@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -8,18 +11,33 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
   styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent {
-  passwordForm!: FormGroup;
-  isPasswordVisible = false;
-  isConfirmVisible = false;
-  constructor() {
-    this.passwordForm = new FormGroup({
-      newPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
-      ]),
-      confirmPassword: new FormControl('')
-    }, { validators: this.passwordMatchValidator });
+  public passwordForm!: FormGroup;
+  public isPasswordVisible = false;
+  public isConfirmVisible = false;
+  public id:string='';
+
+  constructor(
+    private authenticationService:AuthenticationService,
+    private toastrServiceo:ToastrService,
+    private route:ActivatedRoute,
+    private router:Router
+  ) {
+  }
+
+   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') || '';
+    this.buildForm();
+  }
+
+  buildForm(){
+  this.passwordForm = new FormGroup({
+        newPassword: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
+        ]),
+        confirmPassword: new FormControl('')
+      }, { validators: this.passwordMatchValidator });
   }
 
 
@@ -39,7 +57,21 @@ export class ForgotPasswordComponent {
 
   onSubmit() {
     if (this.passwordForm.valid) {
-      console.log('New password:', this.passwordForm.value.newPassword);
+      const filters={
+        requestId:this.id,
+        newPassword: this.passwordForm.get('newPassword')?.value,
+      }
+      this.authenticationService.resetPassword(filters).subscribe({
+      next: (response) => {
+        if (response) {
+        this.toastrServiceo.success(response.data.message);
+        this.router.navigateByUrl('/login');
+        }
+      },
+      error: (response: any) => {
+        this.toastrServiceo.error(response.error.message);
+      },
+    });
     }
   }
 }
