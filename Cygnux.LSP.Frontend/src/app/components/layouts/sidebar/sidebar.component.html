@@ -21,7 +21,7 @@
             <li class="sidebar-list" (click)="onSidebar(data)">
               <a [routerLink]="[data.navigationUrl]" routerLinkActive="active" class="sidebar-link sidebar-title link-nav">
                 <i [attr.data-feather]="data.icon"></i>
-                <span>{{ data.menuName }}</span>  
+                <span class="fw-bold">{{ data.menuName }}</span>  
               </a>
             </li>
             }
