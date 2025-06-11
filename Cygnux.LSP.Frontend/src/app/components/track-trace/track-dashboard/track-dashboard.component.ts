@@ -16,6 +16,7 @@ import { TrackTraceService } from "../../../shared/services/track-trace.service"
 import { IdentityService } from "../../../shared/services/identity.service";
 import { SweetAlertService } from "../../../shared/services/toastr.service";
 import { DocketCountResponse } from "../../../shared/models/trackTrace.model";
+import { Router } from "@angular/router";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -33,12 +34,13 @@ export type ChartOptions = {
 @Component({
   selector: 'app-track-dashboard',
   templateUrl: './track-dashboard.component.html',
-  styleUrls: ['./track-dashboard.component.scss']
+  styleUrls: ['./track-dashboard.component.scss'],
 })
 export class TrackDashboardComponent {
   public totalDocket:number = 0;
   public chartOptions: ChartOptions;
   public docketCount:DocketCountResponse[]=[];
+  public isContentVisible = false;
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
     new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
@@ -194,7 +196,8 @@ export class TrackDashboardComponent {
      public commonService: CommonService,
      public trackTraceService:TrackTraceService,
      private identityService:IdentityService,
-     private sweetAlertService:SweetAlertService
+     private sweetAlertService:SweetAlertService,
+      private router: Router
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {
@@ -261,6 +264,13 @@ formatDate(date: Date): string {
   const year = date.getFullYear();
   return `${day}-${month}-${year}`;
 }
+
+    slideContentInAndNavigate() {
+      this.isContentVisible = !this.isContentVisible;
+    setTimeout(() => {
+    this.router.navigate(['/track/list']);
+    }, 100); 
+    }
 
   getDocketCount(fromdate:any, todate:any){
     this.trackTraceService.getTrackigCountDetail(this.identityService.getLoggedUserId(),fromdate,todate).subscribe({

@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Output, TemplateRef } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
@@ -30,6 +30,7 @@ export class TrackTraceComponent {
   public docketInput: string = '';
   public docketList: string[] = [];
   public expandedIndex: number | null = null;
+  public isContentVisible = false;
   public trackTraceList:TrackTraceResponse[]=[];
   public selectedPodImageUrl?:TrackTraceResponse;
   public isLSP:boolean=false;
@@ -45,13 +46,6 @@ export class TrackTraceComponent {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
-// isContentVisible = false;
-// slideContentInAndNavigate() {
-//   this.isContentVisible = !this.isContentVisible;
-//  setTimeout(() => {
-//    this.router.navigate(['/track']);
-//  }, 600); 
-// }
 
   ngOnInit(){
     this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='lsp Admin';
@@ -67,6 +61,13 @@ export class TrackTraceComponent {
     }
   }
   
+slideContentInAndNavigate() {
+  this.isContentVisible = !this.isContentVisible;
+ setTimeout(() => {
+   this.router.navigate(['/track']);
+ }, 100); 
+}
+
 finalizeDocketInput(): void {
   const input = this.docketInput.trim();
   if (input) {

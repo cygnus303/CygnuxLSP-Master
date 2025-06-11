@@ -1,5 +1,5 @@
    
-
+<div [ngClass]="!isContentVisible ? 'slide-in' : 'slide-out'">
 <div class="container-fluid" class="fade-in">
  <div class="row mb-3 d-flex">
     <div class="col-1">
@@ -86,7 +86,7 @@
       </div>
       <div class="col-lg-3 col-md-12 box-col-5 pe-0">
           <div class="container-fluid dashboard-2">
-            <div class="card sell-card cursor-pointer" [routerLink]="'list'">
+            <div class="card sell-card cursor-pointer" (click)="slideContentInAndNavigate()">
               <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                   <div class="flex-grow-1">
@@ -169,4 +169,5 @@
       </div>
     </div> -->
   </div>
+</div>
 </div>
