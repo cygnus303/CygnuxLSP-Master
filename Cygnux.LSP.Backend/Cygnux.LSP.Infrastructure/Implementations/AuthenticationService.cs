@@ -64,4 +64,16 @@ internal class AuthenticationService : IAuthenticationservice
         ) ?? new CommonCreateResponse();
     }
 
+    public async Task<CommonCreateResponse> ResetPassword(Guid ReqId, string Pwd)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@RequestId", ReqId, DbType.Guid);
+        parameters.Add("@NewPasswordHash", Pwd, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_PasswordResetORChange,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }

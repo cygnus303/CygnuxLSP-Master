@@ -46,3 +46,12 @@ public class OtpResendValidationResponse
     public string Message { get; set; } = string.Empty;
     public Guid UserId { get; set; }
 }
+public class PasswordResetRequest
+{
+    public Guid RequestId { get; set; }
+    public Guid? UserId { get; set; }
+    public string? OldPassword { get; set; }
+    public required string NewPassword { get; set; }
+}
+
+

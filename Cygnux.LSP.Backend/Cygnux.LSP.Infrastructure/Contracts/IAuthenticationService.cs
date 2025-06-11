@@ -10,4 +10,5 @@ public interface IAuthenticationservice
     Task<CommonCreateResponse> OtpVerified(string otpreq);
     Task<CommonCreateResponse> CheckOTPRecord(string otpResend);
     Task<CommonCreateResponse> UpdateResendOTP(string otp, Guid RequestId);
+    Task<CommonCreateResponse> ResetPassword(Guid ReqId, string Pwd);
 }

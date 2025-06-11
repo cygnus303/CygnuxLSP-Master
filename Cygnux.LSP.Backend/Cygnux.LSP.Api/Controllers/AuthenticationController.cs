@@ -10,11 +10,10 @@ using System.Net;
 using Cygnux.LSP.Api.Models;
 using Cygnux.LSP.Identity;
 using Newtonsoft.Json;
-using static Cygnux.LSP.Api.Models.OtpVerification;
 using Cygnux.LSP.Application.Models.Response;
 using Microsoft.EntityFrameworkCore;
-using Cygnux.LSP.Infrastructure.Models.Response;
-using Org.BouncyCastle.Ocsp;
+
+using Cygnux.LSP.Api.Class;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -23,14 +22,17 @@ public class AuthenticationController : ControllerBase
     private readonly IAuthenticationRepository _authenticationRepository;
     private readonly AppDbContext _context;
     private readonly IEmailService _emailService;
+    private readonly IConfiguration _iconfiguration;
 
-    public AuthenticationController(IAuthenticationRepository authenticationRepository, IEmailService emailService, AppDbContext context)
+    public AuthenticationController(IAuthenticationRepository authenticationRepository, IEmailService emailService, AppDbContext context, IConfiguration iconfiguration)
     {
         _authenticationRepository = authenticationRepository;
         _emailService = emailService;
         _context = context;
+        _iconfiguration = iconfiguration;
     }
 
+   
     [HttpPost("SendOTPMail")]
     public async Task<IActionResult> SendOtpEmail([FromBody] OtpRequest request, Guid Entryby)
     {
@@ -183,5 +185,21 @@ public class AuthenticationController : ControllerBase
         // Step 5: Call procedure to update OTP
         return Ok(await _authenticationRepository.UpdateResendOTP(newOtp, otpResend.RequestId));
     }
+
+
+    [HttpPost("ResetPassword")]
+    public async Task<IActionResult> ResetPassword([FromBody] PasswordResetRequest model)
+    {
+        if (string.IsNullOrEmpty(model.NewPassword) || model.RequestId == Guid.Empty)
+            return BadRequest("New password and RequestId are required.");
+
+        string? Pwdkey = _iconfiguration.GetValue<string>("PasswordKeyForEncrypt");
+
+        string passwordHash = PasswordHasher.Encrypt(model.NewPassword, Pwdkey);
+
+        //return Ok(new { message = "Password updated successfully." });
+        return Ok(await _authenticationRepository.ResetPassword(model.RequestId, passwordHash));
+    }
+
 
 }
