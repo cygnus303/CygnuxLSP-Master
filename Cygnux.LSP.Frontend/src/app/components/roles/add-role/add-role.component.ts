@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../../shared/services/role.service';
-import { CommonService } from '../../../shared/services/common.service';
 import { RoleResponse } from '../../../shared/models/role.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 
@@ -27,7 +26,6 @@ export class AddRoleComponent implements OnInit, OnChanges {
 
   constructor(
     private roleService: RoleService,
-    private commonService: CommonService,
     private sweetAlertService: SweetAlertService
   ) {
     this.roleForm = new FormGroup({});

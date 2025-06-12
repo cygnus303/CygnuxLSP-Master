@@ -39,64 +39,71 @@
                 </thead>
           
                 <!-- Table Body -->
-                <tbody class="customers w-100">
-                  <ng-container *ngFor="let lsp of lspMappings; let i = index">
-                    <ng-container *ngFor="let lspData of lsp.lspResponses; let j = index">
-                      <tr class="customers w-100" [ngStyle]="{'background-color': i % 2 === 0 ? '#ffffff' : '#f8f9fa', 'border-bottom': '1px solid #dee2e6'}">
-                
-                        <!-- Customer Name -->
-                        <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length" [ngStyle]="{'background-color': i % 2 === 0 ? '#ffffff' : '#f8f9fa','font-weight': '500','vertical-align': 'middle'}">
-                          {{ lsp.customerName }}
-                        </td>
-                
-                        <!-- LSP Name -->
-                        <td [ngStyle]="{'background-color': i % 2 === 0 ? '#ffffff' : '#f8f9fa'}">
-                          {{ lspData.lspName }}
-                        </td>
-                
-                        <!-- Active Status -->
-                        <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle"
-                            [ngStyle]="{'background-color': i % 2 === 0 ? '#ffffff' : '#f8f9fa'}">
-                          <i [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
-                        </td>
-                
-                        <!-- Actions -->
-                          <td *ngIf="j === 0 && (commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit || commonService.menuRoleList?.canDelete)"
-                            [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle"
-                            [ngStyle]="{'background-color': i % 2 === 0 ? '#ffffff' : '#f8f9fa'}">
-                          <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-                
-                            <!-- Edit -->
-                            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}" [popover]="'Edit'" placement="auto"
-                            triggers="hover" [outsideClick]="true" container="body">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                   fill="rgba(36,105,92,1)" class="m-0" height="20"(click)="editModal($event, lsp?.lspMappingId)">
-                                <path d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"></path>
-                              </svg>
-                            </div>
-                
-                            <!-- View -->
-                            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'" placement="auto"
-                            triggers="hover" [outsideClick]="true" container="body">
-                              <i class="ri-eye-fill align-bottom text-muted"
-                                 (click)="lspMappingsDetail($event, lsp)"></i>
-                            </div>
-                
-                            <!-- Delete -->
-                            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
+              <tbody class="customers w-100">
+                <ng-container *ngFor="let lsp of lspMappings; let i = index">
+                  <ng-container *ngFor="let lspData of lsp.lspResponses; let j = index">
+                    <tr class="customers w-100" [ngClass]="{
+                        'even-row': i % 2 === 0, 
+                        'odd-row': i % 2 !== 0, 
+                        'hover-active': hoveredRow === i
+                      }" [ngStyle]="{ 'border-bottom': '1px solid #dee2e6'}" (mouseenter)="hoveredRow = i"
+                      (mouseleave)="hoveredRow = null">
+              
+                      <!-- Customer Name -->
+                      <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length"
+                        [ngStyle]="{'font-weight': '500','vertical-align': 'middle'}" [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
+                        {{ lsp.customerName }}
+                      </td>
+              
+                      <!-- LSP Name -->
+                      <td [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
+                        {{ lspData.lspName }}
+                      </td>
+              
+                      <!-- Active Status -->
+                      <td *ngIf="j === 0" [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle" [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
+                        <i [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
+                      </td>
+              
+                      <!-- Actions -->
+                      <td
+                        *ngIf="j === 0 && (commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit || commonService.menuRoleList?.canDelete)"
+                        [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle" [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
+                        <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
+              
+                          <!-- Edit -->
+                          <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}" [popover]="'Edit'"
                             placement="auto" triggers="hover" [outsideClick]="true" container="body">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                   fill="rgba(255,83,112,1)" class="m-0" height="20"
-                                   (click)="getDeleteLspmapping(lsp?.lspMappingId)">
-                                <path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path>
-                              </svg>
-                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"
+                              height="20" (click)="editModal($event, lsp?.lspMappingId)">
+                              <path
+                                d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z">
+                              </path>
+                            </svg>
                           </div>
-                        </td>
-                      </tr>
-                    </ng-container>
+              
+                          <!-- View -->
+                          <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'"
+                            placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                            <i class="ri-eye-fill align-bottom text-muted" (click)="lspMappingsDetail($event, lsp)"></i>
+                          </div>
+              
+                          <!-- Delete -->
+                          <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
+                            placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"
+                              height="20" (click)="getDeleteLspmapping(lsp?.lspMappingId)">
+                              <path
+                                d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z">
+                              </path>
+                            </svg>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
                   </ng-container>
-                </tbody>
+                </ng-container>
+              </tbody>
               </table>
           
               <!-- Loader -->

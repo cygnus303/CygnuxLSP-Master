@@ -27,6 +27,7 @@ export class LspMappingListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
   public loading : boolean = false;
+  hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspMappingComponent) addLspMappingComponent!: AddLspMappingComponent;
   
@@ -75,7 +76,7 @@ export class LspMappingListComponent implements OnInit {
           this.lspMappings = response.data;
           this.lspMappings = response.data.map((item: any) => ({
             ...item,
-            lspResponses: item.lspName.split(',').map((name: string, index: number) => ({
+              lspResponses: item.lspName.split(',').map((name: string, index: number) => ({
               lspName: name.trim(),
               lspId: item.lspId.split(',')[index]?.trim() || ''
             }))

@@ -1,0 +1,11 @@
+.even-row {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.odd-row {
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.hover-active td { background-color: #f8f9fa !important; transition: 0.3s; }
