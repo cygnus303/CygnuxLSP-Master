@@ -112,7 +112,7 @@ label {
 
 
 /* Apply Montserrat globally */
-table, td, th,span {
+.table-responsive .table td th span {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 14px;
 }
