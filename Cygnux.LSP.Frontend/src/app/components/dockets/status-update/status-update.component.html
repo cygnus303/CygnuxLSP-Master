@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="lsps">Change Status</label>
-                       <ng-select [items]="transporter" bindLabel="codeDesc" bindValue="codeId" formControlName="nextDocketStatus" placeholder="Search Status" [searchable]="true"
+                       <ng-select [items]="filteredTransporter" bindLabel="codeDesc" bindValue="codeId" formControlName="nextDocketStatus" placeholder="Search Status" [searchable]="true"
                           [ngClass]="{ 'border-danger': statusUpdateForm.controls['nextDocketStatus'].invalid && statusUpdateForm.controls['nextDocketStatus'].touched}">
                        </ng-select>
                         <div *ngIf="statusUpdateForm.controls['nextDocketStatus'].invalid && statusUpdateForm.controls['nextDocketStatus']?.touched" class="text-danger">

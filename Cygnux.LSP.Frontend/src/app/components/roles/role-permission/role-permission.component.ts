@@ -18,7 +18,6 @@ export class RolePermissionComponent implements OnInit {
     public allPermission: boolean= false;
     public allStatusUpdate: boolean= false;
     public allPod: boolean= false;
-
     public menus: RolePermissionResponse[] = [];
     @Input() roleId: any;
     @Output() permissionEmitter: EventEmitter<void> = new EventEmitter();

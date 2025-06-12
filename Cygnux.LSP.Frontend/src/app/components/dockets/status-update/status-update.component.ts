@@ -14,6 +14,8 @@ import { IdentityService } from '../../../shared/services/identity.service';
 export class StatusUpdateComponent {
   public statusUpdateForm!:FormGroup;
   public transporter:TrackingListResponse[]=[];
+  public filteredTransporter: TrackingListResponse[] = [];
+  public currentStatusValue: string = '';
   @Input() docketResponse: DocketResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -25,42 +27,16 @@ export class StatusUpdateComponent {
 
 ngOnChanges(changes:SimpleChanges){
   if (changes['docketResponse'] && this.docketResponse) {
-    this.statusUpdateForm.patchValue(this.docketResponse)
+    this.statusUpdateForm.patchValue(this.docketResponse);
+    this.currentStatusValue= this.docketResponse.currentStatus
+        this.filterNextStatus();
   }
 } 
 
   ngOnInit(){
     this.buildForm();
     this.getTransporterDetail();
-  //   this.statusUpdateForm.get('currentStatus')?.valueChanges.subscribe((currentStatusId: string) => {
-  //   this.updateNextStatusOptions(currentStatusId);
-  // });
   }
-
-//  updateNextStatusOptions(currentStatusId: string) {
-//   const currentIndex = this.transporter.findIndex((status:any) => status.codeId === currentStatusId);
-
-//   if (currentIndex !== -1) {
-//     const currentStatus = this.transporter[currentIndex];
-
-//     // If current status is "Delivered"
-//     if (currentStatus.codeDesc.toLowerCase() === 'delivered') {
-//       this.nextStatusOptions = [currentStatus];
-//       this.statusUpdateForm.get('nextDocketStatus')?.setValue(currentStatus.codeId);
-//       this.statusUpdateForm.get('nextDocketStatus')?.disable(); // Disable the control
-//     } else if (currentIndex + 1 < this.transporter.length) {
-//       const nextStatus = this.transporter[currentIndex + 1];
-//       this.nextStatusOptions = [nextStatus];
-//       this.statusUpdateForm.get('nextDocketStatus')?.enable(); // Enable control if previously disabled
-//       this.statusUpdateForm.get('nextDocketStatus')?.setValue(null);
-//     } else {
-//       this.nextStatusOptions = [];
-//       this.statusUpdateForm.get('nextDocketStatus')?.reset();
-//       this.statusUpdateForm.get('nextDocketStatus')?.enable();
-//     }
-//   }
-// }
-
 
   buildForm(){
     this.statusUpdateForm = new FormGroup({
@@ -82,20 +58,41 @@ ngOnChanges(changes:SimpleChanges){
     })
   }
 
-  getTransporterDetail(){
-    this.docketService.getTrackingList('DOCKSTAUS').subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.transporter=response.data;
-        } else {
-          this.sweetAlertService.error(response.error.message);
-        }
-      },
-      error: (response: any) => {
+getTransporterDetail() {
+  this.docketService.getTrackingList('DOCKSTAUS').subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.transporter = response.data;
+      } else {
         this.sweetAlertService.error(response.error.message);
-      },
-    });
+      }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
+}
+
+filterNextStatus() {
+  const currentId = Number(this.currentStatusValue);  // make sure it's a number
+
+  if (currentId === 6) { // Delivered
+    this.filteredTransporter = [];
+    this.statusUpdateForm.patchValue({ nextDocketStatus: null });
+  } else {
+    const nextCodeId = (currentId + 1).toString();  // convert back to string since your codeId is string
+
+    // set filtered transporter only for next status
+    this.filteredTransporter = this.transporter.filter((item: any) => item.codeId === nextCodeId);
+
+    if (this.filteredTransporter.length > 0) {
+      this.statusUpdateForm.patchValue({ nextDocketStatus: nextCodeId });
+    } else {
+      this.statusUpdateForm.patchValue({ nextDocketStatus: null });
+    }
   }
+}
+
 
   onSubmitStatus(form: FormGroup){
     if (form.valid) {
