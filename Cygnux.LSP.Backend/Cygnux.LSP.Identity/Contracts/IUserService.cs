@@ -17,5 +17,5 @@ public interface IUserService
 
     //Task<IdentityResult> DeleteUser(Guid id, DeleteUser deleteuser);
     Task<CommonCreateResponse> DeleteUser(Guid userid);
-    Task<GetPasswordHash> UpdatePassword(Guid? id,string password);
+    Task<GetPasswordHash> UpdatePassword(Guid id,string password);
 }

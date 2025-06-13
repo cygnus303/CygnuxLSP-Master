@@ -124,7 +124,7 @@ internal class UserRepository : IUserRepository
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
 
-    public async Task<BaseResponse<GetPasswordHash>> UpdatePassword(Guid? id, string password)
+    public async Task<BaseResponse<GetPasswordHash>> UpdatePassword(Guid id, string password)
     {
         var response = await _userService.UpdatePassword(id, password);
 

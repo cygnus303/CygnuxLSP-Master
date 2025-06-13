@@ -135,7 +135,7 @@ internal class UserService : IUserService
 
     //    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
     //}
-    public async Task<GetPasswordHash> UpdatePassword(Guid? id, string password)
+    public async Task<GetPasswordHash> UpdatePassword(Guid id, string password)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
 
