@@ -123,4 +123,49 @@ internal class UserService : IUserService
               commandType: CommandType.StoredProcedure
           ) ?? new CommonCreateResponse();
     }
+
+    //public async Task<IdentityResult> UpdatePassword(Guid? id, string password)
+    //{
+    //    var user = await _userManager.FindByIdAsync(id.ToString());
+    //    if (user != null)
+    //    {
+    //        user.PasswordHash = password;
+    //        return await _userManager.UpdateAsync(user);
+    //    }
+
+    //    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+    //}
+    public async Task<GetPasswordHash> UpdatePassword(Guid? id, string password)
+    {
+        var user = await _userManager.FindByIdAsync(id.ToString());
+
+        if (user != null)
+        {
+            // Hash the password using the password hasher
+            var hashedPassword = _userManager.PasswordHasher.HashPassword(user, password);
+
+            // Set the hashed password
+            user.PasswordHash = hashedPassword;
+
+            // Update the user in the database
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return new GetPasswordHash
+                {
+                    Password = hashedPassword
+                };
+            }
+        }
+
+        // If user not found or update failed, return empty object or throw based on your logic
+        return new GetPasswordHash
+        {
+            Password = string.Empty // or "Error"
+        };
+    }
+
+
+
 }

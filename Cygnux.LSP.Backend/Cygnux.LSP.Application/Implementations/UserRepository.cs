@@ -72,7 +72,10 @@ internal class UserRepository : IUserRepository
              await _userRoleService.UpdateUserRoles(userId, userRequest.Roles!);
         }
 
-        return new BaseResponse<CommonCreateResponse>(new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, Message = response.Succeeded ? "User created successfully!" : response.Errors.Select(x => x.Description).FirstOrDefault(), Id = userId.ToString() });
+        return new BaseResponse<CommonCreateResponse>(
+            new CommonCreateResponse { Status = response.Succeeded ? 1 : 0, 
+                Message = response.Succeeded ? "User created successfully!" : response.Errors.Select(x => x.Description).FirstOrDefault(),
+                Id = userId.ToString() });
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> UpdateUser(Guid id, UserRequest userRequest)
@@ -119,5 +122,12 @@ internal class UserRepository : IUserRepository
 
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
             : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+
+    public async Task<BaseResponse<GetPasswordHash>> UpdatePassword(Guid? id, string password)
+    {
+        var response = await _userService.UpdatePassword(id, password);
+
+        return new BaseResponse<GetPasswordHash>(response);
     }
 }

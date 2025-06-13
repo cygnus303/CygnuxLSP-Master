@@ -9,6 +9,7 @@ public interface IAuthenticationRepository
     Task<BaseResponse<CommonCreateResponse>> OtpVerified(string otpreq);
     Task<BaseResponse<CommonCreateResponse>> CheckOTPRecord(string otpResend);
     Task<BaseResponse<CommonCreateResponse>> UpdateResendOTP(string otp, Guid RequestId);
-    Task<BaseResponse<CommonCreateResponse>> ResetPassword(Guid ReqId, string Pwd);
-
+    Task<BaseResponse<CommonCreateResponse>> ResetPassword(Guid? ReqId, string Pwd);
+    Task<BaseResponse<GetUserId>> GetUserIDfromReqID(Guid? ReqId);
+    
 }

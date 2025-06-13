@@ -1,4 +1,6 @@
-﻿namespace Cygnux.LSP.Application.Models.Response;
+﻿using Cygnux.LSP.Infrastructure.Models.Response;
+
+namespace Cygnux.LSP.Application.Models.Response;
 
 public class BaseResponse<T>
 {

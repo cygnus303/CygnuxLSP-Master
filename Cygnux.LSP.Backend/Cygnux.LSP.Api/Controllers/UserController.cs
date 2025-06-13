@@ -57,4 +57,9 @@ public class UserController : ControllerBase
     {
         return Ok(await _userRepository.DeleteUser(userid));
     }
+
+    public async Task<IActionResult> UpdatePassword(Guid? id, string password)
+    {
+        return Ok(await _userRepository.UpdatePassword(id, password));
+    }
 }

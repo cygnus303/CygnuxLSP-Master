@@ -8,3 +8,14 @@ public class CommonCreateResponse
 
     public string? Id { get; set; }
 }
+public class GetUserId
+{
+    public Guid UserId { get; set; }
+
+}
+
+public class GetPasswordHash
+{
+    public required string Password { get; set; }
+
+}

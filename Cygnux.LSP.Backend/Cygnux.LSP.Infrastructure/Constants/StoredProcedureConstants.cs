@@ -60,4 +60,6 @@ public static class StoredProcedureConstants
     public const string USP_ValidateOTPUser = "USP_ValidateResendOTPRequest";
     public const string USP_UpdateOTPOnResend = "USP_UpdateOTPOnResend";
     public const string USP_PasswordResetORChange = "USP_PasswordResetORChange";
+    public const string USP_GetUserId = "USP_GetUserId";
+
 }

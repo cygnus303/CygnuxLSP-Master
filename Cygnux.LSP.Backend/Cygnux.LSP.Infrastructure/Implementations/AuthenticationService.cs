@@ -64,7 +64,7 @@ internal class AuthenticationService : IAuthenticationservice
         ) ?? new CommonCreateResponse();
     }
 
-    public async Task<CommonCreateResponse> ResetPassword(Guid ReqId, string Pwd)
+    public async Task<CommonCreateResponse> ResetPassword(Guid? ReqId, string Pwd)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@RequestId", ReqId, DbType.Guid);
@@ -75,5 +75,17 @@ internal class AuthenticationService : IAuthenticationservice
             param: parameters,
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
+    }
+
+    public async Task<GetUserId> GetUserIDfromReqID(Guid? ReqId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@ReqID", ReqId, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<GetUserId>(
+            StoredProcedureConstants.USP_GetUserId,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new GetUserId();
     }
 }

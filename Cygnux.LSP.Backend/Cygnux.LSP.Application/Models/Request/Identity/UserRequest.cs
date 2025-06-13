@@ -9,7 +9,7 @@ public class UserRequest
     public string Password { get; set; } = string.Empty;
     public bool IsActive { get; set; }
     //public string[] Roles { get; set; }
-    public string Roles { get; set; }
+    public string? Roles { get; set; }
     public string City { get; set; } = string.Empty;
     public string CustomerName { get; set; } = string.Empty;
     public string Location { get; set; } = string.Empty;

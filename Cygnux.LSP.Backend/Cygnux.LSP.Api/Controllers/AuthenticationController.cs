@@ -1,19 +1,14 @@
 ﻿namespace Cygnux.LSP.Api.Controllers;
 
 using Application.Contracts;
-using Application.Models.Request.Role;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
-using static Cygnux.LSP.Api.Controllers.AuthenticationController;
 using System.Net.Mail;
-using System.Net;
 using Cygnux.LSP.Api.Models;
 using Cygnux.LSP.Identity;
 using Newtonsoft.Json;
 using Cygnux.LSP.Application.Models.Response;
 using Microsoft.EntityFrameworkCore;
-
-using Cygnux.LSP.Api.Class;
+using Cygnux.LSP.Infrastructure.Models.Response;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -23,13 +18,15 @@ public class AuthenticationController : ControllerBase
     private readonly AppDbContext _context;
     private readonly IEmailService _emailService;
     private readonly IConfiguration _iconfiguration;
+    private readonly IUserRepository _userRepository;
 
-    public AuthenticationController(IAuthenticationRepository authenticationRepository, IEmailService emailService, AppDbContext context, IConfiguration iconfiguration)
+    public AuthenticationController(IAuthenticationRepository authenticationRepository, IEmailService emailService, AppDbContext context, IConfiguration iconfiguration, IUserRepository userRepository)
     {
         _authenticationRepository = authenticationRepository;
         _emailService = emailService;
         _context = context;
         _iconfiguration = iconfiguration;
+        _userRepository = userRepository;
     }
 
    
@@ -191,14 +188,41 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> ResetPassword([FromBody] PasswordResetRequest model)
     {
         if (string.IsNullOrEmpty(model.NewPassword) || model.RequestId == Guid.Empty)
-            return BadRequest("New password and RequestId are required.");
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "New password is required.",
+                Data = false
+            });
 
-        string? Pwdkey = _iconfiguration.GetValue<string>("PasswordKeyForEncrypt");
+        var userIdResponse = await _authenticationRepository.GetUserIDfromReqID(model.RequestId);
+        if (userIdResponse == null || userIdResponse.Data == null)
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User ID not found.",
+                Data = false
+            });
+        }
 
-        string passwordHash = PasswordHasher.Encrypt(model.NewPassword, Pwdkey);
+        Guid userId = userIdResponse.Data.UserId;
 
-        //return Ok(new { message = "Password updated successfully." });
-        return Ok(await _authenticationRepository.ResetPassword(model.RequestId, passwordHash));
+        /*string? Pwdkey = _iconfiguration.GetValue<string>("PasswordKeyForEncrypt");
+        string passwordhash = PasswordHasher.Encrypt(model.NewPassword,Pwdkey);*/
+
+        BaseResponse<GetPasswordHash> passResponse = await _userRepository.UpdatePassword(userId, model.NewPassword);
+
+        if (passResponse == null || passResponse.Data == null)
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "Password update failed.",
+                Data = false
+            });
+        }
+        return Ok(await _authenticationRepository.ResetPassword(model.RequestId, passResponse.Data.Password));
     }
 
 

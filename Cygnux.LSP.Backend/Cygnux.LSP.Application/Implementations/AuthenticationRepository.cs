@@ -44,11 +44,19 @@ internal class AuthenticationRepository : IAuthenticationRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
-    public async Task<BaseResponse<CommonCreateResponse>> ResetPassword(Guid ReqId, string Pwd)
+    public async Task<BaseResponse<CommonCreateResponse>> ResetPassword(Guid? ReqId, string Pwd)
     {
         var response = await _authenticationService.ResetPassword(ReqId, Pwd);
 
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
+
+    public async Task<BaseResponse<GetUserId>> GetUserIDfromReqID(Guid? ReqId)
+    {
+        var response = await _authenticationService.GetUserIDfromReqID(ReqId);
+
+        return new BaseResponse<GetUserId>(response);
+                   
     }
 }
