@@ -129,8 +129,9 @@ export class LspMappingListComponent implements OnInit {
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
-      this.lspMappingId = id;
+      this.selectedLsp = null; 
       this.getLspMapping(id);
+      this.lspMappingId = id;
     }
   }
 

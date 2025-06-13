@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';
@@ -14,11 +14,7 @@ export class ImportDocketComponent {
   public selectedFile:any;
   public validateData:ValidateFileResponse[]=[];
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
-    constructor(
-      private sweetAlertService:SweetAlertService,
-      private docketService:DocketService,
-      private identityService:IdentityService
-    ){}
+  constructor( private sweetAlertService:SweetAlertService,private docketService:DocketService,private identityService:IdentityService){}
   
     downloadSampleFile(event: any) {
       event.preventDefault();
@@ -62,13 +58,6 @@ export class ImportDocketComponent {
       return this.validateData.length > 0 && this.validateData.every(item => !item.errorCode);
     }
     
-
-    resetFileSelection() {
-      this.selectedFile = null;
-      this.files = [];
-      this.validateData = [];                                                                                                                                                                                                          
-    }
-  
     onRemoveFile(file: File) {
       this.files = this.files.filter(f => f !== file);
       this.validateData=[];
@@ -77,7 +66,6 @@ export class ImportDocketComponent {
     uploadDocketFile() {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-    
       this.docketService.validateDocketList(this.identityService.getLoggedUserId(),formData).subscribe({
         next: (response) => {
           if (response && response.data) {

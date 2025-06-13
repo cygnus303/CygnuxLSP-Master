@@ -49,20 +49,18 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
       : [];    
       this.lspMappingForm.patchValue(this.lspMappingResponse);
-      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? ''; 
+      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';  
     } else {
       this.lspMappingForm.reset();
       this.buildForm();
       this.lspMappingId = '';
     }
-     this.getLspMappings();
-      this.getCustomers();
-      this.customers=[];  
+    this.getLspMappings();
+    this.getCustomers();
+    this.customers = [];  
   }
 
   ngOnInit(): void {
-    this.getLspMappings();
-    this.getCustomers();
     this.getLsps();
     this.buildForm();
   }
@@ -110,9 +108,7 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
         if (response) {
           this.lspMappingsList = response.data;
         }
-      },
-      error: (response: any) => {
-      },
+      }
     });
   }
 

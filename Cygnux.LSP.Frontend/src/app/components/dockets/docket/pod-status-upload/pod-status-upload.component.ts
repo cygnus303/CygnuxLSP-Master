@@ -15,7 +15,7 @@ import { DocketService } from '../../../../shared/services/docket.service';
   providers:[BsModalService]
 })
 export class PodStatusUploadComponent {
-  podImageUrl: string | null = null;
+  public podImageUrl: string | null = null;
   public podUpdateForm!:FormGroup;
   public customers: CustomerResponse[] = [];
   public selectedFile: File | null = null;
@@ -24,13 +24,7 @@ export class PodStatusUploadComponent {
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   
-  constructor(
-    private modalService: BsModalService,
-    private identityService:IdentityService,
-    private lspTatService: LspMappingService,
-    private sweetAlertService: SweetAlertService,
-    private docketService:DocketService
-  ){
+  constructor( private modalService: BsModalService,private identityService:IdentityService, private lspTatService: LspMappingService, private sweetAlertService: SweetAlertService, private docketService:DocketService){
     this.buildForm();
     this.getCustomers();
   }
@@ -57,14 +51,14 @@ export class PodStatusUploadComponent {
   }
 
 showPopup(data:any){
-if(data){
-  data.LspId=data?.transporter;
-  data.bookingDate = new Date(data?.bookingDate)
-  this.podUpdateForm.patchValue(data)
-  this.podImageUrl = data?.podLink;
-  this.isReadonlyMode = data.podLink !== '-';
-  this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
-}
+  if(data){
+    data.LspId = data?.transporter;
+    data.bookingDate = new Date(data?.bookingDate)
+    this.podUpdateForm.patchValue(data)
+    this.podImageUrl = data?.podLink;
+    this.isReadonlyMode = data.podLink !== '-';
+    this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
+  }
 }
 
 getCustomers() {
@@ -89,30 +83,13 @@ onFileSelected(event: any) {
     };
     reader.readAsDataURL(file);
     this.selectedFile = file;
-    // Optional: update the form control value
     this.podUpdateForm.get('PODFileName')?.setValue(file.name);
   }
 }
 
-formatDate(date: Date): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-}
-
-savePOD(): void {
+onSavePOD(): void {
   const formData = new FormData();
-  const{transportModeDesc,
-    transporterDesc,
-    bookingDate,
-    statusDate,
-    fromLocation,
-    toLocation,
-    quantity,
-    invoiceNo,
-    currentStatusDesc,
-    Customer,...payload} = this.podUpdateForm.value
+  const{transportModeDesc,transporterDesc, bookingDate,statusDate,fromLocation,toLocation,quantity,invoiceNo,currentStatusDesc,Customer,...payload} = this.podUpdateForm.value
   formData.append('docpodJson',JSON.stringify(payload));
   if (this.selectedFile) {
     formData.append('imageFile', this.selectedFile, this.selectedFile.name);

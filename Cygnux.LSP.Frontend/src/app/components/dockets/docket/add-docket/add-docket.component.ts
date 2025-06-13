@@ -33,19 +33,12 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketForm!: FormGroup;
   public docketId: string = '';
   public customerId : string='' ;
-  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
-
+  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(
-    private docketService: DocketService,
-    private sweetAlertService: SweetAlertService,
-    private lspTatService: LspMappingService,
-    private identityService:IdentityService,
-    
-  ) {
+  constructor( private docketService: DocketService, private sweetAlertService: SweetAlertService, private lspTatService: LspMappingService,private identityService:IdentityService) {
     this.docketForm = new FormGroup({});
   }
 
@@ -94,15 +87,9 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 }
 
-  formatDate(dateString: string): string {
-    if (!dateString) return '';
-    return dateString.split('T')[0];
-  }
-
   onClose(){
     this.buildForm();
     this.getCustomers();
-    // this.dataEmitter.emit();
   }
 
   onSubmitDocket(form: FormGroup): void {
@@ -125,7 +112,6 @@ ngOnChanges(changes: SimpleChanges): void {
           this.customers = response.data;
           if(this.userRoles !== 'SA' && response.data.length > 0){
             this.docketForm.patchValue(response.data[0])
-            // this.onSelectCustomer(response.data[0])
             // this.onSelectOrigin(response.data[0])
             this.customerId=response.data[0].customerId
           }

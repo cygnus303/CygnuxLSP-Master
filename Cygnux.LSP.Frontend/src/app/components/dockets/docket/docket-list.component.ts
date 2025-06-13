@@ -24,7 +24,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
-  public docketCode: string = '';
   public selectedDocket: DocketResponse | null = null;
   public page = 1; // Current page number
   public pageSize = 5; // Number of items per page
@@ -34,8 +33,8 @@ export class DocketListComponent implements OnInit {
   public RoleListsubscribe!:Subscription;
   public isSelected: string='';
   public loading : boolean = false;
-   public modalRef!: BsModalRef;
-  userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+  public modalRef!: BsModalRef;
+  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
@@ -218,7 +217,6 @@ export class DocketListComponent implements OnInit {
     if (modalElement) {
       const modal = new Modal(modalElement);
       this.selectedDocket = null;
-      this.docketCode = '';
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
