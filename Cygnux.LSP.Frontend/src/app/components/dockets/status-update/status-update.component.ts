@@ -74,15 +74,13 @@ getTransporterDetail() {
 }
 
 filterNextStatus() {
-  const currentId = Number(this.currentStatusValue);  // make sure it's a number
+  const currentId = Number(this.currentStatusValue); 
 
-  if (currentId === 6) { // Delivered
+  if (currentId === 6) { 
     this.filteredTransporter = [];
     this.statusUpdateForm.patchValue({ nextDocketStatus: null });
   } else {
-    const nextCodeId = (currentId + 1).toString();  // convert back to string since your codeId is string
-
-    // set filtered transporter only for next status
+    const nextCodeId = (currentId + 1).toString();
     this.filteredTransporter = this.transporter.filter((item: any) => item.codeId === nextCodeId);
 
     if (this.filteredTransporter.length > 0) {
