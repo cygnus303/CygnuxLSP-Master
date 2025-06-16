@@ -34,6 +34,7 @@ export class DocketListComponent implements OnInit {
   public isSelected: string='';
   public loading : boolean = false;
   public modalRef!: BsModalRef;
+   public hoveredRow: number | null = null;
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;

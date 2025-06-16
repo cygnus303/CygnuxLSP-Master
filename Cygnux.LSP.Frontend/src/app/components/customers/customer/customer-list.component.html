@@ -12,79 +12,98 @@
               </div>
             </div>
           </div>
-          <div class="card-body pt-3">
-            <div class="table-responsive theme-scrollbar">
-                <table class="table table-header align-middle w-100" >
-                  <thead class="table-light">
-                    <tr class="table-th">
-                      <th class="w-25">Customer Name</th>
-                      <th class="w-25">Customer Code</th>
-                      <th class="w-25">Email</th>
-                      <th class="w-8 text-center">Active</th>
-                      <th class="w-15 text-center">Action
-                      </th>
-                    </tr>
-                    <tr class="table-th">
-                      <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['CustomerName']" (input)="getCustomers()"/></th>
-                      <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['CustomerCode']"
-                        (input)="getCustomers()"/></th>
-                      <th class="w-25"><input type="text" class="form-control" [(ngModel)]="filters['EmailId']"
-                        (input)="getCustomers()"/></th>
-                      <th class="w-8"></th>
-                      <th class="w-15 text-center"></th>
-                    </tr>
-                  </thead>
-                </table>
-              <div class=" mb-3">
-                <table class="customers w-100">
-                  <tr *ngFor="let customer of customers; let i = index">
-                    <td class="w-25">{{customer.customerName}}</td>
-                    <td class="w-25">{{customer.customerCode}}</td>
-                    <td class="w-25">{{customer.emailId}}</td>
-                    <td class="w-8 text-center"><i
-                      [ngClass]="customer.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                    <td class="w-15">
-                      <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-                        <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}" [popover]="'Edit'" placement="auto"
-                            triggers="hover" [outsideClick]="true" container="body">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"  height="20" 
-                          (click)="editModal($event,customer.customerId)"><path d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"></path></svg>
-                        </div>
-                        <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'" placement="auto"
-                            triggers="hover" [outsideClick]="true" container="body">
-                          <i class="ri-eye-fill align-bottom text-muted" (click)="customerDetail($event,customer.customerId)"></i>
-                        </div>
-                        <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
-                            placement="auto" triggers="hover" [outsideClick]="true" container="body">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="mappingCustomer(customer.customerId)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
-                        </div>
-                        <div>
-                          <a (click)="lspMappingonModal($event,customer)"  [popover]="'LSP Mapping'"
-                            placement="auto" triggers="hover" [outsideClick]="true" container="body"><i class="fa-solid fa-truck"></i></a>
-                        </div>
+        <div class="card-body pt-3">
+          <div class="table-responsive theme-scrollbar">
+            <table class="table table-header align-middle w-100">
+              <thead class="table-light">
+                <tr class="table-th">
+                  <th>Customer Name</th>
+                  <th>Customer Code</th>
+                  <th>Email</th>
+                  <th class="text-center">Active</th>
+                  <th class="text-center">Action</th>
+                </tr>
+                <tr class="table-th">
+                  <th><input type="text" class="form-control form-control-sm" [(ngModel)]="filters['CustomerName']"
+                      (input)="getCustomers()" /></th>
+                  <th><input type="text" class="form-control form-control-sm" [(ngModel)]="filters['CustomerCode']"
+                      (input)="getCustomers()" /></th>
+                  <th><input type="text" class="form-control form-control-sm" [(ngModel)]="filters['EmailId']"
+                      (input)="getCustomers()" /></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="customers w-100">
+                <ng-container  *ngFor="let customer of customers; let i = index" >
+                <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i">
+                  <td>{{customer.customerName}}</td>
+                  <td>{{customer.customerCode}}</td>
+                  <td>{{customer.emailId}}</td>
+                  <td class="text-center">
+                    <i [ngClass]="customer.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
+                  </td>
+                  <td class="text-center">
+                    <div class="cursor-pointer d-flex justify-content-center gap-2 flex-wrap">
+                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}" [popover]="'Edit'"
+                        placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" height="20"
+                          (click)="editModal($event,customer.customerId)">
+                          <path
+                            d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453Z M14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z">
+                          </path>
+                        </svg>
                       </div>
-                    </td>
-                  </tr>
-                </table>
-                <div *ngIf="loading && customers.length === 0" class="text-center border-found">
-                  <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
-                    trigger="loop" colors="primary:#121331,secondary:#08a88a"
-                    style="width: 100px; height: 100px">
-                  </lord-icon>
-                </div>
-                
-                <!-- No Result Found -->
-                <div *ngIf="!loading && customers.length === 0" class="text-center border-found p-4">
-                  <h5 class="mt-2">Sorry! No Result Found</h5>
-                </div>
-              </div>
-             <div class="d-flex justify-content-end">
-              <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" [maxSize]="3"
-              (pageChange)="onPageChange($event)">
-             </ngb-pagination>
-             </div>
+        
+                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'"
+                        placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <i class="ri-eye-fill align-bottom text-muted" (click)="customerDetail($event,customer.customerId)"></i>
+                      </div>
+        
+                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
+                        placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" height="20"
+                          (click)="mappingCustomer(customer.customerId)">
+                          <path
+                            d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z">
+                          </path>
+                        </svg>
+                      </div>
+        
+                      <div>
+                        <a (click)="lspMappingonModal($event,customer)" [popover]="'LSP Mapping'" placement="auto"
+                          triggers="hover" [outsideClick]="true" container="body">
+                          <i class="fa-solid fa-truck"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </ng-container>
+              </tbody>
+            </table>
+        
+            <!-- Loading -->
+            <div *ngIf="loading && customers.length === 0" class="text-center border-found my-4">
+              <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json" trigger="loop"
+                colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
+              </lord-icon>
             </div>
+        
+            <!-- No Result Found -->
+            <div *ngIf="!loading && customers.length === 0" class="text-center border-found p-4">
+              <h5 class="mt-2">Sorry! No Result Found</h5>
+            </div>
+        
+            <!-- Pagination -->
+            <div class="d-flex justify-content-end mt-3">
+              <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" [maxSize]="3"
+                (pageChange)="onPageChange($event)">
+              </ngb-pagination>
+            </div>
+        
           </div>
+        </div>
           </div>
         </div>
       </div>

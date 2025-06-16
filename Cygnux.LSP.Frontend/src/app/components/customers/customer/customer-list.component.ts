@@ -29,7 +29,7 @@ export class CustomerListComponent implements OnInit {
   public loading : boolean = false;
   @Output() edit = new EventEmitter<CustomerResponse>();
   @ViewChild(AddCustomerComponent) addCustomerComponent!: AddCustomerComponent;
-
+  public hoveredRow: number | null = null;
   constructor(
     private customerService: CustomerService,
     public commonService: CommonService,

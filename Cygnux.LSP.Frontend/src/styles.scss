@@ -149,6 +149,26 @@ label {
   pointer-events: none; 
   opacity: 1.2!important;  
 }
+
+// table row bg-color
+
+.row-even-bg {
+  td{    
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #dee2e6;
+  }
+}
+
+.row-odd-bg {
+  td {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6;
+  }
+}
+
+.hover-active td { background-color: #f8f9fa !important; transition: 0.3s; }
+
+
 // customers--------------------
 
 .table-th{
