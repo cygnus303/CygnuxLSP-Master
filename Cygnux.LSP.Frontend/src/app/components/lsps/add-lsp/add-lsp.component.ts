@@ -15,6 +15,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
 import { environment } from '../../../../environments/environment';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-add-lsp',
@@ -38,7 +39,8 @@ export class AddLspComponent implements OnInit, OnChanges {
     private lspService: LspService,
     private identityService:IdentityService,
     private sweetAlertService:SweetAlertService,
-    private userService:UserService
+    private userService:UserService,
+    private authenticationService:AuthenticationService
   ) {
     this.lspForm = new FormGroup({});
   }
@@ -167,6 +169,7 @@ export class AddLspComponent implements OnInit, OnChanges {
         // this.dataEmitter.emit();
         this.userId = response.data.id;
         this.addLsp(this.tempFormData);
+        this.sendUsermail(response.data.id)
       } else {
         this.sweetAlertService.error(response.error.message);
       }
@@ -176,6 +179,24 @@ export class AddLspComponent implements OnInit, OnChanges {
     },
   });
 }
+
+ sendUsermail(id:any){
+    const filters={
+      userId : id
+    }
+    this.authenticationService.sendOTPMail(this.identityService.getLoggedUserId(),filters).subscribe({
+      next: (response) => {
+        if (response.success) {
+          // this.sweetAlertService.success(response.data.message);
+        } else {
+          // this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (response: any) => {
+        // this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
 
   addLsp(formData: any): void {
     formData.append('u_Id',this.userId)

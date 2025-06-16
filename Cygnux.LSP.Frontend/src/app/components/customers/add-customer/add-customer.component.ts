@@ -7,6 +7,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
 import { concatMap, throwError } from 'rxjs';
 import { IdentityService } from '../../../shared/services/identity.service';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -26,7 +27,8 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     private customerService: CustomerService,
     private sweetAlertService: SweetAlertService,
     private userService:UserService,
-    private identityService:IdentityService
+    private identityService:IdentityService,
+     private authenticationService:AuthenticationService
   ) {
     this.customerForm = new FormGroup({});
   }
@@ -114,6 +116,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         concatMap((userResponse) => {
           if (userResponse.success) {
             this.userId = userResponse.data.id;
+            this.sendUsermail(userResponse.data.id)
             const formValues = { ...form.getRawValue(), u_Id: this.userId };
             const { roles, ...customerPayload } = formValues;
             const currentUserId = this.identityService.getLoggedUserId();
@@ -143,6 +146,25 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       });
     }
   }
+
+ sendUsermail(id:any){
+    const filters={
+      userId : id
+    }
+    this.authenticationService.sendOTPMail(this.identityService.getLoggedUserId(),filters).subscribe({
+      next: (response) => {
+        if (response.success) {
+          // this.sweetAlertService.success(response.data.message);
+        } else {
+          // this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (response: any) => {
+        // this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
  
   updateCustomer(form: FormGroup): void {
     const currentUserId = this.identityService.getLoggedUserId();
