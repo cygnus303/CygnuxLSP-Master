@@ -28,6 +28,7 @@ export class LspTatListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
  public loading : boolean = false;
+ public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
 

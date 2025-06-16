@@ -35,6 +35,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!:Subscription;
  public loading : boolean = false;
+ public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<UserResponse>();
   @ViewChild(AddUserComponent) addUserComponent!: AddUserComponent;
 

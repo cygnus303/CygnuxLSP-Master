@@ -33,6 +33,7 @@ export class LspListComponent implements OnInit {
   public RoleListsubscribe!:Subscription;
   public totalItems = 0; // Total number of items
   public loading : boolean = false;
+  public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<LspResponse>();
   @ViewChild(AddLspComponent) addLspComponent!: AddLspComponent;
 

@@ -34,8 +34,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public selectedRole: RoleResponse | null = null;
   public roleName: string | null = null;
   public RoleListsubscribe!:Subscription;
- public loading : boolean = false;
- public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public loading : boolean = false;
+  public filters: { [key: string]: string } = {}; // Dynamic filter object
+  public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<RoleResponse>();
   @ViewChild(AddRoleComponent) addRoleComponent!: AddRoleComponent;
 
