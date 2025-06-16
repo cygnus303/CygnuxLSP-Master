@@ -18,10 +18,11 @@ internal class TrackingService : ITrackingservice
         _dbConnection = dbConnection;
     }
 
-    public async Task<IEnumerable<TrackingDocketResponse>> GetTrackigList(string docketNOs, Guid userid)
+    public async Task<IEnumerable<TrackingDocketResponse>> GetTrackigList(string? docketNOs, Guid userid)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@docknumber", docketNOs, DbType.String);
+        string cleanedDocketNOs = (docketNOs == "''" || string.IsNullOrWhiteSpace(docketNOs)) ? "" : docketNOs.Trim();
+        parameters.Add("@docknumber", cleanedDocketNOs, DbType.String);
         parameters.Add("@UserId", userid, DbType.Guid);
 
         return await _dbConnection.QueryAsync<TrackingDocketResponse>(

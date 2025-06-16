@@ -49,6 +49,7 @@ export class TrackTraceComponent {
 
   ngOnInit(){
     this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='lsp Admin';
+    this.onSearchTrackTrace()
   }
 
   addDocketNumber(event: KeyboardEvent): void {
@@ -88,7 +89,7 @@ finalizeDocketInput(): void {
   }
 
   onSearchTrackTrace(){
-    const docketString = this.docketList.length ? this.docketList.join(',') : null;
+    const docketString = this.docketList.length ? this.docketList.join(',') : '';
     this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
       // this.trackTraceList = res.data;
       this.trackTraceList = res.data.map((item: any) => {
