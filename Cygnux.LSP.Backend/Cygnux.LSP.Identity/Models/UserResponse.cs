@@ -18,5 +18,7 @@ public class UserResponse
     public string? Address {get;set;} = string.Empty;
     public string? ZipCode {get;set;} = string.Empty;
     public int SessionTime { get;set;} 
-
+    public bool IsMailSend { get; set; }
+    public bool IsResendMail { get; set; }
+}
 }
