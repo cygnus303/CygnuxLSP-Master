@@ -66,9 +66,9 @@
                               </path>
                             </svg>
                           </div>
-                          <div [ngClass]="{'disabled-image': !user.isMailSend}" [popover]="'Resend Mail'" placement="auto"
+                          <div [popover]="'Resend Mail'" placement="auto"
                               triggers="hover" [outsideClick]="true" container="body">
-                              <i class="fa-solid fa-envelope-circle-check" (click)="resendMail(user)"></i>
+                              <i class="fa-solid fa-envelope-circle-check" [ngClass]="{'disabled-image': !user.isMailSend}"  (click)="!user.isMailSend ? null : resendMail(user)"></i>
                           </div>
                         </div>
                       </td>
