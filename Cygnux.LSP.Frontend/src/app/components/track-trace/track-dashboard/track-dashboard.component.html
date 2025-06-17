@@ -1,27 +1,30 @@
    
 <div [ngClass]="!isContentVisible ? 'fade-in' : 'slide-out'">
 <div class="container-fluid">
- <div class="row mb-3 d-flex">
-    <div class="col-1">
-      <label class="col-form-label">Date Range</label>
-    </div>
-    <div class="col-5">
-      <div class="form-group mb-3">
-        <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [(ngModel)]="dateRange"  (bsValueChange)="onDateRangeSelected($event)"
-          [bsConfig]="{rangeInputFormat: 'DD.MM.YYYY', dateInputFormat:
-                     'DD.MM.YYYY',ranges: trackTraceService.ranges }">
-      </div>
+<div class="row mb-3 align-items-center">
+  <div class="col-12 col-md-2 col-lg-2 col-xxl-1">
+    <label class="col-form-label mb-2 mb-md-0">Date Range</label>
+  </div>
+  <div class="col-12 col-md-10 col-lg-5 col-xxl-5">
+    <div class="form-group mb-0">
+      <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [(ngModel)]="dateRange"
+        (bsValueChange)="onDateRangeSelected($event)" [bsConfig]="{
+          rangeInputFormat: 'DD.MM.YYYY',
+          dateInputFormat: 'DD.MM.YYYY',
+          ranges: trackTraceService.ranges
+        }" />
     </div>
   </div>
+</div>
 
   <div class="row">
-    <div class="col-sm-2 col-lg-2 " *ngFor="let data of docketCount">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2" *ngFor="let data of docketCount">
       <div class="dashboard-2">
         <div class="card o-hidden ">
         <div class="card-header pb-0 cursor-pointer" >
           <div class="d-flex">
             <div class="flex-grow-1">
-              <p class="square-after f-w-600" [ngClass]="data.headerColor">{{data.name}}<i class="fa fa-circle"> </i></p>
+              <p class="square-after f-w-600 single-line " [ngClass]="data.headerColor" title="{{data.name}}">{{data.name}}<i class="fa fa-circle"> </i></p>
                <h4 [appCountUp]="data.count">{{data.count}}</h4>
             </div>
           <div class="d-flex static-widget">
