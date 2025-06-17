@@ -68,7 +68,7 @@
                   </thead>
                   <tbody class="customers">
                      <ng-container *ngFor="let docket of dockets; let i = index">
-                       <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i">
+                       <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i" (mouseleave)="hoveredRow = null">
                          <td>{{ docket.docketNo }}</td>
                          <td *ngIf="!userRoles.includes('lsp Admin')">{{ docket.transporterDesc }}</td>
                          <td *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
