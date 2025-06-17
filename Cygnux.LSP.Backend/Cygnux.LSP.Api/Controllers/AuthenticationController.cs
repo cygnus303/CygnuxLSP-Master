@@ -265,24 +265,99 @@ public class AuthenticationController : ControllerBase
             });
         }
 
-
-        //var changePwdResult = await _authenticationRepository.ChangePassword(
-        //    chnagmodel.UserId,
-        //    oldpwdresp.Data.Id.ToString(),
-        //    newpassHash.Data.Password
-        //);
-
-        //return Ok(new BaseOKresposne<bool>
-        //{
-        //    Status = true,
-        //    Message = "Password changed successfully."
-
-        //});
-
         // Step 3: Apply the New Password in Authentication System
         return Ok(await _authenticationRepository.ChangePassword(chnagmodel.UserId, oldpwdresp.Data.Id.ToString(), newpassHash.Data.Password));
 
     }
 
+
+    [HttpPost("ResendMail")]
+    public async Task<IActionResult> ResendEmail([FromBody] ResendMailReq request, Guid Entryby)
+    {
+        // Step 1: Validate user
+        var user = await _context.Users.FindAsync(request.UserId);
+        if (user == null)
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User not found.",
+                Data = false
+            });
+        }
+
+        // Step 2: Validate email
+        if (string.IsNullOrWhiteSpace(user.Email) || !IsValidEmail(user.Email) || user.Email != request.EmailId)
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "User email is invalid.",
+                Data = false
+            });
+        }
+
+        // Step 3: Get resend link
+        var linkResult = await _authenticationRepository.GetResendUrl(request.UserId);
+        if (linkResult == null || string.IsNullOrWhiteSpace(linkResult.Data.Url))
+        {
+            return StatusCode(500, new
+            {
+                Status = false,
+                Message = "Resend URL could not be generated."
+            });
+        }
+
+        // Step 4: Generate OTP (securely)
+        var otp = new Random().Next(100000, 999999).ToString();
+
+        // Step 5: Prepare resend update entry
+        var resendEntry = new ResendEmailUpdate
+        {
+            UserId = request.UserId,
+            OTP = otp,
+            OTPCreateTime = DateTime.Now,
+            ResendMailBy = Entryby,
+            IsResendMail = true
+        };
+
+        // Step 6: Prepare email
+        var subject = "Re-Verify your account";
+        var body = $@"
+        Dear User,
+
+        Please re-verify your account using the link below:
+        {linkResult.Data.Url}
+
+        Your new OTP is: {otp}
+
+        Regards,
+        Support Team";
+
+        try
+        {
+            // Step 7: Send email
+            await _emailService.SendEmailAsync(user.Email, subject, body.Trim());
+
+            // Step 8: Save OTP and audit details
+            await _authenticationRepository.UpdateResendMailDetail(JsonConvert.SerializeObject(resendEntry));
+
+            return Ok(new
+            {
+                Status = true,
+                Message = "OTP email sent successfully."
+            });
+        }
+        catch (Exception ex)
+        {
+            // Optionally log the exception
+            return StatusCode(500, new
+            {
+                Status = false,
+                Message = "Failed to send OTP email.",
+                Error = ex.Message
+            });
+        }
+    }
 
 }

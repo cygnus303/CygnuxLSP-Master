@@ -61,7 +61,20 @@ public class ChangePasswordRequest
     public required string OldPassword { get; set; }
     public required string NewPassword { get; set; }
 }
+public class ResendMailReq
+{
+    public Guid UserId { get; set; }
+    public required string EmailId { get; set; }
+}
 
 
+public class ResendEmailUpdate
+{
+    public Guid UserId { get; set; }
+    public string OTP { get; set; } = string.Empty;
+    public DateTime OTPCreateTime { get; set; }
+    public Guid ResendMailBy { get; set; }
+    public bool IsResendMail { get; set; }
+}
 
 

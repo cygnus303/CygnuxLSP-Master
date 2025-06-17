@@ -102,4 +102,28 @@ internal class AuthenticationService : IAuthenticationservice
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+
+    public async Task<GetLink> GetResendUrl(Guid UserId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@userID", UserId, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<GetLink>(
+            StoredProcedureConstants.USP_GetResendLink,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new GetLink();
+    }
+
+    public async Task<CommonCreateResponse> UpdateResendMailDetail(string resendEntry)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonData", resendEntry, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_ResendEmail,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }

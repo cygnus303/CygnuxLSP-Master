@@ -19,4 +19,9 @@ public class GetPasswordHash
     public required string Password { get; set; }
 
 }
+public class GetLink
+{
+    public string Url { get; set; } = string.Empty;
+
+}
 

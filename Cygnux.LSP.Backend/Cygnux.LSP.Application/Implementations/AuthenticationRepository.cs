@@ -66,4 +66,18 @@ internal class AuthenticationRepository : IAuthenticationRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+    public async Task<BaseResponse<GetLink>> GetResendUrl(Guid UserId)
+    {
+        var response = await _authenticationService.GetResendUrl(UserId);
+
+        return new BaseResponse<GetLink>(response);
+
+    }
+    public async Task<BaseResponse<CommonCreateResponse>> UpdateResendMailDetail(string resendEntry)
+    {
+        var response = await _authenticationService.UpdateResendMailDetail(resendEntry);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
 }
