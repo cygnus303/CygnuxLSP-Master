@@ -29,4 +29,8 @@ export class AuthenticationService {
   resetPassword(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
       return this.apiHandlerService.Post(`Authentication/ResetPassword`, filters);
   }
+
+  ChangePassword(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
+      return this.apiHandlerService.Post(`Authentication/ChangePassword`, filters);
+  }
 }
