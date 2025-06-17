@@ -21,4 +21,3 @@ public class UserResponse
     public bool IsMailSend { get; set; }
     public bool IsResendMail { get; set; }
 }
-}

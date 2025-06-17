@@ -42,7 +42,7 @@
                                 </thead>
                                 <tbody class="customers w-100">
                                  <ng-container *ngFor="let lsp of lspTats; let i = index">
-                                   <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i">
+                                   <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i" (mouseleave)="hoveredRow = null">
                                      <td class="w-15">{{lsp.customerName}}</td>
                                      <td class="w-15">{{lsp.lspName}}</td>
                                      <td class="w-15">{{lsp.product}}</td>
