@@ -18,6 +18,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-user',
@@ -44,7 +45,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     public commonService: CommonService,
     private toastrService: ToastrService,
     private sweetAlertService:SweetAlertService,
-    private identityService:IdentityService
+    private identityService:IdentityService,
+    private authenticationService:AuthenticationService,
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Users');
   }
@@ -85,6 +87,23 @@ export class UserListComponent implements OnInit, OnDestroy {
       error: (response: any) => {
         this.toastrService.error(response.error.message);
           this.commonService.updateLoader(false);
+      },
+    });
+  }
+
+  resendMail(data:UserResponse){
+    const filters={
+      userId:data.id,
+      emailId:data.emailId
+    }
+    this.authenticationService.resendMail(this.identityService.getLoggedUserId(),filters).subscribe({
+      next: (response) => {
+        if (response) {
+        this.toastrService.success(response.message);
+        }
+      },
+      error: (response: any) => {
+        this.toastrService.error(response.error.message);
       },
     });
   }

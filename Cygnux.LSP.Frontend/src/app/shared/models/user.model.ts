@@ -14,6 +14,8 @@ export interface UserResponse {
   city:string;
   zipCode:string;
   userType:string;
+  isResendMail:boolean;
+  isMailSend:boolean;
 }
 
 export interface AddUserRequest {

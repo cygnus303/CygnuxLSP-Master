@@ -33,4 +33,8 @@ export class AuthenticationService {
   ChangePassword(filters:any): Observable<IApiBaseResponse<CommonResponse>>{
       return this.apiHandlerService.Post(`Authentication/ChangePassword`, filters);
   }
+
+  resendMail(userId:string,filters:any): Observable<any>{
+      return this.apiHandlerService.Post(`Authentication/ResendMail?Entryby=${userId}`, filters);
+  }
 }
