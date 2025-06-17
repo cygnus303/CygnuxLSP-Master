@@ -64,4 +64,11 @@ public class UserController : ControllerBase
     {
         return Ok(await _userRepository.UpdatePassword(id, password));
     }
+
+    [HttpGet]
+    [Route("GetOldPassword")]
+    public async Task<IActionResult> GetOldPasswordHash(Guid userid, string oldpassword)
+    {
+        return Ok(await _userRepository.GetOldPasswordHash(userid, oldpassword));
+    }
 }

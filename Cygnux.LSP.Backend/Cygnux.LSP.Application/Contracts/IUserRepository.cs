@@ -19,5 +19,7 @@ public interface IUserRepository
 
     Task<BaseResponse<CommonCreateResponse>> DeleteUser(Guid userid);
     Task<BaseResponse<GetPasswordHash>> UpdatePassword(Guid id, string password);
-    
+
+    Task<BaseResponse<CommonCreateResponse>> GetOldPasswordHash(Guid userid, string oldpassword);
+
 }

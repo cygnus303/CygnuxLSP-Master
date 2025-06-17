@@ -225,5 +225,64 @@ public class AuthenticationController : ControllerBase
         return Ok(await _authenticationRepository.ResetPassword(model.RequestId, passResponse.Data.Password));
     }
 
+    [HttpPost("ChangePassword")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest chnagmodel)
+    {
+        if (string.IsNullOrEmpty(chnagmodel.NewPassword) || string.IsNullOrEmpty(chnagmodel.OldPassword))
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "New password is required.",
+                Data = false
+            });
+        }
+
+        // Step 1: Verify Old Password
+        BaseResponse<CommonCreateResponse> oldpwdresp = await _userRepository.GetOldPasswordHash(chnagmodel.UserId, chnagmodel.OldPassword);
+
+        if (oldpwdresp == null || oldpwdresp.Data == null ||
+            oldpwdresp.Data.Status != 1 || oldpwdresp.Data.Message != "Old password is correct")
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "Old password is incorrect.",
+                Data = false
+            });
+        }
+
+        // Step 2: Update Password
+        BaseResponse<GetPasswordHash> newpassHash = await _userRepository.UpdatePassword(chnagmodel.UserId, chnagmodel.NewPassword);
+
+        if (newpassHash == null || newpassHash.Data == null)
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "Password update failed.",
+                Data = false
+            });
+        }
+
+
+        //var changePwdResult = await _authenticationRepository.ChangePassword(
+        //    chnagmodel.UserId,
+        //    oldpwdresp.Data.Id.ToString(),
+        //    newpassHash.Data.Password
+        //);
+
+        //return Ok(new BaseOKresposne<bool>
+        //{
+        //    Status = true,
+        //    Message = "Password changed successfully."
+
+        //});
+
+        // Step 3: Apply the New Password in Authentication System
+        return Ok(await _authenticationRepository.ChangePassword(chnagmodel.UserId, oldpwdresp.Data.Id.ToString(), newpassHash.Data.Password));
+
+    }
+
 
 }

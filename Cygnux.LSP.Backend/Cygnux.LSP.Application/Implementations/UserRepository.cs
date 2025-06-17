@@ -130,4 +130,11 @@ internal class UserRepository : IUserRepository
 
         return new BaseResponse<GetPasswordHash>(response);
     }
+
+    public async Task<BaseResponse<CommonCreateResponse>> GetOldPasswordHash(Guid userid, string oldpassword)
+    {
+        var response = await _userService.GetOldPasswordHash(userid, oldpassword);
+
+        return new BaseResponse<CommonCreateResponse>(response);
+    }
 }

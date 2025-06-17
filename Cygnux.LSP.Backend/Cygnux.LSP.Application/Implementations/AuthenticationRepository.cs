@@ -59,4 +59,11 @@ internal class AuthenticationRepository : IAuthenticationRepository
         return new BaseResponse<GetUserId>(response);
                    
     }
+    public async Task<BaseResponse<CommonCreateResponse>> ChangePassword(Guid userid, string oldPwd, string NewPwd)
+    {
+        var response = await _authenticationService.ChangePassword(userid, oldPwd, NewPwd);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
 }

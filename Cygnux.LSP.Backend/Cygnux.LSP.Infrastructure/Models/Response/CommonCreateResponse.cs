@@ -19,3 +19,4 @@ public class GetPasswordHash
     public required string Password { get; set; }
 
 }
+

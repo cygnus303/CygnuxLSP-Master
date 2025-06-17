@@ -1,4 +1,5 @@
 ﻿using Cygnux.LSP.Infrastructure.Models.Response;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Cygnux.LSP.Application.Models.Response;
 
@@ -27,4 +28,11 @@ public class BaseResponseError<T>
     public bool Status { get; set; }
     public string? Message { get; set; }
     public T? Data { get; set; }
+}
+
+public class BaseOKresposne<T>
+{
+    public bool Status { get; set; }
+    public string? Message { get; set; }
+
 }

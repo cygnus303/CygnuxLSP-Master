@@ -123,18 +123,7 @@ internal class UserService : IUserService
               commandType: CommandType.StoredProcedure
           ) ?? new CommonCreateResponse();
     }
-
-    //public async Task<IdentityResult> UpdatePassword(Guid? id, string password)
-    //{
-    //    var user = await _userManager.FindByIdAsync(id.ToString());
-    //    if (user != null)
-    //    {
-    //        user.PasswordHash = password;
-    //        return await _userManager.UpdateAsync(user);
-    //    }
-
-    //    return IdentityResult.Failed(new IdentityError { Description = "User not found" });
-    //}
+  
     public async Task<GetPasswordHash> UpdatePassword(Guid id, string password)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
@@ -166,6 +155,47 @@ internal class UserService : IUserService
         };
     }
 
+    public async Task<CommonCreateResponse> GetOldPasswordHash(Guid userid, string oldpassword)
+    {
+        var user = await _userManager.FindByIdAsync(userid.ToString());
 
+        if (user != null)
+        {
+            if (string.IsNullOrEmpty(user.PasswordHash))
+            {
+                return new CommonCreateResponse
+                {
+                    Status = 0,
+                    Message = "Stored password hash is missing"
+                };
+            }
+
+            var verificationResult = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, oldpassword);
+
+            if (verificationResult == PasswordVerificationResult.Success)
+            {
+                return new CommonCreateResponse
+                {
+                    Status = 1,
+                    Message = "Old password is correct",
+                    Id = user.PasswordHash
+                };
+            }
+            else
+            {
+                return new CommonCreateResponse
+                {
+                    Status = 0,
+                    Message = "Old password is incorrect"
+                };
+            }
+        }
+
+        return new CommonCreateResponse
+        {
+            Status = 0,
+            Message = "User not found"
+        };
+    }
 
 }

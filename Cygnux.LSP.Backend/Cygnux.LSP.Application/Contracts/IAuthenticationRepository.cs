@@ -11,5 +11,6 @@ public interface IAuthenticationRepository
     Task<BaseResponse<CommonCreateResponse>> UpdateResendOTP(string otp, Guid RequestId);
     Task<BaseResponse<CommonCreateResponse>> ResetPassword(Guid? ReqId, string Pwd);
     Task<BaseResponse<GetUserId>> GetUserIDfromReqID(Guid? ReqId);
-    
+    Task<BaseResponse<CommonCreateResponse>> ChangePassword(Guid userid, string oldPwd,string NewPwd);
+
 }

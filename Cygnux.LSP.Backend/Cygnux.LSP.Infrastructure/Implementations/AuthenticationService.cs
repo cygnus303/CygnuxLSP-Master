@@ -88,4 +88,18 @@ internal class AuthenticationService : IAuthenticationservice
             commandType: CommandType.StoredProcedure
         ) ?? new GetUserId();
     }
+
+    public async Task<CommonCreateResponse> ChangePassword(Guid userid, string oldPwd, string NewPwd)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userid, DbType.Guid);
+        parameters.Add("@OldPasswordHash", oldPwd, DbType.String);
+        parameters.Add("@NewPasswordHash", NewPwd, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_PasswordResetORChange,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }
