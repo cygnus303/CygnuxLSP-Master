@@ -39,9 +39,6 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/css/style.css",
               "src/assets/css/responsive.css",
-               "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
-              "node_modules/jsgrid/dist/jsgrid.min.css",
-               "node_modules/jsgrid/dist/jsgrid-theme.min.css",
               "node_modules/remixicon/fonts/remixicon.css",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
@@ -55,11 +52,6 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-                 "node_modules/datatables.net/js/dataTables.min.js",
-              "node_modules/jsgrid/dist/jsgrid.min.js",
-              "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
-              "node_modules/prismjs/prism.js",
-              "node_modules/jsgrid/dist/jsgrid.min.js",
               "src/assets/js/scrollbar/simplebar.js",
               "src/assets/js/scrollbar/custom.js",
               "src/assets/js/sidebar-menu.js"
