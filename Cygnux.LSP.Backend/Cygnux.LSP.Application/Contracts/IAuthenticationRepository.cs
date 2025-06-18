@@ -14,5 +14,7 @@ public interface IAuthenticationRepository
     Task<BaseResponse<CommonCreateResponse>> ChangePassword(Guid userid, string oldPwd,string NewPwd);
     Task<BaseResponse<GetLink>> GetResendUrl(Guid UserId);
     Task<BaseResponse<CommonCreateResponse>> UpdateResendMailDetail(string resendEntry);
+    Task<BaseResponse<GetID>> GetReqIdfromUserId(Guid userid);
+    Task<BaseResponse<CommonCreateResponse>> ForgotPWDdataUpdate(string pwdEntry);
 
 }

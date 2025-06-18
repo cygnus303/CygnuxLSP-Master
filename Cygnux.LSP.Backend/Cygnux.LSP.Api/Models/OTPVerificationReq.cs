@@ -76,5 +76,17 @@ public class ResendEmailUpdate
     public Guid ResendMailBy { get; set; }
     public bool IsResendMail { get; set; }
 }
+public class ForgotPasswordRequest
+{
+    public required string Email { get; set; }
+    public Guid? UserId { get; set; }
+}
+
+    public class ForgotPasswordUpdate
+    {
+        public Guid UserId { get; set; }
+        public required string ForgotPwdLink { get; set; }
+    }
+
 
 

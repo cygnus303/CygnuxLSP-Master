@@ -8,7 +8,7 @@ public class CommonCreateResponse
 
     public string? Id { get; set; }
 }
-public class GetUserId
+public class GetUserId : CommonCreateResponse
 {
     public Guid UserId { get; set; }
 
@@ -22,6 +22,12 @@ public class GetPasswordHash
 public class GetLink
 {
     public string Url { get; set; } = string.Empty;
+
+}
+
+public class GetID 
+{
+    public Guid ReqID { get; set; }
 
 }
 

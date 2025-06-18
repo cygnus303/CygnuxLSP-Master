@@ -71,4 +71,11 @@ public class UserController : ControllerBase
     {
         return Ok(await _userRepository.GetOldPasswordHash(userid, oldpassword));
     }
+
+    [HttpGet]
+    [Route("GetUserFromEmail")]
+    public async Task<IActionResult> GetUserFromEmailId(string Email)
+    {
+        return Ok(await _userRepository.GetUserFromEmailId(Email));
+    }
 }
