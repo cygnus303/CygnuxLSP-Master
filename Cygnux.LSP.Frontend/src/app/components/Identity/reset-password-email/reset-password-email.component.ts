@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password-email',
@@ -16,7 +16,6 @@ export class ResetPasswordEmailComponent {
 constructor(
  private authenticationService:AuthenticationService,
  private toastrService:ToastrService,
- private route:ActivatedRoute,
  private router:Router
 ){}
 

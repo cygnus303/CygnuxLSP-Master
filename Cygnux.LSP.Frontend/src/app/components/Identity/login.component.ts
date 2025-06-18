@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IdentityService } from '../../shared/services/identity.service';
-import { EmailRegex, MobileRegex, PasswordRegex } from '../../shared/constants/common';
+import { EmailRegex, PasswordRegex } from '../../shared/constants/common';
 import { CommonService } from '../../shared/services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthMemoryService } from '../../shared/services/authmemory.service';
 
 @Component({
     selector: 'app-login',
@@ -13,50 +14,62 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
     public loginFormGroup!: FormGroup;
-    public loading = false;
-    public isFormSubmit = false;
+    public loading :boolean = false;
     public isPasswordVisible: boolean = false;
-    public showLogin = true;
-    public showForgotPassword = false;
-    public sendEmail=false;
-    
+
     constructor(private identityService: IdentityService,
         private commonService: CommonService,
         private toasterService: ToastrService,
-        private router: Router) {
+        private router: Router,
+        private authMemory: AuthMemoryService
+    ) {
 
     }
 
     ngOnInit(): void {
-        this.buildLoginForm();
+        this.buildForm();
     }
 
-    buildLoginForm(): void {
+    buildForm(): void {
         this.loginFormGroup = new FormGroup({
             password: new FormControl(null, [Validators.required, Validators.pattern(PasswordRegex), Validators.minLength(8)]),
-            email: new FormControl(null, [Validators.required, Validators.pattern(EmailRegex)])
+            email: new FormControl(null, [Validators.required, Validators.pattern(EmailRegex)]),
+            rememberMe: new FormControl(false)
         });
+        if (this.authMemory.rememberedEmail) {
+            this.loginFormGroup.patchValue({
+                email: this.authMemory.rememberedEmail,
+                password: this.authMemory.rememberedPassword,
+                rememberMe: true
+            });
+        }
     }
 
-    get loginControls(): { [key: string]: AbstractControl } {
-        let loginDetail = this.loginFormGroup.controls;
-        return loginDetail;
-    }
+     onSubmitLogin() {
+        if (this.loginFormGroup.invalid) return;
 
-    public onSubmitLogin(): void {
+        const { email, password, rememberMe } = this.loginFormGroup.value;
+
+        if (rememberMe) {
+            this.authMemory.rememberedEmail = email;
+            this.authMemory.rememberedPassword = password
+        } else {
+            this.authMemory.rememberedEmail = '';
+            this.authMemory.rememberedPassword = ''
+        }
         if (this.loginFormGroup.invalid) {
             return;
         }
-    
-        this.loading = true; // show loading in button
-        this.commonService.updateLoader(true); // optional global loader
-    
+
+        this.loading = true;
+        this.commonService.updateLoader(true);
+
         this.identityService.login(this.loginFormGroup.getRawValue())
             .subscribe({
                 next: (response) => {
                     this.loading = false; // hide button loader
                     this.commonService.updateLoader(false); // optional
-    
+
                     if (response && response.success) {
                         this.identityService.setToken(response.data.token);
                         this.identityService.setRoles(response.data.roles);
@@ -77,32 +90,9 @@ export class LoginComponent implements OnInit {
                 },
             });
     }
-    
-
-    public onShowLogin(): void {
-        this.buildLoginForm();
-        this.isFormSubmit = false;
-    }
 
     togglePasswordVisibility() {
         this.isPasswordVisible = !this.isPasswordVisible;
-      }
+    }
 
-      openForgotPassword() {
-        this.showLogin = false;
-        this.showForgotPassword = true;
-        this.sendEmail =false;
-      }
-      backToLogin() {
-        this.showForgotPassword = false;
-        this.showLogin = true;
-        this.sendEmail =false;
-      }
-      sendToEmail(){
-        this.sendEmail =true;  //It store value in api response
-      }
-
-      resetPassword(){
-        
-      }
 }
