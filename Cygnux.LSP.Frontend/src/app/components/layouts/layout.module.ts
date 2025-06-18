@@ -15,7 +15,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
         FullComponent,
         HeaderComponent,
         FooterComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
     ],
     providers: [],
     exports: [

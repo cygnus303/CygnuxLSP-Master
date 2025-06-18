@@ -12,7 +12,7 @@ export const LoginRoutes: Routes = [{
   canActivate: [LoginGuard]
 },
 { 
-  path: 'ForgotPassword', component: ResetPasswordEmailComponent 
+  path: 'forgotPassword', component: ResetPasswordEmailComponent 
 },
 { 
   path: 'changePassword/:id', component: ForgotPasswordComponent 

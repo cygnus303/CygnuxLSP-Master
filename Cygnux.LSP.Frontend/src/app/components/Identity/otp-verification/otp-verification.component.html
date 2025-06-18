@@ -59,7 +59,7 @@
                         name="d6" (input)="verifyOtp()" (keydown.backspace)="backspace($event, d5)" #d6>
                     </div>
                   </div>
-                   <div class="mt-4 mb-4"><span class="reset-password-link">If don't receive OTP?
+                   <div class="mt-4 mb-4"><span class="reset-password-link"  *ngIf="failedAttempts >= maxAttempts">If don't receive OTP?
                     <a class="btn-link text-danger cursor-pointer" (click)="resendOTP()">Resend</a></span></div>
                 </div>
               </form>

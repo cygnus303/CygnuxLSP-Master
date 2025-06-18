@@ -37,4 +37,8 @@ export class AuthenticationService {
   resendMail(userId:string,filters:any): Observable<any>{
       return this.apiHandlerService.Post(`Authentication/ResendMail?Entryby=${userId}`, filters);
   }
+
+  forgotPasswordMail(filters:any):Observable<any>{
+      return this.apiHandlerService.Post(`Authentication/ForgotPassword`, filters);
+  }
 }

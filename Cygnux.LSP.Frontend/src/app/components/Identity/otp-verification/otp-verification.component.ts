@@ -14,6 +14,8 @@ export class OtpVerificationComponent {
   public showOtp: boolean = false;
   public  otp = { d1: '', d2: '', d3: '', d4: '', d5: '', d6: '' };
   public otpId:string='';
+  public failedAttempts: number = 0;
+ public maxAttempts: number = 3;
 
   constructor(
       private authenticationService:AuthenticationService,
@@ -44,29 +46,32 @@ export class OtpVerificationComponent {
   }
 
   verifyOtp() {
-    const otpCode = Object.values(this.otp).join('');
-    if (otpCode.length === 6) {
-      const filters={
-        requestId:this.otpId,
-        email:this.email,
-        otp:otpCode
-      }
-      this.authenticationService.verifyOTP(filters).subscribe({
-        next: (response) => {
-          if(response.success){
+  const otpCode = Object.values(this.otp).join('');
+  if (otpCode.length === 6) {
+    const filters = {
+      requestId: this.otpId,
+      email: this.email,
+      otp: otpCode
+    };
+
+    this.authenticationService.verifyOTP(filters).subscribe({
+      next: (response) => {
+        if (response.success) {
           this.toastrService.success(response.data.message);
-         this.router.navigateByUrl(`login/changePassword/${this.otpId}`);
-          }else{
-            this.toastrService.error(response.error.message)
-          }
-        },
-        error: (response) => {
-          this.toastrService.error(response.error.message)
+          this.router.navigateByUrl(`login/changePassword/${this.otpId}`);
+        } else {
+          this.failedAttempts++;
+          this.toastrService.error(response.error.message);
         }
-      });
-    
-    }
+      },
+      error: (response) => {
+        this.failedAttempts++;
+        this.toastrService.error(response.error.message);
+      }
+    });
   }
+}
+
 
   resendOTP(){
     const filters={

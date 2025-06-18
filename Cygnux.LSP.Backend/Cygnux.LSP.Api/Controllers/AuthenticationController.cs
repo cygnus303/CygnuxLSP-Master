@@ -403,7 +403,7 @@ public class AuthenticationController : ControllerBase
                 });
             }
 
-            string forgotPassUrl = $"https://uatlsp.cygnux.in/login/changepassword/{idResponse.Data.ReqID}";
+            string forgotPassUrl = $"https://uatlsp.cygnux.in/login/changePassword/{idResponse.Data.ReqID}";
 
             var passEntry = new ForgotPasswordUpdate
             {
