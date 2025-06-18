@@ -57,10 +57,6 @@ export class LoginComponent implements OnInit {
             this.authMemory.rememberedEmail = '';
             this.authMemory.rememberedPassword = ''
         }
-        if (this.loginFormGroup.invalid) {
-            return;
-        }
-
         this.loading = true;
         this.commonService.updateLoader(true);
 
