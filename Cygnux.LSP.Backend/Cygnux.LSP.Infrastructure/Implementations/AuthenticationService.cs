@@ -126,4 +126,27 @@ internal class AuthenticationService : IAuthenticationservice
             commandType: CommandType.StoredProcedure
         ) ?? new CommonCreateResponse();
     }
+
+    public async Task<GetID> GetReqIdfromUserId(Guid userid)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userid, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<GetID>(
+            StoredProcedureConstants.USP_GetReqID,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new GetID();
+    }
+    public async Task<CommonCreateResponse> ForgotPWDdataUpdate(string pwdEntry)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonData", pwdEntry, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_ForgetReq,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+    }
 }

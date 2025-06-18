@@ -137,4 +137,11 @@ internal class UserRepository : IUserRepository
 
         return new BaseResponse<CommonCreateResponse>(response);
     }
+
+    public async Task<BaseResponse<GetUserId>> GetUserFromEmailId(string email)
+    {
+        var response = await _userService.GetUserFromEmailId(email);
+
+        return new BaseResponse<GetUserId>(response);
+    }
 }

@@ -198,4 +198,28 @@ internal class UserService : IUserService
         };
     }
 
+    public async Task<GetUserId> GetUserFromEmailId(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user != null)
+        {
+            return new GetUserId
+            {
+                Status = 1,
+                Message = "User found",
+                UserId = user.Id
+            };
+        }
+        else
+        {
+            return new GetUserId
+            {
+                Status = 0,
+                Message = "User not found"
+            };
+        }
+    }
+
+
 }

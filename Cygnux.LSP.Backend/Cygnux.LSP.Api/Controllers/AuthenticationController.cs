@@ -270,7 +270,6 @@ public class AuthenticationController : ControllerBase
 
     }
 
-
     [HttpPost("ResendMail")]
     public async Task<IActionResult> ResendEmail([FromBody] ResendMailReq request, Guid Entryby)
     {
@@ -359,5 +358,88 @@ public class AuthenticationController : ControllerBase
             });
         }
     }
+
+   
+    [HttpPost("ForgotPassword")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Email))
+        {
+            return BadRequest(new BaseResponseError<bool>
+            {
+                Status = false,
+                Message = "Email is required.",
+                Data = false
+            });
+        }
+
+        try
+        {
+            // Step 1: Get User by Email
+            BaseResponse<GetUserId> userResponse = await _userRepository.GetUserFromEmailId(request.Email);
+
+            if (userResponse?.Data == null || userResponse.Data.UserId == Guid.Empty)
+            {
+                return NotFound(new BaseResponseError<bool>
+                {
+                    Status = false,
+                    Message = "No user found with the provided email.",
+                    Data = false
+                });
+            }
+
+            Guid userId = userResponse.Data.UserId;
+
+            // Step 2: Get Request ID (used in link)
+            BaseResponse<GetID> idResponse = await _authenticationRepository.GetReqIdfromUserId(userId);
+
+            if (idResponse?.Data == null)
+            {
+                return StatusCode(500, new BaseResponseError<bool>
+                {
+                    Status = false,
+                    Message = "Failed to generate password reset link.",
+                    Data = false
+                });
+            }
+
+            string forgotPassUrl = $"https://uatlsp.cygnux.in/login/changepassword/{idResponse.Data.ReqID}";
+
+            var passEntry = new ForgotPasswordUpdate
+            {
+                UserId = userId,
+                ForgotPwdLink = forgotPassUrl
+            };
+
+            // Step 3: Send Email
+            var subject = "Forgot Password Reset";
+            var body = $"Please reset your password using the link below:\n{forgotPassUrl}";
+
+            await _emailService.SendEmailAsync(request.Email, subject, body);
+
+            // Step 4: Save reset link info in DB
+            await _authenticationRepository.ForgotPWDdataUpdate(JsonConvert.SerializeObject(passEntry));
+
+            // Step 5: Return success response
+            return Ok(new BaseResponseError<string>
+            {
+                Status = true,
+                Message = "Forgot password link has been sent to your email.",
+                Data = forgotPassUrl
+            });
+        }
+        catch (Exception ex)
+        {
+            // Optionally log exception
+            return StatusCode(500, new BaseResponseError<string>
+            {
+                Status = false,
+                Message = "Failed to process forgot password request.",
+                Data = ex.Message
+            });
+        }
+    }
+
+
 
 }

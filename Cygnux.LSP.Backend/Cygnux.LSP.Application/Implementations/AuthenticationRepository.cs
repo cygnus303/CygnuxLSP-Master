@@ -80,4 +80,19 @@ internal class AuthenticationRepository : IAuthenticationRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+    public async Task<BaseResponse<GetID>> GetReqIdfromUserId(Guid userid)
+    {
+        var response = await _authenticationService.GetReqIdfromUserId(userid);
+
+        return new BaseResponse<GetID>(response);
+
+    }
+
+    public async Task<BaseResponse<CommonCreateResponse>> ForgotPWDdataUpdate(string pwdEntry)
+    {
+        var response = await _authenticationService.ForgotPWDdataUpdate(pwdEntry);
+
+        return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
+                   : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
+    }
 }
