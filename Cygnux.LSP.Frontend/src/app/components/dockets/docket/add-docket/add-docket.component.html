@@ -54,7 +54,7 @@
                     placeholder="Search transporter"
                     [searchable]="true"
                     (change)="onSelectOrigin($event, 'lsp')"
-                    required
+                    required [readonly]="docketForm.controls['customerId'].valid ? false:true"
                     [ngClass]="{ 'border-danger': docketForm.controls['transporter'].invalid && docketForm.controls['transporter'].touched}" 
                     >
                     </ng-select>
