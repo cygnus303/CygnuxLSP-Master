@@ -63,6 +63,8 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getLsps();
     this.buildForm();
+    this.getCustomers();
+
   }
 
   buildForm(): void {
