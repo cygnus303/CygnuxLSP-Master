@@ -27,7 +27,7 @@
                                 <div class="col-md-6">
                                     <label class="col-form-label">LSP Name</label>
                                     <ng-select [items]="lsps" bindLabel="lspName" bindValue="lspId"
-                                        formControlName="lspId" placeholder="Select LSP"
+                                        formControlName="lspId" placeholder="Select LSP" [readonly]="lspTatForm.controls['customerId'].valid ? false : true"
                                         [searchable]="true" [ngClass]="{ 'border-danger': lspTatForm.controls['lspId'].invalid && lspTatForm.controls['lspId'].touched}">
                                     </ng-select>
                                     <div *ngIf="lspTatForm.controls['lspId'].invalid && lspTatForm.controls['lspId']?.touched"
