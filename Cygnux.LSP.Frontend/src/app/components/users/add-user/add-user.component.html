@@ -110,7 +110,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="roles">Roles</label>
-                    <ng-select [items]="roles" bindLabel="roleName" bindValue="roleName" formControlName="roles"
+                    <ng-select [items]="roles" bindLabel="roleName" bindValue="roleName" formControlName="roles" [readonly]="userId != ''"
                       placeholder="Select roles" [closeOnSelect]="false" [searchable]="true"
                       [ngClass]="{ 'border-danger': userForm.controls['roles'].invalid && userForm.controls['roles'].touched}">
                     </ng-select>
