@@ -27,8 +27,8 @@
                                      <div class="form-input position-relative">
                                       <input class="form-control" formControlName="password" type="password"
                                         name="login[password]" required="" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Enter Password">
-                                      <div class="align-middle position-absolute top-50 translate-middle-y end-0 pe-3" (click)="togglePasswordVisibility()"> 
-                                        <i class="fa"  [style.color]="isPasswordVisible ? 'darkblue' : 'gray'" [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                      <div class="align-middle cursor-pointer position-absolute top-50 translate-middle-y end-0 pe-3" (click)="togglePasswordVisibility()"> 
+                                        <i class="fa fs-11"  [style.color]="isPasswordVisible ? 'darkblue' : 'gray'" [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                       </div>
                                     </div>
                                     <div *ngIf="loginFormGroup.controls['password'].invalid && loginFormGroup.controls['password']?.touched"
