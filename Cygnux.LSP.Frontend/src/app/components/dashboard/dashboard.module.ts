@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutes } from './dashboard.routes';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -10,6 +11,7 @@ import { DashboardComponent } from './dashboard.component';
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
+    NgApexchartsModule,
     RouterModule.forChild(DashboardRoutes),
   ]
 })
