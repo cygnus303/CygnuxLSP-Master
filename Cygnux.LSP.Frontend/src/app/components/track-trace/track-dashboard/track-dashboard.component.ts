@@ -17,6 +17,9 @@ import { IdentityService } from "../../../shared/services/identity.service";
 import { SweetAlertService } from "../../../shared/services/toastr.service";
 import { DocketCountResponse } from "../../../shared/models/trackTrace.model";
 import { Router } from "@angular/router";
+import { DocketService } from "../../../shared/services/docket.service";
+import { ToastrService } from "ngx-toastr";
+import { DocketResponse } from "../../../shared/models/docket.model";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -37,13 +40,14 @@ export type ChartOptions = {
   styleUrls: ['./track-dashboard.component.scss'],
 })
 export class TrackDashboardComponent {
-  public totalDocket:number = 0;
+  public totalDocket: number = 0;
   public chartOptions: ChartOptions;
-  public docketCount:DocketCountResponse[]=[];
+  public docketCount: DocketCountResponse[] = [];
   public isContentVisible = false;
+  public dockets: DocketResponse[] = [];
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-    new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
+  new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
   public donutChartOptions: any = {
     series: [44, 55, 41],
     chart: {
@@ -91,113 +95,22 @@ export class TrackDashboardComponent {
     ]
   };
   dashboardMeta = [
-    { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress:"progress-gradient-danger" ,headerColor:'header-text-danger'},
-    { name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open' ,progress:"progress-gradient-secondary",headerColor:'header-text-secondary'},
-    { name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing',progress:"progress-gradient-primary",headerColor:'header-text-primary' },
-    { name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck' ,progress:"progress-gradient-info",headerColor:'header-text-info'},
-    { name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box' ,progress:"progress-gradient-warning",headerColor:'header-text-warning'},
-    { name: 'Delivered', color: 'green', icon: 'fa-shipping-fast' ,progress:"progress-gradient-success",headerColor:'header-text-success'}
+    { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
+    { name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary' },
+    { name: 'PickUp Approve', color: 'blue', icon: 'fa-solid fa-boxes-packing', progress: "progress-gradient-primary", headerColor: 'header-text-primary' },
+    { name: 'In-Transit', color: 'purple', icon: 'fa-solid fa-truck', progress: "progress-gradient-info", headerColor: 'header-text-info' },
+    { name: 'Out for Delivered', color: 'teal', icon: 'fa-solid fa-truck-ramp-box', progress: "progress-gradient-warning", headerColor: 'header-text-warning' },
+    { name: 'Delivered', color: 'green', icon: 'fa-shipping-fast', progress: "progress-gradient-success", headerColor: 'header-text-success' }
   ];
 
-  dockets=[
-        {
-            "docketNo": "6756776",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "surat",
-            "toLocation": "mumbai",
-            "customerName": "John",
-            "transporterDesc": "Wipro",
-            "transportMode": "2",
-            "transportModeDesc": "Surface",
-            "quantity": 4,
-            "currentStatusDesc": "Pick Up",
-        },
-        {
-            "docketNo": "6756776",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "surat",
-            "toLocation": "mumbai",
-            "customerName": "John",
-            "invoiceNo": "3",
-            "transporterDesc": "Wipro",
-            "transportMode": "2",
-            "transportModeDesc": "Surface",
-            "quantity": 4,
-            "currentStatusDesc": "Pick Up",
-        },
-        {
-            "docketNo": "6756776",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "surat",
-            "toLocation": "mumbai",
-            "customerName": "John",
-            "invoiceNo": "3",
-            "transporterDesc": "Wipro",
-            "transportMode": "2",
-            "transportModeDesc": "Surface",
-            "quantity": 4,
-            "currentStatusDesc": "Pick Up",
-        },
-        {
-            "docketNo": "8988989",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "Chad",
-            "toLocation": "Niger",
-            "customerName": "John",
-            "invoiceNo": "7",
-            "transporterDesc": "Wipro",
-            "transportMode": "2",
-            "transportModeDesc": "Surface",
-            "quantity": 7,
-            "currentStatusDesc": "Booked",
-        },
-        {
-            "docketNo": "56757",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "Sudan",
-            "toLocation": "Abeche",
-            "customerName": "John",
-            "invoiceNo": "6",
-            "transporterDesc": "Wipro",
-            "transportMode": "1",
-            "transportModeDesc": "Train",
-            "quantity": 6,
-            "currentStatusDesc": "In-Transit",
-        },
-        {
-            "docketNo": "454545",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "Salli",
-            "toLocation": "Haripura",
-            "customerName": "John",
-            "invoiceNo": "54",
-            "transporterDesc": "Wipro",
-            "transportMode": "2",
-            "transportModeDesc": "Surface",
-            "quantity": 5,
-            "currentStatusDesc": "Out for Delivered",
-        },
-        {
-            "docketNo": "12340",
-            "bookingDate": "2025-06-03T00:00:00",
-            "fromLocation": "Chad",
-            "toLocation": "Niger",
-            "customerName": "John",
-            "invoiceNo": "1",
-            "transporterDesc": "Wipro",
-            "transportMode": "2",
-            "transportModeDesc": "Surface",
-            "quantity": 2,
-            "currentStatusDesc": "Delivered",
-        }
-    ]
-
   constructor(
-     public commonService: CommonService,
-     public trackTraceService:TrackTraceService,
-     private identityService:IdentityService,
-     private sweetAlertService:SweetAlertService,
-      private router: Router
+    public commonService: CommonService,
+    public trackTraceService: TrackTraceService,
+    private identityService: IdentityService,
+    private sweetAlertService: SweetAlertService,
+    private docketService: DocketService,
+    private toasterService: ToastrService,
+    private router: Router
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {
@@ -213,7 +126,7 @@ export class TrackDashboardComponent {
       ],
       chart: {
         type: "bar",
-        height: 290 
+        height: 290
       },
       plotOptions: {
         bar: {
@@ -251,32 +164,38 @@ export class TrackDashboardComponent {
     };
   }
 
-onDateRangeSelected(selectedRange: any): void {
-  const [fromDate, toDate] = selectedRange;
-  const fromdate = this.formatDate(fromDate);
-  const todate = this.formatDate(toDate);
-  this.getDocketCount(fromdate, todate);
-}
 
-formatDate(date: Date): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-}
 
-    slideContentInAndNavigate() {
-      this.isContentVisible = !this.isContentVisible;
+  ngOnInit() {
+    this.getDockets()
+  }
+
+  onDateRangeSelected(selectedRange: any): void {
+    const [fromDate, toDate] = selectedRange;
+    const fromdate = this.formatDate(fromDate);
+    const todate = this.formatDate(toDate);
+    this.getDocketCount(fromdate, todate);
+  }
+
+  formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
+  slideContentInAndNavigate() {
+    this.isContentVisible = !this.isContentVisible;
     setTimeout(() => {
-    this.router.navigate(['/track/list']);
-    }, 100); 
-    }
+      this.router.navigate(['/track/list']);
+    }, 100);
+  }
 
-  getDocketCount(fromdate:any, todate:any){
-    this.trackTraceService.getTrackigCountDetail(this.identityService.getLoggedUserId(),fromdate,todate).subscribe({
+  getDocketCount(fromdate: any, todate: any) {
+    this.trackTraceService.getTrackigCountDetail(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
       next: (response) => {
         if (response && response.data) {
-          this.totalDocket= response.totalCount;
+          this.totalDocket = response.totalCount;
           const mergedData: any[] = [];
 
           this.dashboardMeta.forEach(meta => {
@@ -296,6 +215,27 @@ formatDate(date: Date): string {
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
-      },})
+      },
+    })
+  }
+
+  getDockets(page: number = 1) {
+    this.commonService.updateLoader(true);
+    const filters: any = {
+      Page: 1,
+      PageSize: 100,
+    };
+    this.docketService.getDocketList(this.identityService.getLoggedUserId(), filters).subscribe({
+      next: (response) => {
+        if (response) {
+          this.dockets = response.data;
+        }
+        this.commonService.updateLoader(false);
+      },
+      error: (response: any) => {
+        this.toasterService.error(response.error.message);
+        this.commonService.updateLoader(false);
+      },
+    });
   }
 }

@@ -13,7 +13,7 @@
               <div class="row g-3">
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Docket No.</label>
-                  <input class="form-control" formControlName="docketNo" type="text" required placeholder="Enter Docket No"
+                  <input class="form-control" formControlName="docketNo" type="text" required placeholder="Enter Docket No" maxlength="6"
                     [ngClass]="{ 'border-danger': docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo'].touched}" [readOnly]="docketId"/>
                   <div *ngIf="docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['docketNo'].errors?.['required']">Docket No. is required.</small>
