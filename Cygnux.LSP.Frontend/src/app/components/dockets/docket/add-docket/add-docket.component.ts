@@ -25,20 +25,20 @@ import { LspResponse } from '../../../../shared/models/lsp.model';
 })
 export class AddDocketComponent implements OnInit, OnChanges {
   public customers: CustomerResponse[] = [];
-  public customerLocation : CustomerLocationResponse[]=[];
-  public customerWHStoreLocation : CustomerLocationResponse[]=[];
-  public transporter:TrackingListResponse[]=[];
-  public transportMode:TrackingListResponse[]=[];
+  public customerLocation: CustomerLocationResponse[] = [];
+  public customerWHStoreLocation: CustomerLocationResponse[] = [];
+  public transporter: TrackingListResponse[] = [];
+  public transportMode: TrackingListResponse[] = [];
   public lsps: LspResponse[] | null = null;
   public docketForm!: FormGroup;
   public docketId: string = '';
-  public customerId : string='' ;
+  public customerId: string = '';
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor( private docketService: DocketService, private sweetAlertService: SweetAlertService, private lspTatService: LspMappingService,private identityService:IdentityService) {
+  constructor(private docketService: DocketService, private sweetAlertService: SweetAlertService, private lspTatService: LspMappingService, private identityService: IdentityService) {
     this.docketForm = new FormGroup({});
   }
 
@@ -62,32 +62,47 @@ export class AddDocketComponent implements OnInit, OnChanges {
       transporter: new FormControl(null),
       transportMode: new FormControl(null),
       quantity: new FormControl(null),
-      lspId:new FormControl(null),
-      currentStatus:new FormControl(this.docketId === '' ? '1' : null)
+      lspId: new FormControl(null),
+      currentStatus: new FormControl(this.docketId === '' ? '1' : null)
     });
   }
 
-ngOnChanges(changes: SimpleChanges): void {
-  if (changes['docketResponse'] && this.docketResponse) {
-    this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
-    this.docketId = this.docketResponse.docketId;
-    this.docketForm.patchValue(this.docketResponse);
-    if(this.isSelected === 'edit'){
-      this.onSelectCustomer(this.docketResponse , true)
-      this.onSelectOrigin(this.docketResponse)
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['docketResponse'] && this.docketResponse) {
+      this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
+      this.docketId = this.docketResponse.docketId;
+      const transporterId = this.docketResponse.transporter
+        ?? this.docketResponse.trasporter
+        ?? this.getKeyIgnoreCase(this.docketResponse, 'transporter');
+
+
+      const normalizedTransporter = typeof transporterId === 'string' ? transporterId.toLowerCase() : transporterId;
+      this.docketForm.patchValue({
+        ...this.docketResponse,
+        transporter: normalizedTransporter
+      });
+
+      if (this.isSelected === 'edit') {
+        this.onSelectCustomer(this.docketResponse, true)
+        this.onSelectOrigin(this.docketResponse)
+      }
+    } else {
+      this.docketId = '';
+      this.buildForm();
+      this.docketForm.patchValue({
+        bookingDate: new Date(),
+        status: this.docketId ? null : '1',
+      });
+      this.getCustomers();
     }
-  } else {
-    this.docketId = '';
-    this.buildForm();
-    this.docketForm.patchValue({
-      bookingDate: new Date(),
-      status:this.docketId ? null : '1',
-    });
-    this.getCustomers();
   }
-}
 
-  onClose(){
+  getKeyIgnoreCase(obj: any, key: string): any {
+    const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
+    return foundKey ? obj[foundKey] : null;
+  }
+
+  onClose() {
     this.buildForm();
     this.getCustomers();
   }
@@ -96,12 +111,12 @@ ngOnChanges(changes: SimpleChanges): void {
     if (form.valid) {
       let forms = {
         ...form.value,
-        lspId:this.docketForm.value.transporter,
-        isCancel:false,
-        bookingDate:form.value.bookingDate.toISOString().split('T')[0]
+        lspId: this.docketForm.value.transporter,
+        isCancel: false,
+        bookingDate: form.value.bookingDate.toISOString().split('T')[0]
       }
       !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);
-    }else{
+    } else {
       form.markAllAsTouched();
     }
   }
@@ -110,10 +125,10 @@ ngOnChanges(changes: SimpleChanges): void {
       next: (response) => {
         if (response) {
           this.customers = response.data;
-          if(this.userRoles !== 'SA' && response.data.length > 0){
+          if (this.userRoles !== 'SA' && response.data.length > 0) {
             this.docketForm.patchValue(response.data[0])
             // this.onSelectOrigin(response.data[0])
-            this.customerId=response.data[0].customerId
+            this.customerId = response.data[0].customerId
           }
         }
       },
@@ -123,7 +138,7 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  getLsps(customerId:string) {
+  getLsps(customerId: string) {
     this.lspTatService.getLsps(customerId).subscribe({
       next: (response) => {
         if (response) {
@@ -137,20 +152,20 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
   addDocket(form: any): void {
-    form.CreatedBy= this.identityService.getLoggedUserId();
-    form.UpdatedBy= this.identityService.getLoggedUserId();
-    form.UserId  = this.identityService.getLoggedUserId();
+    form.CreatedBy = this.identityService.getLoggedUserId();
+    form.UpdatedBy = this.identityService.getLoggedUserId();
+    form.UserId = this.identityService.getLoggedUserId();
     this.docketService.addDocket(form).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
           this.buildForm();
           this.dataEmitter.emit();
-          if(this.userRoles !== 'SA'){
-          this.docketForm.patchValue({
-            customerId:this.customerId
-          })
-        }
+          if (this.userRoles !== 'SA') {
+            this.docketForm.patchValue({
+              customerId: this.customerId
+            })
+          }
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -170,11 +185,11 @@ ngOnChanges(changes: SimpleChanges): void {
             this.sweetAlertService.success(response.data.message);
             this.buildForm();
             this.dataEmitter.emit();
-            if(this.userRoles !== 'SA'){
-          this.docketForm.patchValue({
-            customerId:this.customerId
-          })
-        }
+            if (this.userRoles !== 'SA') {
+              this.docketForm.patchValue({
+                customerId: this.customerId
+              })
+            }
           } else {
             this.sweetAlertService.error(response.error.message);
           }
@@ -184,22 +199,22 @@ ngOnChanges(changes: SimpleChanges): void {
         },
       });
   }
-  onSelectCustomer(event:any ,resetLocations: boolean = false){
-    if(!resetLocations){
+  onSelectCustomer(event: any, resetLocations: boolean = false) {
+    if (!resetLocations) {
       this.docketForm.patchValue({
-        fromLocation:null,
-        toLocation:null
+        fromLocation: null,
+        toLocation: null
       });
     }
     this.getLsps(event.customerId)
-    const filters={
-      CustomerId:event.customerId,
-      origin:event.location ? event.location : ''
+    const filters = {
+      CustomerId: event.customerId,
+      origin: event.location ? event.location : ''
     }
     this.docketService.getLocationData(filters).subscribe({
       next: (response) => {
         if (response.success) {
-          this.customerLocation=response.data;
+          this.customerLocation = response.data;
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -226,7 +241,7 @@ ngOnChanges(changes: SimpleChanges): void {
           toLocation: null
         });
         break;
-  
+
       case 'fromLocation':
         selectedFromLocation = event.fromLocation;
         selectedToLocation = '';
@@ -234,18 +249,18 @@ ngOnChanges(changes: SimpleChanges): void {
           toLocation: null
         });
         break;
-  
+
       case 'toLocation':
         selectedToLocation = event.toLocation;
         break;
     }
     const filters = {
       CustomerId: formValues.customerId || this.customerId,
-      LspId: selectedLsp ,
-      origin: selectedFromLocation ,
+      LspId: selectedLsp,
+      origin: selectedFromLocation,
       destination: selectedToLocation
     };
-  
+
     this.docketService.getLocationData(filters).subscribe({
       next: (response) => {
         if (response.success) {
@@ -254,7 +269,7 @@ ngOnChanges(changes: SimpleChanges): void {
           } else if (type === 'fromLocation') {
             this.customerWHStoreLocation = response.data;
           }
-  
+
           if (response.data?.[0]?.mode) {
             this.docketForm.patchValue({
               transportMode: response.data[0].mode
@@ -269,13 +284,13 @@ ngOnChanges(changes: SimpleChanges): void {
       }
     });
   }
-  
-  
-  getTransporterDetail(){
+
+
+  getTransporterDetail() {
     this.docketService.getTrackingList('DOCKSTAUS').subscribe({
       next: (response) => {
         if (response.success) {
-          this.transporter=response.data;
+          this.transporter = response.data;
         } else {
           this.sweetAlertService.error(response.error.message);
         }
@@ -286,11 +301,11 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  getTransportModeDetail(){
+  getTransportModeDetail() {
     this.docketService.getTrackingList('TRN').subscribe({
       next: (response) => {
         if (response.success) {
-          this.transportMode=response.data;
+          this.transportMode = response.data;
         } else {
           this.sweetAlertService.error(response.error.message);
         }
