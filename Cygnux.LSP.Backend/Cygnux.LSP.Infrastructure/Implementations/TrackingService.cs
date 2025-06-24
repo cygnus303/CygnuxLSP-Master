@@ -44,4 +44,19 @@ internal class TrackingService : ITrackingservice
              commandType: CommandType.StoredProcedure
          );
     }
+    public async Task<IEnumerable<TrackingChartResponse>> GetTransportChartData(Guid userId, string fromDate, string toDate)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@FromDate", fromDate, DbType.String);
+        parameters.Add("@ToDate", toDate, DbType.String);
+
+        return await _dbConnection.QueryAsync<TrackingChartResponse>(
+            StoredProcedureConstants.USP_DocketCount, 
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
+
+
 }

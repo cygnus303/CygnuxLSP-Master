@@ -32,4 +32,16 @@ internal class TrackingRepository : ITrackingRepository
         return new BaseResponse<IEnumerable<Trackinglist>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
+    public async Task<BaseResponse<IEnumerable<TrackingChartResponse>>> GetTransportChartData(Guid userId, string fromDate, string toDate)
+    {
+        var docketList = await _trackingService.GetTrackigList(null, userId);
+        var grouped = docketList.GroupBy(x => x.TransportModeDesc)
+        .Select(g => new TrackingChartResponse
+            {
+                Mode = g.Key,
+                TotalCount = g.Count()
+            }).ToList();
+        return new BaseResponse<IEnumerable<TrackingChartResponse>>(grouped, grouped.Sum(x => x.TotalCount));
+    }
+
 }

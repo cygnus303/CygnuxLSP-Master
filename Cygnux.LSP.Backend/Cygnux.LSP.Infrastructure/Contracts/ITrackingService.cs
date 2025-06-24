@@ -9,4 +9,5 @@ public interface ITrackingservice
 {
      Task<IEnumerable<Trackinglist>> GetDashboardList(Guid userid, string fromDate, string toDate);
     Task<IEnumerable<TrackingDocketResponse>> GetTrackigList(string docketNOs, Guid userid);
+    Task<IEnumerable<TrackingChartResponse>> GetTransportChartData(Guid userId, string fromDate, string toDate);
 }

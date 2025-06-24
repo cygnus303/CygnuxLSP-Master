@@ -38,6 +38,12 @@ public class TrackingController : ControllerBase
     {
         return Ok(await _trackingRepository.GetDashboardList(userid, fromDate, toDate));
     }
+    [HttpGet]
+    [Route("GetTransportModeChartData")]
+    public async Task<IActionResult> GetTransportChartData(Guid userId, string fromDate, string toDate)
+    {
+        return Ok(await _trackingRepository.GetTransportChartData(userId, fromDate, toDate));
+    }
 
 
 }

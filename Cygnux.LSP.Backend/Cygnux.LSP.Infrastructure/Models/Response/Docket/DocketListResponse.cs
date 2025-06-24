@@ -48,4 +48,11 @@
         public int Count { get; set; }
         public int TotalCount { get; set; }
     }
+
+    public class TrackingChartResponse
+    {
+        public string Mode { get; set; }
+        public int TotalCount { get; set; }
+    }
+
 }
