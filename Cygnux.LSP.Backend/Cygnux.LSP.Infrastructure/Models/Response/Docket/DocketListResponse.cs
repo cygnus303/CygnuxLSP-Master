@@ -51,8 +51,9 @@
 
     public class TrackingChartResponse
     {
-        public string Mode { get; set; }
+        public string TransportMode { get; set; }
         public int TotalCount { get; set; }
+        public int Count { get; set; }
     }
 
 }

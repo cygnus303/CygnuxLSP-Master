@@ -52,7 +52,7 @@ internal class TrackingService : ITrackingservice
         parameters.Add("@ToDate", toDate, DbType.String);
 
         return await _dbConnection.QueryAsync<TrackingChartResponse>(
-            StoredProcedureConstants.USP_DocketCount, 
+            StoredProcedureConstants.USP_DocketTransModeCount, 
             parameters,
             commandType: CommandType.StoredProcedure
         );
