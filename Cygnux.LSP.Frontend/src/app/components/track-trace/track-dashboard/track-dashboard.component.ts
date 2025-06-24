@@ -34,6 +34,8 @@ export type ChartOptions = {
   legend?: ApexLegend;
 };
 
+
+
 @Component({
   selector: 'app-track-dashboard',
   templateUrl: './track-dashboard.component.html',
@@ -49,52 +51,8 @@ export class TrackDashboardComponent {
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
   public searchText:string = '';
-  public donutChartOptions: any = {
-    series: [44, 55, 41],
-    chart: {
-      type: 'donut',
-      height: 160,
-    },
-    labels: ['Train', 'Surface', 'AIR'],
-    dataLabels: {
-      enabled: false
-    },
-    legend: {
-      show: true,              // ✅ Show the legend
-      position: 'bottom',      // ✅ Display it below the chart
-      fontSize: '14px',
-      fontWeight: 400,
-      markers: {
-        width: 10,
-        height: 10,
-        radius: 12,
-      },
-      itemMargin: {
-        horizontal: 10,
-        vertical: 5
-      }
-    },
-    colors: ['#7FC8A9', '#A1E3D8', '#C4FCEF'],
-    stroke: {
-      show: false
-    },
-    tooltip: {
-      enabled: false
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 250
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    ]
-  };
+  public donutChartOptions: any ;
+
   dashboardMeta = [
     { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
     { name: 'Pick Up', color: 'orange', icon: 'fa-solid fa-box-open', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary' },
@@ -168,7 +126,7 @@ export class TrackDashboardComponent {
 
 
   ngOnInit() {
-    this.getDockets()
+    this.getDockets();
   }
 
   onDateRangeSelected(selectedRange: any): void {
@@ -176,6 +134,7 @@ export class TrackDashboardComponent {
     const fromdate = this.formatDate(fromDate);
     const todate = this.formatDate(toDate);
     this.getDocketCount(fromdate, todate);
+    this.getTransportModeCount(fromdate, todate);
   }
 
   formatDate(date: Date): string {
@@ -239,4 +198,76 @@ export class TrackDashboardComponent {
       },
     });
   }
+
+getTransportModeCount(fromdate: any, todate: any) {
+  this.trackTraceService.getTransportModeCount(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
+    next: (response) => {
+      if (response && response.data) {
+        this.totalDocket = response.totalCount;
+
+        const labels = response.data.map((item: any) => item.mode);
+        const series = response.data.map((item: any) => item.totalCount);
+
+        const colorMap: { [key: string]: string } = {
+          'Train': '#C4FCEF',
+          'Surface': '#A1E3D8',
+          'AIR': '#7FC8A9'
+        };
+        const colors = labels.map(label => colorMap[label] || '#cccccc');
+
+        this.donutChartOptions = {
+          series: series,
+          chart: {
+            type: 'donut',
+            height: 160,
+          },
+          labels: labels,
+          dataLabels: {
+            enabled: false
+          },
+          legend: {
+            show: true,
+            position: 'bottom',
+            fontSize: '14px',
+            fontWeight: 400,
+            markers: {
+              width: 10,
+              height: 10,
+              radius: 12,
+            },
+            itemMargin: {
+              horizontal: 10,
+              vertical: 5
+            }
+          },
+          colors: colors,
+          stroke: {
+            show: false
+          },
+          tooltip: {
+            enabled: true
+          },
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 250
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }
+          ]
+        };
+      }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.message);
+    },
+  });
+}
+
+
 }

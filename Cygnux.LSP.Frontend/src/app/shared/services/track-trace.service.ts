@@ -56,4 +56,8 @@ export class TrackTraceService {
     getTrackigCountDetail(id: string,fromDate:string,toDate:string): Observable<IApiBaseResponse<DocketCountResponse[]>> {
       return this.apiHandlerService.Get(`Tracking/GetDashboardData?userid=${id}&fromDate=${fromDate}&toDate=${toDate}`);
     }
+
+    getTransportModeCount(id: string,fromDate:string,toDate:string): Observable<IApiBaseResponse<DocketCountResponse[]>> {
+      return this.apiHandlerService.Get(`Tracking/GetTransportModeChartData?userid=${id}&fromDate=${fromDate}&toDate=${toDate}`);
+    }
 }
