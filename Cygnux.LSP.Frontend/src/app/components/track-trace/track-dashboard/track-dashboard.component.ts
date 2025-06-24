@@ -34,8 +34,6 @@ export type ChartOptions = {
   legend?: ApexLegend;
 };
 
-
-
 @Component({
   selector: 'app-track-dashboard',
   templateUrl: './track-dashboard.component.html',
@@ -43,6 +41,7 @@ export type ChartOptions = {
 })
 export class TrackDashboardComponent {
   public totalDocket: number = 0;
+  public totalTransportMode: number = 0;
   public chartOptions: ChartOptions;
   public docketCount: DocketCountResponse[] = [];
   public isContentVisible = false;
@@ -50,8 +49,8 @@ export class TrackDashboardComponent {
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
-  public searchText:string = '';
-  public donutChartOptions: any ;
+  public searchText: string = '';
+  public donutChartOptions: any;
 
   dashboardMeta = [
     { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
@@ -133,6 +132,7 @@ export class TrackDashboardComponent {
     const [fromDate, toDate] = selectedRange;
     const fromdate = this.formatDate(fromDate);
     const todate = this.formatDate(toDate);
+    this.totalDocket = 0;
     this.getDocketCount(fromdate, todate);
     this.getTransportModeCount(fromdate, todate);
   }
@@ -199,75 +199,75 @@ export class TrackDashboardComponent {
     });
   }
 
-getTransportModeCount(fromdate: any, todate: any) {
-  this.trackTraceService.getTransportModeCount(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
-    next: (response) => {
-      if (response && response.data) {
-        this.totalDocket = response.totalCount;
+  getTransportModeCount(fromdate: any, todate: any) {
+    this.trackTraceService.getTransportModeCount(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          this.totalTransportMode = response.totalCount;
 
-        const labels = response.data.map((item: any) => item.mode);
-        const series = response.data.map((item: any) => item.totalCount);
+          const labels = response.data.map((item: any) => item.mode);
+          const series = response.data.map((item: any) => item.totalCount);
 
-        const colorMap: { [key: string]: string } = {
-          'Train': '#C4FCEF',
-          'Surface': '#A1E3D8',
-          'AIR': '#7FC8A9'
-        };
-        const colors = labels.map(label => colorMap[label] || '#cccccc');
+          const colorMap: { [key: string]: string } = {
+            'Train': '#C4FCEF',
+            'Surface': '#A1E3D8',
+            'AIR': '#7FC8A9'
+          };
+          const colors = labels.map(label => colorMap[label] || '#cccccc');
 
-        this.donutChartOptions = {
-          series: series,
-          chart: {
-            type: 'donut',
-            height: 160,
-          },
-          labels: labels,
-          dataLabels: {
-            enabled: false
-          },
-          legend: {
-            show: true,
-            position: 'bottom',
-            fontSize: '14px',
-            fontWeight: 400,
-            markers: {
-              width: 10,
-              height: 10,
-              radius: 12,
+          this.donutChartOptions = {
+            series: series,
+            chart: {
+              type: 'donut',
+              height: 160,
             },
-            itemMargin: {
-              horizontal: 10,
-              vertical: 5
-            }
-          },
-          colors: colors,
-          stroke: {
-            show: false
-          },
-          tooltip: {
-            enabled: true
-          },
-          responsive: [
-            {
-              breakpoint: 480,
-              options: {
-                chart: {
-                  width: 250
-                },
-                legend: {
-                  position: 'bottom'
+            labels: labels,
+            dataLabels: {
+              enabled: false
+            },
+            legend: {
+              show: true,
+              position: 'bottom',
+              fontSize: '14px',
+              fontWeight: 400,
+              markers: {
+                width: 10,
+                height: 10,
+                radius: 12,
+              },
+              itemMargin: {
+                horizontal: 10,
+                vertical: 5
+              }
+            },
+            colors: colors,
+            stroke: {
+              show: false
+            },
+            tooltip: {
+              enabled: true
+            },
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
                 }
               }
-            }
-          ]
-        };
-      }
-    },
-    error: (response: any) => {
-      this.sweetAlertService.error(response.error.message);
-    },
-  });
-}
+            ]
+          };
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
 
 
 }
