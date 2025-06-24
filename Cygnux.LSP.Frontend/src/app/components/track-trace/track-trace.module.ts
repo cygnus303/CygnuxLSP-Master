@@ -9,6 +9,7 @@ import { TrackDashboardComponent } from './track-dashboard/track-dashboard.compo
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
+import { SearchListPipe } from "../../shared/Pipe/search-list.pipe";
 
 @NgModule({
   declarations: [TrackTraceComponent,TrackDashboardComponent],
@@ -19,8 +20,9 @@ import { CountUpDirective } from '../../shared/directives/count-up.directive';
     RouterModule.forChild(TrackTraceRoutes),
     NgApexchartsModule,
     BsDatepickerModule.forRoot(),
-    CountUpDirective
-  ],
+    CountUpDirective,
+    SearchListPipe
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TrackTraceModule { }

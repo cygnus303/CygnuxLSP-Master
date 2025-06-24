@@ -48,6 +48,7 @@ export class TrackDashboardComponent {
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
+  public searchText:string = '';
   public donutChartOptions: any = {
     series: [44, 55, 41],
     chart: {

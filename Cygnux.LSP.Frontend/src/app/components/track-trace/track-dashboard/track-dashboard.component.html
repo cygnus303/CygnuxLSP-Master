@@ -53,7 +53,7 @@
             </div>
             <div class="col-5">
               <div class="form-group">
-                <input type="text" placeholder="Search Here..." class="form-control">
+                <input type="text"  [(ngModel)]="searchText" placeholder="Search Here..." class="form-control">
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let docket of dockets; let i = index">
+                        <tr *ngFor="let docket of dockets  | searchList: searchText; ; let i = index">
                           <td class="w-15 ps-3">{{ docket.docketNo }}</td>
                           <td class="w-15" *ngIf="!userRoles.includes('lsp Admin')">{{ docket.transporterDesc }}</td>
                           <td class="w-15" *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
