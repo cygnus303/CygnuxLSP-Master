@@ -41,7 +41,6 @@ export type ChartOptions = {
 })
 export class TrackDashboardComponent {
   public totalDocket: number = 0;
-  public totalTransportMode: number = 0;
   public chartOptions: ChartOptions;
   public docketCount: DocketCountResponse[] = [];
   public isContentVisible = false;
@@ -122,8 +121,6 @@ export class TrackDashboardComponent {
     };
   }
 
-
-
   ngOnInit() {
     this.getDockets();
   }
@@ -132,7 +129,6 @@ export class TrackDashboardComponent {
     const [fromDate, toDate] = selectedRange;
     const fromdate = this.formatDate(fromDate);
     const todate = this.formatDate(toDate);
-    this.totalDocket = 0;
     this.getDocketCount(fromdate, todate);
     this.getTransportModeCount(fromdate, todate);
   }
@@ -202,11 +198,10 @@ export class TrackDashboardComponent {
   getTransportModeCount(fromdate: any, todate: any) {
     this.trackTraceService.getTransportModeCount(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
       next: (response) => {
-        if (response && response.data) {
-          this.totalTransportMode = response.totalCount;
-
-          const labels = response.data.map((item: any) => item.mode);
-          const series = response.data.map((item: any) => item.totalCount);
+        if (response && Array.isArray(response.data)) {
+ 
+      const labels = response.data.map((item: any) => item.transportMode?.toString() ?? 'Unknown');
+      const series = response.data.map((item: any) => Number(item.count) || 0);
 
           const colorMap: { [key: string]: string } = {
             'Train': '#C4FCEF',
