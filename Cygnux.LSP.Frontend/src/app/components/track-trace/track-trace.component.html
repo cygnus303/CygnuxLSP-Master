@@ -52,7 +52,8 @@
               </div>
             </div>
             <div class="overflow" (scroll)="onScroll($event)">
-                <div class="row w-100 p-4 pe-0" *ngIf="trackTraceList.length > 0; else noData">
+                <div class="row w-100 p-4 pe-0" >
+                   <ng-container *ngIf="trackTraceList.length > 0">
                     <div class="col-12 col-sm-6 col-lg-6 col-md-6 col-xl-4 col-xxl-4 fade-in" *ngFor="let data of trackTraceList;let i=index">
                       <div class="card box-shadow p-4 pt-3">
                           <!-- <div class="d-flex justify-content-end mb-3">
@@ -156,16 +157,33 @@
                               </div>
                         </div>
                     </div>
-                </div>
-                <ng-template #noData>
-                    <div class="text-center w-100">
-                      <div class="border-tracktrace m-4">
-                        <h6 class="text-muted">
-                          To view docket details, kindly input the docket number in the search field
-                        </h6>
+                    </ng-container>
+                  <ng-container *ngIf="(isLoading && trackTraceList.length === 0) || (newlyLoading && trackTraceList.length > 0)">
+                    <div class="row w-100 p-4 pe-0">
+                      <div class="col-12 col-sm-6 col-lg-6 col-md-6 col-xl-4 col-xxl-4 fade-in" *ngFor="let item of placeholderArray">
+                        <div class="card box-shadow p-4 pt-3 placeholder-card">
+                          <div class="mb-3">
+                            <div class="placeholder-line w-75 mb-2"></div>
+                            <div class="placeholder-line w-50"></div>
+                          </div>
+                          <div class="placeholder-line w-100 mb-2"></div>
+                          <div class="placeholder-line w-50 mb-2"></div>
+                          <div class="placeholder-line w-100 mb-2"></div>
+                        </div>
                       </div>
                     </div>
-                  </ng-template>
+                  </ng-container>
+                    <!-- No data message -->
+                    <ng-template [ngIf]="!isLoading && trackTraceList.length === 0">
+                      <div class="text-center w-100">
+                        <div class="border-tracktrace m-4">
+                          <h6 class="text-muted">
+                            To view docket details, kindly input the docket number in the search field
+                          </h6>
+                        </div>
+                      </div>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>
@@ -174,7 +192,7 @@
 
 <ng-template #hourPopover let-index="index" class="p-5" style="z-index: 9999 !important;">
     <div class="p-2">
-      <div class="mb-1"><strong>Date : </strong> {{index.entryDate | date :'dd-MM-yyyy'}} </div>
+      <div class="mb-1"><strong>Date : </strong> {{index.bookingDate | date :'dd-MM-yyyy'}} </div>
       <div><strong>From Address : </strong>  {{index.fromLocation}} </div>
       <div><strong>To Address : </strong>  {{index.toLocation}} </div>
       <div><strong>Transport Mode : </strong>  {{index.transportModeDesc}} </div>

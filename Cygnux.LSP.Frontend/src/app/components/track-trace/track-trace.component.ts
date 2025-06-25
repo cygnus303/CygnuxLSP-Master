@@ -42,8 +42,10 @@ skip = 0;
 take = 9;
 fromDate: string | null = null; // format: DD-MM-YYYY
 toDate: string | null = null;
-isLoading = false;
-
+public isLoading = false;
+placeholderArray = Array(9);
+public newlyLoading = false;
+hasMoreData: boolean = true;
   constructor( 
    public commonService: CommonService,
    public trackTraceService:TrackTraceService,
@@ -57,7 +59,6 @@ isLoading = false;
 
   ngOnInit(){
     this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='lsp Admin';
-    this.onSearchTrackTrace()
   }
 
   addDocketNumber(event: KeyboardEvent): void {
@@ -117,6 +118,7 @@ finalizeDocketInput(): void {
     const [start, end] = dates;
     this.fromDate = this.formatDate(start);
     this.toDate = this.formatDate(end);
+    this.onSearchTrackTrace();
   } else {
     this.fromDate = null;
     this.toDate = null;
@@ -134,45 +136,59 @@ onSearchTrackTrace(reset: boolean = true) {
   if (reset) {
     this.skip = 0;
     this.trackTraceList = [];
+    this.isLoading = true;
+    this.hasMoreData = true;
+  } else {
+    this.newlyLoading = true;
   }
 
   const docketString = this.docketList.length ? this.docketList.join(',') : '';
   const userId = this.identityService.getLoggedUserId();
 
   this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take).subscribe(
-      (res) => {
+    (res) => {
+      setTimeout(() => {
         const newData = res.data.map((item: any) => ({
           ...item,
           statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]')
         }));
 
-        this.trackTraceList = [...this.trackTraceList, ...newData];
-        this.skip += this.take;
+        if (newData.length > 0) {
+          this.trackTraceList = [...this.trackTraceList, ...newData];
+          this.skip += this.take;
+        }
 
-        setTimeout(() => {
+          setTimeout(() => {
           feather.replace();
         });
 
-        this.isLoading = false; // ✅ only after API is done
-      },
-      () => {
-        this.isLoading = false; // 🛑 handle error too
-      }
-    );
-}
+        // 🔒 Stop scroll if no more data
+        if (newData.length < this.take) {
+          this.hasMoreData = false;
+        }
 
+        this.isLoading = false;
+        this.newlyLoading = false;
+
+      }, 1500);
+       
+    },
+    () => {
+      this.isLoading = false;
+      this.newlyLoading = false;
+      this.hasMoreData = false;
+    }
+  );
+}
 
 onScroll(event: any) {
   const element = event.target;
   const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
 
-  if (atBottom && !this.isLoading) {
-    this.isLoading = true;
-    console.log('Scroll triggered for next batch');
+  if (atBottom && !this.isLoading && !this.newlyLoading && this.hasMoreData) {
     this.onSearchTrackTrace(false);
   }
 }
-
   removeCard(docket: string): void {
     this.docketList = this.docketList.filter(item => item !== docket);
     this.trackTraceList = this.trackTraceList.filter(item => item.docketNo !== docket);
