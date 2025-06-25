@@ -132,53 +132,47 @@ formatDate(date: Date): string {
   return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
 }
 
-onSearchTrackTrace(reset: boolean = true) {
-  if (reset) {
+onSearchTrackTrace(reset: boolean = true): void {
+  const isInitialLoad = reset;
+
+  // Reset state for initial load
+  if (isInitialLoad) {
     this.skip = 0;
     this.trackTraceList = [];
-    this.isLoading = true;
     this.hasMoreData = true;
+    this.isLoading = true;
   } else {
     this.newlyLoading = true;
   }
 
-  const docketString = this.docketList.length ? this.docketList.join(',') : '';
+  const docketString = this.docketList.join(',') || '';
   const userId = this.identityService.getLoggedUserId();
 
-  this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take).subscribe(
-    (res) => {
-      setTimeout(() => {
-        const newData = res.data.map((item: any) => ({
+  this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take)
+    .subscribe({
+      next: ({ data = [] }) => {
+        const transformedData = data.map((item: any) => ({
           ...item,
           statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]')
         }));
 
-        if (newData.length > 0) {
-          this.trackTraceList = [...this.trackTraceList, ...newData];
-          this.skip += this.take;
-        }
+        this.trackTraceList.push(...transformedData);
+        this.skip += transformedData.length;
 
-          setTimeout(() => {
-          feather.replace();
-        });
+        this.hasMoreData = transformedData.length === this.take;
 
-        // 🔒 Stop scroll if no more data
-        if (newData.length < this.take) {
-          this.hasMoreData = false;
-        }
+        // Replace feather icons after DOM update
+        requestAnimationFrame(() => feather.replace());
 
         this.isLoading = false;
         this.newlyLoading = false;
-
-      }, 1500);
-       
-    },
-    () => {
-      this.isLoading = false;
-      this.newlyLoading = false;
-      this.hasMoreData = false;
-    }
-  );
+      },
+      error: () => {
+        this.isLoading = false;
+        this.newlyLoading = false;
+        this.hasMoreData = false;
+      }
+    });
 }
 
 onScroll(event: any) {
