@@ -2,13 +2,16 @@
 
 using Infrastructure.Implementations;
 
-public class CreateLspMappingRequest : UserSettings
+public class CreateLspMappingRequest /*: UserSettings*/
 {
     public Guid CustomerId { get; set; }
     public required string LspId { get; set; }
     public bool? IsActive { get; set; }
     public string SupportEmail { get; set; } = string.Empty;
     public Guid? LspMappingId { get; set; } 
+    public Guid? UserId { get; set; }
+    public Guid? UpdatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
 }
 
 
