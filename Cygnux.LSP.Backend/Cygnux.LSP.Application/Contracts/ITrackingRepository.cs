@@ -8,7 +8,7 @@ using Models.Response;
 
 public interface ITrackingRepository
 {
-    Task<BaseResponse<IEnumerable<TrackingDocketResponse>>> GetTrackigList(string docketNOs,Guid userid);
+    Task<BaseResponse<IEnumerable<TrackingDocketResponse>>> GetTrackigList(string docketNOs,Guid userid, string? fromDate, string? toDate, int skip, int take);
     Task<BaseResponse<IEnumerable<Trackinglist>>> GetDashboardList(Guid userid, string fromDate, string toDate);
     Task<BaseResponse<IEnumerable<TrackingChartResponse>>> GetTransportChartData(Guid userId, string fromDate, string toDate);
 

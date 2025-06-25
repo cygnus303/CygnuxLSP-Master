@@ -13,9 +13,22 @@ export class TrackTraceService {
       @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
     ) {}
 
-    GetTrackigList(id:string | null,userid:string): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
-        return this.apiHandlerService.Get(`Tracking/GetTrackigList?docketNOs=${id}&userid=${userid}`);
-      }
+    // GetTrackigList(id:string | null,userid:string): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
+    //     return this.apiHandlerService.Get(`Tracking/GetTrackigList?docketNOs=${id}&userid=${userid}`);
+    //   }
+
+  GetTrackigList(id: string | null,userid: string, fromDate: string | null = null,toDate: string | null = null,skip: number = 0,take: number = 9): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
+    const params = new URLSearchParams();
+    params.set('docketNOs', id ?? '');
+    params.set('userid', userid);
+    if (fromDate) params.set('fromDate', fromDate);
+    if (toDate) params.set('toDate', toDate);
+    params.set('skip', skip.toString());
+    params.set('take', take.toString());
+
+    return this.apiHandlerService.Get(`Tracking/GetTrackigList?${params.toString()}`);
+  }
+
 
       ranges: IRange[] = [
     {

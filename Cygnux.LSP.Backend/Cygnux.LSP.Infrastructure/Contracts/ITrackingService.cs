@@ -8,6 +8,6 @@ using Models.Response.LspMapping;
 public interface ITrackingservice
 {
      Task<IEnumerable<Trackinglist>> GetDashboardList(Guid userid, string fromDate, string toDate);
-    Task<IEnumerable<TrackingDocketResponse>> GetTrackigList(string docketNOs, Guid userid);
+    Task<IEnumerable<TrackingDocketResponse>> GetTrackigList(string docketNOs, Guid userid, string? fromDate, string? toDate, int skip, int take);
     Task<IEnumerable<TrackingChartResponse>> GetTransportChartData(Guid userId, string fromDate, string toDate);
 }

@@ -36,9 +36,17 @@ export class TrackTraceComponent {
   public isLSP:boolean=false;
   public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
   public modalRef!: BsModalRef;
+  public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
+skip = 0;
+take = 9;
+fromDate: string | null = null; // format: DD-MM-YYYY
+toDate: string | null = null;
+isLoading = false;
+
   constructor( 
    public commonService: CommonService,
-   private trackTraceService:TrackTraceService,
+   public trackTraceService:TrackTraceService,
    public identityService:IdentityService,
    private modalService: BsModalService,
    private router: Router
@@ -88,21 +96,82 @@ finalizeDocketInput(): void {
     this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
   }
 
-  onSearchTrackTrace(){
-    const docketString = this.docketList.length ? this.docketList.join(',') : '';
-    this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
-      // this.trackTraceList = res.data;
-      this.trackTraceList = res.data.map((item: any) => {
-        return {
-          ...item,
-          statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]') // Convert string to JSON array
-        };
-      });
-      setTimeout(() => {
-        feather.replace();
-      });
-    });
+  // onSearchTrackTrace(){
+  //   const docketString = this.docketList.length ? this.docketList.join(',') : '';
+  //   this.trackTraceService.GetTrackigList(docketString,this.identityService.getLoggedUserId()).subscribe(res => {
+  //     // this.trackTraceList = res.data;
+  //     this.trackTraceList = res.data.map((item: any) => {
+  //       return {
+  //         ...item,
+  //         statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]') // Convert string to JSON array
+  //       };
+  //     });
+  //     setTimeout(() => {
+  //       feather.replace();
+  //     });
+  //   });
+  // }
+
+  onDateRangeSelected(dates: any) {
+  if (dates && dates.length === 2) {
+    const [start, end] = dates;
+    this.fromDate = this.formatDate(start);
+    this.toDate = this.formatDate(end);
+  } else {
+    this.fromDate = null;
+    this.toDate = null;
   }
+}
+
+formatDate(date: Date): string {
+  const day = ('0' + date.getDate()).slice(-2);
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
+}
+
+onSearchTrackTrace(reset: boolean = true) {
+  if (reset) {
+    this.skip = 0;
+    this.trackTraceList = [];
+  }
+
+  const docketString = this.docketList.length ? this.docketList.join(',') : '';
+  const userId = this.identityService.getLoggedUserId();
+
+  this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take).subscribe(
+      (res) => {
+        const newData = res.data.map((item: any) => ({
+          ...item,
+          statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]')
+        }));
+
+        this.trackTraceList = [...this.trackTraceList, ...newData];
+        this.skip += this.take;
+
+        setTimeout(() => {
+          feather.replace();
+        });
+
+        this.isLoading = false; // ✅ only after API is done
+      },
+      () => {
+        this.isLoading = false; // 🛑 handle error too
+      }
+    );
+}
+
+
+onScroll(event: any) {
+  const element = event.target;
+  const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
+
+  if (atBottom && !this.isLoading) {
+    this.isLoading = true;
+    console.log('Scroll triggered for next batch');
+    this.onSearchTrackTrace(false);
+  }
+}
 
   removeCard(docket: string): void {
     this.docketList = this.docketList.filter(item => item !== docket);
