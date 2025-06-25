@@ -59,7 +59,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       lastName: new FormControl(null),
       location:new FormControl(''),
       sessionTime:new FormControl(1,[Validators.min(0), Validators.max(60)]),
-      roles: new FormControl('SA', [Validators.required]),
+      roles: new FormControl('', [Validators.required]),
       emailId: new FormControl('', [Validators.required,Validators.pattern(EmailRegex)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       isActive: new FormControl(true),
@@ -104,7 +104,7 @@ export class AddUserComponent implements OnInit, OnChanges {
         if (response) {
           this.roles = response.data;
         if (response && response.data) {
-          this.roles = response.data.filter((role: any) => role.isActive);
+          this.roles = response.data.filter((role: any) => role.isActive && role.roleName !== 'SA');
         }
       }}
     });
