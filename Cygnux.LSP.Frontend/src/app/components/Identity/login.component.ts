@@ -6,6 +6,7 @@ import { EmailRegex, PasswordRegex } from '../../shared/constants/common';
 import { CommonService } from '../../shared/services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthMemoryService } from '../../shared/services/authmemory.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
         private commonService: CommonService,
         private toasterService: ToastrService,
         private router: Router,
-        private authMemory: AuthMemoryService
+        private authMemory: AuthMemoryService,
+        private authService:AuthService
     ) {
 
     }
@@ -73,6 +75,7 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('roleId', response.data.roleId);
                         this.router.navigateByUrl('/dashboard');
                         this.toasterService.success('Login Successfully.');
+                        this.authService.logoutAfterTimeout(30);
                     } else {
                         if (response.error) {
                             this.toasterService.error(response.error.message);
