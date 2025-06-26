@@ -43,21 +43,30 @@ export class PodUploadComponent {
     this.uploadedImages=[];
   }
 
-  onDropzoneSelect(event: any) {
-    const file = event.addedFiles[0];
-    if (!file) return;
-    const validExcelTypes = [
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-excel',
-      'text/csv'];
-    if (!validExcelTypes.includes(file.type)) {
-      this.sweetAlertService.error('Please upload a valid Excel file.');
-      this.resetFileSelection();
-      return;
-    }
-      this.files = [file];
-      this.selectedFile = file;
+onDropzoneSelect(event: any) {
+  const file = event.addedFiles[0];
+  if (!file) return;
+
+  const validExcelTypes = [
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-excel',
+    'text/csv',
+  ];
+
+  const fileName = file.name.toLowerCase();
+  const isValidType = validExcelTypes.includes(file.type);
+  const isValidName = fileName.startsWith('docketpodupload');
+
+  if (!isValidType || !isValidName) {
+    this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketPODUpload".');
+    this.resetFileSelection();
+    return;
   }
+
+  this.files = [file];
+  this.selectedFile = file;
+}
+
   
   get isValidData(): boolean {
     return this.mappedData.length > 0 && this.mappedData.every(item => item.isValid);

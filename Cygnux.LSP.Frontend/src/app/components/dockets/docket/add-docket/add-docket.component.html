@@ -68,7 +68,7 @@
                   <label class="col-form-label">From WH/Store</label>
                   <ng-select [items]="customerLocation" bindLabel="fromLocation" required bindValue="fromLocation"
                     formControlName="fromLocation" placeholder="Select From WH/Store" [searchable]="true" (change)="onSelectOrigin($event, 'fromLocation')"
-                    [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}">
+                    [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}" notFoundText="TAT not available agaist selected LSP">
                   </ng-select>
                   <div *ngIf="docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['fromLocation'].errors?.['required']">From Location is

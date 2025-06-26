@@ -48,23 +48,30 @@ export class StatusListComponent {
     });
   }
 
-  onChangeFile(event: any) {
-    const file = event.addedFiles[0];
-    if (file) {
-      const validExcelTypes = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.ms-excel',
-        'text/csv',
-      ];
+onChangeFile(event: any) {
+  const file = event.addedFiles[0];
+  if (file) {
+    const validExcelTypes = [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+      'text/csv',
+    ];
+
+    const fileName = file.name.toLowerCase();
+    const isValidType = validExcelTypes.includes(file.type);
+    const isValidName = fileName.startsWith('docketstatusupload');
+
+    if (isValidType && isValidName) {
+      this.files = [file];
       this.selectedFile = file;
-      if (validExcelTypes.includes(file.type)) {
-        this.files = [file];
-      } else {
-        this.sweetAlertService.error('Please upload a valid excel file.');
-        this.files = [];
-      }
+    } else {
+      this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketStatusUpload".');
+      this.files = [];
+      this.selectedFile = null;
     }
   }
+}
+
 
   onRemove(file: File) {
     this.files = this.files.filter(f => f !== file);
