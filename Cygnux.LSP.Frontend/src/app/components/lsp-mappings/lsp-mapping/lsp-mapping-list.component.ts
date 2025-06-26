@@ -111,11 +111,13 @@ export class LspMappingListComponent implements OnInit {
     this.lspMappingService.deleteLspMapping(lspmappingId).subscribe({
       next: (response) => {
         if (response.success) {
+          this.getLspMappings();
+          this.addLspMappingComponent?.getLspMappings();
+          this.addLspMappingComponent?.getCustomers(); 
           this.sweetAlertService.success(response.data.message);
         } else {
           this.sweetAlertService.error(response.error.message);
         }
-        this.getLspMappings();
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);

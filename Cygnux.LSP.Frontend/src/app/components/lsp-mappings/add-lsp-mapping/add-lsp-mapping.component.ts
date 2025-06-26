@@ -157,12 +157,14 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
           this.dataEmitter.emit();
           this.lspMappingForm.reset();
           this.buildForm();
+          this.getLspMappings();
+         this.getCustomers();
         } else {
-          this.sweetAlertService.error(response.data.message);
+          this.sweetAlertService.error(response?.data?.message);
         }
       },
       error: (response: any) => {
-        this.sweetAlertService.error(response.data.message);
+        this.sweetAlertService.error(response?.data?.message);
       },
     });
   }
