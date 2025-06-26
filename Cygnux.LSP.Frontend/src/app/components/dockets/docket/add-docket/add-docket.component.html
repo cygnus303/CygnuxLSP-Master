@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-6 mb-1">
                   <label class="col-form-label">Customer</label>
-                  <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId"
+                  <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId" class="noFoundTextColor"
                     formControlName="customerId" placeholder="Select Customer" [searchable]="true"
                     (change)="onSelectCustomer($event)" [readonly]="docketId ? true:false"   notFoundText="No mapped customers found"
                     [ngClass]="{ 'border-danger': docketForm.controls['customerId'].invalid && docketForm.controls['customerId'].touched}">
@@ -43,7 +43,6 @@
                   <div *ngIf="docketForm.controls['customerId'].invalid && docketForm.controls['customerId']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['customerId'].errors?.['required']">Customer is required.</small>
                   </div>
-                  
                 </div>
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Transporter</label>
@@ -66,7 +65,7 @@
                 </div>
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">From WH/Store</label>
-                  <ng-select [items]="customerLocation" bindLabel="fromLocation" required bindValue="fromLocation"
+                  <ng-select [items]="customerLocation" bindLabel="fromLocation" required bindValue="fromLocation" class="noFoundTextColor"
                     formControlName="fromLocation" placeholder="Select From WH/Store" [searchable]="true" (change)="onSelectOrigin($event, 'fromLocation')"
                     [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}" notFoundText="TAT not available agaist selected LSP">
                   </ng-select>

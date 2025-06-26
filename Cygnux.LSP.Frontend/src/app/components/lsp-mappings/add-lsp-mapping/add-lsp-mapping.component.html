@@ -15,9 +15,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="lsps">Customer Name</label>
-                    <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId" formControlName="customerId"
+                    <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId" formControlName="customerId" class="noFoundTextColor"
                       placeholder="Select Customer" [searchable]="true" [readonly]="this.lspMappingResponse ? true : false"
-                      [ngClass]="{ 'border-danger': lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId'].touched}">
+                      [ngClass]="{ 'border-danger': lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId'].touched}" notFoundText="Customer not found or mapping is already exists">
                     </ng-select>
                     <div *ngIf="lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId']?.touched"
                       class="text-danger">
