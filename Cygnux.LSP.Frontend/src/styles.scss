@@ -267,6 +267,27 @@ label {
   color: #DC3245 !important;
 }
 
+//  SweetAlert............
+.swal2-popup.glassy-info-popup {
+  border-radius: 14px;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+ 
+.swal2-confirm.glass-btn-ok {
+  background-color: #3085d6 !important;
+  color: white;
+  border: none !important;  /* 🚫 No border */
+  outline: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: none;
+}
 
 // docket----------------------
 
