@@ -40,6 +40,14 @@ export class CustomerListComponent implements OnInit {
     this.commonService.activeNavigationUrl.next('Customer');
   }
 
+
+    customerCard = [
+    { name: 'Total Customer', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
+    { name: 'Active', color: 'blue', icon: 'fa fa-star', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-star-o', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+  ];
+
+
   ngOnInit(): void {
     this.commonService.loading.subscribe((state: boolean) => {
       this.loading = state;

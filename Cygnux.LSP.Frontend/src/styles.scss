@@ -117,6 +117,26 @@ label {
   font-size: 14px;
 }
 
+.swal2-popup.glassy-info-popup {
+  border-radius: 14px;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.swal2-confirm.glass-btn-ok {
+  background-color: #3085d6 !important;
+  color: white;
+  border: none !important;  /* 🚫 No border */
+  outline: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: none;
+}
 
 
 .w-25{
@@ -293,4 +313,30 @@ label {
 .border-found{
   border: 1px solid #ebebeb;
   border-radius: 0px 0px 10px 10px;
+}
+
+// track-trace icon color
+
+.color-red {
+  color: #f81f58; /* bright red */
+}
+
+.color-orange {
+  color: #eeb82f; /* orange */
+}
+
+.color-blue {
+  color: #5c61f2; /* blue */
+}
+
+.color-purple {
+  color: #4faad5; /* purple */
+}
+
+.color-teal {
+  color: #e6ae30; /* teal */
+}
+
+.color-green {
+  color: #61ae41; /* green */
 }

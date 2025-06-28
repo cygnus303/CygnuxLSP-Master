@@ -44,6 +44,14 @@ export class LspMappingListComponent implements OnInit {
     this.commonService.activeNavigationUrl.next('LSP Mapping');
   }
 
+    LSPmappingCard = [
+    { name: 'Total Mapping', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
+    { name: 'Customer ', color: 'orange', icon: 'fa-solid fa-box-open', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
+    { name: 'LSP', color: 'teal', icon: 'fa-solid fa-truck-ramp-box', progress: "progress-gradient-warning", headerColor: 'header-text-warning', count:24 },
+    { name: 'Active', color: 'blue', icon: 'fa-solid fa-boxes-packing', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
+    { name: 'In-Active', color: 'purple', icon: 'fa-solid fa-truck', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+  ];
+
   ngOnInit(): void {
     this.commonService.loading.subscribe((state: boolean) => {
       this.loading = state;
