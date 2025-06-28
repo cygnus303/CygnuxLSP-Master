@@ -162,7 +162,7 @@ export class LspTatListComponent implements OnInit {
           const userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
 
           if (userRoles.includes('SA')) {
-            this.sweetAlertService.info('No Customer found. Redirecting to LSP Mapping...', () => {
+            this.sweetAlertService.info('LSP mapping is missing. Redirecting to LSP Mapping...', () => {
               this.router.navigate(['/lsp-mapping/list']);
             });
           }else {

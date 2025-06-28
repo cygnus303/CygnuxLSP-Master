@@ -176,7 +176,7 @@ export class LspMappingListComponent implements OnInit {
     const customers = this.addLspMappingComponent?.customers;
 
     if (!customers || customers.length === 0) {
-      this.sweetAlertService.info('Customer not found or mapping already exists', () => {
+      this.sweetAlertService.info('Customer not found or All Customers Mapping already exists', () => {
               this.router.navigate(['/customer']);
             });
     } else if (!lsps || lsps.length === 0) {
@@ -189,7 +189,7 @@ export class LspMappingListComponent implements OnInit {
         const modal = new Modal(modalElement);
         this.lspMappingId = '';
         this.selectedLsp = null;
-        modal.show();
+        modal.show(); 
 
         const handleOutsideClick = (e: MouseEvent) => {
           if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
