@@ -83,4 +83,24 @@ export class SweetAlertService {
       }
     });
   }
+
+  info(message: string, onConfirm?: () => void): void {
+  Swal.fire({
+    icon: 'info',
+    title: 'Info',
+    text: message,
+    showCancelButton: false,
+    showConfirmButton: true,
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#171829',
+    customClass: {
+      container: 'notification-popup'
+    }
+  }).then((result) => {
+    if (result.isConfirmed && onConfirm) {
+      onConfirm(); // ✅ optional callback after confirmation
+    }
+  });
+}
+
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component,EventEmitter,OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { DocketResponse } from '../../../shared/models/docket.model';
 import { CommonService } from '../../../shared/services/common.service';
@@ -20,7 +20,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   standalone: false,
   templateUrl: './docket-list.component.html',
   styleUrls: ['./docket-list.component.scss'],
- providers:[BsModalService]
+  providers: [BsModalService]
 })
 export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
@@ -30,11 +30,11 @@ export class DocketListComponent implements OnInit {
   public totalItems = 0; // Total number of items
   public selectedFile: File | null = null;
   public filters: { [key: string]: string } = {}; // Dynamic filter object
-  public RoleListsubscribe!:Subscription;
-  public isSelected: string='';
-  public loading : boolean = false;
+  public RoleListsubscribe!: Subscription;
+  public isSelected: string = '';
+  public loading: boolean = false;
   public modalRef!: BsModalRef;
-   public hoveredRow: number | null = null;
+  public hoveredRow: number | null = null;
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
@@ -44,14 +44,15 @@ export class DocketListComponent implements OnInit {
     public docketService: DocketService,
     public commonService: CommonService,
     private toasterService: ToastrService,
-    private sweetAlertService:SweetAlertService,
-    private identityService:IdentityService,
+    private sweetAlertService: SweetAlertService,
+    private identityService: IdentityService,
     private cdRef: ChangeDetectorRef,
     private modalService: BsModalService
-    
-  ) {defineElement(lottie.loadAnimation);
+
+  ) {
+    defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
-   
+
   }
 
   ngAfterViewInit(): void {
@@ -64,12 +65,12 @@ export class DocketListComponent implements OnInit {
       this.loading = state;
     });
     this.getDockets();
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res)=>{
-      if (res) { 
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+      if (res) {
         this.commonService.menuRoleList = res;
       }
-     });
+    });
   }
 
   getDockets(page: number = 1) {
@@ -82,7 +83,7 @@ export class DocketListComponent implements OnInit {
       Page: page,
       PageSize: this.pageSize,
     };
-    this.docketService.getDocketList(this.identityService.getLoggedUserId(),filters).subscribe({
+    this.docketService.getDocketList(this.identityService.getLoggedUserId(), filters).subscribe({
       next: (response) => {
         if (response) {
           this.dockets = response.data;
@@ -143,7 +144,7 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-  deleteDocket(docketCode?:any) {
+  deleteDocket(docketCode?: any) {
     this.docketService.deleteDocket(docketCode).subscribe({
       next: (response) => {
         if (response.success) {
@@ -160,7 +161,7 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-  editModal(event: Event, docketList: any,type:string) {
+  editModal(event: Event, docketList: any, type: string) {
     event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
     if (modalElement) {
@@ -171,7 +172,7 @@ export class DocketListComponent implements OnInit {
     }
   }
   deleteModal(docketCode: string) {
-    this.sweetAlertService.cancel("Are you sure to cancel docket?",() => this.deleteDocket(docketCode))
+    this.sweetAlertService.cancel("Are you sure to cancel docket?", () => this.deleteDocket(docketCode))
   }
 
   openImportModal(event: Event) {
@@ -182,7 +183,7 @@ export class DocketListComponent implements OnInit {
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide(); 
+          modal.hide();
           modalElement.removeEventListener('click', handleOutsideClick);
           this.ImportDocketComponent.onClose();
         }
@@ -191,7 +192,7 @@ export class DocketListComponent implements OnInit {
     }
   }
 
-  openUploadModal(event: Event){
+  openUploadModal(event: Event) {
     event.preventDefault();
     const modalElement = document.getElementById('uploadModal');
     if (modalElement) {
@@ -215,13 +216,19 @@ export class DocketListComponent implements OnInit {
   }
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
+
+    if (this.addDocketComponent.isCustomerOrLspEmpty()) {
+      this.toasterService.info("LSP mapping is missing for this customer. Please contact the administrator");
+      return;
+    }
+
     if (modalElement) {
       const modal = new Modal(modalElement);
       this.selectedDocket = null;
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide(); 
+          modal.hide();
           modalElement.removeEventListener('click', handleOutsideClick);
           this.addDocketComponent.onClose();
         }
@@ -230,55 +237,55 @@ export class DocketListComponent implements OnInit {
     }
   }
 
-  openPOD(Templatepod: TemplateRef<any>,data:any){
+  openPOD(Templatepod: TemplateRef<any>, data: any) {
     this.getDocket(data);
-    this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
+    this.modalRef = this.modalService.show(Templatepod, { class: 'modal-lg modal-dialog-centered', backdrop: true });
   }
 
   downloadPod(pod: any): void {
-  if (!pod?.podLink) {
-    console.error('No image link found.');
-    return;
+    if (!pod?.podLink) {
+      console.error('No image link found.');
+      return;
+    }
+
+    // Force HTTPS in case backend returns HTTP
+    const secureUrl = pod.podLink.startsWith('http://')
+      ? pod.podLink.replace('http://', 'https://')
+      : pod.podLink;
+
+    fetch(secureUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.extractFileName(secureUrl); // Use cleaned URL
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url); // Clean up
+      })
+      .catch(error => {
+        console.error('Image download failed:', error);
+        alert('Failed to download image. Please try again or check the image URL.');
+      });
   }
 
-  // Force HTTPS in case backend returns HTTP
-  const secureUrl = pod.podLink.startsWith('http://')
-    ? pod.podLink.replace('http://', 'https://')
-    : pod.podLink;
-
-  fetch(secureUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.blob();
-    })
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = this.extractFileName(secureUrl); // Use cleaned URL
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url); // Clean up
-    })
-    .catch(error => {
-      console.error('Image download failed:', error);
-      alert('Failed to download image. Please try again or check the image URL.');
-    });
-}
-  
-extractFileName(url: string): string {
-  try {
-    const path = url.split('?')[0]; // Remove query params
-    const filename = path.substring(path.lastIndexOf('/') + 1);
-    return filename || `downloaded_image_${Date.now()}.jpg`;
-  } catch {
-    return `downloaded_image_${Date.now()}.jpg`;
+  extractFileName(url: string): string {
+    try {
+      const path = url.split('?')[0]; // Remove query params
+      const filename = path.substring(path.lastIndexOf('/') + 1);
+      return filename || `downloaded_image_${Date.now()}.jpg`;
+    } catch {
+      return `downloaded_image_${Date.now()}.jpg`;
+    }
   }
-}
-    
+
   closeDeleteModal() {
     const modalElement: any = document.getElementById('deleteModal');
     const modalInstance = Modal.getInstance(modalElement);
@@ -303,31 +310,31 @@ extractFileName(url: string): string {
       this.getDockets();
     }
   }
-  
-  closeUploadModal(){
+
+  closeUploadModal() {
     const modalElement: any = document.getElementById('uploadModal');
     const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
       modalInstance.hide();
       this.getDockets();
     }
-  } 
+  }
 
-  closestatusupdateModal(){
+  closestatusupdateModal() {
     const modalElement: any = document.getElementById('showModal');
     const modalInstance = Modal.getInstance(modalElement);
     if (modalInstance) {
       modalInstance.hide();
       this.getDockets();
     }
-  } 
+  }
 
   onPageChange(page: number) {
     this.page = page;
     this.getDockets(this.page);
   }
 
-  docketDetail(event: Event, docketList: any ,type:string){
+  docketDetail(event: Event, docketList: any, type: string) {
     event.preventDefault();
     const modalElement = document.getElementById('docketDetail');
     if (modalElement) {
@@ -339,7 +346,7 @@ extractFileName(url: string): string {
     }
   }
 
-  openStatusUpdateModal(docketData:any ,type:string){
+  openStatusUpdateModal(docketData: any, type: string) {
     const modalElement = document.getElementById('showModal');
     if (modalElement) {
       // this.selectedDocket=docketData
@@ -350,15 +357,15 @@ extractFileName(url: string): string {
     }
   }
 
-openPodUpdateModal(data: any) {
-   const editSubscription = this.edit.subscribe((docket: any) => {
-    this.PodStatusUpload.showPopup(docket);
-    editSubscription.unsubscribe();
-  });
-  this.getDocket(data); 
-}
+  openPodUpdateModal(data: any) {
+    const editSubscription = this.edit.subscribe((docket: any) => {
+      this.PodStatusUpload.showPopup(docket);
+      editSubscription.unsubscribe();
+    });
+    this.getDocket(data);
+  }
 
   ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }

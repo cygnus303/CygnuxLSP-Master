@@ -315,4 +315,8 @@ export class AddDocketComponent implements OnInit, OnChanges {
       },
     });
   }
+
+  isCustomerOrLspEmpty(): boolean {
+  return (!this.customers || this.customers.length === 0) || (!this.lsps || this.lsps.length === 0);
+}
 }

@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspTatComponent } from '../add-lsp-tat/add-lsp-tat.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -38,7 +39,8 @@ export class LspTatListComponent implements OnInit {
     public commonService: CommonService,
     private toastrService: ToastrService,
     private sweetAlertService:SweetAlertService,
-    private identityService : IdentityService
+    private identityService : IdentityService,
+    private router:Router
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Tat');
   }
@@ -149,23 +151,59 @@ export class LspTatListComponent implements OnInit {
       this.getLspMappings();
     }
   }
-  openModal() {
-    const modalElement: any = document.getElementById('exampleModalLong');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.lspMappingId = '';
-      this.selectedLsp = null;
-      modal.show();
-      const handleOutsideClick = (e: MouseEvent) => {
-        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide(); 
-          modalElement.removeEventListener('click', handleOutsideClick);
-          this.addLspTatComponent.onClose();
+openModal() {
+  this.lspMappingService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
+    next: (response) => {
+      const customers = response?.data || [];
+
+      //  No customers found
+      if (!customers || customers.length === 0) {
+        const userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+
+        if (userRoles.includes('SA')) {
+          // Show info and redirect SA
+          this.toastrService.info('No Customer found. Redirecting to LSP Mapping...');
+
+          setTimeout(() => {
+            this.router.navigate(['/lsp-mapping/list']);
+          }, 2000);
+        } else {
+          // Show info for non-SA users
+          this.sweetAlertService.info('LSP mapping is missing for this customer. Please contact the administrator');
         }
-      };
-      modalElement.addEventListener('click', handleOutsideClick);
-    }
-  }
+
+        return;
+      }
+
+      // Customers found - Open modal
+      const modalElement: any = document.getElementById('exampleModalLong');
+      if (modalElement) {
+        const modal = new Modal(modalElement);
+        this.lspMappingId = '';
+        this.selectedLsp = null;
+        modal.show();
+
+        const handleOutsideClick = (e: MouseEvent) => {
+          if (
+            e.target instanceof HTMLElement &&
+            e.target.classList.contains('modal')
+          ) {
+            modal.hide();
+            modalElement.removeEventListener('click', handleOutsideClick);
+            this.addLspTatComponent.onClose();
+          }
+        };
+
+        modalElement.addEventListener('click', handleOutsideClick);
+      }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error('Failed to check customer availability.');
+    },
+  });
+}
+
+
   onPageChange(page: number) {
     this.page = page;
     this.getLspMappings(this.page);
