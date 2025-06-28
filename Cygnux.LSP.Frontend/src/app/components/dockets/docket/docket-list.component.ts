@@ -218,7 +218,7 @@ export class DocketListComponent implements OnInit {
     const modalElement: any = document.getElementById('exampleModalLong');
 
     if (this.addDocketComponent.isCustomerOrLspEmpty()) {
-      this.toasterService.info("LSP mapping is missing for this customer. Please contact the administrator");
+      this.sweetAlertService.info("LSP mapping is missing for this customer. Please contact the administrator");
       return;
     }
 

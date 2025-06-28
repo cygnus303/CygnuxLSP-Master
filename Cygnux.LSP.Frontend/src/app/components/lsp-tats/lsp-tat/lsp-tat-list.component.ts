@@ -27,9 +27,9 @@ export class LspTatListComponent implements OnInit {
   public pageSize = 5; // Number of items per page
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
-  public RoleListsubscribe!:Subscription;
- public loading : boolean = false;
- public hoveredRow: number | null = null;
+  public RoleListsubscribe!: Subscription;
+  public loading: boolean = false;
+  public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
 
@@ -38,10 +38,11 @@ export class LspTatListComponent implements OnInit {
     private lspMappingService: LspMappingService,
     public commonService: CommonService,
     private toastrService: ToastrService,
-    private sweetAlertService:SweetAlertService,
-    private identityService : IdentityService,
-    private router:Router
-  ) {defineElement(lottie.loadAnimation);
+    private sweetAlertService: SweetAlertService,
+    private identityService: IdentityService,
+    private router: Router
+  ) {
+    defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Tat');
   }
 
@@ -58,17 +59,17 @@ export class LspTatListComponent implements OnInit {
       this.loading = state;
     });
     this.getLspMappings();
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
-      if (res) { 
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+      if (res) {
         this.commonService.menuRoleList = res;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-     });
+    });
   }
 
   ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 
   getLspMappings(page: number = 1) {
@@ -78,7 +79,7 @@ export class LspTatListComponent implements OnInit {
     const filters: any = {
       ...this.filters,
       Page: page,
-      UserID:this.identityService.getLoggedUserId(),
+      UserID: this.identityService.getLoggedUserId(),
       PageSize: this.pageSize,
     };
     this.commonService.updateLoader(true);
@@ -108,20 +109,20 @@ export class LspTatListComponent implements OnInit {
     }
   }
 
-  getDeleteLspTat(tatId:string){
+  getDeleteLspTat(tatId: string) {
     this.lspMappingService.getDeleteLSPTatData(tatId).subscribe({
       next: (response) => {
-          this.sweetAlertService.delete(
-            'Are you sure you want to delete this LSP Tat?',
-            () => this.deleteLspMappingTat(tatId)
-          );
-    },
-    error: (response: any) => {
-      this.sweetAlertService.error(response.error.message);
-    },
-  });
+        this.sweetAlertService.delete(
+          'Are you sure you want to delete this LSP Tat?',
+          () => this.deleteLspMappingTat(tatId)
+        );
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
   }
-  deleteLspMappingTat(tatId:string) {
+  deleteLspMappingTat(tatId: string) {
     this.lspMappingService.deleteLspMappingTat(tatId).subscribe({
       next: (response) => {
         if (response.success) {
@@ -159,57 +160,53 @@ export class LspTatListComponent implements OnInit {
       this.getLspMappings();
     }
   }
-openModal() {
-  this.lspMappingService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
-    next: (response) => {
-      const customers = response?.data || [];
+  openModal() {
+    this.lspMappingService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        const customers = response?.data || [];
 
-      //  No customers found
-      if (!customers || customers.length === 0) {
-        const userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+        //  No customers found
+        if (!customers || customers.length === 0) {
+          const userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
 
-        if (userRoles.includes('SA')) {
-          // Show info and redirect SA
-          this.toastrService.info('No Customer found. Redirecting to LSP Mapping...');
-
-          setTimeout(() => {
-            this.router.navigate(['/lsp-mapping/list']);
-          }, 2000);
-        } else {
-          // Show info for non-SA users
-          this.sweetAlertService.info('LSP mapping is missing for this customer. Please contact the administrator');
+          if (userRoles.includes('SA')) {
+            this.sweetAlertService.info('LSP mapping is missing. Redirecting to LSP Mapping...', () => {
+              this.router.navigate(['/lsp-mapping/list']);
+            });
+          }else {
+            // Show info for non-SA users
+            this.sweetAlertService.info('LSP mapping is missing for this customer. Please contact the administrator');
+          }
+          return;
         }
 
-        return;
-      }
+        // Customers found - Open modal
+        const modalElement: any = document.getElementById('exampleModalLong');
+        if (modalElement) {
+          const modal = new Modal(modalElement);
+          this.lspMappingId = '';
+          this.selectedLsp = null;
+          modal.show();
 
-      // Customers found - Open modal
-      const modalElement: any = document.getElementById('exampleModalLong');
-      if (modalElement) {
-        const modal = new Modal(modalElement);
-        this.lspMappingId = '';
-        this.selectedLsp = null;
-        modal.show();
+          const handleOutsideClick = (e: MouseEvent) => {
+            if (
+              e.target instanceof HTMLElement &&
+              e.target.classList.contains('modal')
+            ) {
+              modal.hide();
+              modalElement.removeEventListener('click', handleOutsideClick);
+              this.addLspTatComponent.onClose();
+            }
+          };
 
-        const handleOutsideClick = (e: MouseEvent) => {
-          if (
-            e.target instanceof HTMLElement &&
-            e.target.classList.contains('modal')
-          ) {
-            modal.hide();
-            modalElement.removeEventListener('click', handleOutsideClick);
-            this.addLspTatComponent.onClose();
-          }
-        };
-
-        modalElement.addEventListener('click', handleOutsideClick);
-      }
-    },
-    error: (response: any) => {
-      this.sweetAlertService.error('Failed to check customer availability.');
-    },
-  });
-}
+          modalElement.addEventListener('click', handleOutsideClick);
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error('Failed to check customer availability.');
+      },
+    });
+  }
 
 
   onPageChange(page: number) {
@@ -217,7 +214,7 @@ openModal() {
     this.getLspMappings(this.page);
   }
 
-  lspTatsDetail(event: Event, lspTatId: string){
+  lspTatsDetail(event: Event, lspTatId: string) {
     event.preventDefault();
     const modalElement = document.getElementById('lspTatsDetail');
     if (modalElement) {

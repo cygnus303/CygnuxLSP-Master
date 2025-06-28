@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspMappingComponent } from '../add-lsp-mapping/add-lsp-mapping.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -38,7 +38,8 @@ export class LspMappingListComponent implements OnInit {
     private toastrService: ToastrService,
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Mapping');
@@ -183,16 +184,20 @@ export class LspMappingListComponent implements OnInit {
     const customers = this.addLspMappingComponent?.customers;
 
     if (!customers || customers.length === 0) {
-      this.toastrService.info('Customer not found or mapping already exists');
+      this.sweetAlertService.info('Customer not found or All Customers Mapping already exists', () => {
+              this.router.navigate(['/customer']);
+            });
     } else if (!lsps || lsps.length === 0) {
-      this.toastrService.info('No LSP available. Please add at least one LSP before creating a mapping.');
+      this.sweetAlertService.info('No LSP available. Please add at least one LSP before creating a mapping.', () => {
+              this.router.navigate(['/lsp']);
+            });
     } else {
       const modalElement: any = document.getElementById('exampleModalLong');
       if (modalElement) {
         const modal = new Modal(modalElement);
         this.lspMappingId = '';
         this.selectedLsp = null;
-        modal.show();
+        modal.show(); 
 
         const handleOutsideClick = (e: MouseEvent) => {
           if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
