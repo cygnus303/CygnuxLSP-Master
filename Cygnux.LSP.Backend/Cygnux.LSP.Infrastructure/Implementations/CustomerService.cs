@@ -89,5 +89,15 @@ internal class CustomerService : ICustomerService
              parameters,
              commandType: CommandType.StoredProcedure
          );
+    } 
+    
+    public async Task<IEnumerable<CustomerCount>> CustomerCount()
+    {
+        return await _dbConnection.QueryAsync<CustomerCount>(
+             StoredProcedureConstants.Usp_CustomerCount,
+             commandType: CommandType.StoredProcedure
+         );
     }
+
+
 }

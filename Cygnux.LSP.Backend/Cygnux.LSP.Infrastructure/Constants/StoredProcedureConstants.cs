@@ -66,5 +66,6 @@ public static class StoredProcedureConstants
     public const string USP_ResendEmail = "USP_UpdateResendEmailOTPDetail";
     public const string USP_GetReqID = "USP_GetReqID";
     public const string USP_ForgetReq = "USP_UpdateForgotPasswordRequest";
+    public const string Usp_CustomerCount = "Usp_CustomerCount";
 
 }

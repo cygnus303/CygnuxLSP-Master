@@ -14,3 +14,10 @@ public class CustomerDeleteDataRes
     public string Email { get; set; } = string.Empty;
     public string DocketNo { get; set; } = string.Empty;
 }
+
+public class CustomerCount
+{
+    public int CustCount { get; set; }
+    public int ActiveCount  { get; set; }
+    public int InActiveCount { get; set; }
+}

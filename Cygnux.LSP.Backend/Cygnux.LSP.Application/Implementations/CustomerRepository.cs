@@ -78,6 +78,12 @@ internal class CustomerRepository : ICustomerRepository
         var response = await _customerService.DeleteCustomerData(custId);
         return new BaseResponse<IEnumerable<CustomerDeleteDataRes>>(response);
     }
+    
+    public async Task<BaseResponse<IEnumerable<CustomerCount>>> CustomerCount()
+    {
+        var response = await _customerService.CustomerCount();
+        return new BaseResponse<IEnumerable<CustomerCount>>(response);
+    }
 
    
 }

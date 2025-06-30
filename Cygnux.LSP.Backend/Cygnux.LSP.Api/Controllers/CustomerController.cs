@@ -56,4 +56,11 @@ public class CustomerController : ControllerBase
     {
         return Ok(await _customerRepository.DeleteCustomerData(custId));
     }
+
+    [HttpGet]
+    [Route("CustomerCount")]
+    public async Task<IActionResult> CustomerCount()
+    {
+        return Ok(await _customerRepository.CustomerCount());
+    }
 }
