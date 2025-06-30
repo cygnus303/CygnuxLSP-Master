@@ -161,7 +161,7 @@ public class AuthenticationController : ControllerBase
             </head>
             <body>
               <div class='container'>
-                <img src=https://uatlsp.cygnux.in/Uploads/LSP_LOGO.png' alt='OTP Verification' class='header-image'>
+                <img src='https://uatlsp.cygnux.in/Uploads/LSP_LOGO.png' alt='OTP Verification' class='header-image'>
                 <h1>Welcome to Logistic Service Provider</h1>
                 <h3>Hello {user.FirstName + " " + user.LastName ?? "User"},</h3>
                 <p>Please verify your account using the link below:</p>
@@ -309,20 +309,32 @@ public class AuthenticationController : ControllerBase
     [HttpPost("verifyOTP")]
     public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest otpreq)
     {
-        // Get user by email
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == otpreq.Email);
-        if (user == null)
-            /*return NotFound("User not found with the provided email.");*/
-
+        // Get user by RequestId
+        var userResponse = await _authenticationRepository.GetUserIDfromReqID(otpreq.RequestId);
+        if (userResponse == null || userResponse.Data == null)
+        {
             return NotFound(new BaseResponseError<bool>
             {
                 Status = false,
                 Message = "User not found.",
                 Data = false
             });
+        }
 
-        return Ok( await _authenticationRepository.OtpVerified(JsonConvert.SerializeObject(otpreq)));
+        var userId = userResponse.Data.UserId; // Extract Guid here
+
+        var email = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+        var Otprequest = new OtpVerifyRequest
+        {
+             RequestId = otpreq.RequestId,
+             Email = email.Email.ToString() ?? otpreq.Email,
+             OTP = otpreq.OTP
+        };
+
+        return Ok(await _authenticationRepository.OtpVerified(JsonConvert.SerializeObject(Otprequest)));
     }
+
 
 
     [HttpPost("resendOTP")]

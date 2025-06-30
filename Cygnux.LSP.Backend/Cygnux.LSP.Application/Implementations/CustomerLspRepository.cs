@@ -3,6 +3,7 @@
 using Azure;
 using Contracts;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
+using Cygnux.LSP.Infrastructure.Models.Response.Lsp;
 using Infrastructure.Contracts;
 using Infrastructure.Models.Response;
 using Infrastructure.Models.Response.LspMapping;
@@ -56,6 +57,12 @@ internal class CustomerLspRepository : ICustomerLspRepository
         var response = await _customerLspService.GetLspMappingDetails(Id);
         return new BaseResponse<LspMappingDetailResponse?>(response);
     }
+    public async Task<BaseResponse<IEnumerable<LspMappingCount>>> LspMappingCount(Guid userId)
+    {
+        var response = await _customerLspService.LspMappingCount(userId);
+        return new BaseResponse<IEnumerable<LspMappingCount>>(response);
+    }
+
 
     public async Task<BaseResponse<CommonCreateResponse>> AddLspMapping(CreateLspMappingRequest createLsp)
     {

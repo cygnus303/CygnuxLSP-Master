@@ -14,6 +14,12 @@ public class LspMappingDetailResponse
 
 }
 
+public class LspMappingCount
+{
+    public string name { get; set; }
+    public int count { get; set; }
+    public int totalCount { get; set; }
+}
 
 public class LspMappingListResponse
 {
