@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Infrastructure.Contracts;
 
+using Cygnux.LSP.Infrastructure.Models.Response.Customer;
 using Models.Response;
 using Models.Response.Lsp;
 
@@ -15,4 +16,7 @@ public interface ILspService
 
     Task<CommonCreateResponse> DeleteLsp(Guid lspid);
     Task<DeleteLSPDataResponse> DeleteLSPDetails(Guid lspid);
+    Task<IEnumerable<LSPCount>> LspCount();
+
+
 }

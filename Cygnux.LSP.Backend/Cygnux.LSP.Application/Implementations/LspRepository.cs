@@ -1,6 +1,7 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.Customer;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using Identity.Contracts;
 using Infrastructure.Constants;
@@ -77,5 +78,11 @@ internal class LspRepository : ILspRepository
     {
         var response = await _lspService.DeleteLSPDetails(lspid);
         return new BaseResponse<DeleteLSPDataResponse>(response);
+    }
+
+    public async Task<BaseResponse<IEnumerable<LSPCount>>> LspCount()
+    {
+        var response = await _lspService.LspCount();
+        return new BaseResponse<IEnumerable<LSPCount>>(response);
     }
 }

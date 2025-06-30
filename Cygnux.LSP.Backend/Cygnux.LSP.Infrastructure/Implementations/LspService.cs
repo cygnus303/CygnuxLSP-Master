@@ -3,6 +3,7 @@
 using Azure;
 using Constants;
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.Customer;
 using Dapper;
 using Models.Response;
 using Models.Response.Lsp;
@@ -125,6 +126,12 @@ internal class LspService : ILspService
 
         return response;
     }
-
+    public async Task<IEnumerable<LSPCount>> LspCount()
+    {
+        return await _dbConnection.QueryAsync<LSPCount>(
+             StoredProcedureConstants.Usp_LspCount,
+             commandType: CommandType.StoredProcedure
+         );
+    }
 
 }

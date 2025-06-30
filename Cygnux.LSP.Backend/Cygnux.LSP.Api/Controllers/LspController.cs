@@ -139,4 +139,11 @@ public class LspController : ControllerBase
     {
         return Ok(await _lspRepository.DeleteLSPDetails(lspid));
     }
+
+    [HttpGet]
+    [Route("LspCount")]
+    public async Task<IActionResult> LspCount()
+    {
+        return Ok(await _lspRepository.LspCount());
+    }
 }

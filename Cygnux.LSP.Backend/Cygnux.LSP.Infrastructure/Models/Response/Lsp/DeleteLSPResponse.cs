@@ -30,8 +30,15 @@ public class CustomerLspTatData
     public string? Origin { get; set; }
     public string? Destination { get;set; }
 }
+public class LSPCount
+{
+    public string name { get; set; }
+    public int count { get; set; }
+    public int totalcount { get; set; }
 
-public class LSPDocketData
+}
+
+    public class LSPDocketData
 {
     public string? DocketNo { get; set; }
     public string? Transporter {  get; set; }
