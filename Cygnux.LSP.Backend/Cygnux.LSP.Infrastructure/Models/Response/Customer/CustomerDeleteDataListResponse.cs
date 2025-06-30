@@ -17,7 +17,7 @@ public class CustomerDeleteDataRes
 
 public class CustomerCount
 {
-    public int CustCount { get; set; }
-    public int ActiveCount  { get; set; }
-    public int InActiveCount { get; set; }
+    public string name { get; set; }
+    public int count { get; set; }
+    public int totalCount { get; set; }
 }
