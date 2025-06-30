@@ -187,12 +187,13 @@ public class AuthenticationController : ControllerBase
             // Save OTP entry after successful email
             await _authenticationRepository.AddOTPDetails(JsonConvert.SerializeObject(otpEntry));
 
-            return Ok(new BaseResponseError<string>
-            {
-                Status = true,
-                Message = "OTP email sent successfully.",
-                Data = verificationLink
-            });
+            return Ok(new { Message = "OTP email sent successfully." });
+            //return Ok(new BaseResponseError<string>
+            //{
+            //    Status = true,
+            //    Message = "OTP email sent successfully.",
+            //    Data = verificationLink
+            //});
         }
         catch (Exception ex)
         {
