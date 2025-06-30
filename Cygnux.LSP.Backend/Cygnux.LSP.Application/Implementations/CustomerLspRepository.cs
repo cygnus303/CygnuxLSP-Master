@@ -101,4 +101,5 @@ internal class CustomerLspRepository : ICustomerLspRepository
         var response = await _customerLspService.DeleteCustomerLspTATDetail(Id);
         return new BaseResponse<IEnumerable<DeleteCustomerLspTatDetail>>(response);
     }
+
 }

@@ -113,4 +113,5 @@ public class CustomerLspController : ControllerBase
         return Ok(await _customerLspRepository.DeleteCustomerLspTATDetail(Id));
     }
 
+
 }
