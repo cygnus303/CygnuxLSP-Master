@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
-import { AddLspRequest, CommonResponse, LspMappingResponse, LspResponse } from '../models/lsp.model';
+import { AddLspRequest, CommonResponse, CountResponse, LspMappingResponse, LspResponse } from '../models/lsp.model';
 
 
 @Injectable({
@@ -35,4 +35,8 @@ export class LspService {
   checkMappinglsp(id:string): Observable<IApiBaseResponse<LspMappingResponse[]>> {
     return this.apiHandlerService.Get(`lsp/GetDeleteLSPData?lspid=${id}`);
   }
+  
+   lspCount():Observable<IApiBaseResponse<CountResponse[]>> {
+      return this.apiHandlerService.Get(`lsp/LspCount`);
+    }
 }

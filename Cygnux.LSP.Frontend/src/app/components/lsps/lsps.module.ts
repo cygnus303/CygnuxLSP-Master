@@ -8,6 +8,7 @@ import { LspRoutes } from './lsps.routes';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { LspDetailComponent } from './lsp-detail/lsp-detail.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
         CommonModule,
         FormsModule,
         NgbPaginationModule,
-        PopoverModule
+        PopoverModule,
+        CountUpDirective
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

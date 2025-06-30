@@ -10,6 +10,7 @@ import { LspMappingModule } from '../lsp-mappings/lsp-mappings.module';
 import { AddLspMappingComponent } from '../lsp-mappings/add-lsp-mapping/add-lsp-mapping.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
         FormsModule,
         LspMappingModule,
         NgbPaginationModule,
-        PopoverModule
+        PopoverModule,
+        CountUpDirective
     ],
     exports: [
         CustomerListComponent,
