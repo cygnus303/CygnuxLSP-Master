@@ -31,27 +31,29 @@ public class AuthenticationController : ControllerBase
 
    
     [HttpPost("SendOTPMail")]
+
     public async Task<IActionResult> SendOtpEmail([FromBody] OtpRequest request, Guid Entryby)
     {
         var user = await _context.Users.FindAsync(request.UserId);
         if (user == null)
-            /*return NotFound("User not found.");*/
+        {
             return BadRequest(new BaseResponseError<bool>
             {
                 Status = false,
                 Message = "User not found.",
                 Data = false
             });
+        }
 
-        // Validate email
         if (string.IsNullOrWhiteSpace(user.Email) || !IsValidEmail(user.Email))
-            /*return BadRequest("User email is invalid.");*/
+        {
             return BadRequest(new BaseResponseError<bool>
             {
                 Status = false,
                 Message = "User email is invalid.",
                 Data = false
             });
+        }
 
         // Generate random 6-digit OTP
         var otp = new Random().Next(100000, 999999).ToString();
@@ -60,7 +62,7 @@ public class AuthenticationController : ControllerBase
         // Create verification link
         var verificationLink = $"https://uatlsp.cygnux.in/login/otp-verification/{reqid}";
 
-        // Create OTP entry object (we’ll save only after email succeeds)
+        // Prepare OTP entry
         var otpEntry = new OtpVerification
         {
             UserId = request.UserId,
@@ -72,30 +74,204 @@ public class AuthenticationController : ControllerBase
             IsMailSend = true
         };
 
-        // Email content
-        var subject = "Verify your account";
-        var body = $"Please verify your account using the link below:\n{verificationLink}\n\nYour OTP is: {otp}";
+        // Email subject
+        var subject = "Verify your account - Logistic Service Provider";
+
+        // Generate HTML body
+        var htmlBody = $@"
+            <!DOCTYPE html>
+            <html lang='en' style='margin:0; padding:0;'>
+            <head>
+              <meta charset='UTF-8' />
+              <meta name='viewport' content='width=device-width, initial-scale=1' />
+              <title>OTP Verification</title>
+              <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet' />
+              <style>
+                body {{
+                  font-family: 'Roboto', Arial, sans-serif;
+                  background-color: #f6f9fc;
+                  margin: 0;
+                  padding: 0;
+                }}
+                .container {{
+                  max-width: 600px;
+                  margin: 40px auto;
+                  background-color: #ffffff;
+                  border-radius: 10px;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+                  overflow: hidden;
+                  color: #333333;
+                }}
+                .header-image {{
+                  width: 100%;
+                  height: auto;
+                  display: block;
+                }}
+                h1 {{
+                  color: #e67e22;
+                  font-size: 30px;
+                  margin: 20px 0 10px 0;
+                  text-align: center;
+                  font-weight: 700;
+                }}
+                h3 {{
+                  color: #154360;
+                  font-size: 20px;
+                  margin: 10px 0 20px 0;
+                  font-weight: 500;
+                  padding: 0 24px;
+                  text-align: left;
+                }}
+                p {{
+                  font-size: 16px;
+                  line-height: 1.7;
+                  color: #444444;
+                  padding: 0 24px;
+                  text-align: left;
+                }}
+                .otp-code {{
+                  display: inline-block;
+                  background-color: #e0e7ff;
+                  color: #1e40af;
+                  font-weight: 700;
+                  font-size: 30px;
+                  letter-spacing: 10px;
+                  padding: 12px 24px;
+                  border-radius: 8px;
+                  margin: 20px auto;
+                  user-select: all;
+                }}
+                .otp-container {{
+                  text-align: center;
+                }}
+                .footer {{
+                  margin: 30px 0 15px 0;
+                  font-size: 13px;
+                  color: #888888;
+                  text-align: center;
+                  padding: 0 20px;
+                }}
+                a {{
+                  color: #2e86c1;
+                  text-decoration: none;
+                  word-break: break-all;
+                  font-weight: 500;
+                }}
+              </style>
+            </head>
+            <body>
+              <div class='container'>
+                <img src=https://uatlsp.cygnux.in/Uploads/LSP_LOGO.png' alt='OTP Verification' class='header-image'>
+                <h1>Welcome to Logistic Service Provider</h1>
+                <h3>Hello {user.FirstName + " " + user.LastName ?? "User"},</h3>
+                <p>Please verify your account using the link below:</p>
+                <p><a href='{verificationLink}' target='_blank'>{verificationLink}</a></p>
+                <p>Your OTP code is:</p>
+                <div class='otp-container'>
+                  <div class='otp-code' aria-label='One-Time Password code'>{otp}</div>
+                </div>
+                <p>Please enter this code to complete your verification. This code is valid for a limited time only.</p>
+                <p>If you did not request this, please ignore this email.</p>
+                <div class='footer'>
+                  &copy; {DateTime.Now.Year} Logistic Service Provider. All rights reserved.
+                </div>
+              </div>
+            </body>
+            </html>";
 
         try
         {
-            // Send email
-            await _emailService.SendEmailAsync(user.Email, subject, body);
+            // Send email with HTML content
+            await _emailService.SendEmailAsync(user.Email, subject, htmlBody, isHtml: true);
 
-            // Save OTP entry only after successful email
+            // Save OTP entry after successful email
             await _authenticationRepository.AddOTPDetails(JsonConvert.SerializeObject(otpEntry));
 
-            return Ok(new { Message = "OTP email sent successfully." });
+            return Ok(new BaseResponseError<string>
+            {
+                Status = true,
+                Message = "OTP email sent successfully.",
+                Data = verificationLink
+            });
         }
         catch (Exception ex)
         {
-            // Optional: log exception here
-            return StatusCode(500, new
+            // Log the exception as needed
+            return StatusCode(500, new BaseResponseError<string>
             {
+                Status = false,
                 Message = "Failed to send OTP email.",
-                Error = ex.Message
+                Data = ex.Message
             });
         }
     }
+
+
+    //public async Task<IActionResult> SendOtpEmail([FromBody] OtpRequest request, Guid Entryby)
+    //{
+    //    var user = await _context.Users.FindAsync(request.UserId);
+    //    if (user == null)
+    //        /*return NotFound("User not found.");*/
+    //        return BadRequest(new BaseResponseError<bool>
+    //        {
+    //            Status = false,
+    //            Message = "User not found.",
+    //            Data = false
+    //        });
+
+    //    // Validate email
+    //    if (string.IsNullOrWhiteSpace(user.Email) || !IsValidEmail(user.Email))
+    //        /*return BadRequest("User email is invalid.");*/
+    //        return BadRequest(new BaseResponseError<bool>
+    //        {
+    //            Status = false,
+    //            Message = "User email is invalid.",
+    //            Data = false
+    //        });
+
+    //    // Generate random 6-digit OTP
+    //    var otp = new Random().Next(100000, 999999).ToString();
+    //    var reqid = Guid.NewGuid();
+
+    //    // Create verification link
+    //    var verificationLink = $"https://uatlsp.cygnux.in/login/otp-verification/{reqid}";
+
+    //    // Create OTP entry object (we’ll save only after email succeeds)
+    //    var otpEntry = new OtpVerification
+    //    {
+    //        UserId = request.UserId,
+    //        OTP = otp,
+    //        OTPLink = verificationLink,
+    //        OTPCreateTime = DateTime.Now,
+    //        EntryBy = Entryby,
+    //        RequestId = reqid,
+    //        IsMailSend = true
+    //    };
+
+    //    // Email content
+    //    var subject = "Verify your account";
+    //    var body = $"Please verify your account using the link below:\n{verificationLink}\n\nYour OTP is: {otp}";
+
+    //    try
+    //    {
+    //        // Send email
+    //        await _emailService.SendEmailAsync(user.Email, subject, body);
+
+    //        // Save OTP entry only after successful email
+    //        await _authenticationRepository.AddOTPDetails(JsonConvert.SerializeObject(otpEntry));
+
+    //        return Ok(new { Message = "OTP email sent successfully." });
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        // Optional: log exception here
+    //        return StatusCode(500, new
+    //        {
+    //            Message = "Failed to send OTP email.",
+    //            Error = ex.Message
+    //        });
+    //    }
+    //}
 
     /// <summary>
     /// Validates email format using built-in .NET mail address validation.
@@ -177,7 +353,7 @@ public class AuthenticationController : ControllerBase
         // Step 4: Send OTP via email (no link)
         var subject = "Your Resent OTP";
         var body = $"Your new OTP is: {newOtp}";
-        await _emailService.SendEmailAsync(otpResend.EmailId, subject, body);
+        await _emailService.SendEmailAsync(otpResend.EmailId, subject, body, isHtml:true);
 
         // Step 5: Call procedure to update OTP
         return Ok(await _authenticationRepository.UpdateResendOTP(newOtp, otpResend.RequestId));
@@ -336,7 +512,7 @@ public class AuthenticationController : ControllerBase
         try
         {
             // Step 7: Send email
-            await _emailService.SendEmailAsync(user.Email, subject, body.Trim());
+            await _emailService.SendEmailAsync(user.Email, subject, body.Trim(),isHtml:true);
 
             // Step 8: Save OTP and audit details
             await _authenticationRepository.UpdateResendMailDetail(JsonConvert.SerializeObject(resendEntry));
@@ -415,7 +591,7 @@ public class AuthenticationController : ControllerBase
             var subject = "Forgot Password Reset";
             var body = $"Please reset your password using the link below:\n{forgotPassUrl}";
 
-            await _emailService.SendEmailAsync(request.Email, subject, body);
+            await _emailService.SendEmailAsync(request.Email, subject, body, isHtml: true);
 
             // Step 4: Save reset link info in DB
             await _authenticationRepository.ForgotPWDdataUpdate(JsonConvert.SerializeObject(passEntry));

@@ -12,11 +12,11 @@ public class EmailService : IEmailService
         _config = config;
     }
 
-    public async Task SendEmailAsync(string toEmail, string subject, string body)
+    public async Task SendEmailAsync(string toEmail, string subject, string body, bool isHtml)
     {
         try
         {
-            var smtpClient = new SmtpClient(_config["SMTP:Host"])
+            using var smtpClient = new SmtpClient(_config["SMTP:Host"])
             {
                 Port = int.Parse(_config["SMTP:Port"]),
                 Credentials = new NetworkCredential(_config["SMTP:User"], _config["SMTP:Pass"]),
@@ -25,12 +25,12 @@ public class EmailService : IEmailService
                 UseDefaultCredentials = false
             };
 
-            var mailMessage = new MailMessage
+            using var mailMessage = new MailMessage
             {
                 From = new MailAddress(_config["SMTP:Sender"]),
                 Subject = subject,
                 Body = body,
-                IsBodyHtml = false
+                IsBodyHtml = isHtml // enable HTML rendering when true
             };
 
             mailMessage.To.Add(toEmail);
@@ -46,5 +46,41 @@ public class EmailService : IEmailService
             throw new Exception($"Unexpected failure: {ex.Message}", ex);
         }
     }
+
+
+    //public async Task SendEmailAsync(string toEmail, string subject, string body)
+    //{
+    //    try
+    //    {
+    //        var smtpClient = new SmtpClient(_config["SMTP:Host"])
+    //        {
+    //            Port = int.Parse(_config["SMTP:Port"]),
+    //            Credentials = new NetworkCredential(_config["SMTP:User"], _config["SMTP:Pass"]),
+    //            EnableSsl = true,
+    //            DeliveryMethod = SmtpDeliveryMethod.Network,
+    //            UseDefaultCredentials = false
+    //        };
+
+    //        var mailMessage = new MailMessage
+    //        {
+    //            From = new MailAddress(_config["SMTP:Sender"]),
+    //            Subject = subject,
+    //            Body = body,
+    //            IsBodyHtml = false
+    //        };
+
+    //        mailMessage.To.Add(toEmail);
+
+    //        await smtpClient.SendMailAsync(mailMessage);
+    //    }
+    //    catch (SmtpException smtpEx)
+    //    {
+    //        throw new Exception($"SMTP failed: {smtpEx.Message} | Inner: {smtpEx.InnerException?.Message}", smtpEx);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw new Exception($"Unexpected failure: {ex.Message}", ex);
+    //    }
+    //}
 
 }
