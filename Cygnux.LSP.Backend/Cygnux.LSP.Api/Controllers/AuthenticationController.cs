@@ -161,7 +161,7 @@ public class AuthenticationController : ControllerBase
             </head>
             <body>
               <div class='container'>
-                <img src='https://uatlsp.cygnux.in/Uploads/LSP_LOGO.png' alt='OTP Verification' class='header-image'>
+                <img src='https://uatlspapi.cygnux.in/Uploads/LSP_LOGO.png' alt='OTP Verification' class='header-image'>
                 <h1>Welcome to Logistic Service Provider</h1>
                 <h3>Hello {user.FirstName + " " + user.LastName ?? "User"},</h3>
                 <p>Please verify your account using the link below:</p>
