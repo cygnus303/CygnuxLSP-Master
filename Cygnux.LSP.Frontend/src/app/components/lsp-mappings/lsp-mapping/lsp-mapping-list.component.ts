@@ -11,6 +11,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspMappingComponent } from '../add-lsp-mapping/add-lsp-mapping.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CountResponse } from '../../../shared/models/lsp.model';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -28,7 +29,8 @@ export class LspMappingListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!: Subscription;
   public loading: boolean = false;
-  hoveredRow: number | null = null;
+  public hoveredRow: number | null = null;
+  public lSPmappingCard:CountResponse[] = [];
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspMappingComponent) addLspMappingComponent!: AddLspMappingComponent;
 
@@ -45,18 +47,19 @@ export class LspMappingListComponent implements OnInit {
     this.commonService.activeNavigationUrl.next('LSP Mapping');
   }
 
-    LSPmappingCard = [
-    { name: 'Total Mapping', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
-    { name: 'Customer ', color: 'orange', icon: 'fa-solid fa-box-open', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
-    { name: 'LSP', color: 'teal', icon: 'fa-solid fa-truck-ramp-box', progress: "progress-gradient-warning", headerColor: 'header-text-warning', count:24 },
-    { name: 'Active', color: 'blue', icon: 'fa-solid fa-boxes-packing', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
-    { name: 'In-Active', color: 'purple', icon: 'fa-solid fa-truck', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+  LSPmappingCard = [
+    { name: 'Total Mapping', color: 'red', icon: 'fa fa-project-diagram', progress: "progress-gradient-danger", headerColor: 'header-text-danger'},
+    { name: 'Customer ', color: 'orange', icon: 'fa fa-address-card', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary' },
+    { name: 'LSP', color: 'green', icon: 'fa fa-briefcase', progress: "progress-gradient-success", headerColor: 'header-text-success'},
+    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' },
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info' },
   ];
 
   ngOnInit(): void {
     this.commonService.loading.subscribe((state: boolean) => {
       this.loading = state;
     });
+    this.getLspMappingCount();
     this.getLspMappings();
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
     this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
@@ -64,15 +67,6 @@ export class LspMappingListComponent implements OnInit {
         this.commonService.menuRoleList = res;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    });
-    this.route.queryParams.subscribe(params => {
-      this.route.queryParams.subscribe(params => {
-        // if ('AddLspMapping' in params) {
-        //   setTimeout(() => {
-        //     this.openModal();
-        //   }, 300);
-        // }
-      });
     });
   }
 
@@ -209,6 +203,31 @@ export class LspMappingListComponent implements OnInit {
         modalElement.addEventListener('click', handleOutsideClick);
       }
     }
+  }
+
+    getLspMappingCount() {
+    this.lspMappingService.getLspMappingCount(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          const mergedData: any[] = [];
+          this.LSPmappingCard.forEach(meta => {
+            const matchedItem = response.data.find((item: any) => item.name.includes(meta.name));
+            mergedData.push({
+              name: meta.name,
+              icon: meta.icon,
+              color: meta.color,
+              progress: meta.progress,
+              headerColor: meta.headerColor,
+              count: matchedItem ? matchedItem.count : 0,
+            });
+          });
+          this.lSPmappingCard = mergedData;
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    })
   }
 
   onPageChange(page: number) {

@@ -41,10 +41,10 @@ export class CustomerListComponent implements OnInit {
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
   }
-    customerCard = [
+  customerCard = [
     { name: 'Total Customer', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger'},
-    { name: 'Active Customer', color: 'blue', icon: 'fa fa-star', progress: "progress-gradient-primary", headerColor: 'header-text-primary' },
-    { name: 'In-Active Customer', color: 'purple', icon: 'fa fa-star-o', progress: "progress-gradient-info", headerColor: 'header-text-info' },
+    { name: 'Active Customer', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' },
+    { name: 'In-Active Customer', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info' },
   ];
 
 
