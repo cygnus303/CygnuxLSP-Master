@@ -50,7 +50,7 @@ export class OtpVerificationComponent {
   if (otpCode.length === 6) {
     const filters = {
       requestId: this.otpId,
-      email: this.email,
+      email: null,
       otp: otpCode
     };
 

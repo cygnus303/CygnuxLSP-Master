@@ -8,7 +8,7 @@
                   src="../assets/images/logo/logo2.png" alt="looginpage"></a></div>
             <div class="login-main">
               <form class="theme-form" #emailForm="ngForm" (ngSubmit)="sendOtp()">
-              <div *ngIf="!showOtp">
+              <!-- <div *ngIf="!showOtp">
                     <h4>Reset Your Password</h4>
                     <div class="form-group" >
                       <label class="col-form-label">Enter Your Email Address</label>
@@ -29,8 +29,8 @@
                         </div>
                       </div>
                     </div>
-              </div>
-                <div class="form-group" *ngIf="showOtp">
+              </div> -->
+                <div class="form-group" >
                  <h4>Verify Your Email</h4>
                   <label class="col-form-label pt-0 mb-3 text-muted">please Enter the 6 Digit OTP sent to <br><div class="text-dark">{{email}}</div></label>
                   <div class="row">
