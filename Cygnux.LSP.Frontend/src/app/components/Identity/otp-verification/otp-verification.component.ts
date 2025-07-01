@@ -76,7 +76,7 @@ export class OtpVerificationComponent {
   resendOTP(){
     const filters={
         requestId:this.otpId,
-        emailId:this.email,
+        emailId:null,
       }
     this.authenticationService.resendOTP(filters).subscribe({
         next: (response) => {

@@ -49,9 +49,9 @@ export class LspListComponent implements OnInit {
   }
 
      LSPCard = [
-    { name: 'Total LSP', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
-    { name: 'Active', color: 'blue', icon: 'fa-solid fa-boxes-packing', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
-    { name: 'In-Active', color: 'purple', icon: 'fa-solid fa-truck', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+    { name: 'Total LSP', color: 'red', icon: 'fa fa-database', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
+    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
   ];
 
   ngOnInit(): void {
