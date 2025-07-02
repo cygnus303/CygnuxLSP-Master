@@ -98,5 +98,8 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`CustomerLsp/Tat/GetDeleteCustomerLspTATData?Id=${id}`);
   }
 
+   lspTatCount(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
+      return this.apiHandlerService.Get(`CustomerLsp/Tat/LspTatCount?userId=${userId}`);
+    }
 
 }

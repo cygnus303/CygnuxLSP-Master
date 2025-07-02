@@ -94,7 +94,7 @@ public class CustomerLspController : ControllerBase
     }
 
     [HttpGet]
-    [Route("LspTatCount")]
+    [Route("Tat/LspTatCount")]
     public async Task<IActionResult> LspTatCount(Guid userId)
     {
         return Ok(await _customerLspRepository.LspTatCount(userId));

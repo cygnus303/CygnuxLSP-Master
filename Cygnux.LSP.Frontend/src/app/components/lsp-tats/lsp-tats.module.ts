@@ -9,6 +9,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LspTatsDetailComponent } from './lsp-tats-detail/lsp-tats-detail.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
         FormsModule,
         NgbPaginationModule,
         NgSelectModule,
-        PopoverModule
+        PopoverModule,
+        CountUpDirective
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

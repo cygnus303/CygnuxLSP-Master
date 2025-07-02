@@ -12,6 +12,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspTatComponent } from '../add-lsp-tat/add-lsp-tat.component';
 import { Router } from '@angular/router';
+import { CountResponse } from '../../../shared/models/lsp.model';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -32,7 +33,7 @@ export class LspTatListComponent implements OnInit {
   public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
-
+  public lspTatCount: CountResponse[] = [];
 
   constructor(
     private lspMappingService: LspMappingService,
@@ -48,8 +49,8 @@ export class LspTatListComponent implements OnInit {
 
      LSPTatCard = [
     { name: 'Total LSP Tat', color: 'red', icon: 'fa fa-hourglass-half', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
-    { name: 'Customer Mapping', color: 'orange', icon: 'fa fa-link', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
-    { name: 'LSP Mapping', color: 'green', icon: 'fa fa-network-wired', progress: "progress-gradient-success", headerColor: 'header-text-success' , count:22 },
+    // { name: 'Customer Mapping', color: 'orange', icon: 'fa fa-link', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
+    // { name: 'LSP Mapping', color: 'green', icon: 'fa fa-network-wired', progress: "progress-gradient-success", headerColor: 'header-text-success' , count:22 },
     { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
     { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
   ];
@@ -58,6 +59,7 @@ export class LspTatListComponent implements OnInit {
     this.commonService.loading.subscribe((state: boolean) => {
       this.loading = state;
     });
+    this.getLspTatCount();
     this.getLspMappings();
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
     this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
@@ -208,6 +210,31 @@ export class LspTatListComponent implements OnInit {
     });
   }
 
+
+   getLspTatCount() {
+    this.lspMappingService.lspTatCount(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          const mergedData: any[] = [];
+          this.LSPTatCard.forEach(meta => {
+            const matchedItem = response.data.find((item: any) => item.name.includes(meta.name));
+            mergedData.push({
+              name: meta.name,
+              icon: meta.icon,
+              color: meta.color,
+              progress: meta.progress,
+              headerColor: meta.headerColor,
+              count: matchedItem ? matchedItem.count : 0,
+            });
+          });
+          this.lspTatCount = mergedData;
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    })
+  }
 
   onPageChange(page: number) {
     this.page = page;
