@@ -20,7 +20,7 @@ import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
   templateUrl: './add-lsp-mapping.component.html',
   styleUrls: ['./add-lsp-mapping.component.scss'],
 })
-export class AddLspMappingComponent implements OnInit {
+export class AddLspMappingComponent {
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
   public customers: CustomerResponse[] = [];
@@ -34,8 +34,7 @@ export class AddLspMappingComponent implements OnInit {
   public selectedCustomer: CustomerResponse | null = null;
   public lspMappingId: string = '';
   public isEditMode = false;
-  public isActive: boolean = true; // default checked
-
+  public isActive: boolean = true;
 
   public mappedCustomerLspMap: { [key: string]: string[] } = {};
   @Input() lspMappingResponse: LspMappingResponse | null = null;
@@ -57,18 +56,14 @@ export class AddLspMappingComponent implements OnInit {
       this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';
       this.isEditMode = true;
 
-      this.getCustomers();
-      this.getLsps();
-      this.getLspMappings();
+     this.loadData();
     } else {
       this.lspMappingId = '';
       this.isEditMode = false;
       this.selectedCustomer = null;
-    }
-  }
+     this.loadData();
 
-  ngOnInit(): void {
-    this.loadData();
+    }
   }
 
   loadData() {
@@ -77,15 +72,13 @@ export class AddLspMappingComponent implements OnInit {
     this.getLsps();
   }
 
-
   getCustomers() {
     const filters = { Page: 1, PageSize: 100 };
     this.customerService.getCustomerList(this.identityService.getLoggedUserId(), filters).subscribe({
       next: (res) => {
-        if (this.isEditMode && this.lspMappingResponse?.customerId) {
-          debugger
+        if (this.lspMappingResponse?.customerId) {
           this.customers = res.data.filter(c => c.customerId === this.lspMappingResponse?.customerId);
-          this.selectedCustomer = this.customers[0] ?? null;
+          this.selectedCustomer =  res.data.find(c => c.customerId === this.lspMappingResponse?.customerId) ?? null;
         } else {
           this.customers = res.data;
         }
@@ -118,8 +111,8 @@ export class AddLspMappingComponent implements OnInit {
 
   categorizeCustomers() {
     const mappedIds = this.lspMappingsList.map(m => m.customerId);
-    this.mappedCustomers = this.customers.filter(c => mappedIds.includes(c.customerId));
-    this.unmappedCustomers = this.customers.filter(c => !mappedIds.includes(c.customerId));
+    // this.mappedCustomers = this.customers.filter(c => mappedIds.includes(c.customerId));
+  this.unmappedCustomers = !this.lspMappingId ? this.customers.filter(c => !mappedIds.includes(c.customerId)) : this.customers.filter(c => mappedIds.includes(c.customerId))
 
     this.mappedCustomerLspMap = {};
 
@@ -159,11 +152,9 @@ export class AddLspMappingComponent implements OnInit {
   onDragStartLsp(event: DragEvent, lsp: LspResponse, source: 'available' | 'mapped') {
     let lspListToSend: LspResponse[] = [];
 
-    // If dragged LSP is in selection list, send all selected
     if (this.isSelected(lsp)) {
       lspListToSend = [...this.selectedLsps];
     } else {
-      // Else just drag the one item
       lspListToSend = [lsp];
     }
 
@@ -173,16 +164,30 @@ export class AddLspMappingComponent implements OnInit {
     };
 
     event.dataTransfer?.setData('text/plain', JSON.stringify(dragData));
+    event.dataTransfer!.effectAllowed = 'move';
+    event.dataTransfer!.dropEffect = 'move';
   }
 
+  onDragStartMappedLsp(event: DragEvent, lspName: string) {
+    const lsp = this.lsps.find(x => x.lspName === lspName);
+    if (lsp) {
+      const dragData = {
+        lsps: [lsp],
+        source: 'mapped'
+      };
+      event.dataTransfer?.setData('text/plain', JSON.stringify(dragData));
+      event.dataTransfer!.effectAllowed = 'move';
+      event.dataTransfer!.dropEffect = 'move';
+    }
+  }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
+    event.dataTransfer!.dropEffect = 'move';
   }
 
   onDropToAvailableLsp(event: DragEvent) {
     event.preventDefault();
-
     const data = event.dataTransfer?.getData('text/plain');
     if (!data || !this.selectedCustomer) return;
 
@@ -196,28 +201,12 @@ export class AddLspMappingComponent implements OnInit {
       if (index > -1) {
         this.mappedCustomerLspMap[customerId].splice(index, 1);
       }
-
-      // Optionally remove from selection list
       this.selectedLsps = this.selectedLsps.filter(x => x.lspId !== lsp.lspId);
     }
   }
 
-
-  onDragStartMappedLsp(event: DragEvent, lspName: string) {
-    const lsp = this.lsps.find(x => x.lspName === lspName);
-    if (lsp) {
-      const dragData = {
-        lsps: [lsp],
-        source: 'mapped'
-      };
-      event.dataTransfer?.setData('text/plain', JSON.stringify(dragData));
-    }
-  }
-
-
   onDropToCustomer(event: DragEvent, customer: CustomerResponse) {
     event.preventDefault();
-
     const data = event.dataTransfer?.getData('text/plain');
     if (!data) return;
 
@@ -227,7 +216,6 @@ export class AddLspMappingComponent implements OnInit {
 
       for (const lsp of dropData.lsps) {
         const alreadyMapped = this.mappedCustomerLspMap[customer.customerId]?.includes(lsp.lspName);
-
         if (!alreadyMapped) {
           if (!this.mappedCustomerLspMap[customer.customerId]) {
             this.mappedCustomerLspMap[customer.customerId] = [];
@@ -235,10 +223,15 @@ export class AddLspMappingComponent implements OnInit {
           this.mappedCustomerLspMap[customer.customerId].push(lsp.lspName);
         }
 
-        // Remove from selected list
         this.selectedLsps = this.selectedLsps.filter(x => x.lspId !== lsp.lspId);
       }
     }
+  }
+
+  get availableLsps(): LspResponse[] {
+    if (!this.selectedCustomer) return this.lsps;
+    const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
+    return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName));
   }
 
   onSave() {
@@ -266,11 +259,12 @@ export class AddLspMappingComponent implements OnInit {
       updatedBy: this.identityService.getLoggedUserId(),
       isActive: this.isActive
     };
+
     !this.lspMappingId
       ? this.addLspMapping(payload)
       : this.updateLspMapping(payload);
-
   }
+
   addLspMapping(dataSubmit: any) {
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
       next: (res) => {
@@ -304,10 +298,9 @@ export class AddLspMappingComponent implements OnInit {
       });
   }
 
-
   onClose() {
     this.dataEmitter.emit();
-     this.lspMappingResponse = null;
-     this.isEditMode=false;
+    this.lspMappingResponse = null;
+    this.isEditMode = false;
   }
 }
