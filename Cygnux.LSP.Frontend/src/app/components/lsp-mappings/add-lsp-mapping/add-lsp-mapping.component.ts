@@ -35,7 +35,9 @@ export class AddLspMappingComponent {
   public lspMappingId: string = '';
   public isEditMode = false;
   public isActive: boolean = true;
-
+ public showCustomerSearch = false;
+ public showMappedSearch = false;
+ public showAvailableSearch = false;
   public mappedCustomerLspMap: { [key: string]: string[] } = {};
   @Input() lspMappingResponse: LspMappingResponse | null = null;
 
@@ -71,6 +73,16 @@ export class AddLspMappingComponent {
     this.getCustomers();
     this.getLsps();
   }
+
+toggleSearch(type: string) {
+  if (type === 'customer') {
+    this.showCustomerSearch = !this.showCustomerSearch;
+  } else if (type === 'mapped') {
+    this.showMappedSearch = !this.showMappedSearch;
+  } else if (type === 'available') {
+    this.showAvailableSearch = !this.showAvailableSearch;
+  }
+}
 
   getCustomers() {
     const filters = { Page: 1, PageSize: 100 };

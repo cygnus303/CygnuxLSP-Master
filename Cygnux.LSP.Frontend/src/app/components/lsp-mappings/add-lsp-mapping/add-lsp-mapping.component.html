@@ -10,38 +10,28 @@
           <!-- First Column: Customer List -->
           <div class="col-md-4">
             <div class="border-color">
-              <div class="lsp-data">Customer</div>
-              <div class="mb-1 px-3 mt-3">
-                <input type="text" class="form-control" placeholder="Search Customer...">
+            <div class="lsp-data card mb-0 p-2 shadow-sm ">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 name-list single-line" title="Customer">Customer</h5>
+                <span class="input-group-text cursor-pointer" *ngIf="!showCustomerSearch"><i class="fas fa-search" (click)="toggleSearch('customer')"></i></span>
+                <div class="input-group leftright-radius ms-2" *ngIf="showCustomerSearch">
+                  <input class="form-control" type="text" placeholder="Search Customer...">
+                  <span class="input-group-text cursor-pointer" (click)="toggleSearch('customer')"><i class="fas fa-search"></i></span>
+                </div>
               </div>
+            </div>
               <div class="p-3 overflow-lab">
-                <!-- Add Mode: unmapped customers -->
                   <ul *ngFor="let customer of unmappedCustomers" (click)="selectCustomer(customer)">
                     <li class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center">
                       <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between"
                         [class.bg-info]="selectedCustomer?.customerId === customer.customerId">
                         <span>{{ customer.customerName }}</span>
                         <span>
-                          <!-- {{ mappedCustomerLspMap[customer.customerId]?.length || 0 }} LSP(s) -->
                           {{ (mappedCustomerLspMap[customer.customerId] || []).length }}
                         </span>
                       </div>
                     </li>
                   </ul>
-
-                <!-- Edit Mode: selected customer -->
-                <!-- <ng-container *ngIf="isEditMode && selectedCustomer">
-                  <ul>
-                    <li class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center">
-                      <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between">
-                        <span>{{ selectedCustomer.customerName }}</span>
-                        <span class="badge bg-secondary">
-                          {{ (mappedCustomerLspMap[selectedCustomer.customerId] || []).length }} LSP(s)
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </ng-container> -->
               </div>
             </div>
           </div>
@@ -49,10 +39,16 @@
           <!-- Second Column: Mapped LSPs -->
           <div class="col-md-4" *ngIf="selectedCustomer">
             <div class="border-color">
-              <div class="lsp-data">Mapped LSPs for {{ selectedCustomer.customerName }}</div>
-              <div class="mb-1 px-3 mt-3">
-                <input type="text" class="form-control" placeholder="Search Mapped LSPs...">
+                 <div class="lsp-data card mb-0 p-2 shadow-sm ">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 name-list single-line" title="Mapped LSPs for {{ selectedCustomer.customerName }}">Mapped LSPs for {{ selectedCustomer.customerName }}</h5>
+                <span class="input-group-text cursor-pointer" *ngIf="!showMappedSearch"><i class="fas fa-search" (click)="toggleSearch('mapped')"></i></span>
+                <div class="input-group leftright-radius ms-2" *ngIf="showMappedSearch">
+                  <input class="form-control" type="text" placeholder="Search Mapped LSPs...">
+                  <span class="input-group-text cursor-pointer" (click)="toggleSearch('mapped')"><i class="fas fa-search"></i></span>
+                </div>
               </div>
+            </div>
               <div class="p-3 overflow-lab" (dragover)="onDragOver($event)"
                 (drop)="onDropToCustomer($event, selectedCustomer)">
                 <div *ngIf="mappedCustomerLspMap[selectedCustomer.customerId]?.length; else noMapping">
@@ -65,7 +61,6 @@
                         <i class="fa fa-arrow-left text-danger float-end" title="Drag to unmap"></i>
                       </div>
                     </li>
-
                   </ul>
                 </div>
                 <ng-template #noMapping>
@@ -78,12 +73,16 @@
           <!-- Third Column: Available LSPs -->
           <div class="col-md-4">
             <div class="border-color">
-              <div class="lsp-data">Available LSPs</div>
-              <div class="mb-1 px-3 mt-3">
-                <input type="text" class="form-control" placeholder="Search Available LSPs...">
+                 <div class="lsp-data card mb-0 p-2 shadow-sm ">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 name-list single-line" title="Available LSPs">Available LSPs</h5>
+                <span class="input-group-text cursor-pointer" *ngIf="!showAvailableSearch"><i class="fas fa-search" (click)="toggleSearch('available')"></i></span>
+                <div class="input-group leftright-radius ms-2" *ngIf="showAvailableSearch">
+                  <input class="form-control" type="text" placeholder="Search LSPs...">
+                  <span class="input-group-text cursor-pointer" (click)="toggleSearch('available')"><i class="fas fa-search"></i></span>
+                </div>
               </div>
-
-              <!-- ✅ Wrap ul in a div and attach dragover/drop to div instead -->
+            </div>
               <div class="p-3 overflow-lab" (dragover)="onDragOver($event)" (drop)="onDropToAvailableLsp($event)">
                 <ul>
                   <li *ngFor="let lsp of availableLsps"
@@ -100,9 +99,6 @@
               </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
       <div class="d-flex justify-content-between mb-3 mx-3">
@@ -110,16 +106,8 @@
           <input id="dafault-checkbox" type="checkbox" [(ngModel)]="isActive" />
           <label class="mb-0" for="dafault-checkbox">Active</label>
         </div>
-        <button class="btn btn-square btn-success pull-right rounded-3" (click)="onSave()" type="submit"><i
-            class="fa fa-check"></i> Submit</button>
+        <button class="btn btn-square btn-success pull-right rounded-3" (click)="onSave()" type="submit"><i class="fa fa-check"></i> Submit</button>
       </div>
     </div>
   </div>
-  <!-- <div class="row mt-3">
-  <div class="col-12 text-end">
-    <button class="btn btn-primary" (click)="onSave()">Save Mapping</button>
-  </div>
-</div> -->
-
-
 </div>

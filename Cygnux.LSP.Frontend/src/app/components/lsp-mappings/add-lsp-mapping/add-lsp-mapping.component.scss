@@ -20,11 +20,13 @@
 
     .lsp-data {
         background-color: #E4EDF5;
-        font-size: 18px;
-        color: #72767A;
-        font-weight: bold;
         border-radius: 10px 10px 0px 0px;
-        padding: 14px !important;
+
+        .name-list{
+          font-size: 18px;
+          color: #72767A;
+          font-weight: bold;
+        }
     }
 }
 
