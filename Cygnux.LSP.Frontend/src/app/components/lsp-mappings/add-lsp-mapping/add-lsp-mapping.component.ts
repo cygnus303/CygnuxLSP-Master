@@ -74,9 +74,6 @@ export class AddLspMappingComponent {
   }
 
   toggleSearch(type: string) {
-    if(!this.showAvailableSearch){
-      this.sweetAlertService.error('Please selected Customer')
-    }
     if (type === 'customer') this.showCustomerSearch = !this.showCustomerSearch;
     else if (type === 'mapped') this.showMappedSearch = !this.showMappedSearch;
     else if (type === 'available') this.showAvailableSearch = !this.showAvailableSearch;
