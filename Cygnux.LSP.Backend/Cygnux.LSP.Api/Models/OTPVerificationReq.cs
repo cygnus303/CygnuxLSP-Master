@@ -37,7 +37,7 @@ public class OtpVerifyRequest
 public class OtpResendRequest
 {
     public Guid RequestId { get; set; }
-    public required string EmailId { get; set; }
+    public string? EmailId { get; set; } = string.Empty;
 }
 
 public class OtpResendValidationResponse
