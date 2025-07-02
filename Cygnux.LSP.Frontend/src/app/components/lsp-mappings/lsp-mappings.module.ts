@@ -11,6 +11,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { LspMappingsDetailComponent } from './lsp-mappings-detail/lsp-mappings-detail.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
+import { SearchListPipe } from '../../shared/Pipe/search-list.pipe';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CountUpDirective } from '../../shared/directives/count-up.directive';
         NgbPaginationModule,
         NgSelectModule,
         PopoverModule,
-        CountUpDirective
+        CountUpDirective,
+        SearchListPipe
     ],
     exports:[AddLspMappingComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

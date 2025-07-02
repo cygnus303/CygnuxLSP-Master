@@ -31,9 +31,11 @@ export class AddLspMappingComponent {
   public mappedCustomers: CustomerResponse[] = [];
   public unmappedCustomers: CustomerResponse[] = [];
   public selectedLsps: LspResponse[] = [];
-
+  public mappedSearchText:string='';
   public selectedCustomer: CustomerResponse | null = null;
   public lspMappingId: string = '';
+  public lspSearchText: string = '';
+  public customerSearchText: string = '';
   public isEditMode = false;
   public isActive: boolean = true;
  public showCustomerSearch = false;
