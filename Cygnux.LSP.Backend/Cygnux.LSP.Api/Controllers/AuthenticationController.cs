@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Cygnux.LSP.Application.Models.Response;
 using Microsoft.EntityFrameworkCore;
 using Cygnux.LSP.Infrastructure.Models.Response;
+using Org.BouncyCastle.Ocsp;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -341,17 +342,28 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> ResendOtp([FromBody] OtpResendRequest otpResend)
     {
         // Step 1: Validate User and RequestId
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == otpResend.EmailId);
-        if (user == null)
+        var userResponse = await _authenticationRepository.GetUserIDfromReqID(otpResend.RequestId);
+        if (userResponse == null || userResponse.Data == null)
+        {
             return NotFound(new BaseResponseError<bool>
             {
                 Status = false,
                 Message = "User not found.",
                 Data = false
             });
+        }
+        var userId = userResponse.Data.UserId;
+        var email = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+        var otpresd = new OtpResendRequest
+        {
+            RequestId = otpResend.RequestId,
+            EmailId = email.Email.ToString() ?? otpResend.EmailId
+           
+        };
 
         // Step 2: Check OTP record
-        var otpRecord = _authenticationRepository.CheckOTPRecord(JsonConvert.SerializeObject(otpResend));
+        var otpRecord = _authenticationRepository.CheckOTPRecord(JsonConvert.SerializeObject(otpresd));
         if (otpRecord == null)
             return NotFound(new BaseResponseError<bool>
             {
@@ -366,7 +378,7 @@ public class AuthenticationController : ControllerBase
         // Step 4: Send OTP via email (no link)
         var subject = "Your Resent OTP";
         var body = $"Your new OTP is: {newOtp}";
-        await _emailService.SendEmailAsync(otpResend.EmailId, subject, body, isHtml:true);
+        await _emailService.SendEmailAsync(email.Email, subject, body, isHtml:true);
 
         // Step 5: Call procedure to update OTP
         return Ok(await _authenticationRepository.UpdateResendOTP(newOtp, otpResend.RequestId));
