@@ -93,6 +93,14 @@ public class CustomerLspController : ControllerBase
         return Ok(await _customerLspRepository.AddCustomerLspTat(addEditCustomerLspTat));
     }
 
+    [HttpGet]
+    [Route("LspTatCount")]
+    public async Task<IActionResult> LspTatCount(Guid userId)
+    {
+        return Ok(await _customerLspRepository.LspTatCount(userId));
+    }
+
+
     [HttpPost]
     [Route("Tat/{id}")]
     public async Task<IActionResult> UpadateCustomerLspTat(string id, CreateCustomerLspTatRequest addEditCustomerLspTat)

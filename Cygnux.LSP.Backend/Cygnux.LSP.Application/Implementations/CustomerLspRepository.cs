@@ -93,6 +93,12 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<CommonCreateResponse>(response);
     }
 
+    public async Task<BaseResponse<IEnumerable<LspTatCount>>> LspTatCount(Guid userId)
+    {
+        var response = await _customerLspService.LspTatCount(userId);
+        return new BaseResponse<IEnumerable<LspTatCount>>(response);
+    }
+
     public async Task<BaseResponse<CommonCreateResponse>> UpdateCustomerLspTat(string id, CreateCustomerLspTatRequest createCustomerLspTat)
     {
         var response = await _customerLspService.UpdateCustomerLspTat(id, JsonConvert.SerializeObject(createCustomerLspTat));

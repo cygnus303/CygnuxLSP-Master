@@ -191,6 +191,18 @@ internal class CustomerLspService : ICustomerLspService
          ) ?? new CommonCreateResponse();
     }
 
+    public async Task<IEnumerable<LspTatCount>> LspTatCount(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<LspTatCount>(
+             StoredProcedureConstants.Usp_LspTatCount,
+             param: parameters,
+             commandType: CommandType.StoredProcedure
+         );
+    }
+
     public async Task<CommonCreateResponse> UpdateCustomerLspTat(string id, string updateCustomerLspTatJson)
     {
         var parameters = new DynamicParameters();

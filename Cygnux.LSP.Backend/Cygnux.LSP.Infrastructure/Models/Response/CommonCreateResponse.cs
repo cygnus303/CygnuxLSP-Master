@@ -8,6 +8,13 @@ public class CommonCreateResponse
 
     public string? Id { get; set; }
 }
+public class LspTatCount
+{
+    public string Name { get; set; }
+    public int count { get; set; }
+    public int totalCount { get; set; }
+}
+
 public class GetUserId : CommonCreateResponse
 {
     public Guid UserId { get; set; }

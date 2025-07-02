@@ -31,4 +31,5 @@ public interface ICustomerLspService
     Task<IEnumerable<DeleteCutomerLSPData>> DeleteCustomerLspDetail(Guid Id);
     Task<IEnumerable<DeleteCustomerLspTatDetail>> DeleteCustomerLspTATDetail(Guid Id);
     Task<IEnumerable<LspMappingCount>> LspMappingCount(Guid userId);
+    Task<IEnumerable<LspTatCount>> LspTatCount(Guid userId);
 }

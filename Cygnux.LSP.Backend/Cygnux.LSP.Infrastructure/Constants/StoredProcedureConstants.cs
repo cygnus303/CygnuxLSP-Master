@@ -56,6 +56,7 @@ public static class StoredProcedureConstants
     public const string USP_DocketCount = "USP_DocketCount";
     public const string USP_DocketTransModeCount = "USP_DocketTransModeCount";
     public const string Usp_LspMappingCount = "Usp_LspMappingCount";
+    public const string Usp_LspTatCount = "Usp_LspTatCount";
 
     public const string USP_OtpVerification= "USP_InsertLoginOTPverification";
     public const string USP_VerifyOTP = "USP_VerifyOTP";
