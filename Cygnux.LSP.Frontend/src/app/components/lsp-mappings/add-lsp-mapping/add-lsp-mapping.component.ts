@@ -235,36 +235,45 @@ export class AddLspMappingComponent {
     return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName));
   }
 
-  onSave() {
-    if (!this.selectedCustomer) {
-      this.sweetAlertService.error('Please select a customer.');
-      return;
-    }
-
-    const customerId = this.selectedCustomer.customerId;
-    const mappedLspNames = this.mappedCustomerLspMap[customerId] || [];
-    const mappedLspIds: string[] = [];
-
-    mappedLspNames.forEach(name => {
-      const lsp = this.lsps.find(l => l.lspName === name);
-      if (lsp) {
-        mappedLspIds.push(lsp.lspId);
-      }
-    });
-
-    const payload = {
-      customerId: customerId,
-      LspId: mappedLspIds.join(','),
-      UserId: this.identityService.getLoggedUserId(),
-      CreatedBy: this.identityService.getLoggedUserId(),
-      updatedBy: this.identityService.getLoggedUserId(),
-      isActive: this.isActive
-    };
-
-    !this.lspMappingId
-      ? this.addLspMapping(payload)
-      : this.updateLspMapping(payload);
+ onSave() {
+  if (!this.selectedCustomer) {
+    this.sweetAlertService.error('Please select a customer.');
+    return;
   }
+
+  const customerId = this.selectedCustomer.customerId;
+  const mappedLspNames = this.mappedCustomerLspMap[customerId] || [];
+
+  if (mappedLspNames.length === 0) {
+    this.sweetAlertService.error('Please map at least one LSP.');
+    return;
+  }
+
+  const mappedLspIds: string[] = [];
+
+  mappedLspNames.forEach(name => {
+    const lsp = this.lsps.find(l => l.lspName === name);
+    if (lsp) {
+      mappedLspIds.push(lsp.lspId);
+    }
+  });
+
+  const payload = {
+    customerId: customerId,
+    LspId: mappedLspIds.join(','),
+    UserId: this.identityService.getLoggedUserId(),
+    CreatedBy: this.identityService.getLoggedUserId(),
+    updatedBy: this.identityService.getLoggedUserId(),
+    isActive: this.isActive
+  };
+
+  if (!this.lspMappingId) {
+    this.addLspMapping(payload);
+  } else {
+    this.updateLspMapping(payload);
+  }
+}
+
 
   addLspMapping(dataSubmit: any) {
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
