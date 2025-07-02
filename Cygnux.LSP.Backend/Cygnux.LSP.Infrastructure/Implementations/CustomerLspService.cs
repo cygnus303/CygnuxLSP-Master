@@ -45,7 +45,7 @@ internal class CustomerLspService : ICustomerLspService
     public async Task<IEnumerable<LspMappingCount>> LspMappingCount(Guid userId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@userId", userId, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
         return await _dbConnection.QueryAsync<LspMappingCount>(
              StoredProcedureConstants.Usp_LspMappingCount,
              commandType: CommandType.StoredProcedure
