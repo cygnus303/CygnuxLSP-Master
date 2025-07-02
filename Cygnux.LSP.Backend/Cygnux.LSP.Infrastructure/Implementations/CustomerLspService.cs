@@ -46,8 +46,10 @@ internal class CustomerLspService : ICustomerLspService
     {
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId, DbType.Guid);
+
         return await _dbConnection.QueryAsync<LspMappingCount>(
              StoredProcedureConstants.Usp_LspMappingCount,
+             param: parameters,
              commandType: CommandType.StoredProcedure
          );
     }
