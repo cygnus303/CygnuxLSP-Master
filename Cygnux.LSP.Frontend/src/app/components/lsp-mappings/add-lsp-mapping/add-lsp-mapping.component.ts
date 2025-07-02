@@ -134,6 +134,7 @@ export class AddLspMappingComponent {
 
   selectCustomer(customer: CustomerResponse) {
     this.selectedCustomer = customer;
+     this.mappedCustomerLspMap = {};
   }
 
   toggleLspSelection(lsp: LspResponse) {
@@ -271,7 +272,9 @@ export class AddLspMappingComponent {
         if (res.data.status.toString() === '1') {
           this.sweetAlertService.success('Mapping saved successfully.');
           this.selectedLsps = [];
-          this.loadData();
+          this.dataEmitter.emit();
+          this.selectedCustomer = null;
+         this.loadData();
         } else {
           this.sweetAlertService.error(res.data.message);
         }
@@ -300,6 +303,8 @@ export class AddLspMappingComponent {
 
   onClose() {
     this.dataEmitter.emit();
+    this.selectedCustomer = null;
+    this.mappedCustomerLspMap = {};
     this.lspMappingResponse = null;
     this.isEditMode = false;
   }
