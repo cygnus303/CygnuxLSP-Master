@@ -23,9 +23,9 @@
                       <li class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center" >
                         <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between" [class.bg-info]="selectedCustomer?.customerId === customer.customerId">
                           <span>{{ customer.customerName }}</span>
-                          <span class="badge bg-secondary">
+                          <span >
                             <!-- {{ mappedCustomerLspMap[customer.customerId]?.length || 0 }} LSP(s) -->
-                            {{ (mappedCustomerLspMap[customer.customerId] || []).length }} LSP(s)
+                            {{ (mappedCustomerLspMap[customer.customerId] || []).length }}
                           </span>
                         </div>
                       </li>
