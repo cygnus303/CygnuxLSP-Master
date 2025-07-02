@@ -1,68 +1,121 @@
-<div class="modal-header modal-header bs-blue d-flex justify-content-between">
-    <h5 class="modal-title" id="exampleModalLabel">{{lspMappingId ? 'Update LSP Mapping':'Add LSP Mapping'}}</h5>
-    <button data-bs-dismiss="modal" class="close" (click)="this.dataEmitter.emit();"><i class="fa fa-close"></i></button>
-</div>
-<div class="modal-body" style="padding:0px;">
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card">
-      <div class="card-body pb-0">
-        <form [formGroup]="lspMappingForm" class="needs-validation" autocomplete="off"
-          (submit)="onSubmitLspMapping(lspMappingForm)">
-          <div class="tab-content" id="info-tabContent">
-            <div class="tab-pane fade active show" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="lsps">Customer Name</label>
-                    <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId" formControlName="customerId" class="noFoundTextColor"
-                      placeholder="Select Customer" [searchable]="true" [readonly]="this.lspMappingResponse ? true : false"
-                      [ngClass]="{ 'border-danger': lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId'].touched}" notFoundText="Customer not found or mapping is already exists">
-                    </ng-select>
-                    <div *ngIf="lspMappingForm.controls['customerId'].invalid && lspMappingForm.controls['customerId']?.touched"
-                      class="text-danger">
-                      <small *ngIf="lspMappingForm.controls['customerId'].errors?.['required']">Customer is
-                        required.</small>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="lsps">Lsps</label>
-                    <ng-select [items]="lsps" bindLabel="lspName" bindValue="lspId" formControlName="lspIds"
-                      placeholder="Select Lsps" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                      [ngClass]="{ 'border-danger': lspMappingForm.controls['lspIds'].invalid && lspMappingForm.controls['lspIds'].touched}">
-                    </ng-select>
-                    <div *ngIf="lspMappingForm.controls['lspIds'].invalid && lspMappingForm.controls['lspIds'].touched" class="text-danger">
-                      Please select at least one role.
+<div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-0">
+        <div class="modal-header bs-blue d-flex justify-content-between">
+          <h5 class="modal-title" id="exampleModalLabel">{{!lspMappingId ? 'Add LSP Mapping':'Update LSP Mapping'}}</h5>
+          <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="card-body card-border p-3 m-3">
+          <div class="row">
+            <!-- First Column: Customer List -->
+            <div class="col-md-4">
+              <div class="border-color">
+                 <div class="lsp-data">Customer</div>
+                <div class="mb-1 px-3 mt-3">
+                  <input type="text" class="form-control" placeholder="Search Customer..." >
+                </div>
+                <div class="p-3 overflow-lab">
+                  <!-- Add Mode: unmapped customers -->
+                  <ng-container *ngIf="!isEditMode">
+                    <ul *ngFor="let customer of unmappedCustomers" 
+                      (click)="selectCustomer(customer)">
+                      <li class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center" >
+                        <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between" [class.bg-info]="selectedCustomer?.customerId === customer.customerId">
+                          <span>{{ customer.customerName }}</span>
+                          <span class="badge bg-secondary">
+                            <!-- {{ mappedCustomerLspMap[customer.customerId]?.length || 0 }} LSP(s) -->
+                            {{ (mappedCustomerLspMap[customer.customerId] || []).length }} LSP(s)
+                          </span>
+                        </div>
+                      </li>
+                    </ul>
+                  </ng-container>
+            
+                  <!-- Edit Mode: selected customer -->
+                  <ng-container *ngIf="isEditMode && selectedCustomer">
+                    <ul>
+                      <li class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center">
+                        <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between">
+                          <span>{{ selectedCustomer.customerName }}</span>
+                          <span class="badge bg-secondary">
+                            <!-- {{ mappedCustomerLspMap[selectedCustomer.customerId]?.length || 0 }} LSP(s) -->
+                            {{ (mappedCustomerLspMap[selectedCustomer.customerId] || []).length }} LSP(s)
+                          </span>
+                        </div>
+                      </li>
+                    </ul>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Second Column: Mapped LSPs -->
+            <div class="col-md-4" *ngIf="selectedCustomer">
+              <div class="border-color">
+                <div class="lsp-data">Mapped LSPs for {{ selectedCustomer.customerName }}</div>
+                    <div class="mb-1 px-3 mt-3">
+                      <input type="text" class="form-control" placeholder="Search Mapped LSPs...">
                     </div>
-                </div>
-              </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="lsps">Support Email Address</label>
-                  <input class="form-control" formControlName="supportEmail" type="text"  placeholder="Enter support email"
-                  [ngClass]="{ 'border-danger': lspMappingForm.controls['supportEmail'].invalid && lspMappingForm.controls['supportEmail'].touched}" />
-                  <div class="text-danger">
-                    <small *ngIf="lspMappingForm.controls['supportEmail'].errors?.['pattern']">Support Email Address is invalid.</small>
+                <div class="p-3 overflow-lab" (dragover)="onDragOver($event)" (drop)="onDropToCustomer($event, selectedCustomer)">
+                  <div *ngIf="mappedCustomerLspMap[selectedCustomer.customerId]?.length; else noMapping">
+                    <ul>
+                      <li *ngFor="let lspName of mappedCustomerLspMap[selectedCustomer.customerId]"
+                        class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center" draggable="true"
+                        (dragstart)="onDragStartMappedLsp($event, lspName)">
+                        <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between">
+                          {{ lspName }}
+                          <i class="fa fa-arrow-left text-danger float-end" title="Drag to unmap"></i>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
+                  <ng-template #noMapping>
+                    <p class="text-muted small">No LSPs mapped yet. Drop here to map.</p>
+                  </ng-template>
                 </div>
               </div>
-              <div class="checkbox p-0" *ngIf="lspMappingId != ''">
-                <input id="dafault-checkbox" type="checkbox" formControlName="isActive" />
-                <label class="mb-0" for="dafault-checkbox">Active</label>
+            </div>
+    
+            <!-- Third Column: Available LSPs -->
+            <div class="col-md-4">
+              <div class="border-color">
+                <div class="lsp-data">Available LSPs</div>
+                    <div class="mb-1 px-3 mt-3">
+                      <input type="text" class="form-control" placeholder="Search Available LSPs...">
+                    </div>
+                <div class="p-3 overflow-lab">
+                  <ul (dragover)="onDragOver($event)"
+                    (drop)="onDropToAvailableLsp($event)">
+                    <li *ngFor="let lsp of lsps" class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center"
+                      draggable="true" (dragstart)="onDragStartLsp($event, lsp, 'available')" (click)="toggleLspSelection(lsp)">
+                      <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between"  [class.bg-success]="isSelected(lsp)">
+                        {{ lsp.lspName }}
+                        <i class="fa ms-auto" [ngClass]="{ 'fa-check-circle text-white': isSelected(lsp) }"></i>
+                      </div>
+                    </li>
+                    <div class="text-muted small mt-2">Drop mapped LSPs here to unmap them</div>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-          <div class="gap-2 d-flex justify-content-end">
-            <button class="btn btn-square btn-success pull-right rounded-3" type="submit"><i class="fa fa-check"></i> Submit</button>&nbsp;
-            <button class="btn btn-square btn-danger pull-right rounded-3" type="reset" *ngIf="this.type !== 'Update'"><i class="fa fa-times"></i> Reset</button>
         </div>
-        </form>
+         <div class="d-flex justify-content-between mb-3 mx-3">
+         <div class="checkbox p-0 form-check checkbox checkbox-solid-success" *ngIf="lspMappingId != ''">
+                <input id="dafault-checkbox" type="checkbox"  [(ngModel)]="isActive" />
+                <label class="mb-0" for="dafault-checkbox">Active</label>
+              </div>
+            <button class="btn btn-square btn-success pull-right rounded-3" (click)="onSave()" type="submit"><i
+                class="fa fa-check"></i> Submit</button>
+          </div>
       </div>
     </div>
+  <!-- <div class="row mt-3">
+  <div class="col-12 text-end">
+    <button class="btn btn-primary" (click)="onSave()">Save Mapping</button>
   </div>
-</div>
+</div> -->
+
+
 </div>

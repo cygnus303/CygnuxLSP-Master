@@ -52,7 +52,7 @@ export class LspMappingService {
   
 
   addLspMapping(
-    addLspRequest: AddLspRequest
+    addLspRequest: any
   ): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('CustomerLsp/AddLspMap', addLspRequest);
   }

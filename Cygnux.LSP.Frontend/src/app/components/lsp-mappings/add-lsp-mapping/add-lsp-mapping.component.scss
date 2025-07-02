@@ -1,0 +1,73 @@
+/* lsp-drag-drop-mapping.component.scss */
+.bg-success {
+  background-color: #198754 !important;
+  color: white;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.card-border{
+  border: 2px solid #cecece;
+  border-radius: 7px !important;
+}
+
+.border-color {
+    border-radius: 10px;
+    background-color: #F2F4F6;
+    // height: 450px;
+
+    .lsp-data {
+        background-color: #E4EDF5;
+        font-size: 18px;
+        color: #72767A;
+        font-weight: bold;
+        border-radius: 10px 10px 0px 0px;
+        padding: 14px !important;
+    }
+}
+
+.overflow-lab {
+    // height: calc(100vh - 48px) !important;
+    overflow: auto;
+    height: 400px;
+}
+.searc-data {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.lab-color {
+    background-color: #FBFCFF;
+    border: 1px solid #F1F2F5 !important;
+    margin-right: 10px;
+    border-radius: 6px;
+    width: 100% !important;
+}
+
+
+.search-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.search-input {
+  padding-left: 35px !important;
+  height: 38px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}

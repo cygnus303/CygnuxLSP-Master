@@ -2,182 +2,298 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IdentityService } from '../../../shared/services/identity.service';
 import { LspService } from '../../../shared/services/lsp.service';
-import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 import { CustomerService } from '../../../shared/services/customer.service';
+import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
+import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { LspResponse } from '../../../shared/models/lsp.model';
 import { CustomerResponse } from '../../../shared/models/customer.model';
-import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
-import { IdentityService } from '../../../shared/services/identity.service';
-import { SweetAlertService } from '../../../shared/services/toastr.service';
-import { EmailRegex } from '../../../shared/constants/common';
+import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 
 @Component({
   selector: 'app-add-lsp-mapping',
-  standalone: false,
   templateUrl: './add-lsp-mapping.component.html',
   styleUrls: ['./add-lsp-mapping.component.scss'],
 })
-export class AddLspMappingComponent implements OnInit, OnChanges {
-  public lspMappingForm!: FormGroup;
-  public lspMappingId: string = '';
-  public lsps: LspResponse[] = [];
-  public customers: CustomerResponse[] | null = null;
-  public lspMappingsList :LspMappingResponse[] = [];
-  @Input() lspMappingResponse: LspMappingResponse | null = null;
-  @Input() type: string = '';
+export class AddLspMappingComponent implements OnInit {
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
+  public customers: CustomerResponse[] = [];
+  public lsps: LspResponse[] = [];
+  public lspMappingsList: LspMappingResponse[] = [];
+
+  public mappedCustomers: CustomerResponse[] = [];
+  public unmappedCustomers: CustomerResponse[] = [];
+  public selectedLsps: LspResponse[] = [];
+
+  public selectedCustomer: CustomerResponse | null = null;
+  public lspMappingId: string = '';
+  public isEditMode = false;
+  public isActive: boolean = true; // default checked
+
+
+  public mappedCustomerLspMap: { [key: string]: string[] } = {};
+  @Input() lspMappingResponse: LspMappingResponse | null = null;
+
   constructor(
-    private lspService: LspService,
     private customerService: CustomerService,
+    private lspService: LspService,
     private lspMappingService: LspMappingService,
-    private sweetAlertService: SweetAlertService,
-    private identityService:IdentityService
-  ) {
-    this.lspMappingForm = new FormGroup({});
-  }
+    private identityService: IdentityService,
+    private sweetAlertService: SweetAlertService
+  ) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lspMappingResponse'] && this.lspMappingResponse) {
       this.lspMappingResponse.lspIds = this.lspMappingResponse.lspId
-      ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
-      : [];    
-      this.lspMappingForm.patchValue(this.lspMappingResponse);
-      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';  
+        ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
+        : [];
+
+      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';
+      this.isEditMode = true;
+
+      this.getCustomers();
+      this.getLsps();
+      this.getLspMappings();
     } else {
-      this.lspMappingForm.reset();
-      this.buildForm();
       this.lspMappingId = '';
+      this.isEditMode = false;
+      this.selectedCustomer = null;
     }
-    this.getLspMappings();
-    this.getCustomers();
-    this.customers = [];  
   }
 
   ngOnInit(): void {
-    this.getLsps();
-    this.buildForm();
+    this.loadData();
+  }
+
+  loadData() {
+    this.getLspMappings();
     this.getCustomers();
-
+    this.getLsps();
   }
 
-  buildForm(): void {
-    this.lspMappingForm = new FormGroup({
-      lspIds: new FormControl([], [Validators.required]),
-      customerId: new FormControl(null, [Validators.required]),
-      isActive: new FormControl(true),
-      supportEmail:new FormControl('', [Validators.pattern(EmailRegex)])
-    });
-  }
 
   getCustomers() {
-    const filters: any = {
-      Page: 1,
-      PageSize: 100,
-    };
-    this.customerService.getCustomerList(this.identityService.getLoggedUserId(),filters).subscribe({
-      next: (response) => {
-        if (response) {
-          if(!this.lspMappingResponse ){
-              const mappedCustomerIds = this.lspMappingsList.map(elm => elm.customerId);
-            //  this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId) && res.isActive);
-             this.customers = response.data.filter(res => !mappedCustomerIds.includes(res.customerId));
-          }else{
-            // this.customers = response.data.filter((customer: any) => customer.isActive);
-            this.customers = response.data;
-          }
+    const filters = { Page: 1, PageSize: 100 };
+    this.customerService.getCustomerList(this.identityService.getLoggedUserId(), filters).subscribe({
+      next: (res) => {
+        if (this.isEditMode && this.lspMappingResponse?.customerId) {
+          debugger
+          this.customers = res.data.filter(c => c.customerId === this.lspMappingResponse?.customerId);
+          this.selectedCustomer = this.customers[0] ?? null;
+        } else {
+          this.customers = res.data;
         }
+        this.categorizeCustomers();
       },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-      },
-    });
-  }
-  
-  getLspMappings(page: number = 1) {
-    const filters: any = {
-      Page: 1,
-      PageSize: 500,
-    };
-    this.lspMappingService.getLspMappingList(this.identityService.getLoggedUserId(),filters).subscribe({
-      next: (response) => {
-        if (response) {
-          this.lspMappingsList = response.data;
-        }
-      }
+      error: (err) => this.sweetAlertService.error(err.error.message)
     });
   }
 
   getLsps() {
-    const filters: any = {
-      Page: 1,
-      PageSize: 100,
-    };
-    this.lspService.getLspList(this.identityService.getLoggedUserId(),filters).subscribe({
-      next: (response) => {
-        if (response) {
-        //  this.lsps = response.data.filter((lsp: any) => lsp.isActive);
-         this.lsps = response.data;
-        }
+    const filters = { Page: 1, PageSize: 100 };
+    this.lspService.getLspList(this.identityService.getLoggedUserId(), filters).subscribe({
+      next: (res) => {
+        this.lsps = res.data;
+        this.categorizeCustomers();
       },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-      },
+      error: (err) => this.sweetAlertService.error(err.error.message)
     });
   }
-  onSubmitLspMapping(form: FormGroup): void {
-    if (form.valid) {
-      const dataSubmit={
-        ...form.value,
-        LspId: form.value.lspIds?.join(',') || '',
-        UserId:this.identityService.getLoggedUserId(),
-        updatedBy:this.identityService.getLoggedUserId(),
-        CreatedBy:this.identityService.getLoggedUserId()
+
+  getLspMappings() {
+    const filters = { Page: 1, PageSize: 500 };
+    this.lspMappingService.getLspMappingList(this.identityService.getLoggedUserId(), filters).subscribe({
+      next: (res) => {
+        this.lspMappingsList = res.data;
+        this.categorizeCustomers();
       }
-      delete dataSubmit.lspIds;
-      !this.lspMappingId
-        ? this.addLspMapping(dataSubmit)
-        : this.updateLspMapping(dataSubmit);
-    }else{
-      form.markAllAsTouched();
+    });
+  }
+
+  categorizeCustomers() {
+    const mappedIds = this.lspMappingsList.map(m => m.customerId);
+    this.mappedCustomers = this.customers.filter(c => mappedIds.includes(c.customerId));
+    this.unmappedCustomers = this.customers.filter(c => !mappedIds.includes(c.customerId));
+
+    this.mappedCustomerLspMap = {};
+
+    for (const mapping of this.lspMappingsList) {
+      const customerId = mapping.customerId;
+      if (!this.mappedCustomerLspMap[customerId]) {
+        this.mappedCustomerLspMap[customerId] = [];
+      }
+
+      const lspIds = mapping.lspId?.split(',') || [];
+      lspIds.forEach(id => {
+        const lsp = this.lsps.find(l => l.lspId === id.trim());
+        if (lsp && !this.mappedCustomerLspMap[customerId].includes(lsp.lspName)) {
+          this.mappedCustomerLspMap[customerId].push(lsp.lspName);
+        }
+      });
     }
   }
 
-  addLspMapping(dataSubmit: any): void {
+  selectCustomer(customer: CustomerResponse) {
+    this.selectedCustomer = customer;
+  }
+
+  toggleLspSelection(lsp: LspResponse) {
+    const exists = this.selectedLsps.find(x => x.lspId === lsp.lspId);
+    if (exists) {
+      this.selectedLsps = this.selectedLsps.filter(x => x.lspId !== lsp.lspId);
+    } else {
+      this.selectedLsps.push(lsp);
+    }
+  }
+
+  isSelected(lsp: LspResponse): boolean {
+    return !!this.selectedLsps.find(x => x.lspId === lsp.lspId);
+  }
+
+  onDragStartLsp(event: DragEvent, lsp: LspResponse, source: 'available' | 'mapped') {
+    let lspListToSend: LspResponse[] = [];
+
+    // If dragged LSP is in selection list, send all selected
+    if (this.isSelected(lsp)) {
+      lspListToSend = [...this.selectedLsps];
+    } else {
+      // Else just drag the one item
+      lspListToSend = [lsp];
+    }
+
+    const dragData = {
+      lsps: lspListToSend,
+      source: source
+    };
+
+    event.dataTransfer?.setData('text/plain', JSON.stringify(dragData));
+  }
+
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDropToAvailableLsp(event: DragEvent) {
+    event.preventDefault();
+
+    const data = event.dataTransfer?.getData('text/plain');
+    if (!data || !this.selectedCustomer) return;
+
+    const dropData = JSON.parse(data);
+    const customerId = this.selectedCustomer.customerId;
+
+    if (!this.mappedCustomerLspMap[customerId]) return;
+
+    for (const lsp of dropData.lsps) {
+      const index = this.mappedCustomerLspMap[customerId].indexOf(lsp.lspName);
+      if (index > -1) {
+        this.mappedCustomerLspMap[customerId].splice(index, 1);
+      }
+
+      // Optionally remove from selection list
+      this.selectedLsps = this.selectedLsps.filter(x => x.lspId !== lsp.lspId);
+    }
+  }
+
+
+  onDragStartMappedLsp(event: DragEvent, lspName: string) {
+    const lsp = this.lsps.find(x => x.lspName === lspName);
+    if (lsp) {
+      const dragData = {
+        lsps: [lsp],
+        source: 'mapped'
+      };
+      event.dataTransfer?.setData('text/plain', JSON.stringify(dragData));
+    }
+  }
+
+
+  onDropToCustomer(event: DragEvent, customer: CustomerResponse) {
+    event.preventDefault();
+
+    const data = event.dataTransfer?.getData('text/plain');
+    if (!data) return;
+
+    const dropData = JSON.parse(data);
+    if (dropData.source === 'available') {
+      this.selectedCustomer = customer;
+
+      for (const lsp of dropData.lsps) {
+        const alreadyMapped = this.mappedCustomerLspMap[customer.customerId]?.includes(lsp.lspName);
+
+        if (!alreadyMapped) {
+          if (!this.mappedCustomerLspMap[customer.customerId]) {
+            this.mappedCustomerLspMap[customer.customerId] = [];
+          }
+          this.mappedCustomerLspMap[customer.customerId].push(lsp.lspName);
+        }
+
+        // Remove from selected list
+        this.selectedLsps = this.selectedLsps.filter(x => x.lspId !== lsp.lspId);
+      }
+    }
+  }
+
+  onSave() {
+    if (!this.selectedCustomer) {
+      this.sweetAlertService.error('Please select a customer.');
+      return;
+    }
+
+    const customerId = this.selectedCustomer.customerId;
+    const mappedLspNames = this.mappedCustomerLspMap[customerId] || [];
+    const mappedLspIds: string[] = [];
+
+    mappedLspNames.forEach(name => {
+      const lsp = this.lsps.find(l => l.lspName === name);
+      if (lsp) {
+        mappedLspIds.push(lsp.lspId);
+      }
+    });
+
+    const payload = {
+      customerId: customerId,
+      LspId: mappedLspIds.join(','),
+      UserId: this.identityService.getLoggedUserId(),
+      CreatedBy: this.identityService.getLoggedUserId(),
+      updatedBy: this.identityService.getLoggedUserId(),
+      isActive: this.isActive
+    };
+    !this.lspMappingId
+      ? this.addLspMapping(payload)
+      : this.updateLspMapping(payload);
+
+  }
+  addLspMapping(dataSubmit: any) {
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
-      next: (response) => {
-        if (response.data.status.toString() === '1') {
-          this.sweetAlertService.success(response.data.message);
-          this.dataEmitter.emit();
-          this.lspMappingForm.reset();
-          this.buildForm();
-          this.getLspMappings();
-         this.getCustomers();
+      next: (res) => {
+        if (res.data.status.toString() === '1') {
+          this.sweetAlertService.success('Mapping saved successfully.');
+          this.selectedLsps = [];
+          this.loadData();
         } else {
-          this.sweetAlertService.error(response?.data?.message);
+          this.sweetAlertService.error(res.data.message);
         }
       },
-      error: (response: any) => {
-        this.sweetAlertService.error(response?.data?.message);
-      },
+      error: (err) => this.sweetAlertService.error(err.error.message)
     });
   }
 
-  updateLspMapping(dataSubmit: any): void {
+  updateLspMapping(dataSubmit: any) {
     this.lspMappingService
-      .updateLspMapping(this.lspMappingResponse?.lspMappingId,dataSubmit)
+      .updateLspMapping(this.lspMappingResponse?.lspMappingId, dataSubmit)
       .subscribe({
         next: (response) => {
           this.sweetAlertService.success(response.data.message);
           if (response.data.status.toString() === '1') {
             this.dataEmitter.emit();
-            this.lspMappingForm.reset();
           } else {
             this.sweetAlertService.error(response.data.message);
           }
@@ -188,7 +304,10 @@ export class AddLspMappingComponent implements OnInit, OnChanges {
       });
   }
 
-  onClose(){
-    this.buildForm();
+
+  onClose() {
+    this.dataEmitter.emit();
+     this.lspMappingResponse = null;
+     this.isEditMode=false;
   }
 }
