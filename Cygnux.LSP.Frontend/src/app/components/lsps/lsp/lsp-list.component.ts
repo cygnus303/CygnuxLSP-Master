@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { LspService } from '../../../shared/services/lsp.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { LspResponse } from '../../../shared/models/lsp.model';
+import { CountResponse, LspResponse } from '../../../shared/models/lsp.model';
 import { Modal } from 'bootstrap';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
@@ -34,6 +34,7 @@ export class LspListComponent implements OnInit {
   public totalItems = 0; // Total number of items
   public loading : boolean = false;
   public hoveredRow: number | null = null;
+  public lspCount: CountResponse[] = [];
   @Output() edit = new EventEmitter<LspResponse>();
   @ViewChild(AddLspComponent) addLspComponent!: AddLspComponent;
 
@@ -48,15 +49,16 @@ export class LspListComponent implements OnInit {
   }
 
      LSPCard = [
-    { name: 'Total LSP', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
-    { name: 'Active', color: 'blue', icon: 'fa-solid fa-boxes-packing', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
-    { name: 'In-Active', color: 'purple', icon: 'fa-solid fa-truck', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+    { name: 'Total LSP', color: 'red', icon: 'fa fa-database', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
+    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
   ];
 
   ngOnInit(): void {
     this.commonService.loading.subscribe((state: boolean) => {
       this.loading = state;
     });
+    this.getLSPCount();
     this.getLsps();
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
     this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
@@ -190,5 +192,30 @@ export class LspListComponent implements OnInit {
         this.sweetAlertService.error(response.error.message);
       },
     });
+  }
+
+  getLSPCount() {
+    this.lspService.lspCount().subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          const mergedData: any[] = [];
+          this.LSPCard.forEach(meta => {
+            const matchedItem = response.data.find((item: any) => item.name.includes(meta.name));
+            mergedData.push({
+              name: meta.name,
+              icon: meta.icon,
+              color: meta.color,
+              progress: meta.progress,
+              headerColor: meta.headerColor,
+              count: matchedItem ? matchedItem.count : 0,
+            });
+          });
+          this.lspCount = mergedData;
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    })
   }
 }

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
 import { AddCustomerRequest, CustomerMapping, CustomerResponse } from '../models/customer.model';
-import { CommonResponse } from '../models/lsp.model';
+import { CommonResponse, CountResponse } from '../models/lsp.model';
 import { IdentityService } from './identity.service';
 
 
@@ -37,5 +37,9 @@ export class CustomerService {
 
   checkMappingCustomer(id:string):Observable<IApiBaseResponse<CustomerMapping[]>> {
     return this.apiHandlerService.Get(`customer/DeleteCustomerData?custId=${id}`);
+  }
+
+   customerCount():Observable<IApiBaseResponse<CountResponse[]>> {
+    return this.apiHandlerService.Get(`customer/CustomerCount`);
   }
 }

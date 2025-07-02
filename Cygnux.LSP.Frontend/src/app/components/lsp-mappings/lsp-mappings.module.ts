@@ -10,6 +10,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LspMappingsDetailComponent } from './lsp-mappings-detail/lsp-mappings-detail.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
         NgMultiSelectDropDownModule.forRoot(),
         NgbPaginationModule,
         NgSelectModule,
-        PopoverModule
+        PopoverModule,
+        CountUpDirective
     ],
     exports:[AddLspMappingComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

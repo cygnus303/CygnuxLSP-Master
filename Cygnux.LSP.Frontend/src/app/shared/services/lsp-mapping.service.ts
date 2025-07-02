@@ -8,6 +8,7 @@ import {
 import {
   AddLspRequest,
   CommonResponse,
+  CountResponse,
   CustomerLspMap,
   CustomerLspTat,
   LspResponse,
@@ -50,6 +51,9 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`customerLsp/Tat/Lsps?login=${id}`);
   }
   
+  getLspMappingCount(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
+      return this.apiHandlerService.Get(`CustomerLsp/LspMappingCount?userId=${userId}`);
+    }
 
   addLspMapping(
     addLspRequest: any

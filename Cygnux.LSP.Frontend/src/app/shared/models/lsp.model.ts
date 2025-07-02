@@ -37,6 +37,15 @@ export interface CommonResponse {
     id: string;
 }
 
+export interface CountResponse{
+  name:string,
+  count:number,
+  headerColor:string;
+  progress:string;
+  color:string;
+  icon:string;
+}
+
 export interface LspMappingResponse {
   customerMappings: CustomerMapping[];
   tatDetails: TatDetail[];

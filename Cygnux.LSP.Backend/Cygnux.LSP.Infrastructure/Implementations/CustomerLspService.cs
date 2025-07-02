@@ -2,6 +2,7 @@
 
 using Constants;
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.Lsp;
 using Dapper;
 using Models.Response;
 using Models.Response.LspMapping;
@@ -39,6 +40,16 @@ internal class CustomerLspService : ICustomerLspService
              param: parameters,
              commandType: CommandType.StoredProcedure
          ) ?? new LspMappingDetailResponse();
+    }
+
+    public async Task<IEnumerable<LspMappingCount>> LspMappingCount(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@userId", userId, DbType.Guid);
+        return await _dbConnection.QueryAsync<LspMappingCount>(
+             StoredProcedureConstants.Usp_LspMappingCount,
+             commandType: CommandType.StoredProcedure
+         );
     }
     public async Task<IEnumerable<CustomerResponse>> GetCustomers(Guid loginid)
     {

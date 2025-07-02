@@ -33,4 +33,5 @@ public interface ICustomerLspRepository
     Task<BaseResponse<CommonCreateResponse>> DeleteLspMappingTat(Guid id);
     Task<BaseResponse<IEnumerable<DeleteCutomerLSPData>>> DeleteCustomerLspDetail(Guid Id);
     Task<BaseResponse<IEnumerable<DeleteCustomerLspTatDetail>>> DeleteCustomerLspTATDetail(Guid Id);
+    Task<BaseResponse<IEnumerable<LspMappingCount>>> LspMappingCount(Guid userId);
 }

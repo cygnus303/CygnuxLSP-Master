@@ -58,6 +58,13 @@ public class CustomerLspController : ControllerBase
         return Ok(await _customerLspRepository.GetLspMappingDetails(Id));
     }
 
+    [HttpGet]
+    [Route("LspMappingCount")]
+    public async Task<IActionResult> LspMappingCount(Guid userId)
+    {
+        return Ok(await _customerLspRepository.LspMappingCount(userId));
+    }
+
     [HttpPost]
     [Route("AddLspMap")]
     public async Task<IActionResult> AddLspMapping(CreateLspMappingRequest createLspMapping)
@@ -112,5 +119,6 @@ public class CustomerLspController : ControllerBase
     {
         return Ok(await _customerLspRepository.DeleteCustomerLspTATDetail(Id));
     }
+
 
 }

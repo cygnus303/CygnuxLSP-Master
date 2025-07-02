@@ -47,11 +47,11 @@ export class LspTatListComponent implements OnInit {
   }
 
      LSPTatCard = [
-    { name: 'Total LSP Tat', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
-    { name: 'Customer Mapping', color: 'orange', icon: 'fa-solid fa-box-open', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
-    { name: 'LSP Mapping', color: 'green', icon: 'fa-shipping-fast', progress: "progress-gradient-success", headerColor: 'header-text-success' , count:22 },
-    { name: 'Active', color: 'blue', icon: 'fa-solid fa-boxes-packing', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
-    { name: 'In-Active', color: 'purple', icon: 'fa-solid fa-truck', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+    { name: 'Total LSP Tat', color: 'red', icon: 'fa fa-hourglass-half', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
+    { name: 'Customer Mapping', color: 'orange', icon: 'fa fa-link', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
+    { name: 'LSP Mapping', color: 'green', icon: 'fa fa-network-wired', progress: "progress-gradient-success", headerColor: 'header-text-success' , count:22 },
+    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
   ];
 
   ngOnInit(): void {
