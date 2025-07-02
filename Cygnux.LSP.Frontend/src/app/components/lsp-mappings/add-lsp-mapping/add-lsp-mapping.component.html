@@ -5,7 +5,7 @@
         <h5 class="modal-title" id="exampleModalLabel">{{!lspMappingId ? 'Add LSP Mapping':'Update LSP Mapping'}}</h5>
         <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close"></i></button>
       </div>
-      <div class="card-body card-border p-3 m-3">
+      <div class="card-body p-3 m-3">
         <div class="row">
           <!-- First Column: Customer List -->
           <div class="col-md-4">
@@ -36,12 +36,11 @@
             </div>
           </div>
 
-          <!-- Second Column: Mapped LSPs -->
-          <div class="col-md-4" *ngIf="selectedCustomer">
+          <div class="col-md-4">
             <div class="border-color">
-                 <div class="lsp-data card mb-0 p-2 shadow-sm ">
+            <div class="lsp-data card mb-0 p-2 shadow-sm ">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 name-list single-line" title="Mapped LSPs for {{ selectedCustomer.customerName }}">Mapped LSPs for {{ selectedCustomer.customerName }}</h5>
+                <h5 class="mb-0 name-list single-line" title="Mapped LSPs for {{ selectedCustomer.customerName }}" *ngIf="selectedCustomer">  Mapped LSPs {{ selectedCustomer.customerName }}</h5>
                 <span class="input-group-text cursor-pointer" *ngIf="!showMappedSearch"><i class="fas fa-search" (click)="toggleSearch('mapped')"></i></span>
                 <div class="input-group leftright-radius ms-2" *ngIf="showMappedSearch">
                   <input class="form-control" type="text" placeholder="Search Mapped LSPs...">
@@ -50,25 +49,33 @@
               </div>
             </div>
               <div class="p-3 overflow-lab" (dragover)="onDragOver($event)"
-                (drop)="onDropToCustomer($event, selectedCustomer)">
-                <div *ngIf="mappedCustomerLspMap[selectedCustomer.customerId]?.length; else noMapping">
-                  <ul>
-                    <li *ngFor="let lspName of mappedCustomerLspMap[selectedCustomer.customerId]"
-                      class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center" draggable="true"
-                      (dragstart)="onDragStartMappedLsp($event, lspName)">
-                      <div class="mr-0 p-2 lab-color w-100  d-flex justify-content-between">
-                        {{ lspName }}
-                        <i class="fa fa-arrow-left text-danger float-end" title="Drag to unmap"></i>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                (drop)="selectedCustomer && onDropToCustomer($event, selectedCustomer)">
+                <ng-container *ngIf="selectedCustomer; else noCustomerSelected">
+                  <ng-container *ngIf="mappedCustomerLspMap[selectedCustomer.customerId]?.length; else noMapping">
+                    <ul>
+                      <li *ngFor="let lspName of mappedCustomerLspMap[selectedCustomer.customerId]"
+                        class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center" draggable="true"
+                        (click)="toggleMappedLspSelection(lspName)" (dragstart)="onDragStartMappedLsp($event, lspName)">
+                        <div class="mr-0 p-2 lab-color w-100 d-flex justify-content-between"
+                          [class.selected-border]="isMappedLspSelected(lspName)">
+                          {{ lspName }}
+                          <i class="fa-solid fa-arrow-right-arrow-left float-end"></i>
+                        </div>
+                      </li>
+                    </ul>
+                  </ng-container>
+                </ng-container>
                 <ng-template #noMapping>
                   <p class="text-muted small">No LSPs mapped yet. Drop here to map.</p>
+                </ng-template>
+ 
+                <ng-template #noCustomerSelected>
+                  <p class="text-muted small">Select a customer to see mapped LSPs.</p>
                 </ng-template>
               </div>
             </div>
           </div>
+
 
           <!-- Third Column: Available LSPs -->
           <div class="col-md-4">
@@ -89,9 +96,10 @@
                     class="p-2 mb-2 searc-data d-flex justify-content-between align-items-center" draggable="true"
                     (dragstart)="onDragStartLsp($event, lsp, 'available')" (click)="toggleLspSelection(lsp)">
                     <div class="mr-0 p-2 lab-color w-100 d-flex justify-content-between"
-                      [class.bg-success]="isSelected(lsp)">
+                      [class.selected-border]="isSelected(lsp)">
                       {{ lsp.lspName }}
-                      <i class="fa ms-auto" [ngClass]="{ 'fa-check-circle text-white': isSelected(lsp) }"></i>
+                      <i class="fa-solid fa-arrow-left-long"
+                        [ngClass]="{ 'fa-check-circle text-white': isSelected(lsp) }"></i>
                     </div>
                   </li>
                 </ul>
