@@ -100,12 +100,11 @@
                         *ngIf="j === 0 && (commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit || commonService.menuRoleList?.canDelete)"
                         [attr.rowspan]="lsp.lspResponses?.length" class="text-center align-middle" [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
                         <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-              
                           <!-- Edit -->
-                          <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit}" [popover]="'Edit'"
+                          <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit , 'disabled-icon': !lsp.isCustomerActive}" [popover]="lsp.isCustomerActive ? 'Edit':'This customer is currently in an inactive state.'"
                             placement="auto" triggers="hover" [outsideClick]="true" container="body">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"
-                              height="20" (click)="editModal($event, lsp?.lspMappingId)">
+                              height="20" (click)="!lsp.isCustomerActive ? null : editModal($event, lsp?.lspMappingId)">
                               <path
                                 d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z">
                               </path>

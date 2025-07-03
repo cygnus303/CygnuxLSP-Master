@@ -34,6 +34,7 @@ public class LspMappingListResponse
     public bool IsActive { get; set; }
     public int? TotalCount { get; set; }
     public required string LspId { get; set; }
+    public bool? IsCustomerActive { get; set; }
 
 }
 

@@ -9,6 +9,7 @@ export interface LspMappingResponse {
     lspMappingId?:any;
     lspName?:string;
     lspId?:string;
+    isCustomerActive?:boolean;
 }
 export interface LspResponse {
     lspId: string;
