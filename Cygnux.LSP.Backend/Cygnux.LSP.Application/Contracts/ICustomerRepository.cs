@@ -1,5 +1,6 @@
 ﻿namespace Cygnux.LSP.Application.Contracts;
 
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Infrastructure.Models.Response;
 using Infrastructure.Models.Response.Customer;
 using Models.Request.Customer;
@@ -19,5 +20,7 @@ public interface ICustomerRepository
     Task<BaseResponse<IEnumerable<CustomerDeleteDataRes>>> DeleteCustomerData(Guid custId);
     Task<BaseResponse<IEnumerable<CustomerCount>>> CustomerCount();
     Task<BaseResponse<IEnumerable<CheckCustomerData>>> CheckCustomerData(Guid custId);
+    Task<BaseResponse<IEnumerable<CustomerResponse>>> Customers(Guid userId);
+
 
 }

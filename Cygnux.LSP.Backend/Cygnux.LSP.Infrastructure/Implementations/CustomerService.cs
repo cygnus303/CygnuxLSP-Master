@@ -2,6 +2,7 @@
 
 using Constants;
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Dapper;
 using Models.Response;
 using Models.Response.Customer;
@@ -105,6 +106,18 @@ internal class CustomerService : ICustomerService
 
         return await _dbConnection.QueryAsync<CheckCustomerData>(
              StoredProcedureConstants.USP_CheckCustomerDetail,
+             parameters,
+             commandType: CommandType.StoredProcedure
+         );
+    }
+
+    public async Task<IEnumerable<CustomerResponse>> Customers(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<CustomerResponse>(
+             StoredProcedureConstants.Usp_GetCustomers,
              parameters,
              commandType: CommandType.StoredProcedure
          );
