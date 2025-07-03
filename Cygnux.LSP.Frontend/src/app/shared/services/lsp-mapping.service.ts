@@ -102,4 +102,7 @@ export class LspMappingService {
       return this.apiHandlerService.Get(`CustomerLsp/Tat/LspTatCount?userId=${userId}`);
     }
 
+    downloadLspTat(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
+      return this.apiHandlerService.Get(`CustomerLsp/Tat/DownloadLspTat?userId=${userId}`);
+    }
 }

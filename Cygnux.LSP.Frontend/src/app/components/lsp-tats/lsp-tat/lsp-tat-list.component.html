@@ -34,11 +34,11 @@
                             <div class="col-sm-6">
                                 <!-- <h4>LSP Tat</h4> -->
                             </div>
-                          <div class="col-sm-6" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
-                            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2">
+                          <div class="col-sm-6" >
+                            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" (click)="downloadLspTat()">
                               <i class="fa fa-download"></i>
                             </button>
-                            <div>
+                            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
                               <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()">
                                 <i class="icon-plus"></i>Add LSP Tat
                               </button>

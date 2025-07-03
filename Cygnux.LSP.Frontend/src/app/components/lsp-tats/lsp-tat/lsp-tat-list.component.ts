@@ -13,6 +13,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspTatComponent } from '../add-lsp-tat/add-lsp-tat.component';
 import { Router } from '@angular/router';
 import { CountResponse } from '../../../shared/models/lsp.model';
+import { ExportService } from '../../../shared/services/export.service';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -41,7 +42,8 @@ export class LspTatListComponent implements OnInit {
     private toastrService: ToastrService,
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
-    private router: Router
+    private router: Router,
+    public exportService:ExportService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Tat');
@@ -249,5 +251,15 @@ export class LspTatListComponent implements OnInit {
       modal.show();
       this.getLspMapping(lspTatId);
     }
+  }
+
+   downloadLspTat() {
+    this.lspMappingService.downloadLspTat(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response) {
+          this.exportService.exportToExcel(response.data);
+        }
+      }
+    });
   }
 }
