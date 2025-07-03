@@ -119,7 +119,9 @@ export class AddLspMappingComponent {
   categorizeCustomers() {
     const mappedIds = this.lspMappingsList.map(m => m.customerId);
     this.customers = this.customers || [];
-     this.unmappedCustomers = !this.lspMappingId ? this.customers.filter(c => !mappedIds.includes(c.customerId)) : this.customers.filter(c => mappedIds.includes(c.customerId));
+this.unmappedCustomers = !this.lspMappingId
+  ? this.customers.filter(c => !mappedIds.includes(c.customerId) && c.isActive)
+  : this.customers.filter(c => mappedIds.includes(c.customerId) && c.isActive);
 
     this.mappedCustomerLspMap = {};
     for (const mapping of this.lspMappingsList) {
@@ -171,10 +173,13 @@ export class AddLspMappingComponent {
   }
 
   get availableLsps(): LspResponse[] {
-    if (!this.selectedCustomer) return this.lsps;
-    const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
-    return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName));
+  if (!this.selectedCustomer) {
+    return this.lsps.filter(lsp => lsp.isActive);
   }
+  const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
+  return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName) && lsp.isActive);
+}
+
 
   onSave() {
     if (!this.selectedCustomer) {
