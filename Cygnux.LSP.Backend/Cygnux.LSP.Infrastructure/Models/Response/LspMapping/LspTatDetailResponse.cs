@@ -20,5 +20,6 @@ public class LspTatDetailResponse
     public bool IsActive { get; set; }
     public string BookingType { get; set; } = string.Empty;
     public int? TotalCount { get; set; }
+    public bool? IsCustomerMapping { get; set; }
 
 }

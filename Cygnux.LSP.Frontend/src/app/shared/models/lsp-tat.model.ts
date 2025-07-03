@@ -17,6 +17,7 @@ export interface LspTatResponse {
     modedesc:string;
     priorityDesc:string;
     modeDescription:string;
+    isCustomerMapping:boolean
 }
 
 export interface AddLspTatRequest {
