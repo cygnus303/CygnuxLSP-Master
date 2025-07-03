@@ -16,6 +16,6 @@ public interface ICustomerService
     Task<CommonCreateResponse> DeleteCustomer(Guid id);
     Task<IEnumerable<CustomerDeleteDataRes>> DeleteCustomerData(Guid custId);
     Task<IEnumerable<CustomerCount>> CustomerCount();
-    Task<IEnumerable<CustomerDeleteDataRes>> CheckCustomerData(Guid custId);
+    Task<IEnumerable<CheckCustomerData>> CheckCustomerData(Guid custId);
 
 }

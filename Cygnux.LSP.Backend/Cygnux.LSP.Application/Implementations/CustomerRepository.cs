@@ -85,10 +85,10 @@ internal class CustomerRepository : ICustomerRepository
         return new BaseResponse<IEnumerable<CustomerCount>>(response);
     }
 
-    public async Task<BaseResponse<IEnumerable<CustomerDeleteDataRes>>> CheckCustomerData(Guid custId)
+    public async Task<BaseResponse<IEnumerable<CheckCustomerData>>> CheckCustomerData(Guid custId)
     {
         var response = await _customerService.CheckCustomerData(custId);
-        return new BaseResponse<IEnumerable<CustomerDeleteDataRes>>(response);
+        return new BaseResponse<IEnumerable<CheckCustomerData>>(response);
     }
 
 

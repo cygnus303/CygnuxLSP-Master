@@ -68,3 +68,7 @@ export interface CustomerMapping {
   email: string;
   docketNo: string;
 }
+
+export interface CheckCustomer{
+  message:string;
+}

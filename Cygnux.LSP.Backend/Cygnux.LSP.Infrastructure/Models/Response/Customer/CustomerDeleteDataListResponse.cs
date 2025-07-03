@@ -21,3 +21,8 @@ public class CustomerCount
     public int count { get; set; }
     public int totalCount { get; set; }
 }
+
+public class CheckCustomerData
+{
+    public string message { get; set; }
+}

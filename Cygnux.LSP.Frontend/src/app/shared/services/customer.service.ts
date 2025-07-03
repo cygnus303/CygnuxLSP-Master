@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
-import { AddCustomerRequest, CustomerMapping, CustomerResponse } from '../models/customer.model';
+import { AddCustomerRequest, CheckCustomer, CustomerMapping, CustomerResponse } from '../models/customer.model';
 import { CommonResponse, CountResponse } from '../models/lsp.model';
 import { IdentityService } from './identity.service';
 
@@ -43,7 +43,7 @@ export class CustomerService {
     return this.apiHandlerService.Get(`customer/CustomerCount`);
   }
 
-  CheckedCustomer(id:string):Observable<IApiBaseResponse<CustomerMapping[]>> {
+  CheckedCustomer(id:string):Observable<IApiBaseResponse<CheckCustomer[]>> {
     return this.apiHandlerService.Get(`customer/CheckCustomerData?custId=${id}`);
   }
 }
