@@ -98,8 +98,7 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
   getLsps() {
-    const filters = { Page: 1, PageSize: 100 };
-    this.lspService.getLspList(this.identityService.getLoggedUserId(), filters).subscribe({
+    this.lspService.getLspData(this.identityService.getLoggedUserId()).subscribe({
       next: (res) => {
         this.lsps = res.data;
         this.categorizeCustomers();
@@ -176,10 +175,10 @@ ngOnChanges(changes: SimpleChanges): void {
 
   get availableLsps(): LspResponse[] {
     if (!this.selectedCustomer) {
-      return this.lsps.filter(lsp => lsp.isActive);
+      return this.lsps
     }
     const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
-    return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName) && lsp.isActive);
+    return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName));
   }
 
 

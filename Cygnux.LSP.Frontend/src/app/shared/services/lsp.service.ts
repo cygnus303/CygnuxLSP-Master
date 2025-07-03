@@ -39,4 +39,8 @@ export class LspService {
    lspCount():Observable<IApiBaseResponse<CountResponse[]>> {
       return this.apiHandlerService.Get(`lsp/LspCount`);
     }
+
+  getLspData(userId:string): Observable<IApiBaseResponse<LspResponse[]>> {
+    return this.apiHandlerService.Get(`Lsp/Lsps?userId=${userId}`);
+  }
 }
