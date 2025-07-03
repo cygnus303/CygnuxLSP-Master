@@ -60,6 +60,8 @@ public static class StoredProcedureConstants
     public const string Usp_LspTatCount = "Usp_LspTatCount";
     public const string USP_CheckCustomerDetail = "USP_CheckCustomerDetail";
     public const string Usp_GetCustomers = "Usp_GetCustomers";
+    public const string Usp_GetLsps = "Usp_GetLsps";
+
 
     public const string USP_OtpVerification= "USP_InsertLoginOTPverification";
     public const string USP_VerifyOTP = "USP_VerifyOTP";

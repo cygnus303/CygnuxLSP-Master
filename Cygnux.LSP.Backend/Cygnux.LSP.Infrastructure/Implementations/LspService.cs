@@ -4,6 +4,7 @@ using Azure;
 using Constants;
 using Contracts;
 using Cygnux.LSP.Infrastructure.Models.Response.Customer;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Dapper;
 using Models.Response;
 using Models.Response.Lsp;
@@ -130,6 +131,18 @@ internal class LspService : ILspService
     {
         return await _dbConnection.QueryAsync<LSPCount>(
              StoredProcedureConstants.Usp_LspCount,
+             commandType: CommandType.StoredProcedure
+         );
+    }
+
+    public async Task<IEnumerable<LspResponse>> Lsps(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<LspResponse>(
+             StoredProcedureConstants.Usp_GetLsps,
+             parameters,
              commandType: CommandType.StoredProcedure
          );
     }
