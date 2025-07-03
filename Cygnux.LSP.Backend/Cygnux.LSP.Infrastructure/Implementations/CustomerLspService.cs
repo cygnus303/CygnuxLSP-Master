@@ -96,6 +96,18 @@ internal class CustomerLspService : ICustomerLspService
           );
     }
 
+    public async Task<IEnumerable<LspTatDownloadResponse>> DownloadLspTat(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<LspTatDownloadResponse>(
+              StoredProcedureConstants.Usp_DownloadLspTatLspTat,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          );
+    }
+
     public async Task<LspTatDetailResponse> GetLspTatDetails(Guid Id)
     {
         var parameters = new DynamicParameters();

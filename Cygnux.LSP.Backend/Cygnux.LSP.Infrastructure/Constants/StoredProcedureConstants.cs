@@ -16,6 +16,7 @@ public static class StoredProcedureConstants
     public const string Usp_GetCustomerLsp_New = "Usp_GetCustomerLsp_New";
     public const string USP_GetCustomerLSPDetails = "USP_GetCustomerLSPDetails";
     public const string Usp_GetCustomerLspTat = "Usp_GetCustomerLspTat";
+    public const string Usp_DownloadLspTatLspTat = "Usp_DownloadLspTatLspTat";
     public const string USP_GetCustomerLspTatDetails = "USP_GetCustomerLspTatDetails";
     public const string Usp_GetMappedLsp = "Usp_GetMappedLsp";
     public const string Usp_GetMappedCustomer = "Usp_GetMappedCustomer";

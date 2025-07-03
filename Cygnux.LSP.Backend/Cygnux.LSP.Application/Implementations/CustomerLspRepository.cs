@@ -27,6 +27,12 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<IEnumerable<LspTatDetailResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
+    public async Task<BaseResponse<IEnumerable<LspTatDownloadResponse>>> DownloadLspTat(Guid userId)
+    {
+        var response = await _customerLspService.DownloadLspTat(userId);
+        return new BaseResponse<IEnumerable<LspTatDownloadResponse>>(response);
+    }
+
     public async Task<BaseResponse<IEnumerable<CustomerResponse>>> GetCustomers(Guid loginid)
     {
         var response = await _customerLspService.GetCustomers(loginid);

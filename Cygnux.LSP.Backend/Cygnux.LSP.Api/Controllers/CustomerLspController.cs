@@ -24,6 +24,13 @@ public class CustomerLspController : ControllerBase
     }
 
     [HttpGet]
+    [Route("Tat/DownloadLspTat")]
+    public async Task<IActionResult> DownloadLspTat([FromQuery] Guid userId)
+    {
+        return Ok(await _customerLspRepository.DownloadLspTat(userId));
+    }
+
+    [HttpGet]
     [Route("Tat/Customers")]
     public async Task<IActionResult> GetCustomers(Guid loginid)
     {

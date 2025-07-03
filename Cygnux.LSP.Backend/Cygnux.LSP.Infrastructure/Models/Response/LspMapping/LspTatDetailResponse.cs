@@ -23,3 +23,15 @@ public class LspTatDetailResponse
     public bool? IsCustomerMapping { get; set; }
 
 }
+public class LspTatDownloadResponse
+{
+    public string CustomerName { get; set; } = string.Empty;
+    public string LspName { get; set; } = string.Empty;
+    public string Product { get; set; } = string.Empty;
+    public string Origin { get; set; } = string.Empty;
+    public string Destination { get; set; } = string.Empty;
+    public string ModeDescription { get; set; } = string.Empty;
+    public int Tat { get; set; }
+    public string BookingType { get; set; } = string.Empty;
+    public int Priority { get; set; }
+}
