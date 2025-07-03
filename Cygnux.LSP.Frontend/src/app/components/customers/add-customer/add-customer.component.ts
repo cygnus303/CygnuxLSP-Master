@@ -196,8 +196,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     if (!isChecked) {
       this.customerService.CheckedCustomer(customerId).subscribe({
         next: (response) => {
+          if(response.data[0].message){
             this.sweetAlertService.info(response.data[0].message);
             this.customerForm.get('isActive')?.setValue(true, { emitEvent: false });
+          }
         },
         error: (error) => {
           this.sweetAlertService.error(error?.message || 'Something went wrong while checking mapping.');
