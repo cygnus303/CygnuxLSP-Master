@@ -137,7 +137,7 @@
 
                 <div class="col-md-3 mt-5" *ngIf="lspId !== ''">
                   <div class="checkbox p-0">
-                    <input id="dafault-checkbox" type="checkbox" formControlName="isActive" data-bs-original-title=""
+                    <input id="dafault-checkbox" type="checkbox" formControlName="isActive" (change)="getCheckboxLSP($event)" data-bs-original-title=""
                       title="">
                     <label class="mb-0" for="dafault-checkbox">Active</label>
                   </div>

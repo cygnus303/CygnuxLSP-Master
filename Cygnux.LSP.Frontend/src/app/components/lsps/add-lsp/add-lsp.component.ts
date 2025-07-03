@@ -236,4 +236,30 @@ export class AddLspComponent implements OnInit, OnChanges {
       },
     });
   }
+
+getCheckboxLSP(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  if (checkbox.checked) return;
+  this.lspService.checkMappinglsp(this.lspId).subscribe({
+    next: (response) => {
+      const data = response?.data;
+      if (data?.status === false && data?.customerMappings?.length === 0 && data?.tatDetails?.length === 0) {  
+        return;
+      }
+      if (data?.customerMappings?.length !== 0 && data?.tatDetails?.length !== 0) {
+        this.sweetAlertService.info('This LSP is currently mapped & LSPTat. Please deactivate the mapping & LSPTat before deactivating the LSP.');
+        this.lspForm.get('isActive')?.setValue(true);
+      } else if (data?.customerMappings?.length !== 0 ) {
+        this.sweetAlertService.info('This LSP is currently mapped. Please deactivate the mapping before deactivating the LSP.');
+        this.lspForm.get('isActive')?.setValue(true);
+      }else if (data?.tatDetails?.length !== 0) {
+        this.sweetAlertService.info('This LSP is currently LSPTat. Please deactivate the LSPTat before deactivating the LSP.');
+        this.lspForm.get('isActive')?.setValue(true);
+      }
+    },
+    error: (error: any) => {
+      this.sweetAlertService.error(error?.error?.message || 'Something went wrong');
+    }
+  });
+}
 }

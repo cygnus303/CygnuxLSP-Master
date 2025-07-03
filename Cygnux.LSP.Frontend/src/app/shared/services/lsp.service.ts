@@ -32,7 +32,7 @@ export class LspService {
     return this.apiHandlerService.Patch(`lsp/DeleteLsp?lspid=${id}`);
   }
 
-  checkMappinglsp(id:string): Observable<IApiBaseResponse<LspMappingResponse[]>> {
+  checkMappinglsp(id:string): Observable<IApiBaseResponse<LspMappingResponse>> {
     return this.apiHandlerService.Get(`lsp/GetDeleteLSPData?lspid=${id}`);
   }
   
