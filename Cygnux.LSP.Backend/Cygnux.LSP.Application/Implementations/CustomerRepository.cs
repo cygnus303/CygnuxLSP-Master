@@ -1,6 +1,7 @@
 ﻿namespace Cygnux.LSP.Application.Implementations;
 
 using Contracts;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Identity.Contracts;
 using Infrastructure.Constants;
 using Infrastructure.Contracts;
@@ -90,6 +91,10 @@ internal class CustomerRepository : ICustomerRepository
         var response = await _customerService.CheckCustomerData(custId);
         return new BaseResponse<IEnumerable<CheckCustomerData>>(response);
     }
-
+    public async Task<BaseResponse<IEnumerable<CustomerResponse>>> Customers(Guid userId)
+    {
+        var response = await _customerService.Customers(userId);
+        return new BaseResponse<IEnumerable<CustomerResponse>>(response);
+    }
 
 }

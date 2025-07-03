@@ -46,4 +46,8 @@ export class CustomerService {
   CheckedCustomer(id:string):Observable<IApiBaseResponse<CheckCustomer[]>> {
     return this.apiHandlerService.Get(`customer/CheckCustomerData?custId=${id}`);
   }
+
+  getCustomersData( id:string): Observable<IApiBaseResponse<CustomerResponse[]>> {
+    return this.apiHandlerService.Get(`Customer/Customers?userId=${id}`);
+  }
 }

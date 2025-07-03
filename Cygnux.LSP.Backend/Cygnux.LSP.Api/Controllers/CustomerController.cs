@@ -70,4 +70,11 @@ public class CustomerController : ControllerBase
     {
         return Ok(await _customerRepository.CheckCustomerData(custId));
     }
+
+    [HttpGet]
+    [Route("Customers")]
+    public async Task<IActionResult> Customers(Guid userId)
+    {
+        return Ok(await _customerRepository.Customers(userId));
+    }
 }
