@@ -29,7 +29,7 @@ export class AddLspMappingComponent {
   public mappedCustomers: CustomerResponse[] = [];
   public unmappedCustomers: CustomerResponse[] = [];
   public selectedLsps: LspResponse[] = [];
-  public mappedSearchText:string='';
+  public mappedSearchText: string = '';
   public selectedCustomer: CustomerResponse | null = null;
   public lspMappingId: string = '';
   public lspSearchText: string = '';
@@ -50,22 +50,23 @@ export class AddLspMappingComponent {
     private sweetAlertService: SweetAlertService
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['lspMappingResponse'] && this.lspMappingResponse) {
-      this.lspMappingResponse.lspIds = this.lspMappingResponse.lspId
-        ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
-        : [];
-
-      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';
-      this.isEditMode = true;
-      this.loadData();
-    } else {
-      this.lspMappingId = '';
-      this.isEditMode = false;
-      this.selectedCustomer = null;
-      this.loadData();
-    }
+ngOnChanges(changes: SimpleChanges): void {
+  if (changes['lspMappingResponse'] && this.lspMappingResponse) {
+    this.lspMappingResponse.lspIds = this.lspMappingResponse.lspId
+      ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
+      : [];
+    this.isActive = !!this.lspMappingResponse.isActive;
+    this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';
+    this.isEditMode = true;
+    this.loadData();
+  } else {
+    this.lspMappingId = '';
+    this.isEditMode = false;
+    this.selectedCustomer = null;
+    this.loadData();
   }
+}
+
 
   loadData() {
     this.getLspMappings();
@@ -119,9 +120,9 @@ export class AddLspMappingComponent {
   categorizeCustomers() {
     const mappedIds = this.lspMappingsList.map(m => m.customerId);
     this.customers = this.customers || [];
-this.unmappedCustomers = !this.lspMappingId
-  ? this.customers.filter(c => !mappedIds.includes(c.customerId) && c.isActive)
-  : this.customers.filter(c => mappedIds.includes(c.customerId) && c.isActive);
+    this.unmappedCustomers = !this.lspMappingId
+      ? this.customers.filter(c => !mappedIds.includes(c.customerId) && c.isActive)
+      : this.customers.filter(c => mappedIds.includes(c.customerId) && c.isActive);
 
     this.mappedCustomerLspMap = {};
     for (const mapping of this.lspMappingsList) {
@@ -142,7 +143,7 @@ this.unmappedCustomers = !this.lspMappingId
 
   selectCustomer(customer: CustomerResponse) {
     this.selectedCustomer = customer;
-    this.mappedCustomerLspMap={}
+    this.mappedCustomerLspMap = {}
   }
 
   toggleLspSelection(lsp: LspResponse) {
@@ -173,12 +174,12 @@ this.unmappedCustomers = !this.lspMappingId
   }
 
   get availableLsps(): LspResponse[] {
-  if (!this.selectedCustomer) {
-    return this.lsps.filter(lsp => lsp.isActive);
+    if (!this.selectedCustomer) {
+      return this.lsps.filter(lsp => lsp.isActive);
+    }
+    const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
+    return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName) && lsp.isActive);
   }
-  const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
-  return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName) && lsp.isActive);
-}
 
 
   onSave() {
