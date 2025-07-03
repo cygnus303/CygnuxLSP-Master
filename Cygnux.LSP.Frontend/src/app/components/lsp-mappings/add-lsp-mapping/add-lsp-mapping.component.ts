@@ -81,8 +81,7 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
   getCustomers() {
-    const filters = { Page: 1, PageSize: 100 };
-    this.customerService.getCustomerList(this.identityService.getLoggedUserId(), filters).subscribe({
+    this.customerService.getCustomersData(this.identityService.getLoggedUserId()).subscribe({
       next: (res) => {
         if (this.lspMappingResponse?.customerId) {
           this.customers = res.data.filter(c => c.customerId === this.lspMappingResponse?.customerId);
