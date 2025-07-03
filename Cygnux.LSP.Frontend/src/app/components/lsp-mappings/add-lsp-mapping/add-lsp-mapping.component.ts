@@ -83,6 +83,7 @@ ngOnChanges(changes: SimpleChanges): void {
   getCustomers() {
     this.customerService.getCustomersData(this.identityService.getLoggedUserId()).subscribe({
       next: (res) => {
+        debugger
         if (this.lspMappingResponse?.customerId) {
           this.customers = res.data.filter(c => c.customerId === this.lspMappingResponse?.customerId);
           this.selectedCustomer = this.customers[0] ?? null;
@@ -120,8 +121,8 @@ ngOnChanges(changes: SimpleChanges): void {
     const mappedIds = this.lspMappingsList.map(m => m.customerId);
     this.customers = this.customers || [];
     this.unmappedCustomers = !this.lspMappingId
-      ? this.customers.filter(c => !mappedIds.includes(c.customerId) && c.isActive)
-      : this.customers.filter(c => mappedIds.includes(c.customerId) && c.isActive);
+      ? this.customers.filter(c => !mappedIds.includes(c.customerId))
+      : this.customers.filter(c => mappedIds.includes(c.customerId));
 
     this.mappedCustomerLspMap = {};
     for (const mapping of this.lspMappingsList) {
