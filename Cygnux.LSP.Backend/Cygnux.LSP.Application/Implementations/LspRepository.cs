@@ -3,6 +3,7 @@
 using Contracts;
 using Cygnux.LSP.Infrastructure.Models.Response.Customer;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Identity.Contracts;
 using Infrastructure.Constants;
 using Infrastructure.Contracts;
@@ -84,5 +85,11 @@ internal class LspRepository : ILspRepository
     {
         var response = await _lspService.LspCount();
         return new BaseResponse<IEnumerable<LSPCount>>(response);
+    }
+
+    public async Task<BaseResponse<IEnumerable<LspResponse>>> Lsps(Guid lspid)
+    {
+        var response = await _lspService.Lsps(lspid);
+        return new BaseResponse<IEnumerable<LspResponse>>(response);
     }
 }

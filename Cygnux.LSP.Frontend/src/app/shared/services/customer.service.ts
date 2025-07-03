@@ -12,14 +12,14 @@ import { IdentityService } from './identity.service';
 })
 export class CustomerService {
 
-  constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService, private identityService:IdentityService
-) { }
+  constructor(@Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService, private identityService: IdentityService
+  ) { }
 
-  getCustomerList( id:string,filters: any): Observable<IApiBaseResponse<CustomerResponse[]>> {
+  getCustomerList(id: string, filters: any): Observable<IApiBaseResponse<CustomerResponse[]>> {
     return this.apiHandlerService.Get(`Customer/GetCustomerList?userId=${id}`, filters);
   }
 
-  getCustomerDetails(id: string,userId: string): Observable<IApiBaseResponse<CustomerResponse>> {
+  getCustomerDetails(id: string, userId: string): Observable<IApiBaseResponse<CustomerResponse>> {
     return this.apiHandlerService.Get(`Customer/GetCustomerDetail?custId=${id}&userId=${userId}`);
   }
 
@@ -35,19 +35,19 @@ export class CustomerService {
     return this.apiHandlerService.Patch(`customer/DeleteCustomer?id=${id}`, null);
   }
 
-  checkMappingCustomer(id:string):Observable<IApiBaseResponse<CustomerMapping[]>> {
+  checkMappingCustomer(id: string): Observable<IApiBaseResponse<CustomerMapping[]>> {
     return this.apiHandlerService.Get(`customer/DeleteCustomerData?custId=${id}`);
   }
 
-   customerCount():Observable<IApiBaseResponse<CountResponse[]>> {
+  customerCount(): Observable<IApiBaseResponse<CountResponse[]>> {
     return this.apiHandlerService.Get(`customer/CustomerCount`);
   }
 
-  CheckedCustomer(id:string):Observable<IApiBaseResponse<CheckCustomer[]>> {
+  CheckedCustomer(id: string): Observable<IApiBaseResponse<CheckCustomer[]>> {
     return this.apiHandlerService.Get(`customer/CheckCustomerData?custId=${id}`);
   }
 
-  getCustomersData( id:string): Observable<IApiBaseResponse<CustomerResponse[]>> {
+  getCustomersData(id: string): Observable<IApiBaseResponse<CustomerResponse[]>> {
     return this.apiHandlerService.Get(`Customer/Customers?userId=${id}`);
   }
 }
