@@ -63,4 +63,11 @@ public class CustomerController : ControllerBase
     {
         return Ok(await _customerRepository.CustomerCount());
     }
+
+    [HttpGet]
+    [Route("CheckCustomerData")]
+    public async Task<IActionResult> CheckCustomerData(Guid custId)
+    {
+        return Ok(await _customerRepository.CheckCustomerData(custId));
+    }
 }

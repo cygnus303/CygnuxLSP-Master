@@ -18,4 +18,6 @@ public interface ICustomerRepository
     Task<BaseResponse<CommonCreateResponse>> DeleteCustomer(Guid id);
     Task<BaseResponse<IEnumerable<CustomerDeleteDataRes>>> DeleteCustomerData(Guid custId);
     Task<BaseResponse<IEnumerable<CustomerCount>>> CustomerCount();
+    Task<BaseResponse<IEnumerable<CustomerDeleteDataRes>>> CheckCustomerData(Guid custId);
+
 }

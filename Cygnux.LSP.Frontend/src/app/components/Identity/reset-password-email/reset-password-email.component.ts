@@ -29,13 +29,13 @@ constructor(
       if (response.status) {
         this.toastrService.success(response.message);
         this.forgotId= response.data.split('/').pop();
-        this.router.navigate(['login', 'changePassword', this.forgotId]);
+        // this.router.navigate(['login', 'changePassword', this.forgotId]);
       } else {
         this.toastrService.error(response.message);
       }
     },
     error: (response) => {
-      this.toastrService.error(response.message);
+      this.toastrService.error(response.error.message);
     }
   });
 }

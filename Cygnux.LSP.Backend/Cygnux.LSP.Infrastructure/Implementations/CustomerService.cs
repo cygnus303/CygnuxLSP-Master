@@ -98,6 +98,16 @@ internal class CustomerService : ICustomerService
              commandType: CommandType.StoredProcedure
          );
     }
+    public async Task<IEnumerable<CustomerDeleteDataRes>> CheckCustomerData(Guid custId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CustomerId", custId, DbType.Guid);
 
+        return await _dbConnection.QueryAsync<CustomerDeleteDataRes>(
+             StoredProcedureConstants.USP_CheckCustomerDetail,
+             parameters,
+             commandType: CommandType.StoredProcedure
+         );
+    }
 
 }

@@ -42,4 +42,8 @@ export class CustomerService {
    customerCount():Observable<IApiBaseResponse<CountResponse[]>> {
     return this.apiHandlerService.Get(`customer/CustomerCount`);
   }
+
+  CheckedCustomer(id:string):Observable<IApiBaseResponse<CustomerMapping[]>> {
+    return this.apiHandlerService.Get(`customer/CheckCustomerData?custId=${id}`);
+  }
 }

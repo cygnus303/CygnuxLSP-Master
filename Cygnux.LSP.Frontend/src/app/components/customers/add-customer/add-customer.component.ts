@@ -1,7 +1,7 @@
-import {Component,EventEmitter,Input,OnChanges,OnInit,Output,SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../../shared/services/customer.service';
-import {EmailRegex,GSTRegex, mobileNo, MobileRegex,OnlyDigitRegex} from '../../../shared/constants/common';
+import { EmailRegex, GSTRegex, mobileNo, MobileRegex, OnlyDigitRegex } from '../../../shared/constants/common';
 import { CustomerResponse } from '../../../shared/models/customer.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { UserService } from '../../../shared/services/user.service';
@@ -18,7 +18,8 @@ import { AuthenticationService } from '../../../shared/services/authentication.s
 export class AddCustomerComponent implements OnInit, OnChanges {
   public customerForm!: FormGroup;
   public customerCode: string = '';
-  public userId :string | null = null;
+  public customerId: string = '';
+  public userId: string | null = null;
 
   @Input() customerResponse: CustomerResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
@@ -26,9 +27,9 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   constructor(
     private customerService: CustomerService,
     private sweetAlertService: SweetAlertService,
-    private userService:UserService,
-    private identityService:IdentityService,
-     private authenticationService:AuthenticationService
+    private userService: UserService,
+    private identityService: IdentityService,
+    private authenticationService: AuthenticationService
   ) {
     this.customerForm = new FormGroup({});
   }
@@ -38,40 +39,41 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     this.customerCode = '';
   }
 
-    buildForm(): void {
-      this.customerForm = new FormGroup({
-        customerName: new FormControl(null, [Validators.required]),
-        emailId: new FormControl(null, [Validators.required,Validators.pattern(EmailRegex)]),
-        address: new FormControl(null, [Validators.required]),
-        pincode: new FormControl(null, [Validators.required,Validators.pattern(OnlyDigitRegex)]),
-        city: new FormControl(null, [Validators.required]),
-        state: new FormControl(null, [Validators.required]),
-        isActive: new FormControl(true),   
-        isAllowedForEwayBillGenration: new FormControl(false),
-        isConsolidatedGSTNo: new FormControl(false),
-        consolidatedGSTNo: new FormControl(''),
-        isConsolidatedGSTEnabled: new FormControl(false),
-        country:new FormControl('INDIA'),
-        purchaseHead:new FormControl(''),
-        purchaseHeadMobileNo:new FormControl('', Validators.pattern(mobileNo)),
-        accountsHead:new FormControl(''), 
-        accountsHeadMobileNo:new FormControl('', Validators.pattern(mobileNo)), 
-        proprietorName:new FormControl(''),
-        proprietorMobileNo:new FormControl('', Validators.pattern(mobileNo)),
-        proprietorEmail:new FormControl('',Validators.pattern(EmailRegex)),
-        firstName:new FormControl('',[Validators.required]),
-        lastName:new FormControl('', [Validators.required]),
-        mobileNo:new FormControl('',[Validators.required,Validators.pattern(MobileRegex)]),
-        roles:new FormControl('customer Admin'),
-        customerCode:new FormControl(''),
-        userType:new FormControl('C')
-      });
-    }
+  buildForm(): void {
+    this.customerForm = new FormGroup({
+      customerName: new FormControl(null, [Validators.required]),
+      emailId: new FormControl(null, [Validators.required, Validators.pattern(EmailRegex)]),
+      address: new FormControl(null, [Validators.required]),
+      pincode: new FormControl(null, [Validators.required, Validators.pattern(OnlyDigitRegex)]),
+      city: new FormControl(null, [Validators.required]),
+      state: new FormControl(null, [Validators.required]),
+      isActive: new FormControl(true),
+      isAllowedForEwayBillGenration: new FormControl(false),
+      isConsolidatedGSTNo: new FormControl(false),
+      consolidatedGSTNo: new FormControl(''),
+      isConsolidatedGSTEnabled: new FormControl(false),
+      country: new FormControl('INDIA'),
+      purchaseHead: new FormControl(''),
+      purchaseHeadMobileNo: new FormControl('', Validators.pattern(mobileNo)),
+      accountsHead: new FormControl(''),
+      accountsHeadMobileNo: new FormControl('', Validators.pattern(mobileNo)),
+      proprietorName: new FormControl(''),
+      proprietorMobileNo: new FormControl('', Validators.pattern(mobileNo)),
+      proprietorEmail: new FormControl('', Validators.pattern(EmailRegex)),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      mobileNo: new FormControl('', [Validators.required, Validators.pattern(MobileRegex)]),
+      roles: new FormControl('customer Admin'),
+      customerCode: new FormControl(''),
+      userType: new FormControl('C')
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['customerResponse'] && this.customerResponse) {
       this.customerForm.patchValue(this.customerResponse);
       this.customerCode = this.customerResponse.customerCode;
+      this.customerId = this.customerResponse.customerId;
     } else {
       this.buildForm();
       this.customerCode = '';
@@ -92,7 +94,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     control.updateValueAndValidity();
   }
 
-  onClose(){
+  onClose() {
     this.buildForm();
     // this.dataEmitter.emit();
   }
@@ -100,19 +102,19 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   onSubmitCustomer(form: FormGroup): void {
     if (form.valid) {
       !this.customerCode ? this.addUserAndCustomer(form) : this.updateCustomer(form);
-    }else{
+    } else {
       form.markAllAsTouched();
     }
   }
 
   addUserAndCustomer(form: FormGroup): void {
     if (form.valid) {
-      const { accountsHead, accountsHeadMobileNo, consolidatedGSTNo, country, 
-              isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode, 
-              proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state,customerCode, ...payload } = form.getRawValue();
+      const { accountsHead, accountsHeadMobileNo, consolidatedGSTNo, country,
+        isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode,
+        proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state, customerCode, ...payload } = form.getRawValue();
       payload.phoneNumber = mobileNo;
       payload.zipCode = pincode;
-      this.userService.addUser(this.identityService.getLoggedUserId(),payload).pipe(
+      this.userService.addUser(this.identityService.getLoggedUserId(), payload).pipe(
         concatMap((userResponse) => {
           if (userResponse.success) {
             this.userId = userResponse.data.id;
@@ -147,11 +149,11 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     }
   }
 
- sendUsermail(id:any){
-    const filters={
-      userId : id
+  sendUsermail(id: any) {
+    const filters = {
+      userId: id
     }
-    this.authenticationService.sendOTPMail(this.identityService.getLoggedUserId(),filters).subscribe({
+    this.authenticationService.sendOTPMail(this.identityService.getLoggedUserId(), filters).subscribe({
       next: (response) => {
         if (response.success) {
           // this.sweetAlertService.success(response.data.message);
@@ -165,23 +167,44 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     });
   }
 
- 
+
   updateCustomer(form: FormGroup): void {
     const currentUserId = this.identityService.getLoggedUserId();
-    const formValues = { ...form.getRawValue(), userId:currentUserId,updatedBy:currentUserId,createdBy:currentUserId,entryBy:currentUserId, };
+    const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, };
     this.customerService.updateCustomer(this.customerCode, formValues).subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.sweetAlertService.success(response.data.message);
-            this.dataEmitter.emit(); // Emitting the data to the parent
-            this.buildForm();
-          } else {
-            this.sweetAlertService.error(response.error.message);
-          }
-        },
-        error: (response: any) => {
+      next: (response) => {
+        if (response.success) {
+          this.sweetAlertService.success(response.data.message);
+          this.dataEmitter.emit(); // Emitting the data to the parent
+          this.buildForm();
+        } else {
           this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
+  isActiveChecked(event: any) {
+    const isChecked = event.target.checked;
+    const customerId = this.customerId;
+
+    if (!customerId) return;
+
+    if (!isChecked) {
+      this.customerService.CheckedCustomer(customerId).subscribe({
+        next: (response) => {
+          if (response.data && response.data.length > 1) {
+            this.sweetAlertService.info('This customer is mapped with LSP. Please remove the mapping before deactivating.');
+            this.customerForm.get('isActive')?.setValue(true, { emitEvent: false });
+          } 
         },
+        error: (error) => {
+          this.sweetAlertService.error(error?.message || 'Something went wrong while checking mapping.');
+        }
       });
+    } 
   }
 }

@@ -230,7 +230,7 @@
             </div>
           </div>
           <div class="checkbox p-0" *ngIf="customerCode != ''">
-            <input id="dafault-checkbox" type="checkbox" formControlName="isActive" data-bs-original-title="" title="" />
+            <input id="dafault-checkbox" type="checkbox" formControlName="isActive" data-bs-original-title="" title="" (change)="isActiveChecked($event)"/>
             <label class="mb-0" for="dafault-checkbox">Active</label>
           </div>
           <div class="gap-2 d-flex justify-content-end pt-4">
