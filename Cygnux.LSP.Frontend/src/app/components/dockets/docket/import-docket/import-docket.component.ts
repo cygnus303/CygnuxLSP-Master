@@ -72,21 +72,21 @@ export class ImportDocketComponent {
     this.validateData = [];
   }
 
-  uploadDocketFile() {
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-    this.docketService.validateDocketList(this.identityService.getLoggedUserId(), formData).subscribe({
-      next: (response) => {
-        if (response && response.data) {
-          this.validateData = response.data;
-          this.docketService.exportToExcel(this.validateData, 'Invalid_Dockets');
-        }
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.Message);
-      },
-    });
-  }
+uploadDocketFile() {
+  const formData = new FormData();
+  formData.append('file', this.selectedFile);
+  this.docketService.validateDocketList(this.identityService.getLoggedUserId(), formData).subscribe({
+    next: (response) => {
+      if (response && response.data) {
+        this.validateData = response.data;
+        this.docketService.importInvalidFile(this.validateData, 'Invalid_Dockets');
+      }
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.error.Message);
+    },
+  });
+}
 
   onClose() {
     this.validateData = [];

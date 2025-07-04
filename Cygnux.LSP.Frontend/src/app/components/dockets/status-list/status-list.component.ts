@@ -82,23 +82,39 @@ onChangeFile(event: any) {
     return this.validateDocketStatusList.length > 0 && this.validateDocketStatusList.every(item => item.errorCode === 1);
   }
     
-  exportExcel() {
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-    this.docketService.validateDocketStatus(this.identityService.getLoggedUserId(), formData).subscribe({
-      next: (response) => {
-        this.validateDocketStatusList = response.data;
-        const cleanedData = this.validateDocketStatusList.map(({ id, errorCode, transporter, currentStatusCode, statusDate, ...rest }) => {
-          const formattedDate = new Date(statusDate).toLocaleDateString('en-US');
-          return { ...rest, statusDate: formattedDate };
-        });
-        this.docketService.exportToExcel(cleanedData, 'Invalid_Dockets');
-      },
-      error: (error) => {
-        this.sweetAlertService.error(error);
-      }
-    });
-  }
+exportExcel() {
+  const formData = new FormData();
+  formData.append('file', this.selectedFile);
+  this.docketService.validateDocketStatus(this.identityService.getLoggedUserId(), formData).subscribe({
+    next: (response) => {
+      this.validateDocketStatusList = response.data;
+
+      const cleanedData = this.validateDocketStatusList.map((item: any) => {
+        const formattedDate = new Date(item.statusDate).toLocaleDateString('en-US');
+        const {
+          docketNumber,
+          nextDocketStatus,
+          customerName,
+          lspName,
+          errorMessage
+        } = item;
+
+        return {
+          docketNumber,
+          nextDocketStatus,
+          customerName,
+          lspName,
+          statusDate: formattedDate,
+          errorMessage: errorMessage || 'Success' // If empty, set as 'Success'
+        };
+      });
+      this.docketService.StatusInvalidFile(cleanedData, 'Invalid_Dockets');
+    },
+    error: (error) => {
+      this.sweetAlertService.error(error);
+    }
+  });
+}
   
   onSave(){
     this.commonService.updateLoader(true)
