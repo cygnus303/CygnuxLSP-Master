@@ -19,6 +19,8 @@ public interface ICustomerService
     Task<IEnumerable<CustomerCount>> CustomerCount();
     Task<IEnumerable<CheckCustomerData>> CheckCustomerData(Guid custId);
     Task<IEnumerable<CustomerResponse>> Customers(Guid userId);
+    Task<IEnumerable<DownloadCustomerResponse>> DownloadCustomer(Guid userId);
+
 
 
 }

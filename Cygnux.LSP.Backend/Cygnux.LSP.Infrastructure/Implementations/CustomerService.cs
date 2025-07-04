@@ -123,4 +123,16 @@ internal class CustomerService : ICustomerService
          );
     }
 
+    public async Task<IEnumerable<DownloadCustomerResponse>> DownloadCustomer(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DownloadCustomerResponse>(
+             StoredProcedureConstants.Usp_DownloadCustomer,
+             parameters,
+             commandType: CommandType.StoredProcedure
+         );
+    }
+
 }

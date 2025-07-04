@@ -97,4 +97,10 @@ internal class CustomerRepository : ICustomerRepository
         return new BaseResponse<IEnumerable<CustomerResponse>>(response);
     }
 
+    public async Task<BaseResponse<IEnumerable<DownloadCustomerResponse>>> DownloadCustomer(Guid userId)
+    {
+        var response = await _customerService.DownloadCustomer(userId);
+        return new BaseResponse<IEnumerable<DownloadCustomerResponse>>(response);
+    }
+
 }

@@ -50,4 +50,8 @@ export class CustomerService {
   getCustomersData(id: string): Observable<IApiBaseResponse<CustomerResponse[]>> {
     return this.apiHandlerService.Get(`Customer/Customers?userId=${id}`);
   }
+
+  downloadCustomerList(id:string): Observable<IApiBaseResponse<CustomerResponse[]>> {
+    return this.apiHandlerService.Get(`Customer/DownloadCustomer?userId=${id}`);
+  }
 }

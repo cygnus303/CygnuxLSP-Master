@@ -77,4 +77,11 @@ public class CustomerController : ControllerBase
     {
         return Ok(await _customerRepository.Customers(userId));
     }
+
+    [HttpGet]
+    [Route("DownloadCustomer")]
+    public async Task<IActionResult> DownloadCustomer([FromQuery] Guid userId)
+    {
+        return Ok(await _customerRepository.DownloadCustomer(userId));
+    }
 }

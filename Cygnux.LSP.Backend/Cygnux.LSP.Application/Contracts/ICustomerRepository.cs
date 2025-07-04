@@ -21,6 +21,8 @@ public interface ICustomerRepository
     Task<BaseResponse<IEnumerable<CustomerCount>>> CustomerCount();
     Task<BaseResponse<IEnumerable<CheckCustomerData>>> CheckCustomerData(Guid custId);
     Task<BaseResponse<IEnumerable<CustomerResponse>>> Customers(Guid userId);
+    Task<BaseResponse<IEnumerable<DownloadCustomerResponse>>> DownloadCustomer(Guid userId);
+
 
 
 }

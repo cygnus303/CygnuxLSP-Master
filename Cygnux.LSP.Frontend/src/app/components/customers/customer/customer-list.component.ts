@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { CountResponse } from '../../../shared/models/lsp.model';
+import { ExportService } from '../../../shared/services/export.service';
 
 @Component({
   selector: 'app-customer',
@@ -37,7 +38,8 @@ export class CustomerListComponent implements OnInit {
     public commonService: CommonService,
     private toasterService: ToastrService,
     private identityService:IdentityService,
-    private sweetAlertService:SweetAlertService
+    private sweetAlertService:SweetAlertService,
+    private exportService:ExportService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
   }
@@ -239,4 +241,14 @@ export class CustomerListComponent implements OnInit {
   ngOnDestroy(): void {
     if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
   }
+
+    downloadCustomer() {
+    this.customerService.downloadCustomerList(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response) {
+          this.exportService.exportToExcel(response.data);
+        }
+      }
+    });
+   }
 }
