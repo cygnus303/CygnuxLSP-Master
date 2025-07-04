@@ -69,7 +69,9 @@
                                     <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['origin']" (input)="getLspMappings()"/></th>
                                     <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['destination']" (input)="getLspMappings()"/></th>
                                     <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['modeDescription']" (input)="getLspMappings()"/></th>
-                                    <th class="w-5"><input type="text" class="form-control" [(ngModel)]="filters['tat']" (input)="getLspMappings()"/></th>
+                                    <th class="w-5">
+                                      <!-- <input type="text" class="form-control" [(ngModel)]="filters['tat']" (input)="getLspMappings()"/> -->
+                                    </th>
                                     <th class="w-8"></th>
                                     <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
                                   </tr>
