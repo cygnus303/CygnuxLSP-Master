@@ -43,4 +43,8 @@ export class LspService {
   getLspData(userId:string): Observable<IApiBaseResponse<LspResponse[]>> {
     return this.apiHandlerService.Get(`Lsp/Lsps?userId=${userId}`);
   }
+
+   downloadLsp(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
+      return this.apiHandlerService.Get(`Lsp/DownloadLsp?userId=${userId}`);
+    }
 }

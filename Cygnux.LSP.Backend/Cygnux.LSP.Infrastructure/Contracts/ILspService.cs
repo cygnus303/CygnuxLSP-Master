@@ -19,5 +19,5 @@ public interface ILspService
     Task<DeleteLSPDataResponse> DeleteLSPDetails(Guid lspid);
     Task<IEnumerable<LSPCount>> LspCount();
     Task<IEnumerable<LspResponse>> Lsps(Guid lspid);
-
+    Task<IEnumerable<DownloadLsp>> DownloadLsp(Guid userId);
 }

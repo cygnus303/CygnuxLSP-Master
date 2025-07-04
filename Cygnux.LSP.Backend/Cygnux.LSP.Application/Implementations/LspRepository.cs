@@ -92,4 +92,10 @@ internal class LspRepository : ILspRepository
         var response = await _lspService.Lsps(lspid);
         return new BaseResponse<IEnumerable<LspResponse>>(response);
     }
+
+    public async Task<BaseResponse<IEnumerable<DownloadLsp>>> DownloadLsp(Guid userId)
+    {
+        var response = await _lspService.DownloadLsp(userId);
+        return new BaseResponse<IEnumerable<DownloadLsp>>(response);
+    }
 }
