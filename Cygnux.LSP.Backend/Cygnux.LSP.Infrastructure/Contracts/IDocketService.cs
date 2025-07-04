@@ -23,4 +23,5 @@ public interface IDocketService
     Task<CommonCreateResponse> UpdateDocketStatus(string docketstslist, Guid entryBy);
     Task<IEnumerable<ValidatePODResponse>> ValidatePODUplaodData(string jsonDocketData, string jsonImageNames, Guid lspuser);
     Task<CommonCreateResponse> SinglePODUploadFile(string docketNo,string docPod, Guid lspuser);
+    Task<IEnumerable<DownloadDocketResponse>> DownloadDocket(Guid userId);
 }

@@ -30,6 +30,18 @@ internal class DocketService : IDocketService
          );
     }
 
+    public async Task<IEnumerable<DownloadDocketResponse>> DownloadDocket(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DownloadDocketResponse>(
+              StoredProcedureConstants.Usp_DownloadDocket,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          );
+    }
+
     public async Task<DocketDetailResponse> GetDocketDetails(Guid docketId)
     {
         var parameters = new DynamicParameters();

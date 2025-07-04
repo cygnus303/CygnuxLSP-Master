@@ -27,6 +27,12 @@ internal class DocketRepository : IDocketRepository
         return new BaseResponse<IEnumerable<DocketListResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
+    public async Task<BaseResponse<IEnumerable<DownloadDocketResponse>>> DownloadDocket(Guid userId)
+    {
+        var response = await _docketService.DownloadDocket(userId);
+        return new BaseResponse<IEnumerable<DownloadDocketResponse>>(response);
+    }
+
     public async Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId)
     {
         var response = await _docketService.GetDocketDetails(docketId);

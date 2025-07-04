@@ -1,4 +1,6 @@
-﻿namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
+﻿using System.Text.Json.Serialization;
+
+namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
 {
     public class DocketListResponse /*: DocketDetailResponse*/
     {
@@ -54,6 +56,45 @@
         public string TransportMode { get; set; }
         public int TotalCount { get; set; }
         public int Count { get; set; }
+    }
+
+    public class DownloadDocketResponse
+    {
+        [JsonPropertyName("Docket No")]
+        public string DocketNo { get; set; } = string.Empty;
+
+        [JsonPropertyName("Booking Date")]
+        public DateTime BookingDate { get; set; }
+
+        [JsonPropertyName("From Location")]
+        public string FromLocation { get; set; } = string.Empty;
+
+        [JsonPropertyName("To Location")]
+        public string ToLocation { get; set; } = string.Empty;
+
+        [JsonPropertyName("Customer Name")]
+        public string CustomerName { get; set; } = string.Empty;
+
+        [JsonPropertyName("Invoice No")]
+        public string InvoiceNo { get; set; } = string.Empty;
+
+        [JsonPropertyName("Transporter")]
+        public string TransporterDesc { get; set; } = string.Empty;
+
+        [JsonPropertyName("Transport Mode")]
+        public string TransportModeDesc { get; set; } = string.Empty;
+
+        [JsonPropertyName("Quantity")]
+        public int Quantity { get; set; }
+
+        [JsonPropertyName("Entry Date")]
+        public DateTime EntryDate { get; set; }
+
+        [JsonPropertyName("Current Status")]
+        public string CurrentStatusDesc { get; set; } = string.Empty;
+
+        [JsonPropertyName("POD Link")]
+        public string PODLink { get; set; } = string.Empty;
     }
 
 }

@@ -526,6 +526,12 @@ public class DocketController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [Route("DownloadDocket")]
+    public async Task<IActionResult> DownloadDocket([FromQuery] Guid userId)
+    {
+        return Ok(await _docketRepository.DownloadDocket(userId));
+    }
 
 }
 

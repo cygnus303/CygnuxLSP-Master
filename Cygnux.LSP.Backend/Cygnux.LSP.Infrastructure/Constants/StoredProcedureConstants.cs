@@ -27,6 +27,7 @@ public static class StoredProcedureConstants
     public const string USP_DocketStatusUpdate_Single = "USP_DocketStatusUpdate";
     public const string Usp_GetDocket = "Usp_GetDocket";
     public const string Usp_GetDocket_New = "Usp_GetDocket_New";
+    public const string Usp_DownloadDocket = "Usp_DownloadDocket";
     public const string USP_GetDocketDetail = "USP_GetDocketDetail";
     public const string Usp_ImportDocket = "Usp_ImportDocket";
     public const string USP_TrackingList = "USP_MasterGeneralData";
