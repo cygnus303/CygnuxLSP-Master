@@ -54,3 +54,10 @@ public class LspTatDownloadResponse
     [JsonPropertyName("Priority")]
     public int Priority { get; set; }
 }
+
+public class DownloadLspMappingResponse
+{
+    public int CustomerName { get; set; }
+    public int lspname { get; set; }
+
+}

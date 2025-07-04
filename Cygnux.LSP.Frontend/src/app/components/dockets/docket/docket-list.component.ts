@@ -14,6 +14,7 @@ import { ImportDocketComponent } from './import-docket/import-docket.component';
 import { AddDocketComponent } from './add-docket/add-docket.component';
 import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ExportService } from '../../../shared/services/export.service';
 
 @Component({
   selector: 'app-docket',
@@ -47,7 +48,8 @@ export class DocketListComponent implements OnInit {
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
     private cdRef: ChangeDetectorRef,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private exportService:ExportService
 
   ) {
     defineElement(lottie.loadAnimation);
@@ -367,5 +369,15 @@ export class DocketListComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+  }
+
+  downloadDocketList(){
+    this.docketService.downloadDocketData(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response) {
+          this.exportService.exportToExcel(response.data);
+        }
+      }
+    });
   }
 }

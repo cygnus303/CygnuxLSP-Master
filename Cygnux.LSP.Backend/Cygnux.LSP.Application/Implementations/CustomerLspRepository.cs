@@ -121,4 +121,10 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<IEnumerable<DeleteCustomerLspTatDetail>>(response);
     }
 
+    public async Task<BaseResponse<IEnumerable<DownloadLspMappingResponse>>> DownloadLspMapping(Guid userId)
+    {
+        var response = await _customerLspService.DownloadLspMapping(userId);
+        return new BaseResponse<IEnumerable<DownloadLspMappingResponse>>(response);
+    }
+
 }
