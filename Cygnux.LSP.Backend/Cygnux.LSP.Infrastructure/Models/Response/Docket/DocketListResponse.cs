@@ -64,7 +64,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string DocketNo { get; set; } = string.Empty;
 
         [JsonPropertyName("Booking Date")]
-        public DateTime BookingDate { get; set; }
+        public string BookingDate { get; set; } = string.Empty;
 
         [JsonPropertyName("From Location")]
         public string FromLocation { get; set; } = string.Empty;
@@ -87,14 +87,9 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         [JsonPropertyName("Quantity")]
         public int Quantity { get; set; }
 
-        [JsonPropertyName("Entry Date")]
-        public DateTime EntryDate { get; set; }
-
         [JsonPropertyName("Current Status")]
         public string CurrentStatusDesc { get; set; } = string.Empty;
 
-        [JsonPropertyName("POD Link")]
-        public string PODLink { get; set; } = string.Empty;
     }
 
 }
