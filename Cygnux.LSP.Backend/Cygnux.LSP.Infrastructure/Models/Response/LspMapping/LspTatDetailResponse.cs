@@ -57,7 +57,7 @@ public class LspTatDownloadResponse
 
 public class DownloadLspMappingResponse
 {
-    public int CustomerName { get; set; }
-    public int lspname { get; set; }
+    public string CustomerName { get; set; }
+    public string lspname { get; set; }
 
 }
