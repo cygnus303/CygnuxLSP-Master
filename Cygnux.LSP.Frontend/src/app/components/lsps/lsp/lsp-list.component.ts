@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddLspComponent } from '../add-lsp/add-lsp.component';
+import { ExportService } from '../../../shared/services/export.service';
 
 @Component({
   selector: 'app-lsp',
@@ -43,7 +44,8 @@ export class LspListComponent implements OnInit {
     public commonService: CommonService,
     private toastrService: ToastrService,
     private identityService:IdentityService,
-    private sweetAlertService: SweetAlertService
+    private sweetAlertService: SweetAlertService,
+     public exportService:ExportService
   ) {defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP');
   }
@@ -217,5 +219,15 @@ export class LspListComponent implements OnInit {
         this.sweetAlertService.error(response.error.message);
       },
     })
+  }
+
+  downloadLsp() {
+    this.lspService.downloadLsp(this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response) {
+          this.exportService.exportToExcel(response.data);
+        }
+      }
+    });
   }
 }

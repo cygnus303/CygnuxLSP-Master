@@ -1,4 +1,6 @@
-﻿namespace Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
+﻿using System.Text.Json.Serialization;
+
+namespace Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 
 public class LspTatDetailResponse
 {
@@ -25,13 +27,30 @@ public class LspTatDetailResponse
 }
 public class LspTatDownloadResponse
 {
+    [JsonPropertyName("Customer Name")]
     public string CustomerName { get; set; } = string.Empty;
+
+    [JsonPropertyName("Lsp Name")]
     public string LspName { get; set; } = string.Empty;
+
+    [JsonPropertyName("Product")]
     public string Product { get; set; } = string.Empty;
+
+    [JsonPropertyName("Origin")]
     public string Origin { get; set; } = string.Empty;
+
+    [JsonPropertyName("Destination")]
     public string Destination { get; set; } = string.Empty;
+
+    [JsonPropertyName("Mode Description")]
     public string ModeDescription { get; set; } = string.Empty;
+
+    [JsonPropertyName("Tat")]
     public int Tat { get; set; }
+
+    [JsonPropertyName("Booking Type")]
     public string BookingType { get; set; } = string.Empty;
+
+    [JsonPropertyName("Priority")]
     public int Priority { get; set; }
 }

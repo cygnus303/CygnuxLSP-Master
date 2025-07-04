@@ -147,4 +147,16 @@ internal class LspService : ILspService
          );
     }
 
+
+    public async Task<IEnumerable<DownloadLsp>> DownloadLsp(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DownloadLsp>(
+              StoredProcedureConstants.Usp_DownloadLsp,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          );
+    }
 }

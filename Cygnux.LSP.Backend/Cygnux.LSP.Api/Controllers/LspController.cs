@@ -153,4 +153,11 @@ public class LspController : ControllerBase
     {
         return Ok(await _lspRepository.Lsps(userId));
     }
+
+    [HttpGet]
+    [Route("DownloadLsp")]
+    public async Task<IActionResult> DownloadLsp([FromQuery] Guid userId)
+    {
+        return Ok(await _lspRepository.DownloadLsp(userId));
+    }
 }
