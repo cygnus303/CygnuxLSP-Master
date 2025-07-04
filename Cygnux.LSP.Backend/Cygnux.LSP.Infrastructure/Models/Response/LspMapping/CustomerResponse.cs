@@ -8,15 +8,15 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.LspMapping
         public string CustomerName { get; set; } = string.Empty;
     }
 
-public class DownloadCustomerResponse
+    public class DownloadCustomerResponse
     {
-        [JsonPropertyName("CustomerName")]
+        [JsonPropertyName("Customer Name")]
         public string CustomerName { get; set; }
 
-        [JsonPropertyName("CustomerCode")]
+        [JsonPropertyName("Customer Code")]
         public string CustomerCode { get; set; }
 
-        [JsonPropertyName("EmailId")]
+        [JsonPropertyName("Email Id")]
         public string EmailId { get; set; }
 
         [JsonPropertyName("Address")]
@@ -34,28 +34,28 @@ public class DownloadCustomerResponse
         [JsonPropertyName("Country")]
         public string Country { get; set; }
 
-        [JsonPropertyName("PurchaseHead")]
+        [JsonPropertyName("Purchase Head")]
         public string PurchaseHead { get; set; }
 
-        [JsonPropertyName("PurchaseHeadMobileNo")]
+        [JsonPropertyName("Purchase Head Mobile No")]
         public string PurchaseHeadMobileNo { get; set; }
 
-        [JsonPropertyName("AccountsHeadMobileNo")]
+        [JsonPropertyName("Accounts Head Mobile No")]
         public string AccountsHeadMobileNo { get; set; }
 
-        [JsonPropertyName("ProprietorEmail")]
+        [JsonPropertyName("Proprietor Email")]
         public string ProprietorEmail { get; set; }
 
-        [JsonPropertyName("ProprietorMobileNo")]
+        [JsonPropertyName("Proprietor Mobile No")]
         public string ProprietorMobileNo { get; set; }
 
-        [JsonPropertyName("FirstName")]
+        [JsonPropertyName("First Name")]
         public string FirstName { get; set; }
 
-        [JsonPropertyName("LastName")]
+        [JsonPropertyName("Last Name")]
         public string LastName { get; set; }
 
-        [JsonPropertyName("MobileNo")]
+        [JsonPropertyName("Mobile No")]
         public string MobileNo { get; set; }
     }
 
