@@ -135,5 +135,11 @@ public class CustomerLspController : ControllerBase
         return Ok(await _customerLspRepository.DeleteCustomerLspTATDetail(Id));
     }
 
+    [HttpGet]
+    [Route("DownloadLspMapping")]
+    public async Task<IActionResult> DownloadLspMapping([FromQuery] Guid userId)
+    {
+        return Ok(await _customerLspRepository.DownloadLspMapping(userId));
+    }
 
 }

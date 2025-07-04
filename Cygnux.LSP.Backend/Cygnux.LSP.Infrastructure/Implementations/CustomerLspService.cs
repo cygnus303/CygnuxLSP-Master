@@ -251,4 +251,16 @@ internal class CustomerLspService : ICustomerLspService
           );
     }
 
+    public async Task<IEnumerable<DownloadLspMappingResponse>> DownloadLspMapping(Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        return await _dbConnection.QueryAsync<DownloadLspMappingResponse>(
+              StoredProcedureConstants.Usp_DownloadLspMapping,
+              param: parameters,
+              commandType: CommandType.StoredProcedure
+          );
+    }
+
 }

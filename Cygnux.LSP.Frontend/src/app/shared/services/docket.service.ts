@@ -165,4 +165,8 @@ export class DocketService {
   singlePOD(docketNumber:string,id:string,formData:any){
     return this.apiHandlerService.Post(`Docket/SinglePODUpload?docketNo=${docketNumber}&lspuser=${id}`,formData);
   }
+
+  downloadDocketData(id:string): Observable<IApiBaseResponse<DocketResponse[]>> {
+    return this.apiHandlerService.Get(`Docket/DownloadDocket?userId=${id}`);
+  }
 }
