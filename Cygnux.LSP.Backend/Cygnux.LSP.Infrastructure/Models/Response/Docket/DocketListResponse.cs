@@ -94,9 +94,9 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
 
     public class DownloadPODResponse
     {
-        public string DocketNumber { get; set; }
-        public string LSPId { get; set; }
-        public string LspName { get; set; }
+        public string DocketNo { get; set; }
+        public string Transporter { get; set; }
+        public string TransporterDesc { get; set; }
         public string PODLink { get; set; }
 
     }

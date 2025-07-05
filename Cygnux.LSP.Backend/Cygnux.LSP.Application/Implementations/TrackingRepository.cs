@@ -41,9 +41,9 @@ internal class TrackingRepository : ITrackingRepository
         return new BaseResponse<IEnumerable<TrackingChartResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
 
-    public async Task<BaseResponse<IEnumerable<DownloadPODResponse>>> DownloadPOD(Guid userid, string fromDate, string toDate)
+    public async Task<BaseResponse<IEnumerable<DownloadPODResponse>>> DownloadPOD(Guid userid, string StartDate, string EndDate)
     {
-        var response = await _trackingService.DownloadPOD(userid, fromDate, toDate);
+        var response = await _trackingService.DownloadPOD(userid, StartDate, EndDate);
         return new BaseResponse<IEnumerable<DownloadPODResponse>>(response);
     }
 
