@@ -23,10 +23,7 @@ export class LoginComponent implements OnInit {
         private toasterService: ToastrService,
         private router: Router,
         private authMemory: AuthMemoryService,
-        private authService:AuthService
-    ) {
-
-    }
+        private authService:AuthService) {}
 
     ngOnInit(): void {
         this.buildForm();

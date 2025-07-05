@@ -33,3 +33,10 @@ export interface DocketCountResponse{
   color:string;
   icon:string;
 }
+
+export interface DownloadPODResponse{
+    docketNo: string;
+    transporter: string;
+    transporterDesc: string;
+    podLink: string;
+}

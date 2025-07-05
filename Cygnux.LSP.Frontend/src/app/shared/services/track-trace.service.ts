@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
 import { Observable } from 'rxjs';
-import { DocketCountResponse, IRange, TrackTraceResponse } from '../models/trackTrace.model';
+import { DocketCountResponse, DownloadPODResponse, IRange, TrackTraceResponse } from '../models/trackTrace.model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +72,9 @@ export class TrackTraceService {
 
     getTransportModeCount(id: string,fromDate:string,toDate:string): Observable<IApiBaseResponse<DocketCountResponse[]>> {
       return this.apiHandlerService.Get(`Tracking/GetTransportModeChartData?userid=${id}&fromDate=${fromDate}&toDate=${toDate}`);
+    }
+
+    GetDownloadPODData(id: string,fromDate:string |null,toDate:string | null): Observable<IApiBaseResponse<DownloadPODResponse[]>> {
+      return this.apiHandlerService.Get(`Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`);
     }
 }

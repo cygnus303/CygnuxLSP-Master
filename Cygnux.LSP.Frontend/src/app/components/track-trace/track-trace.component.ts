@@ -11,6 +11,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import JSZip from 'jszip';
 import { Router } from '@angular/router';
+import { SweetAlertService } from '../../shared/services/toastr.service';
+import { ExportService } from '../../shared/services/export.service';
 
 @Component({
   selector: 'app-track-trace',
@@ -38,20 +40,24 @@ export class TrackTraceComponent {
   public modalRef!: BsModalRef;
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
-skip = 0;
-take = 9;
-fromDate: string | null = null; // format: DD-MM-YYYY
-toDate: string | null = null;
-public isLoading = false;
-placeholderArray = Array(9);
-public newlyLoading = false;
-hasMoreData: boolean = true;
+
+  skip = 0;
+  take = 9;
+  fromDate: string | null = null; // format: DD-MM-YYYY
+  toDate: string | null = null;
+  public isLoading = false;
+  placeholderArray = Array(9);
+  public newlyLoading = false;
+  hasMoreData: boolean = true;
+
   constructor( 
    public commonService: CommonService,
    public trackTraceService:TrackTraceService,
    public identityService:IdentityService,
    private modalService: BsModalService,
-   private router: Router
+   private router: Router,
+   private sweetAlertService: SweetAlertService,
+  private exportService: ExportService,
   ){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
@@ -246,45 +252,16 @@ extractFileName(url: string): string {
 }
 
 downloadImagesAsZip(): void {
-  const zip = new JSZip();
-
-  const imagePromises = this.trackTraceList
-    .filter(item => item.podLink && item.podLink !== '-') // skip invalid podLinks
-    .map(item => {
-      const secureUrl = item.podLink.replace('http://', 'https://');
-      const fileName = `docket_${item.docketNo}_${item.transporterDesc}.jpg`;
-
-      return fetch(secureUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.blob();
-        })
-        .then(blob => {
-          zip.file(fileName, blob);
-        })
-        .catch(err => {
-          console.error(`Failed to fetch ${secureUrl}:`, err);
-        });
-    });
-
-  Promise.all(imagePromises).then(() => {
-    if (Object.keys(zip.files).length > 0) {
-      zip.generateAsync({ type: "blob" }).then(zipBlob => {
-        const url = window.URL.createObjectURL(zipBlob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'POD_Images.zip';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
-      });
-    } else {
-      // alert('No valid images found to download.');
-    }
-  });
+  this.trackTraceService.GetDownloadPODData(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+        this.exportService.downloadPODsAsZip(response.data,'POD_Images')
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    })
 }
 
 
