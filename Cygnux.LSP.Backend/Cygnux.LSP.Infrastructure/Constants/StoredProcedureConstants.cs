@@ -65,6 +65,8 @@ public static class StoredProcedureConstants
     public const string Usp_DownloadCustomer = "Usp_DownloadCustomer";
     public const string Usp_DownloadLsp = "Usp_DownloadLsp";
     public const string Usp_DownloadLspMapping = "Usp_DownloadLspMapping";
+    public const string Usp_DownloadPOD = "Usp_DownloadPOD";
+
 
     public const string USP_OtpVerification= "USP_InsertLoginOTPverification";
     public const string USP_VerifyOTP = "USP_VerifyOTP";

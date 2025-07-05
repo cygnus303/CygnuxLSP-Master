@@ -62,5 +62,17 @@ internal class TrackingService : ITrackingservice
         );
     }
 
+    public async Task<IEnumerable<DownloadPODResponse>> DownloadPOD(Guid userId, string fromDate, string toDate)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@FromDate", fromDate, DbType.String);
+        parameters.Add("@ToDate", toDate, DbType.String);
 
+        return await _dbConnection.QueryAsync<DownloadPODResponse>(
+            StoredProcedureConstants.Usp_DownloadPOD,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
 }

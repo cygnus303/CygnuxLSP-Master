@@ -2,8 +2,10 @@
 
 using Azure;
 using Contracts;
+using Cygnux.LSP.Infrastructure.Constants;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using Cygnux.LSP.Infrastructure.Models.Response.Tracking;
+using Dapper;
 using Infrastructure.Contracts;
 using Infrastructure.Models.Response;
 using Infrastructure.Models.Response.LspMapping;
@@ -11,6 +13,7 @@ using Models.Request.CustomerLSPTAT;
 using Models.Request.LspMapping;
 using Models.Response;
 using Newtonsoft.Json;
+using System.Data;
 
 internal class TrackingRepository : ITrackingRepository
 {
@@ -37,5 +40,12 @@ internal class TrackingRepository : ITrackingRepository
         var response = await _trackingService.GetTransportChartData(userId, fromDate, toDate);
         return new BaseResponse<IEnumerable<TrackingChartResponse>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }
+
+    public async Task<BaseResponse<IEnumerable<DownloadPODResponse>>> DownloadPOD(Guid userid, string fromDate, string toDate)
+    {
+        var response = await _trackingService.DownloadPOD(userid, fromDate, toDate);
+        return new BaseResponse<IEnumerable<DownloadPODResponse>>(response);
+    }
+
 
 }

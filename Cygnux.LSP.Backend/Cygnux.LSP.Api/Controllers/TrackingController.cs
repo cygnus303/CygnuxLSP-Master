@@ -45,5 +45,12 @@ public class TrackingController : ControllerBase
         return Ok(await _trackingRepository.GetTransportChartData(userId, fromDate, toDate));
     }
 
+    [HttpGet]
+    public async Task<IActionResult> DownloadPOD(Guid userId, string fromDate, string toDate)
+    {
+        return Ok(await _trackingRepository.DownloadPOD(userId, fromDate, toDate));
+    }
+
+
 
 }
