@@ -46,6 +46,8 @@ public class TrackingController : ControllerBase
     }
 
     [HttpGet]
+    [Route("GetDownloadPODData")]
+
     public async Task<IActionResult> DownloadPOD(Guid userId, string fromDate, string toDate)
     {
         return Ok(await _trackingRepository.DownloadPOD(userId, fromDate, toDate));
