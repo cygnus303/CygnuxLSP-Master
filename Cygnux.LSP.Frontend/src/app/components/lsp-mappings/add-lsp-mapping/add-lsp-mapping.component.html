@@ -124,7 +124,8 @@
       <div class="d-flex justify-content-between mb-3 mx-4">
        <div>
          <div class="checkbox p-0 form-check checkbox checkbox-solid-success"  *ngIf="lspMappingId != ''">
-          <input id="dafault-checkbox" type="checkbox" [(ngModel)]="isActive" (click)="checkLspTatDetail($event)"/>
+          <input id="dafault-checkbox" type="checkbox" [(ngModel)]="isActive" (change)="checkLspTatDetail($event)"/>
+          
           <label class="mb-0" for="dafault-checkbox">Active</label>
         </div>
        </div>

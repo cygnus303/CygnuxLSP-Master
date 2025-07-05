@@ -1,4 +1,4 @@
-import {Component,EventEmitter,OnInit,Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { CustomerResponse } from '../../../shared/models/customer.model';
@@ -12,6 +12,8 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { CountResponse } from '../../../shared/models/lsp.model';
 import { ExportService } from '../../../shared/services/export.service';
+import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
+import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
 
 @Component({
   selector: 'app-customer',
@@ -23,12 +25,13 @@ export class CustomerListComponent implements OnInit {
   public customers: CustomerResponse[] = [];
   public customerId: string = '';
   public selectedCustomer: CustomerResponse | null = null;
+  public selectedMappingId: LspMappingResponse | null = null;
   public page = 1; // Current page number
   public pageSize = 5; // Number of items per page
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
-  public RoleListsubscribe!:Subscription;
-  public loading : boolean = false;
+  public RoleListsubscribe!: Subscription;
+  public loading: boolean = false;
   @Output() edit = new EventEmitter<CustomerResponse>();
   @ViewChild(AddCustomerComponent) addCustomerComponent!: AddCustomerComponent;
   public hoveredRow: number | null = null;
@@ -37,14 +40,16 @@ export class CustomerListComponent implements OnInit {
     private customerService: CustomerService,
     public commonService: CommonService,
     private toasterService: ToastrService,
-    private identityService:IdentityService,
-    private sweetAlertService:SweetAlertService,
-    private exportService:ExportService
-  ) {defineElement(lottie.loadAnimation);
+    private identityService: IdentityService,
+    private sweetAlertService: SweetAlertService,
+    private exportService: ExportService,
+    private lspMappingService: LspMappingService
+  ) {
+    defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
   }
   customerCard = [
-    { name: 'Total Customer', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger'},
+    { name: 'Total Customer', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
     { name: 'Active Customer', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' },
     { name: 'In-Active Customer', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info' },
   ];
@@ -56,12 +61,12 @@ export class CustomerListComponent implements OnInit {
     });
     this.getcustomerCount();
     this.getCustomers();
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-   this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
-    if (res) { 
-      this.commonService.menuRoleList = res;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+      if (res) {
+        this.commonService.menuRoleList = res;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 
@@ -75,7 +80,7 @@ export class CustomerListComponent implements OnInit {
       PageSize: this.pageSize,
     };
     this.commonService.updateLoader(true);
-    this.customerService.getCustomerList(this.identityService.getLoggedUserId(),filters).subscribe({
+    this.customerService.getCustomerList(this.identityService.getLoggedUserId(), filters).subscribe({
       next: (response) => {
         if (response) {
           this.customers = response.data;
@@ -100,18 +105,18 @@ export class CustomerListComponent implements OnInit {
             () => this.deleteCustomer(customerId)
           );
         } else {
-        this.sweetAlertService.delete(
-          'Are you sure you want to delete this customer? This customer is currently mapped.',
-          () => this.deleteCustomer(customerId));
+          this.sweetAlertService.delete(
+            'Are you sure you want to delete this customer? This customer is currently mapped.',
+            () => this.deleteCustomer(customerId));
         }
-    },
-    error: (response: any) => {
-      this.sweetAlertService.error(response.error.message);
-    },
-  });
-}
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
 
-  deleteCustomer(customerId:string) {
+  deleteCustomer(customerId: string) {
     this.customerService.deleteCustomer(customerId).subscribe({
       next: (response) => {
         if (response.success) {
@@ -139,7 +144,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomer(customerId: string) {
-    this.customerService.getCustomerDetails(customerId,this.identityService.getLoggedUserId()).subscribe({
+    this.customerService.getCustomerDetails(customerId, this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
           this.selectedCustomer = response.data;
@@ -152,16 +157,30 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
+  getLspMapping(id: string) {
+    this.lspMappingService.getLspMappingDetails(id).subscribe({
+      next: (response) => {
+        if (response) {
+          this.selectedMappingId = response.data;
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
     if (modalElement) {
       const modal = new Modal(modalElement);
       this.selectedCustomer = null;
+      this.selectedMappingId = null
       this.customerId = '';
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide(); 
+          modal.hide();
           modalElement.removeEventListener('click', handleOutsideClick);
           this.addCustomerComponent.onClose();
         }
@@ -190,11 +209,11 @@ export class CustomerListComponent implements OnInit {
     const modalElement = document.getElementById('exampleModalLspMapping');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.getCustomer(customer.customerId);
+      this.getLspMapping(customer.lspMappingId);
       modal.show();
     }
   }
-  
+
   closelspMappingModal() {
     const modalElement: any = document.getElementById('exampleModalLspMapping');
     const modalInstance = Modal.getInstance(modalElement);
@@ -203,7 +222,7 @@ export class CustomerListComponent implements OnInit {
     }
   }
 
-  customerDetail(event: Event, customerId: string){
+  customerDetail(event: Event, customerId: string) {
     event.preventDefault();
     const modalElement = document.getElementById('customerDetail');
     if (modalElement) {
@@ -213,7 +232,7 @@ export class CustomerListComponent implements OnInit {
     }
   }
 
-    getcustomerCount() {
+  getcustomerCount() {
     this.customerService.customerCount().subscribe({
       next: (response) => {
         if (response && response.data) {
@@ -237,12 +256,8 @@ export class CustomerListComponent implements OnInit {
       },
     })
   }
-  
-  ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-  }
 
-    downloadCustomer() {
+  downloadCustomer() {
     this.customerService.downloadCustomerList(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
@@ -250,5 +265,9 @@ export class CustomerListComponent implements OnInit {
         }
       }
     });
-   }
+  }
+
+    ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+  }
 }
