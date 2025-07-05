@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     public loginFormGroup!: FormGroup;
     public loading :boolean = false;
     public isPasswordVisible: boolean = false;
-
+    public greetingText: string = '';
     constructor(private identityService: IdentityService,
         private commonService: CommonService,
         private toasterService: ToastrService,
@@ -30,6 +30,14 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm();
+        const hour = new Date().getHours();
+        if (hour < 12) {
+            this.greetingText = 'Good Morning!';
+        } else if (hour < 17) {
+            this.greetingText = 'Good Afternoon!';
+        } else {
+            this.greetingText = 'Good Evening!';
+        }
     }
 
     buildForm(): void {

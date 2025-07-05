@@ -4,12 +4,14 @@
         <div class="col-12 p-0">
             <div class="login-card">
                 <div>
-                    <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="assets/images/logo/logo.png" alt="looginpage"></a></div>
-                    <div class="login-main">
+                    <!-- <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="assets/images/logo/logo.png" alt="looginpage"></a></div> -->
+                        <div class="login-main">
                         <form class="theme-form" [formGroup]="loginFormGroup" autocomplete="off"
                             (submit)="onSubmitLogin()">
-                            <h4 class="text-center">Sign in to account</h4>
-                            <p class="text-center">Enter your email & password to login</p>
+                        <h4 class="text-center text-muted">{{ greetingText }}</h4>
+                        <p class="text-center mt-2">
+                            Welcome to LOGISTICS
+                        </p>
                             <div class="form-group">
                                 <label class="col-form-label">Email Address</label>
                                 <input class="form-control" formControlName="email" type="email" required=""
@@ -46,7 +48,7 @@
                                 </div><a class="link cursor-pointer" [routerLink]="['forgotPassword']">Forgot password?</a>
                                 <div class="text-end mt-3">
                                   <button 
-                                  class="btn btn-primary btn-block w-100" 
+                                  class="btn btn-primary btn-block w-100" style="background-color: #406da4 !important;" 
                                   [disabled]="loginFormGroup.invalid || loading"
                                   type="submit">
                                   <ng-container *ngIf="!loading; else loadingTemplate">

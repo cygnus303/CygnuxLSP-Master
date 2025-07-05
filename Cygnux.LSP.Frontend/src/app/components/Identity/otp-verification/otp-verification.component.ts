@@ -25,7 +25,7 @@ export class OtpVerificationComponent {
   ){}
 
  ngOnInit(): void {
-    this.otpId = this.route.snapshot.paramMap.get('id') || '';
+    this.otpId = this.route.snapshot.paramMap.get('id')!;
   }
 
   sendOtp() {
