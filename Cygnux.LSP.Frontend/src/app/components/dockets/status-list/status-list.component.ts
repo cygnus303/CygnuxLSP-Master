@@ -7,7 +7,6 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { ValidateDocketStatusList } from '../../../shared/models/docket.model';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-status-list',
@@ -19,7 +18,6 @@ export class StatusListComponent {
   public files: File[] = [];
   public selectedFile: any;
   public validateDocketStatusList: ValidateDocketStatusList[] = [];
-  public RoleListsubscribe!: Subscription;
 
   constructor(
     private sweetAlertService: SweetAlertService,
@@ -29,16 +27,6 @@ export class StatusListComponent {
     private router: Router
   ) {
     defineElement(lottie.loadAnimation)
-  }
-
-  ngOnInit() {
-    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
-    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
-      if (res) {
-        this.commonService.menuRoleList = res;
-        
-      }
-    });
   }
 
   downloadSampleFile(event: any) {
