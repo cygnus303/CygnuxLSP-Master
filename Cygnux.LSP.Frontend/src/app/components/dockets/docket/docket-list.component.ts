@@ -49,7 +49,7 @@ export class DocketListComponent implements OnInit {
     private identityService: IdentityService,
     private cdRef: ChangeDetectorRef,
     private modalService: BsModalService,
-    private exportService:ExportService
+    private exportService: ExportService,
 
   ) {
     defineElement(lottie.loadAnimation);
@@ -68,11 +68,11 @@ export class DocketListComponent implements OnInit {
     });
     this.getDockets();
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
-    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
-      if (res) {
-        this.commonService.menuRoleList = res;
-      }
-    });
+      this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+        if (res) {
+          this.commonService.menuRoleList = res;
+        }
+      });
   }
 
   getDockets(page: number = 1) {
@@ -371,7 +371,7 @@ export class DocketListComponent implements OnInit {
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 
-  downloadDocketList(){
+  downloadDocketList() {
     this.docketService.downloadDocketData(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {

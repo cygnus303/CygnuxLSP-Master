@@ -50,22 +50,22 @@ export class AddLspMappingComponent {
     private sweetAlertService: SweetAlertService
   ) { }
 
-ngOnChanges(changes: SimpleChanges): void {
-  if (changes['lspMappingResponse'] && this.lspMappingResponse) {
-    this.lspMappingResponse.lspIds = this.lspMappingResponse.lspId
-      ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
-      : [];
-    this.isActive = !!this.lspMappingResponse.isActive;
-    this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';
-    this.isEditMode = true;
-    this.loadData();
-  } else {
-    this.lspMappingId = '';
-    this.isEditMode = false;
-    this.selectedCustomer = null;
-    this.loadData();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['lspMappingResponse'] && this.lspMappingResponse) {
+      this.lspMappingResponse.lspIds = this.lspMappingResponse.lspId
+        ? this.lspMappingResponse.lspId.split(',').map(id => id.trim())
+        : [];
+      this.isActive = !!this.lspMappingResponse.isActive;
+      this.lspMappingId = this.lspMappingResponse.lspMappingId ?? '';
+      this.isEditMode = true;
+      this.loadData();
+    } else {
+      this.lspMappingId = '';
+      this.isEditMode = false;
+      this.selectedCustomer = null;
+      this.loadData();
+    }
   }
-}
 
 
   loadData() {
@@ -256,4 +256,26 @@ ngOnChanges(changes: SimpleChanges): void {
     this.lspMappingResponse = null;
     this.isEditMode = false;
   }
+
+  checkLspTatDetail(event: any) {
+    const isChecked = event.target.checked;
+    const lspMappingId = this.lspMappingId;
+
+    if (!lspMappingId) return;
+
+    if (!isChecked) {
+      this.lspMappingService.getDeleteLSPMappingData(lspMappingId).subscribe({
+        next: (response) => {
+          if (response.data) {
+            this.sweetAlertService.info('please ensure the LSP-TAT record is either deleted or deactivated before updating the mapping status.');
+            this.isActive = true;
+          }
+        },
+        error: (error) => {
+          this.sweetAlertService.error(error?.message || 'Something went wrong while checking mapping.');
+        }
+      });
+    }
+  }
+
 }

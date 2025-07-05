@@ -7,6 +7,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { ValidateDocketStatusList } from '../../../shared/models/docket.model';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-status-list',
   standalone: false,
@@ -14,16 +15,16 @@ import { Router } from '@angular/router';
   styleUrl: './status-list.component.scss'
 })
 export class StatusListComponent {
- public  files: File[] = [];
- public selectedFile:any;
- public validateDocketStatusList:ValidateDocketStatusList[]=[];
+  public files: File[] = [];
+  public selectedFile: any;
+  public validateDocketStatusList: ValidateDocketStatusList[] = [];
 
   constructor(
     private sweetAlertService: SweetAlertService,
-    public docketService:DocketService,
+    public docketService: DocketService,
     public commonService: CommonService,
-    private identityService:IdentityService,
-    private router:Router
+    private identityService: IdentityService,
+    private router: Router
   ) {
     defineElement(lottie.loadAnimation)
   }
@@ -48,29 +49,29 @@ export class StatusListComponent {
     });
   }
 
-onChangeFile(event: any) {
-  const file = event.addedFiles[0];
-  if (file) {
-    const validExcelTypes = [
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-excel',
-      'text/csv',
-    ];
+  onChangeFile(event: any) {
+    const file = event.addedFiles[0];
+    if (file) {
+      const validExcelTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel',
+        'text/csv',
+      ];
 
-    const fileName = file.name.toLowerCase();
-    const isValidType = validExcelTypes.includes(file.type);
-    const isValidName = fileName.startsWith('docketstatusupload');
+      const fileName = file.name.toLowerCase();
+      const isValidType = validExcelTypes.includes(file.type);
+      const isValidName = fileName.startsWith('docketstatusupload');
 
-    if (isValidType && isValidName) {
-      this.files = [file];
-      this.selectedFile = file;
-    } else {
-      this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketStatusUpload".');
-      this.files = [];
-      this.selectedFile = null;
+      if (isValidType && isValidName) {
+        this.files = [file];
+        this.selectedFile = file;
+      } else {
+        this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketStatusUpload".');
+        this.files = [];
+        this.selectedFile = null;
+      }
     }
   }
-}
 
 
   onRemove(file: File) {
@@ -81,44 +82,44 @@ onChangeFile(event: any) {
   get isValidData(): boolean {
     return this.validateDocketStatusList.length > 0 && this.validateDocketStatusList.every(item => item.errorCode === 1);
   }
-    
-exportExcel() {
-  const formData = new FormData();
-  formData.append('file', this.selectedFile);
-  this.docketService.validateDocketStatus(this.identityService.getLoggedUserId(), formData).subscribe({
-    next: (response) => {
-      this.validateDocketStatusList = response.data;
 
-      const cleanedData = this.validateDocketStatusList.map((item: any) => {
-        const formattedDate = new Date(item.statusDate).toLocaleDateString('en-US');
-        const {
-          docketNumber,
-          nextDocketStatus,
-          customerName,
-          lspName,
-          errorMessage
-        } = item;
+  exportExcel() {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    this.docketService.validateDocketStatus(this.identityService.getLoggedUserId(), formData).subscribe({
+      next: (response) => {
+        this.validateDocketStatusList = response.data;
 
-        return {
-          docketNumber,
-          nextDocketStatus,
-          customerName,
-          lspName,
-          statusDate: formattedDate,
-          errorMessage: errorMessage || 'Success' // If empty, set as 'Success'
-        };
-      });
-      this.docketService.StatusInvalidFile(cleanedData, 'Invalid_Dockets');
-    },
-    error: (error) => {
-      this.sweetAlertService.error(error);
-    }
-  });
-}
-  
+        const cleanedData = this.validateDocketStatusList.map((item: any) => {
+          const formattedDate = new Date(item.statusDate).toLocaleDateString('en-US');
+          const {
+            docketNumber,
+            nextDocketStatus,
+            customerName,
+            lspName,
+            errorMessage
+          } = item;
+
+          return {
+            docketNumber,
+            nextDocketStatus,
+            customerName,
+            lspName,
+            statusDate: formattedDate,
+            errorMessage: errorMessage || 'Success' // If empty, set as 'Success'
+          };
+        });
+        this.docketService.StatusInvalidFile(cleanedData, 'Invalid_Dockets');
+      },
+      error: (error) => {
+        this.sweetAlertService.error(error);
+      }
+    });
+  }
+
   onSave(){
     this.commonService.updateLoader(true)
-    this.docketService.updateDocketStatus(this.identityService.getLoggedUserId(),this.validateDocketStatusList).subscribe({
+    this.docketService.updateDocketStatus(this.identityService.getLoggedUserId(), this.validateDocketStatusList).subscribe({
       next: (response) => {
         if (response.success) {
           this.files = [];
@@ -135,5 +136,5 @@ exportExcel() {
         this.commonService.updateLoader(false);
       },
     });
-}
+  }
 }
