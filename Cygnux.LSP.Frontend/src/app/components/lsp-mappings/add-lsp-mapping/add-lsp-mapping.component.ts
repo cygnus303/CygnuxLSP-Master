@@ -266,7 +266,7 @@ export class AddLspMappingComponent {
     if (!isChecked) {
       this.lspMappingService.getDeleteLSPMappingData(lspMappingId).subscribe({
         next: (response) => {
-          if (response.data) {
+          if (response.data.length > 0) {
             this.sweetAlertService.info('please ensure the LSP-TAT record is either deleted or deactivated before updating the mapping status.');
             this.isActive = true;
           }
