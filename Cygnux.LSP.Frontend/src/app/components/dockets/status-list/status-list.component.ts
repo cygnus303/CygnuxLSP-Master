@@ -18,6 +18,7 @@ export class StatusListComponent {
   public files: File[] = [];
   public selectedFile: any;
   public validateDocketStatusList: ValidateDocketStatusList[] = [];
+  public loading:boolean = false;
 
   constructor(
     private sweetAlertService: SweetAlertService,
@@ -86,10 +87,11 @@ export class StatusListComponent {
   exportExcel() {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
+    this.loading = true;
     this.docketService.validateDocketStatus(this.identityService.getLoggedUserId(), formData).subscribe({
       next: (response) => {
         this.validateDocketStatusList = response.data;
-
+        this.loading = false;
         const cleanedData = this.validateDocketStatusList.map((item: any) => {
           const formattedDate = new Date(item.statusDate).toLocaleDateString('en-US');
           const {
@@ -112,6 +114,7 @@ export class StatusListComponent {
         this.docketService.StatusInvalidFile(cleanedData, 'Invalid_Dockets');
       },
       error: (error) => {
+         this.loading = false;
         this.sweetAlertService.error(error);
       }
     });

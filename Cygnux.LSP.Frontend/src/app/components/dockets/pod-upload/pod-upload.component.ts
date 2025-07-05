@@ -16,6 +16,7 @@ export class PodUploadComponent {
   public uploadedImages: any[] = [];
   public selectedFile: File | null = null;
   public validDate:ValidDatePOD[]=[]
+  public loading:boolean = false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
@@ -141,10 +142,12 @@ validatePODData(): void {
       formData.append('images', item.file, item.name); 
     }
   });
+  this.loading = true;
   this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response.success) {
         this.mappedData = response.data
+         this.loading = false;
         this.dataEmitter.emit();
         // this.sweetAlertService.success(response.data.message);
       } else {
@@ -152,6 +155,7 @@ validatePODData(): void {
       }
     },
     error: () => {
+      this.loading = false;
       this.sweetAlertService.error('Failed to upload data.');
     }
   });

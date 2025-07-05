@@ -53,7 +53,8 @@
           </div>
           
           <!-- Table to display Excel data -->
-        <div *ngIf="mappedData.length > 0" class="overflow-y h-100 px-2 mt-4">
+          <div class="overflow-y h-100 px-2 mt-4">
+          <ng-container *ngIf="mappedData.length > 0 && !loading">
             <table class="table mt-3 w-100 excelData-table">
               <thead class="table-light">
                 <tr>
@@ -78,6 +79,30 @@
                 </tr>
               </tbody>
             </table>
+          </ng-container>
+
+              <ng-container *ngIf="loading">
+              <table class="table gray-table mt-3 table-bordered excelData-table w-100">
+                <thead class="table-light sticky-top">
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of [1,2,3,4]">
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-75 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-75 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-50 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-100 mx-auto" style="height: 20px;"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
           </div>
 
         <div class="row pt-3 mt-3 gx-2 gy-2">

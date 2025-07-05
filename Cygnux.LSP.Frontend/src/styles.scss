@@ -361,3 +361,64 @@ label {
 .color-green {
   color: #61ae41; /* green */
 }
+
+
+// gray-table pod
+/* ===== Placeholder Table Styling ===== */
+.gray-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gray-table th,
+.gray-table td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #dee2e6;
+}
+
+.gray-table thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* ===== Shimmer Placeholder Effect ===== */
+.placeholder {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 37%,
+    #f0f0f0 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* Placeholder animation */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/* Optional: Responsive behavior for mobile */
+@media (max-width: 768px) {
+  .gray-table th,
+  .gray-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .placeholder {
+    height: 16px !important;
+  }
+}

@@ -26,8 +26,10 @@
               </div>
             </div>
            
+          <div class="overflow-y h-100 px-2 mt-4">
             <!-- Table to display Excel data -->
-              <div *ngIf="validateDocketStatusList.length > 0" class="overflow-y h-100 px-2 mt-4">
+            <ng-container *ngIf="validateDocketStatusList.length > 0 && !loading;">
+              <div *ngIf="validateDocketStatusList.length > 0" >
                 <table class="table mt-3 table-bordered excelData-table w-100">
                   <thead class="table-light sticky-top">
                     <tr>
@@ -40,13 +42,40 @@
                   <tbody>
                     <tr *ngFor="let data of validateDocketStatusList" [ngClass]="!data.errorCode ?'pink':'green'">
                       <td class="text-center">{{ data.docketNumber}}</td>
-                      <td class="text-center"> {{ data.nextDocketStatus.includes(':') ? data.nextDocketStatus.split(':')[1] : data.nextDocketStatus }}</td>
+                      <td class="text-center"> {{ data.nextDocketStatus.includes(':') ? data.nextDocketStatus.split(':')[1] :
+                        data.nextDocketStatus }}</td>
                       <td class="text-center">{{ data.statusDate | date: 'dd-MM-yyyy' }}</td>
                       <td class="text-center">{{ data.errorCode===0?data.errorMessage:'success'}}</td>
                     </tr>
                   </tbody>
                 </table>
-            </div>
+              </div>
+            </ng-container>
+            <!-- Placeholder Table (shown if no data) -->
+            <ng-container *ngIf="loading">
+              <table class="table gray-table mt-3 table-bordered excelData-table w-100">
+                <thead class="table-light sticky-top">
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of [1,2,3,4]">
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-75 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-75 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-50 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-100 mx-auto" style="height: 20px;"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
+          </div>
+
           <div class="row pt-3 mt-3 gx-2 gy-2">
             <div class="col-12 col-md-auto ms-auto">
               <button class="btn w-100 btn-primary btn-square rounded-3" (click)="downloadSampleFile($event)">Download Import Template</button>
