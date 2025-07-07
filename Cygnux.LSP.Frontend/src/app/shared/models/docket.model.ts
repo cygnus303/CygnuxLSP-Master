@@ -17,7 +17,7 @@ export interface DocketResponse {
   currentStatusDesc:string
   customerName:string;
   podLink:string;
-  IsLspTatActive:boolean
+  isLspTatActive:boolean;
 }
 
 export interface AddDocketRequest {
