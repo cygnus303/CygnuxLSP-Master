@@ -3,18 +3,22 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import { DownloadPODResponse } from '../models/trackTrace.model';
+import { SweetAlertService } from './toastr.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExportService {
-  constructor() {}
 
   /**
    * Export data to Excel
    * @param data Array of objects to be exported
    * @param fileName Name of the exported Excel file
    */
+
+    constructor( 
+     private sweetAlertService: SweetAlertService,
+    ){}
   exportToExcel(data: any[], fileName: string = 'exported-data') {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
@@ -59,31 +63,86 @@ export class ExportService {
     return [header, ...rows].join('\n');
   }
 
+// async downloadPODsAsZip(podList: DownloadPODResponse[], zipFileName: string = 'PODs') {
+//     const zip = new JSZip();
+//     const usedNames = new Set<string>();
+
+//     for (const pod of podList) {
+//       try {
+//         const res = await fetch(pod.podLink); // ✅ fetch only now!
+//         if (!res.ok) throw new Error(`Failed: ${pod.podLink}`);
+//         const blob = await res.blob();
+
+//         const baseName = `${pod.docketNo}_${pod.transporterDesc}`.replace(/[^\w.-]/g, '_');
+//         let fileName = `${baseName}.jpg`;
+//         let i = 1;
+//         while (usedNames.has(fileName)) {
+//           fileName = `${baseName}_${i++}.jpg`;
+//         }
+//         usedNames.add(fileName);
+
+//         zip.file(fileName, blob);
+//       } catch (e) {
+//         console.warn(`❌ Error with ${pod.docketNo}:`, e);
+//       }
+//     }
+
+//     const zipBlob = await zip.generateAsync({ type: 'blob' });
+//     saveAs(zipBlob, `${zipFileName}.zip`);
+//   }
+
+
 async downloadPODsAsZip(podList: DownloadPODResponse[], zipFileName: string = 'PODs') {
-    const zip = new JSZip();
-    const usedNames = new Set<string>();
+  const zip = new JSZip();
+  const usedNames = new Set<string>();
+  const retryLimit = 1;
+  const forceHTTPS = true;
 
-    for (const pod of podList) {
-      try {
-        const res = await fetch(pod.podLink); // ✅ fetch only now!
-        if (!res.ok) throw new Error(`Failed: ${pod.podLink}`);
-        const blob = await res.blob();
-
-        const baseName = `${pod.docketNo}_${pod.transporterDesc}`.replace(/[^\w.-]/g, '_');
-        let fileName = `${baseName}.jpg`;
-        let i = 1;
-        while (usedNames.has(fileName)) {
-          fileName = `${baseName}_${i++}.jpg`;
-        }
-        usedNames.add(fileName);
-
-        zip.file(fileName, blob);
-      } catch (e) {
-        console.warn(`❌ Error with ${pod.docketNo}:`, e);
+  const fetchWithRetry = async (url: string, retries = retryLimit): Promise<Blob | null> => {
+    try {
+      const finalUrl = forceHTTPS ? url.replace(/^http:/, 'https:') : url;
+      const res = await fetch(finalUrl);
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      return await res.blob();
+    } catch (error) {
+      if (retries > 0) {
+        console.warn(`Retrying ${url}... (${retryLimit - retries + 1})`);
+        return fetchWithRetry(url, retries - 1);
+      } else {
+        console.error(`❌ Failed to fetch ${url}:`, error);
+        return null;
       }
     }
+  };
 
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
-    saveAs(zipBlob, `${zipFileName}.zip`);
+  if (!podList || podList.length === 0) {
+    this.sweetAlertService.info('No PODs found for the selected date range.');
+    return;
   }
+
+  for (const pod of podList) {
+    const podUrl = pod.podLink;
+    const blob = await fetchWithRetry(podUrl);
+
+    if (blob) {
+      const ext = podUrl.split('.').pop()?.toLowerCase() || 'jpg';
+      const baseName = `${pod.docketNo}_${pod.transporterDesc}`.replace(/[^\w.-]/g, '_');
+      let fileName = `${baseName}.${ext}`;
+      let i = 1;
+      while (usedNames.has(fileName)) {
+        fileName = `${baseName}_${i++}.${ext}`;
+      }
+      usedNames.add(fileName);
+      zip.file(fileName, blob);
+    } else {
+      console.warn(`Skipping ${pod.docketNo}: Could not download image.`);
+    }
+  }
+
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  saveAs(zipBlob, `${zipFileName}.zip`);
+  this.sweetAlertService.success('PODs downloaded successfully.');
+}
+
+
 }
