@@ -45,11 +45,22 @@
                 <!-- <div class="col-auto" [routerLink]="'/track'">
                   <button class="btn btn-square btn-success pull-right rounded-3">Dashboard</button>
               </div> -->
-              <div class="col-auto" (click)="downloadImagesAsZip()" *ngIf="!isLSP">
+              <!-- <div class="col-auto" (click)="downloadImagesAsZip()" *ngIf="!isLSP">
                 <button class="btn btn-square btn-danger pull-right rounded-3">
                   <i class="fa fa-download"></i>
                 </button>
+              </div> -->
+              <div class="col-auto" (click)="!isLoading && downloadImagesAsZip()" *ngIf="!isLSP">
+                <button class="btn btn-square btn-danger pull-right rounded-3" [disabled]="isLoading">
+                  <ng-container *ngIf="!isLoading; else loading">
+                    <i class="fa fa-download"></i>
+                  </ng-container>
+                  <ng-template #loading>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  </ng-template>
+                </button>
               </div>
+
             </div>
             <div class="overflow" (scroll)="onScroll($event)">
                 <div class="row w-100 p-4 pe-0" >

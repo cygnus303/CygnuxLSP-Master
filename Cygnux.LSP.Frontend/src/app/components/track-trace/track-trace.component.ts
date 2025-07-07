@@ -13,6 +13,7 @@ import JSZip from 'jszip';
 import { Router } from '@angular/router';
 import { SweetAlertService } from '../../shared/services/toastr.service';
 import { ExportService } from '../../shared/services/export.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-track-trace',
@@ -252,17 +253,16 @@ extractFileName(url: string): string {
 }
 
 downloadImagesAsZip(): void {
-  this.trackTraceService.GetDownloadPODData(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
-      next: (response) => {
-        if (response && response.data) {
-        this.exportService.downloadPODsAsZip(response.data,'POD_Images')
-        }
+  this.isLoading = true;
+  this.trackTraceService.DownloadPODZip(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
+      next: (blob: Blob) => {
+        this.isLoading = false;
+        saveAs(blob, 'POD_Images.zip');
       },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-      },
-    })
+      error: (err: any) => {
+        this.isLoading = false;
+        this.sweetAlertService.error(err?.message || 'Download failed.');
+      }
+    });
 }
-
-
 }

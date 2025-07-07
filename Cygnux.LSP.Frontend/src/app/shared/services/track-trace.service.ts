@@ -3,13 +3,15 @@ import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse } from '../interfaces/api-base-action-response';
 import { Observable } from 'rxjs';
 import { DocketCountResponse, DownloadPODResponse, IRange, TrackTraceResponse } from '../models/trackTrace.model';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackTraceService {
 
-  constructor(
+  constructor( public httpClient: HttpClient ,
       @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
     ) {}
 
@@ -74,7 +76,8 @@ export class TrackTraceService {
       return this.apiHandlerService.Get(`Tracking/GetTransportModeChartData?userid=${id}&fromDate=${fromDate}&toDate=${toDate}`);
     }
 
-    GetDownloadPODData(id: string,fromDate:string |null,toDate:string | null): Observable<IApiBaseResponse<DownloadPODResponse[]>> {
-      return this.apiHandlerService.Get(`Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`);
-    }
+    DownloadPODZip(id: string, fromDate: string | null, toDate: string | null): Observable<Blob> {
+    const url = `${environment.apiUrl}Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`;
+    return this.httpClient.get(url, { responseType: 'blob' });
+  }
 }
