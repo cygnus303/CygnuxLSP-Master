@@ -77,14 +77,24 @@
           </div>
 
           <div class="row pt-3 mt-3 gx-2 gy-2">
-            <div class="col-12 col-md-auto ms-auto">
-              <button class="btn w-100 btn-primary btn-square rounded-3" (click)="downloadSampleFile($event)">Download Import Template</button>
-            </div>
+           <div class="col-12 col-md-auto ms-auto">
+          <button class="btn w-100 btn-primary btn-square rounded-3" [disabled]="isLoadingTemplate"
+            (click)="!isLoadingTemplate && downloadSampleFile($event)">
+            <ng-container *ngIf="!isLoadingTemplate; else loadingDownload">
+              <i class="fa fa-download me-1"></i> Download Import Template
+            </ng-container>
+        
+            <ng-template #loadingDownload>
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Downloading...
+            </ng-template>
+          </button>
+        </div>
             <div class="col-12 col-md-auto" *ngIf="!isValidData">
-              <button class="btn w-100 btn-success btn-square rounded-3" (click)="exportExcel()">Upload</button>
+              <button class="btn w-100 btn-success btn-square rounded-3" [disabled]="files.length === 0" (click)="exportExcel()"> <i class="fa fa-upload me-1"></i> Upload</button>
             </div>
             <div class="col-12 col-md-auto" *ngIf="isValidData">
-              <button type="button" class="btn w-100 btn-success btn-square rounded-3" (click)="onSave()">Save </button>
+              <button type="button" class="btn w-100 btn-success btn-square rounded-3" (click)="onSave()"><i class="fa fa-save me-1"></i> Save</button>
             </div>
           </div>
           </div>

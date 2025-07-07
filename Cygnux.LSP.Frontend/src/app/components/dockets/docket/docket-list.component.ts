@@ -37,6 +37,7 @@ export class DocketListComponent implements OnInit {
   public modalRef!: BsModalRef;
   public hoveredRow: number | null = null;
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+  public isLoadingDocketList:boolean = false;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
@@ -372,8 +373,10 @@ export class DocketListComponent implements OnInit {
   }
 
   downloadDocketList() {
+      this.isLoadingDocketList = true;
     this.docketService.downloadDocketData(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
+        this.isLoadingDocketList = false;
         if (response) {
           this.exportService.exportToExcel(response.data);
         }

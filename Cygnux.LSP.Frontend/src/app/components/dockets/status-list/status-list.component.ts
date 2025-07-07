@@ -19,7 +19,7 @@ export class StatusListComponent {
   public selectedFile: any;
   public validateDocketStatusList: ValidateDocketStatusList[] = [];
   public loading:boolean = false;
-
+  public isLoadingTemplate:boolean = false;
   constructor(
     private sweetAlertService: SweetAlertService,
     public docketService: DocketService,
@@ -32,8 +32,10 @@ export class StatusListComponent {
 
   downloadSampleFile(event: any) {
     event.preventDefault();
+    this.isLoadingTemplate=true;
     this.docketService.downloadSampleStatusUpload(this.identityService.getLoggedUserId()).subscribe({
       next: (response: Blob) => {
+        this.isLoadingTemplate=false;
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
@@ -45,6 +47,7 @@ export class StatusListComponent {
         window.URL.revokeObjectURL(url);
       },
       error: (error) => {
+        this.isLoadingTemplate=false;
         this.sweetAlertService.error('Failed to download file.');
       }
     });

@@ -27,9 +27,15 @@
                       <i class="icon-upload"></i> Import Docket
                     </button>
                   </div>
-                  <button class="btn btn-square btn-danger pull-right rounded-3" (click)="downloadDocketList()">
-                          <i class="fa fa-download"></i>
-                        </button>
+                  <button class="btn btn-square btn-danger pull-right rounded-3" [disabled]="isLoadingDocketList"
+                    (click)="!isLoadingDocketList && downloadDocketList()">
+                    <ng-container *ngIf="!isLoadingDocketList; else loading">
+                      <i class="fa fa-download"></i>
+                    </ng-container>
+                    <ng-template #loading>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </ng-template>
+                  </button>
                   </div>
                 </div>
               </div>
@@ -108,7 +114,7 @@
                              </div>
                              <div (click)="docket.currentStatus === '6' || !docket.isLspTatActive? null : openStatusUpdateModal(docket , 'StatusUpdate')"
                                [ngClass]="{'disabled-image': !commonService.menuRoleList?.canstatusUpdate,'disabled-icon': docket.currentStatus === '6' || !docket.isLspTatActive}"
-                               [popover]="!docket.isLspTatActive ?'Currently lsp tat is inactive.':'Status Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                               [popover]="docket.currentStatus === '6' ? 'Status is already Delivered' :!docket.isLspTatActive ?'Currently lsp tat is inactive.':'Status Update'" placement="auto" triggers="hover" [outsideClick]="true" container="body">
                                <img src="/assets/images/update.png" width="23" height="22">
                              </div>
                              <div

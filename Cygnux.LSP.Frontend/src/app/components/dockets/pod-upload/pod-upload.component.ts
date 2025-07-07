@@ -17,6 +17,7 @@ export class PodUploadComponent {
   public selectedFile: File | null = null;
   public validDate:ValidDatePOD[]=[]
   public loading:boolean = false;
+  public isLoadingTemplate:boolean =false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
@@ -163,19 +164,22 @@ validatePODData(): void {
 
 downloadSampleFile(event: any) {
   event.preventDefault();
+  this.isLoadingTemplate =true;
   this.docketService.DownloadSampleForPODupload(this.identityService.getLoggedUserId()).subscribe({
     next: (response: Blob) => {
-      const blob = new Blob([response], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      });
-      const url = window.URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.download = 'DocketPODUpload.xlsx';
-      anchor.click();
-      window.URL.revokeObjectURL(url);
+        this.isLoadingTemplate =false;
+        const blob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = 'DocketPODUpload.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(url);
     },
     error: (error) => {
+      this.isLoadingTemplate =false;
       this.sweetAlertService.error('Failed to download file.');
     }
   });
