@@ -31,7 +31,7 @@ export class ImportDocketComponent {
         window.URL.revokeObjectURL(url);
       },
       error: (error) => {
-        this.sweetAlertService.error('Failed to download file.');
+        this.sweetAlertService.error('No Lsp found for customer.');
       }
     });
   }
@@ -79,7 +79,7 @@ uploadDocketFile() {
     next: (response) => {
       if (response && response.data) {
         this.validateData = response.data;
-        this.docketService.importInvalidFile(this.validateData, 'Invalid_Dockets');
+        this.docketService.importInvalidFile(this.validateData, 'Invalid_Dockets  ');
       }
     },
     error: (response: any) => {
