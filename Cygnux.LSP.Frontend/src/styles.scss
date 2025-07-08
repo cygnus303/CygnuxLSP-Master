@@ -33,7 +33,7 @@
     .ng-select-container {
         padding: 0.375rem 0.75rem; // Bootstrap default padding
         border-radius: 0.25rem; // Rounded borders
-        border: 1px solid #ced4da; // Consistent border with Bootstrap styles
+        border: 1px solid #eeeeee; // Consistent border with Bootstrap styles
         position: relative; // Ensure dropdown is positioned relative to this
     }
 
@@ -44,7 +44,7 @@
         z-index: 1050; // High z-index to ensure it is above other elements
         background-color: #fff; // Background for dropdown
         width: 100%; // Ensure dropdown is as wide as the container
-        border: 1px solid #ced4da; // Add border to dropdown
+        border: 1px solid #eeeeee; // Add border to dropdown
         border-radius: 0.25rem; // Consistent border radius with Bootstrap
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Add shadow for visual clarity
     }

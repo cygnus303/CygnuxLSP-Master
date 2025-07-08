@@ -52,13 +52,13 @@
               <label class="col-form-label">Search</label>
             </div>
             <div class="col-5">
-              <div class="form-group">
+              <div>
                 <input type="text"  [(ngModel)]="searchText" placeholder="Search Here..." class="form-control">
               </div>
             </div>
           </div>
               <div class="pl-border-radius-10 overflow-hidden">
-                <div class="table-responsive mt-3" style="height: 440px;">
+                <div class="table-responsive mt-3" style="height: 465px;">
                   <div class="layout-table">
                     <table class="w-100" [ngClass]="!dockets || !dockets.length ? 'h-100' : ''">
                       <thead class="sticky-top">
