@@ -147,6 +147,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getCustomerDetails(customerId, this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
+          this.selectedMappingId = response.data;
           this.selectedCustomer = response.data;
           this.edit.emit(response.data);
         }
@@ -209,7 +210,11 @@ export class CustomerListComponent implements OnInit {
     const modalElement = document.getElementById('exampleModalLspMapping');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.getLspMapping(customer.lspMappingId);
+      if(customer.lspMappingId){
+        this.getLspMapping(customer.lspMappingId);
+      }else{
+        this.getCustomer(customer.customerId)
+      }
       modal.show();
     }
   }
