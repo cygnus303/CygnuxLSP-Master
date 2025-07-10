@@ -15,6 +15,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy", policy =>
     {
         policy.WithOrigins("http://localhost:4200", "https://uatlsp.cygnux.in")
+              .SetIsOriginAllowed(_ => true)
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
