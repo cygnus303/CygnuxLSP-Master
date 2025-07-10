@@ -14,6 +14,7 @@ import { AddLspTatComponent } from '../add-lsp-tat/add-lsp-tat.component';
 import { Router } from '@angular/router';
 import { CountResponse } from '../../../shared/models/lsp.model';
 import { ExportService } from '../../../shared/services/export.service';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -43,18 +44,19 @@ export class LspTatListComponent implements OnInit {
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
     private router: Router,
-    public exportService:ExportService
+    public exportService: ExportService,
+    private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Tat');
   }
 
-     LSPTatCard = [
-    { name: 'Total LSP Tat', color: 'red', icon: 'fa fa-hourglass-half', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
+  LSPTatCard = [
+    { name: 'Total LSP Tat', color: 'red', icon: 'fa fa-hourglass-half', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count: 20 },
     // { name: 'Customer Mapping', color: 'orange', icon: 'fa fa-link', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary', count:20 },
     // { name: 'LSP Mapping', color: 'green', icon: 'fa fa-network-wired', progress: "progress-gradient-success", headerColor: 'header-text-success' , count:22 },
-    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
-    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary', count: 20 },
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count: 20 },
   ];
 
   ngOnInit(): void {
@@ -70,11 +72,15 @@ export class LspTatListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
+
+    this.signalRService.startConnection().then(() => {
+
+      this.signalRService.on('TatListUpdated', (msg: string) => {
+        this.getLspMappings();
+      });
+    });
   }
 
-  ngOnDestroy(): void {
-    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
-  }
 
   getLspMappings(page: number = 1) {
     this.filters = Object.fromEntries(
@@ -177,7 +183,7 @@ export class LspTatListComponent implements OnInit {
             this.sweetAlertService.info('LSP mapping is missing. Redirecting to LSP Mapping...', () => {
               this.router.navigate(['/lsp-mapping/list']);
             });
-          }else {
+          } else {
             // Show info for non-SA users
             this.sweetAlertService.info('LSP mapping is missing for this customer. Please contact the administrator');
           }
@@ -213,7 +219,7 @@ export class LspTatListComponent implements OnInit {
   }
 
 
-   getLspTatCount() {
+  getLspTatCount() {
     this.lspMappingService.lspTatCount(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response && response.data) {
@@ -253,7 +259,7 @@ export class LspTatListComponent implements OnInit {
     }
   }
 
-   downloadLspTat() {
+  downloadLspTat() {
     this.lspMappingService.downloadLspTat(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response) {
@@ -261,5 +267,9 @@ export class LspTatListComponent implements OnInit {
         }
       }
     });
+  }
+  
+  ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }

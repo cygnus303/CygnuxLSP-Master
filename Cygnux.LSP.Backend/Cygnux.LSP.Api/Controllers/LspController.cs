@@ -2,17 +2,22 @@
 
 using Application.Contracts;
 using Application.Models.Request.Lsp;
+using Cygnux.LSP.Api.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
 public class LspController : ControllerBase
 {
     private readonly ILspRepository _lspRepository;
+    private readonly IHubContext<SignalRHub> _hubContext;
 
-    public LspController(ILspRepository lspRepository)
+    public LspController(ILspRepository lspRepository, IHubContext<SignalRHub> hubContext)
     {
         _lspRepository = lspRepository;
+        _hubContext = hubContext;
     }
 
     [HttpGet]
@@ -68,7 +73,12 @@ public class LspController : ControllerBase
             createLsp.Logo = filePath;
         }
 
-        return Ok(await _lspRepository.AddLsp(createLsp));
+        // return Ok(await _lspRepository.AddLsp(createLsp));
+
+        var result = await _lspRepository.AddLsp(createLsp);
+        await _hubContext.Clients.All.SendAsync("LspListUpdated", "LSP Added");
+
+        return Ok(result);
     }
 
 
@@ -122,7 +132,12 @@ public class LspController : ControllerBase
             createLsp.Logo = createLsp.Logo.Replace($"{Request.Scheme}://{Request.Host}/", "");
         }
 
-        return Ok(await _lspRepository.UpdateLsp(id, createLsp));
+        // return Ok(await _lspRepository.UpdateLsp(id, createLsp));
+
+        var result = await _lspRepository.UpdateLsp(id, createLsp);
+        await _hubContext.Clients.All.SendAsync("LspListUpdated", "LSP Updated");
+
+        return Ok(result);
     }
 
 
@@ -130,7 +145,11 @@ public class LspController : ControllerBase
     [Route("DeleteLsp")]
     public async Task<IActionResult> DeleteLSP(Guid lspid)
     {
-        return Ok(await _lspRepository.DeleteLsp(lspid));
+        // return Ok(await _lspRepository.DeleteLsp(lspid));
+
+        var result = await _lspRepository.DeleteLsp(lspid);
+        await _hubContext.Clients.All.SendAsync("LspListUpdated", "LSP Deleted");
+        return Ok(result);
     }
 
     [HttpGet]

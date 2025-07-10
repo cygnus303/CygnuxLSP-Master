@@ -83,7 +83,16 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            }
+            },
+            "hmr": {
+    "buildOptimizer": false,
+    "optimization": false,
+    "vendorChunk": true,
+    "extractLicenses": false,
+    "sourceMap": true,
+    "namedChunks": true,
+    "hmr": true
+  }
           },
           "defaultConfiguration": "production"
         },

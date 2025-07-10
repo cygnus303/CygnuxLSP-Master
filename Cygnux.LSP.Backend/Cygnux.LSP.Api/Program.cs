@@ -1,3 +1,4 @@
+using Cygnux.LSP.Api.Hubs;
 using Cygnux.LSP.Api.IoC;
 using Cygnux.LSP.Api.Middleware;
 using Cygnux.LSP.Application.Contracts;
@@ -8,6 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureApiServices(builder.Configuration);
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddSignalR();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "uatlsp.cygnux.in")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 
 var app = builder.Build();
 var loggerFactory = app.Services.GetService<ILoggerFactory>();
@@ -20,7 +33,7 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CygnuxLSP.A
 
 app.UseRouting();
 
-app.UseCors("AllowOrigin");
+//app.UseCors("AllowOrigin");
 
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -34,11 +47,18 @@ app.UseStaticFiles(new StaticFileOptions
            Path.Combine(builder.Environment.ContentRootPath, "PODUpload")),
     RequestPath = "/PODUpload"
 });
-
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<SignalRHub>("/signalRHub");
+});
 
+
+app.MapControllers();
+app.UseHttpsRedirection();
 app.UseMiddleware<AuthorizationHeaderMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
