@@ -17,6 +17,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddLspComponent } from '../add-lsp/add-lsp.component';
 import { ExportService } from '../../../shared/services/export.service';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-lsp',
@@ -31,9 +32,9 @@ export class LspListComponent implements OnInit {
   public page = 1; // Current page number
   public pageSize = 5; // Number of items per page
   public filters: { [key: string]: string } = {}; // Dynamic filter object
-  public RoleListsubscribe!:Subscription;
+  public RoleListsubscribe!: Subscription;
   public totalItems = 0; // Total number of items
-  public loading : boolean = false;
+  public loading: boolean = false;
   public hoveredRow: number | null = null;
   public lspCount: CountResponse[] = [];
   @Output() edit = new EventEmitter<LspResponse>();
@@ -43,17 +44,19 @@ export class LspListComponent implements OnInit {
     private lspService: LspService,
     public commonService: CommonService,
     private toastrService: ToastrService,
-    private identityService:IdentityService,
+    private identityService: IdentityService,
     private sweetAlertService: SweetAlertService,
-     public exportService:ExportService
-  ) {defineElement(lottie.loadAnimation);
+    public exportService: ExportService,
+    private signalRService: SignalRService
+  ) {
+    defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP');
   }
 
-     LSPCard = [
-    { name: 'Total LSP', color: 'red', icon: 'fa fa-database', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count:20},
-    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' , count:20},
-    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count:20 },
+  LSPCard = [
+    { name: 'Total LSP', color: 'red', icon: 'fa fa-database', progress: "progress-gradient-danger", headerColor: 'header-text-danger', count: 20 },
+    { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary', count: 20 },
+    { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info', count: 20 },
   ];
 
   ngOnInit(): void {
@@ -62,18 +65,21 @@ export class LspListComponent implements OnInit {
     });
     this.getLSPCount();
     this.getLsps();
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
-      if (res) { 
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+      if (res) {
         this.commonService.menuRoleList = res;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-     });
+    });
+
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('LspListUpdated', (msg: string) => {
+        this.getLsps(); // Your function to refresh LSP list
+      });
+    });
   }
 
-  ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-  }
 
   getLsps(page: number = 1) {
     this.filters = Object.fromEntries(
@@ -85,7 +91,7 @@ export class LspListComponent implements OnInit {
       Page: page,
       PageSize: this.pageSize
     };
-    this.lspService.getLspList(this.identityService.getLoggedUserId(),filters).subscribe({
+    this.lspService.getLspList(this.identityService.getLoggedUserId(), filters).subscribe({
       next: (response) => {
         if (response) {
           this.lsps = response.data;
@@ -110,7 +116,7 @@ export class LspListComponent implements OnInit {
     }
   }
 
-  
+
   getLsp(id: string) {
     this.lspService.getLspDetails(id).subscribe({
       next: (response) => {
@@ -142,7 +148,7 @@ export class LspListComponent implements OnInit {
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide(); 
+          modal.hide();
           modalElement.removeEventListener('click', handleOutsideClick);
           this.addLspComponent.onClose();
         }
@@ -155,7 +161,7 @@ export class LspListComponent implements OnInit {
     this.getLsps(this.page);
   }
 
-  lspDetail(event: Event, lspId: string){
+  lspDetail(event: Event, lspId: string) {
     event.preventDefault();
     const modalElement = document.getElementById('lspDetail');
     if (modalElement) {
@@ -165,21 +171,21 @@ export class LspListComponent implements OnInit {
     }
   }
 
-  getDeleteLSP(lspId:string){
+  getDeleteLSP(lspId: string) {
     this.lspService.checkMappinglsp(lspId).subscribe({
       next: (response) => {
-          this.sweetAlertService.delete(
-            'Are you sure you want to delete this LSP?',
-            () => this.deleteLSP(lspId)
-          );
-    },
-    error: (response: any) => {
-      this.sweetAlertService.error(response.error.message);
-    },
-  });
-}
+        this.sweetAlertService.delete(
+          'Are you sure you want to delete this LSP?',
+          () => this.deleteLSP(lspId)
+        );
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
 
-  deleteLSP(lspId:string) {
+  deleteLSP(lspId: string) {
     this.lspService.deleteLsp(lspId).subscribe({
       next: (response) => {
         if (response.success) {
@@ -229,5 +235,9 @@ export class LspListComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }

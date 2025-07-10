@@ -4,16 +4,20 @@ using Application.Contracts;
 using Application.Models.Request.CustomerLSPTAT;
 using Application.Models.Request.LspMapping;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Cygnux.LSP.Api.Hubs;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
 public class CustomerLspController : ControllerBase
 {
     private readonly ICustomerLspRepository _customerLspRepository;
+    private readonly IHubContext<SignalRHub> _hubContext;
 
-    public CustomerLspController(ICustomerLspRepository customerLspRepository)
+    public CustomerLspController(ICustomerLspRepository customerLspRepository, IHubContext<SignalRHub> hubContext)
     {
         _customerLspRepository = customerLspRepository;
+        _hubContext = hubContext;
     }
 
     [HttpGet]
@@ -76,28 +80,50 @@ public class CustomerLspController : ControllerBase
     [Route("AddLspMap")]
     public async Task<IActionResult> AddLspMapping(CreateLspMappingRequest createLspMapping)
     {
-        return Ok(await _customerLspRepository.AddLspMapping(createLspMapping));
+        // return Ok(await _customerLspRepository.AddLspMapping(createLspMapping));
+
+        var result = await _customerLspRepository.AddLspMapping(createLspMapping);
+
+        if (result != null)
+        {
+            await _hubContext.Clients.All.SendAsync("LspMappingListUpdated", "LSP Mapping Added");
+        }
+
+        return Ok(result);
     }
 
     [HttpPost]
     [Route("UpdateLspMap")]
     public async Task<IActionResult> UpdateLspMapping(Guid LspMapId, CreateLspMappingRequest createLspMapping)
     {
-        return Ok(await _customerLspRepository.UpdateLspMapping(LspMapId, createLspMapping));
+        // return Ok(await _customerLspRepository.UpdateLspMapping(LspMapId, createLspMapping));
+
+        var result = await _customerLspRepository.UpdateLspMapping(LspMapId, createLspMapping);
+        await _hubContext.Clients.All.SendAsync("LspMappingListUpdated", "LSP Mapping Updated");
+        return Ok(result);
     }
 
     [HttpPatch]
     [Route("DeleteLSPMap")]
     public async Task<IActionResult> DeleteLspMapping(Guid CustomerLspId)
     {
-        return Ok(await _customerLspRepository.DeleteLspMapping(CustomerLspId));
+        // return Ok(await _customerLspRepository.DeleteLspMapping(CustomerLspId));
+
+        var result = await _customerLspRepository.DeleteLspMapping(CustomerLspId);
+        await _hubContext.Clients.All.SendAsync("LspMappingListUpdated", "LSP Mapping Deleted");
+        return Ok(result);
     }
+
 
     [HttpPost]
     [Route("Tat")]
     public async Task<IActionResult> AddCustomerLspTat(CreateCustomerLspTatRequest addEditCustomerLspTat)
     {
-        return Ok(await _customerLspRepository.AddCustomerLspTat(addEditCustomerLspTat));
+        // return Ok(await _customerLspRepository.AddCustomerLspTat(addEditCustomerLspTat));
+
+        var result = await _customerLspRepository.AddCustomerLspTat(addEditCustomerLspTat);
+        await _hubContext.Clients.All.SendAsync("TatListUpdated", "TAT Added");
+        return Ok(result);
     }
 
     [HttpGet]
@@ -112,14 +138,22 @@ public class CustomerLspController : ControllerBase
     [Route("Tat/{id}")]
     public async Task<IActionResult> UpadateCustomerLspTat(string id, CreateCustomerLspTatRequest addEditCustomerLspTat)
     {
-        return Ok(await _customerLspRepository.UpdateCustomerLspTat(id, addEditCustomerLspTat));
+        // return Ok(await _customerLspRepository.UpdateCustomerLspTat(id, addEditCustomerLspTat));
+
+        var result = await _customerLspRepository.UpdateCustomerLspTat(id, addEditCustomerLspTat);
+        await _hubContext.Clients.All.SendAsync("TatListUpdated", "TAT Updated");
+        return Ok(result);
     }
 
     [HttpPatch]
     [Route("Tat/DeleteLSPTAT")]
     public async Task<IActionResult> DeleteLspMappingTat(Guid TatId)
     {
-        return Ok(await _customerLspRepository.DeleteLspMappingTat(TatId));
+        // return Ok(await _customerLspRepository.DeleteLspMappingTat(TatId));
+
+        var result = await _customerLspRepository.DeleteLspMappingTat(TatId);
+        await _hubContext.Clients.All.SendAsync("TatListUpdated", "TAT Deleted");
+        return Ok(result);
     }
 
     [HttpGet]

@@ -12,6 +12,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspMappingComponent } from '../add-lsp-mapping/add-lsp-mapping.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountResponse } from '../../../shared/models/lsp.model';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -41,7 +42,8 @@ export class LspMappingListComponent implements OnInit {
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
     private route: ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private signalRService:SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Mapping');
@@ -68,10 +70,14 @@ export class LspMappingListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
-  }
 
-  ngOnDestroy(): void {
-    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+ this.signalRService.startConnection().then(() => {
+    this.signalRService.on('LspMappingListUpdated', (msg) => {
+      this.getLspMappings();
+    });
+
+ 
+  });
   }
 
   getLspMappings(page: number = 1) {
@@ -243,6 +249,12 @@ export class LspMappingListComponent implements OnInit {
       modal.show();
       this.selectedLsp = lsp;
       // this.getLspMapping(customerId);
+    }
+  }
+
+    ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { 
+      this.RoleListsubscribe.unsubscribe() ;
     }
   }
 }

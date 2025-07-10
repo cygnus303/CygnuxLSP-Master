@@ -17,6 +17,7 @@ import feather from 'feather-icons';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { AddRoleComponent } from '../add-role/add-role.component';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-role',
@@ -33,8 +34,8 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public totalItems = 0; // Total number of items
   public selectedRole: RoleResponse | null = null;
   public roleName: string | null = null;
-  public RoleListsubscribe!:Subscription;
-  public loading : boolean = false;
+  public RoleListsubscribe!: Subscription;
+  public loading: boolean = false;
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public hoveredRow: number | null = null;
   @Output() edit = new EventEmitter<RoleResponse>();
@@ -44,8 +45,10 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     private roleService: RoleService,
     public commonService: CommonService,
     private toastrService: ToastrService,
-    private sweetAlertService:SweetAlertService
-  ) {defineElement(lottie.loadAnimation);
+    private sweetAlertService: SweetAlertService,
+    private signalRService: SignalRService,
+  ) {
+    defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Roles');
   }
 
@@ -54,17 +57,24 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       this.loading = state;
     });
     this.getRoles();
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-    this.RoleListsubscribe= this.commonService.activemenuRoleList.subscribe((res)=>{
-      if (res) { 
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+      if (res) {
         this.commonService.menuRoleList = res;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-     });
+    });
+    this.getRoles();
+
+    this.signalRService.startConnection();
+
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('RoleListUpdated', (msg) => {
+        this.getRoles();
+      });
+    });
   }
-  ngOnDestroy(): void {
-    if(this.RoleListsubscribe){this.RoleListsubscribe.unsubscribe()}
-  }
+
   ngAfterViewInit(): void {
     feather.replace();
   }
@@ -73,10 +83,10 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       Object.entries(this.filters).filter(([key, value]) => value !== null)
     );
     this.commonService.updateLoader(true);
-    const filters={
+    const filters = {
       ...this.filters,
       Page: this.page,
-      PageSize:this.pageSize
+      PageSize: this.pageSize
     }
     this.roleService.getRoleList(filters).subscribe({
       next: (response) => {
@@ -94,11 +104,11 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   }
 
   deleteRole() {
-    const payload={
-      id:this.roleId,
-      isDeleted:true
+    const payload = {
+      id: this.roleId,
+      isDeleted: true
     }
-    this.roleService.deleteRole(this.roleId,payload).subscribe({
+    this.roleService.deleteRole(this.roleId, payload).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -139,7 +149,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       const modal = new Modal(modalElement);
       this.selectedRoleId = roleList.id;
       this.roleName = roleList.roleName
-       this.selectedRoleId = '';
+      this.selectedRoleId = '';
       setTimeout(() => {
         this.selectedRoleId = roleList.id;
         modal.show();
@@ -194,7 +204,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       modal.show();
       const handleOutsideClick = (e: MouseEvent) => {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide(); 
+          modal.hide();
           modalElement.removeEventListener('click', handleOutsideClick);
           this.addRoleComponent.onClose();
         }
@@ -206,5 +216,9 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   onPageChange(page: number) {
     this.page = page;
     this.getRoles(this.page);
+  }
+
+  ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }

@@ -14,6 +14,7 @@ import { CountResponse } from '../../../shared/models/lsp.model';
 import { ExportService } from '../../../shared/services/export.service';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-customer',
@@ -43,7 +44,8 @@ export class CustomerListComponent implements OnInit {
     private identityService: IdentityService,
     private sweetAlertService: SweetAlertService,
     private exportService: ExportService,
-    private lspMappingService: LspMappingService
+    private lspMappingService: LspMappingService,
+    private signalRService:SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
@@ -68,6 +70,12 @@ export class CustomerListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
+
+    this.signalRService.startConnection().then(() => {
+    this.signalRService.on('CustomerListUpdated', (message: string) => {
+      this.getCustomers();
+    });
+  });
   }
 
   getCustomers(page: number = 1) {
@@ -161,6 +169,7 @@ export class CustomerListComponent implements OnInit {
     this.lspMappingService.getLspMappingDetails(id).subscribe({
       next: (response) => {
         if (response) {
+          this.selectedMappingId = response.data
           this.selectedMappingId = response.data;
         }
       },
@@ -204,12 +213,16 @@ export class CustomerListComponent implements OnInit {
     this.getCustomers(this.page);
   }
 
-  lspMappingonModal(event: Event, customer: any) {
+ lspMappingonModal(event: Event, customer: any) {
     event.preventDefault();
     const modalElement = document.getElementById('exampleModalLspMapping');
     if (modalElement) {
       const modal = new Modal(modalElement);
-      this.getLspMapping(customer.lspMappingId);
+      if(customer.lspMappingId){
+        this.getLspMapping(customer.lspMappingId);
+      }else{
+        this.getCustomer(customer.customerId)
+      }
       modal.show();
     }
   }
