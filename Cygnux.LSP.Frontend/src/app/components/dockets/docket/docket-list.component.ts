@@ -368,10 +368,6 @@ export class DocketListComponent implements OnInit {
     this.getDocket(data);
   }
 
-  ngOnDestroy(): void {
-    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
-  }
-
   downloadDocketList() {
       this.isLoadingDocketList = true;
     this.docketService.downloadDocketData(this.identityService.getLoggedUserId()).subscribe({
@@ -382,5 +378,9 @@ export class DocketListComponent implements OnInit {
         }
       }
     });
+  }
+
+   ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }

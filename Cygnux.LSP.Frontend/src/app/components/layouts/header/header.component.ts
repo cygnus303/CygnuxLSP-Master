@@ -10,23 +10,20 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
   templateUrl: './header.component.html',
   styleUrls: []
 })
-export class HeaderComponent implements OnDestroy{
+export class HeaderComponent implements OnDestroy {
   email = localStorage.getItem('email');
-  headerMenu:string='';
-  activeNavigationUrlSubscription!:Subscription;
+  headerMenu: string = '';
+  activeNavigationUrlSubscription!: Subscription;
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @ViewChild('changePassword') changePassword!: ChangePasswordComponent;
-  
+
   constructor(private identityService: IdentityService,
-    public router: Router,public commonService:CommonService) {
-      this.activeNavigationUrlSubscription = this.commonService.activeNavigationUrl.subscribe((res)=>{
-        this.headerMenu = res
-      });
+    public router: Router, public commonService: CommonService) {
+    this.activeNavigationUrlSubscription = this.commonService.activeNavigationUrl.subscribe((res) => {
+      this.headerMenu = res
+    });
   }
-  ngOnDestroy(): void {
-    if(this.activeNavigationUrlSubscription){this.activeNavigationUrlSubscription.unsubscribe()}
-  }
- 
+
   signout(): void {
     this.identityService.clearToken();
     localStorage.clear();
@@ -34,8 +31,12 @@ export class HeaderComponent implements OnDestroy{
   }
 
 
-  OnChangePassword(){
+  OnChangePassword() {
     this.changePassword?.showpopup();
   }
-  
+
+  ngOnDestroy(): void {
+    if (this.activeNavigationUrlSubscription) { this.activeNavigationUrlSubscription.unsubscribe() }
+  }
+
 }
