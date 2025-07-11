@@ -2,7 +2,7 @@
 
 namespace Cygnux.LSP.Application.Models.Request.Docket
 {
-    public class CreateDocketRequest : UserSettings
+    public class CreateDocketRequest /*: UserSettings*/
     {
         public string DocketNo { get; set; } = string.Empty;
         public DateTime BookingDate { get; set; }
@@ -16,6 +16,9 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public int Quantity { get; set;}
         public bool IsCancel { get; set; }
         public string CurrentStatus { get; set; } = string.Empty;
+        public Guid? UserId { get; set; }
+        public Guid? CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
     }
 
     public class PODDataList
