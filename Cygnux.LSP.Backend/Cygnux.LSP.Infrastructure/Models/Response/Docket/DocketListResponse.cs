@@ -26,6 +26,8 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public TrackingList? track {  get; set; }
         public string PODLink { get; set; } = string.Empty;
         public bool? IsLspTatActive { get; set;}
+        public bool? IsLSPCancelled { get; set; }
+        public bool? IsCustomerCancelled { get; set; }
 
     }
 

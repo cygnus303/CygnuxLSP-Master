@@ -18,6 +18,8 @@ export interface DocketResponse {
   customerName:string;
   podLink:string;
   isLspTatActive:boolean;
+  isLSPCancelled:boolean;
+  isCustomerCancelled:boolean;
 }
 
 export interface AddDocketRequest {
