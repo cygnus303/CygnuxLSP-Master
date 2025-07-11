@@ -246,26 +246,31 @@ export class DocketListComponent implements OnInit {
     return Swal.fire({
       title: 'Reject Docket',
       html: `<div style="text-align: left;">
-              <label for="remarks" style="font-weight: 500; margin-bottom: 6px; display: block;">
-                Please provide a reason for rejection:
-              </label>
-              <textarea id="remarks" class="swal2-textarea w-100" placeholder="Type your remarks here..." 
-                style="min-height: 120px; resize: vertical; font-size: 14px; padding: 8px; margin: 0;"></textarea>`,
-      focusConfirm: false,
-      showCancelButton: true,
+      <label for="remarks" style="font-weight: 500; margin-bottom: 6px; display: block;">
+        Please provide a reason for rejection:
+      </label>
+      <textarea id="remarks" class="swal2-textarea w-100" placeholder="Type your remarks here..."
+        style="min-height: 120px; resize: vertical; font-size: 14px; padding: 8px; margin: 0;"></textarea></div>`,
       confirmButtonText: 'Submit',
       cancelButtonText: 'Cancel',
-      customClass: {
-        popup: 'swal2-rounded swal2-shadow',
-        confirmButton: 'swal2-confirm btn btn-primary',
-        cancelButton: 'swal2-cancel btn btn-secondary'
-      },preConfirm: () => {
-        const input = (document.getElementById('remarks') as HTMLTextAreaElement).value.trim();
-        if (!input) {
-          Swal.showValidationMessage('Remarks cannot be empty');
-          return false;
+      showCancelButton: true,
+      focusConfirm: false,
+      didOpen: () => {
+        const remarksInput = document.getElementById('remarks') as HTMLTextAreaElement;
+        const confirmBtn = Swal.getConfirmButton();
+        if (confirmBtn && remarksInput) {
+          confirmBtn.setAttribute('disabled', 'true');
+          remarksInput.addEventListener('input', () => {
+            if (remarksInput.value.trim().length > 0) {
+              confirmBtn.removeAttribute('disabled');
+            } else {
+              confirmBtn.setAttribute('disabled', 'true');
+            }
+          });
         }
-        return input;
+      },
+      preConfirm: () => {
+        return (document.getElementById('remarks') as HTMLTextAreaElement).value.trim();
       }
     }).then((result) => {
       return result.isConfirmed ? result.value : null;
