@@ -16,7 +16,7 @@ internal class DocketService : IDocketService
     {
         _dbConnection = dbConnection;
     }
-
+    
     public async Task<IEnumerable<DocketListResponse>> GetDocketList(Guid userId,string reqFilter)
     {
         var parameters = new DynamicParameters();
@@ -126,8 +126,7 @@ internal class DocketService : IDocketService
               commandType: CommandType.StoredProcedure
           ) ?? new CommonCreateResponse();
     }
-
-    public async Task<CommonCreateResponse> DeleteDocket(Guid id)
+ public async Task<CommonCreateResponse> DeleteDocket(Guid id)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Id", id, DbType.Guid);
@@ -137,6 +136,34 @@ internal class DocketService : IDocketService
               param: parameters,
               commandType: CommandType.StoredProcedure
           ) ?? new CommonCreateResponse();
+    }
+
+        public async Task<CommonCreateResponse> DocketCancel(Guid id, Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@Id", id, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        var result = await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_DeleteCancel,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+        return result;
+    }
+    public async Task<CommonCreateResponse> DocketReject(Guid id, Guid userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@Id", id, DbType.Guid);
+        parameters.Add("@UserId", userId, DbType.Guid);
+
+        var result = await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
+            StoredProcedureConstants.USP_RejectCancel,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new CommonCreateResponse();
+
+        return result;
     }
 
     /*public async Task<CommonCreateResponse> DeleteDocket(Guid id)

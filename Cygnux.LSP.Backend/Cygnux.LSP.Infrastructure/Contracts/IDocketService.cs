@@ -15,6 +15,8 @@ public interface IDocketService
     Task<CommonCreateResponse> UpdateDocket(Guid id, string updateDocketJson);
     Task<CommonCreateResponse> SingleDocketStsUpdate(Guid DocketId, string docksts, Guid user);
     Task<CommonCreateResponse> DeleteDocket(Guid id);
+    Task<CommonCreateResponse> DocketCancel(Guid id, Guid userId);
+    Task<CommonCreateResponse> DocketReject(Guid id, Guid userId);
     Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination);
     Task<IEnumerable<DocketExcelUploadValidate>> GetValidateDocketImportData(string bulkDocket, Guid customerid);
     Task<CommonCreateResponse> InsertDocketData(string docketdata, Guid entryBy);

@@ -15,6 +15,7 @@ import { AddDocketComponent } from './add-docket/add-docket.component';
 import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ExportService } from '../../../shared/services/export.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-docket',
@@ -164,6 +165,40 @@ export class DocketListComponent implements OnInit {
     });
   }
 
+    docketCancel(docketCode?: any) {
+    this.docketService.docketCancel(docketCode,this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.sweetAlertService.success(response.data.message);
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.getDockets();
+        this.closeDeleteModal();
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
+   docketReject(docketCode?: any) {
+    this.docketService.docketReject(docketCode,this.identityService.getLoggedUserId()).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.sweetAlertService.success(response.data.message);
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+        this.getDockets();
+        this.closeDeleteModal();
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
   editModal(event: Event, docketList: any, type: string) {
     event.preventDefault();
     const modalElement = document.getElementById('exampleModalLong');
@@ -174,9 +209,38 @@ export class DocketListComponent implements OnInit {
       this.getDocket(docketList);
     }
   }
-  deleteModal(docketCode: string) {
-    this.sweetAlertService.cancel("Are you sure to cancel docket?", () => this.deleteDocket(docketCode))
-  }
+
+    deleteModal(docketCode: string , data:any) {
+      const isLsp = this.userRoles === 'LSP Admin'; // Replace with actual role check logic
+      if(data.isCustomerCancelled || data.isLSPCancelled){
+          this.sweetAlertService.confirm("Are you sure to cancel docket?", 
+            {
+              confirmButtonText: "Approve",
+              cancelButtonText: "Reject"
+            }
+          ).then((result: any) => {
+            if (result.isConfirmed) {
+              this.docketCancel(docketCode);
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              this.docketReject(docketCode);
+            }
+          });
+      }else{
+        const message = isLsp 
+          ? "Do you want to send docket cancel request to Customer for approval?" 
+          : "Do you want to send docket cancel request to LSP for approval?";
+        this.sweetAlertService.confirm(message, {
+          confirmButtonText: "Yes",
+          cancelButtonText: "No"
+        }).then((result: any) => {
+          if (result.isConfirmed) {
+            this.docketCancel(docketCode);
+          } else {
+            this.deleteDocket(docketCode);
+          }
+        });
+      }
+    }
 
   openImportModal(event: Event) {
     event.preventDefault();

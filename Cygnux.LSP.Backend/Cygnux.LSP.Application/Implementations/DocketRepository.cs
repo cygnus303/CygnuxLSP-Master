@@ -92,6 +92,36 @@ internal class DocketRepository : IDocketRepository
         return response.Status > 0 ? new BaseResponse<CommonCreateResponse>(response)
                    : new BaseResponse<CommonCreateResponse>(new ErrorResponse { Message = response.Message });
     }
+
+    public async Task<BaseResponse<CommonCreateResponse>> DocketCancel(Guid id, Guid userId)
+    {
+        var result = await _docketService.DocketCancel(id, userId);
+
+        if (result?.Status > 0)
+        {
+            return new BaseResponse<CommonCreateResponse>(result);
+        }
+
+        return new BaseResponse<CommonCreateResponse>(
+            new ErrorResponse { Message = result?.Message ?? "Docket deletion failed." }
+        );
+    }
+
+    public async Task<BaseResponse<CommonCreateResponse>> DocketReject(Guid id, Guid userId)
+    {
+        var result = await _docketService.DocketReject(id, userId);
+
+        if (result?.Status > 0)
+        {
+            return new BaseResponse<CommonCreateResponse>(result);
+        }
+
+        return new BaseResponse<CommonCreateResponse>(
+            new ErrorResponse { Message = result?.Message ?? "Reject failed." }
+        );
+    }
+
+
     public async Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination)
     {
         var response = await _docketService.GetTATdata(CustomerId, LspId, origin, destination);
