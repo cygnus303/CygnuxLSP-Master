@@ -41,6 +41,7 @@ public class CustomerController : ControllerBase
         //return Ok(await _customerRepository.AddCustomer(createCustomerDto));
         var result = await _customerRepository.AddCustomer(createCustomerDto);
         await _hubContext.Clients.All.SendAsync("CustomerListUpdated", "Customer Added");
+        await _hubContext.Clients.All.SendAsync("CustomerCountUpdated");
         return Ok(result);
     }
 
@@ -50,6 +51,7 @@ public class CustomerController : ControllerBase
         //return Ok(await _customerRepository.UpdateCustomer(id, createCustomerDto));
         var result = await _customerRepository.UpdateCustomer(id, createCustomerDto);
         await _hubContext.Clients.All.SendAsync("CustomerListUpdated", "Customer Updated");
+        await _hubContext.Clients.All.SendAsync("CustomerCountUpdated");
         return Ok(result);
     }
 
@@ -60,6 +62,8 @@ public class CustomerController : ControllerBase
         //return Ok(await _customerRepository.DeleteCustomer(id));
         var result = await _customerRepository.DeleteCustomer(id);
         await _hubContext.Clients.All.SendAsync("CustomerListUpdated", "Customer Deleted");
+        await _hubContext.Clients.All.SendAsync("CustomerCountUpdated");
+
         return Ok(result);
     }
 

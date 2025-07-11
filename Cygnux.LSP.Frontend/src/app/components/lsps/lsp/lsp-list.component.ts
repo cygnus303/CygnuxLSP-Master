@@ -77,6 +77,11 @@ export class LspListComponent implements OnInit {
       this.signalRService.on('LspListUpdated', (msg: string) => {
         this.getLsps(); // Your function to refresh LSP list
       });
+
+      this.signalRService.on('LspCountUpdated', () => {
+        console.log("🔁 LSP Count Changed");
+        this.getLSPCount(); // refresh the count
+      });
     });
   }
 

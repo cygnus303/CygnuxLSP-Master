@@ -182,8 +182,13 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-   docketReject(docketCode?: any) {
-    this.docketService.docketReject(docketCode,this.identityService.getLoggedUserId()).subscribe({
+   docketReject(docketCode?: any ,remarks?:any) {
+    const payload = {
+      id: docketCode,
+      userId: this.identityService.getLoggedUserId(),
+      remarks: remarks
+    };
+    this.docketService.docketReject(payload).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -210,29 +215,24 @@ export class DocketListComponent implements OnInit {
     }
   }
 
-    deleteModal(docketCode: string , data:any) {
-      const isLsp = this.userRoles === 'LSP Admin'; // Replace with actual role check logic
+    deleteModal(docketCode: string ,data:any) {
+      const isLsp = this.userRoles === 'LSP Admin';
       if(data.isCustomerCancelled || data.isLSPCancelled){
           this.sweetAlertService.confirm("Are you sure to cancel docket?", 
-            {
-              confirmButtonText: "Approve",
-              cancelButtonText: "Reject"
-            }
-          ).then((result: any) => {
+            {confirmButtonText: "Approve",cancelButtonText: "Reject"}).then((result: any) => {
             if (result.isConfirmed) {
               this.docketCancel(docketCode);
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-              this.docketReject(docketCode);
+              this.rejectionRemarks().then((remarks) => {
+                if (remarks !== null) {
+                  this.docketReject(docketCode, remarks);
+                }
+              });
             }
           });
       }else{
-        const message = isLsp 
-          ? "Do you want to send docket cancel request to Customer for approval?" 
-          : "Do you want to send docket cancel request to LSP for approval?";
-        this.sweetAlertService.confirm(message, {
-          confirmButtonText: "Yes",
-          cancelButtonText: "No"
-        }).then((result: any) => {
+        const message = isLsp ? "Do you want to send docket cancel request to Customer for approval?" : "Do you want to send docket cancel request to LSP for approval?";
+        this.sweetAlertService.confirm(message, {confirmButtonText: "Yes",cancelButtonText: "No"}).then((result: any) => {
           if (result.isConfirmed) {
             this.docketCancel(docketCode);
           } else {
@@ -241,6 +241,36 @@ export class DocketListComponent implements OnInit {
         });
       }
     }
+
+  rejectionRemarks(): Promise<string | null> {
+    return Swal.fire({
+      title: 'Reject Docket',
+      html: `<div style="text-align: left;">
+              <label for="remarks" style="font-weight: 500; margin-bottom: 6px; display: block;">
+                Please provide a reason for rejection:
+              </label>
+              <textarea id="remarks" class="swal2-textarea w-100" placeholder="Type your remarks here..." 
+                style="min-height: 120px; resize: vertical; font-size: 14px; padding: 8px; margin: 0;"></textarea>`,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: 'swal2-rounded swal2-shadow',
+        confirmButton: 'swal2-confirm btn btn-primary',
+        cancelButton: 'swal2-cancel btn btn-secondary'
+      },preConfirm: () => {
+        const input = (document.getElementById('remarks') as HTMLTextAreaElement).value.trim();
+        if (!input) {
+          Swal.showValidationMessage('Remarks cannot be empty');
+          return false;
+        }
+        return input;
+      }
+    }).then((result) => {
+      return result.isConfirmed ? result.value : null;
+    });
+  }
 
   openImportModal(event: Event) {
     event.preventDefault();
@@ -283,7 +313,7 @@ export class DocketListComponent implements OnInit {
   }
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-
+    
     if (this.addDocketComponent.isCustomerOrLspEmpty()) {
       this.sweetAlertService.info("LSP mapping is missing for this customer. Please contact the administrator");
       return;

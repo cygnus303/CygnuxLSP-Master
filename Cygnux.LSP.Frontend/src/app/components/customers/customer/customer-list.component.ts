@@ -75,6 +75,10 @@ export class CustomerListComponent implements OnInit {
     this.signalRService.on('CustomerListUpdated', (message: string) => {
       this.getCustomers();
     });
+    this.signalRService.on('CustomerCountUpdated', () => {
+      console.log("🔁 Refreshing customer count...");
+      this.getcustomerCount(); // Call your method to re-fetch count
+    });
   });
   }
 

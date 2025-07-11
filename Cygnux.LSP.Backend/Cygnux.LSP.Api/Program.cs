@@ -31,7 +31,7 @@ loggerFactory?.AddFile(builder.Configuration["Logging:LogFilePath"]?.ToString())
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CygnuxLSP.API v1"));
-
+app.UseHttpsRedirection();
 app.UseRouting();
 
 //app.UseCors("AllowOrigin");
@@ -59,7 +59,7 @@ app.UseEndpoints(endpoints =>
 
 
 app.MapControllers();
-app.UseHttpsRedirection();
+
 app.UseMiddleware<AuthorizationHeaderMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 

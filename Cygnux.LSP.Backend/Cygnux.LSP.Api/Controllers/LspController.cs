@@ -77,6 +77,7 @@ public class LspController : ControllerBase
 
         var result = await _lspRepository.AddLsp(createLsp);
         await _hubContext.Clients.All.SendAsync("LspListUpdated", "LSP Added");
+        await _hubContext.Clients.All.SendAsync("LspCountUpdated");
 
         return Ok(result);
     }
@@ -136,6 +137,7 @@ public class LspController : ControllerBase
 
         var result = await _lspRepository.UpdateLsp(id, createLsp);
         await _hubContext.Clients.All.SendAsync("LspListUpdated", "LSP Updated");
+        await _hubContext.Clients.All.SendAsync("LspCountUpdated");
 
         return Ok(result);
     }
@@ -149,6 +151,7 @@ public class LspController : ControllerBase
 
         var result = await _lspRepository.DeleteLsp(lspid);
         await _hubContext.Clients.All.SendAsync("LspListUpdated", "LSP Deleted");
+        await _hubContext.Clients.All.SendAsync("LspCountUpdated");
         return Ok(result);
     }
 

@@ -151,11 +151,12 @@ internal class DocketService : IDocketService
         ) ?? new CommonCreateResponse();
         return result;
     }
-    public async Task<CommonCreateResponse> DocketReject(Guid id, Guid userId)
+    public async Task<CommonCreateResponse> DocketReject(Guid id, Guid userId, string? remarks = null)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Id", id, DbType.Guid);
         parameters.Add("@UserId", userId, DbType.Guid);
+        parameters.Add("@Remarks", remarks ?? string.Empty, DbType.String);
 
         var result = await _dbConnection.QueryFirstOrDefaultAsync<CommonCreateResponse>(
             StoredProcedureConstants.USP_RejectCancel,
