@@ -189,9 +189,17 @@ export class DocketService {
     return this.apiHandlerService.Post('docket/UpdateDocket/' + id, adddocketRequest);
   }
 
-  deleteDocket(id: string): Observable<IApiBaseResponse<CommonResponse>> {
+   deleteDocket(id: string): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Patch('docket/DeleteDocket/' + id, null);
   }
+
+  docketCancel(id: string,userId:string): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Patch(`docket/DocketCancel?id=${id}&userId=${userId}`, null);
+  }
+
+  docketReject(id: string,userId:string): Observable<IApiBaseResponse<CommonResponse>> {
+      return this.apiHandlerService.Patch(`docket/DocketReject?id=${id}&userId=${userId}`, null);
+  } 
 
   uploadDocket(formData: any) {
     return this.apiHandlerService.Post(`Docket/ImportPOD`, formData);

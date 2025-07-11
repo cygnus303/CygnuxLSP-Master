@@ -100,7 +100,23 @@ public class DocketController : ControllerBase
     [Route("DeleteDocket/{id}")]
     public async Task<IActionResult> DeleteDocket(Guid id)
     {
-        return Ok(await _docketRepository.DeleteDocket(id));
+       return Ok(await _docketRepository.DeleteDocket(id));
+    }
+
+  [HttpPatch]
+    [Route("DocketCancel")]
+    public async Task<IActionResult> DocketCancel(Guid id, [FromQuery] Guid userId)
+    {
+        var response = await _docketRepository.DocketCancel(id, userId);
+        return Ok(response);
+    }
+
+    [HttpPatch]
+    [Route("DocketReject")]
+    public async Task<IActionResult> DocketReject(Guid id, [FromQuery] Guid userId)
+    {
+        var response = await _docketRepository.DocketReject(id, userId);
+        return Ok(response);
     }
 
     [HttpGet]

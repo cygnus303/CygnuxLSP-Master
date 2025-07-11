@@ -10,3 +10,14 @@
   .modal-content {
     margin: auto;
   }
+.notification-dot {
+    width: 11px;
+    height: 11px;
+    background-color: #28a745;
+    border-radius: 50%;
+    position: absolute;
+    top: -4px;
+    right: -3px;
+    z-index: 1;
+    border: 1px solid white;
+}

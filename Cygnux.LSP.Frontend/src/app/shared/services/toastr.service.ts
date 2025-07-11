@@ -108,4 +108,15 @@ export class SweetAlertService {
     });
 }
 
+confirm(message: string, options?: any) {
+  return Swal.fire({
+    title: message,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: options?.confirmButtonText || 'Yes',
+    cancelButtonText: options?.cancelButtonText || 'No'
+  });
+}
+
+
 }

@@ -35,6 +35,8 @@ public static class StoredProcedureConstants
     public const string Usp_RoleMenuPermission = "Usp_RoleMenuPermission";
     public const string Usp_GetMenuPermission = "Usp_GetMenuPermission";
     public const string USP_DeleteDocket = "USP_DeleteDocket";
+    public const string USP_DeleteCancel = "USP_DeleteCancel";
+    public const string USP_RejectCancel = "USP_RejectCancel";
     public const string USP_CustomerTATRootDropdown = "USP_CustomerTATRootDropdown";
     public const string USP_ValidateBulkUploadDocketData = "USP_ValidateBulkUploadDocketData";
     public const string PODUplaodDataFromExcel = "InsertPODUploadFromJson";
