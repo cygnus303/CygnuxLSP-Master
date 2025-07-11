@@ -197,8 +197,8 @@ export class DocketService {
     return this.apiHandlerService.Patch(`docket/DocketCancel?id=${id}&userId=${userId}`, null);
   }
 
-  docketReject(id: string,userId:string): Observable<IApiBaseResponse<CommonResponse>> {
-      return this.apiHandlerService.Patch(`docket/DocketReject?id=${id}&userId=${userId}`, null);
+  docketReject(payload:any): Observable<IApiBaseResponse<CommonResponse>> {
+      return this.apiHandlerService.Patch(`docket/DocketReject`,payload);
   } 
 
   uploadDocket(formData: any) {

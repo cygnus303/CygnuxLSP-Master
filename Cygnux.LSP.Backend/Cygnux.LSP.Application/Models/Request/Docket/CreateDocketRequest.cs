@@ -46,6 +46,13 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         /*public Guid LspId { get; set; }*/
     }
 
+    public class DocketRejectRequest
+    {
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
+        public string? Remarks { get; set; }
+    }
+
     public class DocketPODUploadReq
     {
         /*public string DocketNo { get; set;} = string.Empty;*/

@@ -107,9 +107,9 @@ internal class DocketRepository : IDocketRepository
         );
     }
 
-    public async Task<BaseResponse<CommonCreateResponse>> DocketReject(Guid id, Guid userId)
+    public async Task<BaseResponse<CommonCreateResponse>> DocketReject(Guid id, Guid userId, string? remarks = null)
     {
-        var result = await _docketService.DocketReject(id, userId);
+        var result = await _docketService.DocketReject(id, userId, remarks);
 
         if (result?.Status > 0)
         {

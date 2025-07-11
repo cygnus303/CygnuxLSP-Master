@@ -111,11 +111,11 @@ public class DocketController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPatch]
+     [HttpPatch]
     [Route("DocketReject")]
-    public async Task<IActionResult> DocketReject(Guid id, [FromQuery] Guid userId)
+    public async Task<IActionResult> DocketReject([FromBody] DocketRejectRequest request)
     {
-        var response = await _docketRepository.DocketReject(id, userId);
+        var response = await _docketRepository.DocketReject(request.Id, request.UserId, request.Remarks);
         return Ok(response);
     }
 
