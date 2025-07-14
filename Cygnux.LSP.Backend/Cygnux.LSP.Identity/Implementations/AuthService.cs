@@ -26,13 +26,13 @@ internal class AuthService : IAuthService
         if (user is not null)
         {
             if (!user.IsActive)
-            {
                 return new BaseLoginResponse<LoginResponse>(false, message: "User is inactive.");
-            }
+
+            if (!user.EmailConfirmed)
+                return new BaseLoginResponse<LoginResponse>(false, message: "User has not confirmed their email.");
+
             if (user.IsDeleted)
-            {
-                return new BaseLoginResponse<LoginResponse>(false, message: "User is deleted from the sytem.");
-            }
+                return new BaseLoginResponse<LoginResponse>(false, message: "User is deleted from the system.");
 
             var isPassword = await _userManager.CheckPasswordAsync(user, password);
             if (isPassword)
