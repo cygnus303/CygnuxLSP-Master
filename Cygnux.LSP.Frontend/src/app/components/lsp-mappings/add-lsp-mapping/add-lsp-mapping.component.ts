@@ -118,17 +118,13 @@ export class AddLspMappingComponent {
   categorizeCustomers() {
     const mappedIds = this.lspMappingsList.map(m => m.customerId);
     this.customers = this.customers || [];
-    this.unmappedCustomers = !this.lspMappingId
-      ? this.customers.filter(c => !mappedIds.includes(c.customerId))
-      : this.customers.filter(c => mappedIds.includes(c.customerId));
-
+    this.unmappedCustomers = !this.lspMappingId ? this.customers.filter(c => !mappedIds.includes(c.customerId)) : this.customers.filter(c => mappedIds.includes(c.customerId));
     this.mappedCustomerLspMap = {};
     for (const mapping of this.lspMappingsList) {
       const customerId = mapping.customerId;
       if (!this.mappedCustomerLspMap[customerId]) {
         this.mappedCustomerLspMap[customerId] = [];
       }
-
       const lspIds = mapping.lspId?.split(',') || [];
       lspIds.forEach(id => {
         const lsp = this.lsps.find(l => l.lspId === id.trim());
@@ -178,7 +174,6 @@ export class AddLspMappingComponent {
     const mappedNames = this.mappedCustomerLspMap[this.selectedCustomer.customerId] || [];
     return this.lsps.filter(lsp => !mappedNames.includes(lsp.lspName));
   }
-
 
   onSave() {
     if (!this.selectedCustomer) {

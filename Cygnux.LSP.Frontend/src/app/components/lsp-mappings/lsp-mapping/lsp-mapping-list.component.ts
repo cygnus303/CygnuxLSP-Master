@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspMappingComponent } from '../add-lsp-mapping/add-lsp-mapping.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CountResponse } from '../../../shared/models/lsp.model';
 import { SignalRService } from '../../../shared/services/signal-r.service';
 
@@ -41,8 +40,6 @@ export class LspMappingListComponent implements OnInit {
     private toastrService: ToastrService,
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
-    private route: ActivatedRoute,
-    private router:Router,
     private signalRService:SignalRService
   ) {
     defineElement(lottie.loadAnimation);
@@ -70,20 +67,15 @@ export class LspMappingListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
-
- this.signalRService.startConnection().then(() => {
-    this.signalRService.on('LspMappingListUpdated', (msg) => {
-      this.getLspMappings();
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('LspMappingListUpdated', (msg) => {
+        this.getLspMappings();
+      });
     });
-
- 
-  });
   }
 
   getLspMappings(page: number = 1) {
-    this.filters = Object.fromEntries(
-      Object.entries(this.filters).filter(([key, value]) => value !== null)
-    );
+    this.filters = Object.fromEntries(Object.entries(this.filters).filter(([key, value]) => value !== null));
     const filters: any = {
       ...this.filters,
       Page: page,
@@ -181,16 +173,15 @@ export class LspMappingListComponent implements OnInit {
   }
   openModal() {
     const lsps = this.addLspMappingComponent?.lsps;
-    const customers = this.addLspMappingComponent?.customers;
-
+    const customers = this.addLspMappingComponent?.unmappedCustomers;
     if (!customers || customers.length === 0) {
       this.sweetAlertService.info('Customer not found or All Customers Mapping already exists', () => {
-              this.router.navigate(['/customer']);
-            });
+        // this.router.navigate(['/customer']);
+      });
     } else if (!lsps || lsps.length === 0) {
       this.sweetAlertService.info('No LSP available. Please add at least one LSP before creating a mapping.', () => {
-              this.router.navigate(['/lsp']);
-            });
+          // this.router.navigate(['/lsp']);
+      });
     } else {
       const modalElement: any = document.getElementById('exampleModalLong');
       if (modalElement) {
@@ -198,7 +189,6 @@ export class LspMappingListComponent implements OnInit {
         this.lspMappingId = '';
         this.selectedLsp = null;
         modal.show(); 
-
         const handleOutsideClick = (e: MouseEvent) => {
           if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
             modal.hide();
@@ -253,8 +243,6 @@ export class LspMappingListComponent implements OnInit {
   }
 
     ngOnDestroy(): void {
-    if (this.RoleListsubscribe) { 
-      this.RoleListsubscribe.unsubscribe() ;
-    }
+    if (this.RoleListsubscribe) {this.RoleListsubscribe.unsubscribe()}
   }
 }
