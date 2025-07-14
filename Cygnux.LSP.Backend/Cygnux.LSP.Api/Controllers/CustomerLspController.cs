@@ -87,6 +87,7 @@ public class CustomerLspController : ControllerBase
         if (result != null)
         {
             await _hubContext.Clients.All.SendAsync("LspMappingListUpdated", "LSP Mapping Added");
+            await _hubContext.Clients.All.SendAsync("LspMappingCountUpdated");
         }
 
         return Ok(result);
@@ -100,6 +101,7 @@ public class CustomerLspController : ControllerBase
 
         var result = await _customerLspRepository.UpdateLspMapping(LspMapId, createLspMapping);
         await _hubContext.Clients.All.SendAsync("LspMappingListUpdated", "LSP Mapping Updated");
+        await _hubContext.Clients.All.SendAsync("LspMappingCountUpdated");
         return Ok(result);
     }
 
@@ -111,6 +113,7 @@ public class CustomerLspController : ControllerBase
 
         var result = await _customerLspRepository.DeleteLspMapping(CustomerLspId);
         await _hubContext.Clients.All.SendAsync("LspMappingListUpdated", "LSP Mapping Deleted");
+        await _hubContext.Clients.All.SendAsync("LspMappingCountUpdated");
         return Ok(result);
     }
 
@@ -123,6 +126,7 @@ public class CustomerLspController : ControllerBase
 
         var result = await _customerLspRepository.AddCustomerLspTat(addEditCustomerLspTat);
         await _hubContext.Clients.All.SendAsync("TatListUpdated", "TAT Added");
+        await _hubContext.Clients.All.SendAsync("LspTatCountUpdated");
         return Ok(result);
     }
 
@@ -142,6 +146,7 @@ public class CustomerLspController : ControllerBase
 
         var result = await _customerLspRepository.UpdateCustomerLspTat(id, addEditCustomerLspTat);
         await _hubContext.Clients.All.SendAsync("TatListUpdated", "TAT Updated");
+        await _hubContext.Clients.All.SendAsync("LspTatCountUpdated");
         return Ok(result);
     }
 
@@ -153,6 +158,7 @@ public class CustomerLspController : ControllerBase
 
         var result = await _customerLspRepository.DeleteLspMappingTat(TatId);
         await _hubContext.Clients.All.SendAsync("TatListUpdated", "TAT Deleted");
+        await _hubContext.Clients.All.SendAsync("LspTatCountUpdated");
         return Ok(result);
     }
 
