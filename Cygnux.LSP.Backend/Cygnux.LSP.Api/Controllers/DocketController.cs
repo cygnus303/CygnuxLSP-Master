@@ -4,9 +4,11 @@ using Application.Contracts;
 using Application.Models.Request.Docket;
 using ClosedXML.Excel;
 using Cygnux.LSP.Api.Helpers;
+using Cygnux.LSP.Api.Hubs;
 using Cygnux.LSP.Application.Models.Response;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NPOI.HPSF;
@@ -20,17 +22,19 @@ public class DocketController : ControllerBase
     private readonly IWebHostEnvironment _env;
     private readonly IConfiguration _iconfiguration;
     private readonly ICustomerLspRepository _customerLspRepository;
+    private readonly IHubContext<SignalRHub> _hubContext;
 
     //public DocketController(IDocketRepository docketRepository)
     //{
     //    _docketRepository = docketRepository;
     //}
-    public DocketController(IWebHostEnvironment env, IDocketRepository docketRepository, IConfiguration iconfiguration, ICustomerLspRepository customerLspRepository)
+    public DocketController(IWebHostEnvironment env, IDocketRepository docketRepository, IConfiguration iconfiguration, ICustomerLspRepository customerLspRepository, IHubContext<SignalRHub> hubContext)
     {
         _env = env;
         _docketRepository = docketRepository;
         _iconfiguration = iconfiguration;
         _customerLspRepository = customerLspRepository;
+        _hubContext = hubContext;
     }
 
     [HttpGet]
@@ -79,28 +83,40 @@ public class DocketController : ControllerBase
     [Route("AddDocket")]
     public async Task<IActionResult> AddDocket(CreateDocketRequest createDocketDto)
     {
-        return Ok(await _docketRepository.AddDocket(createDocketDto));
+        //return Ok(await _docketRepository.AddDocket(createDocketDto));
+        var result = await _docketRepository.AddDocket(createDocketDto);
+        await _hubContext.Clients.All.SendAsync("DocketUpdated", "Docket Added");
+        return Ok(result);
     }
 
     [HttpPost]
     [Route("UpdateDocket/{id}")]
     public async Task<IActionResult> UpdateDocket(Guid id, CreateDocketRequest createDocketDto)
     {
-        return Ok(await _docketRepository.UpdateDocket(id, createDocketDto));
+        //return Ok(await _docketRepository.UpdateDocket(id, createDocketDto));
+        var result = await _docketRepository.UpdateDocket(id, createDocketDto);
+        await _hubContext.Clients.All.SendAsync("DocketUpdated", "Docket Updated");
+        return Ok(result);
     }
 
     [HttpPost]
     [Route("SingleUpdateDocketSts")]
     public async Task<IActionResult> SingleDocketStsUpdate(Guid DocketId, DocketStatusReq docksts,Guid user)
     {
-        return Ok(await _docketRepository.SingleDocketStsUpdate(DocketId, docksts,user));
+        //return Ok(await _docketRepository.SingleDocketStsUpdate(DocketId, docksts,user));
+        var result = await _docketRepository.SingleDocketStsUpdate(DocketId, docksts, user);
+        await _hubContext.Clients.All.SendAsync("DocketUpdated", "Docket Status Updated");
+        return Ok(result);
     }
 
     [HttpPatch]
     [Route("DeleteDocket/{id}")]
     public async Task<IActionResult> DeleteDocket(Guid id)
     {
-       return Ok(await _docketRepository.DeleteDocket(id));
+        //return Ok(await _docketRepository.DeleteDocket(id));
+        var result = await _docketRepository.DeleteDocket(id);
+        await _hubContext.Clients.All.SendAsync("DocketUpdated", "Docket Deleted");
+        return Ok(result);
     }
 
   [HttpPatch]

@@ -16,6 +16,7 @@ import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ExportService } from '../../../shared/services/export.service';
 import Swal from 'sweetalert2';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-docket',
@@ -38,7 +39,7 @@ export class DocketListComponent implements OnInit {
   public modalRef!: BsModalRef;
   public hoveredRow: number | null = null;
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
-  public isLoadingDocketList:boolean = false;
+  public isLoadingDocketList: boolean = false;
   @Output() edit = new EventEmitter<DocketResponse>();
   @ViewChild(ImportDocketComponent) ImportDocketComponent!: ImportDocketComponent;
   @ViewChild(AddDocketComponent) addDocketComponent!: AddDocketComponent;
@@ -52,7 +53,7 @@ export class DocketListComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private modalService: BsModalService,
     private exportService: ExportService,
-
+    private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
@@ -70,11 +71,18 @@ export class DocketListComponent implements OnInit {
     });
     this.getDockets();
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
-      this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
-        if (res) {
-          this.commonService.menuRoleList = res;
-        }
+    this.RoleListsubscribe = this.commonService.activemenuRoleList.subscribe((res) => {
+      if (res) {
+        this.commonService.menuRoleList = res;
+      }
+    });
+
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('DocketUpdated', (message) => {
+        console.log('📡 Docket live update received:', message);
+        this.getDockets(); // Reload dockets
       });
+    });
   }
 
   getDockets(page: number = 1) {
@@ -165,8 +173,8 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-    docketCancel(docketCode?: any) {
-    this.docketService.docketCancel(docketCode,this.identityService.getLoggedUserId()).subscribe({
+  docketCancel(docketCode?: any) {
+    this.docketService.docketCancel(docketCode, this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -182,7 +190,7 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-   docketReject(docketCode?: any ,remarks?:any) {
+  docketReject(docketCode?: any, remarks?: any) {
     const payload = {
       id: docketCode,
       userId: this.identityService.getLoggedUserId(),
@@ -239,38 +247,33 @@ export class DocketListComponent implements OnInit {
             this.deleteDocket(docketCode);
           }
         });
-      }
-    }
+    } 
+  }
 
   rejectionRemarks(): Promise<string | null> {
     return Swal.fire({
       title: 'Reject Docket',
       html: `<div style="text-align: left;">
-      <label for="remarks" style="font-weight: 500; margin-bottom: 6px; display: block;">
-        Please provide a reason for rejection:
-      </label>
-      <textarea id="remarks" class="swal2-textarea w-100" placeholder="Type your remarks here..."
-        style="min-height: 120px; resize: vertical; font-size: 14px; padding: 8px; margin: 0;"></textarea></div>`,
+              <label for="remarks" style="font-weight: 500; margin-bottom: 6px; display: block;">
+                Please provide a reason for rejection:
+              </label>
+              <textarea id="remarks" class="swal2-textarea w-100" placeholder="Type your remarks here..." 
+                style="min-height: 120px; resize: vertical; font-size: 14px; padding: 8px; margin: 0;"></textarea>`,
+      focusConfirm: false,
+      showCancelButton: true,
       confirmButtonText: 'Submit',
       cancelButtonText: 'Cancel',
-      showCancelButton: true,
-      focusConfirm: false,
-      didOpen: () => {
-        const remarksInput = document.getElementById('remarks') as HTMLTextAreaElement;
-        const confirmBtn = Swal.getConfirmButton();
-        if (confirmBtn && remarksInput) {
-          confirmBtn.setAttribute('disabled', 'true');
-          remarksInput.addEventListener('input', () => {
-            if (remarksInput.value.trim().length > 0) {
-              confirmBtn.removeAttribute('disabled');
-            } else {
-              confirmBtn.setAttribute('disabled', 'true');
-            }
-          });
+      customClass: {
+        popup: 'swal2-rounded swal2-shadow',
+        confirmButton: 'swal2-confirm btn btn-primary',
+        cancelButton: 'swal2-cancel btn btn-secondary'
+      }, preConfirm: () => {
+        const input = (document.getElementById('remarks') as HTMLTextAreaElement).value.trim();
+        if (!input) {
+          Swal.showValidationMessage('Remarks cannot be empty');
+          return false;
         }
-      },
-      preConfirm: () => {
-        return (document.getElementById('remarks') as HTMLTextAreaElement).value.trim();
+        return input;
       }
     }).then((result) => {
       return result.isConfirmed ? result.value : null;
@@ -318,7 +321,7 @@ export class DocketListComponent implements OnInit {
   }
   openModal() {
     const modalElement: any = document.getElementById('exampleModalLong');
-    
+
     if (this.addDocketComponent.isCustomerOrLspEmpty()) {
       this.sweetAlertService.info("LSP mapping is missing for this customer. Please contact the administrator");
       return;
@@ -468,7 +471,7 @@ export class DocketListComponent implements OnInit {
   }
 
   downloadDocketList() {
-      this.isLoadingDocketList = true;
+    this.isLoadingDocketList = true;
     this.docketService.downloadDocketData(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         this.isLoadingDocketList = false;
@@ -479,7 +482,7 @@ export class DocketListComponent implements OnInit {
     });
   }
 
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }
