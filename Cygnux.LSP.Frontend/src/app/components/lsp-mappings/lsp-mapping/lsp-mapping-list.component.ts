@@ -30,7 +30,7 @@ export class LspMappingListComponent implements OnInit {
   public RoleListsubscribe!: Subscription;
   public loading: boolean = false;
   public hoveredRow: number | null = null;
-  public lSPmappingCard:CountResponse[] = [];
+  public lSPmappingCard: CountResponse[] = [];
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspMappingComponent) addLspMappingComponent!: AddLspMappingComponent;
 
@@ -47,9 +47,9 @@ export class LspMappingListComponent implements OnInit {
   }
 
   LSPmappingCard = [
-    { name: 'Total Mapping', color: 'red', icon: 'fa fa-project-diagram', progress: "progress-gradient-danger", headerColor: 'header-text-danger'},
+    { name: 'Total Mapping', color: 'red', icon: 'fa fa-project-diagram', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
     { name: 'Customer', color: 'orange', icon: 'fa fa-address-card', progress: "progress-gradient-secondary", headerColor: 'header-text-secondary' },
-    { name: 'LSP', color: 'green', icon: 'fa fa-briefcase', progress: "progress-gradient-success", headerColor: 'header-text-success'},
+    { name: 'LSP', color: 'green', icon: 'fa fa-briefcase', progress: "progress-gradient-success", headerColor: 'header-text-success' },
     { name: 'Active', color: 'blue', icon: 'fa fa-user-check', progress: "progress-gradient-primary", headerColor: 'header-text-primary' },
     { name: 'In-Active', color: 'purple', icon: 'fa fa-user-slash', progress: "progress-gradient-info", headerColor: 'header-text-info' },
   ];
@@ -71,6 +71,11 @@ export class LspMappingListComponent implements OnInit {
       this.signalRService.on('LspMappingListUpdated', (msg) => {
         this.getLspMappings();
       });
+      this.signalRService.on('LspMappingCountUpdated', () => {
+        console.log("🔁 Refreshing customer count...");
+        this.getLspMappingCount(); // Call your method to re-fetch count
+      });
+
     });
   }
 
@@ -201,7 +206,7 @@ export class LspMappingListComponent implements OnInit {
     }
   }
 
-    getLspMappingCount() {
+  getLspMappingCount() {
     this.lspMappingService.getLspMappingCount(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
         if (response && response.data) {

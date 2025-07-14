@@ -78,6 +78,10 @@ export class LspTatListComponent implements OnInit {
       this.signalRService.on('TatListUpdated', (msg: string) => {
         this.getLspMappings();
       });
+            this.signalRService.on('LspTatCountUpdated', () => {
+        console.log("🔁 Refreshing customer count...");
+        this.getLspTatCount(); // Call your method to re-fetch count
+      });
     });
   }
 
