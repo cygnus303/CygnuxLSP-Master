@@ -135,6 +135,7 @@ internal class UserService : IUserService
 
             // Set the hashed password
             user.PasswordHash = hashedPassword;
+            user.EmailConfirmed = true;
 
             // Update the user in the database
             var result = await _userManager.UpdateAsync(user);
