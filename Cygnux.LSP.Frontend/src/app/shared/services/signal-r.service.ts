@@ -50,7 +50,7 @@ private hubConnection!: signalR.HubConnection;
 
   public startConnection(): Promise<void> {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://localhost:5116/signalRHub`)
+      .withUrl(`https://uatlspapi.cygnux.in/signalRHub`)
       .withAutomaticReconnect()
       .build();
 

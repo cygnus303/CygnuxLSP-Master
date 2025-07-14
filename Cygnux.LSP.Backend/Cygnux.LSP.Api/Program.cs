@@ -14,15 +14,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "https://uatlsp.cygnux.in")
-              .SetIsOriginAllowed(_ => true)
+        policy.WithOrigins("https://uatlsp.cygnux.in")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
     });
 });
 
-
+    
 var app = builder.Build();
 var loggerFactory = app.Services.GetService<ILoggerFactory>();
 loggerFactory?.AddFile(builder.Configuration["Logging:LogFilePath"]?.ToString());
@@ -33,6 +32,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CygnuxLSP.API v1"));
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors("CorsPolicy");
 
 //app.UseCors("AllowOrigin");
 
@@ -48,7 +48,6 @@ app.UseStaticFiles(new StaticFileOptions
            Path.Combine(builder.Environment.ContentRootPath, "PODUpload")),
     RequestPath = "/PODUpload"
 });
-app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
