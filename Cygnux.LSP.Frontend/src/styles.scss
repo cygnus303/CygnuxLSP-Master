@@ -248,7 +248,8 @@ label {
   }
   
   .page-wrapper.compact-wrapper .page-body-wrapper .page-body {
-    min-height: calc(100vh - 153px) !important
+    min-height: calc(100vh - 144px) !important;
+    margin-top: 79px !important;
   }
 
   .disabled-image {
