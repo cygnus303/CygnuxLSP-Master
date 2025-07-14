@@ -232,10 +232,10 @@ export class DocketListComponent implements OnInit {
           });
       }else{
         const message = isLsp ? "Do you want to send docket cancel request to Customer for approval?" : "Do you want to send docket cancel request to LSP for approval?";
-        this.sweetAlertService.confirm(message, {confirmButtonText: "Yes",cancelButtonText: "No"}).then((result: any) => {
+        this.sweetAlertService.confirm(message, {confirmButtonText: "Yes", cancelButtonText: "No",allowOutsideClick: false }).then((result: any) => {
           if (result.isConfirmed) {
             this.docketCancel(docketCode);
-          } else {
+          } else if (result.dismiss === 'cancel') {
             this.deleteDocket(docketCode);
           }
         });
