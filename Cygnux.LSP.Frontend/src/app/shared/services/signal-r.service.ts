@@ -49,10 +49,13 @@ export class SignalRService {
 private hubConnection!: signalR.HubConnection;
 
   public startConnection(): Promise<void> {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`https://uatlspapi.cygnux.in/signalRHub`)
-      .withAutomaticReconnect()
-      .build();
+   this.hubConnection = new signalR.HubConnectionBuilder()
+  .withUrl('https://uatlspapi.cygnux.in/signalRHub', {
+    withCredentials: true
+  })
+  .withAutomaticReconnect()
+  .build();
+
 
     return this.hubConnection
       .start()

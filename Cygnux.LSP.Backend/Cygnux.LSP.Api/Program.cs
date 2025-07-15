@@ -50,11 +50,12 @@ app.UseStaticFiles(new StaticFileOptions
 });
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapHub<SignalRHub>("/signalRHub");
-});
+app.MapHub<SignalRHub>("/signalRHub");
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//    endpoints.MapHub<SignalRHub>("/signalRHub");
+//});
 
 
 app.MapControllers();
