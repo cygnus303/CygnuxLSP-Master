@@ -56,14 +56,41 @@ internal class RoleService : IRoleService
             return IdentityResult.Failed(new IdentityError { Description = "Role name cannot be empty." });
         }
 
-        var roleExists = await _roleManager.RoleExistsAsync(applicationRole.Name);
-        if (roleExists)
+        // Look for role with same name (case-insensitive)
+        var existingRole = await _roleManager.Roles
+            .FirstOrDefaultAsync(r => r.Name.ToLower() == applicationRole.Name.ToLower());
+
+        if (existingRole != null)
         {
+            if (existingRole.IsDeleted)
+            {
+                // Reactivate soft-deleted role
+                existingRole.IsDeleted = false;
+                existingRole.IsActive = applicationRole.IsActive;
+                existingRole.EntryDate = DateTime.Now;
+                existingRole.EntryBy = applicationRole.EntryBy; // Set whoever is performing the operation
+
+                return await _roleManager.UpdateAsync(existingRole);
+            }
+
+            // Role exists and is not deleted
             return IdentityResult.Failed(new IdentityError { Description = "Role already exists." });
         }
 
-        return await _roleManager.CreateAsync(new ApplicationRole() { Name = applicationRole.Name, IsActive = applicationRole.IsActive, EntryBy = Guid.NewGuid(), EntryDate = DateTime.Now });
+        // Create new role
+        var newRole = new ApplicationRole
+        {
+            Name = applicationRole.Name,
+            NormalizedName = applicationRole.Name.ToUpper(),
+            IsActive = applicationRole.IsActive,
+            IsDeleted = false,
+            EntryBy = applicationRole.EntryBy,
+            EntryDate = DateTime.Now
+        };
+
+        return await _roleManager.CreateAsync(newRole);
     }
+
 
     public async Task<IdentityResult> UpdateRole(Guid roleId, ApplicationRole applicationRole)
     {
@@ -84,10 +111,11 @@ internal class RoleService : IRoleService
         {
             return IdentityResult.Failed(new IdentityError { Description = "Role not found." });
         }
-      
+
         role.IsDeleted = deleterole.IsDeleted;
+        role.IsActive = false;
         return await _roleManager.UpdateAsync(role);
     }
 
-  
+
 }
