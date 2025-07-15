@@ -53,20 +53,19 @@ public class TrackingController : ControllerBase
 
         if (result?.Data == null || !result.Data.Any())
         {
-            return NotFound("No PODs found in the system.");
-            //return Ok(new
-            //{
-            //    success = false,
-            //    error = new
-            //    {
-            //        errorCode = 0,
-            //        message = "No PODs found in the system."
-            //    }
-            //});
+            return Ok(new
+            {
+                success = false,
+                error = new
+                {
+                    errorCode = 0,
+                    message = "No PODs found in the system."
+                }
+            });
         }
 
         var podList = result.Data;
-        //var fileAdded = false;
+        var fileAdded = false;
 
         using var memoryStream = new MemoryStream();
         using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
@@ -80,7 +79,7 @@ public class TrackingController : ControllerBase
                     if (!response.IsSuccessStatusCode) continue;
 
                     var fileBytes = await response.Content.ReadAsByteArrayAsync();
-                    //if (fileBytes == null || fileBytes.Length == 0) continue;
+                    if (fileBytes == null || fileBytes.Length == 0) continue;
 
                     var fileName = Path.GetFileName(pod.PODLink);
 
@@ -88,7 +87,7 @@ public class TrackingController : ControllerBase
                     using var zipStream = zipEntry.Open();
                     await zipStream.WriteAsync(fileBytes, 0, fileBytes.Length);
 
-                    //fileAdded = true;
+                    fileAdded = true;
                 }
                 catch (Exception ex)
                 {
@@ -97,18 +96,18 @@ public class TrackingController : ControllerBase
             }
         }
 
-        //if (!fileAdded)
-        //{
-        //    return Ok(new
-        //    {
-        //        success = false,
-        //        error = new
-        //        {
-        //            errorCode = 0,
-        //            message = "No valid POD files found in the system."
-        //        }
-        //    });
-        //}
+        if (!fileAdded)
+        {
+            return Ok(new
+            {
+                success = false,
+                error = new
+                {
+                    errorCode = 0,
+                    message = "No valid POD files found in the system."
+                }
+            });
+        }
 
         memoryStream.Position = 0;
         return File(memoryStream.ToArray(), "application/zip", "POD_Images.zip");
