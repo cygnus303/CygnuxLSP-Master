@@ -65,6 +65,7 @@ public class TrackingController : ControllerBase
         }
 
         var podList = result.Data;
+        var fileAdded = false;
 
         using var memoryStream = new MemoryStream();
         using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
@@ -78,17 +79,34 @@ public class TrackingController : ControllerBase
                     if (!response.IsSuccessStatusCode) continue;
 
                     var fileBytes = await response.Content.ReadAsByteArrayAsync();
+                    if (fileBytes == null || fileBytes.Length == 0) continue;
+
                     var fileName = Path.GetFileName(pod.PODLink);
 
                     var zipEntry = archive.CreateEntry(fileName, CompressionLevel.Fastest);
                     using var zipStream = zipEntry.Open();
                     await zipStream.WriteAsync(fileBytes, 0, fileBytes.Length);
+
+                    fileAdded = true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error downloading {pod.PODLink}: {ex.Message}");
                 }
             }
+        }
+
+        if (!fileAdded)
+        {
+            return Ok(new
+            {
+                success = false,
+                error = new
+                {
+                    errorCode = 0,
+                    message = "No valid POD files found in the system."
+                }
+            });
         }
 
         memoryStream.Position = 0;
