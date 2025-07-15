@@ -52,7 +52,17 @@ public class TrackingController : ControllerBase
         var result = await _trackingRepository.DownloadPOD(userId, StartDate, EndDate);
 
         if (result?.Data == null || !result.Data.Any())
-            return NotFound("No PODs found.");
+        {
+            return Ok(new
+            {
+                success = false,
+                error = new
+                {
+                    errorCode = 0,
+                    message = "No PODs found in the system."
+                }
+            });
+        }
 
         var podList = result.Data;
 
