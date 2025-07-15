@@ -66,10 +66,10 @@
               </div> -->
               <div class="col-auto" (click)="!isLoading && downloadImagesAsZip()" *ngIf="!isLSP">
                 <button class="btn btn-square btn-danger pull-right rounded-3" [disabled]="isLoading">
-                  <ng-container *ngIf="!isLoading; else loading">
-                    <i class="fa fa-download"></i>
+                  <ng-container *ngIf="!isLoading; else loadings">
+                    <i class="fa fa-download" ></i>
                   </ng-container>
-                  <ng-template #loading>
+                  <ng-template #loadings>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   </ng-template>
                 </button>
