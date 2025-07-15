@@ -27,7 +27,7 @@
                       <i class="icon-upload"></i> Import Docket
                     </button>
                   </div>
-                  <button class="btn btn-square btn-danger pull-right rounded-3" [disabled]="isLoadingDocketList"
+                  <button class="btn btn-square btn-danger pull-right rounded-3" *ngIf="dockets.length > 0" [disabled]="isLoadingDocketList"
                     (click)="!isLoadingDocketList && downloadDocketList()">
                     <ng-container *ngIf="!isLoadingDocketList; else loadings">
                       <i class="fa fa-download"></i>
