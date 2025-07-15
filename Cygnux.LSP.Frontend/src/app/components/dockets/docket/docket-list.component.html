@@ -104,12 +104,12 @@
                                <i class="ri-eye-fill align-bottom text-muted"></i>
                              </div>
                             <div class="delete-icon-wrapper position-relative"
-                              [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete,'disabled-icon': userRoles !== 'LSP Admin' ? docket.isCustomerCancelled : docket.isLSPCancelled}"
-                              [popover]=" userRoles !== 'LSP Admin' ? (docket.isCustomerCancelled ? 'Pending from Approve' : (docket.isLSPCancelled ? 'Pending from Approve' : 'Delete'))
+                              [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete,'disabled-icon': !userRoles.includes('lsp Admin') ? docket.isCustomerCancelled : docket.isLSPCancelled}"
+                              [popover]=" !userRoles.includes('lsp Admin') ? (docket.isCustomerCancelled ? 'Pending from Approve' : (docket.isLSPCancelled ? 'Pending from Approve' : 'Delete'))
                                   : (docket.isLSPCancelled ? 'Pending from Approve': (docket.isCustomerCancelled ? 'Pending from Approve' : 'Delete'))"
                               placement="auto" triggers="hover" [outsideClick]="true" container="body">
                               <!-- Notification dot -->
-                              <div *ngIf="(userRoles === 'LSP Admin' && docket.isCustomerCancelled) || (userRoles === 'Customer Admin' && docket.isLSPCancelled)" class="notification-dot"></div>
+                              <div *ngIf="(userRoles.includes('lsp Admin') && docket.isCustomerCancelled) || (userRoles === 'Customer Admin' && docket.isLSPCancelled)" class="notification-dot"></div>
                               <!-- Delete Icon -->
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0" height="20"
                                 (click)="deleteModal(docket.docketId, docket)">

@@ -224,7 +224,7 @@ export class DocketListComponent implements OnInit {
   }
 
     deleteModal(docketCode: string ,data:any) {
-      const isLsp = this.userRoles === 'LSP Admin';
+      const isLsp = this.userRoles === 'lsp Admin';
       if(data.isCustomerCancelled || data.isLSPCancelled){
           this.sweetAlertService.confirm("Are you sure to cancel docket?", 
             {confirmButtonText: "Approve",cancelButtonText: "Reject"}).then((result: any) => {

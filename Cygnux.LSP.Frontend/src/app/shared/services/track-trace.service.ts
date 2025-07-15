@@ -76,8 +76,13 @@ export class TrackTraceService {
       return this.apiHandlerService.Get(`Tracking/GetTransportModeChartData?userid=${id}&fromDate=${fromDate}&toDate=${toDate}`);
     }
 
-    DownloadPODZip(id: string, fromDate: string | null, toDate: string | null): Observable<Blob> {
-    const url = `${environment.apiUrl}Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`;
-    return this.httpClient.get(url, { responseType: 'blob' });
-  }
+  //   DownloadPODZip(id: string, fromDate: string | null, toDate: string | null): Observable<IApiBaseResponse<CommonResponse>> {
+  //   const url = `${environment.apiUrl}Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`;
+  //   return this.apiHandlerService.Get(`Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`, { responseType: 'blob' });
+  // }
+
+ DownloadPODZip(id: string, fromDate: string | null, toDate: string | null): Observable<Blob> {
+  const url = `${environment.apiUrl}Tracking/GetDownloadPODData?userId=${id}&StartDate=${fromDate}&EndDate=${toDate}`;
+  return this.httpClient.get(url, { responseType: 'blob' });
+}
 }
