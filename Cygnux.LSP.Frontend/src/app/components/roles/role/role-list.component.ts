@@ -103,12 +103,12 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteRole() {
+  deleteRole(roleId: string) {
     const payload = {
-      id: this.roleId,
+      id: roleId,
       isDeleted: true
     }
-    this.roleService.deleteRole(this.roleId, payload).subscribe({
+    this.roleService.deleteRole(roleId, payload).subscribe({
       next: (response) => {
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
@@ -135,13 +135,19 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   }
   deleteModal(event: Event, roleId: string) {
     event.preventDefault();
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      this.roleId = roleId;
-      modal.show();
-    }
+    // const modalElement = document.getElementById('deleteModal');
+    // if (modalElement) {
+    //   const modal = new Modal(modalElement);
+    //   this.roleId = roleId;
+    //   modal.show();
+    // }
+
+    this.sweetAlertService.delete(
+      'Are you sure you want to delete this Role?',
+      () => this.deleteRole(roleId)
+    );
   }
+
   permissionModal(event: Event, roleList: any) {
     event.preventDefault();
     const modalElement = document.getElementById('exampleModalPermission');
