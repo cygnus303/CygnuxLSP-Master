@@ -40,7 +40,7 @@ export class LspMappingListComponent implements OnInit {
     private toastrService: ToastrService,
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
-    private signalRService:SignalRService
+    private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Mapping');
@@ -151,6 +151,15 @@ export class LspMappingListComponent implements OnInit {
       this.selectedLsp = null;
       this.getLspMapping(id);
       this.lspMappingId = id;
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide();
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addLspMappingComponent.onClose();
+          this.closeEditModal()
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
 
@@ -174,6 +183,7 @@ export class LspMappingListComponent implements OnInit {
     if (modalInstance) {
       modalInstance.hide();
       this.getLspMappings();
+      this.selectedLsp = null;
     }
   }
   openModal() {
@@ -185,7 +195,7 @@ export class LspMappingListComponent implements OnInit {
       });
     } else if (!lsps || lsps.length === 0) {
       this.sweetAlertService.info('No LSP available. Please add at least one LSP before creating a mapping.', () => {
-          // this.router.navigate(['/lsp']);
+        // this.router.navigate(['/lsp']);
       });
     } else {
       const modalElement: any = document.getElementById('exampleModalLong');
@@ -193,12 +203,13 @@ export class LspMappingListComponent implements OnInit {
         const modal = new Modal(modalElement);
         this.lspMappingId = '';
         this.selectedLsp = null;
-        modal.show(); 
+        modal.show();
         const handleOutsideClick = (e: MouseEvent) => {
           if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
             modal.hide();
             modalElement.removeEventListener('click', handleOutsideClick);
             this.addLspMappingComponent.onClose();
+            this.closeEditModal()
           }
         };
         modalElement.addEventListener('click', handleOutsideClick);
@@ -247,7 +258,7 @@ export class LspMappingListComponent implements OnInit {
     }
   }
 
-    ngOnDestroy(): void {
-    if (this.RoleListsubscribe) {this.RoleListsubscribe.unsubscribe()}
+  ngOnDestroy(): void {
+    if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
 }

@@ -74,6 +74,7 @@ export class TrackTraceComponent {
       if (docketNumber) {
         this.docketList.push(docketNumber);
         this.docketInput = '';
+         this.onSearchTrackTrace(); 
       }
     }
   }
