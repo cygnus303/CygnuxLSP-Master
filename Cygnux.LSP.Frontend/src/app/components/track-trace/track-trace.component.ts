@@ -65,7 +65,7 @@ export class TrackTraceComponent {
   }
 
   ngOnInit(){
-    this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='"lsp Admin"';
+    this.isLSP= JSON.parse(localStorage.getItem('roles')||'').toLowerCase() ==='"lsp admin"';
   }
 
   addDocketNumber(event: KeyboardEvent): void {

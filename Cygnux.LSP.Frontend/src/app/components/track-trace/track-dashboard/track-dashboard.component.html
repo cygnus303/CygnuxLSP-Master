@@ -64,7 +64,7 @@
                       <thead class="sticky-top">
                         <tr>
                           <th class="w-15 ps-3">Docket Name</th>
-                          <th class="w-15" *ngIf="!userRoles.includes('lsp Admin')">Transporter</th>
+                          <th class="w-15" *ngIf="!userRoles.toLowerCase().includes('lsp admin')">Transporter</th>
                           <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')">Customer Name</th>
                           <th class="w-15">From WH/Store</th>
                           <th class="w-15">To WH/Store</th>
@@ -74,7 +74,7 @@
                       <tbody>
                         <tr *ngFor="let docket of dockets  | searchList: searchText; let i = index">
                           <td class="w-15 ps-3">{{ docket.docketNo }}</td>
-                          <td class="w-15" *ngIf="!userRoles.includes('lsp Admin')">{{ docket.transporterDesc }}</td>
+                          <td class="w-15" *ngIf="!userRoles.toLowerCase().includes('lsp admin')">{{ docket.transporterDesc }}</td>
                           <td class="w-15" *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
                           <td class="w-15">{{ docket.fromLocation }}</td>
                           <td class="w-15">{{ docket.toLocation }}</td>

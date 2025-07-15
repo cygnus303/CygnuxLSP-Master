@@ -46,7 +46,7 @@
                   <thead class="table-light">
                     <tr class="table-th">
                       <th>Docket Name</th>
-                      <th *ngIf="!userRoles.includes('lsp Admin')">Transporter</th>
+                      <th *ngIf="!userRoles.toLowerCase().includes('lsp admin')">Transporter</th>
                       <th *ngIf="!userRoles.includes('Customer Admin')">Customer Name</th>
                       <th>From WH/Store</th>
                       <th>To WH/Store</th>
@@ -57,7 +57,7 @@
                     </tr>
                     <tr class="table-th">
                       <th><input type="text" class="form-control" [(ngModel)]="filters['DocketNo']" (input)="getDockets()" /></th>
-                      <th *ngIf="!userRoles.includes('lsp Admin')">
+                      <th *ngIf="!userRoles.toLowerCase().includes('lsp admin')">
                         <input type="text" class="form-control" [(ngModel)]="filters['Transporter']" (input)="getDockets()" />
                       </th>
                       <th *ngIf="!userRoles.includes('Customer Admin')">
@@ -79,7 +79,7 @@
                      <ng-container *ngFor="let docket of dockets; let i = index">
                        <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i" (mouseleave)="hoveredRow = null">
                          <td>{{ docket.docketNo }}</td>
-                         <td *ngIf="!userRoles.includes('lsp Admin')">{{ docket.transporterDesc }}</td>
+                         <td *ngIf="!userRoles.toLowerCase().includes('lsp admin')">{{ docket.transporterDesc }}</td>
                          <td *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
                          <td>{{ docket.fromLocation }}</td>
                          <td>{{ docket.toLocation }}</td>
@@ -104,12 +104,12 @@
                                <i class="ri-eye-fill align-bottom text-muted"></i>
                              </div>
                             <div class="delete-icon-wrapper position-relative"
-                              [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete,'disabled-icon': !userRoles.includes('lsp Admin') ? docket.isCustomerCancelled : docket.isLSPCancelled}"
-                              [popover]=" !userRoles.includes('lsp Admin') ? (docket.isCustomerCancelled ? 'Pending from Approve' : (docket.isLSPCancelled ? 'Pending from Approve' : 'Delete'))
+                              [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete,'disabled-icon': !userRoles.toLowerCase().includes('lsp admin') ? docket.isCustomerCancelled : docket.isLSPCancelled}"
+                              [popover]=" !userRoles.toLowerCase().includes('lsp admin') ? (docket.isCustomerCancelled ? 'Pending from Approve' : (docket.isLSPCancelled ? 'Pending from Approve' : 'Delete'))
                                   : (docket.isLSPCancelled ? 'Pending from Approve': (docket.isCustomerCancelled ? 'Pending from Approve' : 'Delete'))"
                               placement="auto" triggers="hover" [outsideClick]="true" container="body">
                               <!-- Notification dot -->
-                              <div *ngIf="(userRoles.includes('lsp Admin') && docket.isCustomerCancelled) || (userRoles === 'Customer Admin' && docket.isLSPCancelled)" class="notification-dot"></div>
+                              <div *ngIf="(userRoles.toLowerCase().includes('lsp admin') && docket.isCustomerCancelled) || (userRoles === 'Customer Admin' && docket.isLSPCancelled)" class="notification-dot"></div>
                               <!-- Delete Icon -->
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0" height="20"
                                 (click)="deleteModal(docket.docketId, docket)">
