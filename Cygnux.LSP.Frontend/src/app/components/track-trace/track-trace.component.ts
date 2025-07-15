@@ -65,7 +65,7 @@ export class TrackTraceComponent {
   }
 
   ngOnInit(){
-    this.isLSP= JSON.parse(localStorage.getItem('roles')||'')==='"LSP Admin"';
+    this.isLSP= JSON.parse(localStorage.getItem('roles')||'').toLowerCase() ==='"lsp admin"';
   }
 
   addDocketNumber(event: KeyboardEvent): void {
@@ -253,17 +253,44 @@ extractFileName(url: string): string {
   }
 }
 
+// downloadImagesAsZip(): void {
+//   this.isLoading = true;
+//   this.trackTraceService.DownloadPODZip(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
+//       next: (blob: Blob) => {
+//           this.isLoading = false;
+//           saveAs(blob, 'POD_Images.zip');
+//       },
+//         // this.isLoading = false;
+//         // saveAs(blob, 'POD_Images.zip');
+//       // },
+//       error: (err: any) => {
+//         this.isLoading = false;
+//         this.sweetAlertService.error(err?.message || 'Download failed.');
+//       }
+//     });
+// }
+
 downloadImagesAsZip(): void {
   this.isLoading = true;
-  this.trackTraceService.DownloadPODZip(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
-      next: (blob: Blob) => {
-        this.isLoading = false;
-        saveAs(blob, 'POD_Images.zip');
-      },
-      error: (err: any) => {
-        this.isLoading = false;
-        this.sweetAlertService.error(err?.message || 'Download failed.');
+  this.trackTraceService.DownloadPODZip(
+    this.identityService.getLoggedUserId(),
+    this.fromDate,
+    this.toDate
+  ).subscribe({
+    next: (blob: Blob) => {
+      this.isLoading = false;
+      saveAs(blob, 'POD_Images.zip');
+    },
+    error: async (err: any) => {
+      this.isLoading = false;
+
+      if (err.status === 404) {
+        const errorText = await err.error.text(); // extract plain string
+        this.sweetAlertService.error(errorText || 'No PODs found in the system.');
+      } else {
+        this.sweetAlertService.error('Download failed. Please try again.');
       }
-    });
+    }
+  });
 }
 }

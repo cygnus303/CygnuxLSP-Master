@@ -53,15 +53,16 @@ public class TrackingController : ControllerBase
 
         if (result?.Data == null || !result.Data.Any())
         {
-            return Ok(new
-            {
-                success = false,
-                error = new
-                {
-                    errorCode = 0,
-                    message = "No PODs found in the system."
-                }
-            });
+            return NotFound("No PODs found in the system.");
+            // Ok(new
+            // {
+            //     success = false,
+            //     error = new
+            //     {
+            //         errorCode = 0,
+            //         message = "No PODs found in the system."
+            //     }
+            // });
         }
 
         var podList = result.Data;
@@ -98,15 +99,16 @@ public class TrackingController : ControllerBase
 
         if (!fileAdded)
         {
-            return Ok(new
-            {
-                success = false,
-                error = new
-                {
-                    errorCode = 0,
-                    message = "No valid POD files found in the system."
-                }
-            });
+            return NotFound("No valid POD files found in the system.");
+            // Ok(new
+            // {
+            //     success = false,
+            //     error = new
+            //     {
+            //         errorCode = 0,
+            //         message = "No valid POD files found in the system."
+            //     }
+            // });
         }
 
         memoryStream.Position = 0;

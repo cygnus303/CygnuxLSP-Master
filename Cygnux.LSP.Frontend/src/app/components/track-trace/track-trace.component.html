@@ -89,7 +89,7 @@
                                 <strong>Docket Number:</strong> {{data.docketNo}}
                               </div>
                               <div class="text-center">
-                                <p class="m-0" *ngIf="userRoles !== 'lsp Admin'"><strong>Transporter:</strong> {{data.transporterDesc}}</p>
+                                <p class="m-0" *ngIf="userRoles.toLowerCase() !== 'lsp admin'"><strong>Transporter:</strong> {{data.transporterDesc}}</p>
                                 <p class="m-0" *ngIf="userRoles !== 'Customer Admin'"><strong>CustomerName:</strong> {{data.customerName}}</p>
                               </div>
                             </div>

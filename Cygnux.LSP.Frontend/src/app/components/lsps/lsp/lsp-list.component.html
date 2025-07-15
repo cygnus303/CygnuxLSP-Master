@@ -40,7 +40,7 @@
                 class="icon-plus"></i>Add LSP</button>
           </div> -->
           <div class="col-sm-6">
-            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" (click)="downloadLsp()">
+            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lsps.length > 0" (click)="downloadLsp()">
               <i class="fa fa-download"></i>
             </button>
             <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">

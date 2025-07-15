@@ -36,7 +36,7 @@
             <!-- <h4>LSP Tat</h4> -->
           </div>
               <div class="col-sm-6">
-                <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" (click)="downloadCustomer()">
+                <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="customers.length > 0" (click)="downloadCustomer()">
                   <i class="fa fa-download"></i>
                 </button>
                 <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
