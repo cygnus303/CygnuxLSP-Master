@@ -16,6 +16,7 @@ export class OtpVerificationComponent {
   public otpId:string='';
   public failedAttempts: number = 0;
  public maxAttempts: number = 3;
+ isResending: boolean = false;
 
   constructor(
       private authenticationService:AuthenticationService,
@@ -78,8 +79,10 @@ export class OtpVerificationComponent {
         requestId:this.otpId,
         emailId:null,
       }
-    this.authenticationService.resendOTP(filters).subscribe({
+      this.isResending = true;
+       this.authenticationService.resendOTP(filters).subscribe({
         next: (response) => {
+          this.isResending = false;
           if(response.success){
           this.toastrService.success(response.data.message);
           }else{
@@ -87,6 +90,7 @@ export class OtpVerificationComponent {
           }
         },
         error: (response) => {
+          this.isResending = false;
           this.toastrService.error(response.error.message)
         }
       });

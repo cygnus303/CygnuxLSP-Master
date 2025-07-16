@@ -15,6 +15,7 @@ export class ForgotPasswordComponent {
   public isPasswordVisible = false;
   public isConfirmVisible = false;
   public id:string='';
+  public isSubmitting: boolean = false;
 
   constructor(
     private authenticationService:AuthenticationService,
@@ -56,6 +57,7 @@ export class ForgotPasswordComponent {
   }
 
   onSubmit() {
+      this.isSubmitting = true;
     if (this.passwordForm.valid) {
       const filters={
         requestId:this.id,
@@ -64,11 +66,13 @@ export class ForgotPasswordComponent {
       this.authenticationService.resetPassword(filters).subscribe({
       next: (response) => {
         if (response) {
+        this.isSubmitting = false;
         this.toastrServiceo.success(response.data.message);
         this.router.navigateByUrl('/login');
         }
       },
       error: (response: any) => {
+        this.isSubmitting = false;
         this.toastrServiceo.error(response.error.message);
       },
     });

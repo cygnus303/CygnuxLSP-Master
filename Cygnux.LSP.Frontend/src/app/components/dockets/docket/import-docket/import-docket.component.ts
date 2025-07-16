@@ -13,13 +13,17 @@ export class ImportDocketComponent {
   public files: File[] = [];
   public selectedFile: any;
   public validateData: ValidateFileResponse[] = [];
+  public isLoadingTemplate:boolean = false;
+  public loading:boolean = false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(private sweetAlertService: SweetAlertService, private docketService: DocketService, private identityService: IdentityService) { }
 
   downloadSampleFile(event: any) {
     event.preventDefault();
+    this.isLoadingTemplate=true;
     this.docketService.downloadSampleDocketUpload(this.identityService.getLoggedUserId()).subscribe({
       next: (response: Blob) => {
+        this.isLoadingTemplate=false;
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
@@ -31,6 +35,7 @@ export class ImportDocketComponent {
         window.URL.revokeObjectURL(url);
       },
       error: (error) => {
+        this.isLoadingTemplate=false;
         this.sweetAlertService.error('No Lsp found for customer.');
       }
     });
@@ -74,15 +79,18 @@ export class ImportDocketComponent {
 
 uploadDocketFile() {
   const formData = new FormData();
+  this.loading = true;
   formData.append('file', this.selectedFile);
   this.docketService.validateDocketList(this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
       if (response && response.data) {
+        this.loading = false;
         this.validateData = response.data;
         this.docketService.importInvalidFile(this.validateData, 'Invalid_Dockets  ');
       }
     },
     error: (response: any) => {
+      this.loading = false;
       this.sweetAlertService.error(response.error.Message);
     },
   });

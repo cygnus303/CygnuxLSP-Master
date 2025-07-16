@@ -60,7 +60,20 @@
                     </div>
                   </div>
                    <div class="mt-4 mb-4"><span class="reset-password-link"  *ngIf="failedAttempts >= maxAttempts">If don't receive OTP?
-                    <a class="btn-link text-danger cursor-pointer" (click)="resendOTP()">Resend</a></span></div>
+                    <!-- <a class="btn-link text-danger cursor-pointer" (click)="resendOTP()">Resend</a> -->
+                    <a class="btn-link text-danger cursor-pointer" (click)="!isResending && resendOTP()" [class.disabled]="isResending"
+                      [style.pointer-events]="isResending ? 'none' : 'auto'">
+                      <ng-container *ngIf="!isResending; else loadingResend">
+                        Resend
+                      </ng-container>
+                    
+                      <ng-template #loadingResend>
+                        <span class="spinner-border spinner-border-sm text-danger" role="status" aria-hidden="true"></span>
+                        Resending...
+                      </ng-template>
+                    </a>
+                  </span>
+                  </div>
                 </div>
               </form>
             </div>

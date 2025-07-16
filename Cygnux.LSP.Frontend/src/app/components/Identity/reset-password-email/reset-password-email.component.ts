@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ResetPasswordEmailComponent {
  public email: string = '';
  private forgotId:string='';
-
+ public isSending: boolean = false;
 constructor(
  private authenticationService:AuthenticationService,
  private toastrService:ToastrService,
@@ -20,12 +20,14 @@ constructor(
 ){}
 
  sendOtp() {
+   this.isSending = true;
   const filters = {
     email: this.email
   };
 
   this.authenticationService.forgotPasswordMail(filters).subscribe({
     next: (response) => {
+      this.isSending = false;
       if (response.status) {
         this.toastrService.success(response.message);
         this.forgotId= response.data.split('/').pop();
@@ -35,6 +37,7 @@ constructor(
       }
     },
     error: (response) => {
+      this.isSending = false;
       this.toastrService.error(response.error.message);
     }
   });
