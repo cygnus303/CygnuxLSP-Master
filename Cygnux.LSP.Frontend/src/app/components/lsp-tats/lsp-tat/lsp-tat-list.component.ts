@@ -14,7 +14,7 @@ import { AddLspTatComponent } from '../add-lsp-tat/add-lsp-tat.component';
 import { Router } from '@angular/router';
 import { CountResponse } from '../../../shared/models/lsp.model';
 import { ExportService } from '../../../shared/services/export.service';
-import { SignalRService } from '../../../shared/services/signal-r.service';
+// import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -45,7 +45,7 @@ export class LspTatListComponent implements OnInit {
     private identityService: IdentityService,
     private router: Router,
     public exportService: ExportService,
-    private signalRService: SignalRService
+    // private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Tat');
@@ -73,16 +73,16 @@ export class LspTatListComponent implements OnInit {
       }
     });
 
-    this.signalRService.startConnection().then(() => {
+    // this.signalRService.startConnection().then(() => {
 
-      this.signalRService.on('TatListUpdated', (msg: string) => {
-        this.getLspMappings();
-      });
-            this.signalRService.on('LspTatCountUpdated', () => {
-        console.log("🔁 Refreshing customer count...");
-        this.getLspTatCount(); // Call your method to re-fetch count
-      });
-    });
+    //   this.signalRService.on('TatListUpdated', (msg: string) => {
+    //     this.getLspMappings();
+    //   });
+    //         this.signalRService.on('LspTatCountUpdated', () => {
+    //     console.log("🔁 Refreshing customer count...");
+    //     this.getLspTatCount(); // Call your method to re-fetch count
+    //   });
+    // });
   }
 
 

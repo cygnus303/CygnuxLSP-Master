@@ -17,7 +17,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddLspComponent } from '../add-lsp/add-lsp.component';
 import { ExportService } from '../../../shared/services/export.service';
-import { SignalRService } from '../../../shared/services/signal-r.service';
+// import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-lsp',
@@ -47,7 +47,7 @@ export class LspListComponent implements OnInit {
     private identityService: IdentityService,
     private sweetAlertService: SweetAlertService,
     public exportService: ExportService,
-    private signalRService: SignalRService
+    // private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP');
@@ -73,16 +73,16 @@ export class LspListComponent implements OnInit {
       }
     });
 
-    this.signalRService.startConnection().then(() => {
-      this.signalRService.on('LspListUpdated', (msg: string) => {
-        this.getLsps(); // Your function to refresh LSP list
-      });
+    // this.signalRService.startConnection().then(() => {
+    //   this.signalRService.on('LspListUpdated', (msg: string) => {
+    //     this.getLsps(); // Your function to refresh LSP list
+    //   });
 
-      this.signalRService.on('LspCountUpdated', () => {
-        console.log("🔁 LSP Count Changed");
-        this.getLSPCount(); // refresh the count
-      });
-    });
+    //   this.signalRService.on('LspCountUpdated', () => {
+    //     console.log("🔁 LSP Count Changed");
+    //     this.getLSPCount(); // refresh the count
+    //   });
+    // });
   }
 
 

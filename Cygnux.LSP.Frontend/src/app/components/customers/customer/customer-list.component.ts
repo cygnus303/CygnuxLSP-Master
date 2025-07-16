@@ -14,7 +14,7 @@ import { CountResponse } from '../../../shared/models/lsp.model';
 import { ExportService } from '../../../shared/services/export.service';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspMappingResponse } from '../../../shared/models/lsp-mapping.model';
-import { SignalRService } from '../../../shared/services/signal-r.service';
+// import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-customer',
@@ -45,7 +45,7 @@ export class CustomerListComponent implements OnInit {
     private sweetAlertService: SweetAlertService,
     private exportService: ExportService,
     private lspMappingService: LspMappingService,
-    private signalRService:SignalRService
+    // private signalRService:SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Customer');
@@ -71,15 +71,15 @@ export class CustomerListComponent implements OnInit {
       }
     });
 
-    this.signalRService.startConnection().then(() => {
-    this.signalRService.on('CustomerListUpdated', (message: string) => {
-      this.getCustomers();
-    });
-    this.signalRService.on('CustomerCountUpdated', () => {
-      console.log("🔁 Refreshing customer count...");
-      this.getcustomerCount(); // Call your method to re-fetch count
-    });
-  });
+  //   this.signalRService.startConnection().then(() => {
+  //   this.signalRService.on('CustomerListUpdated', (message: string) => {
+  //     this.getCustomers();
+  //   });
+  //   this.signalRService.on('CustomerCountUpdated', () => {
+  //     console.log("🔁 Refreshing customer count...");
+  //     this.getcustomerCount(); // Call your method to re-fetch count
+  //   });
+  // });
   }
 
   getCustomers(page: number = 1) {
