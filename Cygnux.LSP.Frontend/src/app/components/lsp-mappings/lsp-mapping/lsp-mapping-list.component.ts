@@ -11,7 +11,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { AddLspMappingComponent } from '../add-lsp-mapping/add-lsp-mapping.component';
 import { CountResponse } from '../../../shared/models/lsp.model';
-// import { SignalRService } from '../../../shared/services/signal-r.service';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-lsp-mapping',
@@ -40,7 +40,7 @@ export class LspMappingListComponent implements OnInit {
     private toastrService: ToastrService,
     private sweetAlertService: SweetAlertService,
     private identityService: IdentityService,
-    // private signalRService: SignalRService
+    private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('LSP Mapping');
@@ -67,16 +67,16 @@ export class LspMappingListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
-    // this.signalRService.startConnection().then(() => {
-    //   this.signalRService.on('LspMappingListUpdated', (msg) => {
-    //     this.getLspMappings();
-    //   });
-    //   this.signalRService.on('LspMappingCountUpdated', () => {
-    //     console.log("🔁 Refreshing customer count...");
-    //     this.getLspMappingCount(); // Call your method to re-fetch count
-    //   });
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('LspMappingListUpdated', (msg) => {
+        this.getLspMappings();
+      });
+      this.signalRService.on('LspMappingCountUpdated', () => {
+        console.log("🔁 Refreshing customer count...");
+        this.getLspMappingCount(); // Call your method to re-fetch count
+      });
 
-    // });
+    });
   }
 
   getLspMappings(page: number = 1) {

@@ -17,7 +17,7 @@ import feather from 'feather-icons';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { AddRoleComponent } from '../add-role/add-role.component';
-// import { SignalRService } from '../../../shared/services/signal-r.service';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-role',
@@ -46,7 +46,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     public commonService: CommonService,
     private toastrService: ToastrService,
     private sweetAlertService: SweetAlertService,
-    // private signalRService: SignalRService,
+    private signalRService: SignalRService,
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Roles');
@@ -66,13 +66,13 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     });
     this.getRoles();
 
-    // this.signalRService.startConnection();
+    this.signalRService.startConnection();
 
-    // this.signalRService.startConnection().then(() => {
-    //   this.signalRService.on('RoleListUpdated', (msg) => {
-    //     this.getRoles();
-    //   });
-    // });
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('RoleListUpdated', (msg) => {
+        this.getRoles();
+      });
+    });
   }
 
   ngAfterViewInit(): void {

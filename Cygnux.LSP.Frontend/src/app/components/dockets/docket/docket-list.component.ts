@@ -16,7 +16,7 @@ import { PodStatusUploadComponent } from './pod-status-upload/pod-status-upload.
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ExportService } from '../../../shared/services/export.service';
 import Swal from 'sweetalert2';
-// import { SignalRService } from '../../../shared/services/signal-r.service';
+import { SignalRService } from '../../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-docket',
@@ -53,7 +53,7 @@ export class DocketListComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private modalService: BsModalService,
     private exportService: ExportService,
-    // private signalRService: SignalRService
+    private signalRService: SignalRService
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Docket');
@@ -77,12 +77,12 @@ export class DocketListComponent implements OnInit {
       }
     });
 
-    // this.signalRService.startConnection().then(() => {
-    //   this.signalRService.on('DocketUpdated', (message) => {
-    //     console.log('📡 Docket live update received:', message);
-    //     this.getDockets(); // Reload dockets
-    //   });
-    // });
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('DocketUpdated', (message) => {
+        console.log('📡 Docket live update received:', message);
+        this.getDockets(); // Reload dockets
+      });
+    });
   }
 
   getDockets(page: number = 1) {
