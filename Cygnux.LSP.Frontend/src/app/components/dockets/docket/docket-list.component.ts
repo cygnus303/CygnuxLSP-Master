@@ -79,7 +79,6 @@ export class DocketListComponent implements OnInit {
 
     this.signalRService.startConnection().then(() => {
       this.signalRService.on('DocketUpdated', (message) => {
-        console.log('📡 Docket live update received:', message);
         this.getDockets(); // Reload dockets
       });
     });

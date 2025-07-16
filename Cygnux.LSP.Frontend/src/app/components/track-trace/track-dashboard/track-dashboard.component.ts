@@ -20,6 +20,7 @@ import { Router } from "@angular/router";
 import { DocketService } from "../../../shared/services/docket.service";
 import { ToastrService } from "ngx-toastr";
 import { DocketResponse } from "../../../shared/models/docket.model";
+import { SignalRService } from "../../../shared/services/signal-r.service";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -67,7 +68,9 @@ export class TrackDashboardComponent {
     private sweetAlertService: SweetAlertService,
     private docketService: DocketService,
     private toasterService: ToastrService,
-    private router: Router
+    private router: Router,
+    private signalRService: SignalRService
+
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {
@@ -123,6 +126,11 @@ export class TrackDashboardComponent {
 
   ngOnInit() {
     this.getDockets();
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.on('DocketUpdated', (message) => {
+        this.getDockets(); // Reload dockets
+      });
+    });
   }
 
   onDateRangeSelected(selectedRange: any): void {
