@@ -237,7 +237,14 @@ public class DocketController : ControllerBase
     [Route("InsertExcelUplaodDocketData")]
     public async Task<IActionResult> InsertDocketData(List<DocketEntryExcelUpload> docketlist, Guid entryBy)
     {
-        return Ok(await _docketRepository.InsertDocketData(docketlist, entryBy));
+        //return Ok(await _docketRepository.InsertDocketData(docketlist, entryBy));
+        var result = await _docketRepository.InsertDocketData(docketlist, entryBy);
+
+        // ✅ Trigger SignalR event after success
+        await _hubContext.Clients.All.SendAsync("DocketUpdated", "Docket Imported via Excel");
+
+        return Ok(result);
+
     }
 
     [HttpGet("DownloadSampleStatusUpload")]
@@ -326,7 +333,13 @@ public class DocketController : ControllerBase
     [Route("UpdateDocketStatus")]
     public async Task<IActionResult> UpdateDocketStatus(List<DocketStatusUpdate> docketstslist, Guid entryBy)
     {
-        return Ok(await _docketRepository.UpdateDocketStatus(docketstslist, entryBy));
+        //return Ok(await _docketRepository.UpdateDocketStatus(docketstslist, entryBy));
+        var result = await _docketRepository.UpdateDocketStatus(docketstslist, entryBy);
+
+        // ✅ Fire SignalR event after status update
+        await _hubContext.Clients.All.SendAsync("DocketUpdated", "Docket Status Updated via Excel");
+
+        return Ok(result);
     }
 
 
