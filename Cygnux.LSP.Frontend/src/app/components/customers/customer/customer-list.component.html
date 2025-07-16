@@ -104,7 +104,7 @@
                         </svg>
                       </div>
         
-                      <div>
+                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
                         <a (click)="!customer.isActive ? null : lspMappingonModal($event,customer)" [ngClass]="{'disabled-icon': !customer.isActive}"  [popover]="customer.isActive ? 'LSP Mapping':'This customer is currently in an inactive state.'" placement="auto"
                           triggers="hover" [outsideClick]="true" container="body">
                           <i class="fa-solid fa-truck text-muted"></i>
