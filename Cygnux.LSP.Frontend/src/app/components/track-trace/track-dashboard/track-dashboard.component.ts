@@ -126,9 +126,13 @@ export class TrackDashboardComponent {
 
   ngOnInit() {
     this.getDockets();
+    const fromDate = this.formatDate(this.dateRange[0]);
+  const toDate = this.formatDate(this.dateRange[1]);
     this.signalRService.startConnection().then(() => {
       this.signalRService.on('DocketUpdated', (message) => {
         this.getDockets(); // Reload dockets
+          this.getDocketCount(fromDate, toDate);
+      this.getTransportModeCount(fromDate, toDate);
       });
     });
   }
