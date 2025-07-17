@@ -17,6 +17,7 @@ export class OtpVerificationComponent {
   public failedAttempts: number = 0;
  public maxAttempts: number = 3;
  isResending: boolean = false;
+ public isOtpAlreadyVerified: boolean = false;
 
   constructor(
       private authenticationService:AuthenticationService,
@@ -46,7 +47,7 @@ export class OtpVerificationComponent {
     }
   }
 
-  verifyOtp() {
+ verifyOtp() {
   const otpCode = Object.values(this.otp).join('');
   if (otpCode.length === 6) {
     const filters = {
@@ -59,14 +60,23 @@ export class OtpVerificationComponent {
       next: (response) => {
         if (response.success) {
           this.toastrService.success(response.data.message);
+          this.isOtpAlreadyVerified = true;  // Mark OTP as verified
           this.router.navigateByUrl(`login/changePassword/${this.otpId}`);
         } else {
-          this.failedAttempts++;
+          if (response.error?.message === 'OTP already verified.') {
+            this.isOtpAlreadyVerified = true;
+          } else {
+            this.failedAttempts++;
+          }
           this.toastrService.error(response.error.message);
         }
       },
       error: (response) => {
-        this.failedAttempts++;
+        if (response.error?.message === 'OTP already verified.') {
+          this.isOtpAlreadyVerified = true;
+        } else {
+          this.failedAttempts++;
+        }
         this.toastrService.error(response.error.message);
       }
     });

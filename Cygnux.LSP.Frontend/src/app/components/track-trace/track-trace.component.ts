@@ -12,29 +12,30 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { SweetAlertService } from '../../shared/services/toastr.service';
 import { saveAs } from 'file-saver';
+import { SignalRService } from '../../shared/services/signal-r.service';
 
 @Component({
   selector: 'app-track-trace',
   standalone: false,
   templateUrl: './track-trace.component.html',
   styleUrl: './track-trace.component.scss',
-   animations: [
-     trigger('collapseAnimation', [
+  animations: [
+    trigger('collapseAnimation', [
       state('void', style({ height: '0px', opacity: 0, overflow: 'hidden' })),
       state('*', style({ height: '*', opacity: 1, overflow: 'hidden' })),
       transition('void <=> *', animate('300ms ease-in-out')),
     ])
-  ], 
-  providers:[BsModalService]
+  ],
+  providers: [BsModalService]
 })
 export class TrackTraceComponent {
   public docketInput: string = '';
   public docketList: string[] = [];
   public expandedIndex: number | null = null;
   public isContentVisible = false;
-  public trackTraceList:TrackTraceResponse[]=[];
-  public selectedPodImageUrl?:TrackTraceResponse;
-  public isLSP:boolean=false;
+  public trackTraceList: TrackTraceResponse[] = [];
+  public selectedPodImageUrl?: TrackTraceResponse;
+  public isLSP: boolean = false;
   public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
   public modalRef!: BsModalRef;
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -49,20 +50,24 @@ export class TrackTraceComponent {
   public newlyLoading = false;
   hasMoreData: boolean = true;
 
-  constructor( 
-   public commonService: CommonService,
-   public trackTraceService:TrackTraceService,
-   public identityService:IdentityService,
-   private modalService: BsModalService,
-   private router: Router,
-   private sweetAlertService: SweetAlertService,
-  ){
+  constructor(
+    public commonService: CommonService,
+    public trackTraceService: TrackTraceService,
+    public identityService: IdentityService,
+    private modalService: BsModalService,
+    private router: Router,
+    private sweetAlertService: SweetAlertService,
+    private signalRService: SignalRService
+  ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
 
-  ngOnInit(){
-    this.isLSP= JSON.parse(localStorage.getItem('roles') || '').toLowerCase() === 'lsp admin';
+  ngOnInit() {
+    this.isLSP = JSON.parse(localStorage.getItem('roles') || '').toLowerCase() === 'lsp admin';
+    this.signalRService.on('DocketUpdated', () => {
+      this.onSearchTrackTrace(); // Call your method to reload
+    });
   }
 
   addDocketNumber(event: KeyboardEvent): void {
@@ -71,34 +76,34 @@ export class TrackTraceComponent {
       if (docketNumber) {
         this.docketList.push(docketNumber);
         this.docketInput = '';
-         this.onSearchTrackTrace(); 
+        this.onSearchTrackTrace();
       }
     }
   }
-  
-slideContentInAndNavigate() {
-  this.isContentVisible = !this.isContentVisible;
- setTimeout(() => {
-   this.router.navigate(['/track']);
- }, 100); 
-}
 
-finalizeDocketInput(): void {
-  const input = this.docketInput.trim();
-  if (input) {
-    const newDockets = input
-      .split(/[\s,]+/) // split by space or comma
-      .map(d => d.trim())
-      .filter(d => d && !this.docketList.includes(d));
-    this.docketList.push(...newDockets);
-    this.docketInput = '';
-    this.onSearchTrackTrace();
+  slideContentInAndNavigate() {
+    this.isContentVisible = !this.isContentVisible;
+    setTimeout(() => {
+      this.router.navigate(['/track']);
+    }, 100);
   }
-}
 
-  openPOD(Templatepod: TemplateRef<any>,data:TrackTraceResponse){
-     this.selectedPodImageUrl = data;
-    this.modalRef = this.modalService.show(Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
+  finalizeDocketInput(): void {
+    const input = this.docketInput.trim();
+    if (input) {
+      const newDockets = input
+        .split(/[\s,]+/) // split by space or comma
+        .map(d => d.trim())
+        .filter(d => d && !this.docketList.includes(d));
+      this.docketList.push(...newDockets);
+      this.docketInput = '';
+      this.onSearchTrackTrace();
+    }
+  }
+
+  openPOD(Templatepod: TemplateRef<any>, data: TrackTraceResponse) {
+    this.selectedPodImageUrl = data;
+    this.modalRef = this.modalService.show(Templatepod, { class: 'modal-lg modal-dialog-centered', backdrop: true });
   }
 
   // onSearchTrackTrace(){
@@ -118,65 +123,65 @@ finalizeDocketInput(): void {
   // }
 
   onDateRangeSelected(dates: any) {
-  if (dates && dates.length === 2) {
-    const [start, end] = dates;
-    this.fromDate = this.formatDate(start);
-    this.toDate = this.formatDate(end);
-    this.onSearchTrackTrace();
-  } else {
-    this.fromDate = null;
-    this.toDate = null;
+    if (dates && dates.length === 2) {
+      const [start, end] = dates;
+      this.fromDate = this.formatDate(start);
+      this.toDate = this.formatDate(end);
+      this.onSearchTrackTrace();
+    } else {
+      this.fromDate = null;
+      this.toDate = null;
+    }
   }
-}
 
-formatDate(date: Date): string {
-  const day = ('0' + date.getDate()).slice(-2);
-  const month = ('0' + (date.getMonth() + 1)).slice(-2);
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
-}
-
-onSearchTrackTrace(reset: boolean = true): void {
-  const isInitialLoad = reset;
-  if (isInitialLoad) {
-    this.skip = 0;
-    this.trackTraceList = [];
-    this.hasMoreData = true;
-    this.isLoading = true;
-  } else {
-    this.newlyLoading = true;
+  formatDate(date: Date): string {
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
   }
-  const docketString = this.docketList.join(',') || '';
-  const userId = this.identityService.getLoggedUserId();
-  this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take)
-    .subscribe({
-      next: ({ data = [] }) => {
-        const transformedData = data.map((item: any) => ({
-          ...item,
-           statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]').sort((a: any, b: any) => Number(a.DocketStatus) - Number(b.DocketStatus))
-        }));
-        this.trackTraceList.push(...transformedData);
-        this.skip += transformedData.length;
-        this.hasMoreData = transformedData.length === this.take;
-        requestAnimationFrame(() => feather.replace());
-        this.isLoading = false;
-        this.newlyLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-        this.newlyLoading = false;
-        this.hasMoreData = false;
-      }
-    });
-}
 
-onScroll(event: any) {
-  const element = event.target;
-  const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
-  if (atBottom && !this.isLoading && !this.newlyLoading && this.hasMoreData) {
-    this.onSearchTrackTrace(false);
+  onSearchTrackTrace(reset: boolean = true): void {
+    const isInitialLoad = reset;
+    if (isInitialLoad) {
+      this.skip = 0;
+      this.trackTraceList = [];
+      this.hasMoreData = true;
+      this.isLoading = true;
+    } else {
+      this.newlyLoading = true;
+    }
+    const docketString = this.docketList.join(',') || '';
+    const userId = this.identityService.getLoggedUserId();
+    this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take)
+      .subscribe({
+        next: ({ data = [] }) => {
+          const transformedData = data.map((item: any) => ({
+            ...item,
+            statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]').sort((a: any, b: any) => Number(a.DocketStatus) - Number(b.DocketStatus))
+          }));
+          this.trackTraceList.push(...transformedData);
+          this.skip += transformedData.length;
+          this.hasMoreData = transformedData.length === this.take;
+          requestAnimationFrame(() => feather.replace());
+          this.isLoading = false;
+          this.newlyLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+          this.newlyLoading = false;
+          this.hasMoreData = false;
+        }
+      });
   }
-}
+
+  onScroll(event: any) {
+    const element = event.target;
+    const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
+    if (atBottom && !this.isLoading && !this.newlyLoading && this.hasMoreData) {
+      this.onSearchTrackTrace(false);
+    }
+  }
   removeCard(docket: string): void {
     this.docketList = this.docketList.filter(item => item !== docket);
     this.trackTraceList = this.trackTraceList.filter(item => item.docketNo !== docket);
@@ -192,91 +197,91 @@ onScroll(event: any) {
     this.onSearchTrackTrace();
   }
 
-toggleMoreView(index: number): void {
-  this.expandedIndex = this.expandedIndex === index ? null : index;
-}
-
-downloadPod(pod: any): void {
-  if (!pod?.podLink) {
-    console.error('No image link found.');
-    return;
+  toggleMoreView(index: number): void {
+    this.expandedIndex = this.expandedIndex === index ? null : index;
   }
 
-  // Force HTTPS in case backend returns HTTP
-  const secureUrl = pod.podLink.startsWith('http://')
-    ? pod.podLink.replace('http://', 'https://')
-    : pod.podLink;
-
-  fetch(secureUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.blob();
-    })
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = this.extractFileName(secureUrl); // Use cleaned URL
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url); // Clean up
-    })
-    .catch(error => {
-      console.error('Image download failed:', error);
-      alert('Failed to download image. Please try again or check the image URL.');
-    });
-}
-
-extractFileName(url: string): string {
-  try {
-    const path = url.split('?')[0]; // Remove query params
-    const filename = path.substring(path.lastIndexOf('/') + 1);
-    return filename || `downloaded_image_${Date.now()}.jpg`;
-  } catch {
-    return `downloaded_image_${Date.now()}.jpg`;
-  }
-}
-
-// downloadImagesAsZip(): void {
-//   this.isLoading = true;
-//   this.trackTraceService.DownloadPODZip(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
-//       next: (blob: Blob) => {
-//           this.isLoading = false;
-//           saveAs(blob, 'POD_Images.zip');
-//       },
-//         // this.isLoading = false;
-//         // saveAs(blob, 'POD_Images.zip');
-//       // },
-//       error: (err: any) => {
-//         this.isLoading = false;
-//         this.sweetAlertService.error(err?.message || 'Download failed.');
-//       }
-//     });
-// }
-
-downloadImagesAsZip(): void {
-  this.isLoading = true;
-  this.trackTraceService.DownloadPODZip(
-    this.identityService.getLoggedUserId(),
-    this.fromDate,
-    this.toDate
-  ).subscribe({
-    next: (blob: Blob) => {
-      this.isLoading = false;
-      saveAs(blob, 'POD_Images.zip');
-    },
-    error: async (err: any) => {
-      this.isLoading = false;
-      if (err.status === 404) {
-        const errorText = await err.error.text(); // extract plain string
-        this.sweetAlertService.error(errorText || 'No PODs found in the system.');
-      } else {
-        this.sweetAlertService.error('Download failed. Please try again.');
-      }
+  downloadPod(pod: any): void {
+    if (!pod?.podLink) {
+      console.error('No image link found.');
+      return;
     }
-  });
- }
+
+    // Force HTTPS in case backend returns HTTP
+    const secureUrl = pod.podLink.startsWith('http://')
+      ? pod.podLink.replace('http://', 'https://')
+      : pod.podLink;
+
+    fetch(secureUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.extractFileName(secureUrl); // Use cleaned URL
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url); // Clean up
+      })
+      .catch(error => {
+        console.error('Image download failed:', error);
+        alert('Failed to download image. Please try again or check the image URL.');
+      });
+  }
+
+  extractFileName(url: string): string {
+    try {
+      const path = url.split('?')[0]; // Remove query params
+      const filename = path.substring(path.lastIndexOf('/') + 1);
+      return filename || `downloaded_image_${Date.now()}.jpg`;
+    } catch {
+      return `downloaded_image_${Date.now()}.jpg`;
+    }
+  }
+
+  // downloadImagesAsZip(): void {
+  //   this.isLoading = true;
+  //   this.trackTraceService.DownloadPODZip(this.identityService.getLoggedUserId(), this.fromDate, this.toDate).subscribe({
+  //       next: (blob: Blob) => {
+  //           this.isLoading = false;
+  //           saveAs(blob, 'POD_Images.zip');
+  //       },
+  //         // this.isLoading = false;
+  //         // saveAs(blob, 'POD_Images.zip');
+  //       // },
+  //       error: (err: any) => {
+  //         this.isLoading = false;
+  //         this.sweetAlertService.error(err?.message || 'Download failed.');
+  //       }
+  //     });
+  // }
+
+  downloadImagesAsZip(): void {
+    this.isLoading = true;
+    this.trackTraceService.DownloadPODZip(
+      this.identityService.getLoggedUserId(),
+      this.fromDate,
+      this.toDate
+    ).subscribe({
+      next: (blob: Blob) => {
+        this.isLoading = false;
+        saveAs(blob, 'POD_Images.zip');
+      },
+      error: async (err: any) => {
+        this.isLoading = false;
+        if (err.status === 404) {
+          const errorText = await err.error.text(); // extract plain string
+          this.sweetAlertService.error(errorText || 'No PODs found in the system.');
+        } else {
+          this.sweetAlertService.error('Download failed. Please try again.');
+        }
+      }
+    });
+  }
 }
