@@ -42,6 +42,7 @@ export class ImportDocketComponent {
   }
 
   onChangeFile(event: any) {
+    this.validateData = [];
     const file = event.addedFiles[0];
     if (file) {
       const validExcelTypes = [
