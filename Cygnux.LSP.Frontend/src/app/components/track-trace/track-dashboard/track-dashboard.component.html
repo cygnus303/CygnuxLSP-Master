@@ -59,7 +59,7 @@
           </div>
               <div class="pl-border-radius-10 overflow-hidden">
                 <div class="table-responsive mt-3" style="height: 465px;">
-                  <div class="layout-table">
+                  <div class="layout-table" *ngIf="dockets?.length; else noTableData">
                     <table class="w-100" [ngClass]="!dockets || !dockets.length ? 'h-100' : ''">
                       <thead class="sticky-top">
                         <tr>
@@ -84,6 +84,11 @@
                     </table>
                   </div>
                 </div>
+                  <ng-template #noTableData>
+                    <div class="d-flex justify-content-center align-items-center h-100 text-muted rounded">
+                      <img src="/assets/images/NoRecordFound.png" alt="">
+                    </div>
+                  </ng-template>
               </div>
         </div>
       </div>
@@ -114,33 +119,30 @@
             </div>
           </div>
         <div class="card o-hidden">
-          <div class="card-header pb-0">
-            <div class="d-flex">
-              <div class="flex-grow-1">
-                <h4>Transport Mode</h4>
+          <div class="bar-chart-widget rounded shadow-sm overflow-hidden">
+            <div class="card-header pb-0">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h4>Transport Mode</h4>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="bar-chart-widget">
-            <div class="top-content bg-primary"></div>
-            <div class="bottom-content card-body">
-              <div class="row">
+            <div class="bottom-content card-body d-flex flex-column justify-content-between" style="min-height: 290px;">
+              <div class="row flex-grow-1">
                 <div class="col-12">
-                  <div id="donutChart">
-                    <div *ngIf="donutChartOptions?.series?.length">
-                      <apx-chart 
-                        [series]="donutChartOptions.series"
-                        [chart]="donutChartOptions.chart"
-                        [labels]="donutChartOptions.labels"
-                        [colors]="donutChartOptions.colors"
-                        [legend]="donutChartOptions.legend"
-                        [dataLabels]="donutChartOptions.dataLabels"
-                        [stroke]="donutChartOptions.stroke"
-                        [tooltip]="donutChartOptions.tooltip"
-                        [responsive]="donutChartOptions.responsive">
-                      </apx-chart>
-                    </div>
+                  <div id="donutChart" *ngIf="donutChartOptions?.series?.length; else noChartData">
+                    <apx-chart [series]="donutChartOptions.series" [chart]="donutChartOptions.chart"
+                      [labels]="donutChartOptions.labels" [colors]="donutChartOptions.colors"
+                      [legend]="donutChartOptions.legend" [dataLabels]="donutChartOptions.dataLabels"
+                      [stroke]="donutChartOptions.stroke" [tooltip]="donutChartOptions.tooltip"
+                      [responsive]="donutChartOptions.responsive">
+                    </apx-chart>
                   </div>
+                <ng-template #noChartData>
+                  <div class="d-flex justify-content-center align-items-center text-muted rounded">
+                    <img src="/assets/images/TransportChart.png" alt="No Transport Data" style="max-width: 72%; height: 100%;" />
+                  </div>
+                </ng-template>
                 </div>
               </div>
             </div>
