@@ -74,6 +74,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       this.customerForm.patchValue(this.customerResponse);
       this.customerCode = this.customerResponse.customerCode;
       this.customerId = this.customerResponse.customerId;
+      this.userId = this.customerResponse?.userId
     } else {
       this.buildForm();
       this.customerCode = '';
@@ -168,23 +169,59 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   }
 
 
-  updateCustomer(form: FormGroup): void {
-    const currentUserId = this.identityService.getLoggedUserId();
-    const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, };
-    this.customerService.updateCustomer(this.customerCode, formValues).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.sweetAlertService.success(response.data.message);
-          this.dataEmitter.emit(); // Emitting the data to the parent
-          this.buildForm();
-        } else {
+  // updateCustomer(form: FormGroup): void {
+  //   const currentUserId = this.identityService.getLoggedUserId();
+  //   const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, };
+  //   this.customerService.updateCustomer(this.customerCode, formValues).subscribe({
+  //     next: (response) => {
+  //       if (response.success) {
+  //         this.sweetAlertService.success(response.data.message);
+  //         this.dataEmitter.emit(); // Emitting the data to the parent
+  //         this.buildForm();
+  //       } else {
+  //         this.sweetAlertService.error(response.error.message);
+  //       }
+  //     },
+  //     error: (response: any) => {
+  //       this.sweetAlertService.error(response.error.message);
+  //     },
+  //   });
+  // }
+
+
+    updateCustomer(form: FormGroup): void {
+    if (form.valid) {
+      const { accountsHead, accountsHeadMobileNo, consolidatedGSTNo, country,
+        isAllowedForEwayBillGenration, isConsolidatedGSTEnabled, isConsolidatedGSTNo, mobileNo, pincode,
+        proprietorEmail, proprietorMobileNo, proprietorName, purchaseHead, purchaseHeadMobileNo, state, customerCode, ...payload } = form.getRawValue();
+      payload.phoneNumber = mobileNo;
+      payload.zipCode = pincode;
+      this.userService.updateUser(this.userId, payload).pipe(
+        concatMap((userResponse) => {
+          if (userResponse.success) {
+          const currentUserId = this.identityService.getLoggedUserId();
+          const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, };
+            return this.customerService.updateCustomer(this.customerCode,formValues);
+          } else {
+            this.sweetAlertService.error(userResponse.error.message);
+            return throwError(() => new Error('User creation failed'));
+          }
+        })
+      ).subscribe({
+        next: (customerResponse) => {
+          if (customerResponse.success) {
+            this.sweetAlertService.success(customerResponse.data.message);
+            this.dataEmitter.emit();
+            this.buildForm();
+          } else {
+            this.sweetAlertService.error(customerResponse.error.message);
+          }
+        },
+        error: (response: any) => {
           this.sweetAlertService.error(response.error.message);
         }
-      },
-      error: (response: any) => {
-        this.sweetAlertService.error(response.error.message);
-      },
-    });
+      });
+    }
   }
 
   isActiveChecked(event: any) {

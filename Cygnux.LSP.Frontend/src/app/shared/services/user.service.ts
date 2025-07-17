@@ -25,7 +25,7 @@ export class UserService {
     return this.apiHandlerService.Post(`User/AddUser?user=${id}`, adduserRequest);
   }
 
-  updateUser(id: string, adduserRequest: AddUserRequest): Observable<IApiBaseResponse<CommonResponse>> {
+  updateUser(id: string | null, adduserRequest: AddUserRequest): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post(`User/UpdateUser?id=${id}`, adduserRequest);
   }
 

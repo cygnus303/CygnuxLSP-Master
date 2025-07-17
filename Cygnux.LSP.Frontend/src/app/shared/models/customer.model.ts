@@ -29,6 +29,7 @@ export interface CustomerResponse {
     accountsHeadMobileNo:string;
     proprietorMobileNo:string;
     proprietorEmail:string;
+    userId:string;
 }
 
 export interface AddCustomerRequest {
