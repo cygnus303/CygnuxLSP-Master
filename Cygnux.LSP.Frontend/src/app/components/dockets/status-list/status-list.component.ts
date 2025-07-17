@@ -54,6 +54,7 @@ export class StatusListComponent {
   }
 
   onChangeFile(event: any) {
+    this.validateDocketStatusList = [];
     const file = event.addedFiles[0];
     if (file) {
       const validExcelTypes = [
