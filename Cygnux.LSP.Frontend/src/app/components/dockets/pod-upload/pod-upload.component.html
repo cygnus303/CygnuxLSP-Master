@@ -127,12 +127,22 @@
           </button>
         </div>
 
-        <div class="col-12 col-md-auto" *ngIf="isValidData">
+        <!-- <div class="col-12 col-md-auto" *ngIf="isValidData">
           <button class="btn w-100 btn-success btn-square rounded-3" (click)="exportExcel()">
             <i class="fa fa-save me-1"></i> Save
           </button>
+        </div> -->
+        <div class="col-12 col-md-auto" *ngIf="isValidData">
+          <button class="btn w-100 btn-success btn-square rounded-3" [disabled]="loadingexportExcel" (click)="exportExcel()">
+            <ng-container *ngIf="!loadingexportExcel; else loadingTpl">
+              <i class="fa fa-save me-1"></i> Save
+            </ng-container>
+            <ng-template #loadingTpl>
+              <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              Saving...
+            </ng-template>
+          </button>
         </div>
-
         </div>
         </div>
       </div>

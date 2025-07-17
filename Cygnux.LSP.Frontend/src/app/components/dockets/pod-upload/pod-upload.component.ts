@@ -17,6 +17,7 @@ export class PodUploadComponent {
   public selectedFile: File | null = null;
   public validDate:ValidDatePOD[]=[]
   public loading:boolean = false;
+  public loadingexportExcel:boolean = false;
   public isLoadingTemplate:boolean =false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -106,6 +107,7 @@ onDropzoneSelect(event: any) {
   }
 
 exportExcel() {
+   this.loadingexportExcel = true;
   const formData = new FormData();
   this.uploadedImages.forEach((item) => {
     if (item.file) {
@@ -116,6 +118,7 @@ exportExcel() {
   formData.append('User', this.identityService.getLoggedUserId());
   this.docketService.uploadDocket(formData).subscribe({
     next: (response) => {
+      this.loadingexportExcel = false;
       if (response.success) {
         this.dataEmitter.emit();
         this.files = [];
@@ -128,6 +131,7 @@ exportExcel() {
       }
     },
     error: (response: any) => {
+      this.loadingexportExcel = false
       this.sweetAlertService.error(response);
     },
   });
