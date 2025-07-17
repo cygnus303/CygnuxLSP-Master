@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, TemplateRef } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
@@ -9,10 +9,8 @@ import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import JSZip from 'jszip';
 import { Router } from '@angular/router';
 import { SweetAlertService } from '../../shared/services/toastr.service';
-import { ExportService } from '../../shared/services/export.service';
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -58,14 +56,13 @@ export class TrackTraceComponent {
    private modalService: BsModalService,
    private router: Router,
    private sweetAlertService: SweetAlertService,
-  private exportService: ExportService,
   ){
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
 
   ngOnInit(){
-    this.isLSP= JSON.parse(localStorage.getItem('roles')||'').toLowerCase() ==='"lsp admin"';
+    this.isLSP= JSON.parse(localStorage.getItem('roles') || '').toLowerCase() === 'lsp admin';
   }
 
   addDocketNumber(event: KeyboardEvent): void {
@@ -93,7 +90,6 @@ finalizeDocketInput(): void {
       .split(/[\s,]+/) // split by space or comma
       .map(d => d.trim())
       .filter(d => d && !this.docketList.includes(d));
-
     this.docketList.push(...newDockets);
     this.docketInput = '';
     this.onSearchTrackTrace();
@@ -142,8 +138,6 @@ formatDate(date: Date): string {
 
 onSearchTrackTrace(reset: boolean = true): void {
   const isInitialLoad = reset;
-
-  // Reset state for initial load
   if (isInitialLoad) {
     this.skip = 0;
     this.trackTraceList = [];
@@ -152,26 +146,19 @@ onSearchTrackTrace(reset: boolean = true): void {
   } else {
     this.newlyLoading = true;
   }
-
   const docketString = this.docketList.join(',') || '';
   const userId = this.identityService.getLoggedUserId();
-
   this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take)
     .subscribe({
       next: ({ data = [] }) => {
         const transformedData = data.map((item: any) => ({
           ...item,
-          statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]')
+           statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]').sort((a: any, b: any) => Number(a.DocketStatus) - Number(b.DocketStatus))
         }));
-
         this.trackTraceList.push(...transformedData);
         this.skip += transformedData.length;
-
         this.hasMoreData = transformedData.length === this.take;
-
-        // Replace feather icons after DOM update
         requestAnimationFrame(() => feather.replace());
-
         this.isLoading = false;
         this.newlyLoading = false;
       },
@@ -186,7 +173,6 @@ onSearchTrackTrace(reset: boolean = true): void {
 onScroll(event: any) {
   const element = event.target;
   const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
-
   if (atBottom && !this.isLoading && !this.newlyLoading && this.hasMoreData) {
     this.onSearchTrackTrace(false);
   }
@@ -201,6 +187,7 @@ onScroll(event: any) {
   }
 
   removeDocket(docket: string): void {
+    this.expandedIndex = null;
     this.docketList = this.docketList.filter(d => d !== docket);
     this.onSearchTrackTrace();
   }
@@ -283,7 +270,6 @@ downloadImagesAsZip(): void {
     },
     error: async (err: any) => {
       this.isLoading = false;
-
       if (err.status === 404) {
         const errorText = await err.error.text(); // extract plain string
         this.sweetAlertService.error(errorText || 'No PODs found in the system.');
@@ -292,5 +278,5 @@ downloadImagesAsZip(): void {
       }
     }
   });
-}
+ }
 }
