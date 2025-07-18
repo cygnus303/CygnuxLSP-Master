@@ -282,6 +282,10 @@ export class DocketListComponent implements OnInit {
   openImportModal(event: Event) {
     event.preventDefault();
     const modalElement = document.getElementById('importModal');
+      if (this.addDocketComponent.isCustomerOrLspEmpty()) {
+      this.sweetAlertService.info("LSP mapping is missing. Please contact the administrator");
+      return;
+    }
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
@@ -322,7 +326,7 @@ export class DocketListComponent implements OnInit {
     const modalElement: any = document.getElementById('exampleModalLong');
 
     if (this.addDocketComponent.isCustomerOrLspEmpty()) {
-      this.sweetAlertService.info("LSP mapping is missing for this customer. Please contact the administrator");
+      this.sweetAlertService.info("LSP mapping is missing. Please contact the administrator");
       return;
     }
 

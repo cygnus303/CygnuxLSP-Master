@@ -94,7 +94,9 @@ export class OtpVerificationComponent {
         next: (response) => {
           this.isResending = false;
           if(response.success){
-          this.toastrService.success(response.data.message);
+            this.otp = { d1: '', d2: '', d3: '', d4: '', d5: '', d6: '' };
+            this.isOtpAlreadyVerified = true;
+            this.toastrService.success(response.data.message);
           }else{
             this.toastrService.error(response.error.message)
           }
@@ -105,4 +107,23 @@ export class OtpVerificationComponent {
         }
       });
   }
+
+  handlePaste(event: ClipboardEvent): void {
+  const pastedText = event.clipboardData?.getData('text') || '';
+  const otpChars = pastedText.trim().slice(0, 6).split('');
+
+  if (otpChars.length === 6 && otpChars.every(c => /^[0-9]$/.test(c))) {
+    this.otp = {
+      d1: otpChars[0],
+      d2: otpChars[1],
+      d3: otpChars[2],
+      d4: otpChars[3],
+      d5: otpChars[4],
+      d6: otpChars[5]
+    };
+    setTimeout(() => this.verifyOtp(), 100);
+  }
+  event.preventDefault(); 
+}
+
 }

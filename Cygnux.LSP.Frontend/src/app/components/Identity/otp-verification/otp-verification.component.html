@@ -36,7 +36,7 @@
                   <div class="row">
                     <div class="col">
                       <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d1"
-                        name="d1" (input)="moveFocus($event, d2)" #d1>
+                        name="d1" (input)="moveFocus($event, d2)"  (paste)="handlePaste($event)" #d1>
                     </div>
                     <div class="col">
                       <input class="form-control text-center opt-text" type="text" maxlength="1" [(ngModel)]="otp.d2"

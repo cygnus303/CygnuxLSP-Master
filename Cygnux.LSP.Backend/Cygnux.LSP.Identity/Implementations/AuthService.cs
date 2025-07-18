@@ -26,7 +26,7 @@ internal class AuthService : IAuthService
         if (user is not null)
         {
             if (!user.IsActive)
-                return new BaseLoginResponse<LoginResponse>(false, message: "User is inactive.");
+                return new BaseLoginResponse<LoginResponse>(false, message: "Account is inactive.");
 
             if (!user.EmailConfirmed)
                 return new BaseLoginResponse<LoginResponse>(false, message: "User has not confirmed their email.");
