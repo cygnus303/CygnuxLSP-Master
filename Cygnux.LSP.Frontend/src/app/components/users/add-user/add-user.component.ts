@@ -208,7 +208,7 @@ addLsp(): void {
   this.lspService.addLsp(formData).subscribe({
     next: (response) => {
       if (response.success) {
-        this.sweetAlertService.success(response.data.message);
+        // this.sweetAlertService.success(response.data.message);
         this.dataEmitter.emit();
         this.userForm.reset();
         this.onClose();
