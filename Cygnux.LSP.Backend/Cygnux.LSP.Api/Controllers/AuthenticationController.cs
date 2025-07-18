@@ -522,17 +522,117 @@ public class AuthenticationController : ControllerBase
         };
 
         // Step 6: Prepare email
-        var subject = "Re-Verify your account";
+        var subject = "Re-Verify your account - Logistic Service Provider";
         var body = $@"
-        Dear User,
+            <!DOCTYPE html>
+            <html lang='en' style='margin:0; padding:0;'>
+            <head>
+              <meta charset='UTF-8' />
+              <meta name='viewport' content='width=device-width, initial-scale=1' />
+              <title>OTP Verification</title>
+              <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' rel='stylesheet' />
+              <style>
+                body {{
+                  font-family: 'Roboto', Arial, sans-serif;
+                  background-color: #f6f9fc;
+                  margin: 0;
+                  padding: 0;
+                }}
+                .container {{
+                  max-width: 600px;
+                  margin: 40px auto;
+                  background-color: #ffffff;
+                  border-radius: 10px;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+                  overflow: hidden;
+                  color: #333333;
+                }}
+                .header-image {{
+                  width: 100%;
+                  height: auto;
+                  display: block;
+                }}
+                h1 {{
+                  color: #e67e22;
+                  font-size: 30px;
+                  margin: 20px 0 10px 0;
+                  text-align: center;
+                  font-weight: 700;
+                }}
+                h3 {{
+                  color: #154360;
+                  font-size: 20px;
+                  margin: 10px 0 20px 0;
+                  font-weight: 500;
+                  padding: 0 24px;
+                  text-align: left;
+                }}
+                p {{
+                  font-size: 16px;
+                  line-height: 1.7;
+                  color: #444444;
+                  padding: 0 24px;
+                  text-align: left;
+                }}
+                .otp-code {{
+                  display: inline-block;
+                  background-color: #e0e7ff;
+                  color: #1e40af;
+                  font-weight: 700;
+                  font-size: 30px;
+                  letter-spacing: 10px;
+                  padding: 12px 24px;
+                  border-radius: 8px;
+                  margin: 20px auto;
+                  user-select: all;
+                }}
+                .otp-container {{
+                  text-align: center;
+                }}
+                .footer {{
+                  margin: 30px 0 15px 0;
+                  font-size: 13px;
+                  color: #888888;
+                  text-align: center;
+                  padding: 0 20px;
+                }}
+                a {{
+                  color: #2e86c1;
+                  text-decoration: none;
+                  word-break: break-all;
+                  font-weight: 500;
+                }}
+              </style>
+            </head>
+            <body>
+              <div class='container'>
+                <img src='https://uatlspapi.cygnux.in/Uploads/LSP_LOGO.png' alt='OTP Verification' class='header-image'>
+                <h1>Welcome to Logistic Service Provider</h1>
+                <h3>Hello {user.FirstName + " " + user.LastName ?? "User"},</h3>
+                <p>Please re-verify your account using the link below:</p>
+                <p><a href='{linkResult.Data.Url}' target='_blank'>{linkResult.Data.Url}</a></p>
+                <p>Your OTP code is:</p>
+                <div class='otp-container'>
+                  <div class='otp-code' aria-label='One-Time Password code'>{otp}</div>
+                </div>
+                <p>Please enter this code to complete your verification. This code is valid for a limited time only.</p>
+                <p>If you did not request this, please ignore this email.</p>
+                <div class='footer'>
+                  &copy; {DateTime.Now.Year} Logistic Service Provider. All rights reserved.
+                </div>
+              </div>
+            </body>
+            </html>";
+        //var body = $@"
+        //Dear User,
 
-        Please re-verify your account using the link below:
-        {linkResult.Data.Url}
+        //Please re-verify your account using the link below:
+        //{linkResult.Data.Url}
 
-        Your new OTP is: {otp}
+        //Your new OTP is: {otp}
 
-        Regards,
-        Support Team";
+        //Regards,
+        //Support Team";
 
         try
         {
