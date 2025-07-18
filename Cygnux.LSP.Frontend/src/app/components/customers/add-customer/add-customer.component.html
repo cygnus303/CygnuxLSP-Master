@@ -87,11 +87,11 @@
               <div class="row g-3">
                 <div class="col-md-4 mb-1">
                   <label class="col-form-label">State</label>
-                  <input class="form-control" formControlName="state" type="text" required  placeholder="Enter State"
-                    [ngClass]="{ 'border-danger': customerForm.controls['state'].invalid && customerForm.controls['state'].touched}" />
-                  <div *ngIf="customerForm.controls['state'].invalid && customerForm.controls['state']?.touched" class="text-danger">
+                  <input class="form-control" formControlName="state" type="text" placeholder="Enter State"
+                   />
+                  <!-- <div *ngIf="customerForm.controls['state'].invalid && customerForm.controls['state']?.touched" class="text-danger">
                     <small *ngIf="customerForm.controls['state'].errors?.['required']">State is required.</small>
-                  </div>
+                  </div> -->
                 </div>
           
                 <div class="col-md-4">

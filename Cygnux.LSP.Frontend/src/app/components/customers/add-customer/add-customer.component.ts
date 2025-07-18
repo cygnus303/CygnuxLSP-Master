@@ -46,7 +46,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       address: new FormControl(null, [Validators.required]),
       pincode: new FormControl(null, [Validators.required, Validators.pattern(OnlyDigitRegex)]),
       city: new FormControl(null, [Validators.required]),
-      state: new FormControl(null, [Validators.required]),
+      state: new FormControl(''),
       isActive: new FormControl(true),
       isAllowedForEwayBillGenration: new FormControl(false),
       isConsolidatedGSTNo: new FormControl(false),

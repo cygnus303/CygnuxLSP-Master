@@ -99,7 +99,7 @@
                 <div class="col-md-8">
                   <div class="form-group">
                     <label for="photo">Photo</label>
-                    <input type="file" class="form-control" id="photo" name="photo" placeholder="Enter Photo" formControlName="photo"
+                    <input type="file" class="form-control" id="photo" name="photo" placeholder="Enter Photo"  (change)="onFileChange($event)" formControlName="photo"
                       accept="image/*"
                       [ngClass]="{ 'border-danger': userForm.controls['photo'].invalid && userForm.controls['photo'].touched }" />
                     <div *ngIf="userForm.controls['photo'].invalid && userForm.controls['photo'].touched" class="text-danger">
