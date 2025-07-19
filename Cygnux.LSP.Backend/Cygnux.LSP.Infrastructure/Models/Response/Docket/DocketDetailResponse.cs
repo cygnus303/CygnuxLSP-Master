@@ -21,4 +21,9 @@
         public string CurrentStatusDesc { get; set; } = string.Empty;
         public string PODLink { get; set;} = string.Empty;
     }
+
+    public class City_Master
+    {
+        public string Location { get; set; }
+    }
 }

@@ -50,6 +50,15 @@ public class DocketController : ControllerBase
     {
         return Ok(await _docketRepository.GetDocketDetails(docketId));
     }
+
+    [HttpGet]
+    [Route("GetCityData")]
+    public async Task<IActionResult> GetCityData(string SearchTerm)
+    {
+        return Ok(await _docketRepository.GetCityData(SearchTerm));
+    }
+
+
     [HttpPost]
     [Route("import")]
     public async Task<IActionResult> ImporDocket(IFormFile file)

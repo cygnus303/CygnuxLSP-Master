@@ -53,6 +53,20 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         ) ?? new DocketDetailResponse();
     }
+
+
+    public async Task<City_Master> GetCityData(string SearchTerm)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@SearchTerm", SearchTerm, DbType.String);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<City_Master>(
+            StoredProcedureConstants.USP_GetCity,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        ) ?? new City_Master();
+    }
+
     public async Task<CommonCreateResponse> ImportDocket(string addDocketsJson)
     {
         var parameters = new DynamicParameters();
