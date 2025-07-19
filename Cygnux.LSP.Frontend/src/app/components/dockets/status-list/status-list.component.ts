@@ -144,4 +144,9 @@ export class StatusListComponent {
       },
     });
   }
+
+  onReset(){
+    this.validateDocketStatusList = [];
+    this.files = [];
+  }
 }

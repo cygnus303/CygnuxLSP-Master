@@ -36,7 +36,7 @@
                     <ngx-dropzone-label>
                       <div class="dz-message needsclick">
                         <i class="icon-cloud-up"></i>
-                        <h6>Image here or click to upload.</h6>
+                        <h6>Drop Image here or click to upload.</h6>
                         <span class="note needsclick">
                           (Selected image are <strong>not</strong> actually uploaded.)
                         </span>
@@ -126,7 +126,11 @@
             <i class="fa fa-upload me-1"></i> Upload
           </button>
         </div>
-
+        <div class="col-12 col-md-auto">
+          <button class="btn w-100 btn-danger btn-square rounded-3"  (click)="onClose()">
+            <i class="fa fa-times"></i> Reset
+          </button>
+        </div>
         <!-- <div class="col-12 col-md-auto" *ngIf="isValidData">
           <button class="btn w-100 btn-success btn-square rounded-3" (click)="exportExcel()">
             <i class="fa fa-save me-1"></i> Save

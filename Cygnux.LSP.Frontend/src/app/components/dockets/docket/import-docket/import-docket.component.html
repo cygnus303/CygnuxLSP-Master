@@ -102,6 +102,7 @@
             </button>
             <button *ngIf="!isValidData" class="btn btn-square btn-success rounded-3" [disabled]="files.length === 0" (click)="uploadDocketFile()"> <i class="fa fa-upload me-1"></i>  Upload</button>
             <button *ngIf="isValidData" type="button" class="btn btn-square btn-success rounded-3" (click)="onSave()"><i class="fa fa-save me-1"></i>Save</button>
+            <button type="button" class="btn btn-square btn-danger rounded-3" (click)="onClose()"><i class="fa fa-times"></i>Reset</button>
           </div>
       </div>
     </div>

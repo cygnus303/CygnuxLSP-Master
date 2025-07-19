@@ -15,62 +15,63 @@ export class PodUploadComponent {
   public mappedData: ValidDatePOD[] = [];
   public uploadedImages: any[] = [];
   public selectedFile: File | null = null;
-  public validDate:ValidDatePOD[]=[]
-  public loading:boolean = false;
-  public loadingexportExcel:boolean = false;
-  public isLoadingTemplate:boolean =false;
+  public validDate: ValidDatePOD[] = []
+  public loading: boolean = false;
+  public loadingexportExcel: boolean = false;
+  public isLoadingTemplate: boolean = false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
-    private docketService:DocketService,
-    private identityService:IdentityService,
-    private sweetAlertService:SweetAlertService,
-    private router:Router
-  ){}
+    private docketService: DocketService,
+    private identityService: IdentityService,
+    private sweetAlertService: SweetAlertService,
+    private router: Router
+  ) { }
 
-  ngOnInit(){}
-  
+  ngOnInit() { }
+
   onRemove(file: File) {
     this.files = this.files.filter(f => f !== file);
     if (this.selectedFile === file) {
       this.selectedFile = null;
     }
-   this.selectedFile = null;
-   this.mappedData = [];
-   this.uploadedImages = [];
+    this.selectedFile = null;
+    this.mappedData = [];
+    this.uploadedImages = [];
   }
-  
-  onClose(){
+
+  onClose() {
     this.files = [];
     this.mappedData = [];
-    this.uploadedImages=[];
+    this.selectedFile = null;
+    this.uploadedImages = [];
   }
 
-onDropzoneSelect(event: any) {
-  const file = event.addedFiles[0];
-  if (!file) return;
+  onDropzoneSelect(event: any) {
+    const file = event.addedFiles[0];
+    if (!file) return;
 
-  const validExcelTypes = [
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.ms-excel',
-    'text/csv',
-  ];
+    const validExcelTypes = [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+      'text/csv',
+    ];
 
-  const fileName = file.name.toLowerCase();
-  const isValidType = validExcelTypes.includes(file.type);
-  const isValidName = fileName.startsWith('docketpodupload');
+    const fileName = file.name.toLowerCase();
+    const isValidType = validExcelTypes.includes(file.type);
+    const isValidName = fileName.startsWith('docketpodupload');
 
-  if (!isValidType || !isValidName) {
-    this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketPODUpload".');
-    this.resetFileSelection();
-    return;
+    if (!isValidType || !isValidName) {
+      this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketPODUpload".');
+      this.resetFileSelection();
+      return;
+    }
+
+    this.files = [file];
+    this.selectedFile = file;
   }
 
-  this.files = [file];
-  this.selectedFile = file;
-}
 
-  
   get isValidData(): boolean {
     return this.mappedData.length > 0 && this.mappedData.every(item => item.isValid);
   }
@@ -79,99 +80,99 @@ onDropzoneSelect(event: any) {
     this.selectedFile = null;
     this.files = [];
   }
- 
+
   onRemoveimg(file: any) {
     const index = this.uploadedImages.findIndex(img => img.name === file.name);
     if (index !== -1) {
       this.uploadedImages.splice(index, 1);
       const removedImageName = file.name.toLowerCase();
 
-    this.mappedData.forEach(record => {
-      if (record.imageName?.toLowerCase() === removedImageName) {
-        record.isValid = false;
-        record.validationStatus = 'Image was removed after validation.';
-        record.imageName = ''; 
-      }
-    });
+      this.mappedData.forEach(record => {
+        if (record.imageName?.toLowerCase() === removedImageName) {
+          record.isValid = false;
+          record.validationStatus = 'Image was removed after validation.';
+          record.imageName = '';
+        }
+      });
     }
   }
 
   onDropzoneimgSelect(event: any) {
     const files = event.addedFiles;
-    for(let i = 0; i < files.length; i++){
+    for (let i = 0; i < files.length; i++) {
       this.uploadedImages.push({
         name: files[i].name,
-        file:files[i]
+        file: files[i]
       });
     }
   }
 
-exportExcel() {
-   this.loadingexportExcel = true;
-  const formData = new FormData();
-  this.uploadedImages.forEach((item) => {
-    if (item.file) {
-      formData.append('imgfiles', item.file, item.name);
-    }
-  });
-  formData.append('docketJson', JSON.stringify(this.mappedData));
-  formData.append('User', this.identityService.getLoggedUserId());
-  this.docketService.uploadDocket(formData).subscribe({
-    next: (response) => {
-      this.loadingexportExcel = false;
-      if (response.success) {
-        this.dataEmitter.emit();
-        this.files = [];
-        this.mappedData = [];
-        this.uploadedImages=[];
-        this.sweetAlertService.success(response.data.message);
-        this.router.navigateByUrl('docket/list');
-      } else {
-        this.sweetAlertService.error(response.error.message);
+  exportExcel() {
+    this.loadingexportExcel = true;
+    const formData = new FormData();
+    this.uploadedImages.forEach((item) => {
+      if (item.file) {
+        formData.append('imgfiles', item.file, item.name);
       }
-    },
-    error: (response: any) => {
-      this.loadingexportExcel = false
-      this.sweetAlertService.error(response);
-    },
-  });
-}
-
-validatePODData(): void {
-  const formData = new FormData();
-  if (this.selectedFile !== null) {
-    formData.append('file', this.selectedFile, this.selectedFile.name);
+    });
+    formData.append('docketJson', JSON.stringify(this.mappedData));
+    formData.append('User', this.identityService.getLoggedUserId());
+    this.docketService.uploadDocket(formData).subscribe({
+      next: (response) => {
+        this.loadingexportExcel = false;
+        if (response.success) {
+          this.dataEmitter.emit();
+          this.files = [];
+          this.mappedData = [];
+          this.uploadedImages = [];
+          this.sweetAlertService.success(response.data.message);
+          this.router.navigateByUrl('docket/list');
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (response: any) => {
+        this.loadingexportExcel = false
+        this.sweetAlertService.error(response);
+      },
+    });
   }
-  this.uploadedImages.forEach((item) => {
-    if (item.file) {
-      formData.append('images', item.file, item.name); 
-    }
-  });
-  this.loading = true;
-  this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
-    next: (response) => {
-      if (response.success) {
-        this.mappedData = response.data
-         this.loading = false;
-        this.dataEmitter.emit();
-        // this.sweetAlertService.success(response.data.message);
-      } else {
-        this.sweetAlertService.error(response.error.message);
-      }
-    },
-    error: () => {
-      this.loading = false;
-      this.sweetAlertService.error('Failed to upload data.');
-    }
-  });
-}
 
-downloadSampleFile(event: any) {
-  event.preventDefault();
-  this.isLoadingTemplate =true;
-  this.docketService.DownloadSampleForPODupload(this.identityService.getLoggedUserId()).subscribe({
-    next: (response: Blob) => {
-        this.isLoadingTemplate =false;
+  validatePODData(): void {
+    const formData = new FormData();
+    if (this.selectedFile !== null) {
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+    }
+    this.uploadedImages.forEach((item) => {
+      if (item.file) {
+        formData.append('images', item.file, item.name);
+      }
+    });
+    this.loading = true;
+    this.docketService.validatePOD(this.identityService.getLoggedUserId(), formData).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.mappedData = response.data
+          this.loading = false;
+          this.dataEmitter.emit();
+          // this.sweetAlertService.success(response.data.message);
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: () => {
+        this.loading = false;
+        this.sweetAlertService.error('Failed to upload data.');
+      }
+    });
+  }
+
+  downloadSampleFile(event: any) {
+    event.preventDefault();
+    this.isLoadingTemplate = true;
+    this.docketService.DownloadSampleForPODupload(this.identityService.getLoggedUserId()).subscribe({
+      next: (response: Blob) => {
+        this.isLoadingTemplate = false;
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
@@ -181,11 +182,11 @@ downloadSampleFile(event: any) {
         anchor.download = 'DocketPODUpload.xlsx';
         anchor.click();
         window.URL.revokeObjectURL(url);
-    },
-    error: (error) => {
-      this.isLoadingTemplate =false;
-      this.sweetAlertService.error('Failed to download file.');
-    }
-  });
-}
+      },
+      error: (error) => {
+        this.isLoadingTemplate = false;
+        this.sweetAlertService.error('Failed to download file.');
+      }
+    });
+  }
 }

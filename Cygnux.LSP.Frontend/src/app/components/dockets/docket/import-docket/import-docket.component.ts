@@ -13,17 +13,17 @@ export class ImportDocketComponent {
   public files: File[] = [];
   public selectedFile: any;
   public validateData: ValidateFileResponse[] = [];
-  public isLoadingTemplate:boolean = false;
-  public loading:boolean = false;
+  public isLoadingTemplate: boolean = false;
+  public loading: boolean = false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   constructor(private sweetAlertService: SweetAlertService, private docketService: DocketService, private identityService: IdentityService) { }
 
   downloadSampleFile(event: any) {
     event.preventDefault();
-    this.isLoadingTemplate=true;
+    this.isLoadingTemplate = true;
     this.docketService.downloadSampleDocketUpload(this.identityService.getLoggedUserId()).subscribe({
       next: (response: Blob) => {
-        this.isLoadingTemplate=false;
+        this.isLoadingTemplate = false;
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
@@ -35,7 +35,7 @@ export class ImportDocketComponent {
         window.URL.revokeObjectURL(url);
       },
       error: (error) => {
-        this.isLoadingTemplate=false;
+        this.isLoadingTemplate = false;
         this.sweetAlertService.error('No Lsp found for customer.');
       }
     });
@@ -70,7 +70,7 @@ export class ImportDocketComponent {
   }
 
   get isValidData(): boolean {
-    return this.validateData.length > 0 && this.validateData.every(item => !item.errorCode);
+    return this.validateData.length > 0 && this.validateData.some(item => !item.errorCode);
   }
 
   onRemoveFile(file: File) {
@@ -78,24 +78,30 @@ export class ImportDocketComponent {
     this.validateData = [];
   }
 
-uploadDocketFile() {
-  const formData = new FormData();
-  this.loading = true;
-  formData.append('file', this.selectedFile);
-  this.docketService.validateDocketList(this.identityService.getLoggedUserId(), formData).subscribe({
-    next: (response) => {
-      if (response && response.data) {
+  uploadDocketFile() {
+    const formData = new FormData();
+    this.loading = true;
+    formData.append('file', this.selectedFile);
+    this.docketService.validateDocketList(this.identityService.getLoggedUserId(), formData).subscribe({
+      next: (response) => {
         this.loading = false;
-        this.validateData = response.data;
-        this.docketService.importInvalidFile(this.validateData, 'Invalid_Dockets  ');
-      }
-    },
-    error: (response: any) => {
-      this.loading = false;
-      this.sweetAlertService.error(response.error.Message);
-    },
-  });
-}
+        if (response && response.data) {
+          this.validateData = response.data;
+          const invalidData = this.validateData
+            .filter(item => item.errorCode)
+            .map(({ customer, ...rest }) => rest);
+
+          if (invalidData.length > 0) {
+            this.docketService.importInvalidFile(invalidData, 'DocketUpload');
+          }
+        }
+      },
+      error: (response: any) => {
+        this.loading = false;
+        this.sweetAlertService.error(response.error.Message);
+      },
+    });
+  }
 
   onClose() {
     this.validateData = [];
@@ -103,9 +109,11 @@ uploadDocketFile() {
   }
 
   onSave() {
-    const transformedList = this.validateData.map(({ lsp, errorMessage, errorCode, date, customer, ...rest }) => ({
-      ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false
-    }));
+    const transformedList = this.validateData
+      .filter(item => !item.errorCode) // ✅ Only success records
+      .map(({ lsp, errorMessage, errorCode, date, customer, ...rest }) => ({
+        ...rest, bookingDate: date, customerId: customer, lspId: lsp, remarks: "", isCancel: false
+      }));
     this.docketService.InsertExcelUplaodDocketData(this.identityService.getLoggedUserId(), transformedList).subscribe({
       next: (response) => {
         if (response.success) {
