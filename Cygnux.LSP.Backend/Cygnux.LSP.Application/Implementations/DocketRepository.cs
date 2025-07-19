@@ -40,12 +40,12 @@ internal class DocketRepository : IDocketRepository
         return new BaseResponse<DocketDetailResponse?>(response);
     }
 
-    public async Task<BaseResponse<City_Master>> GetCityData(string SearchTerm)
+    public async Task<BaseResponse<IEnumerable<City_Master>>> GetCityData(string SearchTerm)
     {
         
         var response = await _docketService.GetCityData(SearchTerm);
 
-        return new BaseResponse<City_Master>(response);
+        return new BaseResponse<IEnumerable<City_Master>>(response);
     }
 
     public async Task<BaseResponse<CommonCreateResponse>> ImportDocket(List<Dictionary<string, string>> createDockets)
