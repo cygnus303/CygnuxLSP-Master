@@ -33,6 +33,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketForm!: FormGroup;
   public docketId: string = '';
   public customerId: string = '';
+  public isLoading = false;
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
@@ -109,6 +110,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
 
   onSubmitDocket(form: FormGroup): void {
     if (form.valid) {
+      this.isLoading = true;
       let forms = {
         ...form.value,
         lspId: this.docketForm.value.transporter,
@@ -117,6 +119,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       }
       !this.docketId ? this.addDocket(forms) : this.updateDocket(forms);
     } else {
+      this.isLoading = false;
       form.markAllAsTouched();
     }
   }
@@ -157,6 +160,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
     form.UserId = this.identityService.getLoggedUserId();
     this.docketService.addDocket(form).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
           this.buildForm();
@@ -171,6 +175,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.error.message);
       },
     });
@@ -181,6 +186,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       .updateDocket(this.docketId, form)
       .subscribe({
         next: (response) => {
+          this.isLoading = false;
           if (response.success) {
             this.sweetAlertService.success(response.data.message);
             this.buildForm();
@@ -195,6 +201,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
           }
         },
         error: (response: any) => {
+          this.isLoading = false;
           this.sweetAlertService.error(response.error.message);
         },
       });

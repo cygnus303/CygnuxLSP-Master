@@ -69,7 +69,12 @@
             </div>
           </div>
           <div class="gap-2 d-flex justify-content-end mt-3">
-            <button class="btn btn-square btn-success pull-right rounded-3" type="submit" ><i class="fa fa-check"></i> Submit</button>&nbsp;
+            <!-- <button class="btn btn-square btn-success pull-right rounded-3" type="submit" ><i class="fa fa-check"></i> Submit</button>&nbsp; -->
+             <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              <i *ngIf="!isLoading" class="fa fa-check me-1"></i>
+              {{ isLoading ? 'Submitting...' : 'Submit' }}
+            </button>&nbsp;
             <!-- <button class="btn btn-square btn-danger pull-right rounded-3" type="reset"><i class="fa fa-times"></i> Reset</button> -->
         </div>
         </form>

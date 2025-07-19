@@ -21,6 +21,7 @@ export class PodStatusUploadComponent {
   public selectedFile: File | null = null;
   public modalRef!: BsModalRef;
   public isReadonlyMode : boolean = false;
+  public isLoading = false;
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   
@@ -88,6 +89,7 @@ onFileSelected(event: any) {
 }
 
 onSavePOD(): void {
+  this.isLoading = true;
   const formData = new FormData();
   const{transportModeDesc,transporterDesc, bookingDate,statusDate,fromLocation,toLocation,quantity,invoiceNo,currentStatusDesc,Customer,...payload} = this.podUpdateForm.value
   formData.append('docpodJson',JSON.stringify(payload));
@@ -96,6 +98,7 @@ onSavePOD(): void {
   }
   this.docketService.singlePOD(this.podUpdateForm.value.docketNo,this.identityService.getLoggedUserId(), formData).subscribe({
     next: (response) => {
+      this.isLoading = false;
       if (response) {
         this.buildForm();
         this.modalRef.hide();
@@ -104,6 +107,7 @@ onSavePOD(): void {
       }
     },
     error: (response: any) => {
+      this.isLoading = false;
       this.sweetAlertService.error(response.error.message);
     },
   });

@@ -16,6 +16,7 @@ export class StatusUpdateComponent {
   public transporter:TrackingListResponse[]=[];
   public filteredTransporter: TrackingListResponse[] = [];
   public currentStatusValue: string = '';
+  public isLoading = false;
   @Input() docketResponse: DocketResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -94,11 +95,13 @@ filterNextStatus() {
 
   onSubmitStatus(form: FormGroup){
     if (form.valid) {
+      this.isLoading = true;
       const payload = {
         currentStatus:form.value.nextDocketStatus,
       }
         this.docketService.singleUpdateDocketSts(form.value.docketId,this.identityService.getLoggedUserId(),payload).subscribe({
         next: (response) => {
+          this.isLoading = false;
           if (response.success) {
             this.buildForm();
             this.dataEmitter.emit();
@@ -108,6 +111,7 @@ filterNextStatus() {
           }
         },
         error: (response: any) => {
+          this.isLoading = false;
           this.sweetAlertService.error(response.data.message);
         },
       });
