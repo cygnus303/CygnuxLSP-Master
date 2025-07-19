@@ -39,6 +39,7 @@ export class AddLspMappingComponent {
   public showCustomerSearch = false;
   public showMappedSearch = false;
   public showAvailableSearch = false;
+  public isLoading = false;
 
   @Input() lspMappingResponse: LspMappingResponse | null = null;
 
@@ -213,8 +214,10 @@ export class AddLspMappingComponent {
   }
 
   addLspMapping(dataSubmit: any) {
+    this.isLoading = true;
     this.lspMappingService.addLspMapping(dataSubmit).subscribe({
       next: (res) => {
+        this.isLoading = false;
         if (res.data.status.toString() === '1') {
           this.sweetAlertService.success('Mapping saved successfully.');
           this.dataEmitter.emit();
@@ -224,13 +227,15 @@ export class AddLspMappingComponent {
           this.sweetAlertService.error(res.data.message);
         }
       },
-      error: (err) => this.sweetAlertService.error(err.error.message)
+      error: (err) => {this.sweetAlertService.error(err.error.message);this.isLoading = true;}
     });
   }
 
   updateLspMapping(dataSubmit: any) {
+    this.isLoading = true;
     this.lspMappingService.updateLspMapping(this.lspMappingResponse?.lspMappingId, dataSubmit).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response.data.status.toString() === '1') {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
@@ -239,6 +244,7 @@ export class AddLspMappingComponent {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.data.message);
       },
     });

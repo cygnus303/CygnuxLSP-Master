@@ -33,6 +33,7 @@ export class LspTatListComponent implements OnInit {
   public RoleListsubscribe!: Subscription;
   public loading: boolean = false;
   public hoveredRow: number | null = null;
+  public isDownloading = false;
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
   public lspTatCount: CountResponse[] = [];
@@ -264,8 +265,10 @@ export class LspTatListComponent implements OnInit {
   }
 
   downloadLspTat() {
+    this.isDownloading = true;
     this.lspMappingService.downloadLspTat(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
+        this.isDownloading = false;
         if (response) {
           this.exportService.exportToExcel(response.data);
         }

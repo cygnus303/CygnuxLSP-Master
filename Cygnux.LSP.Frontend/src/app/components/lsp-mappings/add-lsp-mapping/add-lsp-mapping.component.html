@@ -129,7 +129,12 @@
           <label class="mb-0" for="dafault-checkbox">Active</label>
         </div>
        </div>
-        <button class="btn btn-square btn-success pull-right rounded-3" (click)="onSave()" type="submit"><i class="fa fa-check"></i> Submit</button>
+        <!-- <button class="btn btn-square btn-success pull-right rounded-3" (click)="onSave()" type="submit"><i class="fa fa-check"></i> Submit</button> -->
+        <button class="btn btn-square btn-success pull-right rounded-3" (click)="onSave()" [disabled]="isLoading">
+          <i *ngIf="!isLoading" class="fa fa-check"></i>
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+          {{ isLoading ? 'Submitting...' : 'Submit' }}
+        </button>
       </div>
     </div>
   </div>

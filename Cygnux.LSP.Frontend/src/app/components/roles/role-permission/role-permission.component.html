@@ -82,7 +82,12 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-square btn-primary pull-right rounded-3 mt-4" (click)="savePermissions()">Save Permissions</button>
+                <!-- <button class="btn btn-square btn-primary pull-right rounded-3 mt-4" (click)="savePermissions()">Save Permissions</button> -->
+                <button class="btn btn-square btn-primary pull-right rounded-3 mt-4" (click)="savePermissions()" [disabled]="isLoading">
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                    {{ isLoading ? 'Saving...' : 'Save Permissions' }}
+                </button>
+
             </div>
         </div>
     </div>

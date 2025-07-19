@@ -33,6 +33,7 @@ export class CustomerListComponent implements OnInit {
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!: Subscription;
   public loading: boolean = false;
+  public isDownloading = false;
   @Output() edit = new EventEmitter<CustomerResponse>();
   @ViewChild(AddCustomerComponent) addCustomerComponent!: AddCustomerComponent;
   public hoveredRow: number | null = null;
@@ -276,8 +277,10 @@ export class CustomerListComponent implements OnInit {
   }
 
   downloadCustomer() {
+      this.isDownloading = true;
     this.customerService.downloadCustomerList(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
+        this.isDownloading = false;
         if (response) {
           this.exportService.exportToExcel(response.data);
         }

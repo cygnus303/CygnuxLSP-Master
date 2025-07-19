@@ -21,6 +21,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 export class AddRoleComponent implements OnInit, OnChanges {
   public roleForm!: FormGroup;
   public roleId: string = '';
+  public isLoading = false;
   @Input() roleResponse: RoleResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
@@ -58,13 +59,16 @@ export class AddRoleComponent implements OnInit, OnChanges {
 
   onSubmitRole(form: FormGroup): void {
     if (form.valid) {
+      this.isLoading = true;
       !this.roleId ? this.addRole(form) : this.updateRole(form);
     }
+    this.isLoading = false;
   }
 
   addRole(form: FormGroup): void {
     this.roleService.addRole(form.getRawValue()).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
@@ -74,6 +78,7 @@ export class AddRoleComponent implements OnInit, OnChanges {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.error.message);
       },
     });
@@ -82,6 +87,7 @@ export class AddRoleComponent implements OnInit, OnChanges {
   updateRole(form: FormGroup): void {
     this.roleService.updateRole(this.roleId, form.getRawValue()).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
@@ -91,6 +97,7 @@ export class AddRoleComponent implements OnInit, OnChanges {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.error.message);
       },
     });

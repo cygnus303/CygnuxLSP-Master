@@ -37,6 +37,7 @@ export class LspListComponent implements OnInit {
   public loading: boolean = false;
   public hoveredRow: number | null = null;
   public lspCount: CountResponse[] = [];
+  public isDownloading = false;
   @Output() edit = new EventEmitter<LspResponse>();
   @ViewChild(AddLspComponent) addLspComponent!: AddLspComponent;
 
@@ -233,8 +234,10 @@ export class LspListComponent implements OnInit {
   }
 
   downloadLsp() {
+    this.isDownloading = true;
     this.lspService.downloadLsp(this.identityService.getLoggedUserId()).subscribe({
       next: (response) => {
+        this.isDownloading = false;
         if (response) {
           this.exportService.exportToExcel(response.data);
         }

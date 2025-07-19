@@ -37,6 +37,7 @@ export class AddUserComponent implements OnInit, OnChanges {
   public roles: RoleResponse[] = [];
   public customers: CustomerResponse[] | null = null;
   public u_id: string = '';
+  public isLoading = false;
   @Input() userResponse: UserResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   public selectedFile: File | null = null;
@@ -95,8 +96,10 @@ export class AddUserComponent implements OnInit, OnChanges {
   }
   onSubmitUser(form: FormGroup): void {
     if (form.valid) {
+      this.isLoading = true;
       !this.userId ? this.addUser(form) : this.updateUser(form);
     } else {
+      this.isLoading = false;
       form.markAllAsTouched();
     }
   }
@@ -125,6 +128,7 @@ export class AddUserComponent implements OnInit, OnChanges {
 
   this.userService.addUser(this.identityService.getLoggedUserId(), form.getRawValue()).subscribe({
     next: (response) => {
+      this.isLoading = false;
       if (response.data.status?.toString().includes('1')) {
         this.dataEmitter.emit();
         this.sweetAlertService.success(response.data.message);
@@ -137,7 +141,6 @@ export class AddUserComponent implements OnInit, OnChanges {
         } else if (role === 'lsp admin') {
           this.addLsp();
         }
-
         this.userForm.reset();
         this.buildForm();
       } else {
@@ -145,6 +148,7 @@ export class AddUserComponent implements OnInit, OnChanges {
       }
     },
     error: (err) => {
+      this.isLoading = false;
       this.sweetAlertService.error(err.error.message);
     },
   });
@@ -259,6 +263,7 @@ onFileChange(event: any): void {
   updateUser(form: FormGroup): void {
     this.userService.updateUser(this.userId, form.getRawValue()).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response.success) {
           this.dataEmitter.emit();
           this.sweetAlertService.success(response.data.message);
@@ -269,6 +274,7 @@ onFileChange(event: any): void {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.error.message);
       },
     });

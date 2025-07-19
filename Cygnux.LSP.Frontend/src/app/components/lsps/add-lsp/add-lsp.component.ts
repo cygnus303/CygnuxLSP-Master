@@ -32,6 +32,7 @@ export class AddLspComponent implements OnInit, OnChanges {
   public selectedFileName :string = '';
   public userId :string | null = null;
   public tempFormData!:FormData;
+  public isLoading = false;
   @Input() lspResponse: LspResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
 
@@ -128,6 +129,7 @@ export class AddLspComponent implements OnInit, OnChanges {
 
   onSubmitLsp(form: FormGroup): void {
   if (form.valid) {
+    this.isLoading = true;
     const formValues = form.getRawValue();
 
     const jsonPayload: any = {};
@@ -154,6 +156,7 @@ export class AddLspComponent implements OnInit, OnChanges {
 
     !this.lspId ? this.addUser(jsonPayload) : this.updateLsp(formData);
   } else {
+    this.isLoading = false;
     form.markAllAsTouched();
   }
 }
@@ -165,6 +168,7 @@ export class AddLspComponent implements OnInit, OnChanges {
               payload.phoneNumber = mobileNo
   this.userService.addUser(this.identityService.getLoggedUserId(),payload).subscribe({
     next: (response) => {
+      this.isLoading = false;
       if (response.success) {
         // this.dataEmitter.emit();
         this.userId = response.data.id;
@@ -175,6 +179,7 @@ export class AddLspComponent implements OnInit, OnChanges {
       }
     },
     error: (response: any) => {
+      this.isLoading = false;
       this.sweetAlertService.error(response.error.message);
     },
   });
@@ -220,6 +225,7 @@ export class AddLspComponent implements OnInit, OnChanges {
   updateLsp(formData: any): void {
     this.lspService.updateLsp(this.lspId, formData).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response.success) {
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
@@ -232,6 +238,7 @@ export class AddLspComponent implements OnInit, OnChanges {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.error.message);
       },
     });

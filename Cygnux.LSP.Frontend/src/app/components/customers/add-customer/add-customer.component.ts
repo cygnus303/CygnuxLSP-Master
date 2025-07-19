@@ -20,7 +20,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   public customerCode: string = '';
   public customerId: string = '';
   public userId: string | null = null;
-
+  public isLoading = false;
   @Input() customerResponse: CustomerResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -102,8 +102,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
 
   onSubmitCustomer(form: FormGroup): void {
     if (form.valid) {
+      this.isLoading = true;
       !this.customerCode ? this.addUserAndCustomer(form) : this.updateCustomer(form);
     } else {
+      this.isLoading = false;
       form.markAllAsTouched();
     }
   }
@@ -117,6 +119,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       payload.zipCode = pincode;
       this.userService.addUser(this.identityService.getLoggedUserId(), payload).pipe(
         concatMap((userResponse) => {
+          this.isLoading = false;
           if (userResponse.success) {
             this.userId = userResponse.data.id;
             this.sendUsermail(userResponse.data.id)
@@ -135,6 +138,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
         })
       ).subscribe({
         next: (customerResponse) => {
+          this.isLoading = false;
           if (customerResponse.success) {
             this.sweetAlertService.success(customerResponse.data.message);
             this.dataEmitter.emit();
@@ -144,6 +148,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           }
         },
         error: (response: any) => {
+          this.isLoading = false;
           this.sweetAlertService.error(response.error.message);
         }
       });
@@ -198,6 +203,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       payload.zipCode = pincode;
       this.userService.updateUser(this.userId, payload).pipe(
         concatMap((userResponse) => {
+          this.isLoading = false;
           if (userResponse.success) {
           const currentUserId = this.identityService.getLoggedUserId();
           const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, };
@@ -218,6 +224,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           }
         },
         error: (response: any) => {
+          this.isLoading = false;
           this.sweetAlertService.error(response.error.message);
         }
       });

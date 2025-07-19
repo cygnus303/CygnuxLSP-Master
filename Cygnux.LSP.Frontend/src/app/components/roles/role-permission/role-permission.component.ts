@@ -19,6 +19,7 @@ export class RolePermissionComponent implements OnInit {
     public allStatusUpdate: boolean= false;
     public allPod: boolean= false;
     public menus: RolePermissionResponse[] = [];
+    public isLoading = false;
     @Input() roleId: any;
     @Output() permissionEmitter: EventEmitter<void> = new EventEmitter();
     
@@ -124,8 +125,10 @@ export class RolePermissionComponent implements OnInit {
     
 
     savePermissions(): void {
+        this.isLoading = true;
         this.rolePermissionService.createRolePermission(this.roleId, this.menus).subscribe({
             next: (response) => {
+                this.isLoading = false;
                 if (response.success) {
                     this.permissionEmitter.emit();
                      Swal.fire({
@@ -147,6 +150,7 @@ export class RolePermissionComponent implements OnInit {
                 }
             },
             error: (response: any) => {
+                this.isLoading = false;
                 this.sweetAlertService.error(response.error.message);
             },
         });

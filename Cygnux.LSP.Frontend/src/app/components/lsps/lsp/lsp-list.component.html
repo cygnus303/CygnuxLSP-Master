@@ -35,14 +35,15 @@
           <div class="col-sm-6">
             <!-- <h4>Lsp</h4> -->
           </div>
-          <!-- <div class="col-sm-6" [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
-            <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()"><i
-                class="icon-plus"></i>Add LSP</button>
-          </div> -->
           <div class="col-sm-6">
-            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lsps.length > 0" (click)="downloadLsp()">
+            <!-- <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lsps.length > 0" (click)="downloadLsp()">
               <i class="fa fa-download"></i>
-            </button>
+            </button> -->
+             <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lsps.length > 0"
+                  [disabled]="isDownloading" (click)="downloadLsp()">
+                  <i *ngIf="!isDownloading" class="fa fa-download"></i>
+                  <i *ngIf="isDownloading" class="fa fa-spinner fa-spin"></i>
+                </button>
             <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
               <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()">
                 <i class="icon-plus"></i>Add LSP

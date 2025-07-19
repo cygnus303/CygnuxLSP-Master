@@ -30,6 +30,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   public customers: CustomerResponse[] | null = null;
   public transporter:TrackingListResponse[]=[];
   public priority:TrackingListResponse[]=[];
+  public isLoading = false;
   @Input() lspTatResponse: LspTatResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
@@ -147,12 +148,14 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   }
   onSubmitLspTat(form: FormGroup): void {
     if (form.valid) {
+       this.isLoading = true;
       const payload={
         ...form.value,
         updatedBy : this.lspTatId ? this.identityService.getLoggedUserId():null
       }
       !this.lspTatId ? this.addLspTat(payload) : this.updateLspTat(payload);
     }else{
+      this.isLoading = false;
       form.markAllAsTouched();
     }
   }
@@ -161,6 +164,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     this.lspTatService.addLspTat(form).subscribe({
       next: (response) => {
         if (response.success) {
+          this.isLoading = false;
           this.sweetAlertService.success(response.data.message);
           this.dataEmitter.emit();
           this.buildForm()
@@ -172,6 +176,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
         }
       },
       error: (response: any) => {
+        this.isLoading = false;
         this.sweetAlertService.error(response.error.message);
       },
     });
@@ -182,6 +187,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       .updateLspTat(this.lspTatId, form)
       .subscribe({
         next: (response) => {
+          this.isLoading = false;
           if (response.success) {
             this.sweetAlertService.success(response.data.message);
             this.dataEmitter.emit();
@@ -191,6 +197,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
           }
         },
         error: (response: any) => {
+          this.isLoading = false;
           this.sweetAlertService.error(response.error.message);
         },
       });
