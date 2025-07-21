@@ -21,6 +21,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
+                    <th>Roles</th>
                     <th class=" text-center">Active</th>
                     <th class=" text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action</th>
                   </tr>
@@ -28,6 +29,7 @@
                     <th><input type="text" class="form-control" [(ngModel)]="filters['firstName']" (input)="getUsers()"/></th>
                     <th><input type="text" class="form-control" [(ngModel)]="filters['emailId']" (input)="getUsers()"/></th>
                     <th><input type="text" class="form-control" [(ngModel)]="filters['phoneNumber']" (input)="getUsers()"/></th>
+                    <th><input type="text" class="form-control" [(ngModel)]="filters['role']" (input)="getUsers()"/></th>
                     <th></th>
                     <th class=" text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
                     </th>
@@ -39,6 +41,7 @@
                       <td>{{ user.firstName }}</td>
                       <td>{{ user.emailId }}</td>
                       <td>{{ user.phoneNumber }}</td>
+                      <td></td>
                       <td class=" text-center"><i
                           [ngClass]="user.isActive ?  'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
                       </td>
