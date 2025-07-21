@@ -47,6 +47,14 @@ internal class DocketRepository : IDocketRepository
 
         return new BaseResponse<IEnumerable<City_Master>>(response);
     }
+    
+    public async Task<BaseResponse<IEnumerable<State_Master>>> GetStateData(string SearchTerm)
+    {
+        
+        var response = await _docketService.GetStateData(SearchTerm);
+
+        return new BaseResponse<IEnumerable<State_Master>>(response);
+    }
 
     public async Task<BaseResponse<CommonCreateResponse>> ImportDocket(List<Dictionary<string, string>> createDockets)
     {

@@ -9,6 +9,7 @@ public interface IDocketService
     Task<IEnumerable<DocketListResponse>> GetDocketList(Guid userId, string reqFilter);
     Task<DocketDetailResponse> GetDocketDetails(Guid docketId);
     Task<IEnumerable<City_Master>> GetCityData(string SearchTerm);
+    Task<IEnumerable<State_Master>> GetStateData(string SearchTerm);
     Task<CommonCreateResponse> ImportDocket(string addDocketsJson);
     Task<IEnumerable<TrackingList>> GetTrackingList(string codetype);
     Task<IEnumerable<DocList>> GetDocketData(string docketno);

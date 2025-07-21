@@ -58,6 +58,13 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.GetCityData(SearchTerm));
     }
 
+    [HttpGet]
+    [Route("GetStateData")]
+    public async Task<IActionResult> GetStateData(string SearchTerm)
+    {
+        return Ok(await _docketRepository.GetStateData(SearchTerm));
+    }
+
 
     [HttpPost]
     [Route("import")]

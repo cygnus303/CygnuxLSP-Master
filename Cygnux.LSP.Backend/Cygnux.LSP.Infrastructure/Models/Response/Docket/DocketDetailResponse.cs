@@ -26,4 +26,9 @@
     {
         public string Location { get; set; }
     }
+
+    public class State_Master
+    {
+        public string stnm { get; set; }
+    }
 }
