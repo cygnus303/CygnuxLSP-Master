@@ -30,7 +30,7 @@ export class LspListComponent implements OnInit {
   public lsps: LspResponse[] = [];
   public selectedLsp: LspResponse | null = null;
   public page = 1; // Current page number
-  public pageSize = 5; // Number of items per page
+  public pageSize = 10; // Number of items per page
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!: Subscription;
   public totalItems = 0; // Total number of items

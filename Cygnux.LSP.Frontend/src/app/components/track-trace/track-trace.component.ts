@@ -9,7 +9,7 @@ import { IdentityService } from '../../shared/services/identity.service';
 import { Roles } from '../../shared/constants/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertService } from '../../shared/services/toastr.service';
 import { saveAs } from 'file-saver';
 import { SignalRService } from '../../shared/services/signal-r.service';
@@ -49,6 +49,8 @@ export class TrackTraceComponent {
   placeholderArray = Array(9);
   public newlyLoading = false;
   hasMoreData: boolean = true;
+  public selectedUserId: string = '';
+
 
   constructor(
     public commonService: CommonService,
@@ -57,18 +59,25 @@ export class TrackTraceComponent {
     private modalService: BsModalService,
     private router: Router,
     private sweetAlertService: SweetAlertService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private route: ActivatedRoute
   ) {
     defineElement(lottie.loadAnimation);
     this.commonService.activeNavigationUrl.next('Track Trace');
   }
 
-  ngOnInit() {
-    this.isLSP = JSON.parse(localStorage.getItem('roles') || '').toLowerCase() === 'lsp admin';
-    this.signalRService.on('DocketUpdated', () => {
-      this.onSearchTrackTrace(); // Call your method to reload
-    });
-  }
+ngOnInit() {
+  this.isLSP = JSON.parse(localStorage.getItem('roles') || '').toLowerCase() === 'lsp admin';
+  this.route.queryParams.subscribe(params => {
+    this.selectedUserId = params['userId'] || this.identityService.getLoggedUserId();
+    this.onSearchTrackTrace();  // Call on init after reading userId
+  });
+
+  this.signalRService.on('DocketUpdated', () => {
+    this.onSearchTrackTrace(); 
+  });
+}
+
 
   addDocketNumber(event: KeyboardEvent): void {
     if (event.key === ',' && this.docketInput.trim()) {
@@ -81,12 +90,15 @@ export class TrackTraceComponent {
     }
   }
 
-  slideContentInAndNavigate() {
-    this.isContentVisible = !this.isContentVisible;
-    setTimeout(() => {
-      this.router.navigate(['/track']);
-    }, 100);
-  }
+ slideContentInAndNavigate() {
+  this.isContentVisible = !this.isContentVisible;
+  setTimeout(() => {
+    this.router.navigate(['/track'], {
+      queryParams: { userId: this.selectedUserId }
+    });
+  }, 100);
+}
+
 
   finalizeDocketInput(): void {
     const input = this.docketInput.trim();
@@ -142,38 +154,40 @@ export class TrackTraceComponent {
   }
 
   onSearchTrackTrace(reset: boolean = true): void {
-    const isInitialLoad = reset;
-    if (isInitialLoad) {
-      this.skip = 0;
-      this.trackTraceList = [];
-      this.hasMoreData = true;
-      this.isLoading = true;
-    } else {
-      this.newlyLoading = true;
-    }
-    const docketString = this.docketList.join(',') || '';
-    const userId = this.identityService.getLoggedUserId();
-    this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take)
-      .subscribe({
-        next: ({ data = [] }) => {
-          const transformedData = data.map((item: any) => ({
-            ...item,
-            statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]').sort((a: any, b: any) => Number(a.DocketStatus) - Number(b.DocketStatus))
-          }));
-          this.trackTraceList.push(...transformedData);
-          this.skip += transformedData.length;
-          this.hasMoreData = transformedData.length === this.take;
-          requestAnimationFrame(() => feather.replace());
-          this.isLoading = false;
-          this.newlyLoading = false;
-        },
-        error: () => {
-          this.isLoading = false;
-          this.newlyLoading = false;
-          this.hasMoreData = false;
-        }
-      });
+  const isInitialLoad = reset;
+  if (isInitialLoad) {
+    this.skip = 0;
+    this.trackTraceList = [];
+    this.hasMoreData = true;
+    this.isLoading = true;
+  } else {
+    this.newlyLoading = true;
   }
+  const docketString = this.docketList.join(',') || '';
+  const userId = this.selectedUserId;
+
+  this.trackTraceService.GetTrackigList(docketString, userId, this.fromDate, this.toDate, this.skip, this.take)
+    .subscribe({
+      next: ({ data = [] }) => {
+        const transformedData = data.map((item: any) => ({
+          ...item,
+          statusHistoryJson: JSON.parse(item.statusHistoryJson || '[]').sort((a: any, b: any) => Number(a.DocketStatus) - Number(b.DocketStatus))
+        }));
+        this.trackTraceList.push(...transformedData);
+        this.skip += transformedData.length;
+        this.hasMoreData = transformedData.length === this.take;
+        requestAnimationFrame(() => feather.replace());
+        this.isLoading = false;
+        this.newlyLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.newlyLoading = false;
+        this.hasMoreData = false;
+      }
+    });
+}
+
 
   onScroll(event: any) {
     const element = event.target;

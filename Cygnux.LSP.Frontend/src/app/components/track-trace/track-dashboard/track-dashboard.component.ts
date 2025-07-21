@@ -21,6 +21,7 @@ import { DocketService } from "../../../shared/services/docket.service";
 import { ToastrService } from "ngx-toastr";
 import { DocketResponse } from "../../../shared/models/docket.model";
 import { SignalRService } from "../../../shared/services/signal-r.service";
+import { UserService } from "../../../shared/services/user.service";
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -51,6 +52,7 @@ export class TrackDashboardComponent {
   new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)];
   public searchText: string = '';
   public donutChartOptions: any;
+  public users:any;
 
   dashboardMeta = [
     { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
@@ -69,7 +71,8 @@ export class TrackDashboardComponent {
     private docketService: DocketService,
     private toasterService: ToastrService,
     private router: Router,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private userService:UserService
 
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
@@ -133,8 +136,9 @@ export class TrackDashboardComponent {
         this.getDockets(); // Reload dockets
           this.getDocketCount(fromDate, toDate);
       this.getTransportModeCount(fromDate, toDate);
-      });
     });
+  });
+  this.getUsers()
   }
 
   onDateRangeSelected(selectedRange: any): void {
@@ -152,15 +156,18 @@ export class TrackDashboardComponent {
     return `${day}-${month}-${year}`;
   }
 
-  slideContentInAndNavigate() {
-    this.isContentVisible = !this.isContentVisible;
-    setTimeout(() => {
-      this.router.navigate(['/track/list']);
-    }, 100);
-  }
+slideContentInAndNavigate() {
+  this.isContentVisible = !this.isContentVisible;
+  setTimeout(() => {
+    this.router.navigate(['/track/list'], {
+      queryParams: { userId: this.selectedUserId || this.identityService.getLoggedUserId() }
+    });
+  }, 100);
+}
+
 
   getDocketCount(fromdate: any, todate: any) {
-    this.trackTraceService.getTrackigCountDetail(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
+    this.trackTraceService.getTrackigCountDetail((this.selectedUserId || this.identityService.getLoggedUserId()), fromdate, todate).subscribe({
       next: (response) => {
         if (response && response.data) {
           this.totalDocket = response.totalCount;
@@ -193,7 +200,7 @@ export class TrackDashboardComponent {
       Page: 1,
       PageSize: 100,
     };
-    this.docketService.getDocketList(this.identityService.getLoggedUserId(), filters).subscribe({
+    this.docketService.getDocketList((this.selectedUserId || this.identityService.getLoggedUserId()), filters).subscribe({
       next: (response) => {
         if (response) {
           this.dockets = response.data;
@@ -208,7 +215,7 @@ export class TrackDashboardComponent {
   }
 
   getTransportModeCount(fromdate: any, todate: any) {
-    this.trackTraceService.getTransportModeCount(this.identityService.getLoggedUserId(), fromdate, todate).subscribe({
+    this.trackTraceService.getTransportModeCount((this.selectedUserId || this.identityService.getLoggedUserId()), fromdate, todate).subscribe({
       next: (response) => {
         if (response && Array.isArray(response.data)) {
  
@@ -276,5 +283,38 @@ export class TrackDashboardComponent {
     });
   }
 
+public selectedUserId: string = '';
+public filteredUsers: any[] = [];
 
+getUsers(page: number = 1) {
+  this.commonService.updateLoader(true);
+  const filters = { Page: 1, PageSize: '' };
+  this.userService.getUserList(this.identityService.getLoggedUserId(), filters).subscribe({
+    next: (response) => {
+      if (response && response.data) {
+        this.users = response.data;
+        // Prepare filteredUsers for dropdown
+        this.filteredUsers = this.users.map((user: any) => ({
+          id: user.id,
+          displayName: user.customerName?.trim() ? user.customerName : user.firstName
+        }));
+      }
+      this.commonService.updateLoader(false);
+    },
+    error: (response: any) => {
+      this.commonService.updateLoader(false);
+    },
+  });
+}
+
+
+
+onUserChange() {
+  const fromDate = this.formatDate(this.dateRange[0]);
+  const toDate = this.formatDate(this.dateRange[1]);
+
+  this.getDockets();
+  this.getDocketCount(fromDate, toDate);
+  this.getTransportModeCount(fromDate, toDate);
+}
 }

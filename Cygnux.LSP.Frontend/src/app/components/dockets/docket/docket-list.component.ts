@@ -29,7 +29,7 @@ export class DocketListComponent implements OnInit {
   public dockets: DocketResponse[] = [];
   public selectedDocket: DocketResponse | null = null;
   public page = 1; // Current page number
-  public pageSize = 5; // Number of items per page
+  public pageSize = 10; // Number of items per page
   public totalItems = 0; // Total number of items
   public selectedFile: File | null = null;
   public filters: { [key: string]: string } = {}; // Dynamic filter object

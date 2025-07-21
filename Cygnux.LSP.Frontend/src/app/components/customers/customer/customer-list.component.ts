@@ -28,7 +28,7 @@ export class CustomerListComponent implements OnInit {
   public selectedCustomer: CustomerResponse | null = null;
   public selectedMappingId: LspMappingResponse | null = null;
   public page = 1; // Current page number
-  public pageSize = 5; // Number of items per page
+  public pageSize = 10; // Number of items per page
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!: Subscription;

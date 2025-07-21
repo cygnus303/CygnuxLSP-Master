@@ -27,7 +27,7 @@ export class LspTatListComponent implements OnInit {
   public lspTats: LspTatResponse[] = [];
   public selectedLsp: LspTatResponse | null = null;
   public page = 1; // Current page number
-  public pageSize = 5; // Number of items per page
+  public pageSize = 10; // Number of items per page
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!: Subscription;

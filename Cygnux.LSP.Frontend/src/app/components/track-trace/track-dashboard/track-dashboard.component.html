@@ -16,6 +16,17 @@
     </div>
   </div>
 </div>
+<div>
+  <label>Users:</label>
+  <select class="form-select" [(ngModel)]="selectedUserId" (change)="onUserChange()">
+    <option value="">Select User</option>
+    <option *ngFor="let user of filteredUsers" [value]="user.id">
+      {{ user.displayName }}
+    </option>
+  </select>
+</div>
+
+
 
   <div class="row">
       <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2" *ngFor="let data of docketCount">
@@ -26,7 +37,7 @@
             <div class="flex-grow-1">
               <p class="square-after f-w-600 single-line " [ngClass]="data.headerColor" title="{{data.name}}">{{data.name}}<i class="fa fa-circle"> </i></p>
                <h4 [appCountUp]="data.count">{{data.count}}</h4>
-            </div>
+            </div>                                                                                                                             
           <div class="d-flex static-widget">
             <i class="fas" [ngClass]="[data.icon, 'color-' + data.color]" style="font-size: 25px;"></i>
           </div>
