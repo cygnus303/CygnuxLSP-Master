@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspResponse } from '../../../shared/models/lsp.model';
-import { CustomerResponse } from '../../../shared/models/customer.model';
+import { CityList, CustomerResponse, StateList } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
@@ -31,6 +31,12 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   public transporter:TrackingListResponse[]=[];
   public priority:TrackingListResponse[]=[];
   public isLoading = false;
+  public cityLoader: { [key: string]: boolean } = { origin: false, destination: false};
+  public originCityList:CityList[] =[];
+  public destinationCityList: CityList[] =[];
+  public originStateList: StateList[] = [];
+  public destinationStateList: StateList[] = [];
+  public stnm: { [key: string]: boolean } = {origin: false,destination: false};
   @Input() lspTatResponse: LspTatResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
   userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
@@ -74,6 +80,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       origin: new FormControl(null, [Validators.required]),
       destination: new FormControl(null, [Validators.required]),
       destinationState: new FormControl(null, [Validators.required]),
+      originState: new FormControl(null, [Validators.required]),
       mode: new FormControl(null, [Validators.required]),
       tat: new FormControl(null, [Validators.required,Validators.min(1), Validators.max(10)]),
       priority: new FormControl(null, [Validators.required,Validators.min(1), Validators.max(10)]),
@@ -209,4 +216,69 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       this.getLsps(this.identityService.getLoggedUserId());
       // this.dataEmitter.emit();
   }
+
+getCityData(event: { term: string; items: any[] },field: 'origin' | 'destination') {
+  const searchTerm = event.term?.trim();
+  if (!searchTerm || searchTerm.length < 3) {
+    if (field === 'origin') {
+      this.originCityList = [];
+    } else {
+      this.destinationCityList = [];
+    }
+    return;
+  }
+  this.cityLoader[field] = true;
+  this.docketService.getCityData(searchTerm).subscribe({
+    next: (response) => {
+      this.cityLoader[field] = false;
+
+      if (response.success) {
+        if (field === 'origin') {
+          this.originCityList = response.data;
+        } else {
+          this.destinationCityList = response.data;
+        }
+      } else {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: (error) => {
+      this.cityLoader[field] = false;
+      this.sweetAlertService.error(error?.error?.message || 'Server error');
+    },
+  });
 }
+
+onStateSearch(event: { term: string; items: any[] }, field: 'origin' | 'destination') {
+  const searchTerm = event.term?.trim();
+  if (!searchTerm || searchTerm.length < 2) {
+    if (field === 'origin') {
+      this.originStateList = [];
+    } else {
+      this.destinationStateList = [];
+    }
+    return;
+  }
+  this.stnm[field] = true;
+  this.docketService.getStateData(searchTerm).subscribe({
+    next: (res) => {
+      this.stnm[field] = false;
+      if (res.success) {
+        if (field === 'origin') {
+          this.originStateList = res.data;
+        } else {
+          this.destinationStateList = res.data;
+        }
+      } else {
+        this.sweetAlertService.error(res.error.message);
+      }
+    },
+    error: (err) => {
+      this.stnm[field] = false;
+      this.sweetAlertService.error(err?.error?.message || 'Server error');
+    }
+  });
+}
+
+}
+  

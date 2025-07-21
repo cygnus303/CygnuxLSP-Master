@@ -126,6 +126,15 @@
                     <img [src]="imagePreview" style="max-width: 100px; max-height: 100px" />
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <label class="col-form-label">Color Code</label>
+                  <input type="color" class="form-control form-control-color" formControlName="colorCode"
+                    [ngClass]="{'border-danger': lspForm.controls['colorCode'].invalid && lspForm.controls['colorCode'].touched }" />
+                  <div *ngIf="lspForm.controls['colorCode'].invalid && lspForm.controls['colorCode'].touched"
+                    class="text-danger">
+                    <small *ngIf="lspForm.controls['colorCode'].errors?.['required']">Color code is required.</small>
+                  </div>
+                </div>
                  <!-- <div class="col-md-6">
                       <label>POD</label>
                       <input class="form-control" formControlName="logo" type="file" accept="image/*"

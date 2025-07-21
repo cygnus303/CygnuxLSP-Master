@@ -12,6 +12,7 @@ public interface IDocketRepository
 
     Task<BaseResponse<DocketDetailResponse?>> GetDocketDetails(Guid docketId);
     Task<BaseResponse<IEnumerable<City_Master>>> GetCityData(string SearchTerm);
+    Task<BaseResponse<IEnumerable<State_Master>>> GetStateData(string SearchTerm);
 
     Task<BaseResponse<CommonCreateResponse>> ImportDocket(List<Dictionary<string, string>> createDockets);
     Task<BaseResponse<IEnumerable<TrackingList>>> GetTrackingList(string codetype);

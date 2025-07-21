@@ -37,13 +37,10 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public selectedLSP: number | null = null;
   public getCityList: CityList[] =[];
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+  public loader = {from: false, to: false};
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
-  loader = {
-    from: false,
-    to: false
-  };
   constructor(private docketService: DocketService, private sweetAlertService: SweetAlertService, private lspTatService: LspMappingService, private identityService: IdentityService) {
     this.docketForm = new FormGroup({});
   }
