@@ -13,6 +13,7 @@ export class ResetPasswordEmailComponent {
  public email: string = '';
  private forgotId:string='';
  public isSending: boolean = false;
+ public loginErrorMessage: string = '';
 constructor(
  private authenticationService:AuthenticationService,
  private toastrService:ToastrService,
@@ -34,11 +35,13 @@ constructor(
         // this.router.navigate(['login', 'changePassword', this.forgotId]);
       } else {
         this.toastrService.error(response.message);
+        this.loginErrorMessage = response.error.message;
       }
     },
     error: (response) => {
       this.isSending = false;
       this.toastrService.error(response.error.message);
+      this.loginErrorMessage = response.error.message;
     }
   });
 }

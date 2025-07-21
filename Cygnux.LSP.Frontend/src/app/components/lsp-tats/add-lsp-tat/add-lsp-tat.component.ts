@@ -87,6 +87,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       bookingType: new FormControl(null, [Validators.required]),
       isActive: new FormControl(true),
       createdBy:new FormControl(this.identityService.getLoggedUserId()),
+      ratekg: new FormControl(0),
     });
   }
 

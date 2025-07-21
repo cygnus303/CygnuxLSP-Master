@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     public loading :boolean = false;
     public isPasswordVisible: boolean = false;
     public greetingText: string = '';
+    public loginErrorMessage: string = '';
     constructor(private identityService: IdentityService,
         private commonService: CommonService,
         private toasterService: ToastrService,
@@ -84,6 +85,7 @@ export class LoginComponent implements OnInit {
                     } else {
                         if (response.error) {
                             this.toasterService.error(response.error.message);
+                            this.loginErrorMessage = response.error.message;
                         }
                     }
                 },
@@ -91,6 +93,7 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                     this.commonService.updateLoader(false);
                     this.toasterService.error(response.error.message);
+                    this.loginErrorMessage = response.error.message;
                 },
             });
     }

@@ -17,6 +17,7 @@ export class OtpVerificationComponent {
   public failedAttempts: number = 0;
  public maxAttempts: number = 3;
  isResending: boolean = false;
+ public loginErrorMessage: string = '';
  public isOtpAlreadyVerified: boolean = false;
 
   constructor(
@@ -69,6 +70,7 @@ export class OtpVerificationComponent {
             this.failedAttempts++;
           }
           this.toastrService.error(response.error.message);
+           this.loginErrorMessage = response.error.message;
         }
       },
       error: (response) => {
@@ -78,6 +80,7 @@ export class OtpVerificationComponent {
           this.failedAttempts++;
         }
         this.toastrService.error(response.error.message);
+        this.loginErrorMessage = response.error.message;
       }
     });
   }
@@ -99,11 +102,13 @@ export class OtpVerificationComponent {
             this.toastrService.success(response.data.message);
           }else{
             this.toastrService.error(response.error.message)
+             this.loginErrorMessage = response.error.message;
           }
         },
         error: (response) => {
           this.isResending = false;
           this.toastrService.error(response.error.message)
+           this.loginErrorMessage = response.error.message;
         }
       });
   }

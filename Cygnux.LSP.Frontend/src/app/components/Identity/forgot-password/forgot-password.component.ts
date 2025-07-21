@@ -16,7 +16,7 @@ export class ForgotPasswordComponent {
   public isConfirmVisible = false;
   public id:string='';
   public isSubmitting: boolean = false;
-
+ public loginErrorMessage: string = '';
   constructor(
     private authenticationService:AuthenticationService,
     private toastrServiceo:ToastrService,
@@ -74,6 +74,7 @@ export class ForgotPasswordComponent {
       error: (response: any) => {
         this.isSubmitting = false;
         this.toastrServiceo.error(response.error.message);
+        this.loginErrorMessage = response.error.message;
       },
     });
     }

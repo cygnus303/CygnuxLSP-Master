@@ -158,6 +158,11 @@
                                         <small *ngIf="lspTatForm.controls['tat'].errors?.['max']">Maximum value is 10.</small>
                                     </div>
                                 </div>
+                                   <div class="col-md-6 mb-11">
+                                    <label class="col-form-label">Rate (per kg)</label>
+                                    <input class="form-control" formControlName="ratekg" type="number" placeholder="Enter Rate (per kg)" min="1" max="10"
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['ratekg'].invalid && lspTatForm.controls['ratekg'].touched}"/>
+                                </div>
                             </div>
                             <div class="checkbox p-0" *ngIf="lspTatId != ''">
                                 <input id="dafault-checkbox" type="checkbox" formControlName="isActive"
