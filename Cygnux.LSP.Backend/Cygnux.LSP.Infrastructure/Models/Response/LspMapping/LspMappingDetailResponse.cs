@@ -43,3 +43,23 @@ public class LspRequest
     public Guid LspId { get; set; }
     public string LspName { get; set; }
 }
+
+public class LspTatValidationResult
+{
+    public string CustomerName { get; set; }
+    public string LspName { get; set; }
+    public string Product { get; set; }
+    public string Origin { get; set; }
+    public string Destination { get; set; }
+    public string DestinationState { get; set; }
+    public int? Priority { get; set; }
+    public string BookingType { get; set; }
+    public string Mode { get; set; }
+    public string TAT { get; set; }
+
+    // Validation feedback
+    public string ErrorMessage { get; set; }
+    public int ErrorCode { get; set; }
+}
+
+

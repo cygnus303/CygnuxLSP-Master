@@ -263,4 +263,16 @@ internal class CustomerLspService : ICustomerLspService
           );
     }
 
+    public async Task<IEnumerable<LspTatValidationResult>> GetTATdata(string bulkLspJson)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@JsonInput", bulkLspJson, DbType.String);
+
+        return await _dbConnection.QueryAsync<LspTatValidationResult>(
+            StoredProcedureConstants.USP_ValidateLspTatData,
+            param: parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
+
 }

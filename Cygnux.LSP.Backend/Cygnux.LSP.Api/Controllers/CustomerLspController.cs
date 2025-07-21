@@ -3,9 +3,11 @@
 using Application.Contracts;
 using Application.Models.Request.CustomerLSPTAT;
 using Application.Models.Request.LspMapping;
+using ClosedXML.Excel;
+using Cygnux.LSP.Api.Helpers;
+using Cygnux.LSP.Api.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Cygnux.LSP.Api.Hubs;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
@@ -180,6 +182,57 @@ public class CustomerLspController : ControllerBase
     public async Task<IActionResult> DownloadLspMapping([FromQuery] Guid userId)
     {
         return Ok(await _customerLspRepository.DownloadLspMapping(userId));
+    }
+
+
+    [HttpPost]
+    [Route("ValidateLspTatData")]
+    public async Task<IActionResult> ValidateLspTatData(IFormFile file)
+    {
+        var data = ExcelReadHelper.ExtractAllRows(file);
+        if (data is not null)
+        {
+            return Ok(await _customerLspRepository.GetTATdata(data));
+        }
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("LspTat-download-template")]
+    public IActionResult DownloadTemplate()
+    {
+        var columns = new[]
+        {
+        "CustomerName", "LspName", "Product", "Origin", "Destination",
+        "DestinationState", "Priority", "BookingType", "Mode", "TAT"
+        };
+
+        using (var workbook = new XLWorkbook())
+        {
+            var worksheet = workbook.Worksheets.Add("LSP_TAT_Template");
+
+            // Add headers to row 1
+            for (int i = 0; i < columns.Length; i++)
+            {
+                worksheet.Cell(1, i + 1).Value = columns[i];
+                worksheet.Cell(1, i + 1).Style.Font.Bold = true;
+            }
+
+            // Autofit the columns
+            worksheet.Columns().AdjustToContents();
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+
+                return File(
+                    stream.ToArray(),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "LSP_TAT_Upload_Template.xlsx"
+                );
+            }
+        }
     }
 
 }

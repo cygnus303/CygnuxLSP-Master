@@ -384,7 +384,6 @@ public class DocketController : ControllerBase
             //mainSheet.Cell("A1").Value = "LSPName";
             mainSheet.Cell("A1").Value = "DocketNo";
             mainSheet.Cell("B1").Value = "UploadDate";
-            mainSheet.Cell("C1").Value = "ImageLink";
 
             // Apply dropdown list validation for LSPName column
             //var validationLsp = mainSheet.Range("A2:A1048576").CreateDataValidation();

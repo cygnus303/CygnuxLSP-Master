@@ -38,4 +38,6 @@ public interface ICustomerLspRepository
     Task<BaseResponse<IEnumerable<LspTatDownloadResponse>>> DownloadLspTat(Guid userId);
     Task<BaseResponse<IEnumerable<DownloadLspMappingResponse>>> DownloadLspMapping(Guid userId);
 
+    Task<BaseResponse<IEnumerable<LspTatValidationResult>>> GetTATdata(List<Dictionary<string, string>> BulkLsp);
+
 }
