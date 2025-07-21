@@ -1,0 +1,25 @@
+table thead {
+  background-color: #f2f7fa;
+  font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9f5ff;
+}
+
+.table-active {
+  background-color: #d0ebff !important;
+}
+.table-container::-webkit-scrollbar {
+  width: 6px;
+}
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+.position-table{
+    position: sticky; 
+    top: 0;
+     background: #f8f9fa; 
+     z-index: 1;
+}

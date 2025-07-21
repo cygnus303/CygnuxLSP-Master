@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomerResponse } from '../../../../shared/models/customer.model';
+import { CityList, CustomerResponse } from '../../../../shared/models/customer.model';
 import { DocketResponse, CustomerLocationResponse, TrackingListResponse } from '../../../../shared/models/docket.model';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
@@ -34,11 +34,16 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketId: string = '';
   public customerId: string = '';
   public isLoading = false;
+  public selectedLSP: number | null = null;
+  public getCityList: CityList[] =[];
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
-
+  loader = {
+    from: false,
+    to: false
+  };
   constructor(private docketService: DocketService, private sweetAlertService: SweetAlertService, private lspTatService: LspMappingService, private identityService: IdentityService) {
     this.docketForm = new FormGroup({});
   }
@@ -51,6 +56,21 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.getTransportModeDetail();
     this.getLsps(this.identityService.getLoggedUserId())
   }
+
+  lspList = [
+  { lspId: 1, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
+  { lspId: 2, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
+  { lspId: 3, lspName: 'LSP 3', tat: 1, rate: 120, amount: 240 },
+  { lspId: 4, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
+  { lspId: 5, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
+  { lspId: 6, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
+  { lspId: 7, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
+  { lspId: 8, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
+  { lspId: 9, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
+  
+];
+
+
 
   buildForm(): void {
     this.docketForm = new FormGroup({
@@ -292,6 +312,42 @@ export class AddDocketComponent implements OnInit, OnChanges {
     });
   }
 
+getCityData(event: { term: string; items: any[] }, field: 'from' | 'to') {
+  const searchTerm = event.term?.trim();
+
+  if (!searchTerm || searchTerm.length < 3) {
+    if (field === 'from') {
+      this.getCityList = [];
+    } else {
+      this.customerWHStoreLocation = [];
+    }
+    return;
+  }
+
+  this.loader[field] = true;
+
+  this.docketService.getCityData(searchTerm).subscribe({
+    next: (response) => {
+      this.loader[field] = false;
+
+      const data = response.data
+
+      if (response.success) {
+        if (field === 'from') {
+          this.getCityList = data;
+        } else {
+          this.customerWHStoreLocation = data;
+        }
+      } else {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: (error) => {
+      this.loader[field] = false;
+      this.sweetAlertService.error(error?.error?.message || 'Server error');
+    },
+  });
+}
 
   getTransporterDetail() {
     this.docketService.getTrackingList('DOCKSTAUS').subscribe({

@@ -33,7 +33,82 @@
                   </div>
                   
                 </div>
-                <div class="col-md-6 mb-1">
+                     <div class="col-md-6">
+                  <label class="col-form-label">Transport Mode</label>
+                    <ng-select [items]="transportMode"
+                    bindLabel="codeDesc"
+                    bindValue="codeId"
+                    formControlName="transportMode"
+                    placeholder="Search transportMode"
+                    [searchable]="true" required
+                    readonly
+                    [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}" 
+                    >
+                    </ng-select>
+                  <div *ngIf="docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode']?.touched" class="text-danger">
+                    <small *ngIf="docketForm.controls['transportMode'].errors?.['required']">transport Mode is
+                      required.</small>
+                  </div>
+                </div>
+                    <div class="col-md-6">
+                  <label class="col-form-label">Total Kg</label>
+                  <input class="form-control" formControlName="quantity" type="text" required placeholder="Enter Total Kg"
+                    [ngClass]="{ 'border-danger': docketForm.controls['quantity'].invalid && docketForm.controls['quantity'].touched}" />
+                  <div *ngIf="docketForm.controls['quantity'].invalid && docketForm.controls['quantity']?.touched" class="text-danger">
+                    <small *ngIf="docketForm.controls['quantity'].errors?.['required']">Total Kg is required.</small>
+                  </div>
+                </div>
+                 <div class="col-md-6 mb-11">
+                  <label class="col-form-label">From WH/Store</label>
+                <ng-select [items]="getCityList" bindLabel="location" bindValue="location" placeholder="Select From WH/Store"
+                  formControlName="fromLocation" [searchable]="true" (search)="getCityData($event, 'from')" [loading]="loader.from">
+                </ng-select>
+                  <div *ngIf="docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation']?.touched" class="text-danger">
+                    <small *ngIf="docketForm.controls['fromLocation'].errors?.['required']">From Location is
+                      required.</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">To WH/Store</label>
+                  <ng-select [items]="customerWHStoreLocation" bindLabel="location" bindValue="location" placeholder="Select To WH/Store"
+                    formControlName="toLocation" [searchable]="true" (search)="getCityData($event, 'to')" [loading]="loader.to">
+                  </ng-select>
+                  <div *ngIf="docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation']?.touched" class="text-danger">
+                    <small *ngIf="docketForm.controls['toLocation'].errors?.['required']">To Location is
+                      required.</small>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mt-4">
+                  <label class="form-label fw-bold mb-3 fs-5">Select LSP</label>
+                  <div class="table-container shadow rounded border" style="max-height: 275px; overflow-y: auto;">
+                    <table class="table table-bordered table-hover align-middle text-center mb-0">
+                      <thead class="bg-light text-dark">
+                        <tr>
+                          <th class="position-table" style="width: 50px;">#</th>
+                          <th class="position-table text-start">LSP</th>
+                          <th class="position-table">TAT</th>
+                          <th class="position-table">Rate (₹)</th>
+                          <th class="position-table">Amount (₹)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let lsp of lspList; let i = index" [class.table-active]="selectedLSP === lsp.lspId">
+                          <td>
+                            <input type="radio" name="selectLSP" [value]="lsp.lspId" [(ngModel)]="selectedLSP"
+                              [ngModelOptions]="{ standalone: true }" class="form-check-input" />
+                          </td>
+                          <td class="text-start">{{ lsp.lspName }}</td>
+                          <td>{{ lsp.tat }} Days</td>
+                          <td>₹{{ lsp.rate }}</td>
+                          <td>₹{{ lsp.amount }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- <div class="col-md-6 mb-1">
                   <label class="col-form-label">Customer</label>
                   <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId" class="noFoundTextColor"
                     formControlName="customerId" placeholder="Select Customer" [searchable]="true"
@@ -43,8 +118,8 @@
                   <div *ngIf="docketForm.controls['customerId'].invalid && docketForm.controls['customerId']?.touched" class="text-danger">
                     <small *ngIf="docketForm.controls['customerId'].errors?.['required']">Customer is required.</small>
                   </div>
-                </div>
-                <div class="col-md-6 mb-11">
+                </div> -->
+                <!-- <div class="col-md-6 mb-11">
                   <label class="col-form-label">Transporter</label>
                     <ng-select [items]="lsps"
                     bindLabel="lspName"
@@ -62,30 +137,8 @@
                       required.</small>
                   </div>
                   
-                </div>
-                <div class="col-md-6 mb-11">
-                  <label class="col-form-label">From WH/Store</label>
-                  <ng-select [items]="customerLocation" bindLabel="fromLocation" required bindValue="fromLocation" class="noFoundTextColor"
-                    formControlName="fromLocation" placeholder="Select From WH/Store" [searchable]="true" (change)="onSelectOrigin($event, 'fromLocation')"
-                    [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}" notFoundText="TAT not available agaist selected LSP">
-                  </ng-select>
-                  <div *ngIf="docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation']?.touched" class="text-danger">
-                    <small *ngIf="docketForm.controls['fromLocation'].errors?.['required']">From Location is
-                      required.</small>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="col-form-label">To WH/Store</label>
-                  <!-- <input class="form-control" formControlName="toLocation" type="text" required placeholder="Enter To WH/Store"
-                    [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}" /> -->
-                    <ng-select [items]="customerWHStoreLocation" bindLabel="toLocation" required bindValue="toLocation"
-                    formControlName="toLocation" placeholder="To WH/Store" [searchable]="true" (change)="onSelectOrigin($event, 'toLocation')"
-                    [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}"></ng-select>
-                  <div *ngIf="docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation']?.touched" class="text-danger">
-                    <small *ngIf="docketForm.controls['toLocation'].errors?.['required']">To Location is
-                      required.</small>
-                  </div>
-                </div>
+                </div> -->
+               
                 <div class="col-md-6">
                   <label class="col-form-label">Invoice No.</label>
                   <input class="form-control" formControlName="invoiceNo" type="text" required placeholder="Enter Invoice No"
@@ -95,31 +148,7 @@
                       required.</small>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <label class="col-form-label">Quantity</label>
-                  <input class="form-control" formControlName="quantity" type="text" required placeholder="Enter Quantity"
-                    [ngClass]="{ 'border-danger': docketForm.controls['quantity'].invalid && docketForm.controls['quantity'].touched}" />
-                  <div *ngIf="docketForm.controls['quantity'].invalid && docketForm.controls['quantity']?.touched" class="text-danger">
-                    <small *ngIf="docketForm.controls['quantity'].errors?.['required']">Quantity is required.</small>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="col-form-label">Transport Mode</label>
-                    <ng-select [items]="transportMode"
-                    bindLabel="codeDesc"
-                    bindValue="codeId"
-                    formControlName="transportMode"
-                    placeholder="Search transportMode"
-                    [searchable]="true" required
-                    readonly
-                    [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}" 
-                    >
-                    </ng-select>
-                  <div *ngIf="docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode']?.touched" class="text-danger">
-                    <small *ngIf="docketForm.controls['transportMode'].errors?.['required']">transport Mode is
-                      required.</small>
-                  </div>
-                </div>
+          
                 <div class="col-md-6">
                   <label class="col-form-label">Current Status</label>
                   <ng-select [items]="transporter"

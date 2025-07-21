@@ -217,6 +217,11 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`);
   }
 
+  getCityData(searchTerm: string) {
+    return this.apiHandlerService.Get(`Docket/GetCityData?SearchTerm=${searchTerm}`);
+  }
+
+
   // getDestinationToData(filters:any){
   //   return this.apiHandlerService.Get(`Docket/GetDropdowndataTo`,filters);
   // }

@@ -73,3 +73,6 @@ export interface CustomerMapping {
 export interface CheckCustomer{
   message:string;
 }
+export interface CityList{
+  location:string;
+}
