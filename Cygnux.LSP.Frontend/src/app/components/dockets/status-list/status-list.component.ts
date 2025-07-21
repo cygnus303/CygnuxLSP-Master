@@ -85,7 +85,7 @@ export class StatusListComponent {
   }
 
   get isValidData(): boolean {
-    return this.validateDocketStatusList.length > 0 && this.validateDocketStatusList.every(item => item.errorCode === 1);
+    return this.validateDocketStatusList.length > 0 && this.validateDocketStatusList.some(item => item.errorCode === 1);
   }
 
   exportExcel() {
@@ -124,26 +124,28 @@ export class StatusListComponent {
     });
   }
 
-  onSave(){
-    this.commonService.updateLoader(true)
-    this.docketService.updateDocketStatus(this.identityService.getLoggedUserId(), this.validateDocketStatusList).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.files = [];
-          this.validateDocketStatusList = [];
-          this.sweetAlertService.success(response.data.message);
-          this.router.navigateByUrl('docket/list');
-        } else {
-          this.sweetAlertService.error(response.data.message);
-        }
-        this.commonService.updateLoader(false);
-      },
-      error: (response: any) => {
+ onSave() {
+  const validRecords = this.validateDocketStatusList.filter(x => x.errorCode === 1);
+
+  this.commonService.updateLoader(true);
+  this.docketService.updateDocketStatus(this.identityService.getLoggedUserId(), validRecords).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.files = [];
+        this.validateDocketStatusList = [];
+        this.sweetAlertService.success(response.data.message);
+        this.router.navigateByUrl('docket/list');
+      } else {
         this.sweetAlertService.error(response.data.message);
-        this.commonService.updateLoader(false);
-      },
-    });
-  }
+      }
+      this.commonService.updateLoader(false);
+    },
+    error: (response: any) => {
+      this.sweetAlertService.error(response.data.message);
+      this.commonService.updateLoader(false);
+    },
+  });
+}
 
   onReset(){
     this.validateDocketStatusList = [];

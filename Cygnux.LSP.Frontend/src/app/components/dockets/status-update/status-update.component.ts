@@ -81,11 +81,10 @@ filterNextStatus() {
     this.filteredTransporter = [];
     this.statusUpdateForm.patchValue({ nextDocketStatus: null });
   } else {
-    const nextCodeId = (currentId + 1).toString();
-    this.filteredTransporter = this.transporter.filter((item: any) => item.codeId === nextCodeId);
+    this.filteredTransporter = this.transporter.filter((item: any) => Number(item.codeId) > currentId);
 
     if (this.filteredTransporter.length > 0) {
-      this.statusUpdateForm.patchValue({ nextDocketStatus: nextCodeId });
+      this.statusUpdateForm.patchValue({ nextDocketStatus: this.filteredTransporter[0].codeId });
     } else {
       this.statusUpdateForm.patchValue({ nextDocketStatus: null });
     }

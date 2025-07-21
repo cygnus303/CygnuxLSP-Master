@@ -24,7 +24,7 @@
                     <input type="text"
                     class="form-control"
                     #dp="bsDatepicker" formControlName="bookingDate" 
-                    bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}"
+                    bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}" [class.disabled]="true"
                     [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}">
                     
                   <div *ngIf="docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate']?.touched" class="text-danger">

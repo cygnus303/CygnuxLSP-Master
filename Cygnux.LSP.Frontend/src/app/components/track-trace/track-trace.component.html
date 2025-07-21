@@ -94,23 +94,23 @@
                               </div>
                             </div>
                             <div class="progress-container">
-                                <!-- Ordered -->
+                                <!-- Booked -->
                                 <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body"
                                   [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                   [class.active]="['1','2','3','4','5','6'].includes(data.currentStatus)">
                                   <div class="circle"><i data-feather="file-text"></i></div>
-                                  <span class="span">Ordered</span>
+                                  <span class="span">Booked</span>
                                 </div>
                                 
                                 <div class="line" [class.active]="['2','3','4','5','6'].includes(data.currentStatus)">
                                 </div>
 
-                                <!-- Packed -->
+                                <!-- PickUp approval -->
                                 <div class="step cursor-pointer" #popoverRef="bs-popover" [popover]="hourPopover" container="body"
                                   [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                   [class.active]="['3','4','5','6'].includes(data.currentStatus)">
                                   <div class="circle"><i data-feather="package"></i></div>
-                                  <span class="span">Packed</span>
+                                  <span class="span">PickUp Approval</span>
                                 </div>
                                 
                                 <div class="line" [class.active]="['4','5','6'].includes(data.currentStatus)">
@@ -167,7 +167,7 @@
                                           <thead class="table-light">
                                             <tr>
                                               <th>Description</th>
-                                              <th>Entry Date</th>
+                                              <th>Status Date</th>
                                             </tr>
                                           </thead>
                                           <tbody>
