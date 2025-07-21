@@ -113,16 +113,52 @@
                 </div>
               </div>
               <div class="row g-3">
-                <div class="col-md-8">
+                <div class="col-md-4">
                   <label class="col-form-label">Address</label>
-                  <textarea class="form-control" formControlName="address" type="text" required  placeholder="Enter Address"
+                  <textarea class="form-control" formControlName="address" type="text" required placeholder="Enter Address"
                     [ngClass]="{ 'border-danger': customerForm.controls['address'].invalid && customerForm.controls['address'].touched}"></textarea>
-                  <div *ngIf="customerForm.controls['address'].invalid && customerForm.controls['pincode']?.touched" class="text-danger">
+                  <div *ngIf="customerForm.controls['address'].invalid && customerForm.controls['pincode']?.touched"
+                    class="text-danger">
                     <small *ngIf="customerForm.controls['address'].errors?.['required']">Address is required.</small>
                   </div>
                 </div>
+              
+                <div class="col-md-4">
+                  <label class="col-form-label">Logo</label>
+                  <div class="d-flex align-items-center input-group border-found rounded"
+                    [ngClass]="{ 'border-danger': customerForm.controls['logo'].invalid && customerForm.controls['logo'].touched}">
+                    <label class="input-group-text border-0 mb-0">
+                      Choose File
+                      <input id="file" type="file" (change)="onFileChange($event)" accept="image/*" formControlName="file" hidden />
+                    </label>
+                    <span class="ms-2">{{ selectedFileName || 'No file chosen' }}</span>
+                  </div>
+                  <div *ngIf="fileError" class="text-danger">
+                    {{ fileError }}
+                  </div>
+                  <div *ngIf="customerForm.controls['logo'].invalid && customerForm.controls['logo']?.touched" class="text-danger">
+                    <small *ngIf="customerForm.controls['logo'].errors?.['required']">file is required.</small>
+                  </div>
+                  <!-- Image Preview Section -->
+                  <div *ngIf="imagePreview" class="mt-4">
+                    <h6>Logo Preview:</h6>
+                    <img [src]="imagePreview" style="max-width: 100px; max-height: 100px" />
+                  </div>
+                </div>
+              
+                <div class="col-md-4">
+                  <label class="col-form-label">Color Code</label>
+                  <input type="color" class="form-control form-control-color" formControlName="colorCode"
+                    [ngClass]="{'border-danger': customerForm.controls['colorCode'].invalid && customerForm.controls['colorCode'].touched }" />
+                  <div *ngIf="customerForm.controls['colorCode'].invalid && customerForm.controls['colorCode'].touched"
+                    class="text-danger">
+                    <small *ngIf="customerForm.controls['colorCode'].errors?.['required']">Color code is required.</small>
+                  </div>
+                </div>
+
               </div>
             </div>
+
             <div class="tab-pane fade" id="other-info" role="tabpanel" aria-labelledby="other-info-tab">
               <div class="row switch-showcase">
                 <div class="col-md-10 mb-2">

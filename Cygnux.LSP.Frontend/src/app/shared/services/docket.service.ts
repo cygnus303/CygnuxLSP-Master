@@ -221,6 +221,9 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/GetCityData?SearchTerm=${searchTerm}`);
   }
 
+  getStateData(searchTerm: string) {
+    return this.apiHandlerService.Get(`Docket/GetStateData?SearchTerm=${searchTerm}`);
+  }
 
   // getDestinationToData(filters:any){
   //   return this.apiHandlerService.Get(`Docket/GetDropdowndataTo`,filters);

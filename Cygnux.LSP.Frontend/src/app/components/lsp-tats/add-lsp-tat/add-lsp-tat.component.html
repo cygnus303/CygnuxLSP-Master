@@ -47,41 +47,7 @@
                                             is required.</small>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-11">
-                                    <label class="col-form-label">Origin</label>
-                                    <input class="form-control" formControlName="origin" type="text" required placeholder="Enter Origin"
-                                    [ngClass]="{ 'border-danger': lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin'].touched}"/>
-                                    <div *ngIf="lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin']?.touched"
-                                        class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['origin'].errors?.['required']">
-                                            Origin
-                                            is required.</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-11">
-                                    <label class="col-form-label">Destination</label>
-                                    <input class="form-control" formControlName="destination" type="text" required placeholder="Enter Destination"
-                                    [ngClass]="{ 'border-danger': lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination'].touched}"/>
-                                    <div *ngIf="lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination']?.touched"
-                                        class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['destination'].errors?.['required']">
-                                            Destination
-                                            is required.</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-11">
-                                    <label class="col-form-label">Destination State</label>
-                                    <input class="form-control" formControlName="destinationState" type="text" placeholder="Enter Destination State"
-                                        required [ngClass]="{ 'border-danger': lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched}"/>
-                                    <div *ngIf="lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState']?.touched"
-                                        class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['destinationState'].errors?.['required']">
-                                            Destination State
-                                            name
-                                            is required.</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-11">
+                                       <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Priority</label>
                                     <!-- <ng-select [items]="priority"
                                     bindLabel="codeDesc"
@@ -101,6 +67,57 @@
                                             <small *ngIf="lspTatForm.controls['priority'].errors?.['max']">Maximum value is 10.</small>
                                         </div>
                                 </div>
+
+                                <div class="col-md-6 mb-11">
+                                    <label class="col-form-label">Origin</label>
+                                    <ng-select [items]="originCityList" bindLabel="location" bindValue="location" formControlName="origin" placeholder="Enter Origin"
+                                        [loading]="cityLoader['origin']" (search)="getCityData($event, 'origin')"
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin'].touched }">
+                                    </ng-select>
+                                    <div *ngIf="lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin']?.touched" class="text-danger">
+                                        <small *ngIf="lspTatForm.controls['origin'].errors?.['required']">Origin is required.</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">Origin State</label>
+                                    <ng-select [items]="originStateList" bindLabel="stnm" bindValue="stnm" [loading]="stnm['origin']" formControlName="originState"
+                                        placeholder="Enter Origin State"
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['originState'].invalid && lspTatForm.controls['originState'].touched }"
+                                        (search)="onStateSearch($event, 'origin')">
+                                    </ng-select>
+                                    <div *ngIf="lspTatForm.controls['originState'].invalid && lspTatForm.controls['originState'].touched"
+                                        class="text-danger">
+                                        <small>Origin State is required.</small>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-6 mb-11">
+                                    <label class="col-form-label">Destination</label>
+                                    <ng-select [items]="destinationCityList" bindLabel="location" bindValue="location" formControlName="destination"
+                                        placeholder="Enter Destination" [loading]="cityLoader['destination']"
+                                        (search)="getCityData($event, 'destination')"
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination'].touched }">
+                                    </ng-select>
+                                    <div *ngIf="lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination']?.touched"
+                                        class="text-danger">
+                                        <small *ngIf="lspTatForm.controls['destination'].errors?.['required']">Destination is required.</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">Destination State</label>
+                                    <ng-select [items]="destinationStateList" bindLabel="stnm" bindValue="stnm" [loading]="stnm['destination']"
+                                        formControlName="destinationState" placeholder="Enter Destination State"
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched }"
+                                        (search)="onStateSearch($event, 'destination')">
+                                    </ng-select>
+                                    <div *ngIf="lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched"
+                                        class="text-danger">
+                                        <small>Destination State is required.</small>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Booking Type</label>
                                     <input class="form-control" formControlName="bookingType" type="text" required placeholder="Enter Booking Type"

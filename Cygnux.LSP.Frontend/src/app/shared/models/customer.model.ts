@@ -76,3 +76,8 @@ export interface CheckCustomer{
 export interface CityList{
   location:string;
 }
+
+export interface StateList{
+  stnm:string;
+}
+

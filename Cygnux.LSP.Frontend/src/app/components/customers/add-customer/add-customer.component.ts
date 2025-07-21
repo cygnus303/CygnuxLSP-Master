@@ -21,6 +21,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   public customerId: string = '';
   public userId: string | null = null;
   public isLoading = false;
+  public selectedFile: File | null = null;
+  public fileError: string | null = null;
+  public imagePreview: string | null = null; 
+  public selectedFileName :string = '';
   @Input() customerResponse: CustomerResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -65,7 +69,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       mobileNo: new FormControl('', [Validators.required, Validators.pattern(MobileRegex)]),
       roles: new FormControl('customer Admin'),
       customerCode: new FormControl(''),
-      userType: new FormControl('C')
+      userType: new FormControl('C'),
+      logo: new FormControl('',[Validators.required]),
+      file:new FormControl(null),
+      colorCode: new FormControl('#000000', Validators.required),
     });
   }
 
@@ -110,6 +117,34 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     }
   }
 
+    onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+      if (validImageTypes.includes(file.type)) {
+        this.selectedFile = file;
+        debugger
+        this.fileError = null;
+        this.selectedFileName = file.name
+        this.customerForm.get('logo')?.setValue(file.name);
+
+        this.customerForm.get('file')?.markAsTouched();
+  
+        // Preview the image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreview = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.fileError = 'Please upload a valid image file (JPEG, PNG, or GIF).';
+        this.selectedFile = null;
+        this.imagePreview = null;
+        this.customerForm.patchValue({ file: null });
+      }
+    }
+  }
+
   addUserAndCustomer(form: FormGroup): void {
     if (form.valid) {
       const { accountsHead, accountsHeadMobileNo, consolidatedGSTNo, country,
@@ -123,7 +158,8 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           if (userResponse.success) {
             this.userId = userResponse.data.id;
             this.sendUsermail(userResponse.data.id)
-            const formValues = { ...form.getRawValue(), u_Id: this.userId };
+            debugger
+            const formValues = { ...form.getRawValue(), u_Id: this.userId ,file:this.selectedFile};
             const { roles, ...customerPayload } = formValues;
             const currentUserId = this.identityService.getLoggedUserId();
             customerPayload.userId = currentUserId
