@@ -40,7 +40,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCustomer(string CustomerJson, IFormFile? imageFile)
+    public async Task<IActionResult> AddCustomer([FromForm] string CustomerJson, IFormFile? imageFile)
     {
         var createCustomerDto = JsonConvert.DeserializeObject<CreateCustomerRequest>(CustomerJson);
         // Validate image (optional)
