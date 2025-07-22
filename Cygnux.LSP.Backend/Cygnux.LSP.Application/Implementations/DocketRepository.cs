@@ -70,6 +70,12 @@ internal class DocketRepository : IDocketRepository
 
         return new BaseResponse<IEnumerable<TrackingList>>(response);
     }
+    public async Task<BaseResponse<IEnumerable<TrackingList>>> TransportmodeList(string codetype,Guid CustomerId)
+    {
+        var response = await _docketService.TransportmodeList(codetype,CustomerId);
+
+        return new BaseResponse<IEnumerable<TrackingList>>(response);
+    }
     public async Task<BaseResponse<IEnumerable<DocList>>> GetDocketData(string docketno)
     {
         var response = await _docketService.GetDocketData(docketno);

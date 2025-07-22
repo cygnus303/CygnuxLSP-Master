@@ -101,7 +101,18 @@ internal class DocketService : IDocketService
          commandType: CommandType.StoredProcedure
         );
     }
+    public async Task<IEnumerable<TrackingList>> TransportmodeList(string codetype,Guid CustomerId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CodeType", codetype, DbType.String);
+        parameters.Add("@UserId", CustomerId, DbType.String);
 
+        return await _dbConnection.QueryAsync<TrackingList>(
+         StoredProcedureConstants.USP_TranportModeData,
+         parameters,
+         commandType: CommandType.StoredProcedure
+        );
+    }
     public async Task<IEnumerable<DocList>> GetDocketData(string docketno)
     {
         var parameters = new DynamicParameters();

@@ -21,6 +21,8 @@ public class LspDetailResponse
     public string Address { get; set; } = string.Empty;
     public DateTime EntryDate { get; set; }
     public int? TotalCount { get; set; }
+    public string ColorCode { get; set; } = string.Empty;
+    public string LogoLink { get; set; }
 }
 
 public class DownloadLsp
@@ -63,4 +65,10 @@ public class DownloadLsp
 
     [JsonPropertyName("Api Password")]
     public string ApiPassword { get; set; } = string.Empty;
+
+    [JsonPropertyName("ColorCode")]
+    public string ColorCode { get; set; } = string.Empty;
+
+    [JsonPropertyName("LogoLink")]
+    public string LogoLink { get; set; } = string.Empty;
 }

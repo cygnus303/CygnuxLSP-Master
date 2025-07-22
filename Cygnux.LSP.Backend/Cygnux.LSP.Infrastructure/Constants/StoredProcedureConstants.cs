@@ -31,6 +31,7 @@ public static class StoredProcedureConstants
     public const string USP_GetDocketDetail = "USP_GetDocketDetail";
     public const string Usp_ImportDocket = "Usp_ImportDocket";
     public const string USP_TrackingList = "USP_MasterGeneralData";
+    public const string USP_TranportModeData = "USP_TranportModeData";
     public const string USP_FetchDockData = "USP_FetchDockData";
     public const string Usp_RoleMenuPermission = "Usp_RoleMenuPermission";
     public const string Usp_GetMenuPermission = "Usp_GetMenuPermission";
