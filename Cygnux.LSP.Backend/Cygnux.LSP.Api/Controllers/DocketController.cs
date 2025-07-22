@@ -52,10 +52,17 @@ public class DocketController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetCityData")]
-    public async Task<IActionResult> GetCityData(string SearchTerm)
+    [Route("GetCityData_Docket")]
+    public async Task<IActionResult> GetCityData_Docket(string SearchTerm)
     {
-        return Ok(await _docketRepository.GetCityData(SearchTerm));
+        return Ok(await _docketRepository.GetCityData_Docket(SearchTerm));
+    }
+
+    [HttpGet]
+    [Route("GetCityData")]
+    public async Task<IActionResult> GetCityData(string stcd)
+    {
+        return Ok(await _docketRepository.GetCityData(stcd));
     }
 
     [HttpGet]

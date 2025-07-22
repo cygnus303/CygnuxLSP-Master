@@ -29,6 +29,7 @@
 
     public class State_Master
     {
+        public string stcd { get; set; }
         public string stnm { get; set; }
     }
 }

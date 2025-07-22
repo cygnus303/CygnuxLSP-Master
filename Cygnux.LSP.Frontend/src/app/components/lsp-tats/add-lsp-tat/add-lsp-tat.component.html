@@ -12,7 +12,7 @@
                         <div class="tab-pane fade active show" id="basic-info" role="tabpanel"
                             aria-labelledby="basic-info-tab">
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-6"*ngIf="!userRoles.includes('Customer Admin')">
                                     <label class="col-form-label">Customer Name</label>
                                     <ng-select [items]="customers" bindLabel="customerName" bindValue="customerId"  (change)="getLsps($event.customerId)" class="noFoundTextColor"
                                         formControlName="customerId" placeholder="Select Customer" [readonly]="lspTatId ? true : false" (change)="getCustomers($event)"
