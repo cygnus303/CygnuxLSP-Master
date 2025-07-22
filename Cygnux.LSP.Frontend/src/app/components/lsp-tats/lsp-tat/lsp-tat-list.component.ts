@@ -34,6 +34,7 @@ export class LspTatListComponent implements OnInit {
   public loading: boolean = false;
   public hoveredRow: number | null = null;
   public isDownloading = false;
+  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
   public lspTatCount: CountResponse[] = [];

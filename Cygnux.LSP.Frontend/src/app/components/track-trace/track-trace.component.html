@@ -99,7 +99,8 @@
                                   [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                   [class.active]="['1','2','3','4','5','6'].includes(data.currentStatus)">
                                   <div class="circle"><i data-feather="file-text"></i></div>
-                                  <span class="span">Booked</span>
+                                  <span class="span single-line">Booked</span>
+                                   <span class="span single-line">{{data.bookingDate | date: 'dd-MM-yyyy'}}</span>
                                 </div>
                                 
                                 <div class="line" [class.active]="['2','3','4','5','6'].includes(data.currentStatus)">
@@ -110,7 +111,8 @@
                                   [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                   [class.active]="['3','4','5','6'].includes(data.currentStatus)">
                                   <div class="circle"><i data-feather="package"></i></div>
-                                  <span class="span">PickUp Approval</span>
+                                  <span class="span single-line">PickUp Approval</span>
+                                   <span class="span single-line">{{data.bookingDate | date: 'dd-MM-yyyy'}}</span>
                                 </div>
                                 
                                 <div class="line" [class.active]="['4','5','6'].includes(data.currentStatus)">
@@ -122,7 +124,8 @@
                                     placement="bottom" [popoverTitle]="'Description'"
                                     [class.active]="['4','5','6'].includes(data.currentStatus)">
                                     <div class="circle"><i data-feather="truck"></i></div>
-                                    <span class="span">In Transit</span>
+                                    <span class="span single-line">In Transit</span>
+                                     <span class="span single-line">{{data.bookingDate | date: 'dd-MM-yyyy'}}</span>
                                 </div>
 
                                 <div class="line" [class.active]="['5','6'].includes(data.currentStatus)">
@@ -134,7 +137,8 @@
                                     placement="bottom" [popoverTitle]="'Description'"
                                     [class.active]="data.currentStatus === '6'">
                                     <div class="circle"><i data-feather="home"></i></div>
-                                    <span class="span">Delivered</span>
+                                    <span class="span single-line">Delivered</span>
+                                     <span class="span single-line">{{data.bookingDate | date: 'dd-MM-yyyy'}}</span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end cursor-pointer mt-3">
@@ -162,7 +166,7 @@
                                         </tbody>
                                       </table>
                                       <div *ngIf="data.statusHistoryJson.length" class="m-3 p-3 rounded" style="background-color: white;">
-                                        <h6 class="fw-bold">Status History</h6>
+                                        <h6 class="fw-bold"> <i class="fas fa-history me-2"></i> Status History</h6>
                                         <table class="table table-bordered table-sm mb-0">
                                           <thead class="table-light">
                                             <tr>
