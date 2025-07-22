@@ -2,7 +2,6 @@
 
 using Constants;
 using Contracts;
-using Cygnux.LSP.Infrastructure.Models.Response.Lsp;
 using Dapper;
 using Models.Response;
 using Models.Response.LspMapping;
@@ -275,4 +274,16 @@ internal class CustomerLspService : ICustomerLspService
         );
     }
 
+    public async Task<IEnumerable<CustomerLspTatSpResponse>> InsertLspTatData(string bulkLspJson, Guid entryBy)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@CustomerLspTatJson", bulkLspJson, DbType.String);
+        parameters.Add("@EntryBy", entryBy, DbType.String);
+
+        return await _dbConnection.QueryAsync<CustomerLspTatSpResponse>(
+                    StoredProcedureConstants.Usp_BulkCustomerLspTat,
+                    param: parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+    }
 }

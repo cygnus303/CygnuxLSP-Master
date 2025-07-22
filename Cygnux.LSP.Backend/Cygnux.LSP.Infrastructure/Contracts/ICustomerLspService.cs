@@ -35,5 +35,5 @@ public interface ICustomerLspService
     Task<IEnumerable<LspTatDownloadResponse>> DownloadLspTat(Guid userId);
     Task<IEnumerable<DownloadLspMappingResponse>> DownloadLspMapping(Guid userId);
     Task<IEnumerable<LspTatValidationResult>> GetTATdata(string BulkLsp);
-
+    Task<IEnumerable<CustomerLspTatSpResponse>> InsertLspTatData(string v, Guid entryBy);
 }

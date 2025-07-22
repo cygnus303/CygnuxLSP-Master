@@ -62,4 +62,26 @@ public class LspTatValidationResult
     public int ErrorCode { get; set; }
 }
 
+public class CustomerLspTatRequest
+{
+    public Guid? Id { get; set; }
+    public Guid CustomerId { get; set; }
+    public Guid LspId { get; set; }
+    public string Product { get; set; }
+    public string Origin { get; set; }
+    public string Destination { get; set; }
+    public string DestinationState { get; set; }
+    public string Mode { get; set; }
+    public string Tat { get; set; }
+    public string Priority { get; set; }
+    public string BookingType { get; set; }
+    public bool IsActive { get; set; }
+}
+
+public class CustomerLspTatSpResponse
+{
+    public int Status { get; set; }       // 1 = Success, 0 = Failure
+    public string Message { get; set; }   // Message from the stored procedure
+}
+
 

@@ -6,6 +6,8 @@ using Application.Models.Request.LspMapping;
 using ClosedXML.Excel;
 using Cygnux.LSP.Api.Helpers;
 using Cygnux.LSP.Api.Hubs;
+using Cygnux.LSP.Infrastructure.Models.Response.Docket;
+using Cygnux.LSP.Infrastructure.Models.Response.LspMapping;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -195,6 +197,19 @@ public class CustomerLspController : ControllerBase
             return Ok(await _customerLspRepository.GetTATdata(data));
         }
         return Ok();
+    }
+
+    [HttpPost]
+    [Route("InsertExcelUplaodLaspTatData")]
+    public async Task<IActionResult> InsertDocketData(List<CustomerLspTatRequest> lsptatlist, Guid entryBy)
+    {
+        var result = await _customerLspRepository.InsertLspTatData(lsptatlist, entryBy);
+
+        // ✅ Trigger SignalR event after success
+        await _hubContext.Clients.All.SendAsync("LspTatUpdate", "LspTat Imported via Excel");
+
+        return Ok(result);
+
     }
 
     [HttpGet]
