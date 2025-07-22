@@ -116,7 +116,7 @@ internal class DocketService : IDocketService
     {
         var parameters = new DynamicParameters();
         parameters.Add("@CodeType", codetype, DbType.String);
-        parameters.Add("@UserId", CustomerId, DbType.String);
+        parameters.Add("@UserId", CustomerId.ToString(), DbType.String);
 
         return await _dbConnection.QueryAsync<TrackingList>(
          StoredProcedureConstants.USP_TranportModeData,
