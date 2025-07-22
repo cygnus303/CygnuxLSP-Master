@@ -19,7 +19,7 @@ export class TrackTraceService {
     //     return this.apiHandlerService.Get(`Tracking/GetTrackigList?docketNOs=${id}&userid=${userid}`);
     //   }
 
-  GetTrackigList(id: string | null,userid: string, fromDate: string | null = null,toDate: string | null = null,skip: number = 0,take: number = 9): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
+  GetTrackigList(id: string | null,userid: any, fromDate: string | null = null,toDate: string | null = null,skip: number = 0,take: number = 9): Observable<IApiBaseResponse<TrackTraceResponse[]>> {
     const params = new URLSearchParams();
     params.set('docketNOs', id ?? '');
     params.set('userid', userid);

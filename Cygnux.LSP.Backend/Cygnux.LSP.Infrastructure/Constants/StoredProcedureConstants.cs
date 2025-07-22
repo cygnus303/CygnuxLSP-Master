@@ -86,6 +86,7 @@ public static class StoredProcedureConstants
     public const string Usp_CustomerCount = "Usp_CustomerCount";
     public const string Usp_LspCount = "Usp_LspCount";
 
+    public const string USP_GetCity_Docket = "USP_GetCity_Docket";
     public const string USP_GetCity = "USP_GetCity";
     public const string USP_GetState = "USP_GetState";
 

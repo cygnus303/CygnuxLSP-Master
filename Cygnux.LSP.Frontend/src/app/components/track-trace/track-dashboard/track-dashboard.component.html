@@ -12,8 +12,7 @@
               (bsValueChange)="onDateRangeSelected($event)" [bsConfig]="{ rangeInputFormat: 'DD.MM.YYYY', dateInputFormat: 'DD.MM.YYYY', ranges: trackTraceService.ranges,containerClass: 'theme-dark-blue'}" />
           </div>
         </div>
-
-        <div class="form-group mb-0 col-4">
+        <div class="form-group mb-0 col-4"  *ngIf="userRoles.toLowerCase().includes('sa')">
           <div class="input-group shadow-sm rounded">
             <span class="input-group-text bg-white border-end-0 border-start-1">
               <i class="fa fa-user text-secondary"></i>
