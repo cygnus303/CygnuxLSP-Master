@@ -40,6 +40,14 @@ internal class DocketRepository : IDocketRepository
         return new BaseResponse<DocketDetailResponse?>(response);
     }
 
+    public async Task<BaseResponse<IEnumerable<City_Master>>> GetCityData_Docket(string SearchTerm)
+    {
+        
+        var response = await _docketService.GetCityData_Docket(SearchTerm);
+
+        return new BaseResponse<IEnumerable<City_Master>>(response);
+    }
+    
     public async Task<BaseResponse<IEnumerable<City_Master>>> GetCityData(string stcd)
     {
         
