@@ -49,7 +49,7 @@ export class TrackTraceComponent {
   placeholderArray = Array(9);
   public newlyLoading = false;
   hasMoreData: boolean = true;
-  public selectedUserId: string = '';
+  selectedUserId = null;
 
 
   constructor(

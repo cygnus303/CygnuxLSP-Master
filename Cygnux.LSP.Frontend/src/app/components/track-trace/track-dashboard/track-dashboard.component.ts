@@ -53,8 +53,8 @@ export class TrackDashboardComponent {
   public searchText: string = '';
   public donutChartOptions: any;
   public users:any;
-  public selectedUserId= null;
-public filteredUsers: any[] = [];
+  selectedUserId = null;
+  public filteredUsers: any[] = [];
 
   dashboardMeta = [
     { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
@@ -300,7 +300,7 @@ getUsers(page: number = 1) {
         // Prepare filteredUsers for dropdown
         this.filteredUsers = this.users.map((user: any) => ({
           id: user.id,
-          displayName: user.customerName?.trim() ? user.customerName : user.firstName
+          displayName: `${user.customerName?.trim() ? user.customerName : user.firstName} (${user.userType})`
         }));
       }
       this.commonService.updateLoader(false);
