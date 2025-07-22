@@ -10,6 +10,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
 import { SearchListPipe } from "../../shared/Pipe/search-list.pipe";
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [TrackTraceComponent,TrackDashboardComponent],
@@ -21,7 +22,8 @@ import { SearchListPipe } from "../../shared/Pipe/search-list.pipe";
     NgApexchartsModule,
     BsDatepickerModule.forRoot(),
     CountUpDirective,
-    SearchListPipe
+    SearchListPipe,
+    NgSelectModule
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

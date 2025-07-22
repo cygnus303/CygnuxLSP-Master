@@ -1,111 +1,113 @@
    
 <div [ngClass]="!isContentVisible ? 'fade-in' : 'slide-out'">
-<div class="container-fluid">
-<div class="row mb-3 align-items-center">
-  <div class="col-12 col-md-2 col-lg-2 col-xxl-1">
-    <label class="col-form-label mb-2 mb-md-0">Date Range</label>
-  </div>
-  <div class="col-12 col-md-10 col-lg-5 col-xxl-5">
-    <div class="form-group mb-0">
-      <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [(ngModel)]="dateRange"
-        (bsValueChange)="onDateRangeSelected($event)" [bsConfig]="{
-          rangeInputFormat: 'DD.MM.YYYY',
-          dateInputFormat: 'DD.MM.YYYY',
-          ranges: trackTraceService.ranges
-        }" />
-    </div>
-  </div>
-</div>
-<div>
-  <label>Users:</label>
-  <select class="form-select" [(ngModel)]="selectedUserId" (change)="onUserChange()">
-    <option value="">Select User</option>
-    <option *ngFor="let user of filteredUsers" [value]="user.id">
-      {{ user.displayName }}
-    </option>
-  </select>
-</div>
-
-
-
-  <div class="row">
-      <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2" *ngFor="let data of docketCount">
-      <div class="dashboard-2">
-        <div class="card o-hidden ">
-        <div class="card-header pb-0 cursor-pointer" >
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="square-after f-w-600 single-line " [ngClass]="data.headerColor" title="{{data.name}}">{{data.name}}<i class="fa fa-circle"> </i></p>
-               <h4 [appCountUp]="data.count">{{data.count}}</h4>
-            </div>                                                                                                                             
-          <div class="d-flex static-widget">
-            <i class="fas" [ngClass]="[data.icon, 'color-' + data.color]" style="font-size: 25px;"></i>
-          </div>
+  <div class="card ">
+    <div class="container-fluid p-4">
+      <div class="row mb-4">
+        <div class="form-group mb-0 col-2">
+          <div class="input-group shadow-sm rounded">
+            <span class="input-group-text bg-white border-end-0 p-2">
+              <i class="fa fa-calendar-alt text-secondary"></i>
+            </span>
+            <input type="text" class="form-control border-start-0 line-height" bsDaterangepicker [(ngModel)]="dateRange"
+              (bsValueChange)="onDateRangeSelected($event)" [bsConfig]="{ rangeInputFormat: 'DD.MM.YYYY', dateInputFormat: 'DD.MM.YYYY', ranges: trackTraceService.ranges,containerClass: 'theme-dark-blue'}" />
           </div>
         </div>
-        <div class="card-body pt-0">
-          <div class="progress-widget">
-            <div class="progress sm-progress-bar progress-animate">
-              <div  [ngClass]="[data.progress]" role="progressbar" style="width: 75%" aria-valuenow="75"
-                aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
-            </div>
+
+        <div class="form-group mb-0 col-4">
+          <div class="input-group shadow-sm rounded">
+            <span class="input-group-text bg-white border-end-0 border-start-1">
+              <i class="fa fa-user text-secondary"></i>
+            </span>
+            <ng-select [items]="filteredUsers" bindLabel="displayName" bindValue="id" [(ngModel)]="selectedUserId"
+              [ngModelOptions]="{ standalone: true }" (ngModelChange)="onUserChange()" placeholder="Select User"
+              class="form-control border-start-1 line-height p-0 border-remover p-1">
+            </ng-select>
           </div>
         </div>
       </div>
-      </div>
-    </div>
 
-    <div class="row pe-0">
-      <div class="col-lg-9 col-md-12 box-col-7">
-        <div class="card o-hidden p-3">
-          <div class="row d-flex">
-            <div class="col-1">
-              <label class="col-form-label">Search</label>
-            </div>
-            <div class="col-5">
-              <div>
-                <input type="text"  [(ngModel)]="searchText" placeholder="Search Here..." class="form-control">
-              </div>
-            </div>
-          </div>
-              <div class="pl-border-radius-10 overflow-hidden">
-                <div class="table-responsive mt-3" style="height: 465px;">
-                  <div class="layout-table" *ngIf="dockets?.length; else noTableData">
-                    <table class="w-100" [ngClass]="!dockets || !dockets.length ? 'h-100' : ''">
-                      <thead class="sticky-top">
-                        <tr>
-                          <th class="w-15 ps-3">Docket Name</th>
-                          <th class="w-15" *ngIf="!userRoles.toLowerCase().includes('lsp admin')">Transporter</th>
-                          <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')">Customer Name</th>
-                          <th class="w-15">From WH/Store</th>
-                          <th class="w-15">To WH/Store</th>
-                          <th class="w-10">Current Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let docket of dockets  | searchList: searchText; let i = index">
-                          <td class="w-15 ps-3">{{ docket.docketNo }}</td>
-                          <td class="w-15" *ngIf="!userRoles.toLowerCase().includes('lsp admin')">{{ docket.transporterDesc }}</td>
-                          <td class="w-15" *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
-                          <td class="w-15">{{ docket.fromLocation }}</td>
-                          <td class="w-15">{{ docket.toLocation }}</td>
-                          <td class="w-10">{{ docket.currentStatusDesc }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2" *ngFor="let data of docketCount">
+          <div class="dashboard-2">
+            <div class="card o-hidden box-shadow">
+              <div class="card-header pb-0 cursor-pointer">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <p class="square-after f-w-600 single-line " [ngClass]="data.headerColor" title="{{data.name}}">
+                      {{data.name}}<i class="fa fa-circle"> </i></p>
+                    <h4 [appCountUp]="data.count">{{data.count}}</h4>
+                  </div>
+                  <div class="d-flex static-widget">
+                    <i class="fas" [ngClass]="[data.icon, 'color-' + data.color]" style="font-size: 25px;"></i>
                   </div>
                 </div>
-                  <ng-template #noTableData>
-                    <div class="d-flex justify-content-center align-items-center h-100 text-muted rounded">
-                      <img src="/assets/images/NoRecordFound.png" alt="">
-                    </div>
-                  </ng-template>
               </div>
+              <div class="card-body pt-0">
+                <div class="progress-widget">
+                  <div class="progress sm-progress-bar progress-animate">
+                    <div [ngClass]="[data.progress]" role="progressbar" style="width: 75%" aria-valuenow="75"
+                      aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
-      <div class="col-lg-3 col-md-12 box-col-5 pe-0">
-          <div class="container-fluid dashboard-2">
-            <div class="card sell-card cursor-pointer" (click)="slideContentInAndNavigate()">
+      <div class="row pe-0">
+        <div class="col-lg-9 col-md-12">
+          <div class="card o-hidden p-3 box-shadow">
+            <div class="row d-flex">
+              <div class="col-1">
+                <label class="col-form-label">Search</label>
+              </div>
+              <div class="col-5">
+                <div>
+                  <input type="text" [(ngModel)]="searchText" placeholder="Search Here..." class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="pl-border-radius-10 overflow-hidden">
+              <div class="table-responsive mt-3" style="height: 465px;">
+                <div class="layout-table" *ngIf="dockets?.length; else noTableData">
+                  <table class="w-100" [ngClass]="!dockets || !dockets.length ? 'h-100' : ''">
+                    <thead class="sticky-top">
+                      <tr>
+                        <th class="w-15 ps-3">Docket Name</th>
+                        <th class="w-15" *ngIf="!userRoles.toLowerCase().includes('lsp admin')">Transporter</th>
+                        <th class="w-15" *ngIf="!userRoles.includes('Customer Admin')">Customer Name</th>
+                        <th class="w-15">From WH/Store</th>
+                        <th class="w-15">To WH/Store</th>
+                        <th class="w-10">Current Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let docket of dockets  | searchList: searchText; let i = index">
+                        <td class="w-15 ps-3">{{ docket.docketNo }}</td>
+                        <td class="w-15" *ngIf="!userRoles.toLowerCase().includes('lsp admin')">{{
+                          docket.transporterDesc }}
+                        </td>
+                        <td class="w-15" *ngIf="!userRoles.includes('Customer Admin')">{{ docket.customerName }}</td>
+                        <td class="w-15">{{ docket.fromLocation }}</td>
+                        <td class="w-15">{{ docket.toLocation }}</td>
+                        <td class="w-10">{{ docket.currentStatusDesc }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <ng-template #noTableData>
+                <div class="d-flex justify-content-center align-items-center h-100 text-muted rounded">
+                  <img src="/assets/images/NoRecordFound.png" alt="">
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 ">
+          <div class="container-fluid dashboard-2 p-0">
+            <div class="card sell-card cursor-pointer box-shadow" (click)="slideContentInAndNavigate()">
               <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                   <div class="flex-grow-1">
@@ -129,31 +131,34 @@
               </div>
             </div>
           </div>
-        <div class="card o-hidden">
-          <div class="bar-chart-widget rounded shadow-sm overflow-hidden">
-            <div class="card-header pb-0">
-              <div class="d-flex">
-                <div class="flex-grow-1">
-                  <h4>Transport Mode</h4>
+          <div class="card o-hidden box-shadow">
+            <div class="bar-chart-widget rounded shadow-sm overflow-hidden">
+              <div class="card-header pb-0">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <h4>Transport Mode</h4>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="bottom-content card-body d-flex flex-column justify-content-between" style="min-height: 290px;">
-              <div class="row flex-grow-1">
-                <div class="col-12">
-                  <div id="donutChart" *ngIf="donutChartOptions?.series?.length; else noChartData">
-                    <apx-chart [series]="donutChartOptions.series" [chart]="donutChartOptions.chart"
-                      [labels]="donutChartOptions.labels" [colors]="donutChartOptions.colors"
-                      [legend]="donutChartOptions.legend" [dataLabels]="donutChartOptions.dataLabels"
-                      [stroke]="donutChartOptions.stroke" [tooltip]="donutChartOptions.tooltip"
-                      [responsive]="donutChartOptions.responsive">
-                    </apx-chart>
+              <div class="bottom-content card-body d-flex flex-column justify-content-between"
+                style="min-height: 290px;">
+                <div class="row flex-grow-1">
+                  <div class="col-12">
+                    <div id="donutChart" *ngIf="donutChartOptions?.series?.length; else noChartData">
+                      <apx-chart [series]="donutChartOptions.series" [chart]="donutChartOptions.chart"
+                        [labels]="donutChartOptions.labels" [colors]="donutChartOptions.colors"
+                        [legend]="donutChartOptions.legend" [dataLabels]="donutChartOptions.dataLabels"
+                        [stroke]="donutChartOptions.stroke" [tooltip]="donutChartOptions.tooltip"
+                        [responsive]="donutChartOptions.responsive">
+                      </apx-chart>
+                    </div>
+                    <ng-template #noChartData>
+                      <div class="d-flex justify-content-center align-items-center text-muted rounded">
+                        <img src="/assets/images/TransportChart.png" alt="No Transport Data"
+                          style="max-width: 72%; height: 100%;" />
+                      </div>
+                    </ng-template>
                   </div>
-                <ng-template #noChartData>
-                  <div class="d-flex justify-content-center align-items-center text-muted rounded">
-                    <img src="/assets/images/TransportChart.png" alt="No Transport Data" style="max-width: 72%; height: 100%;" />
-                  </div>
-                </ng-template>
                 </div>
               </div>
             </div>
@@ -161,36 +166,35 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-lg-12 col-md-12 box-col-5 pe-0">
-        <div class="card o-hidden">
-          <div class="card-header pb-0">
-            <div class="d-flex">
-              <div class="flex-grow-1">
-                <h4>Marketing Expenses</h4>
-              </div>
-            </div>
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col-lg-12 col-md-12 box-col-5 pe-0">
+    <div class="card o-hidden">
+      <div class="card-header pb-0">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h4>Marketing Expenses</h4>
           </div>
-          <div class="bar-chart-widget">
-            <div class="bottom-content card-body p-2">
-              <div class="row">
-                <div class="col-12">
-                  <div id="chart">
-                    <div *ngIf="chartOptions?.series">
-                      <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
-                        [yaxis]="chartOptions.yaxis!" [dataLabels]="chartOptions.dataLabels!"
-                        [plotOptions]="chartOptions.plotOptions!" [fill]="chartOptions.fill!"
-                        [tooltip]="chartOptions.tooltip!" [stroke]="chartOptions.stroke!"
-                        [legend]="chartOptions.legend!"></apx-chart>
-                    </div>
-                  </div>
+        </div>
+      </div>
+      <div class="bar-chart-widget">
+        <div class="bottom-content card-body p-2">
+          <div class="row">
+            <div class="col-12">
+              <div id="chart">
+                <div *ngIf="chartOptions?.series">
+                  <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
+                    [yaxis]="chartOptions.yaxis!" [dataLabels]="chartOptions.dataLabels!"
+                    [plotOptions]="chartOptions.plotOptions!" [fill]="chartOptions.fill!"
+                    [tooltip]="chartOptions.tooltip!" [stroke]="chartOptions.stroke!"
+                    [legend]="chartOptions.legend!"></apx-chart>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
-</div>
-</div>
+</div> -->

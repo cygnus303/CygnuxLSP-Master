@@ -40,3 +40,11 @@
   from { transform: translateX(0); }
   to { transform: translateX(100%);  }
 }
+::ng-deep.border-remover {
+  .ng-select-container{
+    border: none !important;
+  }
+}
+.box-shadow{
+    box-shadow: 0 0 11px rgb(0 0 0 / 16%) !important;
+  }

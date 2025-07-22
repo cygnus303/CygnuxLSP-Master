@@ -53,6 +53,8 @@ export class TrackDashboardComponent {
   public searchText: string = '';
   public donutChartOptions: any;
   public users:any;
+  public selectedUserId= null;
+public filteredUsers: any[] = [];
 
   dashboardMeta = [
     { name: 'Booked', color: 'red', icon: 'fa-solid fa-book', progress: "progress-gradient-danger", headerColor: 'header-text-danger' },
@@ -283,8 +285,7 @@ slideContentInAndNavigate() {
     });
   }
 
-public selectedUserId: string = '';
-public filteredUsers: any[] = [];
+
 
 getUsers(page: number = 1) {
   this.commonService.updateLoader(true);
