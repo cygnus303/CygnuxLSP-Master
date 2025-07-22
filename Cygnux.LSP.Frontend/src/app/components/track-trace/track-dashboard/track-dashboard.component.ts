@@ -16,7 +16,7 @@ import { TrackTraceService } from "../../../shared/services/track-trace.service"
 import { IdentityService } from "../../../shared/services/identity.service";
 import { SweetAlertService } from "../../../shared/services/toastr.service";
 import { DocketCountResponse } from "../../../shared/models/trackTrace.model";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DocketService } from "../../../shared/services/docket.service";
 import { ToastrService } from "ngx-toastr";
 import { DocketResponse } from "../../../shared/models/docket.model";
@@ -72,8 +72,8 @@ export class TrackDashboardComponent {
     private toasterService: ToastrService,
     private router: Router,
     private signalRService: SignalRService,
-    private userService:UserService
-
+    private userService:UserService,
+    private route:ActivatedRoute
   ) {
     this.commonService.activeNavigationUrl.next('Track Trace');
     this.chartOptions = {
@@ -128,16 +128,19 @@ export class TrackDashboardComponent {
   }
 
   ngOnInit() {
-    this.getDockets();
     const fromDate = this.formatDate(this.dateRange[0]);
-  const toDate = this.formatDate(this.dateRange[1]);
+    const toDate = this.formatDate(this.dateRange[1]);
     this.signalRService.startConnection().then(() => {
       this.signalRService.on('DocketUpdated', (message) => {
         this.getDockets(); // Reload dockets
           this.getDocketCount(fromDate, toDate);
-      this.getTransportModeCount(fromDate, toDate);
+          this.getTransportModeCount(fromDate, toDate);
     });
   });
+  this.route.queryParams.subscribe(params => {
+    this.selectedUserId = params['userId'] || this.identityService.getLoggedUserId();
+  });
+  this.getDockets();
   this.getUsers()
   }
 
