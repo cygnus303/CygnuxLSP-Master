@@ -7,6 +7,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { CommonService } from '../../../shared/services/common.service';
 import { ValidateDocketStatusList } from '../../../shared/models/docket.model';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-status-list',
@@ -53,30 +54,77 @@ export class StatusListComponent {
     });
   }
 
-  onChangeFile(event: any) {
-    this.validateDocketStatusList = [];
-    const file = event.addedFiles[0];
-    if (file) {
-      const validExcelTypes = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.ms-excel',
-        'text/csv',
-      ];
+  // onChangeFile(event: any) {
+  //   this.validateDocketStatusList = [];
+  //   const file = event.addedFiles[0];
+  //   if (file) {
+  //     const validExcelTypes = [
+  //       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  //       'application/vnd.ms-excel',
+  //       'text/csv',
+  //     ];
 
-      const fileName = file.name.toLowerCase();
-      const isValidType = validExcelTypes.includes(file.type);
-      const isValidName = fileName.startsWith('docketstatusupload');
+  //     const fileName = file.name.toLowerCase();
+  //     const isValidType = validExcelTypes.includes(file.type);
+  //     const isValidName = fileName.startsWith('docketstatusupload');
 
-      if (isValidType && isValidName) {
-        this.files = [file];
-        this.selectedFile = file;
-      } else {
-        this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketStatusUpload".');
-        this.files = [];
-        this.selectedFile = null;
-      }
+  //     if (isValidType && isValidName) {
+  //       this.files = [file];
+  //       this.selectedFile = file;
+  //     } else {
+  //       this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketStatusUpload".');
+  //       this.files = [];
+  //       this.selectedFile = null;
+  //     }
+  //   }
+  // }
+
+onChangeFile(event: any) {
+  this.validateDocketStatusList = [];
+  const file = event.addedFiles[0];
+  if (file) {
+    const validExcelTypes = [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+      'text/csv',
+    ];
+
+    const isValidType = validExcelTypes.includes(file.type);
+
+    if (isValidType) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheet = workbook.SheetNames[0];
+        const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
+
+        const expectedColumns = [
+          'docket number',
+          'next docket status',
+          'status date',
+        ].map(col => col.toLowerCase());
+
+        const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
+        const allColumnsPresent = expectedColumns.every(col => uploadedColumns.includes(col));
+
+        if (allColumnsPresent) {
+          this.files = [file];
+          this.selectedFile = file;
+        } else {
+          this.files = [];
+          this.selectedFile = null;
+          this.sweetAlertService.error('Invalid file format.Please Upload Valid File');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    } else {
+      this.files = [];
+      this.selectedFile = null;
+      this.sweetAlertService.error('Invalid file type. Please upload a valid Excel or CSV file.');
     }
   }
+}
 
 
   onRemove(file: File) {

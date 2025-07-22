@@ -23,9 +23,9 @@ import { CustomerResponse } from '../models/customer.model';
 export class LspMappingService {
   constructor(
     @Inject(ApiHandlerService) private apiHandlerService: ApiHandlerService
-  ) {}
+  ) { }
 
-  getLspMappingList(id:string,filters:any): Observable<IApiBaseResponse<LspMappingResponse[]>> {
+  getLspMappingList(id: string, filters: any): Observable<IApiBaseResponse<LspMappingResponse[]>> {
     return this.apiHandlerService.Get(`CustomerLsp/CustomerLspMappingList?Id=${id}`, filters);
   }
 
@@ -35,7 +35,7 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`CustomerLsp/CustomerLspMappingDetails/?Id=${id}`);
   }
 
-  getLspTatList(filters:any): Observable<IApiBaseResponse<LspTatResponse[]>> {
+  getLspTatList(filters: any): Observable<IApiBaseResponse<LspTatResponse[]>> {
     return this.apiHandlerService.Get('customerLsp/Tat', filters);
   }
 
@@ -43,17 +43,17 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`customerLsp/Tat/LspTatDetail?Id=${id}`);
   }
 
-  getCustomers(id:string): Observable<IApiBaseResponse<CustomerResponse[]>> {
+  getCustomers(id: string): Observable<IApiBaseResponse<CustomerResponse[]>> {
     return this.apiHandlerService.Get(`customerLsp/Tat/Customers?loginid=${id}`);
   }
 
-  getLsps(id:string): Observable<IApiBaseResponse<LspResponse[]>> {
+  getLsps(id: string): Observable<IApiBaseResponse<LspResponse[]>> {
     return this.apiHandlerService.Get(`customerLsp/Tat/Lsps?login=${id}`);
   }
-  
-  getLspMappingCount(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
-      return this.apiHandlerService.Get(`CustomerLsp/LspMappingCount?userId=${userId}`);
-    }
+
+  getLspMappingCount(userId: string): Observable<IApiBaseResponse<CountResponse[]>> {
+    return this.apiHandlerService.Get(`CustomerLsp/LspMappingCount?userId=${userId}`);
+  }
 
   addLspMapping(
     addLspRequest: any
@@ -65,7 +65,7 @@ export class LspMappingService {
     id: string,
     addLspRequest: AddLspRequest
   ): Observable<IApiBaseResponse<CommonResponse>> {
-    return this.apiHandlerService.Post(`CustomerLsp/UpdateLspMap?LspMapId=${id}` , addLspRequest);
+    return this.apiHandlerService.Post(`CustomerLsp/UpdateLspMap?LspMapId=${id}`, addLspRequest);
   }
   addLspTat(
     addLspRequest: AddLspRequest
@@ -90,19 +90,27 @@ export class LspMappingService {
     return this.apiHandlerService.Patch(`CustomerLsp/Tat/DeleteLSPTAT?TatId=${id}`);
   }
 
-  getDeleteLSPMappingData(id:string): Observable<IApiBaseResponse<CustomerLspMap[]>> {
+  getDeleteLSPMappingData(id: string): Observable<IApiBaseResponse<CustomerLspMap[]>> {
     return this.apiHandlerService.Get(`CustomerLsp/GetDeleteCustomerLspMapData?Id=${id}`);
   }
 
-  getDeleteLSPTatData(id:string): Observable<IApiBaseResponse<CustomerLspTat[]>> {
+  getDeleteLSPTatData(id: string): Observable<IApiBaseResponse<CustomerLspTat[]>> {
     return this.apiHandlerService.Get(`CustomerLsp/Tat/GetDeleteCustomerLspTATData?Id=${id}`);
   }
 
-   lspTatCount(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
-      return this.apiHandlerService.Get(`CustomerLsp/Tat/LspTatCount?userId=${userId}`);
-    }
+  lspTatCount(userId: string): Observable<IApiBaseResponse<CountResponse[]>> {
+    return this.apiHandlerService.Get(`CustomerLsp/Tat/LspTatCount?userId=${userId}`);
+  }
 
-    downloadLspTat(userId:string):Observable<IApiBaseResponse<CountResponse[]>> {
-      return this.apiHandlerService.Get(`CustomerLsp/Tat/DownloadLspTat?userId=${userId}`);
-    }
+  downloadLspTat(userId: string): Observable<IApiBaseResponse<CountResponse[]>> {
+    return this.apiHandlerService.Get(`CustomerLsp/Tat/DownloadLspTat?userId=${userId}`);
+  }
+
+  downloadSampleLspTat(): Observable<Blob> {
+    return this.apiHandlerService.DownloadFile(`CustomerLsp/LspTat-download-template`);
+  }
+
+  validateLspTatdata( formData: any){
+    return this.apiHandlerService.Post(`CustomerLsp/ValidateLspTatData`,formData);
+  }
 }

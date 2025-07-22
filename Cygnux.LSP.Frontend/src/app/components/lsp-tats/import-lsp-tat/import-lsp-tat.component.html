@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="modal-header bs-blue d-flex justify-content-between">
+        <h5 class="modal-title" id="exampleModalLabel">Import LspTat</h5>
+        <button data-bs-dismiss="modal" class="close">
+          <i class="fa fa-close"></i>
+        </button>
+      </div>
+      <div class="card-body pt-2 pb-0">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card mb-0">
+              <div class="card-body px-0 py-3">
+                <ngx-dropzone class="dropzone dropzone-info" (change)="onChangeFile($event)">
+                  <ngx-dropzone-label>
+                    <div class="dz-message needsclick">
+                      <i class="icon-cloud-up"></i>
+                      <h6>Drop files here or click to upload.</h6>
+                      <span class="note needsclick">
+                        (Selected files are <strong>not</strong> actually uploaded.)
+                      </span>
+                    </div>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-preview *ngFor="let file of files" [file]="file" (removed)="onRemoveFile(file)"
+                    [removable]="true">
+                    <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
+                  </ngx-dropzone-preview>
+                </ngx-dropzone>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+          <div class="overflow-y h-100 px-2 mt-4">
+             <ng-container >
+            <table class="table mt-3 table-bordered excelData-table w-100">
+              <thead class="table-light sticky-top">
+                <tr>
+                  <th class="text-center fontSize single-line">Docket No</th>
+                  <th class="text-center fontSize single-line">LSP Name</th>
+                  <th class="text-center fontSize single-line">Upload Date</th>
+                  <th class="text-center fontSize single-line">Invoice no </th>
+                  <th class="text-center fontSize single-line">Date</th>
+                  <th class="text-center fontSize single-line">From Location</th>
+                  <th class="text-center fontSize single-line">TO Location</th>
+                  <th class="text-center fontSize single-line">Quantity</th>
+                  <th class="text-center fontSize single-line">Mode of Transporter</th>
+                  <th class="text-center fontSize single-line">Error/success Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let data of validateData">
+                  <td class="text-center fontSize">{{ data.docketNo }}</td>
+                  <td class="text-center fontSize">{{data.lspName}}</td>
+                  <td class="text-center fontSize">{{data.date}}</td>
+                  <td class="text-center fontSize">{{data.invoiceNo}}</td>
+                  <td class="text-center fontSize">{{data.date}}</td>
+                  <td class="text-center fontSize">{{data.fromLocation}}</td>
+                  <td class="text-center fontSize">{{data.toLocation}}</td>
+                  <td class="text-center fontSize">{{data.quantity}}</td>
+                  <td class="text-center fontSize">{{data.modeOfTransporter}}</td>
+                  <td class="text-center fontSize">{{data.errorCode?data.errorMessage:'Success'}}</td>
+                </tr> -->
+              </tbody>
+            </table>
+            </ng-container>
+            <ng-container >
+              <table class="table gray-table mt-3 table-bordered excelData-table w-100">
+                <thead class="table-light sticky-top">
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of [1,2,3,4]">
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-75 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-75 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-50 mx-auto" style="height: 20px;"></div>
+                    </td>
+                    <td class="text-center">
+                      <div class="bg-light placeholder w-100 mx-auto" style="height: 20px;"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
+          </div>
+          <div class="d-flex justify-content-end pt-3 gap-2">
+            <button class="btn btn-square btn-primary pull-right rounded-3"  (click)="downloadSampleFile($event)">
+              <ng-container >
+                <i class="fa fa-download me-1"></i> Download Import Template
+              </ng-container>
+              <ng-template #loadingDownload>
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Downloading...
+              </ng-template>
+            </button>
+            <button  class="btn btn-square btn-success rounded-3" (click)="uploadLspTatFile()"> <i class="fa fa-upload me-1"></i>  Upload</button>
+            <button  type="button" class="btn btn-square btn-success rounded-3" ><i class="fa fa-save me-1"></i>Save</button>
+            <button type="button" class="btn btn-square btn-danger rounded-3" ><i class="fa fa-times me-1"></i>Reset</button>
+          </div>
+      </div>
+    </div>
+  </div>

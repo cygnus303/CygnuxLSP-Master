@@ -4,6 +4,7 @@ import { IdentityService } from '../../../shared/services/identity.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import { ValidDatePOD } from '../../../shared/models/docket.model';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-pod-upload',
   standalone: false,
@@ -47,30 +48,70 @@ export class PodUploadComponent {
     this.uploadedImages = [];
   }
 
-  onDropzoneSelect(event: any) {
-    const file = event.addedFiles[0];
-    if (!file) return;
+  // onDropzoneSelect(event: any) {
+  //   const file = event.addedFiles[0];
+  //   if (!file) return;
 
-    const validExcelTypes = [
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-excel',
-      'text/csv',
-    ];
+  //   const validExcelTypes = [
+  //     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  //     'application/vnd.ms-excel',
+  //     'text/csv',
+  //   ];
 
-    const fileName = file.name.toLowerCase();
-    const isValidType = validExcelTypes.includes(file.type);
-    const isValidName = fileName.startsWith('docketpodupload');
+  //   const fileName = file.name.toLowerCase();
+  //   const isValidType = validExcelTypes.includes(file.type);
+  //   const isValidName = fileName.startsWith('docketpodupload');
 
-    if (!isValidType || !isValidName) {
-      this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketPODUpload".');
-      this.resetFileSelection();
-      return;
-    }
+  //   if (!isValidType || !isValidName) {
+  //     this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketPODUpload".');
+  //     this.resetFileSelection();
+  //     return;
+  //   }
 
-    this.files = [file];
-    this.selectedFile = file;
+  //   this.files = [file];
+  //   this.selectedFile = file;
+  // }
+
+
+onDropzoneSelect(event: any) {
+  const file = event.addedFiles[0];
+  if (!file) return;
+
+  const validExcelTypes = [
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-excel',
+    'text/csv',
+  ];
+
+  const isValidType = validExcelTypes.includes(file.type);
+
+  if (!isValidType) {
+    this.sweetAlertService.error('Invalid file type. Please upload a valid Excel or CSV file.');
+    this.resetFileSelection();
+    return;
   }
 
+  const reader = new FileReader();
+  reader.onload = (e: any) => {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+    const firstSheet = workbook.SheetNames[0];
+    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
+
+    const expectedColumns = ['docketno', 'uploaddate'].map(col => col.toLowerCase());
+    const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
+    const allColumnsPresent = expectedColumns.every(col => uploadedColumns.includes(col));
+
+    if (allColumnsPresent) {
+      this.files = [file];
+      this.selectedFile = file;
+    } else {
+      this.sweetAlertService.error('Invalid file format. Please Upload Valid File.');
+      this.resetFileSelection();
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
 
   get isValidData(): boolean {
     return this.mappedData.length > 0 && this.mappedData.every(item => item.isValid);

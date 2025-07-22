@@ -7,7 +7,7 @@
             <div class="flex-grow-1">
               <p class="square-after f-w-600 single-line " [ngClass]="data.headerColor" title="{{data.name}}">
                 {{data.name}}<i class="fa fa-circle"> </i></p>
-             <h4 [appCountUp]="data.count">{{data.count}}</h4>
+              <h4 [appCountUp]="data.count">{{data.count}}</h4>
             </div>
             <div class="d-flex static-widget">
               <i class="fas" [ngClass]="[data.icon, 'color-' + data.color]" style="font-size: 25px;"></i>
@@ -26,137 +26,179 @@
     </div>
   </div>
 </div>
-       <div class="row" class="fade-in">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header pt-3 pb-0">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <!-- <h4>LSP Tat</h4> -->
-                            </div>
-                          <div class="col-sm-6" >
-                            <!-- <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lspTats.length > 0" (click)="downloadLspTat()">
+<div class="row" class="fade-in">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header pt-3 pb-0">
+        <div class="row">
+          <div class="col-sm-6">
+            <!-- <h4>LSP Tat</h4> -->
+          </div>
+          <div class="col-sm-6">
+            <!-- <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lspTats.length > 0" (click)="downloadLspTat()">
                               <i class="fa fa-download"></i>
                             </button> -->
-                            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lspTats.length > 0"
-                              [disabled]="isDownloading" (click)="downloadLspTat()">
-                              <i *ngIf="!isDownloading" class="fa fa-download"></i>
-                              <i *ngIf="isDownloading" class="fa fa-spinner fa-spin"></i>
-                            </button>
-                            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
-                              <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()">
-                                <i class="icon-plus"></i>Add LSP Tat
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="card-body pt-3">
-                        <div class="table-responsive theme-scrollbar">
-                            <table class="table table-header align-middle w-100">
-                                <thead class="table-light">
-                                  <tr class="table-th">
-                                    <th class="w-15">Customer Name</th>
-                                    <th class="w-15">LSP Name</th>
-                                    <th class="w-15">Product</th>
-                                    <th class="w-10">Origin</th>
-                                    <th class="w-10">Destination</th>
-                                    <th class="w-10">Transport Mode</th>
-                                    <th class="w-5 text-center">TAT</th>
-                                    <th class="w-8 text-center">Active</th>
-                                    <th class="w-8 text-center"*ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">Action
-                                    </th>
-                                  </tr>
-                                  <tr class="table-th">
-                                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['customerName']" (input)="getLspMappings()"/></th>
-                                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['lspName']" (input)="getLspMappings()"/></th>
-                                    <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['product']" (input)="getLspMappings()"/></th>
-                                    <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['origin']" (input)="getLspMappings()"/></th>
-                                    <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['destination']" (input)="getLspMappings()"/></th>
-                                    <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['modeDescription']" (input)="getLspMappings()"/></th>
-                                    <th class="w-5">
-                                      <input type="text" class="form-control" [(ngModel)]="filters['tat']" (input)="getLspMappings()"/>
-                                    </th>
-                                    <th class="w-8"></th>
-                                    <th class="w-8 text-center" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete"></th>
-                                  </tr>
-                                </thead>
-                                <tbody class="customers w-100">
-                                 <ng-container *ngFor="let lsp of lspTats; let i = index">
-                                   <tr class="customers w-100" [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}" (mouseenter)="hoveredRow = i" (mouseleave)="hoveredRow = null">
-                                     <td class="w-15">{{lsp.customerName}}</td>
-                                     <td class="w-15">{{lsp.lspName}}</td>
-                                     <td class="w-15">{{lsp.product}}</td>
-                                     <td class="w-10">{{lsp.origin}}</td>
-                                     <td class="w-10">{{lsp.destination}}</td>
-                                     <td class="w-10">{{lsp.modeDescription}}</td>
-                                     <td class="w-5 text-center">{{lsp.tat}}</td>
-                                     <td class="w-8 text-center"><i [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i></td>
-                                     <td class="w-8 p-2" *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
-                                       <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
-                                         <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit, 'disabled-icon': !lsp.isCustomerMapping}"  [popover]="lsp.isCustomerMapping ? 'Edit':'No active LSP mapping found for this customer.'" placement="auto"
-                                             triggers="hover" [outsideClick]="true" container="body">
-                                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"  height="20" (click)="editModal($event,lsp.lspTatId)"><path d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"></path></svg>
-                                         </div>
-                                         <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'" placement="auto"
-                                             triggers="hover" [outsideClick]="true" container="body">
-                                           <i class="ri-eye-fill align-bottom text-muted" (click)="lspTatsDetail($event,lsp.lspTatId)"></i>
-                                         </div>
-                                         <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
-                                            placement="auto" triggers="hover" [outsideClick]="true" container="body">
-                                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)" class="m-0"  height="20" (click)="getDeleteLspTat(lsp.lspTatId)"><path d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z"></path></svg>
-                                         </div>
-                                       </div>
-                                     </td>
-                                   </tr>
-                                 </ng-container>
-                                </tbody>
-                              </table>
-                                <div *ngIf="loading && lspTats.length === 0" class="text-center border-found">
-                                  <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json"
-                                    trigger="loop" colors="primary:#121331,secondary:#08a88a"
-                                    style="width: 100px; height: 100px">
-                                  </lord-icon>
-                                </div>
-                                
-                                <!-- No Result Found -->
-                                <div *ngIf="!loading && lspTats.length === 0" class="text-center border-found p-4">
-                                  <h5 class="mt-2">Sorry! No Result Found</h5>
-                                </div>
-                            <div class="d-flex justify-content-end mt-3">
-                                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" [maxSize]="3"
-                                    (pageChange)="onPageChange($event)">
-                                </ngb-pagination>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <button class="btn btn-square btn-danger pull-right rounded-3 ms-2" *ngIf="lspTats.length > 0"
+              [disabled]="isDownloading" (click)="downloadLspTat()">
+              <i *ngIf="!isDownloading" class="fa fa-download"></i>
+              <i *ngIf="isDownloading" class="fa fa-spinner fa-spin"></i>
+            </button>
+            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
+              <button class="btn btn-square btn-success pull-right rounded-3 ms-2" type="button"
+                (click)="openImportModal($event)">
+                <i class="icon-upload"></i> Import LSP Tat
+              </button>
             </div>
-        </div>
-<div class="modal fade in editDialog" id="exampleModalLong" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body" style="padding:0px;">
-                <app-add-lsp-tat (dataEmitter)="closeEditModal()" [lspTatResponse]="selectedLsp">
-                </app-add-lsp-tat>
+            <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canCreate}">
+              <button class="btn btn-square btn-primary pull-right rounded-3" type="button" (click)="openModal()">
+                <i class="icon-plus"></i>Add LSP Tat
+              </button>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="card-body pt-3">
+        <div class="table-responsive theme-scrollbar">
+          <table class="table table-header align-middle w-100">
+            <thead class="table-light">
+              <tr class="table-th">
+                <th class="w-15">Customer Name</th>
+                <th class="w-15">LSP Name</th>
+                <th class="w-15">Product</th>
+                <th class="w-10">Origin</th>
+                <th class="w-10">Destination</th>
+                <th class="w-10">Transport Mode</th>
+                <th class="w-5 text-center">TAT</th>
+                <th class="w-8 text-center">Active</th>
+                <th class="w-8 text-center"
+                  *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
+                  Action
+                </th>
+              </tr>
+              <tr class="table-th">
+                <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['customerName']"
+                    (input)="getLspMappings()" /></th>
+                <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['lspName']"
+                    (input)="getLspMappings()" /></th>
+                <th class="w-15"><input type="text" class="form-control" [(ngModel)]="filters['product']"
+                    (input)="getLspMappings()" /></th>
+                <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['origin']"
+                    (input)="getLspMappings()" /></th>
+                <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['destination']"
+                    (input)="getLspMappings()" /></th>
+                <th class="w-10"><input type="text" class="form-control" [(ngModel)]="filters['modeDescription']"
+                    (input)="getLspMappings()" /></th>
+                <th class="w-5">
+                  <input type="text" class="form-control" [(ngModel)]="filters['tat']" (input)="getLspMappings()" />
+                </th>
+                <th class="w-8"></th>
+                <th class="w-8 text-center"
+                  *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
+                </th>
+              </tr>
+            </thead>
+            <tbody class="customers w-100">
+              <ng-container *ngFor="let lsp of lspTats; let i = index">
+                <tr class="customers w-100"
+                  [ngClass]="{'row-even-bg': i % 2 === 0, 'row-odd-bg': i % 2 !== 0,'hover-active': hoveredRow === i}"
+                  (mouseenter)="hoveredRow = i" (mouseleave)="hoveredRow = null">
+                  <td class="w-15">{{lsp.customerName}}</td>
+                  <td class="w-15">{{lsp.lspName}}</td>
+                  <td class="w-15">{{lsp.product}}</td>
+                  <td class="w-10">{{lsp.origin}}</td>
+                  <td class="w-10">{{lsp.destination}}</td>
+                  <td class="w-10">{{lsp.modeDescription}}</td>
+                  <td class="w-5 text-center">{{lsp.tat}}</td>
+                  <td class="w-8 text-center"><i
+                      [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
+                  </td>
+                  <td class="w-8 p-2"
+                    *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
+                    <div class="cursor-pointer d-flex justify-content-center text-center gap-3 p-1">
+                      <div
+                        [ngClass]="{'disabled-image': !commonService.menuRoleList?.canEdit, 'disabled-icon': !lsp.isCustomerMapping}"
+                        [popover]="lsp.isCustomerMapping ? 'Edit':'No active LSP mapping found for this customer.'"
+                        placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(36,105,92,1)" class="m-0"
+                          height="20" (click)="editModal($event,lsp.lspTatId)">
+                          <path
+                            d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z">
+                          </path>
+                        </svg>
+                      </div>
+                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canView}" [popover]="'View'"
+                        placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <i class="ri-eye-fill align-bottom text-muted" (click)="lspTatsDetail($event,lsp.lspTatId)"></i>
+                      </div>
+                      <div [ngClass]="{'disabled-image': !commonService.menuRoleList?.canDelete}" [popover]="'Delete'"
+                        placement="auto" triggers="hover" [outsideClick]="true" container="body">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,83,112,1)"
+                          class="m-0" height="20" (click)="getDeleteLspTat(lsp.lspTatId)">
+                          <path
+                            d="M17 4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7V2H17V4ZM9 9V17H11V9H9ZM13 9V17H15V9H13Z">
+                          </path>
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div *ngIf="loading && lspTats.length === 0" class="text-center border-found">
+            <lord-icon src="/assets/json/system-solid-716-spinner-three-dots-loop-scale.json" trigger="loop"
+              colors="primary:#121331,secondary:#08a88a" style="width: 100px; height: 100px">
+            </lord-icon>
+          </div>
+
+          <!-- No Result Found -->
+          <div *ngIf="!loading && lspTats.length === 0" class="text-center border-found p-4">
+            <h5 class="mt-2">Sorry! No Result Found</h5>
+          </div>
+          <div class="d-flex justify-content-end mt-3">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" [maxSize]="3"
+              (pageChange)="onPageChange($event)">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+<div class="modal fade in editDialog" id="exampleModalLong" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="padding:0px;">
+        <app-add-lsp-tat (dataEmitter)="closeEditModal()" [lspTatResponse]="selectedLsp">
+        </app-add-lsp-tat>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade editDialog" id="lspTatsDetail" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-              <div class="modal-header bs-blue d-flex justify-content-between">
-                <h5 class="modal-title" id="exampleModalLabel">LSP Tat Detail</h5>
-                <!-- <button class="btn-close" type="button"></button> -->
-                <button data-bs-dismiss="modal" class="close" (click)="closeEditModal()"><i class="fa fa-close" ></i></button>
-            </div>
-            <div class="modal-body" style="padding:0px;">
-              <lsp-tats-detail [lspTatsDetail]="selectedLsp"></lsp-tats-detail>
-            </div>
-        </div>
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bs-blue d-flex justify-content-between">
+        <h5 class="modal-title" id="exampleModalLabel">LSP Tat Detail</h5>
+        <!-- <button class="btn-close" type="button"></button> -->
+        <button data-bs-dismiss="modal" class="close" (click)="closeEditModal()"><i class="fa fa-close"></i></button>
+      </div>
+      <div class="modal-body" style="padding:0px;">
+        <lsp-tats-detail [lspTatsDetail]="selectedLsp"></lsp-tats-detail>
+      </div>
     </div>
+  </div>
+</div>
+<div class="modal fade editDialog" id="importModal" tabindex="-1" role="dialog"
+  aria-labelledby="importModalTitle" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 0px">
+        <app-import-lsp-tat (dataEmitter)="closeImportModal()"></app-import-lsp-tat>
+      </div>
+    </div>
+  </div>
 </div>

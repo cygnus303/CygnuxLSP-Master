@@ -3,6 +3,8 @@ import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { ValidateFileResponse } from '../../../../shared/models/docket.model';
 import { IdentityService } from '../../../../shared/services/identity.service';
+import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-import-docket',
   standalone: false,
@@ -41,33 +43,70 @@ export class ImportDocketComponent {
     });
   }
 
-  onChangeFile(event: any) {
-    this.validateData = [];
-    const file = event.addedFiles[0];
-    if (file) {
-      const validExcelTypes = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.ms-excel',
-        'text/csv',
-      ];
+  // onChangeFile(event: any) {
+  //   this.validateData = [];
+  //   const file = event.addedFiles[0];
+  //   if (file) {
+  //     const validExcelTypes = [
+  //       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  //       'application/vnd.ms-excel',
+  //       'text/csv',
+  //     ];
 
-      const fileName = file.name;
+  //     const fileName = file.name;
 
-      // Validate file type
-      const isValidType = validExcelTypes.includes(file.type);
+  //     // Validate file type
+  //     const isValidType = validExcelTypes.includes(file.type);
 
-      // Validate file name starts with "DocketUpload"
-      const isValidName = fileName.toLowerCase().startsWith('docketupload');
+  //     // Validate file name starts with "DocketUpload"
+  //     const isValidName = fileName.toLowerCase().startsWith('docketupload');
 
-      if (isValidType && isValidName) {
+  //     if (isValidType && isValidName) {
+  //       this.files = [file];
+  //       this.selectedFile = file;
+  //     } else {
+  //       this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketUpload".');
+  //       this.files = [];
+  //     }
+  //   }
+  // }
+
+onChangeFile(event: any) {
+  this.validateData = [];
+  const file = event.addedFiles[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheet = workbook.SheetNames[0];
+      const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
+
+      const expectedColumns = [
+        'lsp name',
+        'docket no',
+        'invoice no',
+        'date',
+        'from location',
+        'to location',
+        'quantity',
+        'mode of transporter',
+      ].map(col => col.toLowerCase());
+
+      const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
+      const allColumnsPresent = expectedColumns.every(col => uploadedColumns.includes(col));
+
+      if (!allColumnsPresent) {
+        this.sweetAlertService.error('Invalid file format. Please upload Valid excel File');
+        this.files = [];
+      } else {
         this.files = [file];
         this.selectedFile = file;
-      } else {
-        this.sweetAlertService.error('Please upload a valid Excel file starting with "DocketUpload".');
-        this.files = [];
       }
-    }
+    };
+    reader.readAsArrayBuffer(file);
   }
+}
 
   get isValidData(): boolean {
     return this.validateData.length > 0 && this.validateData.some(item => !item.errorCode);

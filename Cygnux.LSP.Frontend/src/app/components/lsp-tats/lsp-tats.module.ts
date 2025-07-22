@@ -10,12 +10,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { LspTatsDetailComponent } from './lsp-tats-detail/lsp-tats-detail.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ImportLspTatComponent } from './import-lsp-tat/import-lsp-tat.component';
 
 @NgModule({
     declarations: [
         LspTatListComponent,
         AddLspTatComponent,
-        LspTatsDetailComponent
+        LspTatsDetailComponent,
+        ImportLspTatComponent
     ],
     imports: [
         RouterModule.forChild(LspTatRoutes),
@@ -25,7 +28,8 @@ import { CountUpDirective } from '../../shared/directives/count-up.directive';
         NgbPaginationModule,
         NgSelectModule,
         PopoverModule,
-        CountUpDirective
+        CountUpDirective,
+        NgxDropzoneModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

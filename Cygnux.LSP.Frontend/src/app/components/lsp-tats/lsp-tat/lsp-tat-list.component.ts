@@ -276,6 +276,33 @@ export class LspTatListComponent implements OnInit {
     });
   }
   
+  openImportModal(event: Event) {
+    event.preventDefault();
+    const modalElement = document.getElementById('importModal');
+    
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide();
+          modalElement.removeEventListener('click', handleOutsideClick);
+          // this.ImportDocketComponent.onClose();
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
+    }
+  }
+
+    closeImportModal() {
+    const modalElement: any = document.getElementById('importModal');
+    const modalInstance = Modal.getInstance(modalElement);
+    if (modalInstance) {
+      modalInstance.hide();
+      this.getLspMappings();
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.RoleListsubscribe) { this.RoleListsubscribe.unsubscribe() }
   }
