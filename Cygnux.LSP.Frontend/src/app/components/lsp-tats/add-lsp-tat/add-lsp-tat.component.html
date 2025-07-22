@@ -68,10 +68,23 @@
                                         </div>
                                 </div>
 
+                                    <div class="col-md-6 mb-3">
+                                        <label class="col-form-label">Origin State</label>
+                                        <ng-select [items]="originStateList" bindLabel="stnm" bindValue="stnm" [loading]="stnm['origin']"
+                                            formControlName="originState" placeholder="Search Origin State..."
+                                            [ngClass]="{ 'border-danger': lspTatForm.controls['originState'].invalid && lspTatForm.controls['originState'].touched }"
+                                            (search)="onStateSearch($event, 'origin')" (change)="getCityData($event.stcd, 'origin')">
+                                        </ng-select>
+                                        <div *ngIf="lspTatForm.controls['originState'].invalid && lspTatForm.controls['originState'].touched"
+                                            class="text-danger">
+                                            <small>Origin State is required.</small>
+                                        </div>
+                                    </div>
+
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Origin</label>
                                     <ng-select [items]="originCityList" bindLabel="location" bindValue="location" formControlName="origin" placeholder="Search Origin City..."
-                                        [loading]="cityLoader['origin']" (search)="getCityData($event, 'origin')"
+                                        [loading]="cityLoader['origin']" 
                                         [ngClass]="{ 'border-danger': lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin'].touched }">
                                     </ng-select>
                                     <div *ngIf="lspTatForm.controls['origin'].invalid && lspTatForm.controls['origin']?.touched" class="text-danger">
@@ -79,42 +92,28 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label class="col-form-label">Origin State</label>
-                                    <ng-select [items]="originStateList" bindLabel="stnm" bindValue="stnm" [loading]="stnm['origin']" formControlName="originState"
-                                        placeholder="Search Origin State..." 
-                                        [ngClass]="{ 'border-danger': lspTatForm.controls['originState'].invalid && lspTatForm.controls['originState'].touched }"
-                                        (search)="onStateSearch($event, 'origin')">
+                             <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">Destination State</label>
+                                    <ng-select [items]="destinationStateList" bindLabel="stnm" bindValue="stnm" [loading]="stnm['destination']"
+                                        formControlName="destinationState" placeholder="Search Destination State..." 
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched }"
+                                        (search)="onStateSearch($event, 'destination')" (change)="getCityData($event.stcd, 'destination')">
                                     </ng-select>
-                                    <div *ngIf="lspTatForm.controls['originState'].invalid && lspTatForm.controls['originState'].touched"
+                                    <div *ngIf="lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched"
                                         class="text-danger">
-                                        <small>Origin State is required.</small>
+                                        <small>Destination State is required.</small>
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Destination</label>
                                     <ng-select [items]="destinationCityList" bindLabel="location" bindValue="location" formControlName="destination"
                                          placeholder="Search Destination City..."  [loading]="cityLoader['destination']"
-                                        (search)="getCityData($event, 'destination')"
                                         [ngClass]="{ 'border-danger': lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination'].touched }">
                                     </ng-select>
                                     <div *ngIf="lspTatForm.controls['destination'].invalid && lspTatForm.controls['destination']?.touched"
                                         class="text-danger">
                                         <small *ngIf="lspTatForm.controls['destination'].errors?.['required']">Destination is required.</small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="col-form-label">Destination State</label>
-                                    <ng-select [items]="destinationStateList" bindLabel="stnm" bindValue="stnm" [loading]="stnm['destination']"
-                                        formControlName="destinationState" placeholder="Search Destination State..." 
-                                        [ngClass]="{ 'border-danger': lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched }"
-                                        (search)="onStateSearch($event, 'destination')">
-                                    </ng-select>
-                                    <div *ngIf="lspTatForm.controls['destinationState'].invalid && lspTatForm.controls['destinationState'].touched"
-                                        class="text-danger">
-                                        <small>Destination State is required.</small>
                                     </div>
                                 </div>
 

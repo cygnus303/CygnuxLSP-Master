@@ -323,7 +323,7 @@ getCityData(event: { term: string; items: any[] }, field: 'from' | 'to') {
 
   this.loader[field] = true;
 
-  this.docketService.getCityData(searchTerm).subscribe({
+  this.docketService.GetCityDataDocket(searchTerm).subscribe({
     next: (response) => {
       this.loader[field] = false;
 

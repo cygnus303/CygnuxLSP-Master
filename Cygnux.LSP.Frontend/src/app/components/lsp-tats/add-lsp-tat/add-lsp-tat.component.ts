@@ -218,18 +218,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
       // this.dataEmitter.emit();
   }
 
-getCityData(event: { term: string; items: any[] },field: 'origin' | 'destination') {
-  const searchTerm = event.term?.trim();
-  if (!searchTerm || searchTerm.length < 3) {
-    if (field === 'origin') {
-      this.originCityList = [];
-    } else {
-      this.destinationCityList = [];
-    }
-    return;
-  }
+getCityData(event:any,field: 'origin' | 'destination') {
   this.cityLoader[field] = true;
-  this.docketService.getCityData(searchTerm).subscribe({
+  this.docketService.getCityData(event).subscribe({
     next: (response) => {
       this.cityLoader[field] = false;
 

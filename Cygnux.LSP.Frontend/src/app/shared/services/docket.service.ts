@@ -217,8 +217,12 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`);
   }
 
-  getCityData(searchTerm: string) {
-    return this.apiHandlerService.Get(`Docket/GetCityData?SearchTerm=${searchTerm}`);
+  getCityData(stcd: string) {
+    return this.apiHandlerService.Get(`Docket/GetCityData?stcd=${stcd}`);
+  }
+
+  GetCityDataDocket(SearchTerm: string) {
+    return this.apiHandlerService.Get(`Docket/GetCityData_Docket?SearchTerm=${SearchTerm}`);
   }
 
   getStateData(searchTerm: string) {
