@@ -55,10 +55,10 @@ internal class DocketService : IDocketService
     }
 
 
-    public async Task<IEnumerable<City_Master>> GetCityData(string SearchTerm)
+    public async Task<IEnumerable<City_Master>> GetCityData(string stcd)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@SearchTerm", SearchTerm, DbType.String);
+        parameters.Add("@stcd", stcd, DbType.String);
 
         return await _dbConnection.QueryAsync<City_Master>(
             StoredProcedureConstants.USP_GetCity,
