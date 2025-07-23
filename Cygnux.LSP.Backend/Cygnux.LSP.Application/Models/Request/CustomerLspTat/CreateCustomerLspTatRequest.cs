@@ -12,6 +12,8 @@ public class CreateCustomerLspTatRequest : UserSettings
     public string? Mode { get; set; }
     public int Tat { get; set; }
     public int Priority { get; set; }
+    public string OriginState { get; set; }
+    public decimal RatePerKG { get; set; }
     public string? BookingType { get; set; }
     public string? CreatedBy { get; set; }
     public bool IsActive { get; set; }
