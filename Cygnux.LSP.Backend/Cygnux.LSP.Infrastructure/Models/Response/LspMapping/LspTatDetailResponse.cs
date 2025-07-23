@@ -17,6 +17,8 @@ public class LspTatDetailResponse
     public string ModeDescription { get; set; } = string.Empty;
     public string Modedesc {  get; set; } = string.Empty;
     public int Tat { get; set; }
+    public string OriginState { get; set; }
+    public decimal RatePerKG { get; set; }
     public int Priority { get; set; }
     public string PriorityDesc { get; set; } = string.Empty;
     public bool IsActive { get; set; }
