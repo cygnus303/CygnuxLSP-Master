@@ -76,7 +76,7 @@ public class CustomerController : ControllerBase
                 await imageFile.CopyToAsync(stream);
             }
 
-            var imageUrl = $"{Request.Scheme}://{Request.Host}/Customer/{customerId}/{imageFile.FileName}";
+            var imageUrl = $"{Request.Scheme}://{Request.Host}/PODUpload/Customer/{customerId}/{imageFile.FileName}";
             createCustomerDto.LogoLink = imageUrl; // Save image URL in the request model
         }
         //return Ok(await _customerRepository.AddCustomer(createCustomerDto));
@@ -136,7 +136,7 @@ public class CustomerController : ControllerBase
                 await imageFile.CopyToAsync(stream);
             }
 
-            var imageUrl = $"{Request.Scheme}://{Request.Host}/Customer/{customerId}/{imageFile.FileName}";
+            var imageUrl = $"{Request.Scheme}://{Request.Host}/PODUpload/Customer/{customerId}/{imageFile.FileName}";
             createCustomerDto.LogoLink = imageUrl; // Save image URL in the request model
         }
         //return Ok(await _customerRepository.UpdateCustomer(id, createCustomerDto));
