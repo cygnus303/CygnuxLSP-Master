@@ -218,8 +218,8 @@ public class CustomerLspController : ControllerBase
     {
         var columns = new[]
         {
-        "CustomerName", "LspName", "Product", "Origin", "Destination",
-        "DestinationState","Originstate","RateperKG", "Priority", "BookingType", "Mode", "TAT"
+        "CustomerName", "LspName", "Product", "Origin", "Destination"
+        ,"RateperKG", "Priority", "BookingType", "Mode", "TAT"
         };
 
         using (var workbook = new XLWorkbook())
