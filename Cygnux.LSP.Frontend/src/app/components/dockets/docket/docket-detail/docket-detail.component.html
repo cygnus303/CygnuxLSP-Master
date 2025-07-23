@@ -18,7 +18,7 @@
             <td><strong>Booking Date:</strong> {{ docketDetail?.bookingDate | date:'dd/MM/yyyy' }}</td>
             <td><strong>Quantity:</strong> {{ docketDetail?.quantity }}</td>
           </tr>
-          <tr *ngIf="docketDetail?.podLink !== '-' && userRoles.toLowerCase() !=='lsp admin'" >
+          <tr *ngIf="docketDetail?.podLink !== '-'" >
             <td>
               <strong>POD Image :</strong> &nbsp;
               <i class="fa fa-eye" style="cursor: pointer; color: #007bff;" (click)="openPodModal()" [popover]="'View POD'" placement="auto" triggers="hover" [outsideClick]="true" container="body"></i>

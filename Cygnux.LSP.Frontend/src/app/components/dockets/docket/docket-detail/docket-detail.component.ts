@@ -9,7 +9,6 @@ import { DocketResponse } from '../../../../shared/models/docket.model';
 })
 export class DocketDetailComponent {
   public showPodImage : boolean = false;
-  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Input() docketDetail: DocketResponse | null = null;
   
 

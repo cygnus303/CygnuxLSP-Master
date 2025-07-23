@@ -64,7 +64,7 @@
                   <i class="fa fa-download"></i>
                 </button>
               </div> -->
-              <div class="col-auto" (click)="!isLoading && downloadImagesAsZip()" *ngIf="!isLSP">
+              <div class="col-auto" (click)="!isLoading && downloadImagesAsZip()">
                 <button class="btn btn-square btn-danger pull-right rounded-3" [disabled]="isLoading">
                   <ng-container *ngIf="!isLoading; else loadings">
                     <i class="fa fa-download" ></i>
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end cursor-pointer mt-3">
-                              <div *ngIf="data.podLink !== '-'&& !isLSP" class="me-3">
+                              <div *ngIf="data.podLink !== '-'" class="me-3">
                                 <i class="ri-eye-fill align-bottom text-muted" (click)="openPOD(Templatepod,data)"></i>
                               </div>
                               <a class="btn btn-link p-0" (click)="toggleMoreView(i)">

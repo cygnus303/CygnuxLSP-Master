@@ -35,7 +35,6 @@ export class TrackTraceComponent {
   public isContentVisible = false;
   public trackTraceList: TrackTraceResponse[] = [];
   public selectedPodImageUrl?: TrackTraceResponse;
-  public isLSP: boolean = false;
   public userRoles = JSON.parse(localStorage.getItem(Roles) || '[]');
   public modalRef!: BsModalRef;
   public dateRange: [Date, Date] = [new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -67,7 +66,6 @@ export class TrackTraceComponent {
   }
 
   ngOnInit() {
-    this.isLSP = JSON.parse(localStorage.getItem('roles') || '').toLowerCase() === 'lsp admin';
     this.route.queryParams.subscribe(params => {
       this.selectedUserId = params['userId'] || this.identityService.getLoggedUserId();
     });
