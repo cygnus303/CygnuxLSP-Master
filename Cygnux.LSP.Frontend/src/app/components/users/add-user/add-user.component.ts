@@ -41,7 +41,9 @@ export class AddUserComponent implements OnInit, OnChanges {
   @Input() userResponse: UserResponse | null = null;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   public selectedFile: File | null = null;
-
+  public fileError: string | null = null;
+  public imagePreview: string | null = null; 
+  public selectedFileName :string = '';
   constructor(
     private userService: UserService,
     private sweetAlertService: SweetAlertService,
@@ -155,7 +157,7 @@ export class AddUserComponent implements OnInit, OnChanges {
 }
 
 addCustomer(): void {
-  const formValue = this.userForm.getRawValue();
+const { photo, ...formValue } = this.userForm.getRawValue();
   const payload = {
     ...formValue,
     u_Id: this.u_id,
@@ -163,12 +165,16 @@ addCustomer(): void {
     userType: 'C',
     mobileNo: formValue.phoneNumber,
     pincode: formValue.zipCode,
-    country: 'INDIA'
+    country: 'INDIA',
   };
 
   const { phoneNumber, zipCode, ...finalPayload } = payload;
-
-  this.customerService.addCustomer(finalPayload).subscribe({
+  const formData = new FormData();
+ formData.append('CustomerJson',JSON.stringify(finalPayload));
+  if (this.selectedFile) {
+    formData.append('imageFile', this.selectedFile, this.selectedFile.name);
+  }
+  this.customerService.addCustomer(formData).subscribe({
     next: (response) => {
       if (response.success) {
         this.dataEmitter.emit();
@@ -226,20 +232,45 @@ addLsp(): void {
   });
 }
 
-onFileChange(event: any): void {
-  const file = event.target.files?.[0];
-  if (!file) {
-    this.selectedFile = null;
-    return;
-  }
+// onFileChange(event: any): void {
+//   const file = event.target.files?.[0];
+//   if (!file) {
+//     this.selectedFile = null;
+//     return;
+//   }
 
-  const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
-  if (validTypes.includes(file.type)) {
-    this.selectedFile = file;
-  } else {
-    this.selectedFile = null;
+//   const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+//   if (validTypes.includes(file.type)) {
+//     this.selectedFile = file;
+//   } else {
+//     this.selectedFile = null;
+//   }
+// }
+
+onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+      if (validImageTypes.includes(file.type)) {
+        this.selectedFile = file;
+        this.fileError = null;
+        this.selectedFileName = file.name
+        this.userForm.get('photo')?.setValue(file.name);
+
+  
+        // Preview the image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreview = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.fileError = 'Please upload a valid image file (JPEG, PNG, or GIF).';
+        this.selectedFile = null;
+        this.imagePreview = null;
+      }
+    }
   }
-}
 
 
   sendUsermail(id: any) {

@@ -123,7 +123,6 @@ export class AddCustomerComponent implements OnInit, OnChanges {
       const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
       if (validImageTypes.includes(file.type)) {
         this.selectedFile = file;
-        debugger
         this.fileError = null;
         this.selectedFileName = file.name
         this.customerForm.get('logo')?.setValue(file.name);
@@ -159,14 +158,19 @@ export class AddCustomerComponent implements OnInit, OnChanges {
             this.userId = userResponse.data.id;
             this.sendUsermail(userResponse.data.id)
             debugger
-            const formValues = { ...form.getRawValue(), u_Id: this.userId ,file:this.selectedFile};
-            const { roles, ...customerPayload } = formValues;
+            const formValues = { ...form.getRawValue(), u_Id: this.userId};
+            const { roles,file, ...customerPayload } = formValues;
             const currentUserId = this.identityService.getLoggedUserId();
             customerPayload.userId = currentUserId
             customerPayload.updatedBy = currentUserId
             customerPayload.createdBy = currentUserId
             customerPayload.entryBy = currentUserId
-            return this.customerService.addCustomer(customerPayload);
+            const formData = new FormData();
+            formData.append('CustomerJson', JSON.stringify(customerPayload));
+            if (this.selectedFile) {
+              formData.append('imageFile', this.selectedFile, this.selectedFile.name);
+            }
+            return this.customerService.addCustomer(formData);
           } else {
             this.sweetAlertService.error(userResponse.error.message);
             return throwError(() => new Error('User creation failed'));

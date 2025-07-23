@@ -23,7 +23,7 @@ export class CustomerService {
     return this.apiHandlerService.Get(`Customer/GetCustomerDetail?custId=${id}&userId=${userId}`);
   }
 
-  addCustomer(addcustomerRequest: AddCustomerRequest): Observable<IApiBaseResponse<CommonResponse>> {
+  addCustomer(addcustomerRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('customer', addcustomerRequest);
   }
 

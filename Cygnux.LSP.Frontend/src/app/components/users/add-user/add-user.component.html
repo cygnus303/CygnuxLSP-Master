@@ -96,7 +96,7 @@
                    <small *ngIf="userForm.controls['zipCode'].errors?.['pattern']">Pincode is invalid.</small>
                   </div>
                 </div>
-                <div class="col-md-8">
+                <!-- <div class="col-md-8">
                   <div class="form-group">
                     <label for="photo">Photo</label>
                     <input type="file" class="form-control" id="photo" name="photo" placeholder="Enter Photo"  (change)="onFileChange($event)" formControlName="photo"
@@ -105,6 +105,31 @@
                     <div *ngIf="userForm.controls['photo'].invalid && userForm.controls['photo'].touched" class="text-danger">
                       Please upload a photo.
                     </div>
+                  </div>
+                </div> -->
+                           <div class="col-md-8">
+                  <label class="col-form-label">Logo:</label>
+                  <div class="d-flex align-items-center input-group border-found rounded" [ngClass]="{ 'border-danger': userForm.controls['photo'].invalid && userForm.controls['photo'].touched}">
+                    <label class="input-group-text border-0 mb-0">
+                      Choose File
+                      <input  id="file"
+                      type="file"
+                      (change)="onFileChange($event)" accept="image/*" formControlName="photo"
+                      hidden
+                    />
+                    </label>
+                    <span class="ms-2">{{ selectedFileName || 'No file chosen' }}</span>
+                  </div>                  
+                  <div *ngIf="fileError" class="text-danger">
+                    {{ fileError }}
+                  </div>
+                  <div *ngIf="userForm.controls['photo'].invalid && userForm.controls['photo']?.touched" class="text-danger">
+                    <small *ngIf="userForm.controls['photo'].errors?.['required']">file is required.</small>
+                  </div>
+                  <!-- Image Preview Section -->
+                  <div *ngIf="imagePreview" class="mt-4">
+                    <h6>Logo Preview:</h6>
+                    <img [src]="imagePreview" style="max-width: 100px; max-height: 100px" />
                   </div>
                 </div>
                 <div class="col-md-4">
