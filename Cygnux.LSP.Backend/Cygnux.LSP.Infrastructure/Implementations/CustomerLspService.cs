@@ -278,7 +278,7 @@ internal class CustomerLspService : ICustomerLspService
     {
         var parameters = new DynamicParameters();
         parameters.Add("@CustomerLspTatJson", bulkLspJson, DbType.String);
-        parameters.Add("@EntryBy", entryBy, DbType.String);
+        parameters.Add("@EntryBy", entryBy, DbType.Guid);
 
         return await _dbConnection.QueryAsync<CustomerLspTatSpResponse>(
                     StoredProcedureConstants.Usp_BulkCustomerLspTat,
