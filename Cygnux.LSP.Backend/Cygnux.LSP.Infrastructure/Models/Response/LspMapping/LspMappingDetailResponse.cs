@@ -51,8 +51,6 @@ public class LspTatValidationResult
     public string Product { get; set; }
     public string Origin { get; set; }
     public string Destination { get; set; }
-    public string DestinationState { get; set; }
-    public string Originstate { get; set; }
     public decimal RateperKG { get; set; }
     public int? Priority { get; set; }
     public string BookingType { get; set; }
