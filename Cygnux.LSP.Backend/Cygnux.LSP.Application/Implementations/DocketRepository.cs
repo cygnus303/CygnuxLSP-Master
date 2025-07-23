@@ -160,9 +160,9 @@ internal class DocketRepository : IDocketRepository
     }
 
 
-    public async Task<BaseResponse<IEnumerable<LspTATData_Docket>>> GetLSPForDocket(string DocketNo, DateTime BookingDate, string TransportMode, decimal TotalKg, string FromWH, string ToWH)
+    public async Task<BaseResponse<IEnumerable<LspTATData_Docket>>> GetLSPForDocket(string TransportMode, decimal TotalKg, string FromWH, string ToWH, Guid UserId)
     {
-        var response = await _docketService.GetLSPForDocket(DocketNo, BookingDate, TransportMode, TotalKg, FromWH, ToWH);
+        var response = await _docketService.GetLSPForDocket(TransportMode, TotalKg, FromWH, ToWH, UserId);
         return new BaseResponse<IEnumerable<LspTATData_Docket>>(response);
         //return new BaseResponse<IEnumerable<LspTATData>>(response, response.Select(x => x.TotalCount).FirstOrDefault());
     }

@@ -241,15 +241,14 @@ internal class DocketService : IDocketService
         );
     }
 
-    public async Task<IEnumerable<LspTATData_Docket>> GetLSPForDocket(string DocketNo, DateTime BookingDate, string TransportMode, decimal TotalKg, string FromWH, string ToWH)
+    public async Task<IEnumerable<LspTATData_Docket>> GetLSPForDocket(string TransportMode, decimal TotalKg, string FromWH, string ToWH, Guid UserId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@DocketNo", DocketNo, DbType.String);
-        parameters.Add("@BookingDate", BookingDate, DbType.DateTime);
         parameters.Add("@TransportMode", TransportMode, DbType.String);
         parameters.Add("@TotalKg", TotalKg, DbType.Decimal);
         parameters.Add("@FromWH", FromWH, DbType.String);
         parameters.Add("@ToWH", ToWH, DbType.String);
+        parameters.Add("@UserId", UserId, DbType.Guid);
 
         return await _dbConnection.QueryAsync<LspTATData_Docket>(
             StoredProcedureConstants.USP_GetLSPForDocket,

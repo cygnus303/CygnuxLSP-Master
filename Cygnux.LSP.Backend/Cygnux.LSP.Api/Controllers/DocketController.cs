@@ -167,9 +167,9 @@ public class DocketController : ControllerBase
 
     [HttpGet]
     [Route("GetLSPForDocket")]
-    public async Task<IActionResult> GetLSPForDocket(string DocketNo,DateTime BookingDate,string TransportMode,decimal TotalKg,string FromWH,string ToWH)
+    public async Task<IActionResult> GetLSPForDocket(string TransportMode,decimal TotalKg,string FromWH,string ToWH,Guid UserId)
     {
-        return Ok(await _docketRepository.GetLSPForDocket(DocketNo, BookingDate, TransportMode, TotalKg, FromWH, ToWH));
+        return Ok(await _docketRepository.GetLSPForDocket(TransportMode, TotalKg, FromWH, ToWH, UserId));
     }
 
     [HttpGet("DownloadSampleDocketUpload")]

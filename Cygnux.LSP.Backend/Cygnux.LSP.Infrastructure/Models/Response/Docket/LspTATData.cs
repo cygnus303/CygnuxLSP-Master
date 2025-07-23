@@ -18,10 +18,9 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
     public class LspTATData_Docket
     {
         public Guid LspId { get; set; }
+        public string LSPName{ get; set; }
         public int TAT { get; set; }
         public decimal RatePerKG { get; set; }
-        public string Mode { get; set; }
-        public string OriginState { get; set; }
-        public string DestinationState { get; set; }
+        public decimal Amount { get; set; }
     }
 }
