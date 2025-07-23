@@ -136,6 +136,6 @@ internal class CustomerLspRepository : ICustomerLspRepository
     public async Task<BaseResponse<IEnumerable<CustomerLspTatSpResponse>>> InsertLspTatData(List<CustomerLspTatRequest> lsptatlist, Guid entryBy)
     {
         var response = await _customerLspService.InsertLspTatData(JsonConvert.SerializeObject(lsptatlist), entryBy);
-        throw new NotImplementedException();
+        return new BaseResponse<IEnumerable<CustomerLspTatSpResponse>>(response);
     }
 }
