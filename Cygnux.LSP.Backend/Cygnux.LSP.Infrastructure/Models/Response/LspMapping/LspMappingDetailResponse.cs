@@ -67,8 +67,8 @@ public class LspTatValidationResult
 public class CustomerLspTatRequest
 {
     public Guid? Id { get; set; }
-    public Guid CustomerId { get; set; }
-    public Guid LspId { get; set; }
+    public string CustomerName { get; set; }
+    public string LspName { get; set; }
     public string Product { get; set; }
     public string Origin { get; set; }
     public string Destination { get; set; }
