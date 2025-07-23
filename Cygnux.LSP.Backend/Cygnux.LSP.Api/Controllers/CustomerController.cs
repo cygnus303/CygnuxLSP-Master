@@ -4,8 +4,6 @@ using Application.Contracts;
 using Application.Models.Request.Customer;
 using Cygnux.LSP.Api.Hubs;
 using Cygnux.LSP.Application.Models.Response;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
@@ -89,8 +87,58 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPost("{id}")]
-    public async Task<IActionResult> UpdateCustomer(string id, CreateCustomerRequest createCustomerDto)
+    public async Task<IActionResult> UpdateCustomer(string id, [FromForm] string CustomerJson, IFormFile? imageFile)
     {
+        var createCustomerDto = JsonConvert.DeserializeObject<CreateCustomerRequest>(CustomerJson);
+        if (imageFile != null)
+        {
+            var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
+            var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+            if (!allowedExtensions.Contains(fileExtension))
+            {
+                return BadRequest(new BaseResponseError<bool>
+                {
+                    Status = false,
+                    Message = "Invalid file extension. Allowed: .png, .jpg, .jpeg",
+                    Data = false
+                });
+            }
+            // If a new image is uploaded, delete the old one if it exists
+            if (!string.IsNullOrWhiteSpace(createCustomerDto.LogoLink) && System.IO.File.Exists(createCustomerDto.LogoLink))
+            {
+                try
+                {
+                    System.IO.File.Delete(createCustomerDto.LogoLink);
+                    Console.WriteLine($"Deleted logo file at: {createCustomerDto.LogoLink}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting file: {ex.Message}");
+                }
+            }
+            // Generate path using CustomerName or CustomerCode
+            var customerId = createCustomerDto.CustomerCode ?? Guid.NewGuid().ToString();
+            var currentDate = DateTime.Now;
+            var year = currentDate.Month >= 4 ? currentDate.Year : currentDate.Year - 1;
+            var finYear = $"{year}-{(year + 1).ToString().Substring(2)}";
+            var month = currentDate.ToString("MMMM").ToUpper();
+
+            string? rootPath = _iconfiguration.GetValue<string>("ImagePath");
+            var fullPath = Path.Combine(rootPath, "Customer", customerId);
+
+            if (!Directory.Exists(fullPath))
+                Directory.CreateDirectory(fullPath);
+
+            var savedFilePath = Path.Combine(fullPath, imageFile.FileName);
+            using (var stream = new FileStream(savedFilePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(stream);
+            }
+
+            var imageUrl = $"{Request.Scheme}://{Request.Host}/Customer/{customerId}/{imageFile.FileName}";
+            createCustomerDto.LogoLink = imageUrl; // Save image URL in the request model
+        }
         //return Ok(await _customerRepository.UpdateCustomer(id, createCustomerDto));
         var result = await _customerRepository.UpdateCustomer(id, createCustomerDto);
         await _hubContext.Clients.All.SendAsync("CustomerListUpdated", "Customer Updated");
