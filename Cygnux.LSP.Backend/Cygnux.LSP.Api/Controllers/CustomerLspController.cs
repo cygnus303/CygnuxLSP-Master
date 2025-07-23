@@ -214,12 +214,12 @@ public class CustomerLspController : ControllerBase
 
     [HttpGet]
     [Route("LspTat-download-template")]
-    public IActionResult DownloadTemplate()
+    public IActionResult DownloadTemplate(Guid UserId)
     {
         var columns = new[]
         {
         "CustomerName", "LspName", "Product", "Origin", "Destination",
-        "DestinationState", "Priority", "BookingType", "Mode", "TAT"
+        "DestinationState","Originstate","RateperKG", "Priority", "BookingType", "Mode", "TAT"
         };
 
         using (var workbook = new XLWorkbook())
