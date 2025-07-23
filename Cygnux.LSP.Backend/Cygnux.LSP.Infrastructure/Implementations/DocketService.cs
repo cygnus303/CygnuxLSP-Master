@@ -240,6 +240,24 @@ internal class DocketService : IDocketService
             commandType: CommandType.StoredProcedure
         );
     }
+
+    public async Task<IEnumerable<LspTATData_Docket>> GetLSPForDocket(string DocketNo, DateTime BookingDate, string TransportMode, decimal TotalKg, string FromWH, string ToWH)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@DocketNo", DocketNo, DbType.String);
+        parameters.Add("@BookingDate", BookingDate, DbType.DateTime);
+        parameters.Add("@TransportMode", TransportMode, DbType.String);
+        parameters.Add("@TotalKg", TotalKg, DbType.Decimal);
+        parameters.Add("@FromWH", FromWH, DbType.String);
+        parameters.Add("@ToWH", ToWH, DbType.String);
+
+        return await _dbConnection.QueryAsync<LspTATData_Docket>(
+            StoredProcedureConstants.USP_GetLSPForDocket,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+    }
+
     public async Task<IEnumerable<DocketExcelUploadValidate>> GetValidateDocketImportData(string bulkDocket,Guid customerid)
     {
         var parameters = new DynamicParameters();

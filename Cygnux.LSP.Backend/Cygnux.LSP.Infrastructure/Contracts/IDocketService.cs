@@ -22,6 +22,7 @@ public interface IDocketService
     Task<CommonCreateResponse> DocketCancel(Guid id, Guid userId);
     Task<CommonCreateResponse> DocketReject(Guid id, Guid userId, string? remarks);
     Task<IEnumerable<LspTATData>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination);
+    Task<IEnumerable<LspTATData_Docket>> GetLSPForDocket(string DocketNo, DateTime BookingDate, string TransportMode, decimal TotalKg, string FromWH, string ToWH);
     Task<IEnumerable<DocketExcelUploadValidate>> GetValidateDocketImportData(string bulkDocket, Guid customerid);
     Task<CommonCreateResponse> InsertDocketData(string docketdata, Guid entryBy);
     Task<CommonCreateResponse> ImportPOD(string podDataList, Guid User);

@@ -27,6 +27,7 @@ public interface IDocketRepository
     Task<BaseResponse<CommonCreateResponse>> DocketCancel(Guid id, Guid userId);
     Task<BaseResponse<CommonCreateResponse>> DocketReject(Guid id, Guid userId, string? remarks);
     Task<BaseResponse<IEnumerable<LspTATData>>> GetTATdata(Guid CustomerId, Guid? LspId, string? origin, string? destination);
+    Task<BaseResponse<IEnumerable<LspTATData_Docket>>> GetLSPForDocket(string DocketNo, DateTime BookingDate, string TransportMode, decimal TotalKg, string FromWH, string ToWH);
     Task<BaseResponse<IEnumerable<DocketExcelUploadValidate>>> GetValidateDocketImportData(List<Dictionary<string, string>> bulkDocket, Guid customerid);
     Task<BaseResponse<CommonCreateResponse>> InsertDocketData(List<DocketEntryExcelUpload> docketlist, Guid entryBy);
     Task<BaseResponse<CommonCreateResponse>> ImportPOD(List<PODDataList> podDataList, Guid User);

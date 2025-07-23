@@ -165,6 +165,12 @@ public class DocketController : ControllerBase
         return Ok(await _docketRepository.GetTATdata(CustomerId, LspId, origin, destination));
     }
 
+    [HttpGet]
+    [Route("GetLSPForDocket")]
+    public async Task<IActionResult> GetLSPForDocket(string DocketNo,DateTime BookingDate,string TransportMode,decimal TotalKg,string FromWH,string ToWH)
+    {
+        return Ok(await _docketRepository.GetLSPForDocket(DocketNo, BookingDate, TransportMode, TotalKg, FromWH, ToWH));
+    }
 
     [HttpGet("DownloadSampleDocketUpload")]
     public async Task<IActionResult> DownloadDocketUplaodFile([FromQuery] Guid login)
@@ -599,6 +605,8 @@ public class DocketController : ControllerBase
     {
         return Ok(await _docketRepository.DownloadDocket(userId));
     }
+
+
 
 }
 
