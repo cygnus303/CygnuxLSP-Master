@@ -23,12 +23,6 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
 
     public class PODDataList
     {
-        //public int Id { get; set; }
-        //public string DocketNo { get; set; }
-        //public DateTime UploadDate { get; set; }
-        //public string ImageLink { get; set; } 
-        //public string? LSPName { get; set; }
-
         public int Id { get; set; }
         public string DocketNo { get; set; } = string.Empty;
         public Guid? CustomerId { get; set; }
@@ -36,6 +30,7 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public string POD { get; set; } = string.Empty;
         public string PODFileName { get; set; } = string.Empty;
         public string PODLink { get; set; } = string.Empty;
+        public string PODLinkBack { get; set; } = string.Empty;
         public string EntryBy { get; set;} = string.Empty;
       
     }
