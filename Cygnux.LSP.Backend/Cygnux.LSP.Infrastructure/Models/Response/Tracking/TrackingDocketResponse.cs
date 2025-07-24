@@ -24,6 +24,8 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Tracking
         public int? TotalCount { get; set; }
         public TrackingListTrack? track { get; set; }
         public string PODLink { get; set; } = string.Empty;
+        public string DocketStatus { get; set; } = string.Empty;
+        public string LatestEntryDate { get; set; } = string.Empty;
 
         public string ColorCode { get; set; }
         public string? StatusHistoryJson { get; set; }
