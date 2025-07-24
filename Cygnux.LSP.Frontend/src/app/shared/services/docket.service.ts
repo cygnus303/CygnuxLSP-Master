@@ -237,6 +237,11 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`);
   }
 
+   GetLSPForDocket(data:any) {
+    const queryParams = new URLSearchParams(data).toString();
+    return this.apiHandlerService.Get(`Docket/GetLSPForDocket?${queryParams}`);
+  }
+
   InsertExcelUplaodDocketData(id: string, formData: any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post(`Docket/InsertExcelUplaodDocketData?entryBy=${id}`, formData);
   }

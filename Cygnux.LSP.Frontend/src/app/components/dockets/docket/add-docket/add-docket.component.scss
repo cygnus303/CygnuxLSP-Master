@@ -23,3 +23,28 @@ table thead {
      background: #f8f9fa; 
      z-index: 1;
 }
+.lowest-amount td{
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    #445348 25%,
+    #3f5243 50%,
+    #47554b 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerRow 1.5s linear infinite;
+}
+
+@keyframes shimmerRow {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.selected-lsp td {
+  background-color: #d1f4d1 !important; /* light green */
+  transition: background-color 0.3s ease;
+}

@@ -30,6 +30,7 @@ export interface CustomerResponse {
     proprietorMobileNo:string;
     proprietorEmail:string;
     userId:string;
+    logoLink:string;
 }
 
 export interface AddCustomerRequest {

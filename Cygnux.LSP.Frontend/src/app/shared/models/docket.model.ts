@@ -34,6 +34,14 @@ export interface AddDocketRequest {
   quantity: number;
 }
 
+export interface LSPForDocket {
+    lspId:string | null;
+    lspName:string;
+    tat:number;
+    ratePerKG:number;
+    amount:number;
+}
+
 export interface CustomerLocationResponse{
   customerId:string;
   location: string;

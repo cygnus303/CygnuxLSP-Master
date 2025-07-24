@@ -76,17 +76,29 @@ export class AddCustomerComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['customerResponse'] && this.customerResponse) {
-      this.customerForm.patchValue(this.customerResponse);
-      this.customerCode = this.customerResponse.customerCode;
-      this.customerId = this.customerResponse.customerId;
-      this.userId = this.customerResponse?.userId
-    } else {
-      this.buildForm();
-      this.customerCode = '';
-    }
+ngOnChanges(changes: SimpleChanges) {
+  if (changes['customerResponse'] && this.customerResponse) {
+    this.customerForm.patchValue(this.customerResponse);
+    this.customerCode = this.customerResponse.customerCode;
+    this.customerId = this.customerResponse.customerId;
+    this.userId = this.customerResponse?.userId;
+    this.imagePreview = this.customerResponse?.logoLink;
+
+    // Extract file name from URL
+    const urlParts = this.customerResponse.logoLink.split('/');
+    const fileName = urlParts[urlParts.length - 1];
+    this.selectedFileName = fileName.split('.')[0];
+
+    // Mark logo and file as valid since it's coming from server
+    this.customerForm.get('logo')?.setValue(this.selectedFileName);
+  } else {
+    this.buildForm();
+    this.customerCode = '';
+    this.selectedFileName = '';
+    this.imagePreview = null;
   }
+}
+
 
   onToggleGSTNo() {
     const control = this.customerForm.get('consolidatedGSTNo')!;
@@ -103,7 +115,10 @@ export class AddCustomerComponent implements OnInit, OnChanges {
   }
 
   onClose() {
+    this.customerForm.reset()
     this.buildForm();
+    this.selectedFileName='';
+    this.imagePreview = null;
     // this.dataEmitter.emit();
   }
 
@@ -246,7 +261,7 @@ export class AddCustomerComponent implements OnInit, OnChanges {
           this.isLoading = false;
           if (userResponse.success) {
           const currentUserId = this.identityService.getLoggedUserId();
-          const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, };
+          const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, logoLink : this.customerResponse?.logoLink };
             return this.customerService.updateCustomer(this.customerCode,formValues);
           } else {
             this.sweetAlertService.error(userResponse.error.message);

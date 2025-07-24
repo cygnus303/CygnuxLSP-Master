@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CityList, CustomerResponse } from '../../../../shared/models/customer.model';
-import { DocketResponse, CustomerLocationResponse, TrackingListResponse } from '../../../../shared/models/docket.model';
+import { DocketResponse, CustomerLocationResponse, TrackingListResponse, LSPForDocket } from '../../../../shared/models/docket.model';
 import { DocketService } from '../../../../shared/services/docket.service';
 import { IdentityService } from '../../../../shared/services/identity.service';
 import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
@@ -34,10 +34,14 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public docketId: string = '';
   public customerId: string = '';
   public isLoading = false;
-  public selectedLSP: number | null = null;
+  public selectedLSP: string | null = null;
   public getCityList: CityList[] =[];
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   public loader = {from: false, to: false};
+  public getLSPForDocket :LSPForDocket[]=[];
+  public isLspLoading: boolean = false;
+  minLspAmount: number | null = null;
+public bestLspId: string | null = null;
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
@@ -53,21 +57,6 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.getTransportModeDetail();
     this.getLsps(this.identityService.getLoggedUserId())
   }
-
-  lspList = [
-  { lspId: 1, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
-  { lspId: 2, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
-  { lspId: 3, lspName: 'LSP 3', tat: 1, rate: 120, amount: 240 },
-  { lspId: 4, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
-  { lspId: 5, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
-  { lspId: 6, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
-  { lspId: 7, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
-  { lspId: 8, lspName: 'LSP 1', tat: 2, rate: 100, amount: 200 },
-  { lspId: 9, lspName: 'LSP 2', tat: 3, rate: 90, amount: 180 },
-  
-];
-
-
 
   buildForm(): void {
     this.docketForm = new FormGroup({
@@ -123,6 +112,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   onClose() {
     this.buildForm();
     this.getCustomers();
+    this.getLSPForDocket = [];
   }
 
   onSubmitDocket(form: FormGroup): void {
@@ -249,6 +239,15 @@ export class AddDocketComponent implements OnInit, OnChanges {
     });
   }
 
+
+  isAllFieldsTouched(): boolean {
+  const controls = this.docketForm.controls;
+  return controls['transportMode'].touched &&
+         controls['quantity'].touched &&
+         controls['fromLocation'].touched &&
+         controls['toLocation'].touched;
+}
+
   onSelectOrigin(event: any, type?: string): void {
     const formValues = this.docketForm.value;
     let selectedLsp = formValues.transporter || '';
@@ -308,11 +307,63 @@ export class AddDocketComponent implements OnInit, OnChanges {
       }
     });
   }
+GetLSPForDocket() {
+  this.isLspLoading = true;
+
+  const data = {
+    TransportMode: this.docketForm.value.transportMode,
+    TotalKg: this.docketForm.value.quantity,
+    FromWH: this.docketForm.value.fromLocation,
+    ToWH: this.docketForm.value.toLocation,
+    UserId: this.identityService.getLoggedUserId()
+  };
+
+  this.docketService.GetLSPForDocket(data).subscribe({
+    next: (response) => {
+      this.isLspLoading = false;
+      this.getLSPForDocket = response.success ? response.data || [] : [];
+
+      if (this.getLSPForDocket.length > 0) {
+        // ✅ Calculate the best LSP based on lowest TAT then lowest Rate
+        const sortedLSPs = [...this.getLSPForDocket].sort((a, b) => {
+          if (a.tat !== b.tat) return a.tat - b.tat;
+          return a.ratePerKG - b.ratePerKG;
+        });
+
+        const bestLsp = sortedLSPs[0];
+        this.bestLspId = bestLsp.lspId;
+
+        // ✅ Auto-select best
+        this.selectedLSP = bestLsp.lspId;
+        this.onLspSelected(bestLsp);
+      } else {
+        this.selectedLSP = null;
+        this.bestLspId = null;
+      }
+
+      if (!response.success) {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: (error) => {
+      this.isLspLoading = false;
+      this.getLSPForDocket = [];
+      this.selectedLSP = null;
+      this.bestLspId = null;
+      this.sweetAlertService.error(error?.error?.message || 'Server error');
+    }
+  });
+}
+
+
+onLspSelected(lsp: any) {
+  this.docketForm.patchValue({ transporter: lsp.lspId });
+}
 
 getCityData(event: { term: string; items: any[] }, field: 'from' | 'to') {
   const searchTerm = event.term?.trim();
 
-  if (!searchTerm || searchTerm.length < 3) {
+  if (!searchTerm || searchTerm.length < 2) {
     if (field === 'from') {
       this.getCityList = [];
     } else {
