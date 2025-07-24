@@ -34,6 +34,13 @@ public class RoleController : ControllerBase
         return Ok(await _roleRepository.GetRoleDetails(id));
     }
 
+    [HttpGet]
+    [Route("RoleIfNotExists")]
+    public async Task<IActionResult> RoleIfNotExists(string Name)
+    {
+        return Ok(await _roleRepository.RoleIfNotExists(Name));
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddRole(RoleRequest roleRequest)
     {

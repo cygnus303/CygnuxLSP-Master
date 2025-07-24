@@ -91,5 +91,6 @@ public static class StoredProcedureConstants
     public const string USP_GetCity = "USP_GetCity";
     public const string USP_GetState = "USP_GetState";
     public const string USP_GetLSPForDocket = "USP_GetLSPForDocket";
+    public const string USP_AddRoleIfNotExists = "USP_AddRoleIfNotExists";
 
 }

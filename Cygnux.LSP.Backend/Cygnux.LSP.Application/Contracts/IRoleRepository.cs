@@ -10,6 +10,7 @@ public interface IRoleRepository
     Task<BaseResponse<IEnumerable<RoleResponse>>> GetRoleList(Dictionary<string, string> reqFilter);
 
     Task<BaseResponse<RoleResponse?>> GetRoleDetails(Guid id);
+    Task<BaseResponse<Role_Message>> RoleIfNotExists(string Name);
 
     Task<BaseResponse<CommonCreateResponse>> AddRole(RoleRequest roleRequest);
 
