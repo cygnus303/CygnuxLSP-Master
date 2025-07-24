@@ -127,9 +127,9 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<IEnumerable<DownloadLspMappingResponse>>(response);
     }
 
-    public async Task<BaseResponse<IEnumerable<LspTatValidationResult>>> GetTATdata(List<Dictionary<string, string>> BulkLsp)
+    public async Task<BaseResponse<IEnumerable<LspTatValidationResult>>> GetTATdata(List<Dictionary<string, string>> BulkLsp, Guid entryBy)
     {
-        var response = await _customerLspService.GetTATdata(JsonConvert.SerializeObject(BulkLsp));
+        var response = await _customerLspService.GetTATdata(JsonConvert.SerializeObject(BulkLsp),entryBy);
         return new BaseResponse<IEnumerable<LspTatValidationResult>>(response);
     }
 

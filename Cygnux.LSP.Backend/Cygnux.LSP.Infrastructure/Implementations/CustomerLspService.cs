@@ -262,10 +262,11 @@ internal class CustomerLspService : ICustomerLspService
           );
     }
 
-    public async Task<IEnumerable<LspTatValidationResult>> GetTATdata(string bulkLspJson)
+    public async Task<IEnumerable<LspTatValidationResult>> GetTATdata(string bulkLspJson, Guid entryBy)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@JsonInput", bulkLspJson, DbType.String);
+        parameters.Add("@EntryBy", entryBy, DbType.Guid);
 
         return await _dbConnection.QueryAsync<LspTatValidationResult>(
             StoredProcedureConstants.USP_ValidateLspTatData,

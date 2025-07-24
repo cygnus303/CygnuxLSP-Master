@@ -189,12 +189,12 @@ public class CustomerLspController : ControllerBase
 
     [HttpPost]
     [Route("ValidateLspTatData")]
-    public async Task<IActionResult> ValidateLspTatData(IFormFile file)
+    public async Task<IActionResult> ValidateLspTatData(IFormFile file, Guid UserId)
     {
         var data = ExcelReadHelper.ExtractAllRows(file);
         if (data is not null)
         {
-            return Ok(await _customerLspRepository.GetTATdata(data));
+            return Ok(await _customerLspRepository.GetTATdata(data,UserId));
         }
         return Ok();
     }
