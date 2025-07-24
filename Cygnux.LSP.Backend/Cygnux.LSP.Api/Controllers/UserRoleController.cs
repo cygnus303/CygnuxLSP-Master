@@ -30,7 +30,7 @@ public class UserRoleController : ControllerBase
         return Ok(await _userRoleRepository.UpdateUserRoles(id, roles));
     }
 
-    [HttpPost]
+    [HttpGet]
     [Route("UserRoleWithLogo")]
     public async Task<IActionResult> UserRoleWithLogo(Guid UserId)
     {
