@@ -206,7 +206,7 @@ public class CustomerLspController : ControllerBase
         var result = await _customerLspRepository.InsertLspTatData(lsptatlist, entryBy);
 
         // ✅ Trigger SignalR event after success
-        await _hubContext.Clients.All.SendAsync("LspTatUpdate", "LspTat Imported via Excel");
+        await _hubContext.Clients.All.SendAsync("LSPTatUpdate", "Lsp Tat Added successfully");
 
         return Ok(result);
 
@@ -214,13 +214,28 @@ public class CustomerLspController : ControllerBase
 
     [HttpGet]
     [Route("LspTat-download-template")]
-    public IActionResult DownloadTemplate(Guid UserId)
+    public async Task<IActionResult> DownloadTemplate(Guid UserId)
     {
-        var columns = new[]
+        var user = await _customerLspRepository.GetUserRolesById(UserId);
+
+        string[] columns;
+
+        if (user.Data.NormalizedName == "SA" || user.Data.NormalizedName == "ADMIN USER")
         {
-        "CustomerName", "LspName", "Product", "Origin", "Destination",
-        "DestinationState","Originstate","RateperKG", "Priority", "BookingType", "Mode", "TAT"
-        };
+            columns = new[]
+            {
+                "CustomerName", "LspName", "Product", "Origin", "Destination",
+                "RateperKG", "Priority", "BookingType", "Mode", "TAT"
+            };
+        }
+        else
+        {
+            columns = new[]
+            {
+                "LspName", "Product", "Origin", "Destination",
+                "RateperKG", "Priority", "BookingType", "Mode", "TAT"
+            };
+        }
 
         using (var workbook = new XLWorkbook())
         {
@@ -249,5 +264,4 @@ public class CustomerLspController : ControllerBase
             }
         }
     }
-
 }

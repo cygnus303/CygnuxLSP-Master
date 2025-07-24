@@ -71,6 +71,7 @@ public static class StoredProcedureConstants
     public const string Usp_DownloadPOD = "Usp_DownloadPOD";
     public const string USP_ValidateLspTatData = "USP_ValidateLspTatData";
     public const string Usp_BulkCustomerLspTat = "Usp_BulkCustomerLspTat";
+    public const string USP_GetUserRolesById = "USP_GetUserRolesById";
 
 
     public const string USP_OtpVerification= "USP_InsertLoginOTPverification";

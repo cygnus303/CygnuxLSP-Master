@@ -39,6 +39,7 @@ public interface ICustomerLspRepository
     Task<BaseResponse<IEnumerable<DownloadLspMappingResponse>>> DownloadLspMapping(Guid userId);
 
     Task<BaseResponse<IEnumerable<LspTatValidationResult>>> GetTATdata(List<Dictionary<string, string>> BulkLsp);
-    Task<BaseResponse<IEnumerable<CustomerLspTatSpResponse>>> InsertLspTatData(List<CustomerLspTatRequest> lsptatlist, Guid entryBy);
+    Task<BaseResponse<CustomerLspTatSpResponse>> InsertLspTatData(List<CustomerLspTatRequest> lsptatlist, Guid entryBy);
+    Task<BaseResponse<UserRoleResponse>> GetUserRolesById(Guid customerId);
 
 }

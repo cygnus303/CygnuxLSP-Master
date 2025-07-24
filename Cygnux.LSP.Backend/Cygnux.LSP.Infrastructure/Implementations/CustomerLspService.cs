@@ -274,16 +274,28 @@ internal class CustomerLspService : ICustomerLspService
         );
     }
 
-    public async Task<IEnumerable<CustomerLspTatSpResponse>> InsertLspTatData(string bulkLspJson, Guid entryBy)
+    public async Task<CustomerLspTatSpResponse> InsertLspTatData(string bulkLspJson, Guid entryBy)
     {
         var parameters = new DynamicParameters();
         parameters.Add("@CustomerLspTatJson", bulkLspJson, DbType.String);
-        parameters.Add("@EntryBy", entryBy, DbType.String);
+        parameters.Add("@EntryBy", entryBy, DbType.Guid);
 
-        return await _dbConnection.QueryAsync<CustomerLspTatSpResponse>(
+        return await _dbConnection.QueryFirstOrDefaultAsync<CustomerLspTatSpResponse>(
                     StoredProcedureConstants.Usp_BulkCustomerLspTat,
                     param: parameters,
                     commandType: CommandType.StoredProcedure
-                );
+                ) ?? new CustomerLspTatSpResponse();
+    }
+
+    public async Task<UserRoleResponse> GetUserRolesById(Guid customerId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", customerId, DbType.Guid);
+
+        return await _dbConnection.QueryFirstOrDefaultAsync<UserRoleResponse>(
+                    StoredProcedureConstants.USP_GetUserRolesById,
+                    param: parameters,
+                    commandType: CommandType.StoredProcedure
+                ) ?? new UserRoleResponse();
     }
 }

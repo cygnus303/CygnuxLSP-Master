@@ -51,8 +51,6 @@ public class LspTatValidationResult
     public string Product { get; set; }
     public string Origin { get; set; }
     public string Destination { get; set; }
-    public string DestinationState { get; set; }
-    public string Originstate { get; set; }
     public decimal RateperKG { get; set; }
     public int? Priority { get; set; }
     public string BookingType { get; set; }
@@ -67,13 +65,11 @@ public class LspTatValidationResult
 public class CustomerLspTatRequest
 {
     public Guid? Id { get; set; }
-    public Guid CustomerId { get; set; }
-    public Guid LspId { get; set; }
+    public string CustomerName { get; set; }
+    public string LspName { get; set; }
     public string Product { get; set; }
     public string Origin { get; set; }
     public string Destination { get; set; }
-    public string DestinationState { get; set; }
-    public string Originstate { get; set; }
     public decimal RateperKG { get; set; }
     public string Mode { get; set; }
     public string Tat { get; set; }
@@ -87,5 +83,13 @@ public class CustomerLspTatSpResponse
     public int Status { get; set; }       // 1 = Success, 0 = Failure
     public string Message { get; set; }   // Message from the stored procedure
 }
+
+public class UserRoleResponse
+{
+    public Guid RoleId { get; set; }
+    public string RoleName { get; set; }
+    public string NormalizedName { get; set; }
+}
+
 
 
