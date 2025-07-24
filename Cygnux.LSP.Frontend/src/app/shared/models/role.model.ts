@@ -14,3 +14,7 @@ export interface DeleteRoleRequest{
   isDeleted: boolean
 }
 
+export interface CheckRoleResponse{
+  message:string;
+}
+

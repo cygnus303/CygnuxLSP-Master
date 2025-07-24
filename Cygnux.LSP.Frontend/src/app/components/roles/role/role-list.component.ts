@@ -103,6 +103,27 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  checkRoleDetail(role:any){
+    this.roleService.checkRoleData(role.roleName).subscribe({
+      next: (response) => {
+        // if (response.success) {
+        //   this.sweetAlertService.success(response.data.message);
+        // } else {
+        //   this.sweetAlertService.error(response.error.message);
+        // }
+        if (response.data.message) {
+          this.sweetAlertService.info('This role is currently in use. Please deactivate or delete all associated data before modifying or deleting the role.');
+        } else {
+          this.deleteRole(role.id)
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  
+  }
+
   deleteRole(roleId: string) {
     const payload = {
       id: roleId,

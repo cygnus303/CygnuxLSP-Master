@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHandlerService } from './api-handler.service';
 import { IApiBaseResponse, ParamsType } from '../interfaces/api-base-action-response';
-import { DeleteRoleRequest, RoleRequest, RoleResponse } from '../models/role.model';
+import { CheckRoleResponse, DeleteRoleRequest, RoleRequest, RoleResponse } from '../models/role.model';
 import { CommonResponse } from '../models/lsp.model';
 
 
@@ -31,5 +31,9 @@ export class RoleService {
 
   deleteRole(id: string , deleteRoleRequest:DeleteRoleRequest): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Patch(`role/DeleteRole?roleId=${id}` , deleteRoleRequest);
+  }
+
+  checkRoleData(name:string): Observable<IApiBaseResponse<CheckRoleResponse>> {
+    return this.apiHandlerService.Get(`Role/RoleIfNotExists?Name=${name}`);
   }
 }

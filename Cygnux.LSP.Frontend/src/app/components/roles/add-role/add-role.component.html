@@ -25,7 +25,7 @@
                 
                         <div class="col-md-4 d-flex align-items-center" *ngIf="roleId != ''">
                           <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="isActive" formControlName="isActive" />
+                            <input class="form-check-input" type="checkbox" id="isActive" formControlName="isActive" (change)="isActiveChecked($event)"/>
                             <label class="form-check-label fw-semibold" for="isActive">
                               Active
                             </label>

@@ -21,6 +21,7 @@ import { SweetAlertService } from '../../../shared/services/toastr.service';
 export class AddRoleComponent implements OnInit, OnChanges {
   public roleForm!: FormGroup;
   public roleId: string = '';
+  public roleName: string = '';
   public isLoading = false;
   @Input() roleResponse: RoleResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
@@ -47,6 +48,7 @@ export class AddRoleComponent implements OnInit, OnChanges {
     if (changes['roleResponse'] && this.roleResponse) {
       this.roleForm.patchValue(this.roleResponse);
       this.roleId = this.roleResponse.id;
+      this.roleName=this.roleResponse.roleName;
     } else {
       this.roleForm.reset();
       this.roleId = '';
@@ -101,5 +103,26 @@ export class AddRoleComponent implements OnInit, OnChanges {
         this.sweetAlertService.error(response.error.message);
       },
     });
+  }
+
+  isActiveChecked(event: any) {
+    const isChecked = event.target.checked;
+    const roleName = this.roleName;
+
+    if (!roleName) return;
+
+    if (!isChecked) {
+      this.roleService.checkRoleData(roleName).subscribe({
+        next: (response) => {
+          if(response.data.message){
+             this.sweetAlertService.info('This role is currently in use. Please deactivate or delete all associated data before modifying or deleting the role.');
+            this.roleForm.get('isActive')?.setValue(true, { emitEvent: false });
+          }
+        },
+        error: (error) => {
+          this.sweetAlertService.error(error?.message || 'Something went wrong while checking mapping.');
+        }
+      });
+    } 
   }
 }
