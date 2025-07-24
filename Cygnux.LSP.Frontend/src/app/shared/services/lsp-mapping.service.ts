@@ -110,8 +110,8 @@ export class LspMappingService {
     return this.apiHandlerService.DownloadFile(`CustomerLsp/LspTat-download-template?UserId=${userId}`);
   }
 
-  validateLspTatdata(formData: any){
-    return this.apiHandlerService.Post(`CustomerLsp/ValidateLspTatData`,formData);
+  validateLspTatdata(id:string,formData: any){
+    return this.apiHandlerService.Post(`CustomerLsp/ValidateLspTatData?UserId=${id}`,formData);
   }
 
   insertExcelLspTatData(id:string,formData:any){

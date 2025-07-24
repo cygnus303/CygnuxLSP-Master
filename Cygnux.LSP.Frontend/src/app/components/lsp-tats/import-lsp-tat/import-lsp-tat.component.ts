@@ -51,63 +51,63 @@ export class ImportLspTatComponent {
     });
   }
 
-  onChangeFile(event: any) {
-    this.validateData = [];
-    const file = event.addedFiles[0];
-    if (file) {
-      const validExcelTypes = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.ms-excel',
-        'text/csv',
-      ];
+ onChangeFile(event: any) {
+  this.validateData = [];
+  const file = event.addedFiles[0];
 
-      const fileName = file.name;
-      const isValidType = validExcelTypes.includes(file.type);
-      const isValidName = fileName.toLowerCase().startsWith('lsptatupload');
+  if (file) {
+    const validExcelTypes = [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+      'text/csv',
+    ];
 
-      if (isValidType && isValidName) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const firstSheet = workbook.SheetNames[0];
-          const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
+    const isValidType = validExcelTypes.includes(file.type);
 
-          const expectedColumns = [
-            'customername',
-            'lspname',
-            'product',
-            'origin',
-            'destination',
-            'priority',
-            'bookingType',
-            'mode',
-            'tat',
-            'RateperKG',
-          ].map(col => col.toLowerCase());
+    if (isValidType) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheet = workbook.SheetNames[0];
+        const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
 
-          const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
-          const allColumnsPresent = expectedColumns.every(
-            col => uploadedColumns.includes(col)
+        const expectedColumns = [
+          'customername',
+          'lspname',
+          'product',
+          'origin',
+          'destination',
+          'priority',
+          'bookingType',
+          'mode',
+          'tat',
+          'RateperKG',
+        ].map(col => col.toLowerCase());
+
+        const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
+        const allColumnsPresent = expectedColumns.every(
+          col => uploadedColumns.includes(col)
+        );
+
+        if (allColumnsPresent) {
+          this.files = [file];
+          this.selectedFile = file;
+        } else {
+          this.sweetAlertService.error(
+            'Invalid file format. Please upload a file with all required columns.'
           );
-
-          if (allColumnsPresent) {
-            this.files = [file];
-            this.selectedFile = file;
-          } else {
-            this.sweetAlertService.error(
-              'Invalid file format. Please upload a file with all required columns.'
-            );
-            this.files = [];
-          }
-        };
-        reader.readAsArrayBuffer(file);
-      } else {
-        this.sweetAlertService.error('Please upload a valid Excel file starting with "LspTatUpload".');
-        this.files = [];
-      }
+          this.files = [];
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    } else {
+      this.sweetAlertService.error('Please upload a valid Excel file.');
+      this.files = [];
     }
   }
+}
+
   get isValidData(): boolean {
     return this.validateData.length > 0 && this.validateData.some(item => item.errorCode === 1);
   }
@@ -120,7 +120,7 @@ export class ImportLspTatComponent {
     const formData = new FormData();
     this.loading = true;
     formData.append('file', this.selectedFile);
-    this.lspMappingservice.validateLspTatdata(formData).subscribe({
+    this.lspMappingservice.validateLspTatdata(this.identityService.getLoggedUserId(),formData).subscribe({
       next: (response) => {
         this.loading = false;
         if (response && response.data) {
