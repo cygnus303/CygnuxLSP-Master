@@ -30,7 +30,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   public roleId: string = '';
   public selectedRoleId: string = '';
   public page = 1; // Current page number
-  public pageSize = 10; // Number of items per page
+  public pageSize = 5; // Number of items per page
   public totalItems = 0; // Total number of items
   public selectedRole: RoleResponse | null = null;
   public roleName: string | null = null;

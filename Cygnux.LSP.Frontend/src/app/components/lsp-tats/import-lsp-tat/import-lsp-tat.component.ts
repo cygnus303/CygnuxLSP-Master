@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
 import * as XLSX from 'xlsx';
-import { ValidateFileResponse } from '../../../shared/models/docket.model';
+import { validateFileResponse } from '../../../shared/models/lsp-tat.model';
+import { ExportService } from '../../../shared/services/export.service';
 
 @Component({
   selector: 'app-import-lsp-tat',
@@ -15,21 +16,24 @@ export class ImportLspTatComponent {
   public files: File[] = [];
   public selectedFile: any;
   public loading: boolean = false;
-  public validateData: ValidateFileResponse[] = [];
+  public isLoadingTemplate: boolean = false;
+  public validateData: validateFileResponse[] = [];
+  @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
 
   constructor(
     private identityService: IdentityService,
     private lspMappingservice: LspMappingService,
-    private sweetAlertService: SweetAlertService
+    private sweetAlertService: SweetAlertService,
+    private exportService: ExportService
   ) { }
 
   downloadSampleFile(event: any) {
     event.preventDefault();
-    // this.isLoadingTemplate = true;
-    this.lspMappingservice.downloadSampleLspTat().subscribe({
+    this.isLoadingTemplate = true;
+    this.lspMappingservice.downloadSampleLspTat(this.identityService.getLoggedUserId()).subscribe({
       next: (response: Blob) => {
-        // this.isLoadingTemplate = false;
+        this.isLoadingTemplate = false;
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
@@ -41,13 +45,14 @@ export class ImportLspTatComponent {
         window.URL.revokeObjectURL(url);
       },
       error: (error) => {
-        // this.isLoadingTemplate = false;
+        this.isLoadingTemplate = false;
         this.sweetAlertService.error('No Lsp found for customer.');
       }
     });
   }
 
   onChangeFile(event: any) {
+    this.validateData = [];
     const file = event.addedFiles[0];
     if (file) {
       const validExcelTypes = [
@@ -73,14 +78,12 @@ export class ImportLspTatComponent {
             'lspname',
             'product',
             'origin',
-            // 'origin state',
             'destination',
-            'destinationState',
             'priority',
             'bookingType',
             'mode',
             'tat',
-            // 'rate per kg',
+            'RateperKG',
           ].map(col => col.toLowerCase());
 
           const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
@@ -105,10 +108,12 @@ export class ImportLspTatComponent {
       }
     }
   }
-
+  get isValidData(): boolean {
+    return this.validateData.length > 0 && this.validateData.some(item => item.errorCode === 1);
+  }
   onRemoveFile(file: File) {
     this.files = this.files.filter(f => f !== file);
-    // this.validateData = [];
+    this.validateData = [];
   }
 
   uploadLspTatFile() {
@@ -120,12 +125,12 @@ export class ImportLspTatComponent {
         this.loading = false;
         if (response && response.data) {
           this.validateData = response.data;
-          const invalidData = this.validateData
-            .filter(item => item.errorCode)
-            .map(({ customer, ...rest }) => rest);
+          console.log(this.validateData)
+          const invalidRecords = this.validateData.filter(item => item.errorCode === 0);
 
-          if (invalidData.length > 0) {
-            // this.lspMappingservice.importInvalidFile(invalidData, 'LspTat');
+          // ✅ Export invalid records with error messages
+          if (invalidRecords.length > 0) {
+            this.exportService.exportInvalidTatData(invalidRecords, 'Invalid_LSP_TAT');
           }
         }
       },
@@ -135,4 +140,37 @@ export class ImportLspTatComponent {
       },
     });
   }
+
+  onClose() {
+    this.files = [];
+    this.validateData = [];
+  }
+
+  onSave() {
+    const validRecords = this.validateData
+      .filter(x => x.errorCode === 1)
+      .map(item => ({
+        ...item,
+        id: null,
+        isActive: true,
+        priority: item.priority.toString().trim()
+      }));
+
+    this.lspMappingservice.insertExcelLspTatData(this.identityService.getLoggedUserId(), validRecords).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.validateData = [];
+          this.files = [];
+          this.dataEmitter.emit();
+          this.sweetAlertService.success(response.data.message);
+        } else {
+          this.sweetAlertService.error(response.data.message);
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.data.message);
+      },
+    });
+  }
+
 }

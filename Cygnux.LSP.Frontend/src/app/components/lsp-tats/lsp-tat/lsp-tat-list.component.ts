@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { CountResponse } from '../../../shared/models/lsp.model';
 import { ExportService } from '../../../shared/services/export.service';
 import { SignalRService } from '../../../shared/services/signal-r.service';
+import { ImportLspTatComponent } from '../import-lsp-tat/import-lsp-tat.component';
 
 @Component({
   selector: 'app-lsp-tat',
@@ -27,7 +28,7 @@ export class LspTatListComponent implements OnInit {
   public lspTats: LspTatResponse[] = [];
   public selectedLsp: LspTatResponse | null = null;
   public page = 1; // Current page number
-  public pageSize = 10; // Number of items per page
+  public pageSize = 5; // Number of items per page
   public totalItems = 0; // Total number of items
   public filters: { [key: string]: string } = {}; // Dynamic filter object
   public RoleListsubscribe!: Subscription;
@@ -37,6 +38,8 @@ export class LspTatListComponent implements OnInit {
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
   @Output() edit = new EventEmitter<LspMappingResponse>();
   @ViewChild(AddLspTatComponent) addLspTatComponent!: AddLspTatComponent;
+  @ViewChild(ImportLspTatComponent) ImportLspTatComponent!: ImportLspTatComponent;
+  
   public lspTatCount: CountResponse[] = [];
 
   constructor(
@@ -288,7 +291,7 @@ export class LspTatListComponent implements OnInit {
         if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
           modal.hide();
           modalElement.removeEventListener('click', handleOutsideClick);
-          // this.ImportDocketComponent.onClose();
+          this.ImportLspTatComponent.onClose();
         }
       };
       modalElement.addEventListener('click', handleOutsideClick);

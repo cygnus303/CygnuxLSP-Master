@@ -128,7 +128,7 @@ export class DocketService {
       { header: 'From Location', key: 'fromLocation', width: 20 },
       { header: 'To Location', key: 'toLocation', width: 20 },
       { header: 'Quantity', key: 'quantity', width: 10 },
-      { header: 'Mode of Transport', key: 'modeOfTransporter', width: 25 },
+      { header: 'Mode of Transporter', key: 'modeOfTransporter', width: 25 },
       { header: 'Error Message', key: 'errorMessage', width: 50 },
     ];
 
@@ -235,11 +235,6 @@ export class DocketService {
 
   getDocketDetail(docketNo: number) {
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`);
-  }
-
-   GetLSPForDocket(data:any) {
-    const queryParams = new URLSearchParams(data).toString();
-    return this.apiHandlerService.Get(`Docket/GetLSPForDocket?${queryParams}`);
   }
 
   InsertExcelUplaodDocketData(id: string, formData: any): Observable<IApiBaseResponse<CommonResponse>> {

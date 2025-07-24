@@ -106,11 +106,15 @@ export class LspMappingService {
     return this.apiHandlerService.Get(`CustomerLsp/Tat/DownloadLspTat?userId=${userId}`);
   }
 
-  downloadSampleLspTat(): Observable<Blob> {
-    return this.apiHandlerService.DownloadFile(`CustomerLsp/LspTat-download-template`);
+  downloadSampleLspTat(userId:string): Observable<Blob> {
+    return this.apiHandlerService.DownloadFile(`CustomerLsp/LspTat-download-template?UserId=${userId}`);
   }
 
-  validateLspTatdata( formData: any){
+  validateLspTatdata(formData: any){
     return this.apiHandlerService.Post(`CustomerLsp/ValidateLspTatData`,formData);
+  }
+
+  insertExcelLspTatData(id:string,formData:any){
+     return this.apiHandlerService.Post(`CustomerLsp/InsertExcelUplaodLaspTatData?entryBy=${id}`,formData);
   }
 }

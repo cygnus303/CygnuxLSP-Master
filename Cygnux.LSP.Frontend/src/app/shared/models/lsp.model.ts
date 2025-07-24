@@ -94,3 +94,20 @@ export interface CustomerLspTat {
   destination: string;
   docketNo: string;
 }
+
+export interface ExcelLspTatRequest{
+    id: string;
+    customerId: string;
+    lspId: string;
+    product: string;
+    origin: string;
+    destination: string;
+    destinationState: string;
+    originstate: string;
+    rateperKG: number;
+    mode: string;
+    tat: string;
+    priority: string;
+    bookingType: string;
+    isActive: boolean;
+}
