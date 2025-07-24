@@ -62,7 +62,6 @@
                   <th class="text-center">LSP Name</th>
                   <th class="text-center">Customer Name</th>
                   <th class="text-center">Upload Date</th>
-                  <th class="text-center">Image Link</th>
                   <th class="text-center">Reason</th>
                 </tr>
               </thead>
@@ -72,9 +71,6 @@
                   <td class="text-center p-2">{{ data.lspName }}</td>
                   <td class="text-center p-2">{{ data.customerName }}</td>
                   <td class="text-center p-2">{{ data.uploadDate | date: 'dd-MM-yyyy' }}</td>
-                  <td class="text-center p-2">
-                    <i [ngClass]="data.imageName ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
-                  </td>
                   <td class="text-center p-2 w-20" [title]="data.validationStatus">{{ data.validationStatus }}</td>
                 </tr>
               </tbody>

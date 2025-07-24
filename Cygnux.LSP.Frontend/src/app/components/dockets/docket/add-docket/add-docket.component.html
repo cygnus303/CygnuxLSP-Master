@@ -3,7 +3,7 @@
     <div class="card">
       <div class="modal-header bs-blue d-flex justify-content-between">
         <h5 class="modal-title" id="exampleModalLabel">{{!docketId ? 'Add Docket' : 'Update Docket'}}</h5>
-        <button data-bs-dismiss="modal" class="close"  (click)="onClose()"><i class="fa fa-close" ></i></button>
+        <button data-bs-dismiss="modal" class="close" (click)="onClose()"><i class="fa fa-close"></i></button>
       </div>
       <div class="card-body pb-0">
         <form [formGroup]="docketForm" class="needs-validation" autocomplete="off"
@@ -11,102 +11,95 @@
           <div class="tab-content" id="info-tabContent">
             <div class="tab-pane fade active show" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
               <div class="row g-3">
-                  <div class="col-md-6 mb-1" *ngIf="userRoles.toLowerCase().includes('sa')">
+                <div class="col-md-6 mb-1" *ngIf="userRoles.toLowerCase().includes('sa')">
                   <label class="col-form-label">Customer</label>
-                  <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId" class="noFoundTextColor"
-                    formControlName="customerId" placeholder="Select Customer" [searchable]="true"
-                    (change)="onSelectCustomer($event)" [readonly]="docketId ? true:false"   notFoundText="No mapped customers found"
+                  <ng-select [items]="customers" bindLabel="customerName" required bindValue="customerId"
+                    class="noFoundTextColor" formControlName="customerId" placeholder="Select Customer"
+                    [searchable]="true" (change)="onSelectCustomer($event)" [readonly]="docketId ? true:false"
+                    notFoundText="No mapped customers found"
                     [ngClass]="{ 'border-danger': docketForm.controls['customerId'].invalid && docketForm.controls['customerId'].touched}">
                   </ng-select>
-                  <div *ngIf="docketForm.controls['customerId'].invalid && docketForm.controls['customerId']?.touched" class="text-danger">
+                  <div *ngIf="docketForm.controls['customerId'].invalid && docketForm.controls['customerId']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['customerId'].errors?.['required']">Customer is required.</small>
                   </div>
                 </div>
                 <div class="col-md-6 mb-11">
                   <label class="col-form-label">Docket No.</label>
-                  <input class="form-control" formControlName="docketNo" type="text" required placeholder="Enter Docket No" maxlength="6"
-                    [ngClass]="{ 'border-danger': docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo'].touched}" [readOnly]="docketId"/>
-                  <div *ngIf="docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo']?.touched" class="text-danger">
+                  <input class="form-control" formControlName="docketNo" type="text" required
+                    placeholder="Enter Docket No" maxlength="6"
+                    [ngClass]="{ 'border-danger': docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo'].touched}"
+                    [readOnly]="docketId" />
+                  <div *ngIf="docketForm.controls['docketNo'].invalid && docketForm.controls['docketNo']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['docketNo'].errors?.['required']">Docket No. is required.</small>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Booking Date</label>
-                    <input type="text"
-                    class="form-control"
-                    #dp="bsDatepicker" formControlName="bookingDate" 
-                    bsDatepicker [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}" [class.disabled]="true"
+                  <input type="text" class="form-control" #dp="bsDatepicker" formControlName="bookingDate" bsDatepicker
+                    [bsConfig]="{dateInputFormat:'DD.MM.YYYY'}" [class.disabled]="true"
                     [ngClass]="{ 'border-danger': docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate'].touched}">
-                    
-                  <div *ngIf="docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate']?.touched" class="text-danger">
+
+                  <div *ngIf="docketForm.controls['bookingDate'].invalid && docketForm.controls['bookingDate']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['bookingDate'].errors?.['required']">Booking Date is
                       required.</small>
                   </div>
-                  
+
                 </div>
-                     <div class="col-md-6">
+                <div class="col-md-6">
                   <label class="col-form-label">Transport Mode</label>
-                    <ng-select [items]="transportMode"
-                    bindLabel="codeDesc"
-                    bindValue="codeId"
-                    formControlName="transportMode"
-                    placeholder="Search transportMode"
-                    [searchable]="true" required
-                    [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}" 
-                    >
-                    </ng-select>
-                  <div *ngIf="docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode']?.touched" class="text-danger">
+                  <ng-select [items]="transportMode" bindLabel="codeDesc" bindValue="codeId"
+                    formControlName="transportMode" placeholder="Search transportMode" [searchable]="true" required
+                    [ngClass]="{ 'border-danger': docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode'].touched}">
+                  </ng-select>
+                  <div
+                    *ngIf="docketForm.controls['transportMode'].invalid && docketForm.controls['transportMode']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['transportMode'].errors?.['required']">transport Mode is
                       required.</small>
                   </div>
                 </div>
-                    <div class="col-md-6">
+                <div class="col-md-6">
                   <label class="col-form-label">Total Kg</label>
-                  <input class="form-control" formControlName="quantity" type="text" required placeholder="Enter Total Kg"
+                  <input class="form-control" formControlName="quantity" type="text" required
+                    placeholder="Enter Total Kg"
                     [ngClass]="{ 'border-danger': docketForm.controls['quantity'].invalid && docketForm.controls['quantity'].touched}" />
-                  <div *ngIf="docketForm.controls['quantity'].invalid && docketForm.controls['quantity']?.touched" class="text-danger">
+                  <div *ngIf="docketForm.controls['quantity'].invalid && docketForm.controls['quantity']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['quantity'].errors?.['required']">Total Kg is required.</small>
                   </div>
                 </div>
-                 <div class="col-md-6 mb-11">
+                <div class="col-md-6 mb-11">
                   <label class="col-form-label">From WH/Store</label>
-                <ng-select [items]="getCityList" bindLabel="location" bindValue="location" placeholder="Select From WH/Store"
-                  formControlName="fromLocation" [searchable]="true" (search)="getCityData($event, 'from')" [loading]="loader.from">
-                </ng-select>
-                  <div *ngIf="docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation']?.touched" class="text-danger">
+                  <ng-select [items]="getCityList" bindLabel="location" bindValue="location" required
+                    placeholder="Select From WH/Store" formControlName="fromLocation" [searchable]="true"
+                    (search)="getCityData($event, 'from')" [loading]="loader.from"
+                    [ngClass]="{ 'border-danger': docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation'].touched}">
+                  </ng-select>
+                  <div
+                    *ngIf="docketForm.controls['fromLocation'].invalid && docketForm.controls['fromLocation']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['fromLocation'].errors?.['required']">From Location is
                       required.</small>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">To WH/Store</label>
-                  <ng-select [items]="customerWHStoreLocation" bindLabel="location" bindValue="location" placeholder="Select To WH/Store"
-                    formControlName="toLocation" [searchable]="true" (search)="getCityData($event, 'to')" [loading]="loader.to">
+                  <ng-select [items]="customerWHStoreLocation" bindLabel="location" bindValue="location" required
+                    placeholder="Select To WH/Store" formControlName="toLocation" [searchable]="true"
+                    (search)="getCityData($event, 'to')" [loading]="loader.to"
+                    [ngClass]="{ 'border-danger': docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation'].touched}">
                   </ng-select>
-                  <div *ngIf="docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation']?.touched" class="text-danger">
+                  <div *ngIf="docketForm.controls['toLocation'].invalid && docketForm.controls['toLocation']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['toLocation'].errors?.['required']">To Location is
                       required.</small>
                   </div>
                 </div>
 
-              <div class="mt-3" *ngIf="isAllFieldsTouched()">
-                <!-- <button class="btn btn-primary px-4 py-2 rounded shadow-sm" (click)="GetLSPForDocket()">
-                  <i class="fa fa-folder-open me-2"></i> Select LSP
-                </button> -->
-                <a href="javascript:void(0)" class="text-primary" (click)="GetLSPForDocket()">
-                  <div *ngIf="getLSPForDocket.length">
-                    <i class="fa fa-folder-open me-1"></i> Select LSP
-                  </div>
-                  <div *ngIf="!getLSPForDocket.length && !isLspLoading">
-                    <i class="fa fa-folder-open me-1"></i> No LSP found
-                  </div>
-                  <div *ngIf="isLspLoading">
-                    <i class="fa fa-folder-open me-1"></i> Loading LSP...
-                  </div>
-                </a>
-              </div>
-                <div class="col-md-12 mt-4" *ngIf="getLSPForDocket.length > 0 && !isLspLoading">
-                  <!-- <label class="form-label fw-bold mb-3 fs-5">Select LSP</label> -->
+                <div class="col-md-12 mt-4">
                   <div class="table-container rounded border" style="max-height: 275px; overflow-y: auto;">
                     <table class="table table-bordered table-hover align-middle text-center mb-0">
                       <thead class="bg-light text-dark">
@@ -118,22 +111,41 @@
                           <th class="position-table">Amount (₹)</th>
                         </tr>
                       </thead>
-                      <tr *ngFor="let lsp of getLSPForDocket" class="cursor-pointer" [class.selected-lsp]="selectedLSP === lsp.lspId">
-                        <td>
-                          <input type="radio" name="selectLSP" [value]="lsp.lspId" [(ngModel)]="selectedLSP" (change)="onLspSelected(lsp)"
-                            [ngModelOptions]="{ standalone: true }" class="form-check-input" />
-                        </td>
-                        <td class="text-start">
-                          {{ lsp.lspName }}
-                          <span *ngIf="lsp.lspId === bestLspId" class="badge bg-success ms-2">Best Value</span>
-                        </td>
-                        <td>{{ lsp.tat }} Days</td>
-                        <td>₹{{ lsp.ratePerKG }}</td>
-                        <td>₹{{ lsp.amount }}</td>
-                      </tr>
+
+                      <!-- 👇 No Data Found -->
+                      <tbody *ngIf="!isLspLoading && getLSPForDocket.length === 0">
+                        <tr>
+                          <td colspan="5">
+                            <div class="text-center py-3 text-muted">
+                              <i class="fa fa-info-circle me-1 text-danger"></i> Sorry, no data found.
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+
+
+                      <!-- 👇 Data Rows -->
+                      <tbody *ngIf="!isLspLoading && getLSPForDocket.length > 0">
+                        <tr *ngFor="let lsp of getLSPForDocket" class="cursor-pointer"
+                          [class.selected-lsp]="selectedLSP === lsp.lspId">
+                          <td>
+                            <input type="radio" name="selectLSP" [value]="lsp.lspId" [(ngModel)]="selectedLSP"
+                              (change)="onLspSelected(lsp)" [ngModelOptions]="{ standalone: true }"
+                              class="form-check-input" />
+                          </td>
+                          <td class="text-start">
+                            {{ lsp.lspName }}
+                            <span *ngIf="lsp.lspId === bestLspId" class="badge bg-success ms-2">Best Value</span>
+                          </td>
+                          <td>{{ lsp.tat }} Days</td>
+                          <td>₹{{ lsp.ratePerKG }}</td>
+                          <td>₹{{ lsp.amount }}</td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                 </div>
+
                 <!-- <div class="col-md-6 mb-11">
                   <label class="col-form-label">Transporter</label>
                     <ng-select [items]="lsps"
@@ -153,47 +165,49 @@
                   </div>
                   
                 </div> -->
-               
+
                 <div class="col-md-6">
                   <label class="col-form-label">Invoice No.</label>
-                  <input class="form-control" formControlName="invoiceNo" type="text" required placeholder="Enter Invoice No"
+                  <input class="form-control" formControlName="invoiceNo" type="text" required
+                    placeholder="Enter Invoice No"
                     [ngClass]="{ 'border-danger': docketForm.controls['invoiceNo'].invalid && docketForm.controls['invoiceNo'].touched}" />
-                  <div *ngIf="docketForm.controls['invoiceNo'].invalid && docketForm.controls['invoiceNo']?.touched" class="text-danger">
+                  <div *ngIf="docketForm.controls['invoiceNo'].invalid && docketForm.controls['invoiceNo']?.touched"
+                    class="text-danger">
                     <small *ngIf="docketForm.controls['invoiceNo'].errors?.['required']">Invoice No. is
                       required.</small>
                   </div>
                 </div>
-          
+
                 <div class="col-md-6">
                   <label class="col-form-label">Current Status</label>
-                  <ng-select [items]="transporter"
-                  bindLabel="codeDesc"
-                  bindValue="codeId"
-                  formControlName="currentStatus"
-                  placeholder="Search currentStatus"
-                  [searchable]="true" required
-                  readonly
-                  [ngClass]="{ 'border-danger': docketForm.controls['currentStatus'].invalid && docketForm.controls['currentStatus'].touched}" 
-                  >
+                  <ng-select [items]="transporter" bindLabel="codeDesc" bindValue="codeId"
+                    formControlName="currentStatus" placeholder="Search currentStatus" [searchable]="true" required
+                    readonly
+                    [ngClass]="{ 'border-danger': docketForm.controls['currentStatus'].invalid && docketForm.controls['currentStatus'].touched}">
                   </ng-select>
-                <div *ngIf="docketForm.controls['currentStatus'].invalid && docketForm.controls['currentStatus']?.touched" class="text-danger">
-                  <small *ngIf="docketForm.controls['currentStatus'].errors?.['required']">status is
-                    required.</small>
-                </div>
+                  <div
+                    *ngIf="docketForm.controls['currentStatus'].invalid && docketForm.controls['currentStatus']?.touched"
+                    class="text-danger">
+                    <small *ngIf="docketForm.controls['currentStatus'].errors?.['required']">status is
+                      required.</small>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="gap-2 d-flex justify-content-end mt-3">
             <!-- <button class="btn btn-square btn-success pull-right rounded-3" type="submit"><i class="fa fa-check"></i> Submit</button>&nbsp; -->
-            <button class="btn btn-square btn-success pull-right rounded-3" type="submit" [disabled]="isLoading || docketForm.invalid">
-              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            <button class="btn btn-square btn-success pull-right rounded-3" type="submit"
+              [disabled]="isLoading || docketForm.invalid">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status"
+                aria-hidden="true"></span>
               <i *ngIf="!isLoading" class="fa fa-check me-1"></i>
               {{ isLoading ? 'Submitting...' : 'Submit' }}
             </button>&nbsp;
 
-            <button class="btn btn-square btn-danger pull-right rounded-3" type="reset" *ngIf="!docketId"><i class="fa fa-times"></i> Reset</button>
-        </div>
+            <button class="btn btn-square btn-danger pull-right rounded-3" type="reset" *ngIf="!docketId"><i
+                class="fa fa-times"></i> Reset</button>
+          </div>
         </form>
       </div>
     </div>

@@ -15,6 +15,7 @@ import { IdentityService } from '../../../../shared/services/identity.service';
 import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { LspResponse } from '../../../../shared/models/lsp.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 
 @Component({
@@ -55,7 +56,8 @@ public bestLspId: string | null = null;
     this.buildForm();
     this.getCustomers();
     this.getTransportModeDetail();
-    this.getLsps(this.identityService.getLoggedUserId())
+    this.getLsps(this.identityService.getLoggedUserId());
+    this.subscribeToLspTriggerFields();
   }
 
   buildForm(): void {
@@ -103,11 +105,42 @@ public bestLspId: string | null = null;
       this.getCustomers();
     }
   }
+subscribeToLspTriggerFields() {
+  const form = this.docketForm;
 
+  // Combine relevant controls
+  form.get('transportMode')?.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged())
+    .subscribe(() => this.checkAndCallGetLSP());
+
+  form.get('quantity')?.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged())
+    .subscribe(() => this.checkAndCallGetLSP());
+
+  form.get('fromLocation')?.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged())
+    .subscribe(() => this.checkAndCallGetLSP());
+
+  form.get('toLocation')?.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged())
+    .subscribe(() => this.checkAndCallGetLSP());
+}
   getKeyIgnoreCase(obj: any, key: string): any {
     const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
     return foundKey ? obj[foundKey] : null;
   }
+
+checkAndCallGetLSP() {
+  const form = this.docketForm;
+  if (
+    form.get('transportMode')?.valid &&
+    form.get('quantity')?.valid &&
+    form.get('fromLocation')?.valid &&
+    form.get('toLocation')?.valid
+  ) {
+    this.GetLSPForDocket();
+  }
+}
 
   onClose() {
     this.buildForm();
