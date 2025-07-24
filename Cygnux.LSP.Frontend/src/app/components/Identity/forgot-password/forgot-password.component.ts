@@ -73,7 +73,7 @@ export class ForgotPasswordComponent {
       },
       error: (response: any) => {
         this.isSubmitting = false;
-        this.toastrServiceo.error(response.error.message);
+        // this.toastrServiceo.error(response.error.message);
         this.loginErrorMessage = response.error.message;
       },
     });

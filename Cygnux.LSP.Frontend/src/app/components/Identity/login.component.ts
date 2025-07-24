@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
                         this.authService.logoutAfterTimeout(30);
                     } else {
                         if (response.error) {
-                            this.toasterService.error(response.error.message);
+                            // this.toasterService.error(response.error.message);
                             this.loginErrorMessage = response.error.message;
                         }
                     }
@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
                 error: (response: any) => {
                     this.loading = false;
                     this.commonService.updateLoader(false);
-                    this.toasterService.error(response.error.message);
+                    // this.toasterService.error(response.error.message);
                     this.loginErrorMessage = response.error.message;
                 },
             });

@@ -69,7 +69,7 @@ export class OtpVerificationComponent {
           } else {
             this.failedAttempts++;
           }
-          this.toastrService.error(response.error.message);
+          // this.toastrService.error(response.error.message);
            this.loginErrorMessage = response.error.message;
         }
       },
@@ -79,7 +79,7 @@ export class OtpVerificationComponent {
         } else {
           this.failedAttempts++;
         }
-        this.toastrService.error(response.error.message);
+        // this.toastrService.error(response.error.message);
         this.loginErrorMessage = response.error.message;
       }
     });
@@ -101,13 +101,13 @@ export class OtpVerificationComponent {
             this.isOtpAlreadyVerified = true;
             this.toastrService.success(response.data.message);
           }else{
-            this.toastrService.error(response.error.message)
+            // this.toastrService.error(response.error.message)
              this.loginErrorMessage = response.error.message;
           }
         },
         error: (response) => {
           this.isResending = false;
-          this.toastrService.error(response.error.message)
+          // this.toastrService.error(response.error.message)
            this.loginErrorMessage = response.error.message;
         }
       });
