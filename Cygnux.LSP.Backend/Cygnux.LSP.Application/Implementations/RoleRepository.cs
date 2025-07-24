@@ -35,6 +35,12 @@ internal class RoleRepository : IRoleRepository
         return new BaseResponse<RoleResponse?>(response);
     }
 
+    public async Task<BaseResponse<Role_Message>> RoleIfNotExists(string Name)
+    {
+        var response = await _roleService.RoleIfNotExists(Name);
+        return new BaseResponse<Role_Message>(response);
+    }
+
     public async Task<BaseResponse<CommonCreateResponse>> AddRole(RoleRequest roleRequest)
     {
         var applicationRole = new ApplicationRole

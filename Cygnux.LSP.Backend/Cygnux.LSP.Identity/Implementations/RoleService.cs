@@ -2,6 +2,7 @@
 
 using Contracts;
 using Cygnux.LSP.Infrastructure.Constants;
+using Cygnux.LSP.Infrastructure.Models.Response;
 using Cygnux.LSP.Infrastructure.Models.Response.Docket;
 using Dapper;
 //using Cygnux.LSP.Infrastructure.Constants;
@@ -48,6 +49,23 @@ internal class RoleService : IRoleService
                 IsActive = x.IsActive
             }).FirstOrDefaultAsync();
     }
+
+    public async Task<Role_Message> RoleIfNotExists(string Name)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@RoleName", Name, DbType.String);
+
+        var result = await _dbConnection.QueryFirstOrDefaultAsync<Role_Message>(
+            StoredProcedureConstants.USP_AddRoleIfNotExists,
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+
+        // Return result or an empty RoleResponse instance
+        return result ?? new Role_Message();
+    }
+
+
 
     public async Task<IdentityResult> AddRole(ApplicationRole applicationRole)
     {

@@ -38,3 +38,9 @@ public class GetID
 
 }
 
+public class Role_Message
+{
+    public string Message { get; set; }
+
+}
+
