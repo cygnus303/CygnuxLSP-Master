@@ -18,6 +18,8 @@ export class ImportLspTatComponent {
   public loading: boolean = false;
   public isLoadingTemplate: boolean = false;
   public validateData: validateFileResponse[] = [];
+  public uploadLoading: boolean = false;
+  public saveLoading: boolean = false;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
 
@@ -73,7 +75,6 @@ export class ImportLspTatComponent {
         const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
 
         const expectedColumns = [
-          'customername',
           'lspname',
           'product',
           'origin',
@@ -117,12 +118,14 @@ export class ImportLspTatComponent {
   }
 
   uploadLspTatFile() {
+      this.uploadLoading = true;
     const formData = new FormData();
     this.loading = true;
     formData.append('file', this.selectedFile);
     this.lspMappingservice.validateLspTatdata(this.identityService.getLoggedUserId(),formData).subscribe({
       next: (response) => {
         this.loading = false;
+        this.uploadLoading = false;
         if (response && response.data) {
           this.validateData = response.data;
           console.log(this.validateData)
@@ -136,6 +139,7 @@ export class ImportLspTatComponent {
       },
       error: (response: any) => {
         this.loading = false;
+        this.uploadLoading = false;
         this.sweetAlertService.error(response.error.Message);
       },
     });
@@ -147,6 +151,7 @@ export class ImportLspTatComponent {
   }
 
   onSave() {
+    this.saveLoading = true;
     const validRecords = this.validateData
       .filter(x => x.errorCode === 1)
       .map(item => ({
@@ -158,6 +163,7 @@ export class ImportLspTatComponent {
 
     this.lspMappingservice.insertExcelLspTatData(this.identityService.getLoggedUserId(), validRecords).subscribe({
       next: (response) => {
+          this.saveLoading = false;
         if (response.success) {
           this.validateData = [];
           this.files = [];
@@ -168,6 +174,7 @@ export class ImportLspTatComponent {
         }
       },
       error: (response: any) => {
+        this.saveLoading = false;
         this.sweetAlertService.error(response.data.message);
       },
     });

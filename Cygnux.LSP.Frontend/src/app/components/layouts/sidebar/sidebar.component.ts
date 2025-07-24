@@ -25,7 +25,7 @@ declare global {
 export class SidebarComponent implements OnInit {
   public iscollapse:boolean=false;
   public menus: MenuResponse[] = [];
-  public getlogoImages!:LogoImagesResponse;
+  public getlogoImages:LogoImagesResponse | null = null;
   constructor(private identityService: IdentityService,
     private router: Router,
     private toasterService: ToastrService,
