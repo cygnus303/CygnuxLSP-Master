@@ -133,9 +133,15 @@ internal class CustomerLspRepository : ICustomerLspRepository
         return new BaseResponse<IEnumerable<LspTatValidationResult>>(response);
     }
 
-    public async Task<BaseResponse<IEnumerable<CustomerLspTatSpResponse>>> InsertLspTatData(List<CustomerLspTatRequest> lsptatlist, Guid entryBy)
+    public async Task<BaseResponse<CustomerLspTatSpResponse>> InsertLspTatData(List<CustomerLspTatRequest> lsptatlist, Guid entryBy)
     {
         var response = await _customerLspService.InsertLspTatData(JsonConvert.SerializeObject(lsptatlist), entryBy);
-        return new BaseResponse<IEnumerable<CustomerLspTatSpResponse>>(response);
+        return new BaseResponse<CustomerLspTatSpResponse>(response);
+    }
+
+    public async Task<BaseResponse<UserRoleResponse>> GetUserRolesById(Guid customerId)
+    {
+        var response = await _customerLspService.GetUserRolesById(customerId);
+        return new BaseResponse<UserRoleResponse>(response);
     }
 }

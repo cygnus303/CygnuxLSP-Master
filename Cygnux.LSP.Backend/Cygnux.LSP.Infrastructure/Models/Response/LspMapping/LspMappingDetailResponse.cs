@@ -84,4 +84,12 @@ public class CustomerLspTatSpResponse
     public string Message { get; set; }   // Message from the stored procedure
 }
 
+public class UserRoleResponse
+{
+    public Guid RoleId { get; set; }
+    public string RoleName { get; set; }
+    public string NormalizedName { get; set; }
+}
+
+
 
