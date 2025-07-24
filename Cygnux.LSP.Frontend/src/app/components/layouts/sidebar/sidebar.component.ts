@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { MenuService } from '../../../shared/services/menu.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { MenuResponse } from '../../../shared/models/menu.model';
+import { LogoImagesResponse, MenuResponse } from '../../../shared/models/menu.model';
 import { CommonModule } from '@angular/common';
 import feather from 'feather-icons';
 import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
@@ -25,6 +25,7 @@ declare global {
 export class SidebarComponent implements OnInit {
   public iscollapse:boolean=false;
   public menus: MenuResponse[] = [];
+  public getlogoImages!:LogoImagesResponse;
   constructor(private identityService: IdentityService,
     private router: Router,
     private toasterService: ToastrService,
@@ -33,6 +34,7 @@ export class SidebarComponent implements OnInit {
 
   }
 ngOnInit(): void {
+  this.userRoleWithLogo();
   this.scriptLoader
   .loadScript('assets/js/sidebar-menu.js')
   .then(() => {})
@@ -49,6 +51,9 @@ toggleSidebar(){
   } else {
     console.error("sidebar-menu.js is not loaded or function not found");
   }
+}
+onLogoError(event: any) {
+  event.target.src = 'assets/images/logo/logo.png';
 }
 
 getMenus() {
@@ -77,6 +82,17 @@ getMenus() {
   });
 }
 
+userRoleWithLogo(){
+  this.menuService.UserRoleWithLogo(this.identityService.getLoggedUserId()).subscribe({next: (response) => {
+        if (response) {
+         this.getlogoImages = response.data
+        }
+      },
+      error: (response: any) => {
+        this.toasterService.error(response.error.message);
+      },
+    });
+}
 
 onSidebar(data:any){
   this.commonService.activemenuRoleList.next(data)
