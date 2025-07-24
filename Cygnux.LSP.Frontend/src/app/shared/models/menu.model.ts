@@ -11,3 +11,9 @@ export interface MenuResponse {
     canstatusUpdate:boolean;
     canPOD:boolean;
 }
+export interface LogoImagesResponse {
+    roleId: string;
+    roleName: string;
+    normalizedName: string;
+    logoLink: string;
+}

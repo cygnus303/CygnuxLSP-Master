@@ -169,6 +169,15 @@ label {
   pointer-events: none; 
   opacity: 1.2!important;  
 }
+// logo image
+.logo-fixed-size {
+  width: 120px;
+  height: 60px !important;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  background-color: transparent;
+}
 
 // table row bg-color
 
