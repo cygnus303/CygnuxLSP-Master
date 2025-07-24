@@ -97,7 +97,7 @@
                             <!-- Booked -->
                             <div class="step cursor-pointer" [class.active]="['1','2','3','4','5','6'].includes(data.currentStatus)">
                               <div class="circle"
-                                [ngStyle]="['1','2','3','4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode } : {}">
+                                [ngStyle]="['1','2','3','4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="file-text"></i>
                               </div>
                               <span class="span single-line">Booked</span>
@@ -106,13 +106,13 @@
                           
                             <!-- Line 1 -->
                             <div class="line" [class.active]="['2','3','4','5','6'].includes(data.currentStatus)"
-                              [ngStyle]="['2','3','4','5','6'].includes(data.currentStatus) ? { 'border-bottom-color': data.colorCode } : {}">
+                              [ngStyle]="['2','3','4','5','6'].includes(data.currentStatus) ? { 'border-bottom-color': data.colorCode || '#5c61f2' } : {}">
                             </div>
                           
                             <!-- PickUp Approval -->
                             <div class="step cursor-pointer" [class.active]="['3','4','5','6'].includes(data.currentStatus)">
                               <div class="circle"
-                                [ngStyle]="['3','4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode } : {}">
+                                [ngStyle]="['3','4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="package"></i>
                               </div>
                               <span class="span single-line">PickUp Approval</span>
@@ -121,13 +121,13 @@
                           
                             <!-- Line 2 -->
                             <div class="line" [class.active]="['4','5','6'].includes(data.currentStatus)"
-                              [ngStyle]="['4','5','6'].includes(data.currentStatus) ? { 'border-bottom-color': data.colorCode } : {}">
+                              [ngStyle]="['4','5','6'].includes(data.currentStatus) ? { 'border-bottom-color': data.colorCode || '#5c61f2' } : {}">
                             </div>
                           
                             <!-- In Transit -->
                             <div class="step cursor-pointer" [class.active]="['4','5','6'].includes(data.currentStatus)">
                               <div class="circle"
-                                [ngStyle]="['4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode } : {}">
+                                [ngStyle]="['4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="truck"></i>
                               </div>
                               <span class="span single-line">In Transit</span>
@@ -136,12 +136,12 @@
                           
                             <!-- Line 3 -->
                             <div class="line" [class.active]="['5','6'].includes(data.currentStatus)"
-                              [ngStyle]="['5','6'].includes(data.currentStatus) ? { 'border-bottom-color': data.colorCode } : {}">
+                              [ngStyle]="['5','6'].includes(data.currentStatus) ? { 'border-bottom-color': data.colorCode || '#5c61f2' } : {}">
                             </div>
                           
                             <!-- Delivered -->
                             <div class="step cursor-pointer" [class.active]="data.currentStatus === '6'">
-                              <div class="circle" [ngStyle]="data.currentStatus === '6' ? { 'background-color': data.colorCode } : {}">
+                              <div class="circle" [ngStyle]="data.currentStatus === '6' ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="home"></i>
                               </div>
                               <span class="span single-line">Delivered</span>
