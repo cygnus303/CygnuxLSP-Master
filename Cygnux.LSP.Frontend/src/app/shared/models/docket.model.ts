@@ -79,6 +79,8 @@ export interface ValidateDocketStatusList{
   errorMessage: string;
   transporter: string;
   currentStatusCode: string;
+  customerName:string;
+  currentStatusCodeDesc:string;
 }
 
 export interface ValidDatePOD {

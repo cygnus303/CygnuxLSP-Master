@@ -144,26 +144,34 @@ onChangeFile(event: any) {
       next: (response) => {
         this.validateDocketStatusList = response.data;
         this.loading = false;
-        const cleanedData = this.validateDocketStatusList.map((item: any) => {
-          const formattedDate = new Date(item.statusDate).toLocaleDateString('en-US');
-          const {
-            docketNumber,
-            nextDocketStatus,
-            customerName,
-            lspName,
-            errorMessage
-          } = item;
+        // const cleanedData = this.validateDocketStatusList.map((item: any) => {
+        //   const formattedDate = new Date(item.statusDate).toLocaleDateString('en-US');
+        //   const {
+        //     docketNumber,
+        //     nextDocketStatus,
+        //     customerName,
+        //     lspName,
+        //     errorMessage
+        //   } = item;
 
-          return {
-            docketNumber,
-            nextDocketStatus,
-            customerName,
-            lspName,
-            statusDate: formattedDate,
-            errorMessage: errorMessage || 'Success' // If empty, set as 'Success'
-          };
-        });
-        this.docketService.StatusInvalidFile(cleanedData, 'Invalid_Dockets');
+        //   return {
+        //     docketNumber,
+        //     nextDocketStatus,
+        //     customerName,
+        //     lspName,
+        //     statusDate: formattedDate,
+        //     errorMessage: errorMessage || 'Success' // If empty, set as 'Success'
+        //   };
+        // });
+        // this.docketService.StatusInvalidFile(cleanedData, 'Invalid_Dockets');
+
+        const invalidData = this.validateDocketStatusList
+          .filter(item => item.errorCode === 0)
+          .map(({ currentStatusCode, currentStatusCodeDesc, errorCode, id, ...rest }) => rest);
+
+        if (invalidData.length > 0) {
+          this.docketService.importInvalidFile(invalidData, 'DocketUpload');
+        }
       },
       error: (error) => {
          this.loading = false;
