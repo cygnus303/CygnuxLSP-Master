@@ -27,7 +27,7 @@ export class CustomerService {
     return this.apiHandlerService.Post('customer', addcustomerRequest);
   }
 
-  updateCustomer(id: string, addcustomerRequest: AddCustomerRequest): Observable<IApiBaseResponse<CommonResponse>> {
+  updateCustomer(id: string, addcustomerRequest: any): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Post('customer/' + id, addcustomerRequest);
   }
 

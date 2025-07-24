@@ -262,7 +262,12 @@ ngOnChanges(changes: SimpleChanges) {
           if (userResponse.success) {
           const currentUserId = this.identityService.getLoggedUserId();
           const formValues = { ...form.getRawValue(), userId: currentUserId, updatedBy: currentUserId, createdBy: currentUserId, entryBy: currentUserId, logoLink : this.customerResponse?.logoLink };
-            return this.customerService.updateCustomer(this.customerCode,formValues);
+           const formData = new FormData();
+            formData.append('CustomerJson', JSON.stringify(formValues));
+            if (this.selectedFile) {
+              formData.append('imageFile', this.selectedFile, this.selectedFile.name);
+            }
+            return this.customerService.updateCustomer(this.customerCode,formData);
           } else {
             this.sweetAlertService.error(userResponse.error.message);
             return throwError(() => new Error('User creation failed'));

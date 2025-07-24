@@ -26,9 +26,9 @@
   }
   
   /* Active Step */
-  .step.active .circle {
-    background-color: #5c61f2;
-  }
+  // .step.active .circle {
+  //   background-color: #5cf275;
+  // }
   
   /* Default Line - Dotted */
   .line {
@@ -40,7 +40,7 @@
   
   /* Remove Dotted and Show Solid Line When Active */
   .line.active {
-    border-bottom: 5px solid #5c61f2;
+     border-bottom: 5px solid; 
   }
   
   .span{
