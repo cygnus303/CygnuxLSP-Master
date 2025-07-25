@@ -86,10 +86,12 @@ getMenus() {
 userRoleWithLogo(){
   this.menuService.UserRoleWithLogo(this.identityService.getLoggedUserId()).subscribe({next: (response) => {
         if (response) {
-          if(response.data.roleName.toUpperCase() === 'lsp admin'){
-            this.getlogoImages = environment.apiUrl.replace('/api/v1', '') + response.data.logoLink.replace(/\\/g, '/');
-          }else{
-            this.getlogoImages = response.data.logoLink
+         const baseUrl = 'https://uatlspapi.cygnux.in/';
+          if (response.data.logoLink) {
+            const logo = response.data.logoLink.replace(/\\/g, '/');
+            this.getlogoImages = logo.startsWith('http') ? logo : baseUrl + logo;
+          } else {
+            this.getlogoImages = 'assets/images/logo/logo.png'; // fallback
           }
         }
       },
