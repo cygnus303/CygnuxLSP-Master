@@ -57,6 +57,7 @@ public bestLspId: string | null = null;
     this.getCustomers();
     this.getTransportModeDetail();
     this.getLsps(this.identityService.getLoggedUserId());
+     this.subscribeToLspTriggerFields();
    
   }
 
@@ -109,11 +110,11 @@ public bestLspId: string | null = null;
  subscribeToLspTriggerFields() {
     const form = this.docketForm;
     const fields = ['transportMode', 'quantity', 'fromLocation', 'toLocation'];
-
     fields.forEach(field => {
       form.get(field)?.valueChanges
         .pipe(debounceTime(300), distinctUntilChanged())
         .subscribe(() => {
+          debugger
           this.checkAndCallGetLSP();
         });
     });
