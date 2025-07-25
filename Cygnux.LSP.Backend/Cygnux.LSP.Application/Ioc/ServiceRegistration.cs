@@ -24,6 +24,7 @@ public static class ServiceRegistration
         services.AddScoped<ITrackingRepository, TrackingRepository>();
         services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
         services.AddScoped<IRoleMenuPermissionRepository, RoleMenuPermissionRepository>();
+        services.AddScoped<IGeneralMasterRepository, GeneralMasterRepository>();
 
         services.ConfigureIdentityServices(configuration);
         services.ConfigureInfrastructureServices(configuration);

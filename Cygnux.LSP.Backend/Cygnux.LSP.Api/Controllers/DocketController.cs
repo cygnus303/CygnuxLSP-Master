@@ -175,7 +175,7 @@ public class DocketController : ControllerBase
     [HttpGet("DownloadSampleDocketUpload")]
     public async Task<IActionResult> DownloadDocketUplaodFile([FromQuery] Guid login)
     {
-        var transmode = await _docketRepository.TransportmodeList("TRN",login);
+        var transmode = await _docketRepository.GetTrackingList("TRN");
         var lsplist = await _customerLspRepository.GetLsps(login);
 
         if (transmode == null || transmode.Data == null || !transmode.Data.Any())

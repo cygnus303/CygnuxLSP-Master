@@ -92,5 +92,6 @@ public static class StoredProcedureConstants
     public const string USP_GetState = "USP_GetState";
     public const string USP_GetLSPForDocket = "USP_GetLSPForDocket";
     public const string USP_CheckIfRoleIsUsed = "USP_CheckIfRoleIsUsed";
+    public const string Usp_GetGeneralMaster = "Usp_GetGeneralMaster";
 
 }
