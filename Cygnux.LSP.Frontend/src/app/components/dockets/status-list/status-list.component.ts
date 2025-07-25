@@ -170,7 +170,7 @@ onChangeFile(event: any) {
           .map(({ currentStatusCode, currentStatusCodeDesc, errorCode, id, ...rest }) => rest);
 
         if (invalidData.length > 0) {
-          this.docketService.importInvalidFile(invalidData, 'DocketUpload');
+          this.docketService.StatusInvalidFile(invalidData, 'Invalid_statusUpload');
         }
       },
       error: (error) => {
