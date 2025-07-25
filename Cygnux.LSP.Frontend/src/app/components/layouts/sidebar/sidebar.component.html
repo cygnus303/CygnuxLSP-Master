@@ -1,7 +1,7 @@
       <div class="logo-wrapper">
     <img
       class="img-fluid for-light logo-fixed-size"
-      [src]="getlogoImages?.logoLink || 'assets/images/logo/logo.png'"
+      [src]="getlogoImages || 'assets/images/logo/logo.png'"
       (error)="onLogoError($event)"
     />
 

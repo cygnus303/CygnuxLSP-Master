@@ -3,11 +3,12 @@ import { Router, RouterModule } from '@angular/router';
 import { IdentityService } from '../../../shared/services/identity.service';
 import { MenuService } from '../../../shared/services/menu.service';
 import { CommonService } from '../../../shared/services/common.service';
-import { LogoImagesResponse, MenuResponse } from '../../../shared/models/menu.model';
+import { MenuResponse } from '../../../shared/models/menu.model';
 import { CommonModule } from '@angular/common';
 import feather from 'feather-icons';
 import { ScriptLoaderService } from '../../../shared/services/script-loader.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 declare global {
   interface Window {
@@ -25,7 +26,7 @@ declare global {
 export class SidebarComponent implements OnInit {
   public iscollapse:boolean=false;
   public menus: MenuResponse[] = [];
-  public getlogoImages:LogoImagesResponse | null = null;
+  public getlogoImages:string ='';
   constructor(private identityService: IdentityService,
     private router: Router,
     private toasterService: ToastrService,
@@ -85,7 +86,11 @@ getMenus() {
 userRoleWithLogo(){
   this.menuService.UserRoleWithLogo(this.identityService.getLoggedUserId()).subscribe({next: (response) => {
         if (response) {
-         this.getlogoImages = response.data
+          if(response.data.roleName.toUpperCase() === 'lsp admin'){
+            this.getlogoImages = environment.apiUrl.replace('/api/v1', '') + response.data.logoLink.replace(/\\/g, '/');
+          }else{
+            this.getlogoImages = response.data.logoLink
+          }
         }
       },
       error: (response: any) => {
