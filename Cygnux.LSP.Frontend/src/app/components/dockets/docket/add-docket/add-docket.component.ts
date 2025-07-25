@@ -57,7 +57,7 @@ public bestLspId: string | null = null;
     this.getCustomers();
     this.getTransportModeDetail();
     this.getLsps(this.identityService.getLoggedUserId());
-    this.subscribeToLspTriggerFields();
+   
   }
 
   buildForm(): void {
@@ -104,44 +104,39 @@ public bestLspId: string | null = null;
       });
       this.getCustomers();
     }
+     this.subscribeToLspTriggerFields();
   }
-subscribeToLspTriggerFields() {
-  const form = this.docketForm;
+ subscribeToLspTriggerFields() {
+    const form = this.docketForm;
+    const fields = ['transportMode', 'quantity', 'fromLocation', 'toLocation'];
 
-  // Combine relevant controls
-  form.get('transportMode')?.valueChanges
-    .pipe(debounceTime(300), distinctUntilChanged())
-    .subscribe(() => this.checkAndCallGetLSP());
+    fields.forEach(field => {
+      form.get(field)?.valueChanges
+        .pipe(debounceTime(300), distinctUntilChanged())
+        .subscribe(() => {
+          this.checkAndCallGetLSP();
+        });
+    });
+  }
 
-  form.get('quantity')?.valueChanges
-    .pipe(debounceTime(300), distinctUntilChanged())
-    .subscribe(() => this.checkAndCallGetLSP());
 
-  form.get('fromLocation')?.valueChanges
-    .pipe(debounceTime(300), distinctUntilChanged())
-    .subscribe(() => this.checkAndCallGetLSP());
+  checkAndCallGetLSP() {
+    const form = this.docketForm;
+    const isValid =
+      form.get('transportMode')?.valid &&
+      form.get('quantity')?.valid &&
+      form.get('fromLocation')?.valid &&
+      form.get('toLocation')?.valid;
+    if (isValid) {
+      this.GetLSPForDocket();
+    }
+  }
 
-  form.get('toLocation')?.valueChanges
-    .pipe(debounceTime(300), distinctUntilChanged())
-    .subscribe(() => this.checkAndCallGetLSP());
-}
-  getKeyIgnoreCase(obj: any, key: string): any {
+    getKeyIgnoreCase(obj: any, key: string): any {
     const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
     return foundKey ? obj[foundKey] : null;
   }
-
-checkAndCallGetLSP() {
-  const form = this.docketForm;
-  if (
-    form.get('transportMode')?.valid &&
-    form.get('quantity')?.valid &&
-    form.get('fromLocation')?.valid &&
-    form.get('toLocation')?.valid
-  ) {
-    this.GetLSPForDocket();
-  }
-}
-
+  
   onClose() {
     this.buildForm();
     this.getCustomers();
