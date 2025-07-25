@@ -103,7 +103,8 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
     {
         public int Id { get; set; }
         public string DocketNo { get; set; }= string.Empty;
-        public DateTime UploadDate { get; set; }
+        /*public DateTime UploadDate { get; set; }*/
+        public string UploadDate { get; set; }
         public string ImageLink { get; set; } = string.Empty;
         public string ImageName { get; set; } = string.Empty;
         public string ImageFront {  get; set; } = string.Empty;
