@@ -10,7 +10,7 @@ public interface IRoleService
     Task<IEnumerable<RoleResponse>> GetRoleList(string reqFilter);
 
     Task<RoleResponse?> GetRoleDetails(Guid id);
-    Task<Role_Message> RoleIfNotExists(string Name);
+    Task<Role_Message> RoleIfNotExists(Guid RoleId);
 
     Task<IdentityResult> AddRole(ApplicationRole applicationRole);
 

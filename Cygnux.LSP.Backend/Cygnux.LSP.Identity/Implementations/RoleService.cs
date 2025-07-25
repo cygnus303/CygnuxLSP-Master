@@ -50,13 +50,13 @@ internal class RoleService : IRoleService
             }).FirstOrDefaultAsync();
     }
 
-    public async Task<Role_Message> RoleIfNotExists(string Name)
+    public async Task<Role_Message> RoleIfNotExists(Guid RoleId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@RoleName", Name, DbType.String);
+        parameters.Add("@RoleId", RoleId, DbType.Guid);
 
         var result = await _dbConnection.QueryFirstOrDefaultAsync<Role_Message>(
-            StoredProcedureConstants.USP_AddRoleIfNotExists,
+            StoredProcedureConstants.USP_CheckIfRoleIsUsed,
             parameters,
             commandType: CommandType.StoredProcedure
         );

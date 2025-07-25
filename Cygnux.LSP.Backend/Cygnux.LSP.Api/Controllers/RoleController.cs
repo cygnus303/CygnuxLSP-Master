@@ -36,9 +36,9 @@ public class RoleController : ControllerBase
 
     [HttpGet]
     [Route("RoleIfNotExists")]
-    public async Task<IActionResult> RoleIfNotExists(string Name)
+    public async Task<IActionResult> RoleIfNotExists(Guid RoleId)
     {
-        return Ok(await _roleRepository.RoleIfNotExists(Name));
+        return Ok(await _roleRepository.RoleIfNotExists(RoleId));
     }
 
     [HttpPost]

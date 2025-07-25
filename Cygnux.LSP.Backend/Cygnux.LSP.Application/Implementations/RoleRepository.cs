@@ -35,9 +35,9 @@ internal class RoleRepository : IRoleRepository
         return new BaseResponse<RoleResponse?>(response);
     }
 
-    public async Task<BaseResponse<Role_Message>> RoleIfNotExists(string Name)
+    public async Task<BaseResponse<Role_Message>> RoleIfNotExists(Guid RoleId)
     {
-        var response = await _roleService.RoleIfNotExists(Name);
+        var response = await _roleService.RoleIfNotExists(RoleId);
         return new BaseResponse<Role_Message>(response);
     }
 
