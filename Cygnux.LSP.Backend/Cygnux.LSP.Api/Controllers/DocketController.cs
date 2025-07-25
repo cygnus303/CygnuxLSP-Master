@@ -459,26 +459,31 @@ public class DocketController : ControllerBase
 
         foreach (var docket in dockets.Where(d => d.IsValid == true))
         {
-            // Find _F and _B images for this DocketNo
-            var frontImageFile = imgfiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f.FileName).Equals($"{docket.DocketNo}_F", StringComparison.OrdinalIgnoreCase));
-            var backImageFile = imgfiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f.FileName).Equals($"{docket.DocketNo}_B", StringComparison.OrdinalIgnoreCase));
+            // Find all images for this DocketNo
+            var matchingFiles = imgfiles
+                .Where(f => Path.GetFileNameWithoutExtension(f.FileName).StartsWith(docket.DocketNo, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-            if (frontImageFile == null || backImageFile == null)
-                continue; // Skip if either image is missing
+            if (!matchingFiles.Any())
+                continue; // Skip if no images available for this docket
 
-            var frontExtension = Path.GetExtension(frontImageFile.FileName).ToLower();
-            var backExtension = Path.GetExtension(backImageFile.FileName).ToLower();
+            // Validate extensions
+            matchingFiles = matchingFiles
+                .Where(f => allowedExtensions.Contains(Path.GetExtension(f.FileName).ToLower()))
+                .ToList();
 
-            if (!allowedExtensions.Contains(frontExtension) || !allowedExtensions.Contains(backExtension))
-                continue; // Skip if extensions are not allowed
+            if (!matchingFiles.Any())
+                continue; // Skip if no valid extension images
 
-            // Financial Year
+            // Sort images alphabetically
+            matchingFiles = matchingFiles.OrderBy(f => f.FileName).ToList();
+
+            // Financial Year and folder structure
             DateTime currentDate = DateTime.Now;
             int year = currentDate.Month >= 4 ? currentDate.Year : currentDate.Year - 1;
             var finyear = $"{year}-{(year + 1).ToString().Substring(2)}";
             var month = currentDate.ToString("MMMM").ToUpper();
 
-            // Safe folder structure
             var customerId = (docket.CustomerId ?? Guid.Empty).ToString();
             var lspId = docket.LSPId.ToString();
 
@@ -488,36 +493,46 @@ public class DocketController : ControllerBase
             if (!Directory.Exists(uploadFolder))
                 Directory.CreateDirectory(uploadFolder);
 
-            // Save front image
-            var frontFileName = $"{docket.DocketNo}_F{frontExtension}";
+            string frontFileName = null, backFileName = null;
+            string podLink = null, podLinkBack = null;
+
+            // Save front image (first image)
+            var frontImageFile = matchingFiles[0];
+            var frontExtension = Path.GetExtension(frontImageFile.FileName).ToLower();
+            frontFileName = $"{docket.DocketNo}{frontExtension}";
             var frontSavePath = Path.Combine(uploadFolder, frontFileName);
             using (var stream = new FileStream(frontSavePath, FileMode.Create))
             {
                 await frontImageFile.CopyToAsync(stream);
             }
 
-            // Save back image
-            var backFileName = $"{docket.DocketNo}_B{backExtension}";
-            var backSavePath = Path.Combine(uploadFolder, backFileName);
-            using (var stream = new FileStream(backSavePath, FileMode.Create))
+            // If second image exists, save as back
+            if (matchingFiles.Count > 1)
             {
-                await backImageFile.CopyToAsync(stream);
+                var backImageFile = matchingFiles[1];
+                var backExtension = Path.GetExtension(backImageFile.FileName).ToLower();
+                backFileName = $"{docket.DocketNo}(1){backExtension}";
+                var backSavePath = Path.Combine(uploadFolder, backFileName);
+                using (var stream = new FileStream(backSavePath, FileMode.Create))
+                {
+                    await backImageFile.CopyToAsync(stream);
+                }
             }
 
             // Generate public URLs
             var baseUrl = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerId}/{lspId}/{finyear}/{month}";
-            var podLink = $"{baseUrl}/{frontFileName}";
-            var podLinkBack = $"{baseUrl}/{backFileName}";
+            podLink = $"{baseUrl}/{frontFileName}";
+            if (backFileName != null)
+                podLinkBack = $"{baseUrl}/{backFileName}";
 
             var podDetail = new PODDataList
             {
                 DocketNo = docket.DocketNo,
                 CustomerId = docket.CustomerId ?? Guid.Empty,
                 LspId = docket.LSPId,
-                /*POD = podLink,*/                   // front image link
                 PODFileName = frontFileName,
-                PODLink = podLink,               // front link
-                PODLinkBack = podLinkBack,       // back link
+                PODLink = podLink,
+                PODLinkBack = podLinkBack,
                 EntryBy = User.ToString()
             };
 
@@ -532,6 +547,89 @@ public class DocketController : ControllerBase
 
         return Ok(new { message = "Success" });
     }
+
+
+    //public async Task<IActionResult> ImportPOD([FromForm] string docketJson, [FromForm] List<IFormFile> imgfiles, [FromForm] Guid User)
+    //{
+    //    var allowedExtensions = new[] { ".png", ".jpeg", ".jpg", ".tiff", ".tif" };
+    //    var dockets = JsonConvert.DeserializeObject<List<ValidatePODResponse>>(docketJson);
+    //    var podDataList = new List<PODDataList>();
+
+    //    foreach (var docket in dockets.Where(d => d.IsValid == true))
+    //    {
+    //        // Find _F and _B images for this DocketNo
+    //        var frontImageFile = imgfiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f.FileName).Equals($"{docket.DocketNo}_F", StringComparison.OrdinalIgnoreCase));
+    //        var backImageFile = imgfiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f.FileName).Equals($"{docket.DocketNo}_B", StringComparison.OrdinalIgnoreCase));
+
+    //        if (frontImageFile == null || backImageFile == null)
+    //            continue; // Skip if either image is missing
+
+    //        var frontExtension = Path.GetExtension(frontImageFile.FileName).ToLower();
+    //        var backExtension = Path.GetExtension(backImageFile.FileName).ToLower();
+
+    //        if (!allowedExtensions.Contains(frontExtension) || !allowedExtensions.Contains(backExtension))
+    //            continue; // Skip if extensions are not allowed
+
+    //        // Financial Year
+    //        DateTime currentDate = DateTime.Now;
+    //        int year = currentDate.Month >= 4 ? currentDate.Year : currentDate.Year - 1;
+    //        var finyear = $"{year}-{(year + 1).ToString().Substring(2)}";
+    //        var month = currentDate.ToString("MMMM").ToUpper();
+
+    //        // Safe folder structure
+    //        var customerId = (docket.CustomerId ?? Guid.Empty).ToString();
+    //        var lspId = docket.LSPId.ToString();
+
+    //        var uploadRoot = _iconfiguration.GetValue<string>("ImagePath");
+    //        var uploadFolder = Path.Combine(uploadRoot, customerId, lspId, finyear, month);
+
+    //        if (!Directory.Exists(uploadFolder))
+    //            Directory.CreateDirectory(uploadFolder);
+
+    //        // Save front image
+    //        var frontFileName = $"{docket.DocketNo}_F{frontExtension}";
+    //        var frontSavePath = Path.Combine(uploadFolder, frontFileName);
+    //        using (var stream = new FileStream(frontSavePath, FileMode.Create))
+    //        {
+    //            await frontImageFile.CopyToAsync(stream);
+    //        }
+
+    //        // Save back image
+    //        var backFileName = $"{docket.DocketNo}_B{backExtension}";
+    //        var backSavePath = Path.Combine(uploadFolder, backFileName);
+    //        using (var stream = new FileStream(backSavePath, FileMode.Create))
+    //        {
+    //            await backImageFile.CopyToAsync(stream);
+    //        }
+
+    //        // Generate public URLs
+    //        var baseUrl = $"{Request.Scheme}://{Request.Host}/PODUpload/{customerId}/{lspId}/{finyear}/{month}";
+    //        var podLink = $"{baseUrl}/{frontFileName}";
+    //        var podLinkBack = $"{baseUrl}/{backFileName}";
+
+    //        var podDetail = new PODDataList
+    //        {
+    //            DocketNo = docket.DocketNo,
+    //            CustomerId = docket.CustomerId ?? Guid.Empty,
+    //            LspId = docket.LSPId,
+    //            /*POD = podLink,*/                   // front image link
+    //            PODFileName = frontFileName,
+    //            PODLink = podLink,               // front link
+    //            PODLinkBack = podLinkBack,       // back link
+    //            EntryBy = User.ToString()
+    //        };
+
+    //        podDataList.Add(podDetail);
+    //    }
+
+    //    if (podDataList.Any())
+    //    {
+    //        var result = await _docketRepository.ImportPOD(podDataList, User);
+    //        return Ok(result);
+    //    }
+
+    //    return Ok(new { message = "Success" });
+    //}
 
     //public async Task<IActionResult> ImportPOD([FromForm] string docketJson, [FromForm] List<IFormFile> imgfiles, [FromForm]  Guid User)
     //{
