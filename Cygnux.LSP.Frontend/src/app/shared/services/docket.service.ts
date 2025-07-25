@@ -90,15 +90,24 @@ export class DocketService {
     worksheet.columns = [
       { header: 'Docket Number', key: 'docketNumber', width: 20 },
       { header: 'Next Docket Status', key: 'nextDocketStatus', width: 20 },
-      { header: 'Customer Name', key: 'customerName', width: 20 },
-      { header: 'LSP Name', key: 'lspName', width: 20 },
       { header: 'Status Date', key: 'statusDate', width: 15 },
       { header: 'Error Message', key: 'errorMessage', width: 40 },
     ];
 
     // Add rows and apply color formatting
     data.forEach((item) => {
-      const row = worksheet.addRow(item);
+      // Format statusDate
+      const formattedDate = item.statusDate
+        ? new Date(item.statusDate).toLocaleDateString('en-GB')  // dd/MM/yyyy
+        : '';
+
+      // Add row with formatted date
+      const row = worksheet.addRow({
+        ...item,
+        statusDate: formattedDate.replace(/\//g, '-')  // convert to dd-MM-yyyy
+      });
+
+      // Color errorMessage
       const errorCell = row.getCell('errorMessage');
       errorCell.font = {
         color: {
@@ -106,7 +115,6 @@ export class DocketService {
         }
       };
     });
-
     // Write the file
     workbook.xlsx.writeBuffer().then((buffer) => {
       const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -120,7 +128,6 @@ export class DocketService {
 
     // Define only the required columns
     worksheet.columns = [
-      { header: 'Customer Name', key: 'customerName', width: 20 },
       { header: 'LSP Name', key: 'lspName', width: 20 },
       { header: 'Docket No', key: 'docketNo', width: 15 },
       { header: 'Invoice No', key: 'invoiceNo', width: 15 },
@@ -135,7 +142,6 @@ export class DocketService {
     // Add rows and apply formatting
     data.forEach(item => {
       const row = worksheet.addRow({
-        customerName: item.customerName,
         lspName: item.lspName,
         docketNo: item.docketNo,
         invoiceNo: item.invoiceNo,
@@ -189,17 +195,17 @@ export class DocketService {
     return this.apiHandlerService.Post('docket/UpdateDocket/' + id, adddocketRequest);
   }
 
-   deleteDocket(id: string): Observable<IApiBaseResponse<CommonResponse>> {
+  deleteDocket(id: string): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Patch('docket/DeleteDocket/' + id, null);
   }
 
-  docketCancel(id: string,userId:string): Observable<IApiBaseResponse<CommonResponse>> {
+  docketCancel(id: string, userId: string): Observable<IApiBaseResponse<CommonResponse>> {
     return this.apiHandlerService.Patch(`docket/DocketCancel?id=${id}&userId=${userId}`, null);
   }
 
-  docketReject(payload:any): Observable<IApiBaseResponse<CommonResponse>> {
-      return this.apiHandlerService.Patch(`docket/DocketReject`,payload);
-  } 
+  docketReject(payload: any): Observable<IApiBaseResponse<CommonResponse>> {
+    return this.apiHandlerService.Patch(`docket/DocketReject`, payload);
+  }
 
   uploadDocket(formData: any) {
     return this.apiHandlerService.Post(`Docket/ImportPOD`, formData);
@@ -237,7 +243,7 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/FetchDocData?docketno=${docketNo}`);
   }
 
-     GetLSPForDocket(data:any) {
+  GetLSPForDocket(data: any) {
     const queryParams = new URLSearchParams(data).toString();
     return this.apiHandlerService.Get(`Docket/GetLSPForDocket?${queryParams}`);
   }
