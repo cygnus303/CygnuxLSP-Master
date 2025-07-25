@@ -280,23 +280,52 @@ export class LspTatListComponent implements OnInit {
     });
   }
   
-  openImportModal(event: Event) {
-    event.preventDefault();
-    const modalElement = document.getElementById('importModal');
-    
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
-      const handleOutsideClick = (e: MouseEvent) => {
-        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
-          modal.hide();
-          modalElement.removeEventListener('click', handleOutsideClick);
-          this.ImportLspTatComponent.onClose();
+openImportModal(event: Event) {
+  event.preventDefault();
+  
+  this.lspMappingService.getCustomers(this.identityService.getLoggedUserId()).subscribe({
+    next: (response) => {
+      const customers = response?.data || [];
+
+      if (!customers || customers.length === 0) {
+        const userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+
+        if (userRoles.includes('SA')) {
+          this.sweetAlertService.info('LSP mapping is missing. Redirecting to LSP Mapping...', () => {
+            this.router.navigate(['/lsp-mapping/list']);
+          });
+        } else {
+          // Show info for non-SA users
+          this.sweetAlertService.info('LSP mapping is missing for this customer. Please contact the administrator');
         }
-      };
-      modalElement.addEventListener('click', handleOutsideClick);
+
+        return;
+      }
+
+      const modalElement = document.getElementById('importModal');
+
+      if (modalElement) {
+        const modal = new Modal(modalElement);
+        modal.show();
+
+        const handleOutsideClick = (e: MouseEvent) => {
+          if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+            modal.hide();
+            modalElement.removeEventListener('click', handleOutsideClick);
+            this.ImportLspTatComponent.onClose();
+          }
+        };
+
+        modalElement.addEventListener('click', handleOutsideClick);
+      }
+    },
+    error: (err) => {
+      console.error('Error fetching customers:', err);
+      this.sweetAlertService.error('An error occurred while fetching LSP mapping information.');
     }
-  }
+  });
+}
+
 
     closeImportModal() {
     const modalElement: any = document.getElementById('importModal');

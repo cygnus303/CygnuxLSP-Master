@@ -103,8 +103,8 @@ export class RoleListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  checkRoleDetail(role:any){
-    this.roleService.checkRoleData(role.roleName).subscribe({
+  checkRoleDetail(roleId: string) {
+    this.roleService.checkRoleData(roleId).subscribe({
       next: (response) => {
         // if (response.success) {
         //   this.sweetAlertService.success(response.data.message);
@@ -114,14 +114,14 @@ export class RoleListComponent implements OnInit, AfterViewInit {
         if (response.data.message) {
           this.sweetAlertService.info('This role is currently in use. Please deactivate or delete all associated data before modifying or deleting the role.');
         } else {
-          this.deleteRole(role.id)
+          this.deleteModal(roleId)
         }
       },
       error: (response: any) => {
         this.sweetAlertService.error(response.error.message);
       },
     });
-  
+
   }
 
   deleteRole(roleId: string) {
@@ -154,8 +154,8 @@ export class RoleListComponent implements OnInit, AfterViewInit {
       this.getRole(roleId);
     }
   }
-  deleteModal(event: Event, roleId: string) {
-    event.preventDefault();
+  deleteModal(roleId: string) {
+    // event.preventDefault();
     // const modalElement = document.getElementById('deleteModal');
     // if (modalElement) {
     //   const modal = new Modal(modalElement);

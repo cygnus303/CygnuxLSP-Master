@@ -33,7 +33,7 @@ export class RoleService {
     return this.apiHandlerService.Patch(`role/DeleteRole?roleId=${id}` , deleteRoleRequest);
   }
 
-  checkRoleData(name:string): Observable<IApiBaseResponse<CheckRoleResponse>> {
-    return this.apiHandlerService.Get(`Role/RoleIfNotExists?Name=${name}`);
+  checkRoleData(id:string): Observable<IApiBaseResponse<CheckRoleResponse>> {
+    return this.apiHandlerService.Get(`Role/RoleIfNotExists?RoleId=${id}`);
   }
 }

@@ -206,7 +206,7 @@
             </button>&nbsp;
 
             <button class="btn btn-square btn-danger pull-right rounded-3" type="reset" *ngIf="!docketId"><i
-                class="fa fa-times"></i> Reset</button>
+                class="fa fa-times" (click)="onClose()"></i> Reset</button>
           </div>
         </form>
       </div>

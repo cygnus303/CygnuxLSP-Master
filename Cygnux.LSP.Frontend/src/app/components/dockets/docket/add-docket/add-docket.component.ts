@@ -36,13 +36,13 @@ export class AddDocketComponent implements OnInit, OnChanges {
   public customerId: string = '';
   public isLoading = false;
   public selectedLSP: string | null = null;
-  public getCityList: CityList[] =[];
+  public getCityList: CityList[] = [];
   public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
-  public loader = {from: false, to: false};
-  public getLSPForDocket :LSPForDocket[]=[];
+  public loader = { from: false, to: false };
+  public getLSPForDocket: LSPForDocket[] = [];
   public isLspLoading: boolean = false;
   minLspAmount: number | null = null;
-public bestLspId: string | null = null;
+  public bestLspId: string | null = null;
   @Input() docketResponse: DocketResponse | null = null;
   @Input() isSelected: string = '';
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
@@ -57,8 +57,8 @@ public bestLspId: string | null = null;
     this.getCustomers();
     this.getTransportModeDetail();
     this.getLsps(this.identityService.getLoggedUserId());
-     this.subscribeToLspTriggerFields();
-   
+    this.subscribeToLspTriggerFields();
+
   }
 
   buildForm(): void {
@@ -105,9 +105,9 @@ public bestLspId: string | null = null;
       });
       this.getCustomers();
     }
-     this.subscribeToLspTriggerFields();
+    this.subscribeToLspTriggerFields();
   }
- subscribeToLspTriggerFields() {
+  subscribeToLspTriggerFields() {
     const form = this.docketForm;
     const fields = ['transportMode', 'quantity', 'fromLocation', 'toLocation'];
     fields.forEach(field => {
@@ -133,11 +133,11 @@ public bestLspId: string | null = null;
     }
   }
 
-    getKeyIgnoreCase(obj: any, key: string): any {
+  getKeyIgnoreCase(obj: any, key: string): any {
     const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
     return foundKey ? obj[foundKey] : null;
   }
-  
+
   onClose() {
     this.buildForm();
     this.getCustomers();
@@ -201,6 +201,8 @@ public bestLspId: string | null = null;
           this.sweetAlertService.success(response.data.message);
           this.buildForm();
           this.dataEmitter.emit();
+          this.subscribeToLspTriggerFields();
+          this.getLSPForDocket = [];
           if (this.userRoles !== 'SA') {
             this.docketForm.patchValue({
               customerId: this.customerId
@@ -270,12 +272,12 @@ public bestLspId: string | null = null;
 
 
   isAllFieldsTouched(): boolean {
-  const controls = this.docketForm.controls;
-  return controls['transportMode'].touched &&
-         controls['quantity'].touched &&
-         controls['fromLocation'].touched &&
-         controls['toLocation'].touched;
-}
+    const controls = this.docketForm.controls;
+    return controls['transportMode'].touched &&
+      controls['quantity'].touched &&
+      controls['fromLocation'].touched &&
+      controls['toLocation'].touched;
+  }
 
   onSelectOrigin(event: any, type?: string): void {
     const formValues = this.docketForm.value;
@@ -336,95 +338,95 @@ public bestLspId: string | null = null;
       }
     });
   }
-GetLSPForDocket() {
-  this.isLspLoading = true;
+  GetLSPForDocket() {
+    this.isLspLoading = true;
 
-  const data = {
-    TransportMode: this.docketForm.value.transportMode,
-    TotalKg: this.docketForm.value.quantity,
-    FromWH: this.docketForm.value.fromLocation,
-    ToWH: this.docketForm.value.toLocation,
-    UserId: this.identityService.getLoggedUserId()
-  };
+    const data = {
+      TransportMode: this.docketForm.value.transportMode,
+      TotalKg: this.docketForm.value.quantity,
+      FromWH: this.docketForm.value.fromLocation,
+      ToWH: this.docketForm.value.toLocation,
+      UserId: this.identityService.getLoggedUserId()
+    };
 
-  this.docketService.GetLSPForDocket(data).subscribe({
-    next: (response) => {
-      this.isLspLoading = false;
-      this.getLSPForDocket = response.success ? response.data || [] : [];
+    this.docketService.GetLSPForDocket(data).subscribe({
+      next: (response) => {
+        this.isLspLoading = false;
+        this.getLSPForDocket = response.success ? response.data || [] : [];
 
-      if (this.getLSPForDocket.length > 0) {
-        // ✅ Calculate the best LSP based on lowest TAT then lowest Rate
-        const sortedLSPs = [...this.getLSPForDocket].sort((a, b) => {
-          if (a.tat !== b.tat) return a.tat - b.tat;
-          return a.ratePerKG - b.ratePerKG;
-        });
+        if (this.getLSPForDocket.length > 0) {
+          // ✅ Calculate the best LSP based on lowest TAT then lowest Rate
+          const sortedLSPs = [...this.getLSPForDocket].sort((a, b) => {
+            if (a.tat !== b.tat) return a.tat - b.tat;
+            return a.ratePerKG - b.ratePerKG;
+          });
 
-        const bestLsp = sortedLSPs[0];
-        this.bestLspId = bestLsp.lspId;
+          const bestLsp = sortedLSPs[0];
+          this.bestLspId = bestLsp.lspId;
 
-        // ✅ Auto-select best
-        this.selectedLSP = bestLsp.lspId;
-        this.onLspSelected(bestLsp);
-      } else {
+          // ✅ Auto-select best
+          this.selectedLSP = bestLsp.lspId;
+          this.onLspSelected(bestLsp);
+        } else {
+          this.selectedLSP = null;
+          this.bestLspId = null;
+        }
+
+        if (!response.success) {
+          this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (error) => {
+        this.isLspLoading = false;
+        this.getLSPForDocket = [];
         this.selectedLSP = null;
         this.bestLspId = null;
+        this.sweetAlertService.error(error?.error?.message || 'Server error');
       }
-
-      if (!response.success) {
-        this.sweetAlertService.error(response.error.message);
-      }
-    },
-    error: (error) => {
-      this.isLspLoading = false;
-      this.getLSPForDocket = [];
-      this.selectedLSP = null;
-      this.bestLspId = null;
-      this.sweetAlertService.error(error?.error?.message || 'Server error');
-    }
-  });
-}
-
-
-onLspSelected(lsp: any) {
-  this.docketForm.patchValue({ transporter: lsp.lspId });
-}
-
-getCityData(event: { term: string; items: any[] }, field: 'from' | 'to') {
-  const searchTerm = event.term?.trim();
-
-  if (!searchTerm || searchTerm.length < 2) {
-    if (field === 'from') {
-      this.getCityList = [];
-    } else {
-      this.customerWHStoreLocation = [];
-    }
-    return;
+    });
   }
 
-  this.loader[field] = true;
 
-  this.docketService.GetCityDataDocket(searchTerm).subscribe({
-    next: (response) => {
-      this.loader[field] = false;
+  onLspSelected(lsp: any) {
+    this.docketForm.patchValue({ transporter: lsp.lspId });
+  }
 
-      const data = response.data
+  getCityData(event: { term: string; items: any[] }, field: 'from' | 'to') {
+    const searchTerm = event.term?.trim();
 
-      if (response.success) {
-        if (field === 'from') {
-          this.getCityList = data;
-        } else {
-          this.customerWHStoreLocation = data;
-        }
+    if (!searchTerm || searchTerm.length < 2) {
+      if (field === 'from') {
+        this.getCityList = [];
       } else {
-        this.sweetAlertService.error(response.error.message);
+        this.customerWHStoreLocation = [];
       }
-    },
-    error: (error) => {
-      this.loader[field] = false;
-      this.sweetAlertService.error(error?.error?.message || 'Server error');
-    },
-  });
-}
+      return;
+    }
+
+    this.loader[field] = true;
+
+    this.docketService.GetCityDataDocket(searchTerm).subscribe({
+      next: (response) => {
+        this.loader[field] = false;
+
+        const data = response.data
+
+        if (response.success) {
+          if (field === 'from') {
+            this.getCityList = data;
+          } else {
+            this.customerWHStoreLocation = data;
+          }
+        } else {
+          this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (error) => {
+        this.loader[field] = false;
+        this.sweetAlertService.error(error?.error?.message || 'Server error');
+      },
+    });
+  }
 
   getTransporterDetail() {
     this.docketService.getTrackingList('DOCKSTAUS').subscribe({
@@ -457,6 +459,6 @@ getCityData(event: { term: string; items: any[] }, field: 'from' | 'to') {
   }
 
   isCustomerOrLspEmpty(): boolean {
-  return (!this.customers || this.customers.length === 0) || (!this.lsps || this.lsps.length === 0);
-}
+    return (!this.customers || this.customers.length === 0) || (!this.lsps || this.lsps.length === 0);
+  }
 }
