@@ -58,6 +58,8 @@ namespace Cygnux.LSP.Application.Models.Request.Docket
         public Guid? CustomerId { get; set; }
         public string? PODLink { get; set; } = string.Empty;
         public string PODFileName { get; set; } = string.Empty;
+        public string PODLinkBack { get; set; } = string.Empty;
+        public string PODFileNameBack { get; set; } = string.Empty;
         public DateTime UploadDate { get; set; }
     }
 }
