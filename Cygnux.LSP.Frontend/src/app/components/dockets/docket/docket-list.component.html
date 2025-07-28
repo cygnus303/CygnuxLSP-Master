@@ -126,9 +126,9 @@
                                <img src="/assets/images/update.png" width="23" height="22">
                              </div>
                              <div
-                               (click)="docket.currentStatus !== '6' || (docket.currentStatus === '6' && docket.podLink !== '-') || !docket.isLspTatActive ? null : openPodUpdateModal(docket)"
-                               [ngClass]="{'disabled-image': !commonService.menuRoleList?.canPOD, 'disabled-icon': docket.currentStatus !== '6' || (docket.currentStatus === '6' && docket.podLink !== '-') || !docket.isLspTatActive}"
-                               [popover]="docket.currentStatus !== '6' ? 'Current status is not Delivered yet' : (docket.currentStatus === '6' && docket.podLink !== '-') ? 'POD Already Upload' : !docket.isLspTatActive ? 'Currently lsp tat is inactive.': 'POD Upload'"
+                               (click)="docket.currentStatus !== '6'? null : openPodUpdateModal(docket)"
+                               [ngClass]="{'disabled-image': !commonService.menuRoleList?.canPOD, 'disabled-icon': docket.currentStatus !== '6'|| !docket.isLspTatActive}"
+                               [popover]="docket.currentStatus !== '6' ? 'Current status is not Delivered yet' : !docket.isLspTatActive ? 'Currently lsp tat is inactive.': 'POD Upload'"
                                placement="auto" triggers="hover" [outsideClick]="true" container="body">
                                <img src="/assets/images/pod.svg" width="37" height="27">
                              </div>
