@@ -219,6 +219,15 @@ export class DocketListComponent implements OnInit {
       modal.show();
       this.isSelected = type;
       this.getDocket(docketList);
+         const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide();
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addDocketComponent.onClose();
+          this.closeEditModal()
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
 

@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
                 next: (response) => {
                     this.loading = false; // hide button loader
                     this.commonService.updateLoader(false); // optional
-
+                    this.loginErrorMessage='';
                     if (response && response.success) {
                         this.identityService.setToken(response.data.token);
                         this.identityService.setRoles(response.data.roles);

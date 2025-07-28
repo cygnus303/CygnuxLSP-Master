@@ -65,6 +65,7 @@ export class ForgotPasswordComponent {
       }
       this.authenticationService.resetPassword(filters).subscribe({
       next: (response) => {
+        this.loginErrorMessage='';
         if (response) {
         this.isSubmitting = false;
         this.toastrServiceo.success(response.data.message);

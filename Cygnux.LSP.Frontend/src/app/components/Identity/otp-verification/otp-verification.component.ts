@@ -59,6 +59,7 @@ export class OtpVerificationComponent {
 
     this.authenticationService.verifyOTP(filters).subscribe({
       next: (response) => {
+         this.loginErrorMessage='';
         if (response.success) {
           this.toastrService.success(response.data.message);
           this.isOtpAlreadyVerified = true;  // Mark OTP as verified
@@ -95,6 +96,7 @@ export class OtpVerificationComponent {
       this.isResending = true;
        this.authenticationService.resendOTP(filters).subscribe({
         next: (response) => {
+           this.loginErrorMessage='';
           this.isResending = false;
           if(response.success){
             this.otp = { d1: '', d2: '', d3: '', d4: '', d5: '', d6: '' };
