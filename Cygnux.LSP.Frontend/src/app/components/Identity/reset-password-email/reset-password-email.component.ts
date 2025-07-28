@@ -29,6 +29,7 @@ constructor(
   this.authenticationService.forgotPasswordMail(filters).subscribe({
     next: (response) => {
       this.isSending = false;
+       this.loginErrorMessage='';
       if (response.status) {
         this.toastrService.success(response.message);
         this.forgotId= response.data.split('/').pop();

@@ -219,34 +219,51 @@ export class DocketListComponent implements OnInit {
       modal.show();
       this.isSelected = type;
       this.getDocket(docketList);
+         const handleOutsideClick = (e: MouseEvent) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains('modal')) {
+          modal.hide();
+          modalElement.removeEventListener('click', handleOutsideClick);
+          this.addDocketComponent.onClose();
+          this.closeEditModal()
+        }
+      };
+      modalElement.addEventListener('click', handleOutsideClick);
     }
   }
 
-    deleteModal(docketCode: string ,data:any) {
-      const isLsp = this.userRoles.toLowerCase() === 'lsp admin';
-      if(data.isCustomerCancelled || data.isLSPCancelled){
-          this.sweetAlertService.confirm("Are you sure to cancel docket?", 
-            {confirmButtonText: "Approve",cancelButtonText: "Reject"}).then((result: any) => {
-            if (result.isConfirmed) {
-              this.docketCancel(docketCode);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              this.rejectionRemarks().then((remarks) => {
-                if (remarks !== null) {
-                  this.docketReject(docketCode, remarks);
-                }
-              });
-            }
-          });
-      }else{
-        const message = isLsp ? "Do you want to send docket cancel request to Customer for approval?" : "Do you want to send docket cancel request to LSP for approval?";
-        this.sweetAlertService.confirm(message, {confirmButtonText: "Yes", cancelButtonText: "No",allowOutsideClick: false }).then((result: any) => {
-          if (result.isConfirmed) {
-            this.docketCancel(docketCode);
-          } else if (result.dismiss === 'cancel') {
-            this.deleteDocket(docketCode);
-          }
-        });
-    } 
+  //   deleteModal(docketCode: string ,data:any) {
+  //     const isLsp = this.userRoles.toLowerCase() === 'lsp admin';
+  //     if(data.isCustomerCancelled || data.isLSPCancelled){
+  //         this.sweetAlertService.confirm("Are you sure to cancel docket?", 
+  //           {confirmButtonText: "Approve",cancelButtonText: "Reject"}).then((result: any) => {
+  //           if (result.isConfirmed) {
+  //             this.docketCancel(docketCode);
+  //           } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //             this.rejectionRemarks().then((remarks) => {
+  //               if (remarks !== null) {
+  //                 this.docketReject(docketCode, remarks);
+  //               }
+  //             });
+  //           }
+  //         });
+  //     }else{
+  //       const message = isLsp ? "Do you want to send docket cancel request to Customer for approval?" : "Do you want to send docket cancel request to LSP for approval?";
+  //       this.sweetAlertService.confirm(message, {confirmButtonText: "Yes", cancelButtonText: "No",allowOutsideClick: false }).then((result: any) => {
+  //         if (result.isConfirmed) {
+  //           this.docketCancel(docketCode);
+  //         } else if (result.dismiss === 'cancel') {
+  //           this.deleteDocket(docketCode);
+  //         }
+  //       });
+  //   } 
+  // }
+
+  deleteModal(docketCode: string) {
+    this.sweetAlertService.delete(
+      'Are you sure you want to Cancel Docket?',
+      () => this.deleteDocket(docketCode)
+    );
+
   }
 
   rejectionRemarks(): Promise<string | null> {
@@ -282,7 +299,7 @@ export class DocketListComponent implements OnInit {
   openImportModal(event: Event) {
     event.preventDefault();
     const modalElement = document.getElementById('importModal');
-      if (this.addDocketComponent.isCustomerOrLspEmpty()) {
+    if (this.addDocketComponent.isCustomerOrLspEmpty()) {
       this.sweetAlertService.info("LSP mapping is missing. Please contact the administrator");
       return;
     }

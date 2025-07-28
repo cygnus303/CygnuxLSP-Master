@@ -196,7 +196,6 @@ onDropzoneSelect(event: any) {
           this.mappedData = response.data
           this.loading = false;
           this.dataEmitter.emit();
-          debugger
            const invalidData = this.mappedData
           .filter(item => !item.isValid)
           .map(({ customerName, id, imageBack, imageLink,isValid,lspName,lspId,imageFront,imageName, ...rest }) => rest);

@@ -15,7 +15,8 @@ import { IdentityService } from '../../../../shared/services/identity.service';
 import { LspMappingService } from '../../../../shared/services/lsp-mapping.service';
 import { SweetAlertService } from '../../../../shared/services/toastr.service';
 import { LspResponse } from '../../../../shared/models/lsp.model';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, pairwise } from 'rxjs/operators';
+
 
 
 @Component({
@@ -81,16 +82,14 @@ export class AddDocketComponent implements OnInit, OnChanges {
     if (changes['docketResponse'] && this.docketResponse) {
       this.docketResponse.bookingDate = new Date(this.docketResponse.bookingDate);
       this.docketId = this.docketResponse.docketId;
-      const transporterId = this.docketResponse.transporter
-        ?? this.docketResponse.trasporter
-        ?? this.getKeyIgnoreCase(this.docketResponse, 'transporter');
-
-
+      const transporterId = this.docketResponse.transporter ?? this.docketResponse.trasporter ?? this.getKeyIgnoreCase(this.docketResponse, 'transporter');
       const normalizedTransporter = typeof transporterId === 'string' ? transporterId.toLowerCase() : transporterId;
       this.docketForm.patchValue({
         ...this.docketResponse,
         transporter: normalizedTransporter
       });
+      this.selectedLSP = transporterId;
+    
 
       if (this.isSelected === 'edit') {
         this.onSelectCustomer(this.docketResponse, true)
@@ -105,7 +104,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       });
       this.getCustomers();
     }
-    this.subscribeToLspTriggerFields();
+  this.subscribeToLspTriggerFields();
   }
   subscribeToLspTriggerFields() {
     const form = this.docketForm;
@@ -141,6 +140,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
     this.buildForm();
     this.getCustomers();
     this.getLSPForDocket = [];
+    this.selectedLSP = ''
   }
 
   onSubmitDocket(form: FormGroup): void {
@@ -338,52 +338,56 @@ export class AddDocketComponent implements OnInit, OnChanges {
     });
   }
   GetLSPForDocket() {
-    this.isLspLoading = true;
+  this.isLspLoading = true;
 
-    const data = {
-      TransportMode: this.docketForm.value.transportMode,
-      TotalKg: this.docketForm.value.quantity,
-      FromWH: this.docketForm.value.fromLocation,
-      ToWH: this.docketForm.value.toLocation,
-      UserId: this.identityService.getLoggedUserId()
-    };
+  const data = {
+    TransportMode: this.docketForm.value.transportMode,
+    TotalKg: this.docketForm.value.quantity,
+    FromWH: this.docketForm.value.fromLocation,
+    ToWH: this.docketForm.value.toLocation,
+    UserId: this.identityService.getLoggedUserId()
+  };
 
-    this.docketService.GetLSPForDocket(data).subscribe({
-      next: (response) => {
-        this.isLspLoading = false;
-        this.getLSPForDocket = response.success ? response.data || [] : [];
+  this.docketService.GetLSPForDocket(data).subscribe({
+    next: (response) => {
+      this.isLspLoading = false;
+      this.getLSPForDocket = response.success ? response.data || [] : [];
+      if (this.getLSPForDocket.length > 0) {
+        const sortedLSPs = [...this.getLSPForDocket].sort((a, b) => {
+          if (a.tat !== b.tat) return a.tat - b.tat;
+          return a.ratePerKG - b.ratePerKG;
+        });
+        const bestLsp = sortedLSPs[0];
+        this.bestLspId = bestLsp.lspId;
+        const existingLsp = this.getLSPForDocket.find(
+          (x) => x.lspId?.toLowerCase() === this.selectedLSP?.toLowerCase()
+        );
 
-        if (this.getLSPForDocket.length > 0) {
-          // ✅ Calculate the best LSP based on lowest TAT then lowest Rate
-          const sortedLSPs = [...this.getLSPForDocket].sort((a, b) => {
-            if (a.tat !== b.tat) return a.tat - b.tat;
-            return a.ratePerKG - b.ratePerKG;
-          });
-
-          const bestLsp = sortedLSPs[0];
-          this.bestLspId = bestLsp.lspId;
-
-          // ✅ Auto-select best
+        if (existingLsp) {
+          this.selectedLSP = existingLsp.lspId;
+          this.onLspSelected(existingLsp);
+        } else {
           this.selectedLSP = bestLsp.lspId;
           this.onLspSelected(bestLsp);
-        } else {
-          this.selectedLSP = null;
-          this.bestLspId = null;
         }
-
-        if (!response.success) {
-          this.sweetAlertService.error(response.error.message);
-        }
-      },
-      error: (error) => {
-        this.isLspLoading = false;
-        this.getLSPForDocket = [];
+      } else {
         this.selectedLSP = null;
         this.bestLspId = null;
-        this.sweetAlertService.error(error?.error?.message || 'Server error');
       }
-    });
-  }
+      if (!response.success) {
+        this.sweetAlertService.error(response.error.message);
+      }
+    },
+    error: (error) => {
+      this.isLspLoading = false;
+      this.getLSPForDocket = [];
+      this.selectedLSP = null;
+      this.bestLspId = null;
+      this.sweetAlertService.error(error?.error?.message || 'Server error');
+    }
+  });
+}
+
 
 
   onLspSelected(lsp: any) {
