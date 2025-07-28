@@ -20,6 +20,7 @@ export interface DocketResponse {
   isLspTatActive:boolean;
   isLSPCancelled:boolean;
   isCustomerCancelled:boolean;
+  totalKG:number
 }
 
 export interface AddDocketRequest {
