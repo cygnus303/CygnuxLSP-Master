@@ -82,3 +82,8 @@ export interface StateList{
   stnm:string;
 }
 
+export interface ProductRequestList{
+  codeType: string;
+  codeId: string;
+  codeDesc: string;
+}

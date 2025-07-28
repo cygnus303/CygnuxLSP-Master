@@ -223,6 +223,10 @@ export class DocketService {
     return this.apiHandlerService.Get(`Docket/TrackingList?codetype=${codeType}`);
   }
 
+   GeneralMasterList(searchtext: string) {
+    return this.apiHandlerService.Get(`GeneralMaster?codeType=${'PROD'}&searchtext=${searchtext}`);
+  }
+
   getCityData(stcd: string) {
     return this.apiHandlerService.Get(`Docket/GetCityData?stcd=${stcd}`);
   }

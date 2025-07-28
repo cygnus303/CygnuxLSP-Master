@@ -38,13 +38,15 @@
                                 </div>
                                 <div class="col-md-6 mb-11">
                                     <label class="col-form-label">Product</label>
-                                    <input class="form-control" formControlName="product" type="text" required placeholder="Enter Product"
-                                    [ngClass]="{ 'border-danger': lspTatForm.controls['product'].invalid && lspTatForm.controls['product'].touched}"/>
+                                    <!-- <input class="form-control" formControlName="product" type="text" required placeholder="Enter Product"
+                                    [ngClass]="{ 'border-danger': lspTatForm.controls['product'].invalid && lspTatForm.controls['product'].touched}"/> -->
+                                    <ng-select [items]="productGeneralMasterList" bindLabel="codeDesc" bindValue="codeDesc"
+                                        (search)="productGeneralMaster($event)" formControlName="product" placeholder="Enter Product" [searchable]="true"
+                                        [ngClass]="{ 'border-danger': lspTatForm.controls['product'].invalid && lspTatForm.controls['product'].touched }">
+                                    </ng-select>
                                     <div *ngIf="lspTatForm.controls['product'].invalid && lspTatForm.controls['product']?.touched"
                                         class="text-danger">
-                                        <small *ngIf="lspTatForm.controls['product'].errors?.['required']">
-                                            Product
-                                            is required.</small>
+                                        <small *ngIf="lspTatForm.controls['product'].errors?.['required']">Product is required.</small>
                                     </div>
                                 </div>
                                        <div class="col-md-6 mb-11">

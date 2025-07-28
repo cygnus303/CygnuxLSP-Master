@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LspResponse } from '../../../shared/models/lsp.model';
-import { CityList, CustomerResponse, StateList } from '../../../shared/models/customer.model';
+import { CityList, CustomerResponse, ProductRequestList, StateList } from '../../../shared/models/customer.model';
 import { LspMappingService } from '../../../shared/services/lsp-mapping.service';
 import { LspTatResponse } from '../../../shared/models/lsp-tat.model';
 import { SweetAlertService } from '../../../shared/services/toastr.service';
@@ -36,6 +36,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
   public destinationCityList: CityList[] =[];
   public originStateList: StateList[] = [];
   public destinationStateList: StateList[] = [];
+  public productGeneralMasterList:ProductRequestList[]=[]
   public stnm: { [key: string]: boolean } = {origin: false,destination: false};
   @Input() lspTatResponse: LspTatResponse | null = null;
   @Output() dataEmitter: EventEmitter<void> = new EventEmitter();
@@ -113,6 +114,20 @@ export class AddLspTatComponent implements OnInit, OnChanges {
           this.priority=response.data;
         } else {
           this.sweetAlertService.error(response.error.message);
+        }
+      },
+      error: (response: any) => {
+        this.sweetAlertService.error(response.error.message);
+      },
+    });
+  }
+
+  productGeneralMaster(event: { term: string; items: any[] }){
+      const searchTerm = event.term?.trim();
+    this.docketService.GeneralMasterList(searchTerm).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.productGeneralMasterList=response.data;
         }
       },
       error: (response: any) => {
