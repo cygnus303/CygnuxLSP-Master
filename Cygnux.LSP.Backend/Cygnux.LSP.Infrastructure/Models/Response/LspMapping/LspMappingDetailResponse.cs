@@ -47,7 +47,9 @@ public class LspRequest
 public class LspTatValidationResult
 {
     public string CustomerName { get; set; }
+    public Guid? CustomerId { get; set; }
     public string LspName { get; set; }
+    public Guid? LspId { get; set; }
     public string Product { get; set; }
     public string Origin { get; set; }
     public string Destination { get; set; }
@@ -55,6 +57,7 @@ public class LspTatValidationResult
     public int? Priority { get; set; }
     public string BookingType { get; set; }
     public string Mode { get; set; }
+    public int? ModeId { get; set; }
     public string TAT { get; set; }
 
     // Validation feedback
