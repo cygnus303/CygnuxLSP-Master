@@ -69,6 +69,7 @@
                 <th class="w-10">Destination</th>
                 <th class="w-10">Transport Mode</th>
                 <th class="w-5 text-center">TAT</th>
+                <th class="w-5 text-center">Rate Per KG</th>
                 <th class="w-8 text-center">Active</th>
                 <th class="w-8 text-center"
                   *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
@@ -91,6 +92,9 @@
                 <th class="w-5">
                   <input type="text" class="form-control" [(ngModel)]="filters['tat']" (input)="getLspMappings()" />
                 </th>
+                <th class="w-5">
+                  <input type="text" class="form-control" [(ngModel)]="filters['rate']" (input)="getLspMappings()" />
+                </th>
                 <th class="w-8"></th>
                 <th class="w-8 text-center"
                   *ngIf="commonService.menuRoleList?.canView || commonService.menuRoleList?.canEdit ||  commonService.menuRoleList?.canDelete">
@@ -109,6 +113,7 @@
                   <td class="w-10">{{lsp.destination}}</td>
                   <td class="w-10">{{lsp.modeDescription}}</td>
                   <td class="w-5 text-center">{{lsp.tat}}</td>
+                  <td class="w-5 text-center">{{lsp.ratePerKG}}</td>
                   <td class="w-8 text-center"><i
                       [ngClass]="lsp.isActive ? 'fa fa-check-square text-success' : 'fa fa-window-close text-danger'"></i>
                   </td>
