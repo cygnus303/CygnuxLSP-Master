@@ -114,7 +114,6 @@ export class AddDocketComponent implements OnInit, OnChanges {
       form.get(field)?.valueChanges
         .pipe(debounceTime(300), distinctUntilChanged())
         .subscribe(() => {
-          debugger
           this.checkAndCallGetLSP();
         });
     });

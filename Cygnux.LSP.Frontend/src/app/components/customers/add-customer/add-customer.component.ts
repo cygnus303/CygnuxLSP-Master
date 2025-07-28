@@ -172,7 +172,6 @@ ngOnChanges(changes: SimpleChanges) {
           if (userResponse.success) {
             this.userId = userResponse.data.id;
             this.sendUsermail(userResponse.data.id)
-            debugger
             const formValues = { ...form.getRawValue(), u_Id: this.userId};
             const { roles,file, ...customerPayload } = formValues;
             const currentUserId = this.identityService.getLoggedUserId();

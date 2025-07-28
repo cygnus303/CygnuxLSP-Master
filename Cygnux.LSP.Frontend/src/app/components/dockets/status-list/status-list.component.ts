@@ -167,7 +167,7 @@ onChangeFile(event: any) {
 
         const invalidData = this.validateDocketStatusList
           .filter(item => item.errorCode === 0)
-          .map(({ currentStatusCode, currentStatusCodeDesc, errorCode, id, ...rest }) => rest);
+          .map(({ currentStatusCode, currentStatusCodeDesc, errorCode, id,customerName,lspName, ...rest }) => rest);
 
         if (invalidData.length > 0) {
           this.docketService.StatusInvalidFile(invalidData, 'Invalid_statusUpload');
