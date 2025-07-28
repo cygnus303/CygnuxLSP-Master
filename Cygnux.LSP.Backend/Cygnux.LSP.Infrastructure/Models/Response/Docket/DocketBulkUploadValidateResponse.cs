@@ -32,7 +32,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string Date { get; set; } = string.Empty;
         public string FromLocation { get; set; } = string.Empty;
         public string ToLocation { get; set; } = string.Empty;
-        public int Quantity { get; set; }
+        public int TotalKG { get; set; }
         public string ModeOfTransporter { get; set; } = string.Empty;
         public Guid Customer { get; set; }
         public Guid Lsp { get; set; }
@@ -49,7 +49,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string BookingDate { get; set; } = string.Empty;
         public string FromLocation { get; set; } = string.Empty;
         public string ToLocation { get; set; } = string.Empty;
-        public int Quantity { get; set; } 
+        public int TotalKG { get; set; } 
         public string ModeOfTransporter { get; set; } = string.Empty;
         public Guid CustomerId { get; set; }
         public Guid LspId { get; set; }

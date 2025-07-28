@@ -9,7 +9,7 @@ public interface ICustomerLspService
 
     Task<LspMappingDetailResponse> GetLspMappingDetails(Guid Id);
 
-    Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId, string? customerName, string? lspName, string? product, string? origin, string? destination, int? tat,string? mmodeDescription);
+    Task<IEnumerable<LspTatDetailResponse>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId, string? customerName, string? lspName, string? product, string? origin, string? destination, int? tat,string? mmodeDescription,decimal? RatePerKg);
 
     Task<IEnumerable<CustomerResponse>> GetCustomers(Guid loginid);
 

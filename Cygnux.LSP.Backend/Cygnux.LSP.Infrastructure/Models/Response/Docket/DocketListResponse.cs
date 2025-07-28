@@ -17,7 +17,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string TransporterDesc { get; set; } = string.Empty;
         public string TransportMode { get; set; } = string.Empty;
         public string TransportModeDesc { get; set; } = string.Empty;
-        public int Quantity { get; set; }
+        public int TotalKG { get; set; }
         public Guid EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
         public string CurrentStatus { get; set; } = string.Empty;
@@ -87,8 +87,8 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         [JsonPropertyName("Transport Mode")]
         public string TransportModeDesc { get; set; } = string.Empty;
 
-        [JsonPropertyName("Quantity")]
-        public int Quantity { get; set; }
+        [JsonPropertyName("TotalKG")]
+        public int TotalKG { get; set; }
 
         [JsonPropertyName("Current Status")]
         public string CurrentStatusDesc { get; set; } = string.Empty;

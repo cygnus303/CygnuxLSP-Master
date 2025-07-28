@@ -220,7 +220,7 @@ public class DocketController : ControllerBase
             mainSheet.Cell("D1").Value = "Date";
             mainSheet.Cell("E1").Value = "From Location";
             mainSheet.Cell("F1").Value = "To Location";
-            mainSheet.Cell("G1").Value = "Quantity";
+            mainSheet.Cell("G1").Value = "TotalKG";
             mainSheet.Cell("H1").Value = "Mode of Transporter";
 
             mainSheet.Column(4).Style.NumberFormat.Format = "@";
