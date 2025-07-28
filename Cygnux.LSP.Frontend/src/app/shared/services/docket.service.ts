@@ -82,6 +82,45 @@ export class DocketService {
     saveAs(blob, `${fileName}.xlsx`);
   }
 
+PODInvalidFile(data: any[], fileName: string) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Invalid Dockets');
+
+    // Add headerss
+    worksheet.columns = [
+      { header: 'Docket Number', key: 'docketNo', width: 20 },
+      { header: 'Upload Date', key: 'uploadDate', width: 15 },
+      { header: 'Error Message', key: 'validationStatus', width: 40 },
+    ];
+
+    // Add rows and apply color formatting
+    data.forEach((item) => {
+      // Format statusDate
+      const formattedDate = item.statusDate
+        ? new Date(item.statusDate).toLocaleDateString('en-GB')  // dd/MM/yyyy
+        : '';
+
+      // Add row with formatted date
+      const row = worksheet.addRow({
+        ...item,
+        statusDate: formattedDate.replace(/\//g, '-')  // convert to dd-MM-yyyy
+      });
+
+      // Color errorMessage
+      const errorCell = row.getCell('validationStatus');
+      errorCell.font = {
+        color: {
+          argb: item.validationStatus === 'Success' ? 'FF008000' : 'FFFF0000', // Green or Red
+        }
+      };
+    });
+    // Write the file
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      FileSaver.saveAs(blob, `${fileName}.xlsx`);
+    });
+  }
+
   StatusInvalidFile(data: any[], fileName: string) {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Invalid Dockets');

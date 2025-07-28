@@ -95,6 +95,8 @@ export interface ValidDatePOD {
   customerName: string;
   validationStatus: string;
   isValid: boolean;
+  imageBack:string;
+  imageFront:string;
 }
 
 export interface UploadedImages {

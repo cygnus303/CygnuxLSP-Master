@@ -114,7 +114,7 @@ onDropzoneSelect(event: any) {
 }
 
   get isValidData(): boolean {
-    return this.mappedData.length > 0 && this.mappedData.every(item => item.isValid);
+    return this.mappedData.length > 0 && this.mappedData.some(item => item.isValid);
   }
 
   resetFileSelection() {
@@ -196,6 +196,13 @@ onDropzoneSelect(event: any) {
           this.mappedData = response.data
           this.loading = false;
           this.dataEmitter.emit();
+          debugger
+           const invalidData = this.mappedData
+          .filter(item => !item.isValid)
+          .map(({ customerName, id, imageBack, imageLink,isValid,lspName,lspId,imageFront,imageName, ...rest }) => rest);
+        if (invalidData.length > 0) {
+          this.docketService.PODInvalidFile(invalidData, 'Invalid_pod');
+        }
           // this.sweetAlertService.success(response.data.message);
         } else {
           this.sweetAlertService.error(response.error.message);
