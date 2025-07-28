@@ -12,7 +12,7 @@ public interface ICustomerLspRepository
 
     Task<BaseResponse<LspMappingDetailResponse?>> GetLspMappingDetails(Guid Id);
 
-    Task<BaseResponse<IEnumerable<LspTatDetailResponse>>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId, string? customerName, string? lspName, string? product, string? origin, string? destination, int? tat,string? modeDescription);
+    Task<BaseResponse<IEnumerable<LspTatDetailResponse>>> GetLspTatList(Guid customerId, int page, int pageSize,Guid userId, string? customerName, string? lspName, string? product, string? origin, string? destination, int? tat,string? modeDescription,decimal? RatePerKg);
 
     Task<BaseResponse<IEnumerable<CustomerResponse>>> GetCustomers(Guid loginid);
 
