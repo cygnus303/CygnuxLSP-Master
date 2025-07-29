@@ -15,12 +15,12 @@ import { DocketService } from '../../../../shared/services/docket.service';
   providers:[BsModalService]
 })
 export class PodStatusUploadComponent {
-  public podImageUrl: string | null = null;
+[x: string]: any;
+  public podImageUrl: string[] = [];
   public podUpdateForm!:FormGroup;
   public customers: CustomerResponse[] = [];
-  public selectedFile: File | null = null;
+  public selectedFile:  File[] = [];
   public modalRef!: BsModalRef;
-  public isReadonlyMode : boolean = false;
   public isLoading = false;
   @ViewChild('Templatepod', { static: true }) Templatepod!: TemplateRef<any>;
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
@@ -55,9 +55,14 @@ showPopup(data:any){
   if(data){
     data.LspId = data?.transporter;
     data.bookingDate = new Date(data?.bookingDate)
-    this.podUpdateForm.patchValue(data)
-    this.podImageUrl = data?.podLink;
-    this.isReadonlyMode = data.podLink !== '-';
+    this.podUpdateForm.patchValue(data);
+    this.podImageUrl = [];
+    if (data?.podLink) {
+      this.podImageUrl.push(data.podLink);
+    }
+    if (data?.podLinkBack) {
+      this.podImageUrl.push(data.podLinkBack);
+    }
     this.modalRef = this.modalService.show(this.Templatepod, {  class: 'modal-lg modal-dialog-centered',backdrop: true });
   }
 }
@@ -75,16 +80,42 @@ getCustomers() {
   });
 }
 
-onFileSelected(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.podImageUrl = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    this.selectedFile = file;
-    this.podUpdateForm.get('PODFileName')?.setValue(file.name);
+isPodImageUrlsArray(): boolean {
+  return Array.isArray(this.podImageUrl) && this.podImageUrl.length > 0;
+}
+
+
+// onFileSelected(event: any) {
+//   const file = event.target.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onload = (e: any) => {
+//       this.podImageUrl = e.target.result;
+//     };
+//     reader.readAsDataURL(file);
+//     this.selectedFile = file;
+//     this.podUpdateForm.get('PODFileName')?.setValue(file.name);
+//   }
+// }
+onFileSelected(event: any): void {
+  const files: FileList = event.target.files;
+
+  if (files && files.length > 0) {
+    this.podImageUrl = [];
+    this.selectedFile = [];
+
+    Array.from(files).forEach((file: File) => {
+      this.selectedFile.push(file);
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.podImageUrl.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Optional: set the first file name in the form control
+    this.podUpdateForm.get('PODFileName')?.setValue(this.selectedFile[0].name);
   }
 }
 
@@ -93,10 +124,14 @@ onSavePOD(): void {
   const formData = new FormData();
   const{transportModeDesc,transporterDesc, bookingDate,statusDate,fromLocation,toLocation,quantity,invoiceNo,currentStatusDesc,Customer,...payload} = this.podUpdateForm.value
   formData.append('docpodJson',JSON.stringify(payload));
+   formData.append('docketNo',this.podUpdateForm.value.docketNo);
+   formData.append('lspuser',this.identityService.getLoggedUserId());
   if (this.selectedFile) {
-    formData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    this.selectedFile.forEach((file, index) => {
+    formData.append(`imageFiles`, file, file.name); // `imageFiles` key can be plural
+  });
   }
-  this.docketService.singlePOD(this.podUpdateForm.value.docketNo,this.identityService.getLoggedUserId(), formData).subscribe({
+  this.docketService.singlePOD(formData).subscribe({
     next: (response) => {
       this.isLoading = false;
       if (response) {

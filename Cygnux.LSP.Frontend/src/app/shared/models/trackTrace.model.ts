@@ -19,6 +19,7 @@ export interface TrackTraceResponse{
     podLink:string;
     statusHistoryJson:any;
     colorCode:string;
+    podLinkBack:string;
 }
 
 export interface IRange {

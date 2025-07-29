@@ -71,6 +71,7 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     this.getTransporterDetail();
     this.getPriorityDetail();
     this.getLsps(this.identityService.getLoggedUserId());
+    this.productGeneralMaster();
   }
 
   buildForm(): void {
@@ -122,8 +123,9 @@ export class AddLspTatComponent implements OnInit, OnChanges {
     });
   }
 
-  productGeneralMaster(event: { term: string; items: any[] }){
-      const searchTerm = event.term?.trim();
+  productGeneralMaster(){
+      // const searchTerm = event.term?.trim();
+       const searchTerm = '';
     this.docketService.GeneralMasterList(searchTerm).subscribe({
       next: (response) => {
         if (response.success) {

@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <td><strong>Booking Date:</strong> {{ docketDetail?.bookingDate | date:'dd/MM/yyyy' }}</td>
-            <td><strong>Total KG:</strong> {{ docketDetail?.quantity }}</td>
+            <td><strong>Total KG:</strong> {{ docketDetail?.totalKG }}</td>
           </tr>
           <tr *ngIf="docketDetail?.podLink !== '-'" >
             <td>
@@ -28,11 +28,38 @@
       </table>
     </div>
   </div>
-
+<!-- 
 <div class="custom-modal d-flex justify-content-center align-items-center" [class.show]="showPodImage" (click)="closePodModal()"
   [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
   <div class="custom-modal-content" (click)="$event.stopPropagation()">
     <span class="custom-close" (click)="closePodModal()">×</span>
     <img [src]="docketDetail?.podLink" alt="POD Image" />
   </div>
+</div> -->
+
+<div class="custom-modal d-flex justify-content-center align-items-center" 
+     [class.show]="showPodImage" 
+     (click)="closePodModal()" 
+     [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
+  
+  <div class="custom-modal-content" (click)="$event.stopPropagation()">
+    <span class="custom-close" (click)="closePodModal()">×</span>
+
+    <!-- Main POD Image -->
+    <img 
+      *ngIf="docketDetail?.podLink" 
+      [src]="docketDetail?.podLink" 
+      alt="POD Image Front" 
+      class="img-fluid mb-2"
+    />
+
+    <!-- Back POD Image -->
+    <img 
+      *ngIf="docketDetail?.podLinkBack" 
+      [src]="docketDetail?.podLinkBack" 
+      alt="POD Image Back" 
+      class="img-fluid"
+    />
+  </div>
 </div>
+

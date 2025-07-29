@@ -322,8 +322,8 @@ PODInvalidFile(data: any[], fileName: string) {
     return this.apiHandlerService.Post(`Docket/ValidatePODUpload?lspuser=${id}`, formData);
   }
 
-  singlePOD(docketNumber: string, id: string, formData: any) {
-    return this.apiHandlerService.Post(`Docket/SinglePODUpload?docketNo=${docketNumber}&lspuser=${id}`, formData);
+  singlePOD(formData: any) {
+    return this.apiHandlerService.Post(`Docket/SinglePODUpload`, formData);
   }
 
   downloadDocketData(id: string): Observable<IApiBaseResponse<DocketResponse[]>> {
