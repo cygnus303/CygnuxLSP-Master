@@ -279,7 +279,7 @@ internal class CustomerLspService : ICustomerLspService
     public async Task<CustomerLspTatSpResponse> InsertLspTatData(string bulkLspJson, Guid entryBy)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@CustomerLspTatJson", bulkLspJson, DbType.String);
+        parameters.Add("@JsonInput", bulkLspJson, DbType.String);
         parameters.Add("@EntryBy", entryBy, DbType.Guid);
 
         return await _dbConnection.QueryFirstOrDefaultAsync<CustomerLspTatSpResponse>(
