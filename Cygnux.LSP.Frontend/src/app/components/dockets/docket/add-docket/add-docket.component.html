@@ -63,12 +63,12 @@
                 </div>
                 <div class="col-md-6">
                   <label class="col-form-label">Total Kg</label>
-                  <input class="form-control" formControlName="totalKG" type="text" required
+                  <input class="form-control" formControlName="quantity" type="text" required
                     placeholder="Enter Total Kg"
-                    [ngClass]="{ 'border-danger': docketForm.controls['totalKG'].invalid && docketForm.controls['totalKG'].touched}" />
-                  <div *ngIf="docketForm.controls['totalKG'].invalid && docketForm.controls['totalKG']?.touched"
+                    [ngClass]="{ 'border-danger': docketForm.controls['quantity'].invalid && docketForm.controls['quantity'].touched}" />
+                  <div *ngIf="docketForm.controls['quantity'].invalid && docketForm.controls['quantity']?.touched"
                     class="text-danger">
-                    <small *ngIf="docketForm.controls['totalKG'].errors?.['required']">Total Kg is required.</small>
+                    <small *ngIf="docketForm.controls['quantity'].errors?.['required']">Total Kg is required.</small>
                   </div>
                 </div>
                 <div class="col-md-6 mb-11">

@@ -72,7 +72,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
       invoiceNo: new FormControl(null),
       transporter: new FormControl(null),
       transportMode: new FormControl(null),
-      totalKG: new FormControl(null),
+      quantity: new FormControl(null),
       lspId: new FormControl(null),
       currentStatus: new FormControl(this.docketId === '' ? '1' : null)
     });
@@ -86,7 +86,8 @@ export class AddDocketComponent implements OnInit, OnChanges {
       const normalizedTransporter = typeof transporterId === 'string' ? transporterId.toLowerCase() : transporterId;
       this.docketForm.patchValue({
         ...this.docketResponse,
-        transporter: normalizedTransporter
+        transporter: normalizedTransporter,
+        quantity:this.docketResponse.totalKG
       });
       this.selectedLSP = transporterId;
       if (this.isSelected === 'edit') {
@@ -106,7 +107,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   }
   subscribeToLspTriggerFields() {
     const form = this.docketForm;
-    const fields = ['transportMode', 'totalKG', 'fromLocation', 'toLocation'];
+    const fields = ['transportMode', 'quantity', 'fromLocation', 'toLocation'];
     fields.forEach(field => {
       form.get(field)?.valueChanges
         .pipe(debounceTime(300), distinctUntilChanged())
@@ -121,7 +122,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
     const form = this.docketForm;
     const isValid =
       form.get('transportMode')?.valid &&
-      form.get('totalKG')?.valid &&
+      form.get('quantity')?.valid &&
       form.get('fromLocation')?.valid &&
       form.get('toLocation')?.valid;
     if (isValid) {
@@ -271,7 +272,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
   isAllFieldsTouched(): boolean {
     const controls = this.docketForm.controls;
     return controls['transportMode'].touched &&
-      controls['totalKG'].touched &&
+      controls['quantity'].touched &&
       controls['fromLocation'].touched &&
       controls['toLocation'].touched;
   }
@@ -340,7 +341,7 @@ export class AddDocketComponent implements OnInit, OnChanges {
 
   const data = {
     TransportMode: this.docketForm.value.transportMode,
-    TotalKg: this.docketForm.value.totalKG,
+    TotalKg: this.docketForm.value.quantity,
     FromWH: this.docketForm.value.fromLocation,
     ToWH: this.docketForm.value.toLocation,
     UserId: this.identityService.getLoggedUserId()

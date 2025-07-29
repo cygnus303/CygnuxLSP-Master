@@ -367,16 +367,58 @@ export class DocketListComponent implements OnInit {
     this.modalRef = this.modalService.show(Templatepod, { class: 'modal-lg modal-dialog-centered', backdrop: true });
   }
 
-  downloadPod(pod: any): void {
-    if (!pod?.podLink) {
-      console.error('No image link found.');
-      return;
-    }
+  // downloadPod(pod: any): void {
+  //   if (!pod?.podLink) {
+  //     console.error('No image link found.');
+  //     return;
+  //   }
 
-    // Force HTTPS in case backend returns HTTP
-    const secureUrl = pod.podLink.startsWith('http://')
-      ? pod.podLink.replace('http://', 'https://')
-      : pod.podLink;
+  //   // Force HTTPS in case backend returns HTTP
+  //   const secureUrl = pod.podLink.startsWith('http://')
+  //     ? pod.podLink.replace('http://', 'https://')
+  //     : pod.podLink;
+
+  //   fetch(secureUrl)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.blob();
+  //     })
+  //     .then(blob => {
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = this.extractFileName(secureUrl); // Use cleaned URL
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       a.remove();
+  //       window.URL.revokeObjectURL(url); // Clean up
+  //     })
+  //     .catch(error => {
+  //       console.error('Image download failed:', error);
+  //       alert('Failed to download image. Please try again or check the image URL.');
+  //     });
+  // }
+
+  downloadPod(pod: any): void {
+  const linksToDownload: string[] = [];
+
+  if (pod?.podLink) {
+    linksToDownload.push(pod.podLink);
+  }
+
+  if (pod?.podLinkBack) {
+    linksToDownload.push(pod.podLinkBack);
+  }
+
+  if (linksToDownload.length === 0) {
+    console.error('No image links found.');
+    return;
+  }
+
+  linksToDownload.forEach(link => {
+    const secureUrl = link.startsWith('http://') ? link.replace('http://', 'https://') : link;
 
     fetch(secureUrl)
       .then(response => {
@@ -389,17 +431,18 @@ export class DocketListComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = this.extractFileName(secureUrl); // Use cleaned URL
+        a.download = this.extractFileName(secureUrl);
         document.body.appendChild(a);
         a.click();
         a.remove();
-        window.URL.revokeObjectURL(url); // Clean up
+        window.URL.revokeObjectURL(url);
       })
       .catch(error => {
         console.error('Image download failed:', error);
         alert('Failed to download image. Please try again or check the image URL.');
       });
-  }
+  });
+}
 
   extractFileName(url: string): string {
     try {

@@ -230,10 +230,21 @@
       </button>
     </div>
 
-    <div class="modal-body p-2 d-flex justify-content-center rounded align-items-center overflow-auto" style="max-height: 75vh;">
+    <!-- <div class="modal-body p-2 d-flex justify-content-center rounded align-items-center overflow-auto" style="max-height: 75vh;">
       <img [src]="selectedDocket?.podLink" alt="POD Image" class="img-fluid object-fit-contain"
         style="max-height: 70vh;" />
+    </div> -->
+    <div class="modal-body p-2 d-flex flex-column gap-3 justify-content-center rounded align-items-center overflow-auto"
+      style="max-height: 75vh;">
+      <!-- Front Side -->
+      <img *ngIf="selectedDocket?.podLink" [src]="selectedDocket?.podLink"
+        alt="POD Front" class="img-fluid object-fit-contain border rounded" style="max-height: 70vh;" />
+    
+      <!-- Back Side -->
+      <img *ngIf="selectedDocket?.podLinkBack" [src]="selectedDocket?.podLinkBack"
+        alt="POD Back" class="img-fluid object-fit-contain border rounded" style="max-height: 70vh;" />
     </div>
+
 
     <div class="modal-footer">
       <button type="button" class="btn btn-success" (click)="downloadPod(selectedDocket)">
