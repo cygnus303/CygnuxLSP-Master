@@ -78,4 +78,11 @@ public class UserController : ControllerBase
     {
         return Ok(await _userRepository.GetUserFromEmailId(Email));
     }
+
+
+
+
+
+
+
 }

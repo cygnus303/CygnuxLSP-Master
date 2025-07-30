@@ -34,4 +34,9 @@ public class RoleMenuPermissionController : ControllerBase
     {
         return Ok(await _roleMenuPermissionRepository.AddRoleMenuPermission(id, createRoleMenuPermissionRequest));
     }
+    
+ 
+    
+    
+    
 }
