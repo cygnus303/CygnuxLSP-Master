@@ -101,6 +101,7 @@ namespace Cygnux.LSP.Infrastructure.Models.Response.Docket
         public string Transporter { get; set; }
         public string TransporterDesc { get; set; }
         public string PODLink { get; set; }
+        public string PODLinkBack { get; set; }
 
     }
 

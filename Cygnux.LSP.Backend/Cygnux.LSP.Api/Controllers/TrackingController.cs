@@ -54,15 +54,6 @@ public class TrackingController : ControllerBase
         if (result?.Data == null || !result.Data.Any())
         {
             return NotFound("No PODs found in the system.");
-            // Ok(new
-            // {
-            //     success = false,
-            //     error = new
-            //     {
-            //         errorCode = 0,
-            //         message = "No PODs found in the system."
-            //     }
-            // });
         }
 
         var podList = result.Data;
@@ -76,23 +67,42 @@ public class TrackingController : ControllerBase
             {
                 try
                 {
+                    // Download PODLink
                     var response = await httpClient.GetAsync(pod.PODLink);
-                    if (!response.IsSuccessStatusCode) continue;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var fileBytes = await response.Content.ReadAsByteArrayAsync();
+                        if (fileBytes != null && fileBytes.Length > 0)
+                        {
+                            var fileName = Path.GetFileName(pod.PODLink);
+                            var zipEntry = archive.CreateEntry(fileName, CompressionLevel.Fastest);
+                            using var zipStream = zipEntry.Open();
+                            await zipStream.WriteAsync(fileBytes, 0, fileBytes.Length);
+                            fileAdded = true;
+                        }
+                    }
 
-                    var fileBytes = await response.Content.ReadAsByteArrayAsync();
-                    if (fileBytes == null || fileBytes.Length == 0) continue;
-
-                    var fileName = Path.GetFileName(pod.PODLink);
-
-                    var zipEntry = archive.CreateEntry(fileName, CompressionLevel.Fastest);
-                    using var zipStream = zipEntry.Open();
-                    await zipStream.WriteAsync(fileBytes, 0, fileBytes.Length);
-
-                    fileAdded = true;
+                    // Download PODLinkBack
+                    if (!string.IsNullOrWhiteSpace(pod.PODLinkBack))
+                    {
+                        var backResponse = await httpClient.GetAsync(pod.PODLinkBack);
+                        if (backResponse.IsSuccessStatusCode)
+                        {
+                            var backBytes = await backResponse.Content.ReadAsByteArrayAsync();
+                            if (backBytes != null && backBytes.Length > 0)
+                            {
+                                var backFileName = Path.GetFileName(pod.PODLinkBack);
+                                var backZipEntry = archive.CreateEntry(backFileName, CompressionLevel.Fastest);
+                                using var backZipStream = backZipEntry.Open();
+                                await backZipStream.WriteAsync(backBytes, 0, backBytes.Length);
+                                fileAdded = true;
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error downloading {pod.PODLink}: {ex.Message}");
+                    Console.WriteLine($"Error downloading PODLink or PODLinkBack: {ex.Message}");
                 }
             }
         }
@@ -100,24 +110,9 @@ public class TrackingController : ControllerBase
         if (!fileAdded)
         {
             return NotFound("No valid POD files found in the system.");
-            // Ok(new
-            // {
-            //     success = false,
-            //     error = new
-            //     {
-            //         errorCode = 0,
-            //         message = "No valid POD files found in the system."
-            //     }
-            // });
         }
 
         memoryStream.Position = 0;
         return File(memoryStream.ToArray(), "application/zip", "POD_Images.zip");
     }
-
-
-
-
-
-
 }
