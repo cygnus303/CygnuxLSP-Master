@@ -96,7 +96,8 @@
                           <div class="progress-container">
                             <!-- Booked -->
                             <div class="step cursor-pointer" [class.active]="['1','2','3','4','5','6'].includes(data.currentStatus)">
-                              <div class="circle"
+                              <div class="circle"  #popoverRef="bs-popover" [popover]="hourPopover" container="body"
+                                  [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                 [ngStyle]="['1','2','3','4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="file-text"></i>
                               </div>
@@ -111,7 +112,8 @@
                           
                             <!-- PickUp Approval -->
                             <div class="step cursor-pointer" [class.active]="['3','4','5','6'].includes(data.currentStatus)">
-                              <div class="circle"
+                              <div class="circle"  #popoverRef="bs-popover" [popover]="hourPopover" container="body"
+                                  [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                 [ngStyle]="['3','4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="package"></i>
                               </div>
@@ -126,7 +128,8 @@
                           
                             <!-- In Transit -->
                             <div class="step cursor-pointer" [class.active]="['4','5','6'].includes(data.currentStatus)">
-                              <div class="circle"
+                              <div class="circle"  #popoverRef="bs-popover" [popover]="hourPopover" container="body"
+                                  [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'"
                                 [ngStyle]="['4','5','6'].includes(data.currentStatus) ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="truck"></i>
                               </div>
@@ -141,7 +144,8 @@
                           
                             <!-- Delivered -->
                             <div class="step cursor-pointer" [class.active]="data.currentStatus === '6'">
-                              <div class="circle" [ngStyle]="data.currentStatus === '6' ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
+                              <div class="circle"  #popoverRef="bs-popover" [popover]="hourPopover" container="body"
+                                  [popoverContext]="{index: data}" triggers="hover" placement="bottom" [popoverTitle]="'Description'" [ngStyle]="data.currentStatus === '6' ? { 'background-color': data.colorCode || '#5c61f2' } : {}">
                                 <i data-feather="home"></i>
                               </div>
                               <span class="span single-line">Delivered</span>
@@ -248,10 +252,10 @@
   <div class="modal-body p-2 d-flex gap-3 justify-content-center rounded align-items-center overflow-auto"
     style="max-height: 75vh;">
     <img *ngIf="selectedPodImageUrl?.podLink" [src]="selectedPodImageUrl?.podLink" alt="POD Front"
-      class="img-fluid object-fit-contain border rounded" style="max-height: 70vh;" />
+      class="img-fluid object-fit-contain border rounded" style="max-height: 70vh;max-width: 45%;" />
   
     <img *ngIf="selectedPodImageUrl?.podLinkBack" [src]="selectedPodImageUrl?.podLinkBack" alt="POD Back"
-      class="img-fluid object-fit-contain border rounded" style="max-height: 70vh;" />
+      class="img-fluid object-fit-contain border rounded" style="max-height: 70vh;max-width: 45%;" />
   </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-success" (click)="downloadPod(this.selectedPodImageUrl)">
