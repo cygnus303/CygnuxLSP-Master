@@ -20,6 +20,8 @@ export class ImportLspTatComponent {
   public validateData: validateFileResponse[] = [];
   public uploadLoading: boolean = false;
   public saveLoading: boolean = false;
+  public userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
+
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
 
@@ -53,7 +55,63 @@ export class ImportLspTatComponent {
     });
   }
 
- onChangeFile(event: any) {
+//  onChangeFile(event: any) {
+//   this.validateData = [];
+//   const file = event.addedFiles[0];
+
+//   if (file) {
+//     const validExcelTypes = [
+//       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+//       'application/vnd.ms-excel',
+//       'text/csv',
+//     ];
+
+//     const isValidType = validExcelTypes.includes(file.type);
+
+//     if (isValidType) {
+//       const reader = new FileReader();
+//       reader.onload = (e: any) => {
+//         const data = new Uint8Array(e.target.result);
+//         const workbook = XLSX.read(data, { type: 'array' });
+//         const firstSheet = workbook.SheetNames[0];
+//         const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
+
+//         const expectedColumns = [
+//           'lspname',
+//           'product',
+//           'origin',
+//           'destination',
+//           'priority',
+//           'bookingType',
+//           'mode',
+//           'tat',
+//           'RateperKG',
+//         ].map(col => col.toLowerCase());
+
+//         const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
+//         const allColumnsPresent = expectedColumns.every(
+//           col => uploadedColumns.includes(col)
+//         );
+
+//         if (allColumnsPresent) {
+//           this.files = [file];
+//           this.selectedFile = file;
+//         } else {
+//           this.sweetAlertService.error(
+//             'Invalid file format. Please upload a file with all required columns.'
+//           );
+//           this.files = [];
+//         }
+//       };
+//       reader.readAsArrayBuffer(file);
+//     } else {
+//       this.sweetAlertService.error('Please upload a valid Excel file.');
+//       this.files = [];
+//     }
+//   }
+// }
+
+onChangeFile(event: any) {
   this.validateData = [];
   const file = event.addedFiles[0];
 
@@ -74,6 +132,27 @@ export class ImportLspTatComponent {
         const firstSheet = workbook.SheetNames[0];
         const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], { header: 1 });
 
+        const roles = (localStorage.getItem('roles') || '').toLowerCase();
+        const isSA = roles.includes('sa');
+
+        const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
+
+        const hasCustomerName = uploadedColumns.includes('customername');
+
+        // If SA role, must have CustomerName
+        if (isSA && !hasCustomerName) {
+          this.sweetAlertService.error('Please upload valid file');
+          this.files = [];
+          return;
+        }
+
+        // If NOT SA, must NOT have CustomerName
+        if (!isSA && hasCustomerName) {
+          this.sweetAlertService.error('Please upload valid file');
+          this.files = [];
+          return;
+        }
+
         const expectedColumns = [
           'lspname',
           'product',
@@ -84,11 +163,10 @@ export class ImportLspTatComponent {
           'mode',
           'tat',
           'RateperKG',
-        ].map(col => col.toLowerCase());
+        ];
 
-        const uploadedColumns = (sheetData[0] as string[]).map(col => col.toLowerCase().trim());
-        const allColumnsPresent = expectedColumns.every(
-          col => uploadedColumns.includes(col)
+        const allColumnsPresent = expectedColumns.every(col =>
+          uploadedColumns.includes(col.toLowerCase())
         );
 
         if (allColumnsPresent) {
@@ -96,7 +174,7 @@ export class ImportLspTatComponent {
           this.selectedFile = file;
         } else {
           this.sweetAlertService.error(
-            'Invalid file format. Please upload a file with all required columns.'
+            'Invalid file format. Required columns are missing.'
           );
           this.files = [];
         }
@@ -108,6 +186,7 @@ export class ImportLspTatComponent {
     }
   }
 }
+
 
   get isValidData(): boolean {
     return this.validateData.length > 0 && this.validateData.some(item => item.errorCode === 1);

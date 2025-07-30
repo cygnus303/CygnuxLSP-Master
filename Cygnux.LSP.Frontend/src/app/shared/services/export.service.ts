@@ -146,39 +146,85 @@ async downloadPODsAsZip(podList: DownloadPODResponse[], zipFileName: string = 'P
   saveAs(zipBlob, `${zipFileName}.zip`);
   this.sweetAlertService.success('PODs downloaded successfully.');
 }
+// exportInvalidTatData(data: any[], fileName: string): void {
+//     const workbook = new ExcelJS.Workbook();
+//     const worksheet = workbook.addWorksheet('Invalid TAT');
+
+//     worksheet.columns = [
+//       { header: 'CustomerName', key: 'customerName', width: 20 },
+//       { header: 'LspName', key: 'lspName', width: 20 },
+//       { header: 'Product', key: 'product', width: 20 },
+//       { header: 'Origin', key: 'origin', width: 20 },
+//       { header: 'Destination', key: 'destination', width: 20 },
+//       { header: 'RateperKG', key: 'rateperKG', width: 15 },
+//       { header: 'Priority', key: 'priority', width: 10 },
+//       { header: 'BookingType', key: 'bookingType', width: 15 },
+//       { header: 'Mode', key: 'mode', width: 10 },
+//       { header: 'TAT', key: 'tat', width: 10 },
+//       { header: 'Error Message', key: 'errorMessage', width: 40 },
+//     ];
+
+//     data.forEach((item) => {
+//       const row = worksheet.addRow(item);
+//       const errorCell = row.getCell('errorMessage');
+//       errorCell.font = {
+//         color: {
+//           argb: item.errorMessage?.toLowerCase() === 'success' ? 'FF008000' : 'FFFF0000'
+//         }
+//       };
+//     });
+//     workbook.xlsx.writeBuffer().then((buffer) => {
+//       const blob = new Blob([buffer], {
+//         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+//       });
+//       FileSaver.saveAs(blob, `${fileName}.xlsx`);
+//     });
+//   }
 exportInvalidTatData(data: any[], fileName: string): void {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Invalid TAT');
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Invalid TAT');
 
-    worksheet.columns = [
-      { header: 'CustomerName', key: 'customerName', width: 20 },
-      { header: 'LspName', key: 'lspName', width: 20 },
-      { header: 'Product', key: 'product', width: 20 },
-      { header: 'Origin', key: 'origin', width: 20 },
-      { header: 'Destination', key: 'destination', width: 20 },
-      { header: 'RateperKG', key: 'rateperKG', width: 15 },
-      { header: 'Priority', key: 'priority', width: 10 },
-      { header: 'BookingType', key: 'bookingType', width: 15 },
-      { header: 'Mode', key: 'mode', width: 10 },
-      { header: 'TAT', key: 'tat', width: 10 },
-      { header: 'Error Message', key: 'errorMessage', width: 40 },
-    ];
+  const roles = (localStorage.getItem('roles') || '').toLowerCase();
+  const isCustomerAdmin = roles.includes('customer admin');
 
-    data.forEach((item) => {
-      const row = worksheet.addRow(item);
-      const errorCell = row.getCell('errorMessage');
-      errorCell.font = {
-        color: {
-          argb: item.errorMessage?.toLowerCase() === 'success' ? 'FF008000' : 'FFFF0000'
-        }
-      };
-    });
-    workbook.xlsx.writeBuffer().then((buffer) => {
-      const blob = new Blob([buffer], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      });
-      FileSaver.saveAs(blob, `${fileName}.xlsx`);
-    });
+  // Build columns dynamically
+  const columns: any[] = [];
+
+  if (!isCustomerAdmin) {
+    columns.push({ header: 'CustomerName', key: 'customerName', width: 20 });
   }
+
+  columns.push(
+    { header: 'LspName', key: 'lspName', width: 20 },
+    { header: 'Product', key: 'product', width: 20 },
+    { header: 'Origin', key: 'origin', width: 20 },
+    { header: 'Destination', key: 'destination', width: 20 },
+    { header: 'RateperKG', key: 'rateperKG', width: 15 },
+    { header: 'Priority', key: 'priority', width: 10 },
+    { header: 'BookingType', key: 'bookingType', width: 15 },
+    { header: 'Mode', key: 'mode', width: 10 },
+    { header: 'TAT', key: 'tat', width: 10 },
+    { header: 'Error Message', key: 'errorMessage', width: 40 }
+  );
+
+  worksheet.columns = columns;
+
+  data.forEach((item) => {
+    const row = worksheet.addRow(item);
+    const errorCell = row.getCell('errorMessage');
+    errorCell.font = {
+      color: {
+        argb: item.errorMessage?.toLowerCase() === 'success' ? 'FF008000' : 'FFFF0000'
+      }
+    };
+  });
+
+  workbook.xlsx.writeBuffer().then((buffer) => {
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+    FileSaver.saveAs(blob, `${fileName}.xlsx`);
+  });
+}
 
 }
