@@ -47,8 +47,8 @@
                       <input class="form-control" formControlName="transportModeDesc" type="text"  placeholder="Enter Transport Mode" readonly/>
                   </div>
                   <div class="col-md-6">
-                    <label class="col-form-label">Quantity</label>
-                    <input class="form-control" formControlName="quantity" type="text" placeholder="Enter Quantity" readonly/>
+                    <label class="col-form-label">Total Kg</label>
+                    <input class="form-control" formControlName="totalKG" type="text" placeholder="Enter Total Kg" readonly/>
                   </div>
                   <div class="col-md-6">
                       <label for="lsps">Current Status</label>
@@ -63,25 +63,26 @@
                       <label>POD</label>
                       <input class="form-control" formControlName="PODLink" type="file" accept="image/*" (change)="onFileSelected($event)"/>
                     </div> -->
-                  <div class="col-md-6">
-                    <label>POD</label>
-                    <input class="form-control" formControlName="PODLink" type="file" accept="image/*" (change)="onFileSelected($event)"
-                       multiple />
-                    <div *ngIf="isPodImageUrlsArray()" class="mt-2">
-                      <div *ngFor="let url of podImageUrl" class="mb-2">
-                        <img [src]="url" alt="POD Image" class="img-thumbnail"
-                          style="min-width: 100%; height: 200px; object-fit: cover;" />
+                      <div class="col-md-6">
+                        <label>POD</label>
+                        <input class="form-control" formControlName="PODLink" type="file" accept="image/*" (change)="onFileSelected($event)" required
+                          multiple />
+                      </div>
+                      <div class="col-12">
+                        <div *ngIf="podImageUrl.length" class="row mt-2">
+                          <div *ngFor="let url of podImageUrl" class="col-6 mb-3">
+                            <img [src]="url" alt="POD Image" class="img-thumbnail w-100" style="height: 200px; object-fit: cover;" />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  </div>
                 </div>
               </div>
             <div class="gap-2 d-flex justify-content-end mb-3 mt-3" >
               <!-- <button class="btn btn-success rounded-3" type="submit" (click)="onSavePOD()">
                 <i class="fa fa-check"></i> Submit
               </button> -->
-              <button class="btn btn-square btn-success pull-right rounded-3"  (click)="onSavePOD()" [disabled]="isLoading">
+              <button class="btn btn-square btn-success pull-right rounded-3"  (click)="onSavePOD()" [disabled]="isLoading || podUpdateForm.invalid">
               <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
               <i *ngIf="!isLoading" class="fa fa-check me-1"></i>
               {{ isLoading ? 'Submitting...' : 'Submit' }}

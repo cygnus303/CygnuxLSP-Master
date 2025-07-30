@@ -28,8 +28,8 @@
       </table>
     </div>
   </div>
-<!-- 
-<div class="custom-modal d-flex justify-content-center align-items-center" [class.show]="showPodImage" (click)="closePodModal()"
+
+<!-- <div class="custom-modal d-flex justify-content-center align-items-center" [class.show]="showPodImage" (click)="closePodModal()"
   [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
   <div class="custom-modal-content" (click)="$event.stopPropagation()">
     <span class="custom-close" (click)="closePodModal()">×</span>
@@ -37,29 +37,18 @@
   </div>
 </div> -->
 
-<div class="custom-modal d-flex justify-content-center align-items-center" 
-     [class.show]="showPodImage" 
-     (click)="closePodModal()" 
-     [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
-  
-  <div class="custom-modal-content" (click)="$event.stopPropagation()">
-    <span class="custom-close" (click)="closePodModal()">×</span>
-
-    <!-- Main POD Image -->
-    <img 
-      *ngIf="docketDetail?.podLink" 
-      [src]="docketDetail?.podLink" 
-      alt="POD Image Front" 
-      class="img-fluid mb-2"
-    />
-
-    <!-- Back POD Image -->
-    <img 
-      *ngIf="docketDetail?.podLinkBack" 
-      [src]="docketDetail?.podLinkBack" 
-      alt="POD Image Back" 
-      class="img-fluid"
-    />
+<div class="custom-modal d-flex justify-content-center align-items-center" [class.show]="showPodImage"
+  (click)="closePodModal()" [style.pointerEvents]="showPodImage ? 'auto' : 'none'">
+  <div class="custom-modal-content container bg-white rounded shadow-sm p-4 position-relative"
+    (click)="$event.stopPropagation()">
+    <button class="btn-close position-absolute top-0 end-0 m-2" (click)="closePodModal()"></button>
+    <div class="d-flex justify-content-between">
+      <div class="text-center mb-3" *ngIf="docketDetail?.podLink">
+        <img [src]="docketDetail?.podLink" alt="Front POD" class="img-fluid pod-image" />
+      </div>
+      <div class="text-center mb-3" *ngIf="docketDetail?.podLinkBack">
+        <img [src]="docketDetail?.podLinkBack" alt="Back POD" class="img-fluid pod-image" />
+      </div>
+    </div>
   </div>
 </div>
-

@@ -26,7 +26,7 @@ export class PodStatusUploadComponent {
   @Output() dataEmitter: EventEmitter<string> = new EventEmitter<string>();
   
   constructor( private modalService: BsModalService,private identityService:IdentityService, private lspTatService: LspMappingService, private sweetAlertService: SweetAlertService, private docketService:DocketService){
-    this.buildForm();
+    
     this.getCustomers();
   }
 
@@ -35,6 +35,7 @@ export class PodStatusUploadComponent {
       docketNo : new FormControl(''),
        uploadDate : new FormControl(new Date()),
        PODLink : new FormControl(null),
+       podLinkBack : new FormControl(null),
        transportModeDesc:new FormControl(''),
        transporterDesc: new FormControl(''),
        LspId: new FormControl(''),
@@ -43,21 +44,24 @@ export class PodStatusUploadComponent {
        statusDate: new FormControl(''),
        fromLocation: new FormControl(''),
        toLocation: new FormControl(''),
-       quantity: new FormControl(''),
+       totalKG: new FormControl(''),
        invoiceNo: new FormControl(''),
        currentStatusDesc: new FormControl(''),
        Customer:new FormControl(''),
-       PODFileName:new FormControl('')
+       podLink:new FormControl(''),
+      //  PODFileName:new FormControl(''),
+
     });
   }
 
 showPopup(data:any){
+  this.buildForm();
   if(data){
     data.LspId = data?.transporter;
     data.bookingDate = new Date(data?.bookingDate)
     this.podUpdateForm.patchValue(data);
     this.podImageUrl = [];
-    if (data?.podLink) {
+    if (data?.podLink !== '-') {
       this.podImageUrl.push(data.podLink);
     }
     if (data?.podLinkBack) {
@@ -78,10 +82,6 @@ getCustomers() {
       this.sweetAlertService.error(response.error.message);
     },
   });
-}
-
-isPodImageUrlsArray(): boolean {
-  return Array.isArray(this.podImageUrl) && this.podImageUrl.length > 0;
 }
 
 
@@ -115,14 +115,14 @@ onFileSelected(event: any): void {
     });
 
     // Optional: set the first file name in the form control
-    this.podUpdateForm.get('PODFileName')?.setValue(this.selectedFile[0].name);
+    // this.podUpdateForm.get('PODFileName')?.setValue(this.selectedFile[0].name);
   }
 }
 
 onSavePOD(): void {
   this.isLoading = true;
   const formData = new FormData();
-  const{transportModeDesc,transporterDesc, bookingDate,statusDate,fromLocation,toLocation,quantity,invoiceNo,currentStatusDesc,Customer,...payload} = this.podUpdateForm.value
+  const{transportModeDesc,transporterDesc, bookingDate,statusDate,fromLocation,toLocation,totalKG,invoiceNo,currentStatusDesc,Customer,PODLink,...payload} = this.podUpdateForm.value
   formData.append('docpodJson',JSON.stringify(payload));
    formData.append('docketNo',this.podUpdateForm.value.docketNo);
    formData.append('lspuser',this.identityService.getLoggedUserId());
