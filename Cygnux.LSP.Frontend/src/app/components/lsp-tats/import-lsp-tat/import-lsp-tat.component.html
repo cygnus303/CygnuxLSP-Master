@@ -37,6 +37,7 @@
             <table class="table mt-3 table-bordered excelData-table w-100">
               <thead class="table-light sticky-top">
                 <tr>
+                  <th class="text-center fontSize single-line" *ngIf="userRoles==='SA'">Customer Name</th>
                   <th class="text-center fontSize single-line">LSP Name</th>
                   <th class="text-center fontSize single-line">Product</th>
                   <th class="text-center fontSize single-line">origin</th>
@@ -51,6 +52,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let data of validateData" [ngClass]="data.errorCode === 1 ? 'green' : 'pink'">
+                  <td class="text-center fontSize"  *ngIf="userRoles==='SA'">{{ data.customerName }}</td>
                   <td class="text-center fontSize">{{ data.lspName }}</td>
                   <td class="text-center fontSize">{{data.product}}</td>
                   <td class="text-center fontSize">{{data.origin}}</td>
